@@ -630,164 +630,21 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
 <body>
 
 <!-- ★ 튜토리얼 오버레이 -->
-<div class="tutorial-overlay" id="tutorialOverlay">
-  <div class="tutorial-box">
-    <!-- Step 1 -->
-    <div class="tutorial-step active" id="tStep0">
-      <div class="tutorial-icon">🎬</div>
-      <div class="tutorial-title">AI 대댓글 생성기</div>
-      <div class="tutorial-desc">
-        유튜브 댓글에 <strong>전략적으로 답글</strong>을 달아<br>
-        일회성 시청자를 <strong>평생 찐팬</strong>으로 만드세요!<br><br>
-        처음 사용하신다면 30초 안내를 확인해 보세요 😊
-      </div>
-    </div>
-    <!-- Step 2 -->
-    <div class="tutorial-step" id="tStep1">
-      <div class="tutorial-icon">🔑</div>
-      <div class="tutorial-title">API 키 설정 (최초 1회)</div>
-      <div class="tutorial-desc">
-        <div class="tutorial-highlight">
-          📺 <strong>YouTube API 키</strong> — 댓글 자동 수집<br>
-          🤖 <strong>Gemini API 키</strong> — AI 대댓글 생성<br>
-          🔐 <strong>Google 로그인</strong> — YouTube 직접 게시
-        </div>
-        Google 계정 하나로 모두 발급 가능합니다.<br>
-        한 번 입력하면 브라우저에 저장돼 다음엔 바로 사용!
-      </div>
-    </div>
-    <!-- Step 3 -->
-    <div class="tutorial-step" id="tStep2">
-      <div class="tutorial-icon">🔗</div>
-      <div class="tutorial-title">유튜브 링크 붙여넣기</div>
-      <div class="tutorial-desc">
-        내 유튜브 영상 링크를 붙여넣으면<br>
-        <strong>댓글 30개를 자동으로 불러옵니다.</strong><br><br>
-        댓글을 클릭하면 AI가 자동으로 분석 시작!
-      </div>
-    </div>
-    <!-- Step 4 -->
-    <div class="tutorial-step" id="tStep3">
-      <div class="tutorial-icon">✨</div>
-      <div class="tutorial-title">AI 대댓글 생성</div>
-      <div class="tutorial-desc">
-        AI가 댓글 유형을 분석하고<br>
-        <strong>AI 분석</strong>에 맞는 대댓글 3가지를 생성합니다.<br><br>
-        마음에 드는 버전을 복사하거나<br>
-        <strong>YouTube에 직접 게시</strong>할 수 있습니다!
-      </div>
-    </div>
-    <!-- Step 5 -->
-    <div class="tutorial-step" id="tStep4">
-      <div class="tutorial-icon">⚡</div>
-      <div class="tutorial-title">일괄 생성으로 시간 절약</div>
-      <div class="tutorial-desc">
-        미답글 댓글 전체를 <strong>한 번에 생성</strong>하고<br>
-        결과 테이블에서 확인 후 게시할 수 있습니다.<br><br>
-        <strong>댓글 30개 = 약 2분</strong> 만에 완료! 🚀
-      </div>
-    </div>
-    <!-- dots -->
-    <div class="tutorial-dots">
-      <div class="tutorial-dot active" id="td0"></div>
-      <div class="tutorial-dot" id="td1"></div>
-      <div class="tutorial-dot" id="td2"></div>
-      <div class="tutorial-dot" id="td3"></div>
-      <div class="tutorial-dot" id="td4"></div>
-    </div>
-    <div class="tutorial-btns">
-      <button class="tutorial-skip" onclick="closeTutorial()">건너뛰기</button>
-      <button class="tutorial-next" id="tutorialNextBtn" onclick="nextTutorial()">다음 →</button>
+<div id="tutOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)">
+  <div style="background:#13161f;border:1px solid rgba(108,99,255,0.4);border-radius:20px;padding:32px 28px;max-width:460px;width:100%;text-align:center">
+    <div style="font-size:11px;font-weight:700;color:var(--accent2);letter-spacing:1px;margin-bottom:16px">✨ <span id="tutStepLabel">1 / 5</span></div>
+    <div style="font-size:44px;margin-bottom:14px" id="tutIcon">🎬</div>
+    <div style="font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:20px;margin-bottom:12px;line-height:1.4" id="tutTitle"></div>
+    <div style="font-size:14px;color:var(--text2);line-height:1.9;margin-bottom:12px" id="tutDesc"></div>
+    <div id="tutHighlight" style="display:none;background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.3);border-radius:10px;padding:12px 16px;margin:10px 0;font-size:13px;color:var(--accent2);line-height:1.9;text-align:left"></div>
+    <div id="tutDots" style="display:flex;justify-content:center;gap:6px;margin:20px 0"></div>
+    <div style="display:flex;gap:10px">
+      <button id="tutSkipBtn" style="flex:1;padding:13px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif">건너뛰기</button>
+      <button id="tutNextBtn" style="flex:2;padding:13px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;font-size:14px;font-weight:900;cursor:pointer;font-family:'Noto Sans KR',sans-serif">다음 →</button>
     </div>
   </div>
 </div>
 
-<!-- ★ 사용법 가이드 페이지 -->
-<div class="guide-overlay" id="guideOverlay">
-  <div class="guide-wrap">
-    <button class="guide-back" onclick="closeGuide()">← 돌아가기</button>
-    <div class="guide-title">📖 사용법 가이드</div>
-    <div class="guide-subtitle">AI 대댓글 생성기 완벽 사용 설명서</div>
-
-    <div class="guide-section">
-      <div class="guide-section-title">🔑 1단계 — API 키 설정</div>
-      <div class="guide-step">
-        <div class="guide-step-num">1</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Google AI Studio에서 Gemini API 키 발급</div>
-          <div class="guide-step-desc"><a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--blue)">aistudio.google.com</a> → Get API key → Create API key<br>무료 티어: 하루 1,500회 / 분당 15회 제공</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">2</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Google Cloud Console에서 YouTube API 키 발급</div>
-          <div class="guide-step-desc"><a href="https://console.cloud.google.com" target="_blank" style="color:var(--blue)">console.cloud.google.com</a> → YouTube Data API v3 활성화 → 사용자 인증 정보 → API 키</div>
-        </div>
-      </div>
-      <div class="guide-tip">💡 <strong>Tip:</strong> Gemini API 키와 YouTube API 키는 같은 Google Cloud 프로젝트 키를 사용해도 됩니다!</div>
-    </div>
-
-    <div class="guide-section">
-      <div class="guide-section-title">🔗 2단계 — 영상 불러오기</div>
-      <div class="guide-step">
-        <div class="guide-step-num">1</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">유튜브 영상 링크 붙여넣기</div>
-          <div class="guide-step-desc">youtube.com/watch?v=... 또는 youtu.be/... 형식 모두 지원</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">2</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">📥 불러오기 클릭</div>
-          <div class="guide-step-desc">영상 정보와 최근 댓글 30개를 자동으로 수집합니다</div>
-        </div>
-      </div>
-    </div>
-
-    
-        <div class="guide-care-card ga">
-          <div class="guide-care-letter">A</div>
-          <div class="guide-care-word">Appreciate — 감사</div>
-          <div class="guide-care-desc">댓글 유형에 맞는 진심 어린 감사를 표현합니다. 단순한 "감사합니다"가 아닌 구체적 감사!</div>
-        </div>
-        <div class="guide-care-card gr">
-          <div class="guide-care-letter">R</div>
-          <div class="guide-care-word">Respond+ — 답변+</div>
-          <div class="guide-care-desc">질문에 답하고 추가 정보나 역질문을 제공해 대화를 이어갑니다.</div>
-        </div>
-        <div class="guide-care-card ge">
-          <div class="guide-care-letter">E</div>
-          <div class="guide-care-word">Engage — 관계유도</div>
-          <div class="guide-care-desc">다음 영상 예고, 구독 유도, 커뮤니티 참여로 지속적 관계를 만듭니다.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="guide-section">
-      <div class="guide-section-title">⚡ 일괄 생성 활용법</div>
-      <div class="guide-tip">💡 <strong>미답글 댓글 전체를 한 번에 처리!</strong> 영상 로드 후 하단 "⚡ 미답글 일괄 생성" 버튼을 누르면 모든 댓글에 대한 대댓글을 자동 생성합니다. 결과를 CSV로 저장하거나 YouTube에 직접 게시할 수 있습니다.</div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ★ 튜토리얼 오버레이 -->
-<div class="tut-overlay" id="tutOverlay">
-  <div class="tut-box">
-    <div class="tut-step-badge">✨ <span id="tutStepLabel">1 / 5</span></div>
-    <div class="tut-icon" id="tutIcon">🎬</div>
-    <div class="tut-title" id="tutTitle"></div>
-    <div class="tut-desc" id="tutDesc"></div>
-    <div class="tut-highlight" id="tutHighlight" style="display:none"></div>
-    <div class="tut-dots" id="tutDots"></div>
-    <div class="tut-btns">
-      <button class="tut-skip" onclick="closeTutorial()">건너뛰기</button>
-      <button class="tut-next" id="tutNextBtn" onclick="tutNext()">다음 →</button>
-    </div>
-  </div>
-</div>
 
 <!-- ★ 가이드 모달 -->
 <div class="guide-overlay" id="guideOverlay">
@@ -831,17 +688,17 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
     
         <div style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.25);border-radius:10px;padding:14px">
           <div style="font-size:22px;font-weight:900;color:var(--A);margin-bottom:4px">A</div>
-          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">Appreciate — 진심 감사</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">진심 어린 감사 표현</div>
           <div style="font-size:12px;color:var(--text2);line-height:1.6">단순 "감사합니다"가 아닌 댓글 유형에 맞는 구체적 감사 표현</div>
         </div>
         <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:10px;padding:14px">
           <div style="font-size:22px;font-weight:900;color:var(--R);margin-bottom:4px">R</div>
-          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">Respond+ — 답변+가치</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">답변 + 추가 가치</div>
           <div style="font-size:12px;color:var(--text2);line-height:1.6">명확한 답변에 추가 정보·팁·역질문을 더해 대화를 이어가기</div>
         </div>
         <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);border-radius:10px;padding:14px">
           <div style="font-size:22px;font-weight:900;color:var(--E);margin-bottom:4px">E</div>
-          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">Engage — 관계 유도</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">지속적 관계 유도</div>
           <div style="font-size:12px;color:var(--text2);line-height:1.6">다음 영상 예고·구독·커뮤니티 참여로 지속적 팬 관계 형성</div>
         </div>
       </div>
@@ -877,12 +734,6 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
   </header>
 
   <!-- CARE strip hidden -->
-  
-    <div class="care-card ca"><div class="care-letter">A</div><div class="care-word">Appreciate</div><div class="care-desc">진심 어린<br>감사 표현</div></div>
-    <div class="care-card cr"><div class="care-letter">R</div><div class="care-word">Respond+</div><div class="care-desc">답변 +<br>추가 가치 제공</div></div>
-    <div class="care-card ce"><div class="care-letter">E</div><div class="care-word">Engage</div><div class="care-desc">지속적<br>관계 유도</div></div>
-  </div>
-
   <!-- ★ 하나의 Google API 키로 해결 안내 -->
   <div class="one-key-notice">
     💡 <strong>Google API 키 하나로 YouTube 댓글 수집 + Gemini AI 생성 모두 해결!</strong><br>
@@ -1055,7 +906,7 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
       <div class="analysis-item"><span class="analysis-key">감정 톤</span><span class="analysis-val" id="aTone"></span></div>
       <div class="analysis-item"><span class="analysis-key">추천 말투</span><span class="analysis-val" id="aStyle"></span></div>
       <div class="analysis-item"><span class="analysis-key">핵심 의도</span><span class="analysis-val" id="aIntent" style="font-size:12px;font-weight:500"></span></div>
-      <div class="analysis-item analysis-care-row" style="display:none"><span class="analysis-key">전략</span><div class="care-steps" id="aCareSteps"></div></div>
+      
     </div>
   </div>
 
@@ -1191,7 +1042,7 @@ const TUT_STEPS = [
     icon:'🔑', label:'2 / 5',
     title:'STEP 1 — API 키 설정 (최초 1회만)',
     desc:'Google 계정 하나로 모든 키를 발급할 수 있습니다.<br>한 번 입력하면 <strong>브라우저에 저장</strong>돼 다음엔 바로 사용!',
-    highlight:'📺 <strong>YouTube API 키</strong> — 댓글 자동 수집<br>🤖 <strong>Gemini API 키</strong> — AI 대댓글 생성 (무료)<br>🔐 <strong>Google 로그인</strong> — YouTube 직접 게시'
+    highlight:''
   },
   {
     icon:'🔗', label:'3 / 5',
@@ -1249,12 +1100,7 @@ function renderTutStep() {
   document.getElementById('tutNextBtn').textContent = tutStep === TUT_STEPS.length-1 ? '시작하기 🚀' : '다음 →';
 }
 
-// 첫 방문 시 튜토리얼 자동 실행
-window.addEventListener('DOMContentLoaded', function() {
-  if (!localStorage.getItem('care_tut_done')) {
-    setTimeout(startTutorial, 700);
-  }
-});
+// 튜토리얼 자동실행은 위에서 처리
 
 // ===== 공유 기능 =====
 const SITE_URL = 'https://pyutyubeu88-commits.github.io/-/';
@@ -1287,6 +1133,74 @@ function showShareBar() {
   const bar = document.getElementById('shareBar');
   if (bar) bar.style.display = 'flex';
 }
+</script>
+
+<script>
+// ===== 튜토리얼 완전 재작성 =====
+var TUT_STEPS = [
+  { icon:'🎬', label:'1 / 5', title:'AI 자동 대댓글 생성기에 오신 것을 환영합니다!', desc:'유튜브 링크만 넣으면<br>AI가 <strong>자동으로 최적의 대댓글</strong>을 생성합니다.<br><br>30초 안내로 바로 시작해 보세요! 😊', highlight:'' },
+  { icon:'🔑', label:'2 / 5', title:'STEP 1 — API 키 설정 (최초 1회만)', desc:'Google 계정 하나로 모든 키를 발급할 수 있습니다.<br>한 번 입력하면 <strong>브라우저에 저장</strong>돼 다음엔 바로 사용!', highlight:'' },
+  { icon:'🔗', label:'3 / 5', title:'STEP 2 — 유튜브 링크 붙여넣기', desc:'내 영상 링크를 붙여넣으면<br><strong>댓글 30개를 자동으로 불러옵니다.</strong><br><br>댓글 클릭하면 AI 자동 분석 시작!', highlight:'' },
+  { icon:'✨', label:'4 / 5', title:'STEP 3 — AI 대댓글 자동 생성', desc:'AI가 댓글 유형과 감정을 분석해<br><strong>최적화된 대댓글 3가지</strong>를 자동 생성합니다.<br><br>복사하거나 <strong>YouTube에 직접 게시</strong>하세요!', highlight:'' },
+  { icon:'⚡', label:'5 / 5', title:'STEP 4 — 일괄 생성으로 시간 절약', desc:'미답글 댓글 전체를 <strong>한 번에 자동 처리!</strong><br><strong>댓글 30개 ≈ 약 2분</strong> 완료 🚀', highlight:'' }
+];
+var tutStepIdx = 0;
+
+function xCloseTutorial() {
+  var ov = document.getElementById('tutOverlay');
+  if (ov) ov.style.display = 'none';
+  localStorage.setItem('care_tut_done', '1');
+}
+function xNextTutorial() {
+  if (tutStepIdx < TUT_STEPS.length - 1) {
+    tutStepIdx++;
+    xRenderTut();
+  } else {
+    xCloseTutorial();
+  }
+}
+function xRenderTut() {
+  var s = TUT_STEPS[tutStepIdx];
+  var el = function(id){ return document.getElementById(id); };
+  if(el('tutIcon')) el('tutIcon').textContent = s.icon;
+  if(el('tutStepLabel')) el('tutStepLabel').textContent = s.label;
+  if(el('tutTitle')) el('tutTitle').textContent = s.title;
+  if(el('tutDesc')) el('tutDesc').innerHTML = s.desc;
+  var hl = el('tutHighlight');
+  if(hl){ if(s.highlight){ hl.innerHTML=s.highlight; hl.style.display='block'; } else { hl.style.display='none'; } }
+  var dots = el('tutDots');
+  if(dots){
+    dots.innerHTML = TUT_STEPS.map(function(_,i){
+      return '<div style="display:inline-block;width:'+(i===tutStepIdx?24:8)+'px;height:8px;border-radius:4px;background:'+(i===tutStepIdx?'var(--accent)':'var(--border)')+';transition:all .3s;margin:0 3px"></div>';
+    }).join('');
+  }
+  var nb = el('tutNextBtn');
+  if(nb) nb.textContent = tutStepIdx === TUT_STEPS.length-1 ? '시작하기 🚀' : '다음 →';
+}
+function xStartTutorial() {
+  tutStepIdx = 0;
+  xRenderTut();
+  var ov = document.getElementById('tutOverlay');
+  if(ov) ov.style.display = 'flex';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // 버튼 이벤트 직접 등록
+  var skipBtn = document.getElementById('tutSkipBtn');
+  var nextBtn = document.getElementById('tutNextBtn');
+  if(skipBtn) skipBtn.onclick = xCloseTutorial;
+  if(nextBtn) nextBtn.onclick = xNextTutorial;
+
+  // startTutorial, closeTutorial 전역 함수 오버라이드
+  window.startTutorial = xStartTutorial;
+  window.closeTutorial = xCloseTutorial;
+  window.tutNext = xNextTutorial;
+
+  // 첫 방문 시 자동 실행
+  if (!localStorage.getItem('care_tut_done')) {
+    setTimeout(xStartTutorial, 800);
+  }
+});
 </script>
 </body>
 </html>
