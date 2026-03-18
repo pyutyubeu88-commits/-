@@ -3,1413 +3,1000 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 대댓글 생성기</title>
+<title>AI 자동 대댓글 생성기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
-<script src="https://accounts.google.com/gsi/client" async></script>
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
+<link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
 :root {
-  --bg: #0b0d12;
-  --surface: #13161f;
-  --surface2: #1a1e2a;
-  --border: #252b3b;
-  --accent: #6c63ff;
-  --accent2: #a78bfa;
-  --gold: #fbbf24;
-  --text: #ffffff;
-  --text2: #b0bec5;
-  --green: #10b981;
-  --red: #f43f5e;
-  --blue: #38bdf8;
-  --orange: #fb923c;
-  --radius: 14px;
-  --C: #6c63ff; --A: #f43f5e; --R: #10b981; --E: #fbbf24;
+  --bg:#0b0d12; --sur:#161922; --sur2:#1e2332; --bdr:#252b3a;
+  --acc:#6c63ff; --ac2:#a78bfa; --gld:#fbbf24;
+  --txt:#f0f4ff; --tx2:#8b96b0;
+  --grn:#10b981; --red:#f43f5e; --blu:#38bdf8;
+  --rad:14px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Pretendard', 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; letter-spacing: -0.01em; }
-body::before {
-  content: ''; position: fixed; inset: 0;
-  background: radial-gradient(ellipse 60% 40% at 20% 10%, rgba(108,99,255,0.07) 0%, transparent 60%),
-              radial-gradient(ellipse 50% 40% at 80% 90%, rgba(167,139,250,0.05) 0%, transparent 60%);
-  pointer-events: none; z-index: 0;
-}
-.wrap { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; padding: 36px 20px 100px; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard','Noto Sans KR',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;word-break:keep-all}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 10%,rgba(108,99,255,.07) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 80% 90%,rgba(167,139,250,.05) 0%,transparent 60%);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:36px 20px 100px}
 
-/* Header */
-header { text-align: center; margin-bottom: 40px; }
-.care-logo { display: inline-flex; align-items: center; gap: 0; font-family: 'Black Han Sans', sans-serif; font-size: 36px; letter-spacing: 2px; margin-bottom: 10px; }
-.lC{color:var(--C)} .lA{color:var(--A)} .lR{color:var(--R)} .lE{color:var(--E)}
-.care-logo .dot { color: var(--text2); font-size: 24px; }
-h1 { font-family: 'Black Han Sans', sans-serif; font-size: clamp(20px,3.5vw,32px); letter-spacing: -0.5px; line-height: 1.3; margin-bottom: 10px; }
-h1 em { font-style: normal; color: var(--accent2); }
-.subtitle { color: var(--text2); font-size: 14px; line-height: 2.0; font-weight: 400; }
+/* 헤더 */
+header{text-align:center;margin-bottom:40px}
+h1{font-size:clamp(28px,5vw,46px);font-weight:900;letter-spacing:-1px;line-height:1.2;margin-bottom:12px}
+h1 em{font-style:normal;color:var(--ac2)}
+.sub{color:var(--tx2);font-size:14px;line-height:2;margin-bottom:18px}
+.hbtn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:50px;border:1px solid var(--bdr);background:var(--sur);color:var(--tx2);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.hbtn:hover{border-color:var(--acc);color:var(--ac2)}
 
-/* CARE strip */
-.care-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 28px; }
-@media(max-width:560px){ .care-strip{grid-template-columns:repeat(2,1fr)} }
-.care-card { border-radius: 12px; padding: 14px 12px; text-align: center; border: 1px solid; }
-.care-card.cc{background:rgba(108,99,255,0.08);border-color:rgba(108,99,255,0.3)}
-.care-card.ca{background:rgba(244,63,94,0.08);border-color:rgba(244,63,94,0.3)}
-.care-card.cr{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.3)}
-.care-card.ce{background:rgba(251,191,36,0.08);border-color:rgba(251,191,36,0.3)}
-.care-letter { font-family: 'Black Han Sans', sans-serif; font-size: 26px; line-height: 1; margin-bottom: 4px; }
-.cc .care-letter{color:var(--C)} .ca .care-letter{color:var(--A)} .cr .care-letter{color:var(--R)} .ce .care-letter{color:var(--E)}
-.care-word { font-size: 11px; font-weight: 700; color: var(--text2); margin-bottom: 3px; }
-.care-desc { font-size: 11px; color: var(--text2); line-height: 1.6; }
+/* 섹션 라벨 */
+.slabel{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--tx2);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.slabel::after{content:'';flex:1;height:1px;background:var(--bdr)}
 
-/* API Key boxes */
-.setup-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 14px; transition: border-color .3s, background .3s; }
-.setup-box.connected { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.04); }
-.setup-head { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
-.setup-title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; }
-.sdot { width: 8px; height: 8px; border-radius: 50%; background: #2a3050; transition: background .3s; }
-.sdot.on { background: var(--green); box-shadow: 0 0 8px rgba(16,185,129,0.5); }
-.stog { color: var(--text2); font-size: 12px; }
-.setup-body { margin-top: 14px; }
-.setup-body.hidden { display: none; }
-.api-row { display: flex; gap: 10px; }
-.api-row input { flex: 1; }
-.api-note { margin-top: 9px; font-size: 12px; color: var(--text2); line-height: 1.9; }
-.api-note a { color: var(--blue); text-decoration: none; }
-.api-note a:hover { text-decoration: underline; }
+/* 카드 박스 */
+.card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--rad);padding:16px 20px;margin-bottom:14px;transition:border-color .3s}
+.card.ok{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.04)}
+.card-head{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+.card-title{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700}
+.dot{width:8px;height:8px;border-radius:50%;background:#2a3050;transition:background .3s;flex-shrink:0}
+.dot.on{background:var(--grn);box-shadow:0 0 8px rgba(16,185,129,.5)}
+.tog{color:var(--tx2);font-size:12px}
+.card-body{margin-top:14px}
+.card-body.hide{display:none}
+.api-row{display:flex;gap:10px}
+.api-row input{flex:1}
+.api-note{margin-top:8px;font-size:12px;color:var(--tx2);line-height:1.8}
+.api-note a{color:var(--blu);text-decoration:none}
+.api-note a:hover{text-decoration:underline}
 
-/* Google one-key notice */
-.one-key-notice {
-  background: rgba(251,191,36,0.07); border: 1px solid rgba(251,191,36,0.25);
-  border-radius: 10px; padding: 14px 18px; margin-bottom: 22px;
-  font-size: 13px; color: var(--text2); line-height: 1.9;
-}
-.one-key-notice strong { color: var(--gold); }
+/* 안내 배너 */
+.banner{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.25);border-radius:var(--rad);padding:13px 18px;margin-bottom:18px;font-size:13px;color:var(--tx2);line-height:1.8}
+.banner strong{color:var(--gld)}
+.banner a{color:var(--blu);text-decoration:none}
 
-/* Section label */
-.slabel { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text2); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-.slabel::after { content:''; flex:1; height:1px; background:var(--border); }
+/* 모드 탭 */
+.tabs{display:flex;border-radius:var(--rad);overflow:hidden;border:1px solid var(--bdr);margin-bottom:20px}
+.tab{flex:1;padding:13px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;background:var(--sur);color:var(--tx2);transition:all .2s;border:none;font-family:inherit}
+.tab.on{background:linear-gradient(135deg,var(--acc),var(--ac2));color:#fff}
+.tab:not(:last-child){border-right:1px solid var(--bdr)}
+.panel{display:none}
+.panel.on{display:block}
 
-/* Mode tabs */
-.mtabs { display: flex; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); margin-bottom: 22px; }
-.mtab { flex:1; padding:12px; text-align:center; font-size:13px; font-weight:700; cursor:pointer; background:var(--surface); color:var(--text2); transition:all .2s; border:none; font-family:'Noto Sans KR',sans-serif; }
-.mtab.active { background: linear-gradient(135deg,var(--accent),var(--accent2)); color: white; }
-.mtab:not(:last-child) { border-right: 1px solid var(--border); }
-.mpanel { display: none; }
-.mpanel.active { display: block; }
+/* 입력 필드 */
+input[type=text],input[type=password],textarea{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--rad);padding:13px 16px;color:var(--txt);font-family:inherit;font-size:14px;line-height:1.8;width:100%;transition:border-color .2s,box-shadow .2s;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:rgba(108,99,255,.5);box-shadow:0 0 0 3px rgba(108,99,255,.08)}
+::placeholder{color:#3a4060}
+.field{margin-bottom:16px}
+.field label{font-size:12px;font-weight:700;color:var(--tx2);display:block;margin-bottom:8px}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:4px}
+@media(max-width:600px){.input-grid{grid-template-columns:1fr}}
 
-/* URL input */
-.url-row { display: flex; gap: 10px; margin-bottom: 8px; }
-.url-row input { flex: 1; }
-.fetch-btn { padding:13px 20px; border-radius:var(--radius); border:none; background:linear-gradient(135deg,var(--blue),#0369a1); color:white; font-family:'Noto Sans KR',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:all .2s; white-space:nowrap; flex-shrink:0; }
-.fetch-btn:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(56,189,248,0.3); }
-.fetch-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
-.fstatus { font-size:12px; color:var(--text2); margin-top:8px; display:none; align-items:center; gap:8px; }
-.fstatus.on { display:flex; }
-.mspin { width:12px; height:12px; flex-shrink:0; border:2px solid rgba(56,189,248,0.3); border-top-color:var(--blue); border-radius:50%; animation:spin .7s linear infinite; }
+/* URL 입력 */
+.url-row{display:flex;gap:10px;margin-bottom:8px}
+.url-row input{flex:1}
+.fetch-btn{padding:13px 20px;border-radius:var(--rad);border:none;background:linear-gradient(135deg,var(--blu),#0369a1);color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.fetch-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(56,189,248,.3)}
+.fetch-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.fst{font-size:12px;color:var(--tx2);margin-top:8px;display:none;align-items:center;gap:8px}
+.fst.on{display:flex}
+.mspin{width:12px;height:12px;border:2px solid rgba(56,189,248,.3);border-top-color:var(--blu);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
 
-/* Video preview */
-.vprev { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin-bottom:18px; display:none; animation:fup .3s ease; }
-.vprev.on { display:block; }
-@keyframes fup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.vprev-inner { display:flex; }
-.vprev-thumb { width:180px; min-height:100px; object-fit:cover; flex-shrink:0; }
-.vprev-info { padding:14px 16px; flex:1; min-width:0; }
-.vprev-title { font-size:14px; font-weight:700; line-height:1.5; margin-bottom:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-.vprev-meta { display:flex; gap:12px; font-size:11px; color:var(--text2); margin-bottom:8px; }
-.vprev-desc { font-size:12px; color:var(--text2); line-height:1.6; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-@media(max-width:560px){ .vprev-inner{flex-direction:column} .vprev-thumb{width:100%;height:150px} }
+/* 영상 미리보기 */
+.vprev{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden;margin-bottom:18px;display:none;animation:fup .3s ease}
+.vprev.on{display:block}
+.vprev-in{display:flex}
+.vthumb{width:180px;min-height:100px;object-fit:cover;flex-shrink:0}
+.vinfo{padding:14px 16px;flex:1;min-width:0}
+.vtitle{font-size:14px;font-weight:700;line-height:1.5;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vmeta{display:flex;gap:12px;font-size:11px;color:var(--tx2);margin-bottom:8px}
+.vdesc{font-size:12px;color:var(--tx2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-width:560px){.vprev-in{flex-direction:column}.vthumb{width:100%;height:150px}}
 
-/* Comments */
-.cmt-section { margin-bottom:22px; display:none; }
-.cmt-section.on { display:block; }
-.cmt-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-.cmt-badge { background:rgba(108,99,255,0.15); color:var(--accent2); border-radius:50px; padding:3px 10px; font-size:11px; font-weight:700; }
-.cmt-list { display:flex; flex-direction:column; gap:7px; max-height:360px; overflow-y:auto; padding-right:4px; }
-.cmt-list::-webkit-scrollbar{width:4px} .cmt-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.cmt-item { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px; cursor:pointer; transition:all .18s; position:relative; }
-.cmt-item:hover { border-color:rgba(108,99,255,0.4); background:rgba(108,99,255,0.04); }
-.cmt-item.sel { border-color:var(--accent); background:rgba(108,99,255,0.08); }
-.cmt-item.sel::after { content:'✓ 선택됨'; position:absolute; top:10px; right:12px; font-size:10px; font-weight:700; color:var(--accent); background:rgba(108,99,255,0.15); padding:2px 8px; border-radius:4px; }
-.cmt-author { font-size:11px; font-weight:700; color:var(--blue); margin-bottom:5px; display:flex; align-items:center; gap:6px; }
-.cmt-likes { color:var(--text2); font-weight:400; }
-.cmt-text { font-size:14px; line-height:1.75; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+/* 댓글 목록 */
+.cmts{margin-bottom:20px;display:none}
+.cmts.on{display:block}
+.cmts-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cbadge{background:rgba(108,99,255,.15);color:var(--ac2);border-radius:50px;padding:3px 10px;font-size:11px;font-weight:700}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.fbtn{padding:5px 14px;border-radius:50px;border:1px solid var(--bdr);background:var(--sur);color:var(--tx2);font-size:12px;font-weight:700;cursor:pointer;transition:all .18s;font-family:inherit}
+.fbtn:hover{border-color:rgba(108,99,255,.4);color:var(--txt)}
+.fbtn.on{background:rgba(108,99,255,.15);border-color:var(--acc);color:var(--ac2)}
+.rcnt{font-size:11px;color:var(--tx2)}
+.clist{display:flex;flex-direction:column;gap:7px;max-height:380px;overflow-y:auto;padding-right:4px}
+.clist::-webkit-scrollbar{width:4px}
+.clist::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px}
+.citem{background:var(--sur);border:1px solid var(--bdr);border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .18s;position:relative}
+.citem:hover{border-color:rgba(108,99,255,.4);background:rgba(108,99,255,.04)}
+.citem.sel{border-color:var(--acc);background:rgba(108,99,255,.08)}
+.citem.sel::after{content:'✓ 선택됨';position:absolute;top:10px;right:12px;font-size:10px;font-weight:700;color:var(--acc);background:rgba(108,99,255,.15);padding:2px 8px;border-radius:4px}
+.citem.replied{opacity:.4}
+.cauthor{font-size:11px;font-weight:700;color:var(--blu);margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.clikes{color:var(--tx2);font-weight:400}
+.ctext{font-size:13px;line-height:1.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.rep-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--grn);background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);border-radius:4px;padding:2px 7px}
 
-/* Selected comment */
-.sel-box { background:rgba(108,99,255,0.07); border:1px solid rgba(108,99,255,0.3); border-radius:var(--radius); padding:14px 16px; margin-bottom:22px; display:none; }
-.sel-box.on { display:block; }
-.sel-lbl { font-size:10px; font-weight:700; color:var(--accent2); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
-.sel-txt { font-size:15px; line-height:1.9; }
+/* 선택 댓글 */
+.selbox{background:rgba(108,99,255,.07);border:1px solid rgba(108,99,255,.3);border-radius:var(--rad);padding:14px 16px;margin-bottom:20px;display:none}
+.selbox.on{display:block}
+.sellbl{font-size:10px;font-weight:700;color:var(--ac2);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.seltxt{font-size:14px;line-height:1.8}
 
-/* Analysis box */
-.analysis-box { border-radius:var(--radius); padding:18px 20px; margin-bottom:22px; display:none; animation:fup .3s ease; border:1px solid rgba(108,99,255,0.2); background:rgba(108,99,255,0.05); }
-.analysis-box.on { display:block; }
-.analysis-head { font-size:12px; font-weight:700; color:var(--text2); letter-spacing:1px; text-transform:uppercase; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
-.analysis-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-@media(max-width:560px){ .analysis-grid{grid-template-columns:1fr} }
-.analysis-item { display:flex; flex-direction:column; gap:4px; }
-.analysis-key { font-size:10px; color:var(--text2); font-weight:600; letter-spacing:.5px; }
-.analysis-val { font-size:14px; font-weight:700; }
-.analysis-care-row { grid-column:1/-1; }
-.care-steps { display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-top:6px; }
-.care-step { padding:5px 12px; border-radius:50px; font-size:12px; font-weight:700; display:flex; align-items:center; gap:4px; }
-.step-C{background:rgba(108,99,255,0.15);color:var(--C);border:1px solid rgba(108,99,255,0.3)}
-.step-A{background:rgba(244,63,94,0.15);color:var(--A);border:1px solid rgba(244,63,94,0.3)}
-.step-R{background:rgba(16,185,129,0.15);color:var(--R);border:1px solid rgba(16,185,129,0.3)}
-.step-E{background:rgba(251,191,36,0.15);color:var(--E);border:1px solid rgba(251,191,36,0.3)}
-.step-arrow { color:var(--text2); font-size:13px; }
+/* 분석 결과 */
+.abox{border-radius:var(--rad);padding:16px 20px;margin-bottom:20px;display:none;border:1px solid rgba(108,99,255,.2);background:rgba(108,99,255,.05);animation:fup .3s ease}
+.abox.on{display:block}
+.ahead{font-size:11px;font-weight:700;color:var(--tx2);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.agrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:560px){.agrid{grid-template-columns:1fr 1fr}}
+.aitem{display:flex;flex-direction:column;gap:4px}
+.akey{font-size:10px;color:var(--tx2);font-weight:600;letter-spacing:.5px}
+.aval{font-size:13px;font-weight:700}
+.tbadge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:50px;font-size:11px;font-weight:700}
+.t-gen{background:rgba(56,189,248,.15);color:var(--blu);border:1px solid rgba(56,189,248,.3)}
+.t-q{background:rgba(16,185,129,.15);color:var(--grn);border:1px solid rgba(16,185,129,.3)}
+.t-p{background:rgba(251,191,36,.15);color:var(--gld);border:1px solid rgba(251,191,36,.3)}
+.t-c{background:rgba(251,146,60,.15);color:#fb923c;border:1px solid rgba(251,146,60,.3)}
+.t-f{background:rgba(167,139,250,.15);color:var(--ac2);border:1px solid rgba(167,139,250,.3)}
+.t-t{background:rgba(244,63,94,.15);color:var(--red);border:1px solid rgba(244,63,94,.3)}
+.sbadge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:50px;font-size:11px;font-weight:700;background:rgba(108,99,255,.12);color:var(--ac2);border:1px solid rgba(108,99,255,.25)}
 
-/* Type/tone badges */
-.type-badge { display:inline-flex; align-items:center; gap:5px; padding:4px 12px; border-radius:50px; font-size:11px; font-weight:700; }
-.type-general{background:rgba(56,189,248,0.15);color:var(--blue);border:1px solid rgba(56,189,248,0.3)}
-.type-question{background:rgba(16,185,129,0.15);color:var(--green);border:1px solid rgba(16,185,129,0.3)}
-.type-praise{background:rgba(251,191,36,0.15);color:var(--gold);border:1px solid rgba(251,191,36,0.3)}
-.type-complaint{background:rgba(251,146,60,0.15);color:var(--orange);border:1px solid rgba(251,146,60,0.3)}
-.type-feedback{background:rgba(167,139,250,0.15);color:var(--accent2);border:1px solid rgba(167,139,250,0.3)}
-.type-troll{background:rgba(244,63,94,0.15);color:var(--red);border:1px solid rgba(244,63,94,0.3)}
-.tone-badge { display:inline-flex; align-items:center; gap:5px; padding:4px 12px; border-radius:50px; font-size:11px; font-weight:700; background:rgba(108,99,255,0.12); color:var(--accent2); border:1px solid rgba(108,99,255,0.25); }
+/* 악플 카드 */
+.troll{background:rgba(244,63,94,.07);border:1px solid rgba(244,63,94,.3);border-radius:var(--rad);padding:16px 20px;margin-bottom:16px;display:none}
+.troll.on{display:block}
+.troll-t{font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px}
+.troll-g{font-size:13px;line-height:1.8;color:var(--tx2)}
+.troll-g strong{color:var(--txt)}
 
-/* Input fields */
-.input-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:4px; }
-@media(max-width:600px){ .input-grid{grid-template-columns:1fr} }
-.ilabel { font-size:12px; font-weight:700; color:var(--text2); display:block; margin-bottom:8px; }
-textarea, input[type="text"], input[type="password"] {
-  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
-  padding:13px 16px; color:var(--text); font-family:'Pretendard','Noto Sans KR',sans-serif;
-  font-size:14px; line-height:1.9; resize:vertical; transition:border-color .2s,box-shadow .2s; width:100%;
-}
-textarea:focus, input:focus { outline:none; border-color:rgba(108,99,255,0.5); box-shadow:0 0 0 3px rgba(108,99,255,0.08); }
-textarea::placeholder, input::placeholder { color:#3a4060; }
+/* 채널명 */
+.chn{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.chn label{font-size:12px;font-weight:700;color:var(--tx2)}
 
-/* Channel field */
-.field { display:flex; flex-direction:column; gap:8px; margin-bottom:20px; }
-.field label { font-size:12px; font-weight:700; color:var(--text2); }
+/* 붙여넣기 박스 */
+.pastebox{background:var(--sur);border:1px dashed rgba(108,99,255,.35);border-radius:var(--rad);padding:14px 16px;margin-bottom:16px;display:none}
+.pastebox.on{display:block}
+.pastelbl{font-size:11px;font-weight:700;color:var(--ac2);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.paste-ta{min-height:80px;border:none!important;background:transparent!important;box-shadow:none!important;padding:0!important;font-size:14px!important}
+.paste-actions{display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--bdr);align-items:center}
+.paste-actions input{flex:1;font-size:12px}
+.pastego{padding:8px 18px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--acc),var(--ac2));color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .18s;white-space:nowrap}
+.pastego:hover{transform:translateY(-1px)}
 
-/* Troll warning */
-.troll-card { background:rgba(244,63,94,0.07); border:1px solid rgba(244,63,94,0.3); border-radius:var(--radius); padding:18px 20px; margin-bottom:12px; display:none; animation:fup .3s ease; }
-.troll-card.on { display:block; }
-.troll-title { font-size:14px; font-weight:700; color:var(--red); margin-bottom:8px; }
-.troll-guide { font-size:13px; line-height:1.8; color:var(--text2); }
-.troll-guide strong { color:var(--text); }
-
-/* Buttons */
-.btn-row { display:flex; gap:12px; margin-bottom:28px; }
-@media(max-width:480px){ .btn-row{flex-direction:column} }
-.analyze-btn { flex:1; padding:16px; border-radius:var(--radius); border:1px solid rgba(108,99,255,0.4); background:rgba(108,99,255,0.1); color:var(--accent2); font-family:'Black Han Sans',sans-serif; font-size:15px; letter-spacing:1px; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:8px; }
-.analyze-btn:hover { background:rgba(108,99,255,0.2); border-color:var(--accent2); }
-.analyze-btn:disabled { opacity:.5; cursor:not-allowed; }
-.gen-btn { flex:2; padding:16px; border-radius:var(--radius); border:none; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-family:'Black Han Sans',sans-serif; font-size:16px; letter-spacing:1px; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:8px; }
-.gen-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(108,99,255,0.4); }
-.gen-btn:active { transform:translateY(0); }
-.gen-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
-.spin { display:none; width:17px; height:17px; border:2px solid rgba(255,255,255,0.3); border-top-color:white; border-radius:50%; animation:spin .7s linear infinite; }
-.loading .spin { display:block; }
+/* 생성 버튼 */
+.genbtn{width:100%;padding:18px;border-radius:var(--rad);border:none;background:linear-gradient(135deg,var(--acc),var(--ac2));color:#fff;font-family:inherit;font-size:17px;font-weight:900;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:28px;letter-spacing:-.3px}
+.genbtn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(108,99,255,.4)}
+.genbtn:active{transform:translateY(0)}
+.genbtn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.spin{display:none;width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+.loading .spin{display:block}
 @keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* Results */
-.results { display:none; }
-.results.on { display:block; }
-.results-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
-.results-title { font-family:'Black Han Sans',sans-serif; font-size:18px; }
-.regen-btn { padding:8px 16px; border-radius:50px; border:1px solid var(--border); background:var(--surface); color:var(--text2); font-size:12px; cursor:pointer; transition:all .18s; font-family:'Noto Sans KR',sans-serif; font-weight:500; }
-.regen-btn:hover { border-color:var(--accent); color:var(--text); }
-.reply-cards { display:flex; flex-direction:column; gap:12px; }
-.rcard { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; animation:fup .35s ease forwards; opacity:0; }
-.rcard:nth-child(1){animation-delay:.05s} .rcard:nth-child(2){animation-delay:.15s} .rcard:nth-child(3){animation-delay:.25s}
-.rcard:hover { border-color:rgba(108,99,255,0.3); }
-.rcard-meta { display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
-.rcard-tag { padding:3px 10px; border-radius:4px; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
-.rcard-care { font-size:10px; color:var(--text2); display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
-.care-mini { padding:2px 7px; border-radius:4px; font-size:10px; font-weight:700; }
-.rcard-text { font-size:15px; line-height:2.0; white-space:pre-wrap; word-break:keep-all; font-weight:400; }
-.rcard-actions { display:flex; gap:8px; margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
-.cbtn { display:flex; align-items:center; gap:6px; padding:7px 14px; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--text2); font-size:12px; cursor:pointer; transition:all .18s; font-family:'Noto Sans KR',sans-serif; }
-.cbtn:hover { background:var(--surface2); color:var(--text); border-color:var(--accent); }
-.cbtn.ok { background:rgba(16,185,129,0.12); color:var(--green); border-color:var(--green); }
+/* 메시지 */
+.msg{border-radius:var(--rad);padding:13px 16px;font-size:13px;margin-bottom:14px;display:none;line-height:1.7;font-weight:500}
+.msg.on{display:block}
+.msg.err{background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.3);color:var(--red)}
+.msg.info{background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);color:var(--blu)}
 
+/* 결과 카드 */
+.results{display:none}
+.results.on{display:block}
+.results-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.results-title{font-size:18px;font-weight:900}
+.regen{padding:8px 16px;border-radius:50px;border:1px solid var(--bdr);background:var(--sur);color:var(--tx2);font-size:12px;cursor:pointer;transition:all .18s;font-family:inherit;font-weight:500}
+.regen:hover{border-color:var(--acc);color:var(--txt)}
+.rcards{display:flex;flex-direction:column;gap:12px}
+.rcard{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--rad);padding:20px;animation:fup .3s ease forwards;opacity:0}
+.rcard:nth-child(1){animation-delay:.05s}
+.rcard:nth-child(2){animation-delay:.15s}
+.rcard:nth-child(3){animation-delay:.25s}
+.rcard:hover{border-color:rgba(108,99,255,.3)}
+.rtag{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:4px;padding:3px 8px;margin-bottom:12px}
+.rt1{background:rgba(108,99,255,.15);color:var(--acc)}
+.rt2{background:rgba(16,185,129,.15);color:var(--grn)}
+.rt3{background:rgba(251,191,36,.15);color:var(--gld)}
+.rtxt{font-size:15px;line-height:2;white-space:pre-wrap;word-break:keep-all}
+.ract{display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--bdr)}
+.cbtn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:1px solid var(--bdr);background:transparent;color:var(--tx2);font-size:12px;cursor:pointer;transition:all .18s;font-family:inherit}
+.cbtn:hover{background:var(--sur2);color:var(--txt);border-color:var(--acc)}
+.cbtn.ok{background:rgba(16,185,129,.12);color:var(--grn);border-color:var(--grn)}
 
-/* 답글 완료 뱃지 */
-.replied-badge { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; color:var(--green); background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); border-radius:4px; padding:2px 7px; margin-left:6px; }
-.cmt-item.replied { opacity:0.45; }
-.cmt-item.replied .cmt-text { text-decoration: line-through; text-decoration-color: rgba(100,116,139,0.5); }
+/* 일괄생성 */
+.bulk{display:none;margin-bottom:32px}
+.bulk.on{display:block}
+.bulk-head{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(108,99,255,.12),rgba(167,139,250,.08));border:1px solid rgba(108,99,255,.3);border-radius:var(--rad);padding:16px 20px;margin-bottom:14px}
+.bulk-title{font-size:16px;font-weight:900}
+.bulk-sub{font-size:11px;color:var(--tx2);margin-top:3px}
+.bulk-start{padding:10px 22px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--acc),var(--ac2));color:#fff;font-family:inherit;font-size:14px;font-weight:900;cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.bulk-start:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(108,99,255,.4)}
+.bulk-start:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.prog{margin-bottom:14px;display:none}
+.prog.on{display:block}
+.prog-info{display:flex;justify-content:space-between;font-size:12px;color:var(--tx2);margin-bottom:8px}
+.prog-info strong{color:var(--txt)}
+.prog-bg{height:6px;background:var(--bdr);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--ac2));border-radius:3px;transition:width .4s ease;width:0%}
+.prog-log{font-size:11px;color:var(--tx2);margin-top:6px;min-height:16px}
+.bulk-res{display:none}
+.bulk-res.on{display:block}
+.bulk-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.bulk-ttl{font-size:16px;font-weight:900;flex:1}
+.tbtn{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:all .18s;font-family:inherit}
+.tbtn-grn{border:1px solid rgba(16,185,129,.4);background:rgba(16,185,129,.1);color:var(--grn)}
+.tbtn-grn:hover{background:rgba(16,185,129,.2)}
+.tbtn-pur{border:1px solid rgba(108,99,255,.4);background:rgba(108,99,255,.1);color:var(--ac2)}
+.tbtn-pur:hover{background:rgba(108,99,255,.2)}
+.btbl-wrap{overflow-x:auto}
+.btbl{width:100%;border-collapse:collapse;font-size:13px}
+.btbl th{padding:10px 14px;text-align:left;background:var(--sur2);color:var(--tx2);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--bdr);white-space:nowrap}
+.btbl td{padding:12px 14px;border-bottom:1px solid var(--bdr);vertical-align:top;line-height:1.7}
+.btbl tr:hover td{background:rgba(108,99,255,.03)}
+.btbl tr.bdone td{background:rgba(16,185,129,.04)}
+.bcpy{padding:5px 12px;border-radius:6px;border:1px solid var(--bdr);background:transparent;color:var(--tx2);font-size:11px;cursor:pointer;transition:all .18s;font-family:inherit;display:block;width:100%;margin-bottom:4px;white-space:nowrap}
+.bcpy:hover{border-color:var(--acc);color:var(--ac2)}
+.bcpy.ok{border-color:var(--grn);color:var(--grn);background:rgba(16,185,129,.08)}
+.bmk{padding:5px 12px;border-radius:6px;border:1px solid var(--bdr);background:transparent;color:var(--tx2);font-size:11px;cursor:pointer;transition:all .18s;font-family:inherit;display:block;width:100%;white-space:nowrap}
+.bmk:hover{border-color:var(--grn);color:var(--grn)}
+.bmk.done{border-color:var(--grn);color:var(--grn);background:rgba(16,185,129,.08)}
 
-/* 필터 토글 바 */
-.filter-bar { display:flex; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
-.filter-btn { padding:5px 14px; border-radius:50px; border:1px solid var(--border); background:var(--surface); color:var(--text2); font-size:11px; font-weight:700; cursor:pointer; transition:all .18s; font-family:'Noto Sans KR',sans-serif; }
-.filter-btn:hover { border-color:rgba(108,99,255,0.4); color:var(--text); }
-.filter-btn.active { background:rgba(108,99,255,0.15); border-color:var(--accent); color:var(--accent2); }
-.filter-btn.active-hide { background:rgba(16,185,129,0.12); border-color:var(--green); color:var(--green); }
-.replied-count { font-size:11px; color:var(--text2); margin-left:auto; }
+/* 공유 바 */
+.sharebar{display:none;align-items:center;gap:10px;margin-top:20px;padding-top:20px;border-top:1px solid var(--bdr);flex-wrap:wrap}
+.shlabel{font-size:12px;font-weight:700;color:var(--tx2)}
+.shbtn{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:50px;border:none;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap}
+.shbtn:hover{transform:translateY(-2px)}
+.sh-k{background:#FEE500;color:#3A1D1D}
+.sh-k:hover{box-shadow:0 4px 14px rgba(254,229,0,.5)}
+.sh-x{background:#1DA1F2;color:#fff}
+.sh-x:hover{box-shadow:0 4px 14px rgba(29,161,242,.4)}
+.sh-l{background:var(--sur2);color:var(--tx2);border:1px solid var(--bdr)!important}
+.sh-l:hover{border-color:var(--acc)!important;color:var(--ac2)}
 
-/* 빠른 붙여넣기 박스 */
-.paste-box { background:var(--surface); border:1px dashed rgba(108,99,255,0.35); border-radius:var(--radius); padding:14px 16px; margin-bottom:18px; transition:border-color .2s, background .2s; }
-.paste-box:focus-within { border-color:var(--accent); background:rgba(108,99,255,0.04); }
-.paste-label { font-size:11px; font-weight:700; color:var(--accent2); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
-.paste-label .paste-hint { font-size:10px; color:var(--text2); font-weight:400; text-transform:none; letter-spacing:0; }
-.paste-textarea { min-height:72px; border-color:transparent !important; background:transparent !important; box-shadow:none !important; padding:0 !important; font-size:14px !important; }
-.paste-textarea:focus { border-color:transparent !important; box-shadow:none !important; }
-.paste-actions { display:flex; gap:8px; margin-top:10px; padding-top:10px; border-top:1px solid var(--border); align-items:center; }
-.paste-actions .paste-author { flex:1; font-size:12px; }
-.paste-go-btn { padding:7px 18px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-size:12px; font-weight:700; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all .18s; white-space:nowrap; }
-.paste-go-btn:hover { transform:translateY(-1px); box-shadow:0 4px 14px rgba(108,99,255,0.35); }
+/* 플로팅 버튼 */
+.fab-wrap{position:fixed;bottom:28px;right:24px;display:flex;flex-direction:column;gap:10px;z-index:100}
+.fab{width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .2s;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.fab:hover{transform:scale(1.1)}
+.fab-g{background:linear-gradient(135deg,var(--acc),var(--ac2))}
+.fab-t{background:var(--sur2);border:1px solid var(--bdr);font-size:16px}
 
+/* 가이드 모달 */
+.guide-ov{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.8);display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.guide-ov.on{display:flex}
+.guide-box{background:var(--sur);border:1px solid var(--bdr);border-radius:20px;padding:36px 32px;max-width:660px;width:100%;margin:auto;position:relative;animation:fup .3s ease}
+.gcls{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid var(--bdr);background:transparent;color:var(--tx2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s}
+.gcls:hover{border-color:var(--red);color:var(--red)}
+.g-title{font-size:22px;font-weight:900;margin-bottom:24px}
+.g-sec{margin-bottom:24px}
+.g-sec-t{font-size:13px;font-weight:900;color:var(--ac2);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.g-steps{display:flex;flex-direction:column;gap:10px}
+.g-step{display:flex;gap:14px;align-items:flex-start}
+.g-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--ac2));color:#fff;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.g-txt{font-size:14px;line-height:1.8;color:var(--tx2)}
+.g-txt strong{color:var(--txt)}
+.gtip{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--tx2);line-height:1.8}
+.gtip strong{color:var(--gld)}
 
-/* ── 일괄생성 섹션 ── */
-.bulk-section { display:none; margin-bottom:32px; }
-.bulk-section.on { display:block; }
-
-.bulk-header {
-  display:flex; align-items:center; justify-content:space-between;
-  background:linear-gradient(135deg,rgba(108,99,255,0.12),rgba(167,139,250,0.08));
-  border:1px solid rgba(108,99,255,0.3); border-radius:var(--radius);
-  padding:16px 20px; margin-bottom:16px; cursor:pointer;
-}
-.bulk-header-left { display:flex; align-items:center; gap:12px; }
-.bulk-header-title { font-family:'Black Han Sans',sans-serif; font-size:17px; }
-.bulk-header-sub { font-size:11px; color:var(--text2); }
-.bulk-start-btn {
-  padding:10px 22px; border-radius:10px; border:none;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:white; font-family:'Black Han Sans',sans-serif; font-size:14px;
-  cursor:pointer; transition:all .2s; white-space:nowrap;
-  display:flex; align-items:center; gap:8px;
-}
-.bulk-start-btn:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(108,99,255,0.4); }
-.bulk-start-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
-
-/* 진행 바 */
-.bulk-progress-wrap { margin-bottom:16px; display:none; }
-.bulk-progress-wrap.on { display:block; }
-.bulk-progress-info { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:12px; color:var(--text2); }
-.bulk-progress-info strong { color:var(--text); }
-.bulk-bar-bg { height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
-.bulk-bar-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:3px; transition:width .4s ease; width:0%; }
-.bulk-log { font-size:11px; color:var(--text2); margin-top:6px; min-height:16px; }
-
-/* 결과 테이블 */
-.bulk-result-wrap { display:none; }
-.bulk-result-wrap.on { display:block; }
-.bulk-result-toolbar {
-  display:flex; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap;
-}
-.bulk-result-title { font-family:'Black Han Sans',sans-serif; font-size:16px; flex:1; }
-.bulk-export-btn {
-  padding:8px 16px; border-radius:8px; border:1px solid rgba(16,185,129,0.4);
-  background:rgba(16,185,129,0.1); color:var(--green);
-  font-size:12px; font-weight:700; cursor:pointer; transition:all .18s;
-  font-family:'Noto Sans KR',sans-serif;
-}
-.bulk-export-btn:hover { background:rgba(16,185,129,0.2); }
-.bulk-copy-all-btn {
-  padding:8px 16px; border-radius:8px; border:1px solid rgba(108,99,255,0.4);
-  background:rgba(108,99,255,0.1); color:var(--accent2);
-  font-size:12px; font-weight:700; cursor:pointer; transition:all .18s;
-  font-family:'Noto Sans KR',sans-serif;
-}
-.bulk-copy-all-btn:hover { background:rgba(108,99,255,0.2); }
-
-.bulk-table-wrap { overflow-x:auto; }
-.bulk-table {
-  width:100%; border-collapse:collapse; font-size:14px; font-family:'Pretendard','Noto Sans KR',sans-serif;
-}
-.bulk-table th {
-  padding:10px 14px; text-align:left;
-  background:var(--surface2); color:var(--text2);
-  font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
-  border-bottom:1px solid var(--border); white-space:nowrap;
-}
-.bulk-table td {
-  padding:12px 14px; border-bottom:1px solid var(--border);
-  vertical-align:top; line-height:1.65;
-}
-.bulk-table tr:hover td { background:rgba(108,99,255,0.03); }
-.bulk-table tr.bulk-done td { background:rgba(16,185,129,0.04); }
-.bulk-table tr.bulk-error td { background:rgba(244,63,94,0.04); }
-
-.bulk-num { color:var(--text2); font-size:11px; white-space:nowrap; }
-.bulk-author-cell { color:var(--blue); font-size:12px; font-weight:700; white-space:nowrap; }
-.bulk-comment-cell { color:var(--text2); font-size:12px; max-width:200px; }
-.bulk-reply-cell { max-width:320px; }
-.bulk-reply-text { font-size:14px; line-height:1.85; color:var(--text); }
-.bulk-reply-text.selectable { cursor:text; }
-.bulk-type-cell { white-space:nowrap; }
-.bulk-action-cell { white-space:nowrap; }
-
-.row-copy-btn {
-  padding:5px 12px; border-radius:6px; border:1px solid var(--border);
-  background:transparent; color:var(--text2); font-size:11px; cursor:pointer;
-  transition:all .18s; font-family:'Noto Sans KR',sans-serif; white-space:nowrap;
-  display:block; margin-bottom:5px; width:100%;
-}
-.row-copy-btn:hover { border-color:var(--accent); color:var(--accent2); background:rgba(108,99,255,0.08); }
-.row-copy-btn.ok { border-color:var(--green); color:var(--green); background:rgba(16,185,129,0.08); }
-.row-mark-btn {
-  padding:5px 12px; border-radius:6px; border:1px solid var(--border);
-  background:transparent; color:var(--text2); font-size:11px; cursor:pointer;
-  transition:all .18s; font-family:'Noto Sans KR',sans-serif; white-space:nowrap;
-  display:block; width:100%;
-}
-.row-mark-btn:hover { border-color:var(--green); color:var(--green); }
-.row-mark-btn.done { border-color:var(--green); color:var(--green); background:rgba(16,185,129,0.08); }
-.bulk-status-badge {
-  display:inline-flex; align-items:center; gap:4px;
-  font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px;
-}
-.bs-pending { background:rgba(100,116,139,0.15); color:var(--text2); }
-.bs-done { background:rgba(16,185,129,0.15); color:var(--green); }
-.bs-error { background:rgba(244,63,94,0.15); color:var(--red); }
-.bs-skip { background:rgba(251,191,36,0.15); color:var(--gold); }
-
-
-/* ── OAuth / 게시 버튼 ── */
-.oauth-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px 20px;
-  margin-bottom: 14px;
-  transition: border-color .3s, background .3s;
-}
-.oauth-box.signed-in {
-  border-color: rgba(16,185,129,0.4);
-  background: rgba(16,185,129,0.04);
-}
-.oauth-head { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-.oauth-info { display:flex; align-items:center; gap:10px; }
-.oauth-avatar {
-  width:36px; height:36px; border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:flex; align-items:center; justify-content:center;
-  font-size:16px; flex-shrink:0;
-}
-.oauth-name { font-size:13px; font-weight:700; }
-.oauth-email { font-size:11px; color:var(--text2); }
-.google-btn {
-  display:flex; align-items:center; gap:8px;
-  padding:10px 18px; border-radius:10px;
-  border:1px solid rgba(255,255,255,0.15);
-  background: #fff; color:#3c4043;
-  font-family:'Noto Sans KR',sans-serif;
-  font-size:13px; font-weight:700;
-  cursor:pointer; transition:all .2s; white-space:nowrap;
-  box-shadow:0 1px 3px rgba(0,0,0,0.3);
-}
-.google-btn:hover { box-shadow:0 2px 8px rgba(0,0,0,0.4); transform:translateY(-1px); }
-.signout-btn {
-  padding:6px 14px; border-radius:8px;
-  border:1px solid var(--border); background:transparent;
-  color:var(--text2); font-size:11px; font-weight:700;
-  cursor:pointer; font-family:'Noto Sans KR',sans-serif;
-  transition:all .18s;
-}
-.signout-btn:hover { border-color:var(--red); color:var(--red); }
-
-/* 게시 버튼 (테이블 행) */
-.row-post-btn {
-  padding:5px 12px; border-radius:6px;
-  border:1px solid rgba(16,185,129,0.4);
-  background:rgba(16,185,129,0.1); color:var(--green);
-  font-size:11px; font-weight:700; cursor:pointer;
-  transition:all .18s; font-family:'Noto Sans KR',sans-serif;
-  white-space:nowrap; display:block; width:100%; margin-bottom:5px;
-}
-.row-post-btn:hover { background:rgba(16,185,129,0.2); transform:translateY(-1px); }
-.row-post-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
-.row-post-btn.posted { background:rgba(16,185,129,0.2); border-color:var(--green); cursor:default; }
-
-/* 일괄 게시 버튼 */
-.bulk-post-all-btn {
-  padding:8px 16px; border-radius:8px;
-  border:1px solid rgba(16,185,129,0.5);
-  background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(6,214,160,0.1));
-  color:var(--green);
-  font-size:12px; font-weight:700; cursor:pointer; transition:all .18s;
-  font-family:'Noto Sans KR',sans-serif;
-  display:flex; align-items:center; gap:6px;
-}
-.bulk-post-all-btn:hover { background:linear-gradient(135deg,rgba(16,185,129,0.25),rgba(6,214,160,0.2)); transform:translateY(-1px); }
-.bulk-post-all-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
-.bulk-post-all-btn.hidden { display:none; }
-
-/* 단일 게시 버튼 (개별 대댓글 카드) */
-.post-btn {
-  display:flex; align-items:center; gap:6px;
-  padding:7px 14px; border-radius:8px;
-  border:1px solid rgba(16,185,129,0.4);
-  background:rgba(16,185,129,0.1); color:var(--green);
-  font-size:12px; cursor:pointer;
-  transition:all .18s; font-family:'Noto Sans KR',sans-serif;
-}
-.post-btn:hover { background:rgba(16,185,129,0.2); }
-.post-btn:disabled { opacity:.5; cursor:not-allowed; }
-.post-btn.posted { background:rgba(16,185,129,0.2); cursor:default; }
-
-
-/* ── 튜토리얼 오버레이 ── */
-.tutorial-overlay {
-  position:fixed; inset:0; background:rgba(0,0,0,0.85);
-  z-index:9999; display:flex; align-items:center; justify-content:center;
-  padding:20px; backdrop-filter:blur(4px);
-}
-.tutorial-overlay.hidden { display:none; }
-.tutorial-box {
-  background:var(--surface); border:1px solid rgba(108,99,255,0.4);
-  border-radius:20px; padding:32px 28px; max-width:520px; width:100%;
-  position:relative; animation:fup .4s ease;
-}
-.tutorial-step { display:none; }
-.tutorial-step.active { display:block; }
-.tutorial-icon { font-size:48px; text-align:center; margin-bottom:16px; }
-.tutorial-title { font-family:'Noto Sans KR',sans-serif; font-weight:900; font-size:22px; text-align:center; margin-bottom:12px; }
-.tutorial-desc { font-size:14px; color:var(--text2); line-height:1.9; text-align:center; margin-bottom:24px; }
-.tutorial-desc strong { color:var(--text); }
-.tutorial-dots { display:flex; justify-content:center; gap:8px; margin-bottom:20px; }
-.tutorial-dot { width:8px; height:8px; border-radius:50%; background:var(--border); transition:all .3s; }
-.tutorial-dot.active { background:var(--accent); width:24px; border-radius:4px; }
-.tutorial-btns { display:flex; gap:10px; }
-.tutorial-skip { flex:1; padding:12px; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text2); font-size:13px; font-weight:700; cursor:pointer; font-family:'Noto Sans KR',sans-serif; }
-.tutorial-next { flex:2; padding:12px; border-radius:10px; border:none; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-size:13px; font-weight:900; cursor:pointer; font-family:'Noto Sans KR',sans-serif; }
-.tutorial-highlight { background:rgba(108,99,255,0.15); border:1px solid rgba(108,99,255,0.3); border-radius:8px; padding:10px 14px; margin:10px 0; font-size:13px; color:var(--accent2); }
-
-/* ── 가이드 페이지 ── */
-.guide-overlay { position:fixed; inset:0; background:var(--bg); z-index:9998; overflow-y:auto; display:none; }
-.guide-overlay.on { display:block; }
-.guide-wrap { max-width:720px; margin:0 auto; padding:40px 20px 80px; }
-.guide-back { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:50px; border:1px solid var(--border); background:var(--surface); color:var(--text2); font-size:13px; font-weight:700; cursor:pointer; margin-bottom:32px; font-family:'Noto Sans KR',sans-serif; transition:all .18s; }
-.guide-back:hover { border-color:var(--accent); color:var(--text); }
-.guide-title { font-family:'Noto Sans KR',sans-serif; font-weight:900; font-size:28px; margin-bottom:8px; }
-.guide-subtitle { color:var(--text2); font-size:14px; margin-bottom:40px; line-height:1.7; }
-.guide-section { margin-bottom:36px; }
-.guide-section-title { font-size:16px; font-weight:900; margin-bottom:16px; display:flex; align-items:center; gap:10px; padding-bottom:10px; border-bottom:1px solid var(--border); }
-.guide-step { display:flex; gap:16px; margin-bottom:18px; align-items:flex-start; }
-.guide-step-num { width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-weight:900; font-size:14px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.guide-step-content { flex:1; }
-.guide-step-title { font-size:14px; font-weight:700; margin-bottom:4px; }
-.guide-step-desc { font-size:13px; color:var(--text2); line-height:1.8; }
-.guide-tip { background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.25); border-radius:10px; padding:14px 16px; margin-bottom:16px; font-size:13px; color:var(--text2); line-height:1.8; }
-.guide-tip strong { color:var(--gold); }
-.guide-care-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
-@media(max-width:480px){ .guide-care-grid{grid-template-columns:1fr} }
-.guide-care-card { border-radius:12px; padding:16px; border:1px solid; }
-.guide-care-card.gc { background:rgba(108,99,255,0.08); border-color:rgba(108,99,255,0.3); }
-.guide-care-card.ga { background:rgba(244,63,94,0.08); border-color:rgba(244,63,94,0.3); }
-.guide-care-card.gr { background:rgba(16,185,129,0.08); border-color:rgba(16,185,129,0.3); }
-.guide-care-card.ge { background:rgba(251,191,36,0.08); border-color:rgba(251,191,36,0.3); }
-.guide-care-letter { font-weight:900; font-size:20px; margin-bottom:4px; }
-.gc .guide-care-letter{color:var(--C)} .ga .guide-care-letter{color:var(--A)}
-.gr .guide-care-letter{color:var(--R)} .ge .guide-care-letter{color:var(--E)}
-.guide-care-word { font-size:12px; font-weight:700; color:var(--text2); margin-bottom:6px; }
-.guide-care-desc { font-size:12px; color:var(--text2); line-height:1.7; }
-
-/* ── 공유 버튼 ── */
-.share-bar {
-  display:flex; gap:10px; align-items:center; margin-top:16px;
-  padding:16px; background:var(--surface2); border-radius:var(--radius);
-  flex-wrap:wrap;
-}
-.share-label { font-size:12px; font-weight:700; color:var(--text2); margin-right:4px; }
-.share-btn {
-  display:flex; align-items:center; gap:6px;
-  padding:8px 16px; border-radius:50px; border:none;
-  font-size:12px; font-weight:700; cursor:pointer;
-  transition:all .2s; font-family:'Noto Sans KR',sans-serif;
-  white-space:nowrap;
-}
-.share-kakao { background:#FEE500; color:#3C1E1E; }
-.share-kakao:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(254,229,0,0.4); }
-.share-twitter { background:#1DA1F2; color:white; }
-.share-twitter:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(29,161,242,0.4); }
-.share-link { background:var(--surface); color:var(--text2); border:1px solid var(--border); }
-.share-link:hover { border-color:var(--accent); color:var(--accent2); }
-.share-link.copied { border-color:var(--green); color:var(--green); }
-
-/* ── 상단 안내 버튼 ── */
-.top-guide-btn {
-  display:inline-flex; align-items:center; gap:6px;
-  padding:7px 16px; border-radius:50px;
-  border:1px solid rgba(108,99,255,0.3); background:rgba(108,99,255,0.1);
-  color:var(--accent2); font-size:12px; font-weight:700;
-  cursor:pointer; transition:all .18s; font-family:'Noto Sans KR',sans-serif;
-  margin-left:10px;
-}
-.top-guide-btn:hover { background:rgba(108,99,255,0.2); }
-
-/* ── 품질 선택 ── */
-.quality-row { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
-.quality-btn { padding:7px 16px; border-radius:50px; border:1px solid var(--border); background:var(--surface); color:var(--text2); font-size:12px; font-weight:700; cursor:pointer; transition:all .18s; font-family:'Noto Sans KR',sans-serif; }
-.quality-btn:hover { border-color:rgba(108,99,255,0.4); color:var(--text); }
-.quality-btn.active { background:linear-gradient(135deg,var(--accent),var(--accent2)); border-color:transparent; color:white; box-shadow:0 4px 14px rgba(108,99,255,0.35); }
-
-
-/* ══════════════════════════════════
-   튜토리얼 오버레이
-══════════════════════════════════ */
-.tut-overlay {
-  position:fixed; inset:0; z-index:9999;
-  background:rgba(0,0,0,0.82);
-  display:flex; align-items:center; justify-content:center;
-  animation:fadeIn .3s ease;
-}
-.tut-overlay.hidden { display:none; }
-.tut-box {
-  background:var(--surface); border:1px solid rgba(108,99,255,0.4);
-  border-radius:20px; padding:36px 32px; max-width:520px; width:90%;
-  position:relative; animation:slideUp .35s ease;
-}
-@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.tut-step-badge {
-  display:inline-flex; align-items:center; gap:6px;
-  background:rgba(108,99,255,0.15); border:1px solid rgba(108,99,255,0.3);
-  border-radius:50px; padding:4px 14px; font-size:11px; font-weight:700;
-  color:var(--accent2); margin-bottom:16px;
-}
-.tut-icon { font-size:40px; margin-bottom:14px; }
-.tut-title {
-  font-family:'Noto Sans KR',sans-serif; font-weight:900;
-  font-size:20px; line-height:1.4; margin-bottom:10px;
-}
-.tut-desc { font-size:14px; color:var(--text2); line-height:1.9; margin-bottom:24px; }
-.tut-desc strong { color:var(--text); }
-.tut-dots { display:flex; gap:6px; justify-content:center; margin-bottom:20px; }
-.tut-dot { width:8px; height:8px; border-radius:50%; background:var(--border); transition:all .2s; }
-.tut-dot.active { background:var(--accent); width:24px; border-radius:4px; }
-.tut-btns { display:flex; gap:10px; }
-.tut-skip { flex:1; padding:12px; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text2); font-size:13px; cursor:pointer; font-family:'Noto Sans KR',sans-serif; font-weight:700; transition:all .18s; }
-.tut-skip:hover { border-color:var(--accent); color:var(--text); }
-.tut-next { flex:2; padding:12px; border-radius:10px; border:none; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-size:14px; font-weight:900; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all .2s; }
-.tut-next:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(108,99,255,0.4); }
-.tut-highlight {
-  display:inline-block; background:rgba(108,99,255,0.15);
-  border:1px solid rgba(108,99,255,0.3); border-radius:6px;
-  padding:2px 8px; font-size:13px; color:var(--accent2); font-weight:700;
-}
-
-/* ══════════════════════════════════
-   가이드 모달
-══════════════════════════════════ */
-.guide-overlay { position:fixed; inset:0; z-index:9998; background:rgba(0,0,0,0.8); display:none; align-items:flex-start; justify-content:center; padding:20px; overflow-y:auto; }
-.guide-overlay.on { display:flex; }
-.guide-box { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px 32px; max-width:680px; width:100%; margin:auto; position:relative; }
-.guide-close { position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:50%; border:1px solid var(--border); background:transparent; color:var(--text2); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .18s; }
-.guide-close:hover { border-color:var(--red); color:var(--red); }
-.guide-title { font-family:'Noto Sans KR',sans-serif; font-weight:900; font-size:22px; margin-bottom:24px; }
-.guide-section { margin-bottom:24px; }
-.guide-section-title { font-size:13px; font-weight:900; color:var(--accent2); letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
-.guide-steps { display:flex; flex-direction:column; gap:10px; }
-.guide-step { display:flex; gap:14px; align-items:flex-start; }
-.guide-step-num { width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-size:12px; font-weight:900; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
-.guide-step-text { font-size:14px; line-height:1.9; color:var(--text2); }
-.guide-step-text strong { color:var(--text); }
-.guide-tip { background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.25); border-radius:10px; padding:12px 16px; font-size:13px; color:var(--text2); line-height:1.8; }
-.guide-tip strong { color:var(--gold); }
-
-/* ══════════════════════════════════
-   공유 버튼
-══════════════════════════════════ */
-.share-bar { display:flex; align-items:center; gap:10px; margin-top:20px; padding-top:20px; border-top:1px solid var(--border); flex-wrap:wrap; }
-.share-label { font-size:12px; font-weight:700; color:var(--text2); }
-.share-btn { display:flex; align-items:center; gap:6px; padding:8px 16px; border-radius:50px; border:none; font-size:13px; font-weight:700; cursor:pointer; transition:all .2s; font-family:'Noto Sans KR',sans-serif; white-space:nowrap; }
-.share-btn:hover { transform:translateY(-2px); }
-.share-kakao { background:#FEE500; color:#3A1D1D; }
-.share-kakao:hover { box-shadow:0 4px 14px rgba(254,229,0,0.5); }
-.share-twitter { background:#1DA1F2; color:white; }
-.share-twitter:hover { box-shadow:0 4px 14px rgba(29,161,242,0.4); }
-.share-link { background:var(--surface2); color:var(--text2); border:1px solid var(--border); }
-.share-link:hover { border-color:var(--accent); color:var(--accent2); }
-
-/* 우측 하단 플로팅 버튼 */
-.fab-wrap { position:fixed; bottom:28px; right:24px; display:flex; flex-direction:column; gap:10px; z-index:100; }
-.fab { width:48px; height:48px; border-radius:50%; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; transition:all .2s; box-shadow:0 4px 16px rgba(0,0,0,0.4); }
-.fab:hover { transform:scale(1.1); }
-.fab-guide { background:linear-gradient(135deg,var(--accent),var(--accent2)); }
-.fab-top { background:var(--surface2); border:1px solid var(--border); font-size:16px; }
-
-/* Messages */
-.msg { border-radius:var(--radius); padding:14px 18px; font-size:14px; margin-bottom:14px; display:none; line-height:1.7; font-weight:500; }
-.msg.on { display:block; }
-.msg.err { background:rgba(244,63,94,0.1); border:1px solid rgba(244,63,94,0.3); color:var(--red); }
-.msg.info { background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.25); color:var(--blue); }
+/* 튜토리얼 */
+.tut-ov{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px}
+.tut-box{background:var(--sur);border:1px solid rgba(108,99,255,.4);border-radius:20px;padding:36px 28px;max-width:460px;width:100%;text-align:center;animation:fup .4s ease}
+.tut-badge{font-size:11px;font-weight:700;color:var(--ac2);letter-spacing:1px;margin-bottom:14px}
+.tut-icon{font-size:48px;margin-bottom:14px}
+.tut-title{font-size:20px;font-weight:900;margin-bottom:12px;line-height:1.4}
+.tut-desc{font-size:14px;color:var(--tx2);line-height:1.9;margin-bottom:12px}
+.tut-hl{background:rgba(108,99,255,.12);border:1px solid rgba(108,99,255,.3);border-radius:10px;padding:12px 16px;margin:12px 0;font-size:13px;color:var(--ac2);line-height:1.9;text-align:left;display:none}
+.tut-dots{display:flex;justify-content:center;gap:6px;margin:20px 0}
+.tut-btns{display:flex;gap:10px}
+.tut-skip{flex:1;padding:14px;border-radius:12px;border:1px solid var(--bdr);background:transparent;color:var(--tx2);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.tut-next{flex:2;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--acc),var(--ac2));color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:inherit}
 </style>
 </head>
 <body>
 
-
-<!-- ★ 가이드 모달 -->
-<div class="guide-overlay" id="guideOverlay">
-  <div class="guide-box" style="max-width:600px">
-    <button class="guide-close" onclick="closeGuide()">✕</button>
-    <div class="guide-title" style="font-size:22px;font-weight:900;margin-bottom:24px">📖 사용법 가이드</div>
-
-    <div class="guide-section">
-      <div class="guide-section-title">🔑 STEP 1 — API 키 설정 (최초 1회)</div>
-      <div class="guide-steps">
-        <div class="guide-step"><div class="guide-step-num">1</div><div class="guide-step-text"><strong>Gemini API 키</strong> 발급: <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--blue)">Google AI Studio</a> → Get API key → 무료 (하루 1,500회)</div></div>
-        <div class="guide-step"><div class="guide-step-num">2</div><div class="guide-step-text"><strong>YouTube API 키</strong> 발급: <a href="https://console.cloud.google.com" target="_blank" style="color:var(--blue)">Google Cloud Console</a> → YouTube Data API v3 활성화 → API 키 생성</div></div>
-        <div class="guide-step"><div class="guide-step-num">3</div><div class="guide-step-text">두 키 모두 <strong>같은 Google 계정</strong>의 키를 사용해도 됩니다</div></div>
-      </div>
+<!-- 튜토리얼 -->
+<div class="tut-ov" id="tutOv">
+  <div class="tut-box">
+    <div class="tut-badge">✨ <span id="tutN">1/5</span></div>
+    <div class="tut-icon" id="tutI">🎬</div>
+    <div class="tut-title" id="tutT"></div>
+    <div class="tut-desc" id="tutD"></div>
+    <div class="tut-hl" id="tutH"></div>
+    <div class="tut-dots" id="tutDots"></div>
+    <div class="tut-btns">
+      <button class="tut-skip" id="tutSkip">건너뛰기</button>
+      <button class="tut-next" id="tutNext">다음 →</button>
     </div>
-
-    <div class="guide-section">
-      <div class="guide-section-title">🔗 STEP 2 — 영상 불러오기</div>
-      <div class="guide-steps">
-        <div class="guide-step"><div class="guide-step-num">1</div><div class="guide-step-text">유튜브 영상 URL을 붙여넣고 <strong>📥 불러오기</strong> 클릭</div></div>
-        <div class="guide-step"><div class="guide-step-num">2</div><div class="guide-step-text">댓글 목록이 자동으로 불러와집니다 (최대 30개)</div></div>
-        <div class="guide-step"><div class="guide-step-num">3</div><div class="guide-step-text">대댓글을 달 댓글을 <strong>클릭</strong>하면 자동 분석이 시작됩니다</div></div>
-      </div>
-    </div>
-
-    <div class="guide-section">
-      <div class="guide-section-title">✨ STEP 3 — AI 대댓글 생성</div>
-      <div class="guide-steps">
-        <div class="guide-step"><div class="guide-step-num">1</div><div class="guide-step-text">AI가 댓글을 자동 분석하고 <strong>최적 말투</strong>를 선택합니다</div></div>
-        <div class="guide-step"><div class="guide-step-num">2</div><div class="guide-step-text"><strong>✨ 대댓글 생성하기</strong> 클릭 → 대댓글 3가지 버전 자동 생성</div></div>
-        <div class="guide-step"><div class="guide-step-num">3</div><div class="guide-step-text">마음에 드는 버전 <strong>📋 복사</strong> 후 유튜브에 붙여넣기</div></div>
-      </div>
-    </div>
-
-    <div class="guide-section">
-      <div class="guide-section-title">⚡ STEP 4 — 일괄 생성 (시간 절약)</div>
-      <div class="guide-steps">
-        <div class="guide-step"><div class="guide-step-num">1</div><div class="guide-step-text">영상 로드 후 하단 <strong>⚡ 미답글 일괄 생성</strong> 섹션 확인</div></div>
-        <div class="guide-step"><div class="guide-step-num">2</div><div class="guide-step-text"><strong>🚀 일괄 생성 시작</strong>으로 미답글 전체를 한 번에 처리</div></div>
-        <div class="guide-step"><div class="guide-step-num">3</div><div class="guide-step-text">결과 테이블에서 행별 복사 또는 <strong>⬇️ CSV 저장</strong></div></div>
-      </div>
-    </div>
-
-    <div class="guide-section">
-      <div class="guide-section-title">❓ 자주 묻는 질문</div>
-      <div class="guide-steps">
-        <div class="guide-step"><div class="guide-step-num" style="background:var(--gold);color:#000;font-size:11px">Q</div><div class="guide-step-text"><strong>Google 로그인이 안 될 때</strong><br>로컬 파일(file://)에서는 로그인이 차단됩니다. 반드시 <strong>https://</strong> 주소로 접속하세요.</div></div>
-        <div class="guide-step"><div class="guide-step-num" style="background:var(--gold);color:#000;font-size:11px">Q</div><div class="guide-step-text"><strong>Gemini API 요금이 발생하나요?</strong><br>무료 티어로 하루 1,500회 제공됩니다. 일반 채널 운영에 충분합니다.</div></div>
-        <div class="guide-step"><div class="guide-step-num" style="background:var(--gold);color:#000;font-size:11px">Q</div><div class="guide-step-text"><strong>YouTube 직접 게시가 안 될 때</strong><br>Google Cloud Console에서 YouTube Data API v3가 활성화되어 있는지 확인하세요.</div></div>
-      </div>
-    </div>
-
   </div>
 </div>
 
-<!-- ★ 플로팅 버튼 -->
+<!-- 가이드 모달 -->
+<div class="guide-ov" id="guideOv">
+  <div class="guide-box">
+    <button class="gcls" onclick="document.getElementById('guideOv').classList.remove('on')">✕</button>
+    <div class="g-title">📖 사용법 가이드</div>
+    <div class="g-sec">
+      <div class="g-sec-t">🔑 STEP 1 — API 키 설정 (최초 1회)</div>
+      <div class="g-steps">
+        <div class="g-step"><div class="g-num">1</div><div class="g-txt"><strong>Gemini API 키</strong> 발급: <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a> → Get API key → 무료 (하루 1,500회)</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-txt"><strong>YouTube API 키</strong> 발급: <a href="https://console.cloud.google.com" target="_blank">Google Cloud Console</a> → YouTube Data API v3 활성화 → API 키 생성</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-txt">두 키 모두 <strong>같은 Google 계정</strong>의 키를 사용해도 됩니다</div></div>
+      </div>
+    </div>
+    <div class="g-sec">
+      <div class="g-sec-t">🔗 STEP 2 — 영상 불러오기</div>
+      <div class="g-steps">
+        <div class="g-step"><div class="g-num">1</div><div class="g-txt">유튜브 영상 URL 붙여넣기 → <strong>📥 불러오기</strong> 클릭</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-txt">미답글 댓글을 자동으로 수집합니다 (최대 100개)</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-txt">대댓글 달 댓글을 <strong>클릭</strong>하여 선택</div></div>
+      </div>
+    </div>
+    <div class="g-sec">
+      <div class="g-sec-t">✨ STEP 3 — AI 대댓글 생성</div>
+      <div class="g-steps">
+        <div class="g-step"><div class="g-num">1</div><div class="g-txt">댓글 선택 후 <strong>✨ 대댓글 생성하기</strong> 클릭</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-txt">AI가 댓글을 분석하고 대댓글 3가지를 자동 생성합니다</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-txt">마음에 드는 버전 <strong>📋 복사</strong> → 유튜브에 붙여넣기</div></div>
+      </div>
+    </div>
+    <div class="g-sec">
+      <div class="g-sec-t">⚡ STEP 4 — 일괄 생성</div>
+      <div class="g-steps">
+        <div class="g-step"><div class="g-num">1</div><div class="g-txt">영상 로드 후 <strong>⚡ 미답글 일괄 생성</strong> 섹션 확인</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-txt"><strong>🚀 일괄 생성 시작</strong> → 미답글 전체 한 번에 처리</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-txt">결과 테이블에서 복사 또는 <strong>⬇️ CSV 저장</strong></div></div>
+      </div>
+    </div>
+    <div class="g-sec">
+      <div class="g-sec-t">❓ 자주 묻는 질문</div>
+      <div class="g-steps">
+        <div class="g-step"><div class="g-num" style="background:var(--gld);color:#000;font-size:11px">Q</div><div class="g-txt"><strong>Gemini API 요금이 발생하나요?</strong><br>무료 티어로 하루 1,500회 제공됩니다. 일반 채널 운영에 충분합니다.</div></div>
+        <div class="g-step"><div class="g-num" style="background:var(--gld);color:#000;font-size:11px">Q</div><div class="g-txt"><strong>댓글 직접 입력은?</strong><br>상단 탭에서 <strong>✍️ 직접 입력</strong>을 선택하면 댓글을 직접 붙여넣을 수 있습니다.</div></div>
+      </div>
+    </div>
+    <div class="gtip">💡 <strong>Tip:</strong> 채널 이름을 입력하면 대댓글 끝에 자동으로 서명이 추가됩니다!</div>
+  </div>
+</div>
+
+<!-- 플로팅 버튼 -->
 <div class="fab-wrap">
-  <button class="fab fab-guide" onclick="openGuide()" title="사용법 가이드">❓</button>
-  <button class="fab fab-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
-</div>
-
-<!-- ★ 튜토리얼 오버레이 -->
-<div id="_tutOv" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:99999;align-items:center;justify-content:center;padding:20px">
-  <div style="background:#13161f;border:1px solid rgba(108,99,255,0.4);border-radius:20px;padding:36px 28px;max-width:460px;width:100%;text-align:center;position:relative">
-    <div style="font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:1px;margin-bottom:14px">✨ <span id="_tn">1/5</span></div>
-    <div style="font-size:48px;margin-bottom:14px" id="_ti">🎬</div>
-    <div style="font-weight:900;font-size:20px;margin-bottom:12px;line-height:1.4;color:#f0f4f8" id="_tt"></div>
-    <div style="font-size:14px;color:#94a3b8;line-height:1.9;margin-bottom:20px" id="_td"></div>
-    <div id="_dots" style="margin-bottom:24px"></div>
-    <div style="display:flex;gap:10px">
-      <button id="_sb" style="flex:1;padding:14px;border-radius:12px;border:1px solid #252b3b;background:transparent;color:#94a3b8;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">건너뛰기</button>
-      <button id="_nb" style="flex:2;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#6c63ff,#a78bfa);color:white;font-size:14px;font-weight:900;cursor:pointer;font-family:inherit">다음 →</button>
-    </div>
-  </div>
+  <button class="fab fab-g" onclick="document.getElementById('guideOv').classList.add('on')" title="사용법 가이드">❓</button>
+  <button class="fab fab-t" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
 </div>
 
 <div class="wrap">
-
-  <!-- Header -->
+  <!-- 헤더 -->
   <header>
-  
     <h1>AI <em>자동 대댓글</em> 생성기</h1>
-    <p class="subtitle">댓글 유형 자동 분석 → 최적 말투 자동 선택 → 대댓글 즉시 생성<br>유튜브 댓글 관리를 AI로 자동화하세요 · Powered by Gemini AI</p>
-  <div style="margin-top:12px">
-    <button class="top-guide-btn" onclick="openGuide()">📖 사용법 가이드</button>
-  </div>
+    <p class="sub">댓글 유형 자동 분석 → 최적 말투 자동 선택 → 대댓글 즉시 생성<br>유튜브 댓글 관리를 AI로 자동화하세요 · Powered by Gemini AI</p>
+    <button class="hbtn" onclick="document.getElementById('guideOv').classList.add('on')">📖 사용법 가이드</button>
+    &nbsp;
+    <button class="hbtn" onclick="startTut()" style="border-color:rgba(244,63,94,.3);color:var(--red)">🎯 튜토리얼</button>
   </header>
 
-  <!-- CARE strip hidden -->
-  <!-- ★ 하나의 Google API 키로 해결 안내 -->
-  <div class="one-key-notice">
+  <!-- 배너 -->
+  <div class="banner">
     💡 <strong>Google API 키 하나로 YouTube 댓글 수집 + Gemini AI 생성 모두 해결!</strong><br>
-    아래에서 같은 키를 두 곳 모두에 입력하시면 됩니다.
-    <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--blue);margin-left:4px">→ Gemini API 키 무료 발급</a>
+    아래에서 같은 키를 두 곳 모두에 입력하시면 됩니다. &nbsp;<a href="https://aistudio.google.com/app/apikey" target="_blank">→ Gemini API 키 무료 발급</a>
   </div>
 
-  <!-- YouTube API Key -->
-  <div class="setup-box" id="ytBox">
-    <div class="setup-head" onclick="tog('ytBody','ytTog','ytDot','ytBox')">
-      <div class="setup-title"><span class="sdot" id="ytDot"></span>📺 YouTube Data API 키</div>
-      <span class="stog" id="ytTog">▼ 펼치기</span>
+  <!-- YouTube API 키 -->
+  <div class="card" id="ytCard">
+    <div class="card-head" onclick="toggleCard('ytBody','ytTog','ytDot','ytCard')">
+      <div class="card-title"><span class="dot" id="ytDot"></span>📺 YouTube Data API 키</div>
+      <span class="tog" id="ytTog">▼ 펼치기</span>
     </div>
-    <div class="setup-body hidden" id="ytBody">
+    <div class="card-body hide" id="ytBody">
       <div style="margin-top:4px"></div>
       <div class="api-row">
         <input type="password" id="ytKey" placeholder="Google API 키 입력 (AIza...)">
-        <button class="fetch-btn" onclick="saveYtKey()" style="background:linear-gradient(135deg,var(--green),#059669)">저장</button>
+        <button class="fetch-btn" onclick="saveYt()" style="background:linear-gradient(135deg,var(--grn),#059669)">저장</button>
       </div>
-      <div class="api-note">
-        📌 <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a> →
-        프로젝트 선택 → YouTube Data API v3 활성화 → 사용자 인증 정보 → API 키<br>
-        ✅ 동일한 키를 아래 Gemini 칸에도 입력하시면 됩니다
-      </div>
+      <div class="api-note">📌 <a href="https://console.cloud.google.com" target="_blank">Google Cloud Console</a> → YouTube Data API v3 활성화 → 사용자 인증 정보 → API 키</div>
     </div>
   </div>
 
-  <!-- Gemini API Key -->
-  <div class="setup-box" id="geminiBox">
-    <div class="setup-head" onclick="tog('geminiBody','geminiTog','geminiDot','geminiBox')">
-      <div class="setup-title"><span class="sdot" id="geminiDot"></span>🤖 Gemini API 키 <span style="font-size:10px;color:var(--text2);font-weight:400;margin-left:4px">(무료 티어 제공)</span></div>
-      <span class="stog" id="geminiTog">▼ 펼치기</span>
+  <!-- Gemini API 키 -->
+  <div class="card" id="gmCard">
+    <div class="card-head" onclick="toggleCard('gmBody','gmTog','gmDot','gmCard')">
+      <div class="card-title"><span class="dot" id="gmDot"></span>🤖 Gemini API 키 <span style="font-size:10px;color:var(--tx2);font-weight:400;margin-left:4px">(무료 티어 제공)</span></div>
+      <span class="tog" id="gmTog">▼ 펼치기</span>
     </div>
-    <div class="setup-body hidden" id="geminiBody">
+    <div class="card-body hide" id="gmBody">
       <div style="margin-top:4px"></div>
       <div class="api-row">
-        <input type="password" id="geminiKey" placeholder="Google API 키 입력 (AIza...) — YouTube와 동일한 키">
-        <button class="fetch-btn" onclick="saveGeminiKey()" style="background:linear-gradient(135deg,var(--accent),var(--accent2))">저장</button>
+        <input type="password" id="gmKey" placeholder="Google API 키 입력 — YouTube와 동일한 키 사용 가능">
+        <button class="fetch-btn" onclick="saveGm()" style="background:linear-gradient(135deg,var(--acc),var(--ac2))">저장</button>
       </div>
-      <div class="api-note">
-        📌 <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a> →
-        Get API key → Create API key (무료, 분당 15회 / 하루 1,500회)<br>
-        💡 YouTube API와 같은 Google Cloud 프로젝트 키를 사용해도 됩니다
-      </div>
-    </div>
-  </div>
-
-  <!-- Google OAuth 로그인 -->
-  <div class="oauth-box" id="oauthBox">
-    <div class="oauth-head">
-      <div class="oauth-info">
-        <div class="oauth-avatar" id="oauthAvatar">🔓</div>
-        <div>
-          <div class="oauth-name" id="oauthName">Google 계정 미연결</div>
-          <div class="oauth-email" id="oauthEmail">로그인하면 YouTube에 직접 댓글을 게시할 수 있습니다</div>
-          <div id="oauthFileWarning" style="display:none;margin-top:6px;padding:8px 12px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:8px;font-size:11px;color:var(--gold);line-height:1.7">
-            ⚠️ <strong>file:// 로 열면 Google 로그인이 차단됩니다.</strong><br>
-            아래 방법으로 로컬 서버를 실행해 주세요:<br>
-            <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-size:11px">
-            Windows: 이 파일이 있는 폴더에서 CMD 열고 →</code><br>
-            <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-size:11px;user-select:all">
-            python -m http.server 8080</code><br>
-            그 다음 브라우저에서 
-            <a href="http://localhost:8080" target="_blank" style="color:var(--blue)">http://localhost:8080</a>
-            으로 접속 후 파일 클릭<br>
-            <span style="color:var(--text2)">(Python 없으면: VS Code Live Server 확장 프로그램 사용)</span>
-          </div>
-        </div>
-      </div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <button class="google-btn" id="googleLoginBtn" onclick="googleLogin()">
-          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-          Google 로그인
-        </button>
-        <button class="signout-btn" id="googleSignoutBtn" style="display:none" onclick="googleSignout()">로그아웃</button>
-      </div>
+      <div class="api-note">📌 <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a> → Get API key → Create API key (무료, 하루 1,500회)</div>
     </div>
   </div>
 
   <div style="margin-bottom:22px"></div>
 
-  <!-- Mode tabs -->
-  <div class="mtabs">
-    <button class="mtab active" onclick="switchMode('url')">🔗 유튜브 링크로 불러오기</button>
-    <button class="mtab" onclick="switchMode('manual')">✍️ 직접 입력</button>
+  <!-- 모드 탭 -->
+  <div class="tabs">
+    <button class="tab on" id="tab-url" onclick="switchMode('url')">🔗 유튜브 링크로 불러오기</button>
+    <button class="tab" id="tab-manual" onclick="switchMode('manual')">✍️ 직접 입력</button>
   </div>
 
-  <!-- URL mode -->
-  <div class="mpanel active" id="urlMode">
+  <!-- URL 모드 -->
+  <div class="panel on" id="panel-url">
     <div class="slabel">📎 유튜브 영상 링크</div>
     <div class="url-row">
-      <input type="text" id="videoUrl" placeholder="https://www.youtube.com/watch?v=... 또는 https://youtu.be/...">
-      <button class="fetch-btn" id="fetchBtn" onclick="fetchVideo()">📥 불러오기</button>
+      <input type="text" id="vidUrl" placeholder="https://www.youtube.com/watch?v=... 또는 https://youtu.be/...">
+      <button class="fetch-btn" id="fetchBtn" onclick="fetchVid()">📥 불러오기</button>
     </div>
-    <div class="fstatus" id="fstatus">
-      <div class="mspin"></div>
-      <span id="fstatusText">영상 정보를 불러오는 중...</span>
-    </div>
+    <div class="fst" id="fst"><div class="mspin"></div><span id="fstTxt">불러오는 중...</span></div>
   </div>
 
-  <!-- Manual mode -->
-  <div class="mpanel" id="manualMode">
+  <!-- 직접 입력 모드 -->
+  <div class="panel" id="panel-manual">
     <div class="slabel">✍️ 직접 입력</div>
     <div class="input-grid">
       <div>
-        <label class="ilabel">📹 영상 대본 / 핵심 내용</label>
-        <textarea id="mScript" style="min-height:130px" placeholder="영상의 핵심 내용을 간단히 요약해 주세요..."></textarea>
+        <label class="field" style="display:block">
+          <span style="font-size:12px;font-weight:700;color:var(--tx2);display:block;margin-bottom:8px">📹 영상 대본 / 핵심 내용</span>
+          <textarea id="mScript" style="min-height:130px" placeholder="영상의 핵심 내용을 요약해 주세요..."></textarea>
+        </label>
       </div>
       <div>
-        <label class="ilabel">💬 시청자 댓글</label>
-        <textarea id="mComment" style="min-height:130px" placeholder="대댓글을 달 댓글을 입력하세요..."></textarea>
+        <label class="field" style="display:block">
+          <span style="font-size:12px;font-weight:700;color:var(--tx2);display:block;margin-bottom:8px">💬 시청자 댓글</span>
+          <textarea id="mComment" style="min-height:130px" placeholder="대댓글을 달 댓글을 입력하세요..."></textarea>
+        </label>
       </div>
     </div>
   </div>
 
-  <!-- Video preview -->
+  <!-- 영상 미리보기 -->
   <div class="vprev" id="vprev">
-    <div class="vprev-inner">
-      <img id="vpThumb" class="vprev-thumb" src="" alt="">
-      <div class="vprev-info">
-        <div class="vprev-title" id="vpTitle"></div>
-        <div class="vprev-meta"><span id="vpViews"></span><span id="vpLikes"></span><span id="vpCmts"></span></div>
-        <div class="vprev-desc" id="vpDesc"></div>
+    <div class="vprev-in">
+      <img id="vthumb" class="vthumb" src="" alt="">
+      <div class="vinfo">
+        <div class="vtitle" id="vtitle"></div>
+        <div class="vmeta"><span id="vviews"></span><span id="vlikes"></span><span id="vcmts"></span></div>
+        <div class="vdesc" id="vdesc"></div>
       </div>
     </div>
   </div>
 
-  <!-- 빠른 붙여넣기 박스 (URL 모드에서도 사용 가능) -->
-  <div class="paste-box" id="pasteBox" style="display:none">
-    <div class="paste-label">
-      📋 댓글 직접 붙여넣기
-      <span class="paste-hint">— 유튜브에서 복사한 댓글을 바로 붙여넣으세요</span>
+  <!-- 댓글 목록 -->
+  <div class="cmts" id="cmts">
+    <div class="cmts-head">
+      <div class="slabel" style="margin-bottom:0">💬 댓글 선택 <span style="font-size:10px;color:var(--tx2);font-weight:400;text-transform:none;letter-spacing:0">클릭하면 대댓글 생성 준비 완료</span></div>
+      <span class="cbadge" id="cbadge">0개</span>
     </div>
-    <textarea class="paste-textarea" id="pasteTxt" placeholder="댓글 내용을 여기에 붙여넣으세요..."></textarea>
-    <div class="paste-actions">
-      <input type="text" class="paste-author" id="pasteAuthor" placeholder="작성자 닉네임 (선택)">
-      <button class="paste-go-btn" onclick="usePastedComment()">이 댓글로 분석 →</button>
+    <div class="filter-row">
+      <button class="fbtn on" id="fAll" onclick="setFilter('all')">📋 전체</button>
+      <button class="fbtn" id="fUnrep" onclick="setFilter('unrep')">💬 미답글만</button>
+      <button class="fbtn" id="fRep" onclick="setFilter('rep')">✅ 답글완료</button>
+      <span class="rcnt" id="rcnt"></span>
+      <button class="fbtn" onclick="togglePaste()" style="margin-left:auto">📋 직접 붙여넣기</button>
     </div>
-  </div>
-
-  <!-- Comments list -->
-  <div class="cmt-section" id="cmtSection">
-    <div class="cmt-head" style="flex-direction:column;align-items:stretch;gap:10px">
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div class="slabel" style="margin-bottom:0">💬 댓글 선택 <span style="font-size:10px;color:var(--text2);font-weight:400;text-transform:none;letter-spacing:0">클릭하면 바로 대댓글 생성 준비 완료</span></div>
-        <span class="cmt-badge" id="cmtBadge">0개</span>
-      </div>
-      <div class="filter-bar">
-        <button class="filter-btn active" id="fAll" onclick="setFilter('all')">📋 전체</button>
-        <button class="filter-btn" id="fUnreplied" onclick="setFilter('unreplied')">💬 미답글만</button>
-        <button class="filter-btn" id="fReplied" onclick="setFilter('replied')">✅ 답글완료</button>
-        <span class="replied-count" id="repliedCount"></span>
-        <button class="filter-btn" onclick="togglePasteBox()" style="margin-left:auto">📋 직접 붙여넣기</button>
+    <!-- 붙여넣기 박스 -->
+    <div class="pastebox" id="pastebox">
+      <div class="pastelbl">📋 댓글 직접 붙여넣기</div>
+      <textarea class="paste-ta" id="pasteTa" placeholder="유튜브에서 복사한 댓글을 여기에 붙여넣으세요..."></textarea>
+      <div class="paste-actions">
+        <input type="text" id="pasteAuthor" placeholder="작성자 닉네임 (선택)">
+        <button class="pastego" onclick="usePaste()">이 댓글로 생성 →</button>
       </div>
     </div>
-    <div class="cmt-list" id="cmtList"></div>
+    <div class="clist" id="clist"></div>
   </div>
 
-  <!-- Selected comment -->
-  <div class="sel-box" id="selBox">
-    <div class="sel-lbl">✅ 선택된 댓글</div>
-    <div class="sel-txt" id="selTxt"></div>
+  <!-- 선택된 댓글 -->
+  <div class="selbox" id="selbox">
+    <div class="sellbl">
+      <span>✅ 선택된 댓글</span>
+      <span id="selMark"></span>
+    </div>
+    <div class="seltxt" id="seltxt"></div>
   </div>
 
-  <!-- AI Analysis result -->
-  <div class="analysis-box" id="analysisBox">
-    <div class="analysis-head">🤖 AI 자동 분석 결과</div>
-    <div class="analysis-grid">
-      <div class="analysis-item"><span class="analysis-key">댓글 유형</span><span class="analysis-val" id="aType"></span></div>
-      <div class="analysis-item"><span class="analysis-key">감정 톤</span><span class="analysis-val" id="aTone"></span></div>
-      <div class="analysis-item"><span class="analysis-key">추천 말투</span><span class="analysis-val" id="aStyle"></span></div>
-      <div class="analysis-item"><span class="analysis-key">핵심 의도</span><span class="analysis-val" id="aIntent" style="font-size:12px;font-weight:500"></span></div>
-      
+  <!-- AI 분석 결과 -->
+  <div class="abox" id="abox">
+    <div class="ahead">🤖 AI 자동 분석 결과</div>
+    <div class="agrid">
+      <div class="aitem"><span class="akey">댓글 유형</span><span class="aval" id="aType"></span></div>
+      <div class="aitem"><span class="akey">감정 톤</span><span class="aval" id="aTone"></span></div>
+      <div class="aitem"><span class="akey">추천 말투</span><span class="aval" id="aStyle"></span></div>
     </div>
   </div>
 
-  <!-- Troll warning -->
-  <div class="troll-card" id="trollCard">
-    <div class="troll-title">⚠️ 악성 댓글 감지 — 3단계 대처법</div>
-    <div class="troll-guide" id="trollGuide"></div>
+  <!-- 악플 경고 -->
+  <div class="troll" id="trollBox">
+    <div class="troll-t">⚠️ 주의 댓글 감지</div>
+    <div class="troll-g" id="trollGuide"></div>
   </div>
 
-  <!-- Channel name -->
-  <div class="field">
+  <!-- 채널명 -->
+  <div class="chn">
     <label>✏️ 채널 이름 / 운영자 서명 (선택)</label>
-    <input type="text" id="channelName" placeholder="예) 시니어라디오, 박선생님 — 대댓글 끝에 자연스럽게 추가됩니다">
+    <input type="text" id="chnName" placeholder="예) 시니어라디오, 박선생님 — 대댓글 끝에 자연스럽게 추가됩니다">
   </div>
 
   <div class="msg err" id="errMsg"></div>
   <div class="msg info" id="infoMsg"></div>
 
-  <!-- ★ 공유 바 -->
-  <div class="share-bar" id="shareBar" style="display:none">
-    <span class="share-label">🎉 이 툴이 유용했다면 공유해 주세요!</span>
-    <button class="share-btn share-kakao" onclick="shareKakao()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.48 3 2 6.48 2 10.8c0 2.7 1.56 5.1 3.96 6.6L5 21l4.2-2.4c.9.24 1.84.36 2.8.36 5.52 0 10-3.48 10-7.8S17.52 3 12 3z"/></svg>
-      카카오톡 공유
-    </button>
-    <button class="share-btn share-twitter" onclick="shareTwitter()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      X 공유
-    </button>
-    <button class="share-btn share-link" onclick="copyPageLink()">
-      🔗 링크 복사
-    </button>
-  </div>
+  <!-- 생성 버튼 -->
+  <button class="genbtn" id="genBtn" onclick="generate()">
+    <span class="spin"></span>
+    <span id="genTxt">✨ 대댓글 생성하기</span>
+  </button>
 
-  <!-- ★ 일괄 생성 섹션 -->
-  <div class="bulk-section" id="bulkSection">
-    <div class="bulk-header" onclick="toggleBulkPanel()">
-      <div class="bulk-header-left">
-        <div>
-          <div class="bulk-header-title">⚡ 미답글 일괄 생성</div>
-          <div class="bulk-header-sub" id="bulkHeaderSub">미답글 댓글에 대한 대댓글을 한 번에 생성합니다</div>
-        </div>
-      </div>
-      <button class="bulk-start-btn" id="bulkStartBtn" onclick="event.stopPropagation();startBulkGenerate()">
-        <span class="spin"></span>
-        <span id="bulkStartTxt">🚀 일괄 생성 시작</span>
-      </button>
-    </div>
-
-    <!-- 진행 바 -->
-    <div class="bulk-progress-wrap" id="bulkProgressWrap">
-      <div class="bulk-progress-info">
-        <span><strong id="bulkDoneCount">0</strong> / <strong id="bulkTotalCount">0</strong> 완료</span>
-        <span id="bulkEta"></span>
-      </div>
-      <div class="bulk-bar-bg"><div class="bulk-bar-fill" id="bulkBarFill"></div></div>
-      <div class="bulk-log" id="bulkLog"></div>
-    </div>
-
-    <!-- 결과 테이블 -->
-    <div class="bulk-result-wrap" id="bulkResultWrap">
-      <div class="bulk-result-toolbar">
-        <div class="bulk-result-title">📋 생성 결과</div>
-        <button class="bulk-post-all-btn hidden" id="bulkPostAllBtn" onclick="postAllReplies()"><span class="spin"></span>▶ 전체 YouTube 게시</button>
-        <button class="bulk-copy-all-btn" onclick="copyAllReplies()">📄 전체 텍스트 복사</button>
-        <button class="bulk-export-btn" onclick="exportCSV()">⬇️ CSV 저장</button>
-      </div>
-      <div class="bulk-table-wrap">
-        <table class="bulk-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>작성자</th>
-              <th>원 댓글</th>
-              <th>유형</th>
-              <th>생성된 대댓글 (추천 1개)</th>
-              <th>상태 / 액션</th>
-            </tr>
-          </thead>
-          <tbody id="bulkTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div class="btn-row">
-    <button class="gen-btn" id="genBtn" onclick="generateReplies()" style="flex:1">
-      <span class="spin"></span><span id="genBtnTxt">✨ 대댓글 생성하기</span>
-    </button>
-  </div>
-
-  <!-- Results -->
+  <!-- 결과 -->
   <div class="results" id="results">
     <div class="results-head">
       <div class="results-title">💬 생성된 대댓글</div>
-      <button class="regen-btn" onclick="generateReplies()">🔄 다시 생성</button>
+      <button class="regen" onclick="generate()">🔄 다시 생성</button>
     </div>
-    <div class="reply-cards" id="replyCards"></div>
-
-    <!-- 공유 버튼 -->
-    <div class="share-bar" id="shareBar" style="display:none">
-      <span class="share-label">🔗 공유하기</span>
-      <button class="share-btn share-kakao" onclick="shareKakao()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.603 1.555 4.899 3.923 6.306L4.9 20.1l4.442-2.94A11.3 11.3 0 0012 18c5.523 0 10-3.477 10-7.5S17.523 3 12 3z"/></svg>
-        카카오톡 공유
-      </button>
-      <button class="share-btn share-twitter" onclick="shareTwitter()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        X(트위터)
-      </button>
-      <button class="share-btn share-link" id="copyLinkBtn" onclick="copyPageLink()">
-        🔗 링크 복사
-      </button>
+    <div class="rcards" id="rcards"></div>
+    <!-- 공유 바 -->
+    <div class="sharebar" id="sharebar">
+      <span class="shlabel">🎉 유용했다면 공유해 주세요!</span>
+      <button class="shbtn sh-k" onclick="shareKakao()">💬 카카오톡 공유</button>
+      <button class="shbtn sh-x" onclick="shareX()">𝕏 공유</button>
+      <button class="shbtn sh-l" onclick="copyLink()">🔗 링크 복사</button>
     </div>
   </div>
 
-</div>
-<script>
-const _d=(s)=>decodeURIComponent(escape(atob(s)));let ytApiKey=localStorage.getItem('yt_api_key')||'';let repliedSet=new Set(JSON.parse(localStorage.getItem('replied_ids')||'[]'));let currentFilter='all';let pasteBoxVisible=false;let _k9=localStorage.getItem('gemini_api_key')||'';let videoData=null,allComments=[],selIdx=-1;let analysisResult=null,currentMode='url';(function init(){if(ytApiKey){document.getElementById('ytKey').value=ytApiKey;markConnected('ytDot','ytBox','ytBody','ytTog');}else{document.getElementById('ytBody').classList.remove('hidden');document.getElementById('ytTog').textContent='▲ 접기';}
-if(_k9){document.getElementById('geminiKey').value=_k9;markConnected('geminiDot','geminiBox','geminiBody','geminiTog');}else{document.getElementById('geminiBody').classList.remove('hidden');document.getElementById('geminiTog').textContent='▲ 접기';}})();function markConnected(dotId,boxId,bodyId,togId){document.getElementById(dotId).classList.add('on');document.getElementById(boxId).classList.add('connected');document.getElementById(bodyId).classList.add('hidden');document.getElementById(togId).textContent='▼ 펼치기';}
-function tog(bodyId,togId,dotId,boxId){const b=document.getElementById(bodyId),t=document.getElementById(togId);t.textContent=b.classList.toggle('hidden')?'▼ 펼치기':'▲ 접기';}
-function saveYtKey(){const k=document.getElementById('ytKey').value.trim();if(!k){showErr('YouTube API 키를 입력해 주세요.');return;}
-ytApiKey=k;localStorage.setItem('yt_api_key',k);markConnected('ytDot','ytBox','ytBody','ytTog');showInfo('✅ YouTube API 키가 저장되었습니다!');}
-function saveGeminiKey(){const k=document.getElementById('geminiKey').value.trim();if(!k){showErr('Gemini API 키를 입력해 주세요.');return;}
-_k9=k;localStorage.setItem('gemini_api_key',k);markConnected('geminiDot','geminiBox','geminiBody','geminiTog');showInfo('✅ Gemini API 키가 저장되었습니다!');}
-function switchMode(m){currentMode=m;document.querySelectorAll('.mtab').forEach((t,i)=>t.classList.toggle('active',(i===0&&m==='url')||(i===1&&m==='manual')));document.getElementById('urlMode').classList.toggle('active',m==='url');document.getElementById('manualMode').classList.toggle('active',m==='manual');if(m==='manual'){['vprev','cmtSection','selBox'].forEach(id=>document.getElementById(id).classList.remove('on'));document.getElementById('pasteBox').style.display='none';pasteBoxVisible=false;pasteMode=false;resetAnalysis();}}
-function vidId(url){const ps=[/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/];for(const p of ps){const m=url.match(p);if(m)return m[1];}return null;}
-function fmtN(n){if(!n)return'0';n=parseInt(n);if(n>=10000)return Math.floor(n/10000)+'만';if(n>=1000)return(n/1000).toFixed(1)+'K';return n.toString();}
-async function fetchVideo(){if(!ytApiKey){showErr('먼저 YouTube API 키를 설정해 주세요.');document.getElementById('ytBody').classList.remove('hidden');document.getElementById('ytTog').textContent='▲ 접기';return;}
-const url=document.getElementById('videoUrl').value.trim();if(!url){showErr('유튜브 링크를 입력해 주세요.');return;}
-const vid=vidId(url);if(!vid){showErr('유효한 유튜브 링크가 아닙니다.');return;}
-clearMsgs();resetAnalysis();document.getElementById('fetchBtn').disabled=true;setFS(true,'영상 정보를 불러오는 중...');try{const vj=await(await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${vid}&key=${ytApiKey}`)).json();if(vj.error)throw new Error(vj.error.message);if(!vj.items?.length)throw new Error('영상을 찾을 수 없습니다.');const{snippet:sn,statistics:st}=vj.items[0];videoData={videoId:vid,title:sn.title,description:(sn.description||'').substring(0,800),thumbnail:sn.thumbnails?.medium?.url||'',views:st.viewCount,likes:st.likeCount,commentCount:st.commentCount};document.getElementById('vpThumb').src=videoData.thumbnail;document.getElementById('vpTitle').textContent=videoData.title;document.getElementById('vpViews').textContent=`👁 ${fmtN(videoData.views)}회`;document.getElementById('vpLikes').textContent=`👍 ${fmtN(videoData.likes)}`;document.getElementById('vpCmts').textContent=`💬 ${fmtN(videoData.commentCount)}개`;document.getElementById('vpDesc').textContent=videoData.description;document.getElementById('vprev').classList.add('on');setFS(true,'미답글 댓글 수집 중...');allComments=await _fetchUnreplied(vid);selIdx=-1;document.getElementById('selBox').classList.remove('on');renderCmts();setFS(false);const unrep=allComments.length;showInfo(`✅ "${videoData.title}" — 미답글 ${allComments.length}개 수집 완료! 댓글을 클릭하거나 ⚡ 일괄 생성으로 한 번에 처리하세요.`);document.getElementById('bulkSection').classList.add('on');document.getElementById('bulkHeaderSub').textContent=`미답글 ${unrep}개 — 한 번에 대댓글을 생성합니다`;}catch(e){setFS(false);showErr('불러오기 실패: '+e.message);}
-finally{document.getElementById('fetchBtn').disabled=false;}}
-function setFS(on,txt){const el=document.getElementById('fstatus');el.classList.toggle('on',on);if(txt)document.getElementById('fstatusText').textContent=txt;}
-function renderCmts(){const repliedCount=allComments.filter(c=>repliedSet.has(c.id)).length;document.getElementById('cmtBadge').textContent=allComments.length+'개';document.getElementById('repliedCount').textContent=`답글완료 ${repliedCount}개 / 미답글 ${allComments.length-repliedCount}개`;let list=allComments.map((c,i)=>({...c,idx:i}));if(currentFilter==='unreplied')list=list.filter(c=>!repliedSet.has(c.id));if(currentFilter==='replied')list=list.filter(c=>repliedSet.has(c.id));document.getElementById('cmtList').innerHTML=list.length?list.map(c=>`
-    <div class="cmt-item${repliedSet.has(c.id)?' replied':''}" id="ci${c.idx}" onclick="selectCmt(${c.idx})">
-      <div class="cmt-author">
-        ${esc(c.author)}
-        <span class="cmt-likes">👍${c.likes||0}</span>
-        ${repliedSet.has(c.id)?'<span class="replied-badge">✓ 답글완료</span>':''}
+  <!-- 일괄 생성 섹션 -->
+  <div class="bulk" id="bulkSec">
+    <div class="bulk-head">
+      <div>
+        <div class="bulk-title">⚡ 미답글 일괄 생성</div>
+        <div class="bulk-sub" id="bulkSub">미답글 댓글을 한 번에 처리합니다</div>
       </div>
-      <div class="cmt-text">${esc(c.text)}</div>
-    </div>`).join(''):`<div style="padding:20px;text-align:center;color:var(--text2);font-size:13px">해당 댓글이 없습니다</div>`;document.getElementById('cmtSection').classList.add('on');}
-function setFilter(f){currentFilter=f;['fAll','fUnreplied','fReplied'].forEach(id=>document.getElementById(id).classList.remove('active'));const map={all:'fAll',unreplied:'fUnreplied',replied:'fReplied'};document.getElementById(map[f]).classList.add('active');renderCmts();}
-function selectCmt(i){document.querySelectorAll('.cmt-item').forEach(e=>e.classList.remove('sel'));document.getElementById('ci'+i).classList.add('sel');selIdx=i;pasteMode=false;document.getElementById('selTxt').textContent=allComments[i].text;const isReplied=repliedSet.has(allComments[i].id);document.getElementById('selBox').innerHTML=`
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-      <div class="sel-lbl">✅ 선택된 댓글</div>
-      <button onclick="toggleReplied(${i})" style="padding:4px 12px;border-radius:6px;border:1px solid ${isReplied?'var(--green)':'var(--border)'};background:${isReplied?'rgba(16,185,129,0.12)':'transparent'};color:${isReplied?'var(--green)':'var(--text2)'};font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .18s" id="replyMark">
-        ${isReplied?'✓ 답글완료':'○ 답글완료 표시'}
+      <button class="bulk-start" id="bulkBtn" onclick="startBulk()">
+        <span class="spin"></span><span id="bulkTxt">🚀 일괄 생성 시작</span>
       </button>
     </div>
-    <div class="sel-txt">${esc(allComments[i].text)}</div>`;document.getElementById('selBox').classList.add('on');resetAnalysis();_a1();}
-function toggleReplied(i){const id=allComments[i].id;if(repliedSet.has(id))repliedSet.delete(id);else repliedSet.add(id);localStorage.setItem('replied_ids',JSON.stringify([...repliedSet]));selectCmt(i);renderCmts();}
-let pasteMode=false;let pasteComment='';let pasteAuthorName='';function togglePasteBox(){pasteBoxVisible=!pasteBoxVisible;document.getElementById('pasteBox').style.display=pasteBoxVisible?'block':'none';if(pasteBoxVisible)document.getElementById('pasteTxt').focus();}
-function usePastedComment(){const txt=document.getElementById('pasteTxt').value.trim();if(!txt){showErr('댓글 내용을 입력해 주세요.');return;}
-pasteComment=txt;pasteAuthorName=document.getElementById('pasteAuthor').value.trim();pasteMode=true;document.getElementById('selBox').innerHTML=`
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-      <div class="sel-lbl">📋 붙여넣기 댓글</div>
-      <span style="font-size:11px;color:var(--accent2)">${pasteAuthorName||'닉네임 미입력'}</span>
+    <div class="prog" id="prog">
+      <div class="prog-info"><span><strong id="pdone">0</strong> / <strong id="ptotal">0</strong> 완료</span><span id="peta"></span></div>
+      <div class="prog-bg"><div class="prog-fill" id="pfill"></div></div>
+      <div class="prog-log" id="plog"></div>
     </div>
-    <div class="sel-txt">${esc(txt)}</div>`;document.getElementById('selBox').classList.add('on');resetAnalysis();_a1();pasteBoxVisible=false;document.getElementById('pasteBox').style.display='none';}
-document.getElementById('videoUrl').addEventListener('keydown',e=>{if(e.key==='Enter')fetchVideo();});async function _g0(prompt){if(!_k9)throw new Error('Gemini API 키를 먼저 설정해 주세요.');const url=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${_k9}`;const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.7,maxOutputTokens:3000,responseMimeType:'application/json'}})});const data=await res.json();if(data.error)throw new Error(data.error.message);return data.candidates?.[0]?.content?.parts?.[0]?.text||'';}
-function _j3(raw){let s=raw.replace(/```json/gi,'').replace(/```/g,'').trim();const start=s.search(/[{[]/);
-  const lastCurly = s.lastIndexOf('}');
-  const lastBracket = s.lastIndexOf(']');
-  const end = Math.max(lastCurly, lastBracket);
-  if (start === -1 || end === -1) throw new Error('응답에서 JSON을 찾을 수 없습니다.');
-  return s.slice(start, end + 1);
-}
-
-//=====Analysis=====function resetAnalysis(){analysisResult=null;document.getElementById('analysisBox').classList.remove('on');document.getElementById('trollCard').classList.remove('on');}
-async function _a1(){const comment=getComment();if(!comment){showErr('먼저 댓글을 선택하거나 입력해 주세요.');return;}
-if(!_k9){showErr('Gemini API 키를 먼저 설정해 주세요.');document.getElementById('geminiBody').classList.remove('hidden');document.getElementById('geminiTog').textContent='▲ 접기';return;}
-clearMsgs();const btn=document.getElementById('analyzeBtn');btn.classList.add('loading');btn.disabled=true;try{const raw=await _g0(`당신은 유튜브 댓글 분석 전문가입니다. 아래 댓글을 C.A.R.E 공식 관점에서 분석하고 JSON만 반환하세요 (마크다운 없이).
-
-댓글: "${comment}"
-
-반환 JSON 형식 (한국어):
-{
-  "type": "general|question|praise|complaint|feedback|troll",
-  "typeLabel": "일반댓글|질문|칭찬|불만|건설적피드백|악성댓글",
-  "emotion": "긍정|중립|부정|혼합",
-  "emotionEmoji": "😊",
-  "intent": "핵심 의도 20자 이내",
-  "recommendedStyle": "따뜻한 존댓말|정중한 격식체|친근한 반말 섞기|어르신 친화형|전문가 스타일",
-  "styleReason": "이유 15자 이내",
-  "careStrategy": {
-    "C": "전략 30자 이내",
-    "A": "전략 30자 이내",
-    "R": "전략 30자 이내",
-    "E": "전략 30자 이내"
-  },
-  "isTroll": false,
-  "trollLevel": 0,
-  "trollGuide": "악플일 경우 대처 가이드"
-}`);const clean=_j3(raw);analysisResult=JSON.parse(clean);renderAnalysis(analysisResult);}catch(e){showErr('분석 오류: '+e.message);}
-finally{btn.classList.remove('loading');btn.disabled=false;}}
-function renderAnalysis(a){const tMap={general:'type-general',question:'type-question',praise:'type-praise',complaint:'type-complaint',feedback:'type-feedback',troll:'type-troll'};document.getElementById('aType').innerHTML=`<span class="type-badge ${tMap[a.type]||'type-general'}">${a.emotionEmoji} ${a.typeLabel}</span>`;document.getElementById('aTone').innerHTML=`<span style="color:${a.emotion==='긍정'?'var(--green)':a.emotion==='부정'?'var(--red)':'var(--text2)'}">${a.emotion}</span>`;document.getElementById('aStyle').innerHTML=`<span class="tone-badge">🎭 ${a.recommendedStyle}</span><span style="font-size:10px;color:var(--text2);margin-left:6px">${a.styleReason}</span>`;document.getElementById('aIntent').textContent=a.intent;document.getElementById('aCareSteps').innerHTML=['C','A','R','E'].map((l,i)=>`
-    <span class="care-step step-${l}"><strong>${l}</strong> ${a.careStrategy[l]}</span>
-    ${i<3?'<span class="step-arrow">→</span>':''}`).join('');const box=document.getElementById('analysisBox');box.style.borderColor=a.isTroll?'rgba(244,63,94,0.3)':'rgba(108,99,255,0.2)';box.style.background=a.isTroll?'rgba(244,63,94,0.05)':'rgba(108,99,255,0.05)';box.classList.add('on');if(a.isTroll&&a.trollLevel>=2){document.getElementById('trollGuide').innerHTML=a.trollGuide||`
-      <strong>악성 댓글 3단계 대처:</strong><br>
-      1단계 — 정중한 답변 1회만 달기<br>
-      2단계 — 추가 공격 시 댓글 숨기기<br>
-      3단계 — 반복 공격 시 차단 + 신고`;document.getElementById('trollCard').classList.add('on');}}
-async function _r2(){const comment=getComment(),script=getScript();if(!comment){showErr('댓글을 선택하거나 입력해 주세요.');return;}
-if(!script){showErr(currentMode==='url'?'영상을 먼저 불러와 주세요.':'영상 대본 내용을 입력해 주세요.');return;}
-if(!_k9){showErr('Gemini API 키를 먼저 설정해 주세요.');document.getElementById('geminiBody').classList.remove('hidden');document.getElementById('geminiTog').textContent='▲ 접기';return;}
-clearMsgs();if(!analysisResult){await _a1();if(!analysisResult)return;}
-const a=analysisResult,channelName=document.getElementById('channelName').value.trim();const btn=document.getElementById('genBtn');btn.classList.add('loading');btn.disabled=true;document.getElementById('genBtnTxt').textContent='생성 중...';const trollNote=a.isTroll?`\n※ 이 댓글은 ${a.typeLabel}(악성도 ${a.trollLevel}/3)입니다.\n- 악성도 1: 건설적 비판 → 감사+개선약속\n- 악성도 2: 단순 불만 → 공감+심화 콘텐츠 예고\n- 악성도 3: 악의적 공격 → 짧고 품위 있는 1회 답변`:'';const prompt=`당신은 한국 시니어 유튜브 채널 전문 댓글 관리자입니다.
-C.A.R.E 공식으로 시청자를 찐팬으로 만드는 전략적 대댓글을 작성합니다.
-대상: 50~80대 시청자 / 채널: 감성드라마·생활정보·건강·인생이야기
-말투: ${a.recommendedStyle} (${a.styleReason})
-${channelName?`채널/운영자:${channelName}— 마지막에 자연스럽게 서명 추가`:''}
-길이: 4~6문장. 반드시 한국어.
-품질 기준:
-- 댓글 작성자의 닉네임을 반드시 첫 문장에 포함
-- 댓글 내용의 핵심 키워드를 직접 언급 (복붙티 제거)
-- 마지막 문장은 질문형 또는 다음 영상 유도로 마무리
-- 이모지 1~2개 자연스럽게 포함
-- 절대 AI가 쓴 것처럼 느껴지지 않게 자연스러운 한국어
-${trollNote}
-
-C.A.R.E 공식 적용:
-C단계: ${a.careStrategy.C} — 개인적 연결
-A단계: ${a.careStrategy.A} — 진심 어린 감사 표현
-R단계: ${a.careStrategy.R} — 답변과 추가 가치 제공
-E단계: ${a.careStrategy.E} — 지속적 관계 유도
-
-[영상 내용]
-${script}
-
-[시청자 댓글 - 유형: ${a.typeLabel}, 감정: ${a.emotion}]
-${comment}
-
-대댓글 3가지 버전을 작성하세요. 같은 C.A.R.E 공식이되 표현·강조·어투를 다르게 하세요.
-닉네임이 있으면 반드시 "○○님!" 으로 시작하세요.
-
-JSON만 반환 (마크다운 없이):
-{"replies":[
-  {"label":"감성 연결형","tag":"warm","careHighlight":"C+A","text":"대댓글 내용..."},
-  {"label":"가치 제공형","tag":"pro","careHighlight":"R","text":"대댓글 내용..."},
-  {"label":"관계 심화형","tag":"engage","careHighlight":"E","text":"대댓글 내용..."}
-]}`;try{const raw=await _g0(prompt);const clean=_j3(raw);const parsed=JSON.parse(clean);renderReplies(parsed.replies,a);if(currentMode==='url'&&!pasteMode&&selIdx>=0&&allComments[selIdx]?.id){repliedSet.add(allComments[selIdx].id);localStorage.setItem('replied_ids',JSON.stringify([...repliedSet]));renderCmts();}}catch(e){showErr('생성 오류: '+e.message);}
-finally{btn.classList.remove('loading');btn.disabled=false;document.getElementById('genBtnTxt').textContent='✨ 대댓글 생성하기';}}
-function renderReplies(replies,a){const cColors={C:'var(--C)',A:'var(--A)',R:'var(--R)',E:'var(--E)'};const tColors={warm:'var(--C)',pro:'var(--R)',engage:'var(--E)'};document.getElementById('replyCards').innerHTML=replies.map((r,i)=>{const careTag=(r.careHighlight||'C').split('+').map(l=>`<span class="care-mini" style="background:${cColors[l.trim()]||'var(--C)'}22;color:${cColors[l.trim()]||'var(--C)'};border:1px solid ${cColors[l.trim()]||'var(--C)'}33">${l.trim()}</span>`).join('');const tagColor=tColors[r.tag]||'var(--C)';return`<div class="rcard" style="animation-delay:${i*.1}s">
-      <div class="rcard-meta">
-        <span class="rcard-tag" style="background:${tagColor}22;color:${tagColor};border:1px solid ${tagColor}44">${r.label}</span>
-        <div class="rcard-care">C.A.R.E: ${careTag} 강조</div>
+    <div class="bulk-res" id="bulkRes">
+      <div class="bulk-toolbar">
+        <div class="bulk-ttl">📋 생성 결과</div>
+        <button class="tbtn tbtn-pur" onclick="copyAll()">📄 전체 복사</button>
+        <button class="tbtn tbtn-grn" onclick="exportCSV()">⬇️ CSV 저장</button>
       </div>
-      <div class="rcard-text" id="rt${i}">${esc(r.text)}</div>
-      <div class="rcard-actions">
-        <button class="cbtn" id="cb${i}" onclick="copyR(${i})">📋 복사</button>
-        <button class="cbtn" onclick="selAll('rt${i}')">🖱️ 전체선택</button>
-        <button class="post-btn" id="pb${i}" onclick="postSingleReply(${i})" style="display:none">▶ YouTube 게시</button>
+      <div class="btbl-wrap">
+        <table class="btbl"><thead><tr><th>#</th><th>작성자</th><th>원 댓글</th><th>생성된 대댓글</th><th>액션</th></tr></thead>
+        <tbody id="btbody"></tbody></table>
       </div>
-    </div>`;}).join('');const sec=document.getElementById('results');sec.classList.add('on');setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),100);showShareBar();}
-function getComment(){if(currentMode==='url'){if(pasteMode)return pasteComment;return selIdx>=0?allComments[selIdx].text:'';}
-return document.getElementById('mComment').value.trim();}
-function getScript(){if(currentMode==='url')return videoData?`영상 제목: ${videoData.title}\n\n설명:\n${videoData.description}`:'';return document.getElementById('mScript').value.trim();}
-async function copyR(i){const btn=document.getElementById('cb'+i);try{await navigator.clipboard.writeText(document.getElementById('rt'+i).innerText);btn.textContent='✅ 복사됨!';btn.classList.add('ok');setTimeout(()=>{btn.textContent='📋 복사';btn.classList.remove('ok');},2000);}catch{selAll('rt'+i);}}
-function selAll(id){const r=document.createRange();r.selectNodeContents(document.getElementById(id));window.getSelection().removeAllRanges();window.getSelection().addRange(r);}
-function showErr(m){const e=document.getElementById('errMsg');e.textContent='⚠️ '+m;e.classList.add('on');}
-function showInfo(m){const e=document.getElementById('infoMsg');e.textContent=m;e.classList.add('on');}
-function clearMsgs(){document.getElementById('errMsg').classList.remove('on');document.getElementById('infoMsg').classList.remove('on');}
-function esc(t){return(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-(function checkProtocol(){if(window.location.protocol==='file:'){const w=document.getElementById('oauthFileWarning');if(w)w.style.display='block';const btn=document.getElementById('googleLoginBtn');if(btn){btn.title='file://에서는 Google 로그인이 차단됩니다. 로컬 서버를 사용해 주세요.';btn.style.opacity='0.5';btn.onclick=(e)=>{e.preventDefault();document.getElementById('oauthFileWarning').style.display='block';document.getElementById('oauthFileWarning').scrollIntoView({behavior:'smooth'});showErr('Google 로그인은 http://localhost 에서만 작동합니다. 위 안내를 따라주세요.');};}}})();let aTimer;document.getElementById('mComment').addEventListener('input',()=>{clearTimeout(aTimer);resetAnalysis();aTimer=setTimeout(()=>{if(document.getElementById('mComment').value.trim().length>10)_a1();},1200);});let bulkResults=[];let bulkRunning=false;function toggleBulkPanel(){const sec=document.getElementById('bulkSection');}
-async function _b4(){if(!videoData){showErr('먼저 유튜브 영상을 불러와 주세요.');return;}
-if(!_k9){showErr('Gemini API 키를 먼저 설정해 주세요.');return;}
-if(bulkRunning)return;const targets=allComments.filter(c=>!repliedSet.has(c.id));if(!targets.length){showErr('미답글 댓글이 없습니다. 필터를 확인해 주세요.');return;}
-const channelName=document.getElementById('channelName').value.trim();const script=getScript();bulkRunning=true;bulkResults=[];const btn=document.getElementById('bulkStartBtn');btn.classList.add('loading');btn.disabled=true;document.getElementById('bulkStartTxt').textContent='생성 중...';document.getElementById('bulkProgressWrap').classList.add('on');document.getElementById('bulkResultWrap').classList.remove('on');document.getElementById('bulkTotalCount').textContent=targets.length;document.getElementById('bulkDoneCount').textContent='0';document.getElementById('bulkBarFill').style.width='0%';const startTime=Date.now();for(let i=0;i<targets.length;i++){const cmt=targets[i];const log=document.getElementById('bulkLog');log.textContent=`처리 중: @${cmt.author} 의 댓글... (${i+1}/${targets.length})`;try{const analysisRaw=await _g0(`유튜브 댓글을 C.A.R.E 공식으로 분석하고 JSON만 반환하세요.
-댓글: "${cmt.text.substring(0,300)}"
-{"type":"general|question|praise|complaint|feedback|troll","typeLabel":"일반댓글|질문|칭찬|불만|건설적피드백|악성댓글","emotion":"긍정|중립|부정|혼합","emotionEmoji":"😊","intent":"20자이내","recommendedStyle":"따뜻한 존댓말|정중한 격식체|친근한 반말 섞기|어르신 친화형|전문가 스타일","styleReason":"15자이내","careStrategy":{"C":"30자이내","A":"30자이내","R":"30자이내","E":"30자이내"},"isTroll":false,"trollLevel":0,"trollGuide":""}`);const a=JSON.parse(_j3(analysisRaw));const trollNote=a.isTroll?`악성도${a.trollLevel}: 짧고 품위있는 1회 답변`:'';const replyRaw=await _g0(`한국 시니어 유튜브 채널 전문 댓글 관리자. C.A.R.E 공식으로 대댓글 1개 작성.
-말투:${a.recommendedStyle} / 길이:3~4문장 / 한국어 ${trollNote}
-${channelName?'채널:'+channelName:''}
-C:${a.careStrategy.C} A:${a.careStrategy.A} R:${a.careStrategy.R} E:${a.careStrategy.E}
-[영상]${script.substring(0,400)}
-[댓글 @${cmt.author}]${cmt.text.substring(0,200)}
-닉네임 있으면 "○○님!"으로 시작. JSON만: {"reply":"대댓글내용"}`);const rep=JSON.parse(_j3(replyRaw));bulkResults.push({cmt,analysis:a,reply:rep.reply||'',status:'done'});if(cmt.id){repliedSet.add(cmt.id);localStorage.setItem('replied_ids',JSON.stringify([...repliedSet]));}}catch(e){bulkResults.push({cmt,analysis:null,reply:'오류: '+e.message,status:'error'});}
-const done=i+1;document.getElementById('bulkDoneCount').textContent=done;document.getElementById('bulkBarFill').style.width=(done/targets.length*100)+'%';const elapsed=(Date.now()-startTime)/1000;const eta=Math.round((elapsed/done)*(targets.length-done));document.getElementById('bulkEta').textContent=done<targets.length?`남은 시간 약 ${eta}초`:'완료!';if(i<targets.length-1)await sleep(800);}
-bulkRunning=false;btn.classList.remove('loading');btn.disabled=false;document.getElementById('bulkStartTxt').textContent='🔄 다시 생성';document.getElementById('bulkLog').textContent=`✅ 총 ${bulkResults.filter(r=>r.status==='done').length}개 완료, ${bulkResults.filter(r=>r.status==='error').length}개 오류`;_t5();renderCmts();}
-function _t5(){const tbody=document.getElementById('bulkTableBody');const tMap={general:'type-general',question:'type-question',praise:'type-praise',complaint:'type-complaint',feedback:'type-feedback',troll:'type-troll'};tbody.innerHTML=bulkResults.map((r,i)=>{const a=r.analysis;const isReplied=r.cmt.id&&repliedSet.has(r.cmt.id);return`<tr class="${r.status==='done'?'bulk-done':r.status==='error'?'bulk-error':''}" id="brow${i}">
-      <td class="bulk-num">${i+1}</td>
-      <td class="bulk-author-cell">@${esc(r.cmt.author)}<br><span style="color:var(--text2);font-weight:400;font-size:10px">👍${r.cmt.likes||0}</span></td>
-      <td class="bulk-comment-cell">${esc(r.cmt.text.substring(0,80))}${r.cmt.text.length>80?'…':''}</td>
-      <td class="bulk-type-cell">${a?`<span class="type-badge ${tMap[a.type]||'type-general'}"style="font-size:10px">${a.emotionEmoji}${a.typeLabel}</span>`:'—'}</td>
-      <td class="bulk-reply-cell"><div class="bulk-reply-text selectable" id="brt${i}">${esc(r.reply)}</div></td>
-      <td class="bulk-action-cell">
-        <span class="bulk-status-badge ${r.status==='done'?'bs-done':r.status==='error'?'bs-error':'bs-pending'}" style="margin-bottom:6px;display:inline-flex">
-          ${r.status==='done'?'✓ 생성완료':r.status==='error'?'✗ 오류':'⏳ 대기'}
-        </span><br>
-        ${r.status==='done'?`
-${_o10?`<button class="row-post-btn" id="bpost${i}" onclick="postBulkRow(${i})" ${r.posted?'disabled':''}>
-          ${r.posted?'✅ 게시됨':'▶ YouTube 게시'}
-        </button>`:''}<button class="row-copy-btn"id="bcp${i}"onclick="copyBulkRow(${i})">📋 복사</button><button class="row-mark-btn ${isReplied?'done':''}"id="bmk${i}"onclick="markBulkRow(${i})">${isReplied?'✓ 게시완료':'○ 게시완료'}</button>`:''}
-      </td>
-    </tr>`;}).join('');document.getElementById('bulkResultWrap').classList.add('on');document.getElementById('bulkHeaderSub').textContent=`${bulkResults.filter(r=>r.status==='done').length}개 생성 완료`;}
-async function copyBulkRow(i){const btn=document.getElementById('bcp'+i);try{await navigator.clipboard.writeText(document.getElementById('brt'+i).innerText);btn.textContent='✅ 복사됨!';btn.classList.add('ok');setTimeout(()=>{btn.textContent='📋 복사';btn.classList.remove('ok');},2000);}catch{selAll('brt'+i);}}
-function markBulkRow(i){const r=bulkResults[i];const id=r.cmt.id;const btn=document.getElementById('bmk'+i);if(repliedSet.has(id)){repliedSet.delete(id);btn.textContent='○ 게시완료';btn.classList.remove('done');}else{repliedSet.add(id);btn.textContent='✓ 게시완료';btn.classList.add('done');document.getElementById('brow'+i).classList.add('bulk-done');}
-localStorage.setItem('replied_ids',JSON.stringify([...repliedSet]));renderCmts();}
-function copyAllReplies(){const txt=bulkResults.filter(r=>r.status==='done').map((r,i)=>`[${i+1}] @${r.cmt.author}
-원댓글: ${r.cmt.text}
-대댓글: ${r.reply}`).join('\n\n---\n\n');navigator.clipboard.writeText(txt).then(()=>alert('전체 복사 완료!'));}
-function exportCSV(){const rows=[['번호','작성자','원댓글','댓글유형','생성된 대댓글','상태']];bulkResults.forEach((r,i)=>{rows.push([i+1,'@'+r.cmt.author,'"'+r.cmt.text.replace(/"/g,'""')+'"',r.analysis?.typeLabel||'','"'+(r.reply||'').replace(/"/g,'""')+'"',r.status==='done'?'완료':'오류']);});const csv='\uFEFF'+rows.map(r=>r.join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`대댓글_일괄생성_${new Date().toLocaleDateString('ko')}.csv`;a.click();}
-const _c7=atob('MTAxOTc3MjQ0MzAyNi11a3BmMm90dXRiaWpxdnVpczQ5amUydXVkZ2ZzOW5nbS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbQ==');const _s8='https://www.googleapis.com/auth/youtube.force-ssl';let _o10=null;let oauthUser=null;function googleLogin(){const client=google.accounts.oauth2.initTokenClient({client_id:_c7,scope:_s8,callback:(resp)=>{if(resp.error){showErr('Google 로그인 실패: '+resp.error);return;}
-_o10=resp.access_token;fetchGoogleProfile();},error_callback:(err)=>{showErr('Google 로그인 오류: '+(err.message||err.type||JSON.stringify(err)));}});client.requestAccessToken({prompt:'select_account'});}
-async function fetchGoogleProfile(){try{const res=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+_o10}});oauthUser=await res.json();updateOAuthUI(true);}catch(e){updateOAuthUI(false);showErr('Google 로그인 실패: '+e.message);}}
-function googleSignout(){_o10=null;oauthUser=null;updateOAuthUI(false);document.querySelectorAll('.post-btn').forEach(b=>b.style.display='none');document.getElementById('bulkPostAllBtn')?.classList.add('hidden');}
-function updateOAuthUI(signedIn){const box=document.getElementById('oauthBox');const loginBtn=document.getElementById('googleLoginBtn');const signoutBtn=document.getElementById('googleSignoutBtn');const avatar=document.getElementById('oauthAvatar');const name=document.getElementById('oauthName');const email=document.getElementById('oauthEmail');if(signedIn&&oauthUser){box.classList.add('signed-in');loginBtn.style.display='none';signoutBtn.style.display='block';avatar.innerHTML=oauthUser.picture?`<img src="${oauthUser.picture}" style="width:36px;height:36px;border-radius:50%;object-fit:cover">`:'✅';name.textContent=oauthUser.name||'Google 계정';email.textContent=(oauthUser.email||'')+' — YouTube 댓글 게시 가능';showInfo('✅ Google 로그인 성공! 이제 생성된 대댓글을 YouTube에 직접 게시할 수 있습니다.');document.querySelectorAll('.post-btn').forEach(b=>b.style.display='flex');document.getElementById('bulkPostAllBtn')?.classList.remove('hidden');}else{box.classList.remove('signed-in');loginBtn.style.display='flex';signoutBtn.style.display='none';avatar.innerHTML='🔓';name.textContent='Google 계정 미연결';email.textContent='로그인하면 YouTube에 직접 댓글을 게시할 수 있습니다';}}
-async function _p6(parentId,text){if(!_o10)throw new Error('Google 로그인이 필요합니다.');if(!videoData?.videoId)throw new Error('영상 정보가 없습니다.');const body={snippet:{parentId:parentId,textOriginal:text}};const res=await fetch('https://www.googleapis.com/youtube/v3/comments?part=snippet',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+_o10},body:JSON.stringify(body)});const data=await res.json();if(data.error)throw new Error(data.error.message);return data;}
-async function postSingleReply(i){if(!_o10){showErr('먼저 Google 로그인을 해주세요.');return;}
-const btn=document.getElementById('pb'+i);const txt=document.getElementById('rt'+i)?.innerText?.trim();if(!txt)return;const cmtId=(currentMode==='url'&&!pasteMode&&selIdx>=0)?allComments[selIdx]?.id:null;if(!cmtId){showErr('게시할 댓글 ID를 찾을 수 없습니다. 목록에서 댓글을 선택해 주세요.');return;}
-btn.disabled=true;btn.textContent='게시 중...';try{await _p6(cmtId,txt);btn.textContent='✅ 게시됨';btn.classList.add('posted');repliedSet.add(cmtId);localStorage.setItem('replied_ids',JSON.stringify([...repliedSet]));renderCmts();}catch(e){btn.disabled=false;btn.textContent='▶ YouTube 게시';showErr('게시 실패: '+e.message);}}
-async function postBulkRow(i){if(!_o10){showErr('먼저 Google 로그인을 해주세요.');return;}
-const r=bulkResults[i];if(!r||r.status!=='done'||!r.cmt.id)return;const btn=document.getElementById('bpost'+i);if(btn){btn.disabled=true;btn.textContent='게시 중...';}
-try{await _p6(r.cmt.id,r.reply);r.posted=true;if(btn){btn.textContent='✅ 게시됨';btn.classList.add('posted');}
-repliedSet.add(r.cmt.id);localStorage.setItem('replied_ids',JSON.stringify([...repliedSet]));renderCmts();}catch(e){if(btn){btn.disabled=false;btn.textContent='▶ 게시';}
-showErr('게시 실패 (#'+i+'): '+e.message);}}
-async function postAllReplies(){if(!_o10){showErr('먼저 Google 로그인을 해주세요.');return;}
-const btn=document.getElementById('bulkPostAllBtn');const pending=bulkResults.filter((r,i)=>r.status==='done'&&!r.posted&&r.cmt.id);if(!pending.length){showErr('게시할 항목이 없습니다.');return;}
-if(!confirm(`미게시 댓글 ${pending.length}개를 YouTube에 실제로 게시합니다.\n게시 후에는 취소할 수 없습니다. 계속하시겠습니까?`))return;btn.disabled=true;btn.querySelector('.spin').style.display='block';for(const r of pending){const idx=bulkResults.indexOf(r);await postBulkRow(idx);await sleep(1000);}
-btn.disabled=false;btn.querySelector('.spin').style.display='none';showInfo(`✅ 일괄 게시 완료!`);}
-const TUT_STEPS=[{icon:'🎬',title:'C.A.R.E 대댓글 생성기',desc:'유튜브 댓글에 <strong>전략적으로 답글</strong>을 달아 시청자를 <strong>찐팬</strong>으로 만드는 AI 도구입니다.'},{icon:'🔑',title:'STEP 1 — API 키 설정',desc:'상단의 <span class="tut-highlight">YouTube API 키</span>와 <span class="tut-highlight">Gemini API 키</span>를 입력하세요.<br>두 키 모두 <strong>Google 계정 하나</strong>로 무료 발급됩니다.'},{icon:'🔗',title:'STEP 2 — 영상 링크 붙여넣기',desc:'유튜브 영상 URL을 입력하고 <span class="tut-highlight">📥 불러오기</span>를 클릭하면<br>영상 정보와 댓글 30개가 자동으로 로드됩니다.'},{icon:'💬',title:'STEP 3 — 댓글 클릭 → AI 분석',desc:'대댓글을 달 댓글을 <strong>클릭</strong>하면 AI가 자동으로<br>댓글 유형·감정·말투를 분석합니다.'},{icon:'✨',title:'STEP 4 — 대댓글 생성!',desc:'<span class="tut-highlight">✨ 대댓글 생성하기</span> 버튼으로 C.A.R.E 공식 기반<br>최적화된 대댓글 3가지 버전이 완성됩니다!'},];let tutStep=0;function initTutorial(){if(localStorage.getItem('tut_done'))return;renderTutStep();}
-function renderTutStep(){const s=TUT_STEPS[tutStep];document.getElementById('tutIcon').textContent=s.icon;document.getElementById('tutTitle').textContent=s.title;document.getElementById('tutDesc').innerHTML=s.desc;document.getElementById('tutStepLabel').textContent=(tutStep+1)+' / '+TUT_STEPS.length;document.getElementById('tutNextBtn').textContent=tutStep===TUT_STEPS.length-1?'시작하기 🚀':'다음 →';document.getElementById('tutDots').innerHTML=TUT_STEPS.map((_,i)=>`<div class="tut-dot${i===tutStep?' active':''}"></div>`).join('');}
-function tutNext(){if(tutStep<TUT_STEPS.length-1){tutStep++;renderTutStep();}
-else closeTutorial();}
-function closeTutorial(){document.getElementById('tutOverlay').classList.add('hidden');localStorage.setItem('tut_done','1');}
-function openGuide(){document.getElementById('guideOverlay').classList.add('on');}
-function closeGuide(){document.getElementById('guideOverlay').classList.remove('on');}
-document.getElementById('guideOverlay').addEventListener('click',function(e){if(e.target===this)closeGuide();});const PAGE_URL='https://pyutyubeu88-commits.github.io/-/';const PAGE_TITLE='C.A.R.E 대댓글 생성기 — 유튜브 찐팬 만들기';function shareKakao(){const msg=encodeURIComponent(PAGE_TITLE+'\n'+PAGE_URL);if(/Android|iPhone/i.test(navigator.userAgent)){window.location.href='kakaolink://send?text='+msg;}else{window.open('https://story.kakao.com/share?url='+encodeURIComponent(PAGE_URL),'_blank','width=500,height=400');}}
-function shareTwitter(){const txt=encodeURIComponent('유튜브 댓글 관리가 이렇게 쉬워져도 되나요? 😮 C.A.R.E 공식으로 찐팬을 만드는 AI 대댓글 생성기!');window.open('https://twitter.com/intent/tweet?text='+txt+'&url='+encodeURIComponent(PAGE_URL),'_blank');}
-async function copyLink(){try{await navigator.clipboard.writeText(PAGE_URL);showInfo('🔗 링크가 복사되었습니다! 공유해 보세요 😊');}catch{prompt('아래 링크를 복사하세요:',PAGE_URL);}}
-function showShareBar(){document.getElementById('shareBar').style.display='flex';}
-initTutorial();function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-</script>
-
-
-
-
+    </div>
+  </div>
+</div>
 
 <script>
-// ===== 튜토리얼 =====
-var _tutSteps = [
-  { icon:'🎬', n:'1/5', title:'AI 자동 대댓글 생성기', desc:'유튜브 링크만 넣으면 AI가<br><strong>자동으로 최적의 대댓글</strong>을 생성합니다.<br><br>30초 안내로 바로 시작해 보세요! 😊' },
-  { icon:'🔑', n:'2/5', title:'STEP 1 — API 키 설정 (최초 1회)', desc:'Google 계정으로 키를 발급하세요.<br>한 번 입력하면 <strong>브라우저에 저장</strong>돼<br>다음부터는 바로 사용 가능합니다!' },
-  { icon:'🔗', n:'3/5', title:'STEP 2 — 유튜브 링크 붙여넣기', desc:'영상 링크를 붙여넣으면<br><strong>댓글 30개가 자동으로 불러와집니다.</strong><br><br>댓글을 클릭하면 AI 분석이 시작됩니다!' },
-  { icon:'✨', n:'4/5', title:'STEP 3 — AI 대댓글 자동 생성', desc:'AI가 댓글을 분석해<br><strong>최적화된 대댓글 3가지</strong>를 생성합니다.<br><br>복사하거나 YouTube에 바로 게시하세요!' },
-  { icon:'⚡', n:'5/5', title:'STEP 4 — 일괄 생성', desc:'미답글 전체를 <strong>한 번에 처리!</strong><br>댓글 30개 ≈ 약 2분 완료 🚀<br>CSV 저장 또는 일괄 게시도 가능합니다.' }
-];
-var _tutIdx = 0;
+// ===== 상태 =====
+var ytKey = localStorage.getItem('_yk') || '';
+var gmKey = localStorage.getItem('_gk') || '';
+var repliedSet = new Set(JSON.parse(localStorage.getItem('_rs') || '[]'));
+var allCmts = [], selIdx = -1, vidData = null;
+var curMode = 'url', curFilter = 'all';
+var analysis = null, pasteMode = false, pasteData = {text:'',author:''};
+var bulkResults = [], bulkRunning = false;
+const SITE_URL = 'https://pyutyubeu88-commits.github.io/-/';
 
-function _tutClose() {
-  var el = document.getElementById('_tutOv');
-  if (el) el.style.display = 'none';
-  try { localStorage.setItem('_tut_v2', '1'); } catch(e){}
+// ===== 초기화 =====
+(function init() {
+  if (ytKey) { document.getElementById('ytKey').value = ytKey; markOk('ytDot','ytCard','ytBody','ytTog'); }
+  else { document.getElementById('ytBody').classList.remove('hide'); document.getElementById('ytTog').textContent='▲ 접기'; }
+  if (gmKey) { document.getElementById('gmKey').value = gmKey; markOk('gmDot','gmCard','gmBody','gmTog'); }
+  else { document.getElementById('gmBody').classList.remove('hide'); document.getElementById('gmTog').textContent='▲ 접기'; }
+  if (!localStorage.getItem('_tdone')) setTimeout(startTut, 800);
+})();
+
+// ===== API 키 =====
+function markOk(dotId,cardId,bodyId,togId) {
+  document.getElementById(dotId).classList.add('on');
+  document.getElementById(cardId).classList.add('ok');
+  document.getElementById(bodyId).classList.add('hide');
+  document.getElementById(togId).textContent = '▼ 펼치기';
 }
-function _tutRender() {
-  var s = _tutSteps[_tutIdx];
-  var g = function(id){ return document.getElementById(id); };
-  if(g('_ti')) g('_ti').textContent = s.icon;
-  if(g('_tn')) g('_tn').textContent = s.n;
-  if(g('_tt')) g('_tt').textContent = s.title;
-  if(g('_td')) g('_td').innerHTML = s.desc;
-  var nb = g('_nb');
-  if(nb) nb.textContent = _tutIdx === _tutSteps.length-1 ? '시작하기 🚀' : '다음 →';
-  var dots = g('_dots');
-  if(dots) dots.innerHTML = _tutSteps.map(function(_,i){
-    return '<span style="display:inline-block;width:'+(i===_tutIdx?'22':'8')+'px;height:8px;border-radius:4px;margin:0 3px;background:'+(i===_tutIdx?'#6c63ff':'#252b3b')+';transition:all .3s"></span>';
-  }).join('');
+function toggleCard(bodyId,togId,dotId,cardId) {
+  var b=document.getElementById(bodyId), t=document.getElementById(togId);
+  t.textContent = b.classList.toggle('hide') ? '▼ 펼치기' : '▲ 접기';
 }
-function _tutNext() {
-  if (_tutIdx < _tutSteps.length - 1) { _tutIdx++; _tutRender(); }
-  else { _tutClose(); }
+function saveYt() {
+  var k=document.getElementById('ytKey').value.trim();
+  if(!k){showErr('YouTube API 키를 입력해 주세요.');return;}
+  ytKey=k; localStorage.setItem('_yk',k);
+  markOk('ytDot','ytCard','ytBody','ytTog');
+  showInfo('✅ YouTube API 키가 저장됐습니다!');
 }
-function _tutStart() {
-  _tutIdx = 0;
-  _tutRender();
-  var el = document.getElementById('_tutOv');
-  if(el) el.style.cssText = 'display:flex!important;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:99999;align-items:center;justify-content:center;padding:20px;';
+function saveGm() {
+  var k=document.getElementById('gmKey').value.trim();
+  if(!k){showErr('Gemini API 키를 입력해 주세요.');return;}
+  gmKey=k; localStorage.setItem('_gk',k);
+  markOk('gmDot','gmCard','gmBody','gmTog');
+  showInfo('✅ Gemini API 키가 저장됐습니다!');
 }
 
-// 전역 함수 덮어쓰기
-window.startTutorial = _tutStart;
-window.closeTutorial = _tutClose;
-window.tutNext = _tutNext;
-
-document.addEventListener('DOMContentLoaded', function() {
-  var sb = document.getElementById('_sb');
-  var nb = document.getElementById('_nb');
-  if(sb) sb.onclick = _tutClose;
-  if(nb) nb.onclick = _tutNext;
-  // 첫 방문 자동 실행
-  try {
-    if (!localStorage.getItem('_tut_v2')) { setTimeout(_tutStart, 600); }
-  } catch(e) { setTimeout(_tutStart, 600); }
-});
-</script>
-
-
-<script>
-// Google OAuth 안전 초기화
-document.addEventListener('DOMContentLoaded', function() {
-  // googleLogin 함수 안전 재정의
-  window.googleLogin = function() {
-    if (typeof google === 'undefined' || !google.accounts || !google.accounts.oauth2) {
-      showErr('Google 인증 라이브러리가 로드되지 않았습니다. 새로고침 후 다시 시도해 주세요.');
-      return;
-    }
-    try {
-      var clientId = document.querySelector('script[src*="gsi"]') ? 
-        (window._k9 || '') : '';
-      // _k9는 난독화된 변수명 — 직접 접근
-      var realClientId = '';
-      try { realClientId = _k9; } catch(e) {}
-      if (!realClientId) {
-        showErr('클라이언트 ID를 찾을 수 없습니다.');
-        return;
-      }
-      var scope = '';
-      try { scope = _s8; } catch(e) { scope = 'https://www.googleapis.com/auth/youtube.force-ssl'; }
-      
-      var client = google.accounts.oauth2.initTokenClient({
-        client_id: realClientId,
-        scope: scope,
-        callback: function(resp) {
-          if (resp.error) { showErr('Google 로그인 실패: ' + resp.error); return; }
-          try { _o10 = resp.access_token; } catch(e) {}
-          if (typeof fetchGoogleProfile === 'function') fetchGoogleProfile();
-        },
-        error_callback: function(err) {
-          showErr('Google 로그인 오류: ' + (err.message || err.type || JSON.stringify(err)));
-        }
-      });
-      client.requestAccessToken({ prompt: 'select_account' });
-    } catch(e) {
-      showErr('Google 로그인 오류: ' + e.message);
-    }
-  };
-});
-
-// ===== 미답글 댓글 페이지네이션 수집 (최대 100개) =====
-async function _fetchUnreplied(vid) {
-  const MAX = 100;
-  var collected = [];
-  var pageToken = '';
-  var page = 0;
-
-  while (collected.length < MAX) {
-    page++;
-    setFS(true, '미답글 댓글 수집 중... ' + collected.length + '개 (' + page + '페이지)');
-
-    var url = 'https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=' + vid + '&maxResults=100&order=time&key=' + ytApiKey;
-    if (pageToken) url += '&pageToken=' + pageToken;
-
-    var res = await fetch(url);
-    var json = await res.json();
-    if (json.error) throw new Error(json.error.message);
-    if (!json.items || json.items.length === 0) break;
-
-    for (var i = 0; i < json.items.length; i++) {
-      var item = json.items[i];
-      var s = item.snippet.topLevelComment.snippet;
-      var id = item.id;
-      // 이미 답글완료 표시된 것 제외
-      if (repliedSet.has(id)) continue;
-      collected.push({
-        id: id,
-        author: s.authorDisplayName,
-        text: s.textDisplay,
-        likes: s.likeCount,
-        hasOwnerReply: item.snippet.totalReplyCount > 0
-      });
-      if (collected.length >= MAX) break;
-    }
-
-    if (!json.nextPageToken || collected.length >= MAX) break;
-    pageToken = json.nextPageToken;
-    await new Promise(function(r){ setTimeout(r, 150); });
+// ===== 모드 전환 =====
+function switchMode(m) {
+  curMode = m;
+  document.getElementById('tab-url').classList.toggle('on', m==='url');
+  document.getElementById('tab-manual').classList.toggle('on', m==='manual');
+  document.getElementById('panel-url').classList.toggle('on', m==='url');
+  document.getElementById('panel-manual').classList.toggle('on', m==='manual');
+  if (m==='manual') {
+    ['vprev','cmts','selbox','abox','trollBox','bulkSec'].forEach(function(id){ document.getElementById(id).classList.remove('on'); });
+    resetAnalysis(); pasteMode=false;
   }
+}
 
+// ===== YouTube 불러오기 =====
+function vidId(url) {
+  var ps = [/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/, /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/];
+  for (var i=0;i<ps.length;i++) { var m=url.match(ps[i]); if(m) return m[1]; }
+  return null;
+}
+function fmtN(n) {
+  if(!n) return '0'; n=parseInt(n);
+  if(n>=10000) return Math.floor(n/10000)+'만';
+  if(n>=1000) return (n/1000).toFixed(1)+'K';
+  return n.toString();
+}
+async function fetchVid() {
+  if (!ytKey) { showErr('먼저 YouTube API 키를 설정해 주세요.'); document.getElementById('ytBody').classList.remove('hide'); return; }
+  var url = document.getElementById('vidUrl').value.trim();
+  if (!url) { showErr('유튜브 링크를 입력해 주세요.'); return; }
+  var vid = vidId(url);
+  if (!vid) { showErr('유효한 유튜브 링크가 아닙니다.'); return; }
+  clearMsgs(); resetAnalysis();
+  document.getElementById('fetchBtn').disabled = true;
+  setFS(true, '영상 정보를 불러오는 중...');
+  try {
+    var vj = await (await fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id='+vid+'&key='+ytKey)).json();
+    if (vj.error) throw new Error(vj.error.message);
+    if (!vj.items||!vj.items.length) throw new Error('영상을 찾을 수 없습니다.');
+    var sn=vj.items[0].snippet, st=vj.items[0].statistics;
+    vidData = {videoId:vid, title:sn.title, desc:(sn.description||'').substring(0,800), thumb:sn.thumbnails&&sn.thumbnails.medium?sn.thumbnails.medium.url:'', views:st.viewCount, likes:st.likeCount, cmtCount:st.commentCount};
+    document.getElementById('vthumb').src = vidData.thumb;
+    document.getElementById('vtitle').textContent = vidData.title;
+    document.getElementById('vviews').textContent = '👁 '+fmtN(vidData.views)+'회';
+    document.getElementById('vlikes').textContent = '👍 '+fmtN(vidData.likes);
+    document.getElementById('vcmts').textContent = '💬 '+fmtN(vidData.cmtCount)+'개';
+    document.getElementById('vdesc').textContent = vidData.desc;
+    document.getElementById('vprev').classList.add('on');
+    allCmts = await fetchUnreplied(vid);
+    selIdx=-1; pasteMode=false;
+    document.getElementById('selbox').classList.remove('on');
+    renderCmts(); setFS(false);
+    var unrep = allCmts.length;
+    showInfo('✅ "'+vidData.title+'" — 미답글 댓글 '+unrep+'개 수집! 대댓글 달 댓글을 클릭하세요.');
+    document.getElementById('bulkSec').classList.add('on');
+    document.getElementById('bulkSub').textContent = '미답글 '+unrep+'개 — 한 번에 대댓글을 생성합니다';
+  } catch(e) { setFS(false); showErr('불러오기 실패: '+e.message); }
+  finally { document.getElementById('fetchBtn').disabled = false; }
+}
+async function fetchUnreplied(vid) {
+  var MAX=100, collected=[], pageToken='';
+  while (collected.length < MAX) {
+    setFS(true, '미답글 댓글 수집 중... '+collected.length+'개');
+    var url = 'https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId='+vid+'&maxResults=100&order=time&key='+ytKey;
+    if (pageToken) url += '&pageToken='+pageToken;
+    var res = await (await fetch(url)).json();
+    if (res.error) throw new Error(res.error.message);
+    if (!res.items||!res.items.length) break;
+    for (var i=0;i<res.items.length;i++) {
+      var item=res.items[i], s=item.snippet.topLevelComment.snippet;
+      if (repliedSet.has(item.id)) continue;
+      collected.push({id:item.id, author:s.authorDisplayName, text:s.textDisplay, likes:s.likeCount});
+      if (collected.length>=MAX) break;
+    }
+    if (!res.nextPageToken||collected.length>=MAX) break;
+    pageToken = res.nextPageToken;
+    await sleep(150);
+  }
   return collected;
 }
-</script>
+function setFS(on,txt) {
+  var el=document.getElementById('fst'); el.classList.toggle('on',on);
+  if(txt) document.getElementById('fstTxt').textContent=txt;
+}
+document.getElementById('vidUrl').addEventListener('keydown',function(e){ if(e.key==='Enter') fetchVid(); });
 
+// ===== 댓글 목록 =====
+function renderCmts() {
+  var repCnt = allCmts.filter(function(c){ return repliedSet.has(c.id); }).length;
+  document.getElementById('cbadge').textContent = allCmts.length+'개';
+  document.getElementById('rcnt').textContent = '답글완료 '+repCnt+'개 / 미답글 '+(allCmts.length-repCnt)+'개';
+  var list = allCmts.map(function(c,i){ return {c:c,i:i}; });
+  if (curFilter==='unrep') list=list.filter(function(x){ return !repliedSet.has(x.c.id); });
+  if (curFilter==='rep') list=list.filter(function(x){ return repliedSet.has(x.c.id); });
+  document.getElementById('clist').innerHTML = list.length ? list.map(function(x){
+    var rep=repliedSet.has(x.c.id);
+    return '<div class="citem'+(rep?' replied':'')+(selIdx===x.i&&!pasteMode?' sel':'')+'" id="ci'+x.i+'" onclick="selCmt('+x.i+')">'
+      +'<div class="cauthor">'+esc(x.c.author)+'<span class="clikes">👍'+(x.c.likes||0)+'</span>'+(rep?'<span class="rep-badge">✓ 답글완료</span>':'')+'</div>'
+      +'<div class="ctext">'+esc(x.c.text)+'</div></div>';
+  }).join('') : '<div style="padding:20px;text-align:center;color:var(--tx2);font-size:13px">해당 댓글이 없습니다</div>';
+  document.getElementById('cmts').classList.add('on');
+}
+function setFilter(f) {
+  curFilter=f;
+  ['fAll','fUnrep','fRep'].forEach(function(id){ document.getElementById(id).classList.remove('on'); });
+  var map={all:'fAll',unrep:'fUnrep',rep:'fRep'};
+  document.getElementById(map[f]).classList.add('on');
+  renderCmts();
+}
+function selCmt(i) {
+  document.querySelectorAll('.citem').forEach(function(e){ e.classList.remove('sel'); });
+  var el=document.getElementById('ci'+i); if(el) el.classList.add('sel');
+  selIdx=i; pasteMode=false; resetAnalysis();
+  var isRep=repliedSet.has(allCmts[i].id);
+  document.getElementById('selbox').innerHTML =
+    '<div class="sellbl"><span>✅ 선택된 댓글</span>'
+    +'<button onclick="toggleReplied('+i+')" style="padding:4px 12px;border-radius:6px;border:1px solid '+(isRep?'var(--grn)':'var(--bdr)')+';background:'+(isRep?'rgba(16,185,129,.12)':'transparent')+';color:'+(isRep?'var(--grn)':'var(--tx2)')+';font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">'+(isRep?'✓ 답글완료':'○ 답글완료 표시')+'</button></div>'
+    +'<div class="seltxt">'+esc(allCmts[i].text)+'</div>';
+  document.getElementById('selbox').classList.add('on');
+}
+function toggleReplied(i) {
+  var id=allCmts[i].id;
+  if(repliedSet.has(id)) repliedSet.delete(id); else repliedSet.add(id);
+  localStorage.setItem('_rs',JSON.stringify([...repliedSet]));
+  selCmt(i); renderCmts();
+}
 
-<script>
-// ===== Google OAuth — Implicit Flow =====
-window.googleLogin = function() {
-  var clientId;
-  try { clientId = atob('MTAxOTc3MjQ0MzAyNi11a3BmMm90dXRiaWpxdnVpczQ5amUydXVkZ2ZzOW5nbS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbQ=='); } 
-  catch(e) { clientId = ''; }
-  
-  var scope = 'https://www.googleapis.com/auth/youtube.force-ssl';
-  var redirectUri = window.location.origin + window.location.pathname;
-  
-  // GIS TokenClient 방식 우선 시도
-  if (typeof google !== 'undefined' && google.accounts && google.accounts.oauth2) {
-    var client = google.accounts.oauth2.initTokenClient({
-      client_id: clientId,
-      scope: scope,
-      callback: function(resp) {
-        if (resp.error) { 
-          if (typeof showErr === 'function') showErr('Google 로그인 실패: ' + resp.error);
-          return; 
-        }
-        try { _o10 = resp.access_token; } catch(e) {}
-        if (typeof fetchGoogleProfile === 'function') fetchGoogleProfile();
-      },
-      error_callback: function(err) {
-        if (typeof showErr === 'function') showErr('오류: ' + (err.message || err.type || JSON.stringify(err)));
-      }
-    });
-    client.requestAccessToken({ prompt: '' });
-    return;
+// ===== 붙여넣기 =====
+function togglePaste() {
+  var pb=document.getElementById('pastebox');
+  pb.classList.toggle('on');
+  if(pb.classList.contains('on')) document.getElementById('pasteTa').focus();
+}
+function usePaste() {
+  var txt=document.getElementById('pasteTa').value.trim();
+  if(!txt){showErr('댓글 내용을 입력해 주세요.');return;}
+  pasteData={text:txt,author:document.getElementById('pasteAuthor').value.trim()};
+  pasteMode=true; selIdx=-1; resetAnalysis();
+  document.getElementById('selbox').innerHTML =
+    '<div class="sellbl"><span>📋 붙여넣기 댓글</span><span style="font-size:11px;color:var(--ac2)">'+(pasteData.author||'닉네임 미입력')+'</span></div>'
+    +'<div class="seltxt">'+esc(txt)+'</div>';
+  document.getElementById('selbox').classList.add('on');
+  document.getElementById('pastebox').classList.remove('on');
+}
+
+// ===== Gemini 호출 =====
+async function callGemini(prompt) {
+  if (!gmKey) throw new Error('Gemini API 키를 먼저 설정해 주세요.');
+  var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+gmKey, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({contents:[{parts:[{text:prompt}]}], generationConfig:{temperature:.7,maxOutputTokens:3000,responseMimeType:'application/json'}})
+  });
+  var data=await res.json();
+  if(data.error) throw new Error(data.error.message);
+  return data.candidates&&data.candidates[0]&&data.candidates[0].content&&data.candidates[0].content.parts?data.candidates[0].content.parts[0].text||'':'';
+}
+function safeJSON(raw) {
+  var s=raw.replace(/```json|```/gi,'').trim();
+  var a=s.search(/[{[]/), b=Math.max(s.lastIndexOf('}'),s.lastIndexOf(']'));
+  if(a<0||b<0) throw new Error('JSON을 찾을 수 없습니다.');
+  return s.slice(a,b+1);
+}
+
+// ===== 분석 =====
+function resetAnalysis() {
+  analysis=null;
+  document.getElementById('abox').classList.remove('on');
+  document.getElementById('trollBox').classList.remove('on');
+}
+async function analyzeOnly() {
+  var cmt=getComment();
+  if(!cmt) return null;
+  var raw=await callGemini('유튜브 댓글을 분석하고 JSON만 반환하세요.\n댓글:"'+cmt.substring(0,400)+'"\n{"type":"general|question|praise|complaint|feedback|troll","typeLabel":"일반댓글|질문|칭찬|불만|건설적피드백|악성댓글","emotion":"긍정|중립|부정|혼합","emotionEmoji":"😊","intent":"20자이내","recommendedStyle":"따뜻한 존댓말|정중한 격식체|친근한 반말 섞기|어르신 친화형|전문가 스타일","styleReason":"15자이내","isTroll":false,"trollLevel":0,"trollGuide":""}');
+  return JSON.parse(safeJSON(raw));
+}
+function renderAnalysis(a) {
+  var tmap={general:'t-gen',question:'t-q',praise:'t-p',complaint:'t-c',feedback:'t-f',troll:'t-t'};
+  document.getElementById('aType').innerHTML='<span class="tbadge '+tmap[a.type]+'">'+a.emotionEmoji+' '+a.typeLabel+'</span>';
+  document.getElementById('aTone').innerHTML='<span style="color:'+(a.emotion==='긍정'?'var(--grn)':a.emotion==='부정'?'var(--red)':'var(--tx2)')+'">'+a.emotion+'</span>';
+  document.getElementById('aStyle').innerHTML='<span class="sbadge">🎭 '+a.recommendedStyle+'</span>';
+  document.getElementById('abox').classList.add('on');
+  if(a.isTroll&&a.trollLevel>=2) {
+    document.getElementById('trollGuide').innerHTML=a.trollGuide||'<strong>1단계</strong> — 정중한 답변 1회<br><strong>2단계</strong> — 추가 공격 시 댓글 숨기기<br><strong>3단계</strong> — 반복 시 차단+신고';
+    document.getElementById('trollBox').classList.add('on');
   }
-  
-  // fallback: 직접 URL 방식
-  if (typeof showErr === 'function') showErr('Google 인증 라이브러리 로딩 중입니다. 잠시 후 다시 시도해 주세요.');
-};
-</script>
+}
 
+// ===== 생성 =====
+async function generate() {
+  var cmt=getComment(), script=getScript();
+  if(!cmt){showErr('댓글을 선택하거나 입력해 주세요.');return;}
+  if(!script){showErr(curMode==='url'?'영상을 먼저 불러와 주세요.':'영상 대본 내용을 입력해 주세요.');return;}
+  if(!gmKey){showErr('Gemini API 키를 먼저 설정해 주세요.');document.getElementById('gmBody').classList.remove('hide');return;}
+  clearMsgs();
+  var btn=document.getElementById('genBtn');
+  btn.classList.add('loading'); btn.disabled=true;
+  document.getElementById('genTxt').textContent='생성 중...';
+  try {
+    if (!analysis) { analysis=await analyzeOnly(); if(analysis) renderAnalysis(analysis); }
+    var a=analysis||{recommendedStyle:'따뜻한 존댓말',styleReason:'',typeLabel:'일반댓글',emotion:'긍정',isTroll:false,trollLevel:0};
+    var chn=document.getElementById('chnName').value.trim();
+    var prompt='한국 시니어 유튜브 채널 댓글 관리자. 대댓글 3가지 버전 작성.\n'
+      +'말투:'+a.recommendedStyle+' / 길이:4~5문장 / 한국어\n'
+      +(chn?'채널:'+chn+' (마지막에 자연스럽게 서명)\n':'')
+      +(a.isTroll?'⚠️ 악성도'+a.trollLevel+': 짧고 품위있는 답변\n':'')
+      +'\n[영상]\n'+script.substring(0,600)
+      +'\n\n[댓글 - '+a.typeLabel+']\n'+cmt
+      +'\n\n닉네임 있으면 반드시 "○○님!"으로 시작. JSON만:'
+      +'{"replies":[{"label":"감성형","tag":"1","text":"..."},{"label":"정보형","tag":"2","text":"..."},{"label":"소통형","tag":"3","text":"..."}]}';
+    var raw=await callGemini(prompt);
+    var parsed=JSON.parse(safeJSON(raw));
+    renderReplies(parsed.replies);
+    // 답글완료 마킹
+    if(curMode==='url'&&!pasteMode&&selIdx>=0&&allCmts[selIdx]&&allCmts[selIdx].id){
+      repliedSet.add(allCmts[selIdx].id);
+      localStorage.setItem('_rs',JSON.stringify([...repliedSet]));
+      renderCmts();
+    }
+  } catch(e){showErr('생성 오류: '+e.message);}
+  finally{btn.classList.remove('loading');btn.disabled=false;document.getElementById('genTxt').textContent='✨ 대댓글 생성하기';}
+}
+function renderReplies(replies) {
+  var tags=['rt1','rt2','rt3'];
+  document.getElementById('rcards').innerHTML=replies.map(function(r,i){
+    return '<div class="rcard">'
+      +'<span class="rtag '+tags[i]+'">'+r.label+'</span>'
+      +'<div class="rtxt" id="rt'+i+'">'+esc(r.text)+'</div>'
+      +'<div class="ract">'
+      +'<button class="cbtn" id="cb'+i+'" onclick="copyR('+i+')">📋 복사</button>'
+      +'<button class="cbtn" onclick="selAll(\'rt'+i+'\')">🖱️ 전체선택</button>'
+      +'</div></div>';
+  }).join('');
+  document.getElementById('results').classList.add('on');
+  document.getElementById('sharebar').style.display='flex';
+  setTimeout(function(){ document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'}); },100);
+}
+
+// ===== 일괄 생성 =====
+async function startBulk() {
+  if(!vidData){showErr('영상을 먼저 불러와 주세요.');return;}
+  if(!gmKey){showErr('Gemini API 키를 먼저 설정해 주세요.');return;}
+  if(bulkRunning) return;
+  var targets=allCmts.filter(function(c){ return !repliedSet.has(c.id); });
+  if(!targets.length){showErr('미답글 댓글이 없습니다.');return;}
+  var chn=document.getElementById('chnName').value.trim();
+  var script=getScript();
+  bulkRunning=true; bulkResults=[];
+  var btn=document.getElementById('bulkBtn');
+  btn.classList.add('loading'); btn.disabled=true;
+  document.getElementById('bulkTxt').textContent='생성 중...';
+  document.getElementById('prog').classList.add('on');
+  document.getElementById('bulkRes').classList.remove('on');
+  document.getElementById('ptotal').textContent=targets.length;
+  document.getElementById('pdone').textContent='0';
+  document.getElementById('pfill').style.width='0%';
+  var start=Date.now();
+  for(var i=0;i<targets.length;i++) {
+    var cmt=targets[i];
+    document.getElementById('plog').textContent='처리 중: @'+cmt.author+' ('+( i+1)+'/'+targets.length+')';
+    try {
+      var aRaw=await callGemini('유튜브 댓글 분석 JSON만:\n댓글:"'+cmt.text.substring(0,200)+'"\n{"type":"general","typeLabel":"일반댓글","emotion":"긍정","emotionEmoji":"😊","recommendedStyle":"따뜻한 존댓말","isTroll":false,"trollLevel":0}');
+      var a=JSON.parse(safeJSON(aRaw));
+      var rRaw=await callGemini('한국 시니어 유튜브 채널 댓글 관리자. 대댓글 1개.\n말투:'+a.recommendedStyle+'/3~4문장/한국어\n'+(chn?'채널:'+chn+'\n':'')+(a.isTroll?'악성도'+a.trollLevel+'\n':'')+'[영상]'+script.substring(0,300)+'\n[댓글@'+cmt.author+']'+cmt.text.substring(0,200)+'\n닉네임있으면"○○님!"시작. JSON만:{"reply":"..."}');
+      var rep=JSON.parse(safeJSON(rRaw));
+      bulkResults.push({cmt:cmt,reply:rep.reply||'',ok:true});
+      repliedSet.add(cmt.id);
+      localStorage.setItem('_rs',JSON.stringify([...repliedSet]));
+    } catch(e){ bulkResults.push({cmt:cmt,reply:'오류: '+e.message,ok:false}); }
+    var done=i+1;
+    document.getElementById('pdone').textContent=done;
+    document.getElementById('pfill').style.width=(done/targets.length*100)+'%';
+    var ela=(Date.now()-start)/1000, eta=Math.round((ela/done)*(targets.length-done));
+    document.getElementById('peta').textContent=done<targets.length?'남은 시간 약 '+eta+'초':'완료!';
+    if(i<targets.length-1) await sleep(800);
+  }
+  bulkRunning=false;
+  btn.classList.remove('loading'); btn.disabled=false;
+  document.getElementById('bulkTxt').textContent='🔄 다시 생성';
+  document.getElementById('plog').textContent='✅ '+bulkResults.filter(function(r){return r.ok;}).length+'개 완료';
+  renderBulkTable(); renderCmts();
+}
+function renderBulkTable() {
+  document.getElementById('btbody').innerHTML=bulkResults.map(function(r,i){
+    return '<tr class="'+(r.ok?'bdone':'')+'" id="br'+i+'">'
+      +'<td style="color:var(--tx2);font-size:11px">'+(i+1)+'</td>'
+      +'<td style="color:var(--blu);font-size:12px;font-weight:700;white-space:nowrap">@'+esc(r.cmt.author)+'</td>'
+      +'<td style="color:var(--tx2);font-size:12px;max-width:180px">'+esc(r.cmt.text.substring(0,60))+(r.cmt.text.length>60?'…':'')+'</td>'
+      +'<td style="max-width:300px;font-size:13px;line-height:1.7" id="brt'+i+'">'+esc(r.reply)+'</td>'
+      +'<td style="white-space:nowrap">'
+      +(r.ok?'<button class="bcpy" id="bcp'+i+'" onclick="copyBulk('+i+')">📋 복사</button>'
+      +'<button class="bmk '+(repliedSet.has(r.cmt.id)?'done':'')+'" id="bmk'+i+'" onclick="markBulk('+i+')">'+(repliedSet.has(r.cmt.id)?'✓ 게시완료':'○ 게시완료')+'</button>':'')
+      +'</td></tr>';
+  }).join('');
+  document.getElementById('bulkRes').classList.add('on');
+  document.getElementById('bulkSub').textContent=bulkResults.filter(function(r){return r.ok;}).length+'개 생성 완료';
+}
+async function copyBulk(i) {
+  var btn=document.getElementById('bcp'+i);
+  try{ await navigator.clipboard.writeText(document.getElementById('brt'+i).innerText); btn.textContent='✅ 복사됨!'; btn.classList.add('ok'); setTimeout(function(){btn.textContent='📋 복사';btn.classList.remove('ok');},2000); }
+  catch(e){ selAll('brt'+i); }
+}
+function markBulk(i) {
+  var id=bulkResults[i].cmt.id, btn=document.getElementById('bmk'+i);
+  if(repliedSet.has(id)){repliedSet.delete(id);btn.textContent='○ 게시완료';btn.classList.remove('done');}
+  else{repliedSet.add(id);btn.textContent='✓ 게시완료';btn.classList.add('done');}
+  localStorage.setItem('_rs',JSON.stringify([...repliedSet]));
+  renderCmts();
+}
+function copyAll() {
+  var txt=bulkResults.filter(function(r){return r.ok;}).map(function(r,i){return '['+(i+1)+'] @'+r.cmt.author+'\n원댓글: '+r.cmt.text+'\n대댓글: '+r.reply;}).join('\n\n---\n\n');
+  navigator.clipboard.writeText(txt).then(function(){showInfo('✅ 전체 복사 완료!');});
+}
+function exportCSV() {
+  var rows=[['번호','작성자','원댓글','생성된 대댓글','상태']];
+  bulkResults.forEach(function(r,i){ rows.push([i+1,'@'+r.cmt.author,'"'+r.cmt.text.replace(/"/g,'""')+'"','"'+(r.reply||'').replace(/"/g,'""')+'"',r.ok?'완료':'오류']); });
+  var csv='\uFEFF'+rows.map(function(r){return r.join(',');}).join('\n');
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download='대댓글_일괄생성_'+new Date().toLocaleDateString('ko')+'.csv';
+  a.click();
+}
+
+// ===== 도우미 함수들 =====
+function getComment() {
+  if(curMode==='url'){if(pasteMode)return pasteData.text;return selIdx>=0&&allCmts[selIdx]?allCmts[selIdx].text:'';}
+  return document.getElementById('mComment').value.trim();
+}
+function getScript() {
+  if(curMode==='url') return vidData?'영상 제목: '+vidData.title+'\n\n설명:\n'+vidData.desc:'';
+  return document.getElementById('mScript').value.trim();
+}
+async function copyR(i) {
+  var btn=document.getElementById('cb'+i);
+  try{ await navigator.clipboard.writeText(document.getElementById('rt'+i).innerText); btn.textContent='✅ 복사됨!'; btn.classList.add('ok'); setTimeout(function(){btn.textContent='📋 복사';btn.classList.remove('ok');},2000); }
+  catch(e){ selAll('rt'+i); }
+}
+function selAll(id){ var r=document.createRange();r.selectNodeContents(document.getElementById(id));window.getSelection().removeAllRanges();window.getSelection().addRange(r); }
+function showErr(m){var e=document.getElementById('errMsg');e.textContent='⚠️ '+m;e.classList.add('on');}
+function showInfo(m){var e=document.getElementById('infoMsg');e.textContent=m;e.classList.add('on');}
+function clearMsgs(){document.getElementById('errMsg').classList.remove('on');document.getElementById('infoMsg').classList.remove('on');}
+function esc(t){return(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+
+// 직접입력 모드 자동 분석
+var aTimer;
+document.getElementById('mComment').addEventListener('input',function(){
+  clearTimeout(aTimer); resetAnalysis();
+  aTimer=setTimeout(async function(){
+    var v=document.getElementById('mComment').value.trim();
+    if(v.length>10&&gmKey){try{analysis=await analyzeOnly();if(analysis)renderAnalysis(analysis);}catch(e){}}
+  },1500);
+});
+
+// ===== 공유 =====
+function shareKakao(){ copyLink(); showInfo('📋 링크가 복사됐습니다! 카카오톡에 붙여넣기 하세요 😊'); }
+function shareX(){ window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('AI 자동 대댓글 생성기 — 유튜브 댓글 관리를 AI로 자동화!\n'+SITE_URL+'\n\n#유튜브 #대댓글 #AI'),'_blank'); }
+async function copyLink(){
+  try{ await navigator.clipboard.writeText(SITE_URL); var b=document.querySelector('.sh-l');if(b){b.textContent='✅ 복사됨!';setTimeout(function(){b.textContent='🔗 링크 복사';},2000);} }
+  catch(e){ prompt('링크를 복사하세요:',SITE_URL); }
+}
+
+// ===== 튜토리얼 =====
+var TSTEPS=[
+  {icon:'🎬',n:'1/5',title:'AI 자동 대댓글 생성기',desc:'유튜브 링크만 넣으면<br>AI가 <strong>자동으로 최적의 대댓글</strong>을 생성합니다.<br><br>30초 안내로 바로 시작해 보세요! 😊',hl:''},
+  {icon:'🔑',n:'2/5',title:'STEP 1 — API 키 설정 (최초 1회)',desc:'Google 계정 하나로 모든 키를 발급할 수 있습니다.<br>한 번 입력하면 <strong>브라우저에 저장</strong>됩니다.',hl:'📺 <strong>YouTube API 키</strong> — 댓글 자동 수집<br>🤖 <strong>Gemini API 키</strong> — AI 대댓글 생성 (무료)'},
+  {icon:'🔗',n:'3/5',title:'STEP 2 — 유튜브 링크 붙여넣기',desc:'내 영상 링크를 붙여넣으면<br><strong>미답글 댓글을 자동으로 수집</strong>합니다.<br><br>댓글을 클릭하면 대댓글 생성 준비 완료!',hl:''},
+  {icon:'✨',n:'4/5',title:'STEP 3 — AI 대댓글 생성',desc:'<strong>✨ 대댓글 생성하기</strong> 버튼 하나로<br>AI가 최적의 대댓글 3가지를 자동 생성합니다.<br><br>마음에 드는 버전을 복사해서 붙여넣으세요!',hl:''},
+  {icon:'⚡',n:'5/5',title:'STEP 4 — 일괄 생성으로 시간 절약',desc:'미답글 전체를 <strong>한 번에 자동 처리!</strong><br>댓글 30개 ≈ 약 2분 완료 🚀',hl:''}
+];
+var tIdx=0;
+function startTut(){tIdx=0;renderTut();document.getElementById('tutOv').style.display='flex';}
+function closeTut(){document.getElementById('tutOv').style.display='none';localStorage.setItem('_tdone','1');}
+function renderTut(){
+  var s=TSTEPS[tIdx];
+  document.getElementById('tutI').textContent=s.icon;
+  document.getElementById('tutN').textContent=s.n;
+  document.getElementById('tutT').textContent=s.title;
+  document.getElementById('tutD').innerHTML=s.desc;
+  var h=document.getElementById('tutH');
+  if(s.hl){h.innerHTML=s.hl;h.style.display='block';}else{h.style.display='none';}
+  var dots=document.getElementById('tutDots');
+  dots.innerHTML=TSTEPS.map(function(_,i){return '<span style="display:inline-block;width:'+(i===tIdx?22:8)+'px;height:8px;border-radius:4px;margin:0 3px;background:'+(i===tIdx?'var(--acc)':'var(--bdr)')+';transition:all .3s"></span>';}).join('');
+  document.getElementById('tutNext').textContent=tIdx===TSTEPS.length-1?'시작하기 🚀':'다음 →';
+}
+document.getElementById('tutSkip').onclick=closeTut;
+document.getElementById('tutNext').onclick=function(){ if(tIdx<TSTEPS.length-1){tIdx++;renderTut();}else{closeTut();} };
+</script>
 </body>
 </html>
