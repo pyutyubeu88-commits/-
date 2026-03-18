@@ -17,8 +17,8 @@
   --accent: #6c63ff;
   --accent2: #a78bfa;
   --gold: #fbbf24;
-  --text: #f0f4f8;
-  --text2: #94a3b8;
+  --text: #f8fafc;
+  --text2: #a8b4c8;
   --green: #10b981;
   --red: #f43f5e;
   --blue: #38bdf8;
@@ -172,7 +172,7 @@ h1 em { font-style: normal; color: var(--accent2); }
 textarea, input[type="text"], input[type="password"] {
   background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
   padding:13px 16px; color:var(--text); font-family:'Pretendard','Noto Sans KR',sans-serif;
-  font-size:14px; line-height:1.8; resize:vertical; transition:border-color .2s,box-shadow .2s; width:100%;
+  font-size:14px; line-height:1.9; resize:vertical; transition:border-color .2s,box-shadow .2s; width:100%;
 }
 textarea:focus, input:focus { outline:none; border-color:rgba(108,99,255,0.5); box-shadow:0 0 0 3px rgba(108,99,255,0.08); }
 textarea::placeholder, input::placeholder { color:#3a4060; }
@@ -217,7 +217,7 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
 .rcard-tag { padding:3px 10px; border-radius:4px; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
 .rcard-care { font-size:10px; color:var(--text2); display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
 .care-mini { padding:2px 7px; border-radius:4px; font-size:10px; font-weight:700; }
-.rcard-text { font-size:15px; line-height:2.0; white-space:pre-wrap; word-break:keep-all; font-weight:400; }
+.rcard-text { font-size:15px; line-height:2.1; white-space:pre-wrap; word-break:keep-all; font-weight:400; }
 .rcard-actions { display:flex; gap:8px; margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
 .cbtn { display:flex; align-items:center; gap:6px; padding:7px 14px; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--text2); font-size:12px; cursor:pointer; transition:all .18s; font-family:'Noto Sans KR',sans-serif; }
 .cbtn:hover { background:var(--surface2); color:var(--text); border-color:var(--accent); }
@@ -632,17 +632,19 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
 
 <!-- ★ 가이드 모달 -->
 <div class="guide-overlay" id="guideOverlay">
-  <div class="guide-box">
+  <div class="guide-box" style="max-width:600px">
     <button class="guide-close" onclick="closeGuide()">✕</button>
-    <div class="guide-title">📖 사용법 가이드</div>
+    <div class="guide-title" style="font-size:22px;font-weight:900;margin-bottom:24px">📖 사용법 가이드</div>
+
     <div class="guide-section">
-      <div class="guide-section-title">🔑 STEP 1 — API 키 설정</div>
+      <div class="guide-section-title">🔑 STEP 1 — API 키 설정 (최초 1회)</div>
       <div class="guide-steps">
-        <div class="guide-step"><div class="guide-step-num">1</div><div class="guide-step-text"><strong>YouTube API 키</strong>: Google Cloud Console → YouTube Data API v3 활성화 → API 키 발급</div></div>
-        <div class="guide-step"><div class="guide-step-num">2</div><div class="guide-step-text"><strong>Gemini API 키</strong>: <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--blue)">Google AI Studio</a> → Get API key → 무료 발급 (하루 1,500회)</div></div>
+        <div class="guide-step"><div class="guide-step-num">1</div><div class="guide-step-text"><strong>Gemini API 키</strong> 발급: <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--blue)">Google AI Studio</a> → Get API key → 무료 (하루 1,500회)</div></div>
+        <div class="guide-step"><div class="guide-step-num">2</div><div class="guide-step-text"><strong>YouTube API 키</strong> 발급: <a href="https://console.cloud.google.com" target="_blank" style="color:var(--blue)">Google Cloud Console</a> → YouTube Data API v3 활성화 → API 키 생성</div></div>
         <div class="guide-step"><div class="guide-step-num">3</div><div class="guide-step-text">두 키 모두 <strong>같은 Google 계정</strong>의 키를 사용해도 됩니다</div></div>
       </div>
     </div>
+
     <div class="guide-section">
       <div class="guide-section-title">🔗 STEP 2 — 영상 불러오기</div>
       <div class="guide-steps">
@@ -651,14 +653,16 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
         <div class="guide-step"><div class="guide-step-num">3</div><div class="guide-step-text">대댓글을 달 댓글을 <strong>클릭</strong>하면 자동 분석이 시작됩니다</div></div>
       </div>
     </div>
+
     <div class="guide-section">
-      <div class="guide-section-title">🤖 STEP 3 — 최적 말투 자동 적용</div>
+      <div class="guide-section-title">✨ STEP 3 — AI 대댓글 생성</div>
       <div class="guide-steps">
-        <div class="guide-step"><div class="guide-step-num">1</div><div class="guide-step-text">AI가 댓글 유형을 자동 분석하고 <strong>최적 말투</strong>를 선택합니다</div></div>
-        <div class="guide-step"><div class="guide-step-num">2</div><div class="guide-step-text"><strong>✨ 대댓글 생성하기</strong> 클릭 → 3가지 버전 자동 생성</div></div>
+        <div class="guide-step"><div class="guide-step-num">1</div><div class="guide-step-text">AI가 댓글을 자동 분석하고 <strong>최적 말투</strong>를 선택합니다</div></div>
+        <div class="guide-step"><div class="guide-step-num">2</div><div class="guide-step-text"><strong>✨ 대댓글 생성하기</strong> 클릭 → 대댓글 3가지 버전 자동 생성</div></div>
         <div class="guide-step"><div class="guide-step-num">3</div><div class="guide-step-text">마음에 드는 버전 <strong>📋 복사</strong> 후 유튜브에 붙여넣기</div></div>
       </div>
     </div>
+
     <div class="guide-section">
       <div class="guide-section-title">⚡ STEP 4 — 일괄 생성 (시간 절약)</div>
       <div class="guide-steps">
@@ -667,34 +671,16 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
         <div class="guide-step"><div class="guide-step-num">3</div><div class="guide-step-text">결과 테이블에서 행별 복사 또는 <strong>⬇️ CSV 저장</strong></div></div>
       </div>
     </div>
-    <div class="guide-tip">💡 <strong>Tip:</strong> Google 계정으로 로그인하면 생성된 대댓글을 YouTube에 <strong>직접 게시</strong>할 수 있습니다!</div>
-    </div>
-    
-        <div style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.25);border-radius:10px;padding:14px">
-          <div style="font-size:22px;font-weight:900;color:var(--A);margin-bottom:4px">A</div>
-          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">진심 어린 감사 표현</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.6">단순 "감사합니다"가 아닌 댓글 유형에 맞는 구체적 감사 표현</div>
-        </div>
-        <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:10px;padding:14px">
-          <div style="font-size:22px;font-weight:900;color:var(--R);margin-bottom:4px">R</div>
-          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">답변 + 추가 가치</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.6">명확한 답변에 추가 정보·팁·역질문을 더해 대화를 이어가기</div>
-        </div>
-        <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);border-radius:10px;padding:14px">
-          <div style="font-size:22px;font-weight:900;color:var(--E);margin-bottom:4px">E</div>
-          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">지속적 관계 유도</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.6">다음 영상 예고·구독·커뮤니티 참여로 지속적 팬 관계 형성</div>
-        </div>
-      </div>
-    </div>
+
     <div class="guide-section">
       <div class="guide-section-title">❓ 자주 묻는 질문</div>
       <div class="guide-steps">
-        <div class="guide-step"><div class="guide-step-num" style="background:var(--gold);color:#000">Q</div><div class="guide-step-text"><strong>API 키가 유출되면 어떻게 되나요?</strong><br>브라우저 로컬스토리지에만 저장됩니다. 서버에 전송되지 않아 안전합니다.</div></div>
-        <div class="guide-step"><div class="guide-step-num" style="background:var(--gold);color:#000">Q</div><div class="guide-step-text"><strong>Gemini API 요금이 발생하나요?</strong><br>무료 티어로 하루 1,500회 제공됩니다. 일반적인 채널 운영에 충분합니다.</div></div>
-        <div class="guide-step"><div class="guide-step-num" style="background:var(--gold);color:#000">Q</div><div class="guide-step-text"><strong>YouTube 직접 게시가 안 될 때는?</strong><br>Google 로그인 후 YouTube Data API v3가 활성화된 프로젝트의 OAuth를 사용해야 합니다.</div></div>
+        <div class="guide-step"><div class="guide-step-num" style="background:var(--gold);color:#000;font-size:11px">Q</div><div class="guide-step-text"><strong>Google 로그인이 안 될 때</strong><br>로컬 파일(file://)에서는 로그인이 차단됩니다. 반드시 <strong>https://</strong> 주소로 접속하세요.</div></div>
+        <div class="guide-step"><div class="guide-step-num" style="background:var(--gold);color:#000;font-size:11px">Q</div><div class="guide-step-text"><strong>Gemini API 요금이 발생하나요?</strong><br>무료 티어로 하루 1,500회 제공됩니다. 일반 채널 운영에 충분합니다.</div></div>
+        <div class="guide-step"><div class="guide-step-num" style="background:var(--gold);color:#000;font-size:11px">Q</div><div class="guide-step-text"><strong>YouTube 직접 게시가 안 될 때</strong><br>Google Cloud Console에서 YouTube Data API v3가 활성화되어 있는지 확인하세요.</div></div>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -728,7 +714,6 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
     <p class="subtitle">댓글 유형 자동 분석 → 최적 말투 자동 선택 → 대댓글 즉시 생성<br>유튜브 댓글 관리를 AI로 자동화하세요 · Powered by Gemini AI</p>
   <div style="margin-top:12px">
     <button class="top-guide-btn" onclick="openGuide()">📖 사용법 가이드</button>
-    <button class="top-guide-btn" onclick="startTutorial()" style="background:rgba(244,63,94,0.1);border-color:rgba(244,63,94,0.3);color:var(--red)">🎯 사용법 보기</button>
   </div>
   </header>
 
@@ -1096,10 +1081,10 @@ clearMsgs();const btn=document.getElementById('analyzeBtn');btn.classList.add('l
   "recommendedStyle": "따뜻한 존댓말|정중한 격식체|친근한 반말 섞기|어르신 친화형|전문가 스타일",
   "styleReason": "이유 15자 이내",
   "careStrategy": {
-    "C": "Connect 전략 30자 이내",
-    "A": "Appreciate 전략 30자 이내",
-    "R": "Respond 전략 30자 이내",
-    "E": "Engage 전략 30자 이내"
+    "C": "전략 30자 이내",
+    "A": "전략 30자 이내",
+    "R": "전략 30자 이내",
+    "E": "전략 30자 이내"
   },
   "isTroll": false,
   "trollLevel": 0,
@@ -1132,10 +1117,10 @@ ${channelName?`채널/운영자:${channelName}— 마지막에 자연스럽게 �
 ${trollNote}
 
 C.A.R.E 공식 적용:
-C(Connect): ${a.careStrategy.C} — 닉네임 호명, 댓글 내용 구체적 언급
-A(Appreciate): ${a.careStrategy.A} — 댓글 유형(${a.typeLabel})에 맞는 진심 어린 감사
-R(Respond+): ${a.careStrategy.R} — 명확한 답변 + 추가 가치(정보/팁/역질문) 제공
-E(Engage): ${a.careStrategy.E} — 다음 영상 예고, 구독, 커뮤니티 참여 유도
+C단계: ${a.careStrategy.C} — 개인적 연결
+A단계: ${a.careStrategy.A} — 진심 어린 감사 표현
+R단계: ${a.careStrategy.R} — 답변과 추가 가치 제공
+E단계: ${a.careStrategy.E} — 지속적 관계 유도
 
 [영상 내용]
 ${script}
@@ -1303,6 +1288,49 @@ document.addEventListener('DOMContentLoaded', function() {
   try {
     if (!localStorage.getItem('_tut_v2')) { setTimeout(_tutStart, 600); }
   } catch(e) { setTimeout(_tutStart, 600); }
+});
+</script>
+
+
+<script>
+// Google OAuth 안전 초기화
+document.addEventListener('DOMContentLoaded', function() {
+  // googleLogin 함수 안전 재정의
+  window.googleLogin = function() {
+    if (typeof google === 'undefined' || !google.accounts || !google.accounts.oauth2) {
+      showErr('Google 인증 라이브러리가 로드되지 않았습니다. 새로고침 후 다시 시도해 주세요.');
+      return;
+    }
+    try {
+      var clientId = document.querySelector('script[src*="gsi"]') ? 
+        (window._k9 || '') : '';
+      // _k9는 난독화된 변수명 — 직접 접근
+      var realClientId = '';
+      try { realClientId = _k9; } catch(e) {}
+      if (!realClientId) {
+        showErr('클라이언트 ID를 찾을 수 없습니다.');
+        return;
+      }
+      var scope = '';
+      try { scope = _s8; } catch(e) { scope = 'https://www.googleapis.com/auth/youtube.force-ssl'; }
+      
+      var client = google.accounts.oauth2.initTokenClient({
+        client_id: realClientId,
+        scope: scope,
+        callback: function(resp) {
+          if (resp.error) { showErr('Google 로그인 실패: ' + resp.error); return; }
+          try { _o10 = resp.access_token; } catch(e) {}
+          if (typeof fetchGoogleProfile === 'function') fetchGoogleProfile();
+        },
+        error_callback: function(err) {
+          showErr('Google 로그인 오류: ' + (err.message || err.type || JSON.stringify(err)));
+        }
+      });
+      client.requestAccessToken({ prompt: 'select_account' });
+    } catch(e) {
+      showErr('Google 로그인 오류: ' + e.message);
+    }
+  };
 });
 </script>
 
