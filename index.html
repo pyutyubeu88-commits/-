@@ -862,7 +862,7 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
   <div class="cmt-section" id="cmtSection">
     <div class="cmt-head" style="flex-direction:column;align-items:stretch;gap:10px">
       <div style="display:flex;align-items:center;justify-content:space-between">
-        <div class="slabel" style="margin-bottom:0">💬 댓글 선택 <span style="font-size:10px;color:var(--text2);font-weight:400;text-transform:none;letter-spacing:0">클릭하면 자동 분석됩니다</span></div>
+        <div class="slabel" style="margin-bottom:0">💬 댓글 선택 <span style="font-size:10px;color:var(--text2);font-weight:400;text-transform:none;letter-spacing:0">클릭하면 바로 대댓글 생성 준비 완료</span></div>
         <span class="cmt-badge" id="cmtBadge">0개</span>
       </div>
       <div class="filter-bar">
@@ -977,10 +977,7 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
   </div>
 
   <div class="btn-row">
-    <button class="analyze-btn" id="analyzeBtn" onclick="analyzeComment()">
-      <span class="spin"></span><span id="analyzeBtnTxt">🔍 댓글 분석</span>
-    </button>
-    <button class="gen-btn" id="genBtn" onclick="generateReplies()">
+    <button class="gen-btn" id="genBtn" onclick="generateReplies()" style="flex:1">
       <span class="spin"></span><span id="genBtnTxt">✨ 대댓글 생성하기</span>
     </button>
   </div>
@@ -1067,7 +1064,7 @@ function _j3(raw){let s=raw.replace(/```json/gi,'').replace(/```/g,'').trim();co
 //=====Analysis=====function resetAnalysis(){analysisResult=null;document.getElementById('analysisBox').classList.remove('on');document.getElementById('trollCard').classList.remove('on');}
 async function _a1(){const comment=getComment();if(!comment){showErr('먼저 댓글을 선택하거나 입력해 주세요.');return;}
 if(!_k9){showErr('Gemini API 키를 먼저 설정해 주세요.');document.getElementById('geminiBody').classList.remove('hidden');document.getElementById('geminiTog').textContent='▲ 접기';return;}
-clearMsgs();const btn=document.getElementById('analyzeBtn');btn.classList.add('loading');btn.disabled=true;document.getElementById('analyzeBtnTxt').textContent='분석 중...';try{const raw=await _g0(`당신은 유튜브 댓글 분석 전문가입니다. 아래 댓글을 C.A.R.E 공식 관점에서 분석하고 JSON만 반환하세요 (마크다운 없이).
+clearMsgs();const btn=document.getElementById('analyzeBtn');btn.classList.add('loading');btn.disabled=true;try{const raw=await _g0(`당신은 유튜브 댓글 분석 전문가입니다. 아래 댓글을 C.A.R.E 공식 관점에서 분석하고 JSON만 반환하세요 (마크다운 없이).
 
 댓글: "${comment}"
 
@@ -1090,7 +1087,7 @@ clearMsgs();const btn=document.getElementById('analyzeBtn');btn.classList.add('l
   "trollLevel": 0,
   "trollGuide": "악플일 경우 대처 가이드"
 }`);const clean=_j3(raw);analysisResult=JSON.parse(clean);renderAnalysis(analysisResult);}catch(e){showErr('분석 오류: '+e.message);}
-finally{btn.classList.remove('loading');btn.disabled=false;document.getElementById('analyzeBtnTxt').textContent='🔍 댓글 분석';}}
+finally{btn.classList.remove('loading');btn.disabled=false;}}
 function renderAnalysis(a){const tMap={general:'type-general',question:'type-question',praise:'type-praise',complaint:'type-complaint',feedback:'type-feedback',troll:'type-troll'};document.getElementById('aType').innerHTML=`<span class="type-badge ${tMap[a.type]||'type-general'}">${a.emotionEmoji} ${a.typeLabel}</span>`;document.getElementById('aTone').innerHTML=`<span style="color:${a.emotion==='긍정'?'var(--green)':a.emotion==='부정'?'var(--red)':'var(--text2)'}">${a.emotion}</span>`;document.getElementById('aStyle').innerHTML=`<span class="tone-badge">🎭 ${a.recommendedStyle}</span><span style="font-size:10px;color:var(--text2);margin-left:6px">${a.styleReason}</span>`;document.getElementById('aIntent').textContent=a.intent;document.getElementById('aCareSteps').innerHTML=['C','A','R','E'].map((l,i)=>`
     <span class="care-step step-${l}"><strong>${l}</strong> ${a.careStrategy[l]}</span>
     ${i<3?'<span class="step-arrow">→</span>':''}`).join('');const box=document.getElementById('analysisBox');box.style.borderColor=a.isTroll?'rgba(244,63,94,0.3)':'rgba(108,99,255,0.2)';box.style.background=a.isTroll?'rgba(244,63,94,0.05)':'rgba(108,99,255,0.05)';box.classList.add('on');if(a.isTroll&&a.trollLevel>=2){document.getElementById('trollGuide').innerHTML=a.trollGuide||`
@@ -1375,6 +1372,43 @@ async function _fetchUnreplied(vid) {
 
   return collected;
 }
+</script>
+
+
+<script>
+// ===== Google OAuth — Implicit Flow =====
+window.googleLogin = function() {
+  var clientId;
+  try { clientId = atob('MTAxOTc3MjQ0MzAyNi11a3BmMm90dXRiaWpxdnVpczQ5amUydXVkZ2ZzOW5nbS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbQ=='); } 
+  catch(e) { clientId = ''; }
+  
+  var scope = 'https://www.googleapis.com/auth/youtube.force-ssl';
+  var redirectUri = window.location.origin + window.location.pathname;
+  
+  // GIS TokenClient 방식 우선 시도
+  if (typeof google !== 'undefined' && google.accounts && google.accounts.oauth2) {
+    var client = google.accounts.oauth2.initTokenClient({
+      client_id: clientId,
+      scope: scope,
+      callback: function(resp) {
+        if (resp.error) { 
+          if (typeof showErr === 'function') showErr('Google 로그인 실패: ' + resp.error);
+          return; 
+        }
+        try { _o10 = resp.access_token; } catch(e) {}
+        if (typeof fetchGoogleProfile === 'function') fetchGoogleProfile();
+      },
+      error_callback: function(err) {
+        if (typeof showErr === 'function') showErr('오류: ' + (err.message || err.type || JSON.stringify(err)));
+      }
+    });
+    client.requestAccessToken({ prompt: '' });
+    return;
+  }
+  
+  // fallback: 직접 URL 방식
+  if (typeof showErr === 'function') showErr('Google 인증 라이브러리 로딩 중입니다. 잠시 후 다시 시도해 주세요.');
+};
 </script>
 
 </body>
