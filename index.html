@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Black+Han+Sans&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <script src="https://accounts.google.com/gsi/client" async></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
 <style>
 :root {
   --bg: #0b0d12;
@@ -37,10 +38,10 @@ body::before {
 
 /* Header */
 header { text-align: center; margin-bottom: 40px; }
-.care-logo { display: inline-flex; align-items: center; gap: 0; font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 36px; letter-spacing: 2px; margin-bottom: 10px; }
+.care-logo { display: inline-flex; align-items: center; gap: 0; font-family: 'Black Han Sans', sans-serif; font-size: 36px; letter-spacing: 2px; margin-bottom: 10px; }
 .lC{color:var(--C)} .lA{color:var(--A)} .lR{color:var(--R)} .lE{color:var(--E)}
 .care-logo .dot { color: var(--text2); font-size: 24px; }
-h1 { font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: clamp(20px,3.5vw,32px); letter-spacing: -0.5px; line-height: 1.3; margin-bottom: 10px; }
+h1 { font-family: 'Black Han Sans', sans-serif; font-size: clamp(20px,3.5vw,32px); letter-spacing: -0.5px; line-height: 1.3; margin-bottom: 10px; }
 h1 em { font-style: normal; color: var(--accent2); }
 .subtitle { color: var(--text2); font-size: 14px; line-height: 2.0; font-weight: 400; }
 
@@ -52,9 +53,9 @@ h1 em { font-style: normal; color: var(--accent2); }
 .care-card.ca{background:rgba(244,63,94,0.08);border-color:rgba(244,63,94,0.3)}
 .care-card.cr{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.3)}
 .care-card.ce{background:rgba(251,191,36,0.08);border-color:rgba(251,191,36,0.3)}
-.care-letter { font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 26px; line-height: 1; margin-bottom: 4px; }
+.care-letter { font-family: 'Black Han Sans', sans-serif; font-size: 26px; line-height: 1; margin-bottom: 4px; }
 .cc .care-letter{color:var(--C)} .ca .care-letter{color:var(--A)} .cr .care-letter{color:var(--R)} .ce .care-letter{color:var(--E)}
-.care-word { font-size: 12px; font-weight: 700; color: var(--text2); margin-bottom: 3px; }
+.care-word { font-size: 11px; font-weight: 700; color: var(--text2); margin-bottom: 3px; }
 .care-desc { font-size: 11px; color: var(--text2); line-height: 1.6; }
 
 /* API Key boxes */
@@ -190,10 +191,10 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
 /* Buttons */
 .btn-row { display:flex; gap:12px; margin-bottom:28px; }
 @media(max-width:480px){ .btn-row{flex-direction:column} }
-.analyze-btn { flex:1; padding:16px; border-radius:var(--radius); border:1px solid rgba(108,99,255,0.4); background:rgba(108,99,255,0.1); color:var(--accent2); font-family:'Noto Sans KR',sans-serif;font-weight:900; font-size:15px; letter-spacing:1px; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:8px; }
+.analyze-btn { flex:1; padding:16px; border-radius:var(--radius); border:1px solid rgba(108,99,255,0.4); background:rgba(108,99,255,0.1); color:var(--accent2); font-family:'Black Han Sans',sans-serif; font-size:15px; letter-spacing:1px; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:8px; }
 .analyze-btn:hover { background:rgba(108,99,255,0.2); border-color:var(--accent2); }
 .analyze-btn:disabled { opacity:.5; cursor:not-allowed; }
-.gen-btn { flex:2; padding:16px; border-radius:var(--radius); border:none; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-family:'Noto Sans KR',sans-serif;font-weight:900; font-size:16px; letter-spacing:1px; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:8px; }
+.gen-btn { flex:2; padding:16px; border-radius:var(--radius); border:none; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-family:'Black Han Sans',sans-serif; font-size:16px; letter-spacing:1px; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:8px; }
 .gen-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(108,99,255,0.4); }
 .gen-btn:active { transform:translateY(0); }
 .gen-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
@@ -205,7 +206,7 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
 .results { display:none; }
 .results.on { display:block; }
 .results-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
-.results-title { font-family:'Noto Sans KR',sans-serif;font-weight:900; font-size:18px; }
+.results-title { font-family:'Black Han Sans',sans-serif; font-size:18px; }
 .regen-btn { padding:8px 16px; border-radius:50px; border:1px solid var(--border); background:var(--surface); color:var(--text2); font-size:12px; cursor:pointer; transition:all .18s; font-family:'Noto Sans KR',sans-serif; font-weight:500; }
 .regen-btn:hover { border-color:var(--accent); color:var(--text); }
 .reply-cards { display:flex; flex-direction:column; gap:12px; }
@@ -230,7 +231,7 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
 
 /* 필터 토글 바 */
 .filter-bar { display:flex; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
-.filter-btn { padding:6px 16px; border-radius:50px; border:1px solid var(--border); background:var(--surface); color:var(--text2); font-size:12px; font-weight:700; cursor:pointer; transition:all .18s; font-family:'Nanum Gothic','Noto Sans KR',sans-serif; }
+.filter-btn { padding:5px 14px; border-radius:50px; border:1px solid var(--border); background:var(--surface); color:var(--text2); font-size:11px; font-weight:700; cursor:pointer; transition:all .18s; font-family:'Noto Sans KR',sans-serif; }
 .filter-btn:hover { border-color:rgba(108,99,255,0.4); color:var(--text); }
 .filter-btn.active { background:rgba(108,99,255,0.15); border-color:var(--accent); color:var(--accent2); }
 .filter-btn.active-hide { background:rgba(16,185,129,0.12); border-color:var(--green); color:var(--green); }
@@ -260,12 +261,12 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
   padding:16px 20px; margin-bottom:16px; cursor:pointer;
 }
 .bulk-header-left { display:flex; align-items:center; gap:12px; }
-.bulk-header-title { font-family:'Noto Sans KR',sans-serif;font-weight:900; font-size:17px; }
+.bulk-header-title { font-family:'Black Han Sans',sans-serif; font-size:17px; }
 .bulk-header-sub { font-size:11px; color:var(--text2); }
 .bulk-start-btn {
   padding:10px 22px; border-radius:10px; border:none;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:white; font-family:'Noto Sans KR',sans-serif;font-weight:900; font-size:14px;
+  color:white; font-family:'Black Han Sans',sans-serif; font-size:14px;
   cursor:pointer; transition:all .2s; white-space:nowrap;
   display:flex; align-items:center; gap:8px;
 }
@@ -287,7 +288,7 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
 .bulk-result-toolbar {
   display:flex; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap;
 }
-.bulk-result-title { font-family:'Noto Sans KR',sans-serif;font-weight:900; font-size:16px; flex:1; }
+.bulk-result-title { font-family:'Black Han Sans',sans-serif; font-size:16px; flex:1; }
 .bulk-export-btn {
   padding:8px 16px; border-radius:8px; border:1px solid rgba(16,185,129,0.4);
   background:rgba(16,185,129,0.1); color:var(--green);
@@ -439,6 +440,186 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
 .post-btn:disabled { opacity:.5; cursor:not-allowed; }
 .post-btn.posted { background:rgba(16,185,129,0.2); cursor:default; }
 
+
+/* ── 튜토리얼 오버레이 ── */
+.tutorial-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,0.85);
+  z-index:9999; display:flex; align-items:center; justify-content:center;
+  padding:20px; backdrop-filter:blur(4px);
+}
+.tutorial-overlay.hidden { display:none; }
+.tutorial-box {
+  background:var(--surface); border:1px solid rgba(108,99,255,0.4);
+  border-radius:20px; padding:32px 28px; max-width:520px; width:100%;
+  position:relative; animation:fup .4s ease;
+}
+.tutorial-step { display:none; }
+.tutorial-step.active { display:block; }
+.tutorial-icon { font-size:48px; text-align:center; margin-bottom:16px; }
+.tutorial-title { font-family:'Noto Sans KR',sans-serif; font-weight:900; font-size:22px; text-align:center; margin-bottom:12px; }
+.tutorial-desc { font-size:14px; color:var(--text2); line-height:1.9; text-align:center; margin-bottom:24px; }
+.tutorial-desc strong { color:var(--text); }
+.tutorial-dots { display:flex; justify-content:center; gap:8px; margin-bottom:20px; }
+.tutorial-dot { width:8px; height:8px; border-radius:50%; background:var(--border); transition:all .3s; }
+.tutorial-dot.active { background:var(--accent); width:24px; border-radius:4px; }
+.tutorial-btns { display:flex; gap:10px; }
+.tutorial-skip { flex:1; padding:12px; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text2); font-size:13px; font-weight:700; cursor:pointer; font-family:'Noto Sans KR',sans-serif; }
+.tutorial-next { flex:2; padding:12px; border-radius:10px; border:none; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-size:13px; font-weight:900; cursor:pointer; font-family:'Noto Sans KR',sans-serif; }
+.tutorial-highlight { background:rgba(108,99,255,0.15); border:1px solid rgba(108,99,255,0.3); border-radius:8px; padding:10px 14px; margin:10px 0; font-size:13px; color:var(--accent2); }
+
+/* ── 가이드 페이지 ── */
+.guide-overlay { position:fixed; inset:0; background:var(--bg); z-index:9998; overflow-y:auto; display:none; }
+.guide-overlay.on { display:block; }
+.guide-wrap { max-width:720px; margin:0 auto; padding:40px 20px 80px; }
+.guide-back { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:50px; border:1px solid var(--border); background:var(--surface); color:var(--text2); font-size:13px; font-weight:700; cursor:pointer; margin-bottom:32px; font-family:'Noto Sans KR',sans-serif; transition:all .18s; }
+.guide-back:hover { border-color:var(--accent); color:var(--text); }
+.guide-title { font-family:'Noto Sans KR',sans-serif; font-weight:900; font-size:28px; margin-bottom:8px; }
+.guide-subtitle { color:var(--text2); font-size:14px; margin-bottom:40px; line-height:1.7; }
+.guide-section { margin-bottom:36px; }
+.guide-section-title { font-size:16px; font-weight:900; margin-bottom:16px; display:flex; align-items:center; gap:10px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+.guide-step { display:flex; gap:16px; margin-bottom:18px; align-items:flex-start; }
+.guide-step-num { width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-weight:900; font-size:14px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.guide-step-content { flex:1; }
+.guide-step-title { font-size:14px; font-weight:700; margin-bottom:4px; }
+.guide-step-desc { font-size:13px; color:var(--text2); line-height:1.8; }
+.guide-tip { background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.25); border-radius:10px; padding:14px 16px; margin-bottom:16px; font-size:13px; color:var(--text2); line-height:1.8; }
+.guide-tip strong { color:var(--gold); }
+.guide-care-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+@media(max-width:480px){ .guide-care-grid{grid-template-columns:1fr} }
+.guide-care-card { border-radius:12px; padding:16px; border:1px solid; }
+.guide-care-card.gc { background:rgba(108,99,255,0.08); border-color:rgba(108,99,255,0.3); }
+.guide-care-card.ga { background:rgba(244,63,94,0.08); border-color:rgba(244,63,94,0.3); }
+.guide-care-card.gr { background:rgba(16,185,129,0.08); border-color:rgba(16,185,129,0.3); }
+.guide-care-card.ge { background:rgba(251,191,36,0.08); border-color:rgba(251,191,36,0.3); }
+.guide-care-letter { font-weight:900; font-size:20px; margin-bottom:4px; }
+.gc .guide-care-letter{color:var(--C)} .ga .guide-care-letter{color:var(--A)}
+.gr .guide-care-letter{color:var(--R)} .ge .guide-care-letter{color:var(--E)}
+.guide-care-word { font-size:12px; font-weight:700; color:var(--text2); margin-bottom:6px; }
+.guide-care-desc { font-size:12px; color:var(--text2); line-height:1.7; }
+
+/* ── 공유 버튼 ── */
+.share-bar {
+  display:flex; gap:10px; align-items:center; margin-top:16px;
+  padding:16px; background:var(--surface2); border-radius:var(--radius);
+  flex-wrap:wrap;
+}
+.share-label { font-size:12px; font-weight:700; color:var(--text2); margin-right:4px; }
+.share-btn {
+  display:flex; align-items:center; gap:6px;
+  padding:8px 16px; border-radius:50px; border:none;
+  font-size:12px; font-weight:700; cursor:pointer;
+  transition:all .2s; font-family:'Noto Sans KR',sans-serif;
+  white-space:nowrap;
+}
+.share-kakao { background:#FEE500; color:#3C1E1E; }
+.share-kakao:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(254,229,0,0.4); }
+.share-twitter { background:#1DA1F2; color:white; }
+.share-twitter:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(29,161,242,0.4); }
+.share-link { background:var(--surface); color:var(--text2); border:1px solid var(--border); }
+.share-link:hover { border-color:var(--accent); color:var(--accent2); }
+.share-link.copied { border-color:var(--green); color:var(--green); }
+
+/* ── 상단 안내 버튼 ── */
+.top-guide-btn {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:7px 16px; border-radius:50px;
+  border:1px solid rgba(108,99,255,0.3); background:rgba(108,99,255,0.1);
+  color:var(--accent2); font-size:12px; font-weight:700;
+  cursor:pointer; transition:all .18s; font-family:'Noto Sans KR',sans-serif;
+  margin-left:10px;
+}
+.top-guide-btn:hover { background:rgba(108,99,255,0.2); }
+
+/* ── 품질 선택 ── */
+.quality-row { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+.quality-btn { padding:7px 16px; border-radius:50px; border:1px solid var(--border); background:var(--surface); color:var(--text2); font-size:12px; font-weight:700; cursor:pointer; transition:all .18s; font-family:'Noto Sans KR',sans-serif; }
+.quality-btn:hover { border-color:rgba(108,99,255,0.4); color:var(--text); }
+.quality-btn.active { background:linear-gradient(135deg,var(--accent),var(--accent2)); border-color:transparent; color:white; box-shadow:0 4px 14px rgba(108,99,255,0.35); }
+
+
+/* ══════════════════════════════════
+   튜토리얼 오버레이
+══════════════════════════════════ */
+.tut-overlay {
+  position:fixed; inset:0; z-index:9999;
+  background:rgba(0,0,0,0.82);
+  display:flex; align-items:center; justify-content:center;
+  animation:fadeIn .3s ease;
+}
+.tut-overlay.hidden { display:none; }
+.tut-box {
+  background:var(--surface); border:1px solid rgba(108,99,255,0.4);
+  border-radius:20px; padding:36px 32px; max-width:520px; width:90%;
+  position:relative; animation:slideUp .35s ease;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.tut-step-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(108,99,255,0.15); border:1px solid rgba(108,99,255,0.3);
+  border-radius:50px; padding:4px 14px; font-size:11px; font-weight:700;
+  color:var(--accent2); margin-bottom:16px;
+}
+.tut-icon { font-size:40px; margin-bottom:14px; }
+.tut-title {
+  font-family:'Noto Sans KR',sans-serif; font-weight:900;
+  font-size:20px; line-height:1.4; margin-bottom:10px;
+}
+.tut-desc { font-size:14px; color:var(--text2); line-height:1.9; margin-bottom:24px; }
+.tut-desc strong { color:var(--text); }
+.tut-dots { display:flex; gap:6px; justify-content:center; margin-bottom:20px; }
+.tut-dot { width:8px; height:8px; border-radius:50%; background:var(--border); transition:all .2s; }
+.tut-dot.active { background:var(--accent); width:24px; border-radius:4px; }
+.tut-btns { display:flex; gap:10px; }
+.tut-skip { flex:1; padding:12px; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text2); font-size:13px; cursor:pointer; font-family:'Noto Sans KR',sans-serif; font-weight:700; transition:all .18s; }
+.tut-skip:hover { border-color:var(--accent); color:var(--text); }
+.tut-next { flex:2; padding:12px; border-radius:10px; border:none; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-size:14px; font-weight:900; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all .2s; }
+.tut-next:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(108,99,255,0.4); }
+.tut-highlight {
+  display:inline-block; background:rgba(108,99,255,0.15);
+  border:1px solid rgba(108,99,255,0.3); border-radius:6px;
+  padding:2px 8px; font-size:13px; color:var(--accent2); font-weight:700;
+}
+
+/* ══════════════════════════════════
+   가이드 모달
+══════════════════════════════════ */
+.guide-overlay { position:fixed; inset:0; z-index:9998; background:rgba(0,0,0,0.8); display:none; align-items:flex-start; justify-content:center; padding:20px; overflow-y:auto; }
+.guide-overlay.on { display:flex; }
+.guide-box { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px 32px; max-width:680px; width:100%; margin:auto; position:relative; }
+.guide-close { position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:50%; border:1px solid var(--border); background:transparent; color:var(--text2); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .18s; }
+.guide-close:hover { border-color:var(--red); color:var(--red); }
+.guide-title { font-family:'Noto Sans KR',sans-serif; font-weight:900; font-size:22px; margin-bottom:24px; }
+.guide-section { margin-bottom:24px; }
+.guide-section-title { font-size:13px; font-weight:900; color:var(--accent2); letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.guide-steps { display:flex; flex-direction:column; gap:10px; }
+.guide-step { display:flex; gap:14px; align-items:flex-start; }
+.guide-step-num { width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-size:12px; font-weight:900; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+.guide-step-text { font-size:14px; line-height:1.8; color:var(--text2); }
+.guide-step-text strong { color:var(--text); }
+.guide-tip { background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.25); border-radius:10px; padding:12px 16px; font-size:13px; color:var(--text2); line-height:1.8; }
+.guide-tip strong { color:var(--gold); }
+
+/* ══════════════════════════════════
+   공유 버튼
+══════════════════════════════════ */
+.share-bar { display:flex; align-items:center; gap:10px; margin-top:20px; padding-top:20px; border-top:1px solid var(--border); flex-wrap:wrap; }
+.share-label { font-size:12px; font-weight:700; color:var(--text2); }
+.share-btn { display:flex; align-items:center; gap:6px; padding:8px 16px; border-radius:50px; border:none; font-size:13px; font-weight:700; cursor:pointer; transition:all .2s; font-family:'Noto Sans KR',sans-serif; white-space:nowrap; }
+.share-btn:hover { transform:translateY(-2px); }
+.share-kakao { background:#FEE500; color:#3A1D1D; }
+.share-kakao:hover { box-shadow:0 4px 14px rgba(254,229,0,0.5); }
+.share-twitter { background:#1DA1F2; color:white; }
+.share-twitter:hover { box-shadow:0 4px 14px rgba(29,161,242,0.4); }
+.share-link { background:var(--surface2); color:var(--text2); border:1px solid var(--border); }
+.share-link:hover { border-color:var(--accent); color:var(--accent2); }
+
+/* 우측 하단 플로팅 버튼 */
+.fab-wrap { position:fixed; bottom:28px; right:24px; display:flex; flex-direction:column; gap:10px; z-index:100; }
+.fab { width:48px; height:48px; border-radius:50%; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; transition:all .2s; box-shadow:0 4px 16px rgba(0,0,0,0.4); }
+.fab:hover { transform:scale(1.1); }
+.fab-guide { background:linear-gradient(135deg,var(--accent),var(--accent2)); }
+.fab-top { background:var(--surface2); border:1px solid var(--border); font-size:16px; }
+
 /* Messages */
 .msg { border-radius:var(--radius); padding:14px 18px; font-size:14px; margin-bottom:14px; display:none; line-height:1.7; font-weight:500; }
 .msg.on { display:block; }
@@ -447,6 +628,255 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
 </style>
 </head>
 <body>
+
+<!-- ★ 튜토리얼 오버레이 -->
+<div class="tutorial-overlay" id="tutorialOverlay">
+  <div class="tutorial-box">
+    <!-- Step 1 -->
+    <div class="tutorial-step active" id="tStep0">
+      <div class="tutorial-icon">🎬</div>
+      <div class="tutorial-title">C.A.R.E 대댓글 생성기</div>
+      <div class="tutorial-desc">
+        유튜브 댓글에 <strong>전략적으로 답글</strong>을 달아<br>
+        일회성 시청자를 <strong>평생 찐팬</strong>으로 만드세요!<br><br>
+        처음 사용하신다면 30초 안내를 확인해 보세요 😊
+      </div>
+    </div>
+    <!-- Step 2 -->
+    <div class="tutorial-step" id="tStep1">
+      <div class="tutorial-icon">🔑</div>
+      <div class="tutorial-title">API 키 설정 (최초 1회)</div>
+      <div class="tutorial-desc">
+        <div class="tutorial-highlight">
+          📺 <strong>YouTube API 키</strong> — 댓글 자동 수집<br>
+          🤖 <strong>Gemini API 키</strong> — AI 대댓글 생성<br>
+          🔐 <strong>Google 로그인</strong> — YouTube 직접 게시
+        </div>
+        Google 계정 하나로 모두 발급 가능합니다.<br>
+        한 번 입력하면 브라우저에 저장돼 다음엔 바로 사용!
+      </div>
+    </div>
+    <!-- Step 3 -->
+    <div class="tutorial-step" id="tStep2">
+      <div class="tutorial-icon">🔗</div>
+      <div class="tutorial-title">유튜브 링크 붙여넣기</div>
+      <div class="tutorial-desc">
+        내 유튜브 영상 링크를 붙여넣으면<br>
+        <strong>댓글 30개를 자동으로 불러옵니다.</strong><br><br>
+        댓글을 클릭하면 AI가 자동으로 분석 시작!
+      </div>
+    </div>
+    <!-- Step 4 -->
+    <div class="tutorial-step" id="tStep3">
+      <div class="tutorial-icon">✨</div>
+      <div class="tutorial-title">C.A.R.E 대댓글 생성</div>
+      <div class="tutorial-desc">
+        AI가 댓글 유형을 분석하고<br>
+        <strong>C.A.R.E 공식</strong>에 맞는 대댓글 3가지를 생성합니다.<br><br>
+        마음에 드는 버전을 복사하거나<br>
+        <strong>YouTube에 직접 게시</strong>할 수 있습니다!
+      </div>
+    </div>
+    <!-- Step 5 -->
+    <div class="tutorial-step" id="tStep4">
+      <div class="tutorial-icon">⚡</div>
+      <div class="tutorial-title">일괄 생성으로 시간 절약</div>
+      <div class="tutorial-desc">
+        미답글 댓글 전체를 <strong>한 번에 생성</strong>하고<br>
+        결과 테이블에서 확인 후 게시할 수 있습니다.<br><br>
+        <strong>댓글 30개 = 약 2분</strong> 만에 완료! 🚀
+      </div>
+    </div>
+    <!-- dots -->
+    <div class="tutorial-dots">
+      <div class="tutorial-dot active" id="td0"></div>
+      <div class="tutorial-dot" id="td1"></div>
+      <div class="tutorial-dot" id="td2"></div>
+      <div class="tutorial-dot" id="td3"></div>
+      <div class="tutorial-dot" id="td4"></div>
+    </div>
+    <div class="tutorial-btns">
+      <button class="tutorial-skip" onclick="closeTutorial()">건너뛰기</button>
+      <button class="tutorial-next" id="tutorialNextBtn" onclick="nextTutorial()">다음 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ★ 사용법 가이드 페이지 -->
+<div class="guide-overlay" id="guideOverlay">
+  <div class="guide-wrap">
+    <button class="guide-back" onclick="closeGuide()">← 돌아가기</button>
+    <div class="guide-title">📖 사용법 가이드</div>
+    <div class="guide-subtitle">C.A.R.E 대댓글 생성기 완벽 사용 설명서</div>
+
+    <div class="guide-section">
+      <div class="guide-section-title">🔑 1단계 — API 키 설정</div>
+      <div class="guide-step">
+        <div class="guide-step-num">1</div>
+        <div class="guide-step-content">
+          <div class="guide-step-title">Google AI Studio에서 Gemini API 키 발급</div>
+          <div class="guide-step-desc"><a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--blue)">aistudio.google.com</a> → Get API key → Create API key<br>무료 티어: 하루 1,500회 / 분당 15회 제공</div>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-step-num">2</div>
+        <div class="guide-step-content">
+          <div class="guide-step-title">Google Cloud Console에서 YouTube API 키 발급</div>
+          <div class="guide-step-desc"><a href="https://console.cloud.google.com" target="_blank" style="color:var(--blue)">console.cloud.google.com</a> → YouTube Data API v3 활성화 → 사용자 인증 정보 → API 키</div>
+        </div>
+      </div>
+      <div class="guide-tip">💡 <strong>Tip:</strong> Gemini API 키와 YouTube API 키는 같은 Google Cloud 프로젝트 키를 사용해도 됩니다!</div>
+    </div>
+
+    <div class="guide-section">
+      <div class="guide-section-title">🔗 2단계 — 영상 불러오기</div>
+      <div class="guide-step">
+        <div class="guide-step-num">1</div>
+        <div class="guide-step-content">
+          <div class="guide-step-title">유튜브 영상 링크 붙여넣기</div>
+          <div class="guide-step-desc">youtube.com/watch?v=... 또는 youtu.be/... 형식 모두 지원</div>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-step-num">2</div>
+        <div class="guide-step-content">
+          <div class="guide-step-title">📥 불러오기 클릭</div>
+          <div class="guide-step-desc">영상 정보와 최근 댓글 30개를 자동으로 수집합니다</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide-section">
+      <div class="guide-section-title">💜 C.A.R.E 공식이란?</div>
+      <div class="guide-care-grid">
+        <div class="guide-care-card gc">
+          <div class="guide-care-letter">C</div>
+          <div class="guide-care-word">Connect — 연결</div>
+          <div class="guide-care-desc">닉네임을 불러 개인적 연결감을 형성합니다. 댓글 내용을 구체적으로 언급해 진정성을 전달하세요.</div>
+        </div>
+        <div class="guide-care-card ga">
+          <div class="guide-care-letter">A</div>
+          <div class="guide-care-word">Appreciate — 감사</div>
+          <div class="guide-care-desc">댓글 유형에 맞는 진심 어린 감사를 표현합니다. 단순한 "감사합니다"가 아닌 구체적 감사!</div>
+        </div>
+        <div class="guide-care-card gr">
+          <div class="guide-care-letter">R</div>
+          <div class="guide-care-word">Respond+ — 답변+</div>
+          <div class="guide-care-desc">질문에 답하고 추가 정보나 역질문을 제공해 대화를 이어갑니다.</div>
+        </div>
+        <div class="guide-care-card ge">
+          <div class="guide-care-letter">E</div>
+          <div class="guide-care-word">Engage — 관계유도</div>
+          <div class="guide-care-desc">다음 영상 예고, 구독 유도, 커뮤니티 참여로 지속적 관계를 만듭니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide-section">
+      <div class="guide-section-title">⚡ 일괄 생성 활용법</div>
+      <div class="guide-tip">💡 <strong>미답글 댓글 전체를 한 번에 처리!</strong> 영상 로드 후 하단 "⚡ 미답글 일괄 생성" 버튼을 누르면 모든 댓글에 대한 대댓글을 자동 생성합니다. 결과를 CSV로 저장하거나 YouTube에 직접 게시할 수 있습니다.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ★ 튜토리얼 오버레이 -->
+<div class="tut-overlay" id="tutOverlay">
+  <div class="tut-box">
+    <div class="tut-step-badge">✨ <span id="tutStepLabel">1 / 5</span></div>
+    <div class="tut-icon" id="tutIcon">🎬</div>
+    <div class="tut-title" id="tutTitle"></div>
+    <div class="tut-desc" id="tutDesc"></div>
+    <div class="tut-highlight" id="tutHighlight" style="display:none"></div>
+    <div class="tut-dots" id="tutDots"></div>
+    <div class="tut-btns">
+      <button class="tut-skip" onclick="closeTutorial()">건너뛰기</button>
+      <button class="tut-next" id="tutNextBtn" onclick="tutNext()">다음 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ★ 가이드 모달 -->
+<div class="guide-overlay" id="guideOverlay">
+  <div class="guide-box">
+    <button class="guide-close" onclick="closeGuide()">✕</button>
+    <div class="guide-title">📖 사용법 가이드</div>
+    <div class="guide-section">
+      <div class="guide-section-title">🔑 STEP 1 — API 키 설정</div>
+      <div class="guide-steps">
+        <div class="guide-step"><div class="guide-step-num">1</div><div class="guide-step-text"><strong>YouTube API 키</strong>: Google Cloud Console → YouTube Data API v3 활성화 → API 키 발급</div></div>
+        <div class="guide-step"><div class="guide-step-num">2</div><div class="guide-step-text"><strong>Gemini API 키</strong>: <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--blue)">Google AI Studio</a> → Get API key → 무료 발급 (하루 1,500회)</div></div>
+        <div class="guide-step"><div class="guide-step-num">3</div><div class="guide-step-text">두 키 모두 <strong>같은 Google 계정</strong>의 키를 사용해도 됩니다</div></div>
+      </div>
+    </div>
+    <div class="guide-section">
+      <div class="guide-section-title">🔗 STEP 2 — 영상 불러오기</div>
+      <div class="guide-steps">
+        <div class="guide-step"><div class="guide-step-num">1</div><div class="guide-step-text">유튜브 영상 URL을 붙여넣고 <strong>📥 불러오기</strong> 클릭</div></div>
+        <div class="guide-step"><div class="guide-step-num">2</div><div class="guide-step-text">댓글 목록이 자동으로 불러와집니다 (최대 30개)</div></div>
+        <div class="guide-step"><div class="guide-step-num">3</div><div class="guide-step-text">대댓글을 달 댓글을 <strong>클릭</strong>하면 자동 분석이 시작됩니다</div></div>
+      </div>
+    </div>
+    <div class="guide-section">
+      <div class="guide-section-title">🤖 STEP 3 — C.A.R.E 공식 적용</div>
+      <div class="guide-steps">
+        <div class="guide-step"><div class="guide-step-num">1</div><div class="guide-step-text">AI가 댓글 유형을 자동 분석하고 <strong>최적 말투</strong>를 선택합니다</div></div>
+        <div class="guide-step"><div class="guide-step-num">2</div><div class="guide-step-text"><strong>✨ 대댓글 생성하기</strong> 클릭 → 3가지 버전 자동 생성</div></div>
+        <div class="guide-step"><div class="guide-step-num">3</div><div class="guide-step-text">마음에 드는 버전 <strong>📋 복사</strong> 후 유튜브에 붙여넣기</div></div>
+      </div>
+    </div>
+    <div class="guide-section">
+      <div class="guide-section-title">⚡ STEP 4 — 일괄 생성 (시간 절약)</div>
+      <div class="guide-steps">
+        <div class="guide-step"><div class="guide-step-num">1</div><div class="guide-step-text">영상 로드 후 하단 <strong>⚡ 미답글 일괄 생성</strong> 섹션 확인</div></div>
+        <div class="guide-step"><div class="guide-step-num">2</div><div class="guide-step-text"><strong>🚀 일괄 생성 시작</strong>으로 미답글 전체를 한 번에 처리</div></div>
+        <div class="guide-step"><div class="guide-step-num">3</div><div class="guide-step-text">결과 테이블에서 행별 복사 또는 <strong>⬇️ CSV 저장</strong></div></div>
+      </div>
+    </div>
+    <div class="guide-tip">💡 <strong>Tip:</strong> Google 계정으로 로그인하면 생성된 대댓글을 YouTube에 <strong>직접 게시</strong>할 수 있습니다!</div>
+    </div>
+    <div class="guide-section">
+      <div class="guide-section-title">💜 C.A.R.E 공식이란?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+        <div style="background:rgba(108,99,255,0.08);border:1px solid rgba(108,99,255,0.25);border-radius:10px;padding:14px">
+          <div style="font-size:22px;font-weight:900;color:var(--C);margin-bottom:4px">C</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">Connect — 개인적 연결</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.6">닉네임 호명으로 소속감 형성. 댓글 내용을 구체적으로 언급해 진정성 전달</div>
+        </div>
+        <div style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.25);border-radius:10px;padding:14px">
+          <div style="font-size:22px;font-weight:900;color:var(--A);margin-bottom:4px">A</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">Appreciate — 진심 감사</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.6">단순 "감사합니다"가 아닌 댓글 유형에 맞는 구체적 감사 표현</div>
+        </div>
+        <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:10px;padding:14px">
+          <div style="font-size:22px;font-weight:900;color:var(--R);margin-bottom:4px">R</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">Respond+ — 답변+가치</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.6">명확한 답변에 추가 정보·팁·역질문을 더해 대화를 이어가기</div>
+        </div>
+        <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);border-radius:10px;padding:14px">
+          <div style="font-size:22px;font-weight:900;color:var(--E);margin-bottom:4px">E</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">Engage — 관계 유도</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.6">다음 영상 예고·구독·커뮤니티 참여로 지속적 팬 관계 형성</div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-section">
+      <div class="guide-section-title">❓ 자주 묻는 질문</div>
+      <div class="guide-steps">
+        <div class="guide-step"><div class="guide-step-num" style="background:var(--gold);color:#000">Q</div><div class="guide-step-text"><strong>API 키가 유출되면 어떻게 되나요?</strong><br>브라우저 로컬스토리지에만 저장됩니다. 서버에 전송되지 않아 안전합니다.</div></div>
+        <div class="guide-step"><div class="guide-step-num" style="background:var(--gold);color:#000">Q</div><div class="guide-step-text"><strong>Gemini API 요금이 발생하나요?</strong><br>무료 티어로 하루 1,500회 제공됩니다. 일반적인 채널 운영에 충분합니다.</div></div>
+        <div class="guide-step"><div class="guide-step-num" style="background:var(--gold);color:#000">Q</div><div class="guide-step-text"><strong>YouTube 직접 게시가 안 될 때는?</strong><br>Google 로그인 후 YouTube Data API v3가 활성화된 프로젝트의 OAuth를 사용해야 합니다.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ★ 플로팅 버튼 -->
+<div class="fab-wrap">
+  <button class="fab fab-guide" onclick="openGuide()" title="사용법 가이드">❓</button>
+  <button class="fab fab-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
+</div>
+
 <div class="wrap">
 
   <!-- Header -->
@@ -459,6 +889,10 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
     </div>
     <h1>찐팬 만드는 <em>전략적 대댓글</em> 생성기</h1>
     <p class="subtitle">댓글 유형 자동 분석 → C.A.R.E 공식 적용 → 최적 말투 자동 선택<br>일회성 시청자를 평생 팬으로 만드세요 · Powered by Gemini AI</p>
+  <div style="margin-top:12px">
+    <button class="top-guide-btn" onclick="openGuide()">📖 사용법 가이드</button>
+    <button class="top-guide-btn" onclick="startTutorial()" style="background:rgba(244,63,94,0.1);border-color:rgba(244,63,94,0.3);color:var(--red)">🎯 튜토리얼 다시 보기</button>
+  </div>
   </header>
 
   <!-- CARE strip -->
@@ -660,6 +1094,22 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
   <div class="msg err" id="errMsg"></div>
   <div class="msg info" id="infoMsg"></div>
 
+  <!-- ★ 공유 바 -->
+  <div class="share-bar" id="shareBar" style="display:none">
+    <span class="share-label">🎉 이 툴이 유용했다면 공유해 주세요!</span>
+    <button class="share-btn share-kakao" onclick="shareKakao()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.48 3 2 6.48 2 10.8c0 2.7 1.56 5.1 3.96 6.6L5 21l4.2-2.4c.9.24 1.84.36 2.8.36 5.52 0 10-3.48 10-7.8S17.52 3 12 3z"/></svg>
+      카카오톡 공유
+    </button>
+    <button class="share-btn share-twitter" onclick="shareTwitter()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      X 공유
+    </button>
+    <button class="share-btn share-link" onclick="copyPageLink()">
+      🔗 링크 복사
+    </button>
+  </div>
+
   <!-- ★ 일괄 생성 섹션 -->
   <div class="bulk-section" id="bulkSection">
     <div class="bulk-header" onclick="toggleBulkPanel()">
@@ -727,816 +1177,134 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
       <button class="regen-btn" onclick="generateReplies()">🔄 다시 생성</button>
     </div>
     <div class="reply-cards" id="replyCards"></div>
+
+    <!-- 공유 버튼 -->
+    <div class="share-bar" id="shareBar" style="display:none">
+      <span class="share-label">🔗 공유하기</span>
+      <button class="share-btn share-kakao" onclick="shareKakao()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.603 1.555 4.899 3.923 6.306L4.9 20.1l4.442-2.94A11.3 11.3 0 0012 18c5.523 0 10-3.477 10-7.5S17.523 3 12 3z"/></svg>
+        카카오톡 공유
+      </button>
+      <button class="share-btn share-twitter" onclick="shareTwitter()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        X(트위터)
+      </button>
+      <button class="share-btn share-link" id="copyLinkBtn" onclick="copyPageLink()">
+        🔗 링크 복사
+      </button>
+    </div>
   </div>
 
 </div>
+<script>(function(){var _x=["Y29uc3QgX2Q9KHMpPT5kZWNvZGVVUklDb21wb25lbnQoZXNjYXBlKGF0b2IocykpKTtsZXQgeXRBcGlLZXk9bG9jYWxTdG9yYWdl","LmdldEl0ZW0oJ3l0X2FwaV9rZXknKXx8Jyc7bGV0IHJlcGxpZWRTZXQ9bmV3IFNldChKU09OLnBhcnNlKGxvY2FsU3RvcmFnZS5n","ZXRJdGVtKCdyZXBsaWVkX2lkcycpfHwnW10nKSk7bGV0IGN1cnJlbnRGaWx0ZXI9J2FsbCc7bGV0IHBhc3RlQm94VmlzaWJsZT1m","YWxzZTtsZXQgX2s5PWxvY2FsU3RvcmFnZS5nZXRJdGVtKCdnZW1pbmlfYXBpX2tleScpfHwnJztsZXQgdmlkZW9EYXRhPW51bGws","YWxsQ29tbWVudHM9W10sc2VsSWR4PS0xO2xldCBhbmFseXNpc1Jlc3VsdD1udWxsLGN1cnJlbnRNb2RlPSd1cmwnOyhmdW5jdGlv","biBpbml0KCl7aWYoeXRBcGlLZXkpe2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd5dEtleScpLnZhbHVlPXl0QXBpS2V5O21hcmtD","b25uZWN0ZWQoJ3l0RG90JywneXRCb3gnLCd5dEJvZHknLCd5dFRvZycpO31lbHNle2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd5","dEJvZHknKS5jbGFzc0xpc3QucmVtb3ZlKCdoaWRkZW4nKTtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgneXRUb2cnKS50ZXh0Q29u","dGVudD0n4payIOygkeq4sCc7fQppZihfazkpe2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdnZW1pbmlLZXknKS52YWx1ZT1fazk7","bWFya0Nvbm5lY3RlZCgnZ2VtaW5pRG90JywnZ2VtaW5pQm94JywnZ2VtaW5pQm9keScsJ2dlbWluaVRvZycpO31lbHNle2RvY3Vt","ZW50LmdldEVsZW1lbnRCeUlkKCdnZW1pbmlCb2R5JykuY2xhc3NMaXN0LnJlbW92ZSgnaGlkZGVuJyk7ZG9jdW1lbnQuZ2V0RWxl","bWVudEJ5SWQoJ2dlbWluaVRvZycpLnRleHRDb250ZW50PSfilrIg7KCR6riwJzt9fSkoKTtmdW5jdGlvbiBtYXJrQ29ubmVjdGVk","KGRvdElkLGJveElkLGJvZHlJZCx0b2dJZCl7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoZG90SWQpLmNsYXNzTGlzdC5hZGQoJ29u","Jyk7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoYm94SWQpLmNsYXNzTGlzdC5hZGQoJ2Nvbm5lY3RlZCcpO2RvY3VtZW50LmdldEVs","ZW1lbnRCeUlkKGJvZHlJZCkuY2xhc3NMaXN0LmFkZCgnaGlkZGVuJyk7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQodG9nSWQpLnRl","eHRDb250ZW50PSfilrwg7Y687LmY6riwJzt9CmZ1bmN0aW9uIHRvZyhib2R5SWQsdG9nSWQsZG90SWQsYm94SWQpe2NvbnN0IGI9","ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoYm9keUlkKSx0PWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKHRvZ0lkKTt0LnRleHRDb250","ZW50PWIuY2xhc3NMaXN0LnRvZ2dsZSgnaGlkZGVuJyk/J+KWvCDtjrzsuZjquLAnOifilrIg7KCR6riwJzt9CmZ1bmN0aW9uIHNh","dmVZdEtleSgpe2NvbnN0IGs9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3l0S2V5JykudmFsdWUudHJpbSgpO2lmKCFrKXtzaG93","RXJyKCdZb3VUdWJlIEFQSSDtgqTrpbwg7J6F66Cl7ZW0IOyjvOyEuOyalC4nKTtyZXR1cm47fQp5dEFwaUtleT1rO2xvY2FsU3Rv","cmFnZS5zZXRJdGVtKCd5dF9hcGlfa2V5JyxrKTttYXJrQ29ubmVjdGVkKCd5dERvdCcsJ3l0Qm94JywneXRCb2R5JywneXRUb2cn","KTtzaG93SW5mbygn4pyFIFlvdVR1YmUgQVBJIO2CpOqwgCDsoIDsnqXrkJjsl4jsirXri4jri6QhJyk7fQpmdW5jdGlvbiBzYXZl","R2VtaW5pS2V5KCl7Y29uc3Qgaz1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnZ2VtaW5pS2V5JykudmFsdWUudHJpbSgpO2lmKCFr","KXtzaG93RXJyKCdHZW1pbmkgQVBJIO2CpOulvCDsnoXroKXtlbQg7KO87IS47JqULicpO3JldHVybjt9Cl9rOT1rO2xvY2FsU3Rv","cmFnZS5zZXRJdGVtKCdnZW1pbmlfYXBpX2tleScsayk7bWFya0Nvbm5lY3RlZCgnZ2VtaW5pRG90JywnZ2VtaW5pQm94JywnZ2Vt","aW5pQm9keScsJ2dlbWluaVRvZycpO3Nob3dJbmZvKCfinIUgR2VtaW5pIEFQSSDtgqTqsIAg7KCA7J6l65CY7JeI7Iq164uI64uk","IScpO30KZnVuY3Rpb24gc3dpdGNoTW9kZShtKXtjdXJyZW50TW9kZT1tO2RvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJy5tdGFi","JykuZm9yRWFjaCgodCxpKT0+dC5jbGFzc0xpc3QudG9nZ2xlKCdhY3RpdmUnLChpPT09MCYmbT09PSd1cmwnKXx8KGk9PT0xJiZt","PT09J21hbnVhbCcpKSk7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3VybE1vZGUnKS5jbGFzc0xpc3QudG9nZ2xlKCdhY3RpdmUn","LG09PT0ndXJsJyk7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ21hbnVhbE1vZGUnKS5jbGFzc0xpc3QudG9nZ2xlKCdhY3RpdmUn","LG09PT0nbWFudWFsJyk7aWYobT09PSdtYW51YWwnKXtbJ3ZwcmV2JywnY210U2VjdGlvbicsJ3NlbEJveCddLmZvckVhY2goaWQ9","PmRvY3VtZW50LmdldEVsZW1lbnRCeUlkKGlkKS5jbGFzc0xpc3QucmVtb3ZlKCdvbicpKTtkb2N1bWVudC5nZXRFbGVtZW50QnlJ","ZCgncGFzdGVCb3gnKS5zdHlsZS5kaXNwbGF5PSdub25lJztwYXN0ZUJveFZpc2libGU9ZmFsc2U7cGFzdGVNb2RlPWZhbHNlO3Jl","c2V0QW5hbHlzaXMoKTt9fQpmdW5jdGlvbiB2aWRJZCh1cmwpe2NvbnN0IHBzPVsvKD86eW91dHViZVwuY29tXC93YXRjaFw/dj18","eW91dHVcLmJlXC98eW91dHViZVwuY29tXC9lbWJlZFwvKShbYS16QS1aMC05Xy1dezExfSkvLC95b3V0dWJlXC5jb21cL3Nob3J0","c1wvKFthLXpBLVowLTlfLV17MTF9KS9dO2Zvcihjb25zdCBwIG9mIHBzKXtjb25zdCBtPXVybC5tYXRjaChwKTtpZihtKXJldHVy","biBtWzFdO31yZXR1cm4gbnVsbDt9CmZ1bmN0aW9uIGZtdE4obil7aWYoIW4pcmV0dXJuJzAnO249cGFyc2VJbnQobik7aWYobj49","MTAwMDApcmV0dXJuIE1hdGguZmxvb3Iobi8xMDAwMCkrJ+unjCc7aWYobj49MTAwMClyZXR1cm4obi8xMDAwKS50b0ZpeGVkKDEp","KydLJztyZXR1cm4gbi50b1N0cmluZygpO30KYXN5bmMgZnVuY3Rpb24gZmV0Y2hWaWRlbygpe2lmKCF5dEFwaUtleSl7c2hvd0Vy","cign66i87KCAIFlvdVR1YmUgQVBJIO2CpOulvCDshKTsoJXtlbQg7KO87IS47JqULicpO2RvY3VtZW50LmdldEVsZW1lbnRCeUlk","KCd5dEJvZHknKS5jbGFzc0xpc3QucmVtb3ZlKCdoaWRkZW4nKTtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgneXRUb2cnKS50ZXh0","Q29udGVudD0n4payIOygkeq4sCc7cmV0dXJuO30KY29uc3QgdXJsPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd2aWRlb1VybCcp","LnZhbHVlLnRyaW0oKTtpZighdXJsKXtzaG93RXJyKCfsnKDtipzruIwg66eB7YGs66W8IOyeheugpe2VtCDso7zshLjsmpQuJyk7","cmV0dXJuO30KY29uc3QgdmlkPXZpZElkKHVybCk7aWYoIXZpZCl7c2hvd0Vycign7Jyg7Zqo7ZWcIOycoO2KnOu4jCDrp4Htgazq","sIAg7JWE64uZ64uI64ukLicpO3JldHVybjt9CmNsZWFyTXNncygpO3Jlc2V0QW5hbHlzaXMoKTtkb2N1bWVudC5nZXRFbGVtZW50","QnlJZCgnZmV0Y2hCdG4nKS5kaXNhYmxlZD10cnVlO3NldEZTKHRydWUsJ+yYgeyDgSDsoJXrs7Trpbwg67aI65+s7Jik64qUIOyk","kS4uLicpO3RyeXtjb25zdCB2aj1hd2FpdChhd2FpdCBmZXRjaChgaHR0cHM6Ly93d3cuZ29vZ2xlYXBpcy5jb20veW91dHViZS92","My92aWRlb3M/cGFydD1zbmlwcGV0LHN0YXRpc3RpY3MmaWQ9JHt2aWR9JmtleT0ke3l0QXBpS2V5fWApKS5qc29uKCk7aWYodmou","ZXJyb3IpdGhyb3cgbmV3IEVycm9yKHZqLmVycm9yLm1lc3NhZ2UpO2lmKCF2ai5pdGVtcz8ubGVuZ3RoKXRocm93IG5ldyBFcnJv","cign7JiB7IOB7J2EIOywvuydhCDsiJgg7JeG7Iq164uI64ukLicpO2NvbnN0e3NuaXBwZXQ6c24sc3RhdGlzdGljczpzdH09dmou","aXRlbXNbMF07dmlkZW9EYXRhPXt2aWRlb0lkOnZpZCx0aXRsZTpzbi50aXRsZSxkZXNjcmlwdGlvbjooc24uZGVzY3JpcHRpb258","fCcnKS5zdWJzdHJpbmcoMCw4MDApLHRodW1ibmFpbDpzbi50aHVtYm5haWxzPy5tZWRpdW0/LnVybHx8Jycsdmlld3M6c3Qudmll","d0NvdW50LGxpa2VzOnN0Lmxpa2VDb3VudCxjb21tZW50Q291bnQ6c3QuY29tbWVudENvdW50fTtkb2N1bWVudC5nZXRFbGVtZW50","QnlJZCgndnBUaHVtYicpLnNyYz12aWRlb0RhdGEudGh1bWJuYWlsO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd2cFRpdGxlJyku","dGV4dENvbnRlbnQ9dmlkZW9EYXRhLnRpdGxlO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd2cFZpZXdzJykudGV4dENvbnRlbnQ9","YPCfkYEgJHtmbXROKHZpZGVvRGF0YS52aWV3cyl97ZqMYDtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgndnBMaWtlcycpLnRleHRD","b250ZW50PWDwn5GNICR7Zm10Tih2aWRlb0RhdGEubGlrZXMpfWA7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3ZwQ210cycpLnRl","eHRDb250ZW50PWDwn5KsICR7Zm10Tih2aWRlb0RhdGEuY29tbWVudENvdW50KX3qsJxgO2RvY3VtZW50LmdldEVsZW1lbnRCeUlk","KCd2cERlc2MnKS50ZXh0Q29udGVudD12aWRlb0RhdGEuZGVzY3JpcHRpb247ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3ZwcmV2","JykuY2xhc3NMaXN0LmFkZCgnb24nKTtzZXRGUyh0cnVlLCfrjJPquIDsnYQg67aI65+s7Jik64qUIOykkS4uLicpO2NvbnN0IGNq","PWF3YWl0KGF3YWl0IGZldGNoKGBodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS95b3V0dWJlL3YzL2NvbW1lbnRUaHJlYWRzP3Bh","cnQ9c25pcHBldCZ2aWRlb0lkPSR7dmlkfSZtYXhSZXN1bHRzPTMwJm9yZGVyPXJlbGV2YW5jZSZrZXk9JHt5dEFwaUtleX1gKSku","anNvbigpO2lmKGNqLmVycm9yKXRocm93IG5ldyBFcnJvcihjai5lcnJvci5tZXNzYWdlKTthbGxDb21tZW50cz0oY2ouaXRlbXN8","fFtdKS5tYXAoYz0+e2NvbnN0IHM9Yy5zbmlwcGV0LnRvcExldmVsQ29tbWVudC5zbmlwcGV0O3JldHVybntpZDpjLmlkLGF1dGhv","cjpzLmF1dGhvckRpc3BsYXlOYW1lLHRleHQ6cy50ZXh0RGlzcGxheSxsaWtlczpzLmxpa2VDb3VudCxoYXNPd25lclJlcGx5OmMu","c25pcHBldC50b3RhbFJlcGx5Q291bnQ+MH07fSk7c2VsSWR4PS0xO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdzZWxCb3gnKS5j","bGFzc0xpc3QucmVtb3ZlKCdvbicpO3JlbmRlckNtdHMoKTtzZXRGUyhmYWxzZSk7Y29uc3QgdW5yZXA9YWxsQ29tbWVudHMuZmls","dGVyKHg9PiFyZXBsaWVkU2V0Lmhhcyh4LmlkKSkubGVuZ3RoO3Nob3dJbmZvKGDinIUgIiR7dmlkZW9EYXRhLnRpdGxlfSIg4oCU","IOy0nSAke2FsbENvbW1lbnRzLmxlbmd0aH3qsJwgKOuvuOuLteq4gCAke3VucmVwfeqwnCkuIOuLteq4gCDri6wg64yT6riA7J2E","IO2BtOumre2VmOqxsOuCmCwg7JWE656YIOKaoSDsnbzqtIQg7IOd7ISx7Jy866GcIO2VnCDrsojsl5Ag7LKY66as7ZWY7IS47JqU","IWApO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdidWxrU2VjdGlvbicpLmNsYXNzTGlzdC5hZGQoJ29uJyk7ZG9jdW1lbnQuZ2V0","RWxlbWVudEJ5SWQoJ2J1bGtIZWFkZXJTdWInKS50ZXh0Q29udGVudD1g66+464u16riAICR7dW5yZXB96rCcIOKAlCDtlZwg67KI","7JeQIOuMgOuMk+q4gOydhCDsg53shLHtlanri4jri6RgO31jYXRjaChlKXtzZXRGUyhmYWxzZSk7c2hvd0Vycign67aI65+s7Jik","6riwIOyLpO2MqDogJytlLm1lc3NhZ2UpO30KZmluYWxseXtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnZmV0Y2hCdG4nKS5kaXNh","YmxlZD1mYWxzZTt9fQpmdW5jdGlvbiBzZXRGUyhvbix0eHQpe2NvbnN0IGVsPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdmc3Rh","dHVzJyk7ZWwuY2xhc3NMaXN0LnRvZ2dsZSgnb24nLG9uKTtpZih0eHQpZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2ZzdGF0dXNU","ZXh0JykudGV4dENvbnRlbnQ9dHh0O30KZnVuY3Rpb24gcmVuZGVyQ210cygpe2NvbnN0IHJlcGxpZWRDb3VudD1hbGxDb21tZW50","cy5maWx0ZXIoYz0+cmVwbGllZFNldC5oYXMoYy5pZCkpLmxlbmd0aDtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnY210QmFkZ2Un","KS50ZXh0Q29udGVudD1hbGxDb21tZW50cy5sZW5ndGgrJ+qwnCc7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3JlcGxpZWRDb3Vu","dCcpLnRleHRDb250ZW50PWDri7XquIDsmYTro4wgJHtyZXBsaWVkQ291bnR96rCcIC8g66+464u16riAICR7YWxsQ29tbWVudHMu","bGVuZ3RoLXJlcGxpZWRDb3VudH3qsJxgO2xldCBsaXN0PWFsbENvbW1lbnRzLm1hcCgoYyxpKT0+KHsuLi5jLGlkeDppfSkpO2lm","KGN1cnJlbnRGaWx0ZXI9PT0ndW5yZXBsaWVkJylsaXN0PWxpc3QuZmlsdGVyKGM9PiFyZXBsaWVkU2V0LmhhcyhjLmlkKSk7aWYo","Y3VycmVudEZpbHRlcj09PSdyZXBsaWVkJylsaXN0PWxpc3QuZmlsdGVyKGM9PnJlcGxpZWRTZXQuaGFzKGMuaWQpKTtkb2N1bWVu","dC5nZXRFbGVtZW50QnlJZCgnY210TGlzdCcpLmlubmVySFRNTD1saXN0Lmxlbmd0aD9saXN0Lm1hcChjPT5gCiAgICA8ZGl2IGNs","YXNzPSJjbXQtaXRlbSR7cmVwbGllZFNldC5oYXMoYy5pZCk/JyByZXBsaWVkJzonJ30iIGlkPSJjaSR7Yy5pZHh9IiBvbmNsaWNr","PSJzZWxlY3RDbXQoJHtjLmlkeH0pIj4KICAgICAgPGRpdiBjbGFzcz0iY210LWF1dGhvciI+CiAgICAgICAgJHtlc2MoYy5hdXRo","b3IpfQogICAgICAgIDxzcGFuIGNsYXNzPSJjbXQtbGlrZXMiPvCfkY0ke2MubGlrZXN8fDB9PC9zcGFuPgogICAgICAgICR7cmVw","bGllZFNldC5oYXMoYy5pZCk/JzxzcGFuIGNsYXNzPSJyZXBsaWVkLWJhZGdlIj7inJMg64u16riA7JmE66OMPC9zcGFuPic6Jyd9","CiAgICAgIDwvZGl2PgogICAgICA8ZGl2IGNsYXNzPSJjbXQtdGV4dCI+JHtlc2MoYy50ZXh0KX08L2Rpdj4KICAgIDwvZGl2PmAp","LmpvaW4oJycpOmA8ZGl2IHN0eWxlPSJwYWRkaW5nOjIwcHg7dGV4dC1hbGlnbjpjZW50ZXI7Y29sb3I6dmFyKC0tdGV4dDIpO2Zv","bnQtc2l6ZToxM3B4Ij7tlbTri7kg64yT6riA7J20IOyXhuyKteuLiOuLpDwvZGl2PmA7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQo","J2NtdFNlY3Rpb24nKS5jbGFzc0xpc3QuYWRkKCdvbicpO30KZnVuY3Rpb24gc2V0RmlsdGVyKGYpe2N1cnJlbnRGaWx0ZXI9Zjtb","J2ZBbGwnLCdmVW5yZXBsaWVkJywnZlJlcGxpZWQnXS5mb3JFYWNoKGlkPT5kb2N1bWVudC5nZXRFbGVtZW50QnlJZChpZCkuY2xh","c3NMaXN0LnJlbW92ZSgnYWN0aXZlJykpO2NvbnN0IG1hcD17YWxsOidmQWxsJyx1bnJlcGxpZWQ6J2ZVbnJlcGxpZWQnLHJlcGxp","ZWQ6J2ZSZXBsaWVkJ307ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQobWFwW2ZdKS5jbGFzc0xpc3QuYWRkKCdhY3RpdmUnKTtyZW5k","ZXJDbXRzKCk7fQpmdW5jdGlvbiBzZWxlY3RDbXQoaSl7ZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnLmNtdC1pdGVtJykuZm9y","RWFjaChlPT5lLmNsYXNzTGlzdC5yZW1vdmUoJ3NlbCcpKTtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnY2knK2kpLmNsYXNzTGlz","dC5hZGQoJ3NlbCcpO3NlbElkeD1pO3Bhc3RlTW9kZT1mYWxzZTtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc2VsVHh0JykudGV4","dENvbnRlbnQ9YWxsQ29tbWVudHNbaV0udGV4dDtjb25zdCBpc1JlcGxpZWQ9cmVwbGllZFNldC5oYXMoYWxsQ29tbWVudHNbaV0u","aWQpO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdzZWxCb3gnKS5pbm5lckhUTUw9YAogICAgPGRpdiBzdHlsZT0iZGlzcGxheTpm","bGV4O2FsaWduLWl0ZW1zOmNlbnRlcjtqdXN0aWZ5LWNvbnRlbnQ6c3BhY2UtYmV0d2VlbjttYXJnaW4tYm90dG9tOjhweCI+CiAg","ICAgIDxkaXYgY2xhc3M9InNlbC1sYmwiPuKchSDshKDtg53rkJwg64yT6riAPC9kaXY+CiAgICAgIDxidXR0b24gb25jbGljaz0i","dG9nZ2xlUmVwbGllZCgke2l9KSIgc3R5bGU9InBhZGRpbmc6NHB4IDEycHg7Ym9yZGVyLXJhZGl1czo2cHg7Ym9yZGVyOjFweCBz","b2xpZCAke2lzUmVwbGllZD8ndmFyKC0tZ3JlZW4pJzondmFyKC0tYm9yZGVyKSd9O2JhY2tncm91bmQ6JHtpc1JlcGxpZWQ/J3Jn","YmEoMTYsMTg1LDEyOSwwLjEyKSc6J3RyYW5zcGFyZW50J307Y29sb3I6JHtpc1JlcGxpZWQ/J3ZhcigtLWdyZWVuKSc6J3Zhcigt","LXRleHQyKSd9O2ZvbnQtc2l6ZToxMXB4O2ZvbnQtd2VpZ2h0OjcwMDtjdXJzb3I6cG9pbnRlcjtmb250LWZhbWlseTppbmhlcml0","O3RyYW5zaXRpb246YWxsIC4xOHMiIGlkPSJyZXBseU1hcmsiPgogICAgICAgICR7aXNSZXBsaWVkPyfinJMg64u16riA7JmE66OM","Jzon4peLIOuLteq4gOyZhOujjCDtkZzsi5wnfQogICAgICA8L2J1dHRvbj4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0ic2Vs","LXR4dCI+JHtlc2MoYWxsQ29tbWVudHNbaV0udGV4dCl9PC9kaXY+YDtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc2VsQm94Jyku","Y2xhc3NMaXN0LmFkZCgnb24nKTtyZXNldEFuYWx5c2lzKCk7X2ExKCk7fQpmdW5jdGlvbiB0b2dnbGVSZXBsaWVkKGkpe2NvbnN0","IGlkPWFsbENvbW1lbnRzW2ldLmlkO2lmKHJlcGxpZWRTZXQuaGFzKGlkKSlyZXBsaWVkU2V0LmRlbGV0ZShpZCk7ZWxzZSByZXBs","aWVkU2V0LmFkZChpZCk7bG9jYWxTdG9yYWdlLnNldEl0ZW0oJ3JlcGxpZWRfaWRzJyxKU09OLnN0cmluZ2lmeShbLi4ucmVwbGll","ZFNldF0pKTtzZWxlY3RDbXQoaSk7cmVuZGVyQ210cygpO30KbGV0IHBhc3RlTW9kZT1mYWxzZTtsZXQgcGFzdGVDb21tZW50PScn","O2xldCBwYXN0ZUF1dGhvck5hbWU9Jyc7ZnVuY3Rpb24gdG9nZ2xlUGFzdGVCb3goKXtwYXN0ZUJveFZpc2libGU9IXBhc3RlQm94","VmlzaWJsZTtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncGFzdGVCb3gnKS5zdHlsZS5kaXNwbGF5PXBhc3RlQm94VmlzaWJsZT8n","YmxvY2snOidub25lJztpZihwYXN0ZUJveFZpc2libGUpZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3Bhc3RlVHh0JykuZm9jdXMo","KTt9CmZ1bmN0aW9uIHVzZVBhc3RlZENvbW1lbnQoKXtjb25zdCB0eHQ9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3Bhc3RlVHh0","JykudmFsdWUudHJpbSgpO2lmKCF0eHQpe3Nob3dFcnIoJ+uMk+q4gCDrgrTsmqnsnYQg7J6F66Cl7ZW0IOyjvOyEuOyalC4nKTty","ZXR1cm47fQpwYXN0ZUNvbW1lbnQ9dHh0O3Bhc3RlQXV0aG9yTmFtZT1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncGFzdGVBdXRo","b3InKS52YWx1ZS50cmltKCk7cGFzdGVNb2RlPXRydWU7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3NlbEJveCcpLmlubmVySFRN","TD1gCiAgICA8ZGl2IHN0eWxlPSJkaXNwbGF5OmZsZXg7YWxpZ24taXRlbXM6Y2VudGVyO2p1c3RpZnktY29udGVudDpzcGFjZS1i","ZXR3ZWVuO21hcmdpbi1ib3R0b206OHB4Ij4KICAgICAgPGRpdiBjbGFzcz0ic2VsLWxibCI+8J+TiyDrtpnsl6zrhKPquLAg64yT","6riAPC9kaXY+CiAgICAgIDxzcGFuIHN0eWxlPSJmb250LXNpemU6MTFweDtjb2xvcjp2YXIoLS1hY2NlbnQyKSI+JHtwYXN0ZUF1","dGhvck5hbWV8fCfri4nrhKTsnoQg66+47J6F66ClJ308L3NwYW4+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9InNlbC10eHQi","PiR7ZXNjKHR4dCl9PC9kaXY+YDtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc2VsQm94JykuY2xhc3NMaXN0LmFkZCgnb24nKTty","ZXNldEFuYWx5c2lzKCk7X2ExKCk7cGFzdGVCb3hWaXNpYmxlPWZhbHNlO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdwYXN0ZUJv","eCcpLnN0eWxlLmRpc3BsYXk9J25vbmUnO30KZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3ZpZGVvVXJsJykuYWRkRXZlbnRMaXN0","ZW5lcigna2V5ZG93bicsZT0+e2lmKGUua2V5PT09J0VudGVyJylmZXRjaFZpZGVvKCk7fSk7YXN5bmMgZnVuY3Rpb24gX2cwKHBy","b21wdCl7aWYoIV9rOSl0aHJvdyBuZXcgRXJyb3IoJ0dlbWluaSBBUEkg7YKk66W8IOuovOyggCDshKTsoJXtlbQg7KO87IS47JqU","LicpO2NvbnN0IHVybD1gaHR0cHM6Ly9nZW5lcmF0aXZlbGFuZ3VhZ2UuZ29vZ2xlYXBpcy5jb20vdjFiZXRhL21vZGVscy9nZW1p","bmktMi41LWZsYXNoOmdlbmVyYXRlQ29udGVudD9rZXk9JHtfazl9YDtjb25zdCByZXM9YXdhaXQgZmV0Y2godXJsLHttZXRob2Q6","J1BPU1QnLGhlYWRlcnM6eydDb250ZW50LVR5cGUnOidhcHBsaWNhdGlvbi9qc29uJ30sYm9keTpKU09OLnN0cmluZ2lmeSh7Y29u","dGVudHM6W3twYXJ0czpbe3RleHQ6cHJvbXB0fV19XSxnZW5lcmF0aW9uQ29uZmlnOnt0ZW1wZXJhdHVyZTowLjcsbWF4T3V0cHV0","VG9rZW5zOjMwMDAscmVzcG9uc2VNaW1lVHlwZTonYXBwbGljYXRpb24vanNvbid9fSl9KTtjb25zdCBkYXRhPWF3YWl0IHJlcy5q","c29uKCk7aWYoZGF0YS5lcnJvcil0aHJvdyBuZXcgRXJyb3IoZGF0YS5lcnJvci5tZXNzYWdlKTtyZXR1cm4gZGF0YS5jYW5kaWRh","dGVzPy5bMF0/LmNvbnRlbnQ/LnBhcnRzPy5bMF0/LnRleHR8fCcnO30KZnVuY3Rpb24gX2ozKHJhdyl7bGV0IHM9cmF3LnJlcGxh","Y2UoL2BgYGpzb24vZ2ksJycpLnJlcGxhY2UoL2BgYC9nLCcnKS50cmltKCk7Y29uc3Qgc3RhcnQ9cy5zZWFyY2goL1t7W10vKTsK","ICBjb25zdCBsYXN0Q3VybHkgPSBzLmxhc3RJbmRleE9mKCd9Jyk7CiAgY29uc3QgbGFzdEJyYWNrZXQgPSBzLmxhc3RJbmRleE9m","KCddJyk7CiAgY29uc3QgZW5kID0gTWF0aC5tYXgobGFzdEN1cmx5LCBsYXN0QnJhY2tldCk7CiAgaWYgKHN0YXJ0ID09PSAtMSB8","fCBlbmQgPT09IC0xKSB0aHJvdyBuZXcgRXJyb3IoJ+ydkeuLteyXkOyEnCBKU09O7J2EIOywvuydhCDsiJgg7JeG7Iq164uI64uk","LicpOwogIHJldHVybiBzLnNsaWNlKHN0YXJ0LCBlbmQgKyAxKTsKfQoKLy89PT09PUFuYWx5c2lzPT09PT1mdW5jdGlvbiByZXNl","dEFuYWx5c2lzKCl7YW5hbHlzaXNSZXN1bHQ9bnVsbDtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYW5hbHlzaXNCb3gnKS5jbGFz","c0xpc3QucmVtb3ZlKCdvbicpO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd0cm9sbENhcmQnKS5jbGFzc0xpc3QucmVtb3ZlKCdv","bicpO30KYXN5bmMgZnVuY3Rpb24gX2ExKCl7Y29uc3QgY29tbWVudD1nZXRDb21tZW50KCk7aWYoIWNvbW1lbnQpe3Nob3dFcnIo","J+uovOyggCDrjJPquIDsnYQg7ISg7YOd7ZWY6rGw64KYIOyeheugpe2VtCDso7zshLjsmpQuJyk7cmV0dXJuO30KaWYoIV9rOSl7","c2hvd0VycignR2VtaW5pIEFQSSDtgqTrpbwg66i87KCAIOyEpOygle2VtCDso7zshLjsmpQuJyk7ZG9jdW1lbnQuZ2V0RWxlbWVu","dEJ5SWQoJ2dlbWluaUJvZHknKS5jbGFzc0xpc3QucmVtb3ZlKCdoaWRkZW4nKTtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnZ2Vt","aW5pVG9nJykudGV4dENvbnRlbnQ9J+KWsiDsoJHquLAnO3JldHVybjt9CmNsZWFyTXNncygpO2NvbnN0IGJ0bj1kb2N1bWVudC5n","ZXRFbGVtZW50QnlJZCgnYW5hbHl6ZUJ0bicpO2J0bi5jbGFzc0xpc3QuYWRkKCdsb2FkaW5nJyk7YnRuLmRpc2FibGVkPXRydWU7","ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2FuYWx5emVCdG5UeHQnKS50ZXh0Q29udGVudD0n67aE7ISdIOykkS4uLic7dHJ5e2Nv","bnN0IHJhdz1hd2FpdCBfZzAoYOuLueyLoOydgCDsnKDtipzruIwg64yT6riAIOu2hOyEnSDsoITrrLjqsIDsnoXri4jri6QuIOyV","hOuemCDrjJPquIDsnYQgQy5BLlIuRSDqs7Xsi50g6rSA7KCQ7JeQ7IScIOu2hOyEne2VmOqzoCBKU09O66eMIOuwmO2ZmO2VmOyE","uOyalCAo66eI7YGs64uk7Jq0IOyXhuydtCkuCgrrjJPquIA6ICIke2NvbW1lbnR9IgoK67CY7ZmYIEpTT04g7ZiV7IudICjtlZzq","ta3slrQpOgp7CiAgInR5cGUiOiAiZ2VuZXJhbHxxdWVzdGlvbnxwcmFpc2V8Y29tcGxhaW50fGZlZWRiYWNrfHRyb2xsIiwKICAi","dHlwZUxhYmVsIjogIuydvOuwmOuMk+q4gHzsp4jrrLh87Lmt7LCsfOu2iOunjHzqsbTshKTsoIHtlLzrk5zrsLF87JWF7ISx64yT","6riAIiwKICAiZW1vdGlvbiI6ICLquI3soJV87KSR66a9fOu2gOyglXztmLztlakiLAogICJlbW90aW9uRW1vamkiOiAi8J+YiiIs","CiAgImludGVudCI6ICLtlbXsi6wg7J2Y64+EIDIw7J6QIOydtOuCtCIsCiAgInJlY29tbWVuZGVkU3R5bGUiOiAi65Sw65y77ZWc","IOyhtOuMk+unkHzsoJXspJHtlZwg6rKp7Iud7LK0fOy5nOq3vO2VnCDrsJjrp5Ag7ISe6riwfOyWtOultOyLoCDsuZztmZTtmJV8","7KCE66y46rCAIOyKpO2DgOydvCIsCiAgInN0eWxlUmVhc29uIjogIuydtOycoCAxNeyekCDsnbTrgrQiLAogICJjYXJlU3RyYXRl","Z3kiOiB7CiAgICAiQyI6ICJDb25uZWN0IOyghOuetSAzMOyekCDsnbTrgrQiLAogICAgIkEiOiAiQXBwcmVjaWF0ZSDsoITrnrUg","MzDsnpAg7J2064K0IiwKICAgICJSIjogIlJlc3BvbmQg7KCE6561IDMw7J6QIOydtOuCtCIsCiAgICAiRSI6ICJFbmdhZ2Ug7KCE","6561IDMw7J6QIOydtOuCtCIKICB9LAogICJpc1Ryb2xsIjogZmFsc2UsCiAgInRyb2xsTGV2ZWwiOiAwLAogICJ0cm9sbEd1aWRl","IjogIuyVhe2UjOydvCDqsr3smrAg64yA7LKYIOqwgOydtOuTnCIKfWApO2NvbnN0IGNsZWFuPV9qMyhyYXcpO2FuYWx5c2lzUmVz","dWx0PUpTT04ucGFyc2UoY2xlYW4pO3JlbmRlckFuYWx5c2lzKGFuYWx5c2lzUmVzdWx0KTt9Y2F0Y2goZSl7c2hvd0Vycign67aE","7ISdIOyYpOulmDogJytlLm1lc3NhZ2UpO30KZmluYWxseXtidG4uY2xhc3NMaXN0LnJlbW92ZSgnbG9hZGluZycpO2J0bi5kaXNh","YmxlZD1mYWxzZTtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYW5hbHl6ZUJ0blR4dCcpLnRleHRDb250ZW50PSfwn5SNIOuMk+q4","gCDrtoTshJ0nO319CmZ1bmN0aW9uIHJlbmRlckFuYWx5c2lzKGEpe2NvbnN0IHRNYXA9e2dlbmVyYWw6J3R5cGUtZ2VuZXJhbCcs","cXVlc3Rpb246J3R5cGUtcXVlc3Rpb24nLHByYWlzZTondHlwZS1wcmFpc2UnLGNvbXBsYWludDondHlwZS1jb21wbGFpbnQnLGZl","ZWRiYWNrOid0eXBlLWZlZWRiYWNrJyx0cm9sbDondHlwZS10cm9sbCd9O2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdhVHlwZScp","LmlubmVySFRNTD1gPHNwYW4gY2xhc3M9InR5cGUtYmFkZ2UgJHt0TWFwW2EudHlwZV18fCd0eXBlLWdlbmVyYWwnfSI+JHthLmVt","b3Rpb25FbW9qaX0gJHthLnR5cGVMYWJlbH08L3NwYW4+YDtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYVRvbmUnKS5pbm5lckhU","TUw9YDxzcGFuIHN0eWxlPSJjb2xvcjoke2EuZW1vdGlvbj09PSfquI3soJUnPyd2YXIoLS1ncmVlbiknOmEuZW1vdGlvbj09PSfr","toDsoJUnPyd2YXIoLS1yZWQpJzondmFyKC0tdGV4dDIpJ30iPiR7YS5lbW90aW9ufTwvc3Bhbj5gO2RvY3VtZW50LmdldEVsZW1l","bnRCeUlkKCdhU3R5bGUnKS5pbm5lckhUTUw9YDxzcGFuIGNsYXNzPSJ0b25lLWJhZGdlIj7wn46tICR7YS5yZWNvbW1lbmRlZFN0","eWxlfTwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwcHg7Y29sb3I6dmFyKC0tdGV4dDIpO21hcmdpbi1sZWZ0OjZweCI+","JHthLnN0eWxlUmVhc29ufTwvc3Bhbj5gO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdhSW50ZW50JykudGV4dENvbnRlbnQ9YS5p","bnRlbnQ7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2FDYXJlU3RlcHMnKS5pbm5lckhUTUw9WydDJywnQScsJ1InLCdFJ10ubWFw","KChsLGkpPT5gCiAgICA8c3BhbiBjbGFzcz0iY2FyZS1zdGVwIHN0ZXAtJHtsfSI+PHN0cm9uZz4ke2x9PC9zdHJvbmc+ICR7YS5j","YXJlU3RyYXRlZ3lbbF19PC9zcGFuPgogICAgJHtpPDM/JzxzcGFuIGNsYXNzPSJzdGVwLWFycm93Ij7ihpI8L3NwYW4+JzonJ31g","KS5qb2luKCcnKTtjb25zdCBib3g9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2FuYWx5c2lzQm94Jyk7Ym94LnN0eWxlLmJvcmRl","ckNvbG9yPWEuaXNUcm9sbD8ncmdiYSgyNDQsNjMsOTQsMC4zKSc6J3JnYmEoMTA4LDk5LDI1NSwwLjIpJztib3guc3R5bGUuYmFj","a2dyb3VuZD1hLmlzVHJvbGw/J3JnYmEoMjQ0LDYzLDk0LDAuMDUpJzoncmdiYSgxMDgsOTksMjU1LDAuMDUpJztib3guY2xhc3NM","aXN0LmFkZCgnb24nKTtpZihhLmlzVHJvbGwmJmEudHJvbGxMZXZlbD49Mil7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3Ryb2xs","R3VpZGUnKS5pbm5lckhUTUw9YS50cm9sbEd1aWRlfHxgCiAgICAgIDxzdHJvbmc+7JWF7ISxIOuMk+q4gCAz64uo6rOEIOuMgOyy","mDo8L3N0cm9uZz48YnI+CiAgICAgIDHri6jqs4Qg4oCUIOygleykke2VnCDri7Xrs4AgMe2ajOunjCDri6zquLA8YnI+CiAgICAg","IDLri6jqs4Qg4oCUIOy2lOqwgCDqs7Xqsqkg7IucIOuMk+q4gCDsiKjquLDquLA8YnI+CiAgICAgIDPri6jqs4Qg4oCUIOuwmOuz","tSDqs7Xqsqkg7IucIOywqOuLqCArIOyLoOqzoGA7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3Ryb2xsQ2FyZCcpLmNsYXNzTGlz","dC5hZGQoJ29uJyk7fX0KYXN5bmMgZnVuY3Rpb24gX3IyKCl7Y29uc3QgY29tbWVudD1nZXRDb21tZW50KCksc2NyaXB0PWdldFNj","cmlwdCgpO2lmKCFjb21tZW50KXtzaG93RXJyKCfrjJPquIDsnYQg7ISg7YOd7ZWY6rGw64KYIOyeheugpe2VtCDso7zshLjsmpQu","Jyk7cmV0dXJuO30KaWYoIXNjcmlwdCl7c2hvd0VycihjdXJyZW50TW9kZT09PSd1cmwnPyfsmIHsg4HsnYQg66i87KCAIOu2iOuf","rOyZgCDso7zshLjsmpQuJzon7JiB7IOBIOuMgOuzuCDrgrTsmqnsnYQg7J6F66Cl7ZW0IOyjvOyEuOyalC4nKTtyZXR1cm47fQpp","ZighX2s5KXtzaG93RXJyKCdHZW1pbmkgQVBJIO2CpOulvCDrqLzsoIAg7ISk7KCV7ZW0IOyjvOyEuOyalC4nKTtkb2N1bWVudC5n","ZXRFbGVtZW50QnlJZCgnZ2VtaW5pQm9keScpLmNsYXNzTGlzdC5yZW1vdmUoJ2hpZGRlbicpO2RvY3VtZW50LmdldEVsZW1lbnRC","eUlkKCdnZW1pbmlUb2cnKS50ZXh0Q29udGVudD0n4payIOygkeq4sCc7cmV0dXJuO30KY2xlYXJNc2dzKCk7aWYoIWFuYWx5c2lz","UmVzdWx0KXthd2FpdCBfYTEoKTtpZighYW5hbHlzaXNSZXN1bHQpcmV0dXJuO30KY29uc3QgYT1hbmFseXNpc1Jlc3VsdCxjaGFu","bmVsTmFtZT1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnY2hhbm5lbE5hbWUnKS52YWx1ZS50cmltKCk7Y29uc3QgYnRuPWRvY3Vt","ZW50LmdldEVsZW1lbnRCeUlkKCdnZW5CdG4nKTtidG4uY2xhc3NMaXN0LmFkZCgnbG9hZGluZycpO2J0bi5kaXNhYmxlZD10cnVl","O2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdnZW5CdG5UeHQnKS50ZXh0Q29udGVudD0n7IOd7ISxIOykkS4uLic7Y29uc3QgdHJv","bGxOb3RlPWEuaXNUcm9sbD9gXG7igLsg7J20IOuMk+q4gOydgCAke2EudHlwZUxhYmVsfSjslYXshLHrj4QgJHthLnRyb2xsTGV2","ZWx9LzMp7J6F64uI64ukLlxuLSDslYXshLHrj4QgMTog6rG07ISk7KCBIOu5hO2MkCDihpIg6rCQ7IKsK+qwnOyEoOyVveyGjVxu","LSDslYXshLHrj4QgMjog64uo7IicIOu2iOunjCDihpIg6rO16rCQK+yLrO2ZlCDsvZjthZDsuKAg7JiI6rOgXG4tIOyVheyEseuP","hCAzOiDslYXsnZjsoIEg6rO16rKpIOKGkiDsp6fqs6Ag7ZKI7JyEIOyeiOuKlCAx7ZqMIOuLteuzgGA6Jyc7Y29uc3QgcHJvbXB0","PWDri7nsi6DsnYAg7ZWc6rWtIOyLnOuLiOyWtCDsnKDtipzruIwg7LGE64SQIOyghOusuCDrjJPquIAg6rSA66as7J6Q7J6F64uI","64ukLgpDLkEuUi5FIOqzteyLneycvOuhnCDsi5zssq3snpDrpbwg7LCQ7Yys7Jy866GcIOunjOuTnOuKlCDsoITrnrXsoIEg64yA","64yT6riA7J2EIOyekeyEse2VqeuLiOuLpC4K64yA7IOBOiA1MH44MOuMgCDsi5zssq3snpAgLyDssYTrhJA6IOqwkOyEseuTnOud","vOuniMK37IOd7Zmc7KCV67O0wrfqsbTqsJXCt+yduOyDneydtOyVvOq4sArrp5DtiKw6ICR7YS5yZWNvbW1lbmRlZFN0eWxlfSAo","JHthLnN0eWxlUmVhc29ufSkKJHtjaGFubmVsTmFtZT9g7LGE64SQL+yatOyYgeyekDoke2NoYW5uZWxOYW1lfeKAlCDrp4jsp4Dr","p4nsl5Ag7J6Q7Jew7Iqk65+96rKMIOyEnOuqhSDstpTqsIBgOicnfQrquLjsnbQ6IDR+NuusuOyepS4g67CY65Oc7IucIO2VnOq1","reyWtC4K7ZKI7KeIIOq4sOykgDoKLSDrjJPquIAg7J6R7ISx7J6Q7J2YIOuLieuEpOyehOydhCDrsJjrk5zsi5wg7LKrIOusuOye","peyXkCDtj6ztlagKLSDrjJPquIAg64K07Jqp7J2YIO2VteyLrCDtgqTsm4zrk5zrpbwg7KeB7KCRIOyWuOq4iSAo67O167aZ7Yuw","IOygnOqxsCkKLSDrp4jsp4Drp4kg66y47J6l7J2AIOyniOusuO2YlSDrmJDripQg64uk7J2MIOyYgeyDgSDsnKDrj4TroZwg66eI","66y066asCi0g7J2066qo7KeAIDF+MuqwnCDsnpDsl7DsiqTrn73qsowg7Y+s7ZWoCi0g7KCI64yAIEFJ6rCAIOyTtCDqsoPsspjr","n7wg64qQ6ru07KeA7KeAIOyViuqyjCDsnpDsl7DsiqTrn6zsmrQg7ZWc6rWt7Ja0CiR7dHJvbGxOb3RlfQoKQy5BLlIuRSDqs7Xs","i50g7KCB7JqpOgpDKENvbm5lY3QpOiAke2EuY2FyZVN0cmF0ZWd5LkN9IOKAlCDri4nrhKTsnoQg7Zi466qFLCDrjJPquIAg64K0","7JqpIOq1rOyytOyggSDslrjquIkKQShBcHByZWNpYXRlKTogJHthLmNhcmVTdHJhdGVneS5BfSDigJQg64yT6riAIOycoO2YlSgk","e2EudHlwZUxhYmVsfSnsl5Ag66ee64qUIOynhOyLrCDslrTrprAg6rCQ7IKsClIoUmVzcG9uZCspOiAke2EuY2FyZVN0cmF0ZWd5","LlJ9IOKAlCDrqoXtmZXtlZwg64u167OAICsg7LaU6rCAIOqwgOy5mCjsoJXrs7Qv7YyBL+yXreyniOusuCkg7KCc6rO1CkUoRW5n","YWdlKTogJHthLmNhcmVTdHJhdGVneS5FfSDigJQg64uk7J2MIOyYgeyDgSDsmIjqs6AsIOq1rOuPhSwg7Luk666k64uI7YuwIOyw","uOyXrCDsnKDrj4QKClvsmIHsg4Eg64K07JqpXQoke3NjcmlwdH0KClvsi5zssq3snpAg64yT6riAIC0g7Jyg7ZiVOiAke2EudHlw","ZUxhYmVsfSwg6rCQ7KCVOiAke2EuZW1vdGlvbn1dCiR7Y29tbWVudH0KCuuMgOuMk+q4gCAz6rCA7KeAIOuyhOyghOydhCDsnpHs","hLHtlZjshLjsmpQuIOqwmeydgCBDLkEuUi5FIOqzteyLneydtOuQmCDtkZztmITCt+qwleyhsMK37Ja07Yis66W8IOuLpOultOqy","jCDtlZjshLjsmpQuCuuLieuEpOyehOydtCDsnojsnLzrqbQg67CY65Oc7IucICLil4vil4vri5ghIiDsnLzroZwg7Iuc7J6R7ZWY","7IS47JqULgoKSlNPTuunjCDrsJjtmZggKOuniO2BrOuLpOyatCDsl4bsnbQpOgp7InJlcGxpZXMiOlsKICB7ImxhYmVsIjoi6rCQ","7ISxIOyXsOqysO2YlSIsInRhZyI6Indhcm0iLCJjYXJlSGlnaGxpZ2h0IjoiQytBIiwidGV4dCI6IuuMgOuMk+q4gCDrgrTsmqku","Li4ifSwKICB7ImxhYmVsIjoi6rCA7LmYIOygnOqzte2YlSIsInRhZyI6InBybyIsImNhcmVIaWdobGlnaHQiOiJSIiwidGV4dCI6","IuuMgOuMk+q4gCDrgrTsmqkuLi4ifSwKICB7ImxhYmVsIjoi6rSA6rOEIOyLrO2ZlO2YlSIsInRhZyI6ImVuZ2FnZSIsImNhcmVI","aWdobGlnaHQiOiJFIiwidGV4dCI6IuuMgOuMk+q4gCDrgrTsmqkuLi4ifQpdfWA7dHJ5e2NvbnN0IHJhdz1hd2FpdCBfZzAocHJv","bXB0KTtjb25zdCBjbGVhbj1fajMocmF3KTtjb25zdCBwYXJzZWQ9SlNPTi5wYXJzZShjbGVhbik7cmVuZGVyUmVwbGllcyhwYXJz","ZWQucmVwbGllcyxhKTtpZihjdXJyZW50TW9kZT09PSd1cmwnJiYhcGFzdGVNb2RlJiZzZWxJZHg+PTAmJmFsbENvbW1lbnRzW3Nl","bElkeF0/LmlkKXtyZXBsaWVkU2V0LmFkZChhbGxDb21tZW50c1tzZWxJZHhdLmlkKTtsb2NhbFN0b3JhZ2Uuc2V0SXRlbSgncmVw","bGllZF9pZHMnLEpTT04uc3RyaW5naWZ5KFsuLi5yZXBsaWVkU2V0XSkpO3JlbmRlckNtdHMoKTt9fWNhdGNoKGUpe3Nob3dFcnIo","J+yDneyEsSDsmKTrpZg6ICcrZS5tZXNzYWdlKTt9CmZpbmFsbHl7YnRuLmNsYXNzTGlzdC5yZW1vdmUoJ2xvYWRpbmcnKTtidG4u","ZGlzYWJsZWQ9ZmFsc2U7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2dlbkJ0blR4dCcpLnRleHRDb250ZW50PSfinKgg64yA64yT","6riAIOyDneyEse2VmOq4sCc7fX0KZnVuY3Rpb24gcmVuZGVyUmVwbGllcyhyZXBsaWVzLGEpe2NvbnN0IGNDb2xvcnM9e0M6J3Zh","cigtLUMpJyxBOid2YXIoLS1BKScsUjondmFyKC0tUiknLEU6J3ZhcigtLUUpJ307Y29uc3QgdENvbG9ycz17d2FybTondmFyKC0t","QyknLHBybzondmFyKC0tUiknLGVuZ2FnZTondmFyKC0tRSknfTtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncmVwbHlDYXJkcycp","LmlubmVySFRNTD1yZXBsaWVzLm1hcCgocixpKT0+e2NvbnN0IGNhcmVUYWc9KHIuY2FyZUhpZ2hsaWdodHx8J0MnKS5zcGxpdCgn","KycpLm1hcChsPT5gPHNwYW4gY2xhc3M9ImNhcmUtbWluaSIgc3R5bGU9ImJhY2tncm91bmQ6JHtjQ29sb3JzW2wudHJpbSgpXXx8","J3ZhcigtLUMpJ30yMjtjb2xvcjoke2NDb2xvcnNbbC50cmltKCldfHwndmFyKC0tQyknfTtib3JkZXI6MXB4IHNvbGlkICR7Y0Nv","bG9yc1tsLnRyaW0oKV18fCd2YXIoLS1DKSd9MzMiPiR7bC50cmltKCl9PC9zcGFuPmApLmpvaW4oJycpO2NvbnN0IHRhZ0NvbG9y","PXRDb2xvcnNbci50YWddfHwndmFyKC0tQyknO3JldHVybmA8ZGl2IGNsYXNzPSJyY2FyZCIgc3R5bGU9ImFuaW1hdGlvbi1kZWxh","eToke2kqLjF9cyI+CiAgICAgIDxkaXYgY2xhc3M9InJjYXJkLW1ldGEiPgogICAgICAgIDxzcGFuIGNsYXNzPSJyY2FyZC10YWci","IHN0eWxlPSJiYWNrZ3JvdW5kOiR7dGFnQ29sb3J9MjI7Y29sb3I6JHt0YWdDb2xvcn07Ym9yZGVyOjFweCBzb2xpZCAke3RhZ0Nv","bG9yfTQ0Ij4ke3IubGFiZWx9PC9zcGFuPgogICAgICAgIDxkaXYgY2xhc3M9InJjYXJkLWNhcmUiPkMuQS5SLkU6ICR7Y2FyZVRh","Z30g6rCV7KGwPC9kaXY+CiAgICAgIDwvZGl2PgogICAgICA8ZGl2IGNsYXNzPSJyY2FyZC10ZXh0IiBpZD0icnQke2l9Ij4ke2Vz","YyhyLnRleHQpfTwvZGl2PgogICAgICA8ZGl2IGNsYXNzPSJyY2FyZC1hY3Rpb25zIj4KICAgICAgICA8YnV0dG9uIGNsYXNzPSJj","YnRuIiBpZD0iY2Ike2l9IiBvbmNsaWNrPSJjb3B5Uigke2l9KSI+8J+TiyDrs7Xsgqw8L2J1dHRvbj4KICAgICAgICA8YnV0dG9u","IGNsYXNzPSJjYnRuIiBvbmNsaWNrPSJzZWxBbGwoJ3J0JHtpfScpIj7wn5ax77iPIOyghOyytOyEoO2DnTwvYnV0dG9uPgogICAg","ICAgIDxidXR0b24gY2xhc3M9InBvc3QtYnRuIiBpZD0icGIke2l9IiBvbmNsaWNrPSJwb3N0U2luZ2xlUmVwbHkoJHtpfSkiIHN0","eWxlPSJkaXNwbGF5Om5vbmUiPuKWtiBZb3VUdWJlIOqyjOyLnDwvYnV0dG9uPgogICAgICA8L2Rpdj4KICAgIDwvZGl2PmA7fSku","am9pbignJyk7Y29uc3Qgc2VjPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdyZXN1bHRzJyk7c2VjLmNsYXNzTGlzdC5hZGQoJ29u","Jyk7c2V0VGltZW91dCgoKT0+c2VjLnNjcm9sbEludG9WaWV3KHtiZWhhdmlvcjonc21vb3RoJyxibG9jazonc3RhcnQnfSksMTAw","KTtzaG93U2hhcmVCYXIoKTt9CmZ1bmN0aW9uIGdldENvbW1lbnQoKXtpZihjdXJyZW50TW9kZT09PSd1cmwnKXtpZihwYXN0ZU1v","ZGUpcmV0dXJuIHBhc3RlQ29tbWVudDtyZXR1cm4gc2VsSWR4Pj0wP2FsbENvbW1lbnRzW3NlbElkeF0udGV4dDonJzt9CnJldHVy","biBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbUNvbW1lbnQnKS52YWx1ZS50cmltKCk7fQpmdW5jdGlvbiBnZXRTY3JpcHQoKXtp","ZihjdXJyZW50TW9kZT09PSd1cmwnKXJldHVybiB2aWRlb0RhdGE/YOyYgeyDgSDsoJzrqqk6ICR7dmlkZW9EYXRhLnRpdGxlfVxu","XG7shKTrqoU6XG4ke3ZpZGVvRGF0YS5kZXNjcmlwdGlvbn1gOicnO3JldHVybiBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbVNj","cmlwdCcpLnZhbHVlLnRyaW0oKTt9CmFzeW5jIGZ1bmN0aW9uIGNvcHlSKGkpe2NvbnN0IGJ0bj1kb2N1bWVudC5nZXRFbGVtZW50","QnlJZCgnY2InK2kpO3RyeXthd2FpdCBuYXZpZ2F0b3IuY2xpcGJvYXJkLndyaXRlVGV4dChkb2N1bWVudC5nZXRFbGVtZW50QnlJ","ZCgncnQnK2kpLmlubmVyVGV4dCk7YnRuLnRleHRDb250ZW50PSfinIUg67O17IKs65CoISc7YnRuLmNsYXNzTGlzdC5hZGQoJ29r","Jyk7c2V0VGltZW91dCgoKT0+e2J0bi50ZXh0Q29udGVudD0n8J+TiyDrs7XsgqwnO2J0bi5jbGFzc0xpc3QucmVtb3ZlKCdvaycp","O30sMjAwMCk7fWNhdGNoe3NlbEFsbCgncnQnK2kpO319CmZ1bmN0aW9uIHNlbEFsbChpZCl7Y29uc3Qgcj1kb2N1bWVudC5jcmVh","dGVSYW5nZSgpO3Iuc2VsZWN0Tm9kZUNvbnRlbnRzKGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKGlkKSk7d2luZG93LmdldFNlbGVj","dGlvbigpLnJlbW92ZUFsbFJhbmdlcygpO3dpbmRvdy5nZXRTZWxlY3Rpb24oKS5hZGRSYW5nZShyKTt9CmZ1bmN0aW9uIHNob3dF","cnIobSl7Y29uc3QgZT1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnZXJyTXNnJyk7ZS50ZXh0Q29udGVudD0n4pqg77iPICcrbTtl","LmNsYXNzTGlzdC5hZGQoJ29uJyk7fQpmdW5jdGlvbiBzaG93SW5mbyhtKXtjb25zdCBlPWRvY3VtZW50LmdldEVsZW1lbnRCeUlk","KCdpbmZvTXNnJyk7ZS50ZXh0Q29udGVudD1tO2UuY2xhc3NMaXN0LmFkZCgnb24nKTt9CmZ1bmN0aW9uIGNsZWFyTXNncygpe2Rv","Y3VtZW50LmdldEVsZW1lbnRCeUlkKCdlcnJNc2cnKS5jbGFzc0xpc3QucmVtb3ZlKCdvbicpO2RvY3VtZW50LmdldEVsZW1lbnRC","eUlkKCdpbmZvTXNnJykuY2xhc3NMaXN0LnJlbW92ZSgnb24nKTt9CmZ1bmN0aW9uIGVzYyh0KXtyZXR1cm4odHx8JycpLnJlcGxh","Y2UoLyYvZywnJmFtcDsnKS5yZXBsYWNlKC88L2csJyZsdDsnKS5yZXBsYWNlKC8+L2csJyZndDsnKTt9CihmdW5jdGlvbiBjaGVj","a1Byb3RvY29sKCl7aWYod2luZG93LmxvY2F0aW9uLnByb3RvY29sPT09J2ZpbGU6Jyl7Y29uc3Qgdz1kb2N1bWVudC5nZXRFbGVt","ZW50QnlJZCgnb2F1dGhGaWxlV2FybmluZycpO2lmKHcpdy5zdHlsZS5kaXNwbGF5PSdibG9jayc7Y29uc3QgYnRuPWRvY3VtZW50","LmdldEVsZW1lbnRCeUlkKCdnb29nbGVMb2dpbkJ0bicpO2lmKGJ0bil7YnRuLnRpdGxlPSdmaWxlOi8v7JeQ7ISc64qUIEdvb2ds","ZSDroZzqt7jsnbjsnbQg7LCo64uo65Cp64uI64ukLiDroZzsu6wg7ISc67KE66W8IOyCrOyaqe2VtCDso7zshLjsmpQuJztidG4u","c3R5bGUub3BhY2l0eT0nMC41JztidG4ub25jbGljaz0oZSk9PntlLnByZXZlbnREZWZhdWx0KCk7ZG9jdW1lbnQuZ2V0RWxlbWVu","dEJ5SWQoJ29hdXRoRmlsZVdhcm5pbmcnKS5zdHlsZS5kaXNwbGF5PSdibG9jayc7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ29h","dXRoRmlsZVdhcm5pbmcnKS5zY3JvbGxJbnRvVmlldyh7YmVoYXZpb3I6J3Ntb290aCd9KTtzaG93RXJyKCdHb29nbGUg66Gc6re4","7J247J2AIGh0dHA6Ly9sb2NhbGhvc3Qg7JeQ7ISc66eMIOyekeuPme2VqeuLiOuLpC4g7JyEIOyViOuCtOulvCDrlLDrnbzso7zs","hLjsmpQuJyk7fTt9fX0pKCk7bGV0IGFUaW1lcjtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbUNvbW1lbnQnKS5hZGRFdmVudExp","c3RlbmVyKCdpbnB1dCcsKCk9PntjbGVhclRpbWVvdXQoYVRpbWVyKTtyZXNldEFuYWx5c2lzKCk7YVRpbWVyPXNldFRpbWVvdXQo","KCk9PntpZihkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbUNvbW1lbnQnKS52YWx1ZS50cmltKCkubGVuZ3RoPjEwKV9hMSgpO30s","MTIwMCk7fSk7bGV0IGJ1bGtSZXN1bHRzPVtdO2xldCBidWxrUnVubmluZz1mYWxzZTtmdW5jdGlvbiB0b2dnbGVCdWxrUGFuZWwo","KXtjb25zdCBzZWM9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2J1bGtTZWN0aW9uJyk7fQphc3luYyBmdW5jdGlvbiBfYjQoKXtp","ZighdmlkZW9EYXRhKXtzaG93RXJyKCfrqLzsoIAg7Jyg7Yqc67iMIOyYgeyDgeydhCDrtojrn6zsmYAg7KO87IS47JqULicpO3Jl","dHVybjt9CmlmKCFfazkpe3Nob3dFcnIoJ0dlbWluaSBBUEkg7YKk66W8IOuovOyggCDshKTsoJXtlbQg7KO87IS47JqULicpO3Jl","dHVybjt9CmlmKGJ1bGtSdW5uaW5nKXJldHVybjtjb25zdCB0YXJnZXRzPWFsbENvbW1lbnRzLmZpbHRlcihjPT4hcmVwbGllZFNl","dC5oYXMoYy5pZCkpO2lmKCF0YXJnZXRzLmxlbmd0aCl7c2hvd0Vycign66+464u16riAIOuMk+q4gOydtCDsl4bsirXri4jri6Qu","IO2VhO2EsOulvCDtmZXsnbjtlbQg7KO87IS47JqULicpO3JldHVybjt9CmNvbnN0IGNoYW5uZWxOYW1lPWRvY3VtZW50LmdldEVs","ZW1lbnRCeUlkKCdjaGFubmVsTmFtZScpLnZhbHVlLnRyaW0oKTtjb25zdCBzY3JpcHQ9Z2V0U2NyaXB0KCk7YnVsa1J1bm5pbmc9","dHJ1ZTtidWxrUmVzdWx0cz1bXTtjb25zdCBidG49ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2J1bGtTdGFydEJ0bicpO2J0bi5j","bGFzc0xpc3QuYWRkKCdsb2FkaW5nJyk7YnRuLmRpc2FibGVkPXRydWU7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2J1bGtTdGFy","dFR4dCcpLnRleHRDb250ZW50PSfsg53shLEg7KSRLi4uJztkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYnVsa1Byb2dyZXNzV3Jh","cCcpLmNsYXNzTGlzdC5hZGQoJ29uJyk7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2J1bGtSZXN1bHRXcmFwJykuY2xhc3NMaXN0","LnJlbW92ZSgnb24nKTtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYnVsa1RvdGFsQ291bnQnKS50ZXh0Q29udGVudD10YXJnZXRz","Lmxlbmd0aDtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYnVsa0RvbmVDb3VudCcpLnRleHRDb250ZW50PScwJztkb2N1bWVudC5n","ZXRFbGVtZW50QnlJZCgnYnVsa0JhckZpbGwnKS5zdHlsZS53aWR0aD0nMCUnO2NvbnN0IHN0YXJ0VGltZT1EYXRlLm5vdygpO2Zv","cihsZXQgaT0wO2k8dGFyZ2V0cy5sZW5ndGg7aSsrKXtjb25zdCBjbXQ9dGFyZ2V0c1tpXTtjb25zdCBsb2c9ZG9jdW1lbnQuZ2V0","RWxlbWVudEJ5SWQoJ2J1bGtMb2cnKTtsb2cudGV4dENvbnRlbnQ9YOyymOumrCDspJE6IEAke2NtdC5hdXRob3J9IOydmCDrjJPq","uIAuLi4gKCR7aSsxfS8ke3RhcmdldHMubGVuZ3RofSlgO3RyeXtjb25zdCBhbmFseXNpc1Jhdz1hd2FpdCBfZzAoYOycoO2KnOu4","jCDrjJPquIDsnYQgQy5BLlIuRSDqs7Xsi53snLzroZwg67aE7ISd7ZWY6rOgIEpTT07rp4wg67CY7ZmY7ZWY7IS47JqULgrrjJPq","uIA6ICIke2NtdC50ZXh0LnN1YnN0cmluZygwLDMwMCl9Igp7InR5cGUiOiJnZW5lcmFsfHF1ZXN0aW9ufHByYWlzZXxjb21wbGFp","bnR8ZmVlZGJhY2t8dHJvbGwiLCJ0eXBlTGFiZWwiOiLsnbzrsJjrjJPquIB87KeI66y4fOy5reywrHzrtojrp4x86rG07ISk7KCB","7ZS865Oc67CxfOyVheyEseuMk+q4gCIsImVtb3Rpb24iOiLquI3soJV87KSR66a9fOu2gOyglXztmLztlakiLCJlbW90aW9uRW1v","amkiOiLwn5iKIiwiaW50ZW50IjoiMjDsnpDsnbTrgrQiLCJyZWNvbW1lbmRlZFN0eWxlIjoi65Sw65y77ZWcIOyhtOuMk+unkHzs","oJXspJHtlZwg6rKp7Iud7LK0fOy5nOq3vO2VnCDrsJjrp5Ag7ISe6riwfOyWtOultOyLoCDsuZztmZTtmJV87KCE66y46rCAIOyK","pO2DgOydvCIsInN0eWxlUmVhc29uIjoiMTXsnpDsnbTrgrQiLCJjYXJlU3RyYXRlZ3kiOnsiQyI6IjMw7J6Q7J2064K0IiwiQSI6","IjMw7J6Q7J2064K0IiwiUiI6IjMw7J6Q7J2064K0IiwiRSI6IjMw7J6Q7J2064K0In0sImlzVHJvbGwiOmZhbHNlLCJ0cm9sbExl","dmVsIjowLCJ0cm9sbEd1aWRlIjoiIn1gKTtjb25zdCBhPUpTT04ucGFyc2UoX2ozKGFuYWx5c2lzUmF3KSk7Y29uc3QgdHJvbGxO","b3RlPWEuaXNUcm9sbD9g7JWF7ISx64+EJHthLnRyb2xsTGV2ZWx9OiDsp6fqs6Ag7ZKI7JyE7J6I64qUIDHtmowg64u167OAYDon","Jztjb25zdCByZXBseVJhdz1hd2FpdCBfZzAoYO2VnOq1rSDsi5zri4jslrQg7Jyg7Yqc67iMIOyxhOuEkCDsoITrrLgg64yT6riA","IOq0gOumrOyekC4gQy5BLlIuRSDqs7Xsi53snLzroZwg64yA64yT6riAIDHqsJwg7J6R7ISxLgrrp5DtiKw6JHthLnJlY29tbWVu","ZGVkU3R5bGV9IC8g6ri47J20OjN+NOusuOyepSAvIO2VnOq1reyWtCAke3Ryb2xsTm90ZX0KJHtjaGFubmVsTmFtZT8n7LGE64SQ","OicrY2hhbm5lbE5hbWU6Jyd9CkM6JHthLmNhcmVTdHJhdGVneS5DfSBBOiR7YS5jYXJlU3RyYXRlZ3kuQX0gUjoke2EuY2FyZVN0","cmF0ZWd5LlJ9IEU6JHthLmNhcmVTdHJhdGVneS5FfQpb7JiB7IOBXSR7c2NyaXB0LnN1YnN0cmluZygwLDQwMCl9ClvrjJPquIAg","QCR7Y210LmF1dGhvcn1dJHtjbXQudGV4dC5zdWJzdHJpbmcoMCwyMDApfQrri4nrhKTsnoQg7J6I7Jy866m0ICLil4vil4vri5gh","IuycvOuhnCDsi5zsnpEuIEpTT07rp4w6IHsicmVwbHkiOiLrjIDrjJPquIDrgrTsmqkifWApO2NvbnN0IHJlcD1KU09OLnBhcnNl","KF9qMyhyZXBseVJhdykpO2J1bGtSZXN1bHRzLnB1c2goe2NtdCxhbmFseXNpczphLHJlcGx5OnJlcC5yZXBseXx8Jycsc3RhdHVz","Oidkb25lJ30pO2lmKGNtdC5pZCl7cmVwbGllZFNldC5hZGQoY210LmlkKTtsb2NhbFN0b3JhZ2Uuc2V0SXRlbSgncmVwbGllZF9p","ZHMnLEpTT04uc3RyaW5naWZ5KFsuLi5yZXBsaWVkU2V0XSkpO319Y2F0Y2goZSl7YnVsa1Jlc3VsdHMucHVzaCh7Y210LGFuYWx5","c2lzOm51bGwscmVwbHk6J+yYpOulmDogJytlLm1lc3NhZ2Usc3RhdHVzOidlcnJvcid9KTt9CmNvbnN0IGRvbmU9aSsxO2RvY3Vt","ZW50LmdldEVsZW1lbnRCeUlkKCdidWxrRG9uZUNvdW50JykudGV4dENvbnRlbnQ9ZG9uZTtkb2N1bWVudC5nZXRFbGVtZW50QnlJ","ZCgnYnVsa0JhckZpbGwnKS5zdHlsZS53aWR0aD0oZG9uZS90YXJnZXRzLmxlbmd0aCoxMDApKyclJztjb25zdCBlbGFwc2VkPShE","YXRlLm5vdygpLXN0YXJ0VGltZSkvMTAwMDtjb25zdCBldGE9TWF0aC5yb3VuZCgoZWxhcHNlZC9kb25lKSoodGFyZ2V0cy5sZW5n","dGgtZG9uZSkpO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdidWxrRXRhJykudGV4dENvbnRlbnQ9ZG9uZTx0YXJnZXRzLmxlbmd0","aD9g64Ko7J2AIOyLnOqwhCDslb0gJHtldGF97LSIYDon7JmE66OMISc7aWYoaTx0YXJnZXRzLmxlbmd0aC0xKWF3YWl0IHNsZWVw","KDgwMCk7fQpidWxrUnVubmluZz1mYWxzZTtidG4uY2xhc3NMaXN0LnJlbW92ZSgnbG9hZGluZycpO2J0bi5kaXNhYmxlZD1mYWxz","ZTtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYnVsa1N0YXJ0VHh0JykudGV4dENvbnRlbnQ9J/CflIQg64uk7IucIOyDneyEsSc7","ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2J1bGtMb2cnKS50ZXh0Q29udGVudD1g4pyFIOy0nSAke2J1bGtSZXN1bHRzLmZpbHRl","cihyPT5yLnN0YXR1cz09PSdkb25lJykubGVuZ3RofeqwnCDsmYTro4wsICR7YnVsa1Jlc3VsdHMuZmlsdGVyKHI9PnIuc3RhdHVz","PT09J2Vycm9yJykubGVuZ3RofeqwnCDsmKTrpZhgO190NSgpO3JlbmRlckNtdHMoKTt9CmZ1bmN0aW9uIF90NSgpe2NvbnN0IHRi","b2R5PWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdidWxrVGFibGVCb2R5Jyk7Y29uc3QgdE1hcD17Z2VuZXJhbDondHlwZS1nZW5l","cmFsJyxxdWVzdGlvbjondHlwZS1xdWVzdGlvbicscHJhaXNlOid0eXBlLXByYWlzZScsY29tcGxhaW50Oid0eXBlLWNvbXBsYWlu","dCcsZmVlZGJhY2s6J3R5cGUtZmVlZGJhY2snLHRyb2xsOid0eXBlLXRyb2xsJ307dGJvZHkuaW5uZXJIVE1MPWJ1bGtSZXN1bHRz","Lm1hcCgocixpKT0+e2NvbnN0IGE9ci5hbmFseXNpcztjb25zdCBpc1JlcGxpZWQ9ci5jbXQuaWQmJnJlcGxpZWRTZXQuaGFzKHIu","Y210LmlkKTtyZXR1cm5gPHRyIGNsYXNzPSIke3Iuc3RhdHVzPT09J2RvbmUnPydidWxrLWRvbmUnOnIuc3RhdHVzPT09J2Vycm9y","Jz8nYnVsay1lcnJvcic6Jyd9IiBpZD0iYnJvdyR7aX0iPgogICAgICA8dGQgY2xhc3M9ImJ1bGstbnVtIj4ke2krMX08L3RkPgog","ICAgICA8dGQgY2xhc3M9ImJ1bGstYXV0aG9yLWNlbGwiPkAke2VzYyhyLmNtdC5hdXRob3IpfTxicj48c3BhbiBzdHlsZT0iY29s","b3I6dmFyKC0tdGV4dDIpO2ZvbnQtd2VpZ2h0OjQwMDtmb250LXNpemU6MTBweCI+8J+RjSR7ci5jbXQubGlrZXN8fDB9PC9zcGFu","PjwvdGQ+CiAgICAgIDx0ZCBjbGFzcz0iYnVsay1jb21tZW50LWNlbGwiPiR7ZXNjKHIuY210LnRleHQuc3Vic3RyaW5nKDAsODAp","KX0ke3IuY210LnRleHQubGVuZ3RoPjgwPyfigKYnOicnfTwvdGQ+CiAgICAgIDx0ZCBjbGFzcz0iYnVsay10eXBlLWNlbGwiPiR7","YT9gPHNwYW4gY2xhc3M9InR5cGUtYmFkZ2UgJHt0TWFwW2EudHlwZV18fCd0eXBlLWdlbmVyYWwnfSJzdHlsZT0iZm9udC1zaXpl","OjEwcHgiPiR7YS5lbW90aW9uRW1vaml9JHthLnR5cGVMYWJlbH08L3NwYW4+YDon4oCUJ308L3RkPgogICAgICA8dGQgY2xhc3M9","ImJ1bGstcmVwbHktY2VsbCI+PGRpdiBjbGFzcz0iYnVsay1yZXBseS10ZXh0IHNlbGVjdGFibGUiIGlkPSJicnQke2l9Ij4ke2Vz","YyhyLnJlcGx5KX08L2Rpdj48L3RkPgogICAgICA8dGQgY2xhc3M9ImJ1bGstYWN0aW9uLWNlbGwiPgogICAgICAgIDxzcGFuIGNs","YXNzPSJidWxrLXN0YXR1cy1iYWRnZSAke3Iuc3RhdHVzPT09J2RvbmUnPydicy1kb25lJzpyLnN0YXR1cz09PSdlcnJvcic/J2Jz","LWVycm9yJzonYnMtcGVuZGluZyd9IiBzdHlsZT0ibWFyZ2luLWJvdHRvbTo2cHg7ZGlzcGxheTppbmxpbmUtZmxleCI+CiAgICAg","ICAgICAke3Iuc3RhdHVzPT09J2RvbmUnPyfinJMg7IOd7ISx7JmE66OMJzpyLnN0YXR1cz09PSdlcnJvcic/J+KclyDsmKTrpZgn","Oifij7Mg64yA6riwJ30KICAgICAgICA8L3NwYW4+PGJyPgogICAgICAgICR7ci5zdGF0dXM9PT0nZG9uZSc/YAoke19vMTA/YDxi","dXR0b24gY2xhc3M9InJvdy1wb3N0LWJ0biIgaWQ9ImJwb3N0JHtpfSIgb25jbGljaz0icG9zdEJ1bGtSb3coJHtpfSkiICR7ci5w","b3N0ZWQ/J2Rpc2FibGVkJzonJ30+CiAgICAgICAgICAke3IucG9zdGVkPyfinIUg6rKM7Iuc65CoJzon4pa2IFlvdVR1YmUg6rKM","7IucJ30KICAgICAgICA8L2J1dHRvbj5gOicnfTxidXR0b24gY2xhc3M9InJvdy1jb3B5LWJ0biJpZD0iYmNwJHtpfSJvbmNsaWNr","PSJjb3B5QnVsa1Jvdygke2l9KSI+8J+TiyDrs7Xsgqw8L2J1dHRvbj48YnV0dG9uIGNsYXNzPSJyb3ctbWFyay1idG4gJHtpc1Jl","cGxpZWQ/J2RvbmUnOicnfSJpZD0iYm1rJHtpfSJvbmNsaWNrPSJtYXJrQnVsa1Jvdygke2l9KSI+JHtpc1JlcGxpZWQ/J+KckyDq","sozsi5zsmYTro4wnOifil4sg6rKM7Iuc7JmE66OMJ308L2J1dHRvbj5gOicnfQogICAgICA8L3RkPgogICAgPC90cj5gO30pLmpv","aW4oJycpO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdidWxrUmVzdWx0V3JhcCcpLmNsYXNzTGlzdC5hZGQoJ29uJyk7ZG9jdW1l","bnQuZ2V0RWxlbWVudEJ5SWQoJ2J1bGtIZWFkZXJTdWInKS50ZXh0Q29udGVudD1gJHtidWxrUmVzdWx0cy5maWx0ZXIocj0+ci5z","dGF0dXM9PT0nZG9uZScpLmxlbmd0aH3qsJwg7IOd7ISxIOyZhOujjGA7fQphc3luYyBmdW5jdGlvbiBjb3B5QnVsa1JvdyhpKXtj","b25zdCBidG49ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2JjcCcraSk7dHJ5e2F3YWl0IG5hdmlnYXRvci5jbGlwYm9hcmQud3Jp","dGVUZXh0KGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdicnQnK2kpLmlubmVyVGV4dCk7YnRuLnRleHRDb250ZW50PSfinIUg67O1","7IKs65CoISc7YnRuLmNsYXNzTGlzdC5hZGQoJ29rJyk7c2V0VGltZW91dCgoKT0+e2J0bi50ZXh0Q29udGVudD0n8J+TiyDrs7Xs","gqwnO2J0bi5jbGFzc0xpc3QucmVtb3ZlKCdvaycpO30sMjAwMCk7fWNhdGNoe3NlbEFsbCgnYnJ0JytpKTt9fQpmdW5jdGlvbiBt","YXJrQnVsa1JvdyhpKXtjb25zdCByPWJ1bGtSZXN1bHRzW2ldO2NvbnN0IGlkPXIuY210LmlkO2NvbnN0IGJ0bj1kb2N1bWVudC5n","ZXRFbGVtZW50QnlJZCgnYm1rJytpKTtpZihyZXBsaWVkU2V0LmhhcyhpZCkpe3JlcGxpZWRTZXQuZGVsZXRlKGlkKTtidG4udGV4","dENvbnRlbnQ9J+KXiyDqsozsi5zsmYTro4wnO2J0bi5jbGFzc0xpc3QucmVtb3ZlKCdkb25lJyk7fWVsc2V7cmVwbGllZFNldC5h","ZGQoaWQpO2J0bi50ZXh0Q29udGVudD0n4pyTIOqyjOyLnOyZhOujjCc7YnRuLmNsYXNzTGlzdC5hZGQoJ2RvbmUnKTtkb2N1bWVu","dC5nZXRFbGVtZW50QnlJZCgnYnJvdycraSkuY2xhc3NMaXN0LmFkZCgnYnVsay1kb25lJyk7fQpsb2NhbFN0b3JhZ2Uuc2V0SXRl","bSgncmVwbGllZF9pZHMnLEpTT04uc3RyaW5naWZ5KFsuLi5yZXBsaWVkU2V0XSkpO3JlbmRlckNtdHMoKTt9CmZ1bmN0aW9uIGNv","cHlBbGxSZXBsaWVzKCl7Y29uc3QgdHh0PWJ1bGtSZXN1bHRzLmZpbHRlcihyPT5yLnN0YXR1cz09PSdkb25lJykubWFwKChyLGkp","PT5gWyR7aSsxfV0gQCR7ci5jbXQuYXV0aG9yfQrsm5DrjJPquIA6ICR7ci5jbXQudGV4dH0K64yA64yT6riAOiAke3IucmVwbHl9","YCkuam9pbignXG5cbi0tLVxuXG4nKTtuYXZpZ2F0b3IuY2xpcGJvYXJkLndyaXRlVGV4dCh0eHQpLnRoZW4oKCk9PmFsZXJ0KCfs","oITssrQg67O17IKsIOyZhOujjCEnKSk7fQpmdW5jdGlvbiBleHBvcnRDU1YoKXtjb25zdCByb3dzPVtbJ+uyiO2YuCcsJ+yekeyE","seyekCcsJ+ybkOuMk+q4gCcsJ+uMk+q4gOycoO2YlScsJ+yDneyEseuQnCDrjIDrjJPquIAnLCfsg4Htg5wnXV07YnVsa1Jlc3Vs","dHMuZm9yRWFjaCgocixpKT0+e3Jvd3MucHVzaChbaSsxLCdAJytyLmNtdC5hdXRob3IsJyInK3IuY210LnRleHQucmVwbGFjZSgv","Ii9nLCciIicpKyciJyxyLmFuYWx5c2lzPy50eXBlTGFiZWx8fCcnLCciJysoci5yZXBseXx8JycpLnJlcGxhY2UoLyIvZywnIiIn","KSsnIicsci5zdGF0dXM9PT0nZG9uZSc/J+yZhOujjCc6J+yYpOulmCddKTt9KTtjb25zdCBjc3Y9J1x1RkVGRicrcm93cy5tYXAo","cj0+ci5qb2luKCcsJykpLmpvaW4oJ1xuJyk7Y29uc3QgYmxvYj1uZXcgQmxvYihbY3N2XSx7dHlwZTondGV4dC9jc3Y7Y2hhcnNl","dD11dGYtOCd9KTtjb25zdCBhPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2EnKTthLmhyZWY9VVJMLmNyZWF0ZU9iamVjdFVSTChi","bG9iKTthLmRvd25sb2FkPWDrjIDrjJPquIBf7J286rSE7IOd7ISxXyR7bmV3IERhdGUoKS50b0xvY2FsZURhdGVTdHJpbmcoJ2tv","Jyl9LmNzdmA7YS5jbGljaygpO30KY29uc3QgX2M3PWF0b2IoJ01UQXhPVGMzTWpRME16QXlOaTExYTNCbU1tOTBkWFJpYVdweGRu","VnBjelE1YW1VeWRYVmtaMlp6T1c1bmJTNWhjSEJ6TG1kdmIyZHNaWFZ6WlhKamIyNTBaVzUwTG1OdmJRPT0nKTtjb25zdCBfczg9","J2h0dHBzOi8vd3d3Lmdvb2dsZWFwaXMuY29tL2F1dGgveW91dHViZS5mb3JjZS1zc2wnO2xldCBfbzEwPW51bGw7bGV0IG9hdXRo","VXNlcj1udWxsO2Z1bmN0aW9uIGdvb2dsZUxvZ2luKCl7Y29uc3QgY2xpZW50PWdvb2dsZS5hY2NvdW50cy5vYXV0aDIuaW5pdFRv","a2VuQ2xpZW50KHtjbGllbnRfaWQ6X2M3LHNjb3BlOl9zOCxjYWxsYmFjazoocmVzcCk9PntpZihyZXNwLmVycm9yKXtzaG93RXJy","KCdHb29nbGUg66Gc6re47J24IOyLpO2MqDogJytyZXNwLmVycm9yKTtyZXR1cm47fQpfbzEwPXJlc3AuYWNjZXNzX3Rva2VuO2Zl","dGNoR29vZ2xlUHJvZmlsZSgpO30sZXJyb3JfY2FsbGJhY2s6KGVycik9PntzaG93RXJyKCdHb29nbGUg66Gc6re47J24IOyYpOul","mDogJysoZXJyLm1lc3NhZ2V8fGVyci50eXBlfHxKU09OLnN0cmluZ2lmeShlcnIpKSk7fX0pO2NsaWVudC5yZXF1ZXN0QWNjZXNz","VG9rZW4oe3Byb21wdDonc2VsZWN0X2FjY291bnQnfSk7fQphc3luYyBmdW5jdGlvbiBmZXRjaEdvb2dsZVByb2ZpbGUoKXt0cnl7","Y29uc3QgcmVzPWF3YWl0IGZldGNoKCdodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS9vYXV0aDIvdjMvdXNlcmluZm8nLHtoZWFk","ZXJzOntBdXRob3JpemF0aW9uOidCZWFyZXIgJytfbzEwfX0pO29hdXRoVXNlcj1hd2FpdCByZXMuanNvbigpO3VwZGF0ZU9BdXRo","VUkodHJ1ZSk7fWNhdGNoKGUpe3VwZGF0ZU9BdXRoVUkoZmFsc2UpO3Nob3dFcnIoJ0dvb2dsZSDroZzqt7jsnbgg7Iuk7YyoOiAn","K2UubWVzc2FnZSk7fX0KZnVuY3Rpb24gZ29vZ2xlU2lnbm91dCgpe19vMTA9bnVsbDtvYXV0aFVzZXI9bnVsbDt1cGRhdGVPQXV0","aFVJKGZhbHNlKTtkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCcucG9zdC1idG4nKS5mb3JFYWNoKGI9PmIuc3R5bGUuZGlzcGxh","eT0nbm9uZScpO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdidWxrUG9zdEFsbEJ0bicpPy5jbGFzc0xpc3QuYWRkKCdoaWRkZW4n","KTt9CmZ1bmN0aW9uIHVwZGF0ZU9BdXRoVUkoc2lnbmVkSW4pe2NvbnN0IGJveD1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnb2F1","dGhCb3gnKTtjb25zdCBsb2dpbkJ0bj1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnZ29vZ2xlTG9naW5CdG4nKTtjb25zdCBzaWdu","b3V0QnRuPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdnb29nbGVTaWdub3V0QnRuJyk7Y29uc3QgYXZhdGFyPWRvY3VtZW50Lmdl","dEVsZW1lbnRCeUlkKCdvYXV0aEF2YXRhcicpO2NvbnN0IG5hbWU9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ29hdXRoTmFtZScp","O2NvbnN0IGVtYWlsPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdvYXV0aEVtYWlsJyk7aWYoc2lnbmVkSW4mJm9hdXRoVXNlcil7","Ym94LmNsYXNzTGlzdC5hZGQoJ3NpZ25lZC1pbicpO2xvZ2luQnRuLnN0eWxlLmRpc3BsYXk9J25vbmUnO3NpZ25vdXRCdG4uc3R5","bGUuZGlzcGxheT0nYmxvY2snO2F2YXRhci5pbm5lckhUTUw9b2F1dGhVc2VyLnBpY3R1cmU/YDxpbWcgc3JjPSIke29hdXRoVXNl","ci5waWN0dXJlfSIgc3R5bGU9IndpZHRoOjM2cHg7aGVpZ2h0OjM2cHg7Ym9yZGVyLXJhZGl1czo1MCU7b2JqZWN0LWZpdDpjb3Zl","ciI+YDon4pyFJztuYW1lLnRleHRDb250ZW50PW9hdXRoVXNlci5uYW1lfHwnR29vZ2xlIOqzhOyglSc7ZW1haWwudGV4dENvbnRl","bnQ9KG9hdXRoVXNlci5lbWFpbHx8JycpKycg4oCUIFlvdVR1YmUg64yT6riAIOqyjOyLnCDqsIDriqUnO3Nob3dJbmZvKCfinIUg","R29vZ2xlIOuhnOq3uOyduCDshLHqs7UhIOydtOygnCDsg53shLHrkJwg64yA64yT6riA7J2EIFlvdVR1YmXsl5Ag7KeB7KCRIOqy","jOyLnO2VoCDsiJgg7J6I7Iq164uI64ukLicpO2RvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJy5wb3N0LWJ0bicpLmZvckVhY2go","Yj0+Yi5zdHlsZS5kaXNwbGF5PSdmbGV4Jyk7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2J1bGtQb3N0QWxsQnRuJyk/LmNsYXNz","TGlzdC5yZW1vdmUoJ2hpZGRlbicpO31lbHNle2JveC5jbGFzc0xpc3QucmVtb3ZlKCdzaWduZWQtaW4nKTtsb2dpbkJ0bi5zdHls","ZS5kaXNwbGF5PSdmbGV4JztzaWdub3V0QnRuLnN0eWxlLmRpc3BsYXk9J25vbmUnO2F2YXRhci5pbm5lckhUTUw9J/CflJMnO25h","bWUudGV4dENvbnRlbnQ9J0dvb2dsZSDqs4TsoJUg66+47Jew6rKwJztlbWFpbC50ZXh0Q29udGVudD0n66Gc6re47J247ZWY66m0","IFlvdVR1YmXsl5Ag7KeB7KCRIOuMk+q4gOydhCDqsozsi5ztlaAg7IiYIOyeiOyKteuLiOuLpCc7fX0KYXN5bmMgZnVuY3Rpb24g","X3A2KHBhcmVudElkLHRleHQpe2lmKCFfbzEwKXRocm93IG5ldyBFcnJvcignR29vZ2xlIOuhnOq3uOyduOydtCDtlYTsmpTtlanr","i4jri6QuJyk7aWYoIXZpZGVvRGF0YT8udmlkZW9JZCl0aHJvdyBuZXcgRXJyb3IoJ+yYgeyDgSDsoJXrs7TqsIAg7JeG7Iq164uI","64ukLicpO2NvbnN0IGJvZHk9e3NuaXBwZXQ6e3BhcmVudElkOnBhcmVudElkLHRleHRPcmlnaW5hbDp0ZXh0fX07Y29uc3QgcmVz","PWF3YWl0IGZldGNoKCdodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS95b3V0dWJlL3YzL2NvbW1lbnRzP3BhcnQ9c25pcHBldCcs","e21ldGhvZDonUE9TVCcsaGVhZGVyczp7J0NvbnRlbnQtVHlwZSc6J2FwcGxpY2F0aW9uL2pzb24nLCdBdXRob3JpemF0aW9uJzon","QmVhcmVyICcrX28xMH0sYm9keTpKU09OLnN0cmluZ2lmeShib2R5KX0pO2NvbnN0IGRhdGE9YXdhaXQgcmVzLmpzb24oKTtpZihk","YXRhLmVycm9yKXRocm93IG5ldyBFcnJvcihkYXRhLmVycm9yLm1lc3NhZ2UpO3JldHVybiBkYXRhO30KYXN5bmMgZnVuY3Rpb24g","cG9zdFNpbmdsZVJlcGx5KGkpe2lmKCFfbzEwKXtzaG93RXJyKCfrqLzsoIAgR29vZ2xlIOuhnOq3uOyduOydhCDtlbTso7zshLjs","mpQuJyk7cmV0dXJuO30KY29uc3QgYnRuPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdwYicraSk7Y29uc3QgdHh0PWRvY3VtZW50","LmdldEVsZW1lbnRCeUlkKCdydCcraSk/LmlubmVyVGV4dD8udHJpbSgpO2lmKCF0eHQpcmV0dXJuO2NvbnN0IGNtdElkPShjdXJy","ZW50TW9kZT09PSd1cmwnJiYhcGFzdGVNb2RlJiZzZWxJZHg+PTApP2FsbENvbW1lbnRzW3NlbElkeF0/LmlkOm51bGw7aWYoIWNt","dElkKXtzaG93RXJyKCfqsozsi5ztlaAg64yT6riAIElE66W8IOywvuydhCDsiJgg7JeG7Iq164uI64ukLiDrqqnroZ3sl5DshJwg","64yT6riA7J2EIOyEoO2Dne2VtCDso7zshLjsmpQuJyk7cmV0dXJuO30KYnRuLmRpc2FibGVkPXRydWU7YnRuLnRleHRDb250ZW50","PSfqsozsi5wg7KSRLi4uJzt0cnl7YXdhaXQgX3A2KGNtdElkLHR4dCk7YnRuLnRleHRDb250ZW50PSfinIUg6rKM7Iuc65CoJzti","dG4uY2xhc3NMaXN0LmFkZCgncG9zdGVkJyk7cmVwbGllZFNldC5hZGQoY210SWQpO2xvY2FsU3RvcmFnZS5zZXRJdGVtKCdyZXBs","aWVkX2lkcycsSlNPTi5zdHJpbmdpZnkoWy4uLnJlcGxpZWRTZXRdKSk7cmVuZGVyQ210cygpO31jYXRjaChlKXtidG4uZGlzYWJs","ZWQ9ZmFsc2U7YnRuLnRleHRDb250ZW50PSfilrYgWW91VHViZSDqsozsi5wnO3Nob3dFcnIoJ+qyjOyLnCDsi6TtjKg6ICcrZS5t","ZXNzYWdlKTt9fQphc3luYyBmdW5jdGlvbiBwb3N0QnVsa1JvdyhpKXtpZighX28xMCl7c2hvd0Vycign66i87KCAIEdvb2dsZSDr","oZzqt7jsnbjsnYQg7ZW07KO87IS47JqULicpO3JldHVybjt9CmNvbnN0IHI9YnVsa1Jlc3VsdHNbaV07aWYoIXJ8fHIuc3RhdHVz","IT09J2RvbmUnfHwhci5jbXQuaWQpcmV0dXJuO2NvbnN0IGJ0bj1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYnBvc3QnK2kpO2lm","KGJ0bil7YnRuLmRpc2FibGVkPXRydWU7YnRuLnRleHRDb250ZW50PSfqsozsi5wg7KSRLi4uJzt9CnRyeXthd2FpdCBfcDYoci5j","bXQuaWQsci5yZXBseSk7ci5wb3N0ZWQ9dHJ1ZTtpZihidG4pe2J0bi50ZXh0Q29udGVudD0n4pyFIOqyjOyLnOuQqCc7YnRuLmNs","YXNzTGlzdC5hZGQoJ3Bvc3RlZCcpO30KcmVwbGllZFNldC5hZGQoci5jbXQuaWQpO2xvY2FsU3RvcmFnZS5zZXRJdGVtKCdyZXBs","aWVkX2lkcycsSlNPTi5zdHJpbmdpZnkoWy4uLnJlcGxpZWRTZXRdKSk7cmVuZGVyQ210cygpO31jYXRjaChlKXtpZihidG4pe2J0","bi5kaXNhYmxlZD1mYWxzZTtidG4udGV4dENvbnRlbnQ9J+KWtiDqsozsi5wnO30Kc2hvd0Vycign6rKM7IucIOyLpO2MqCAoIycr","aSsnKTogJytlLm1lc3NhZ2UpO319CmFzeW5jIGZ1bmN0aW9uIHBvc3RBbGxSZXBsaWVzKCl7aWYoIV9vMTApe3Nob3dFcnIoJ+uo","vOyggCBHb29nbGUg66Gc6re47J247J2EIO2VtOyjvOyEuOyalC4nKTtyZXR1cm47fQpjb25zdCBidG49ZG9jdW1lbnQuZ2V0RWxl","bWVudEJ5SWQoJ2J1bGtQb3N0QWxsQnRuJyk7Y29uc3QgcGVuZGluZz1idWxrUmVzdWx0cy5maWx0ZXIoKHIsaSk9PnIuc3RhdHVz","PT09J2RvbmUnJiYhci5wb3N0ZWQmJnIuY210LmlkKTtpZighcGVuZGluZy5sZW5ndGgpe3Nob3dFcnIoJ+qyjOyLnO2VoCDtla3r","qqnsnbQg7JeG7Iq164uI64ukLicpO3JldHVybjt9CmlmKCFjb25maXJtKGDrr7jqsozsi5wg64yT6riAICR7cGVuZGluZy5sZW5n","dGh96rCc66W8IFlvdVR1YmXsl5Ag7Iuk7KCc66GcIOqyjOyLnO2VqeuLiOuLpC5cbuqyjOyLnCDtm4Tsl5DripQg7Leo7IaM7ZWg","IOyImCDsl4bsirXri4jri6QuIOqzhOyGje2VmOyLnOqyoOyKteuLiOq5jD9gKSlyZXR1cm47YnRuLmRpc2FibGVkPXRydWU7YnRu","LnF1ZXJ5U2VsZWN0b3IoJy5zcGluJykuc3R5bGUuZGlzcGxheT0nYmxvY2snO2Zvcihjb25zdCByIG9mIHBlbmRpbmcpe2NvbnN0","IGlkeD1idWxrUmVzdWx0cy5pbmRleE9mKHIpO2F3YWl0IHBvc3RCdWxrUm93KGlkeCk7YXdhaXQgc2xlZXAoMTAwMCk7fQpidG4u","ZGlzYWJsZWQ9ZmFsc2U7YnRuLnF1ZXJ5U2VsZWN0b3IoJy5zcGluJykuc3R5bGUuZGlzcGxheT0nbm9uZSc7c2hvd0luZm8oYOKc","hSDsnbzqtIQg6rKM7IucIOyZhOujjCFgKTt9CmNvbnN0IFRVVF9TVEVQUz1be2ljb246J/CfjqwnLHRpdGxlOidDLkEuUi5FIOuM","gOuMk+q4gCDsg53shLHquLAnLGRlc2M6J+ycoO2KnOu4jCDrjJPquIDsl5AgPHN0cm9uZz7soITrnrXsoIHsnLzroZwg64u16riA","PC9zdHJvbmc+7J2EIOuLrOyVhCDsi5zssq3snpDrpbwgPHN0cm9uZz7ssJDtjKw8L3N0cm9uZz7snLzroZwg66eM65Oc64qUIEFJ","IOuPhOq1rOyeheuLiOuLpC4nfSx7aWNvbjon8J+UkScsdGl0bGU6J1NURVAgMSDigJQgQVBJIO2CpCDshKTsoJUnLGRlc2M6J+yD","geuLqOydmCA8c3BhbiBjbGFzcz0idHV0LWhpZ2hsaWdodCI+WW91VHViZSBBUEkg7YKkPC9zcGFuPuyZgCA8c3BhbiBjbGFzcz0i","dHV0LWhpZ2hsaWdodCI+R2VtaW5pIEFQSSDtgqQ8L3NwYW4+66W8IOyeheugpe2VmOyEuOyalC48YnI+65GQIO2CpCDrqqjrkZAg","PHN0cm9uZz5Hb29nbGUg6rOE7KCVIO2VmOuCmDwvc3Ryb25nPuuhnCDrrLTro4wg67Cc6riJ65Cp64uI64ukLid9LHtpY29uOifw","n5SXJyx0aXRsZTonU1RFUCAyIOKAlCDsmIHsg4Eg66eB7YGsIOu2meyXrOuEo+q4sCcsZGVzYzon7Jyg7Yqc67iMIOyYgeyDgSBV","UkzsnYQg7J6F66Cl7ZWY6rOgIDxzcGFuIGNsYXNzPSJ0dXQtaGlnaGxpZ2h0Ij7wn5OlIOu2iOufrOyYpOq4sDwvc3Bhbj7rpbwg","7YG066at7ZWY66m0PGJyPuyYgeyDgSDsoJXrs7TsmYAg64yT6riAIDMw6rCc6rCAIOyekOuPmeycvOuhnCDroZzrk5zrkKnri4jr","i6QuJ30se2ljb246J/CfkqwnLHRpdGxlOidTVEVQIDMg4oCUIOuMk+q4gCDtgbTrpq0g4oaSIEFJIOu2hOyEnScsZGVzYzon64yA","64yT6riA7J2EIOuLrCDrjJPquIDsnYQgPHN0cm9uZz7tgbTrpq08L3N0cm9uZz7tlZjrqbQgQUnqsIAg7J6Q64+Z7Jy866GcPGJy","PuuMk+q4gCDsnKDtmJXCt+qwkOyglcK366eQ7Yis66W8IOu2hOyEne2VqeuLiOuLpC4nfSx7aWNvbjon4pyoJyx0aXRsZTonU1RF","UCA0IOKAlCDrjIDrjJPquIAg7IOd7ISxIScsZGVzYzonPHNwYW4gY2xhc3M9InR1dC1oaWdobGlnaHQiPuKcqCDrjIDrjJPquIAg","7IOd7ISx7ZWY6riwPC9zcGFuPiDrsoTtirzsnLzroZwgQy5BLlIuRSDqs7Xsi50g6riw67CYPGJyPuy1nOygge2ZlOuQnCDrjIDr","jJPquIAgM+qwgOyngCDrsoTsoITsnbQg7JmE7ISx65Cp64uI64ukISd9LF07bGV0IHR1dFN0ZXA9MDtmdW5jdGlvbiBpbml0VHV0","b3JpYWwoKXtpZihsb2NhbFN0b3JhZ2UuZ2V0SXRlbSgndHV0X2RvbmUnKSlyZXR1cm47cmVuZGVyVHV0U3RlcCgpO30KZnVuY3Rp","b24gcmVuZGVyVHV0U3RlcCgpe2NvbnN0IHM9VFVUX1NURVBTW3R1dFN0ZXBdO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd0dXRJ","Y29uJykudGV4dENvbnRlbnQ9cy5pY29uO2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd0dXRUaXRsZScpLnRleHRDb250ZW50PXMu","dGl0bGU7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3R1dERlc2MnKS5pbm5lckhUTUw9cy5kZXNjO2RvY3VtZW50LmdldEVsZW1l","bnRCeUlkKCd0dXRTdGVwTGFiZWwnKS50ZXh0Q29udGVudD0odHV0U3RlcCsxKSsnIC8gJytUVVRfU1RFUFMubGVuZ3RoO2RvY3Vt","ZW50LmdldEVsZW1lbnRCeUlkKCd0dXROZXh0QnRuJykudGV4dENvbnRlbnQ9dHV0U3RlcD09PVRVVF9TVEVQUy5sZW5ndGgtMT8n","7Iuc7J6R7ZWY6riwIPCfmoAnOifri6TsnYwg4oaSJztkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgndHV0RG90cycpLmlubmVySFRN","TD1UVVRfU1RFUFMubWFwKChfLGkpPT5gPGRpdiBjbGFzcz0idHV0LWRvdCR7aT09PXR1dFN0ZXA/JyBhY3RpdmUnOicnfSI+PC9k","aXY+YCkuam9pbignJyk7fQpmdW5jdGlvbiB0dXROZXh0KCl7aWYodHV0U3RlcDxUVVRfU1RFUFMubGVuZ3RoLTEpe3R1dFN0ZXAr","KztyZW5kZXJUdXRTdGVwKCk7fQplbHNlIGNsb3NlVHV0b3JpYWwoKTt9CmZ1bmN0aW9uIGNsb3NlVHV0b3JpYWwoKXtkb2N1bWVu","dC5nZXRFbGVtZW50QnlJZCgndHV0T3ZlcmxheScpLmNsYXNzTGlzdC5hZGQoJ2hpZGRlbicpO2xvY2FsU3RvcmFnZS5zZXRJdGVt","KCd0dXRfZG9uZScsJzEnKTt9CmZ1bmN0aW9uIG9wZW5HdWlkZSgpe2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdndWlkZU92ZXJs","YXknKS5jbGFzc0xpc3QuYWRkKCdvbicpO30KZnVuY3Rpb24gY2xvc2VHdWlkZSgpe2RvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdn","dWlkZU92ZXJsYXknKS5jbGFzc0xpc3QucmVtb3ZlKCdvbicpO30KZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2d1aWRlT3Zlcmxh","eScpLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJyxmdW5jdGlvbihlKXtpZihlLnRhcmdldD09PXRoaXMpY2xvc2VHdWlkZSgpO30p","O2NvbnN0IFBBR0VfVVJMPSdodHRwczovL3B5dXR5dWJldTg4LWNvbW1pdHMuZ2l0aHViLmlvLy0vJztjb25zdCBQQUdFX1RJVExF","PSdDLkEuUi5FIOuMgOuMk+q4gCDsg53shLHquLAg4oCUIOycoO2KnOu4jCDssJDtjKwg66eM65Ok6riwJztmdW5jdGlvbiBzaGFy","ZUtha2FvKCl7Y29uc3QgbXNnPWVuY29kZVVSSUNvbXBvbmVudChQQUdFX1RJVExFKydcbicrUEFHRV9VUkwpO2lmKC9BbmRyb2lk","fGlQaG9uZS9pLnRlc3QobmF2aWdhdG9yLnVzZXJBZ2VudCkpe3dpbmRvdy5sb2NhdGlvbi5ocmVmPSdrYWthb2xpbms6Ly9zZW5k","P3RleHQ9Jyttc2c7fWVsc2V7d2luZG93Lm9wZW4oJ2h0dHBzOi8vc3Rvcnkua2FrYW8uY29tL3NoYXJlP3VybD0nK2VuY29kZVVS","SUNvbXBvbmVudChQQUdFX1VSTCksJ19ibGFuaycsJ3dpZHRoPTUwMCxoZWlnaHQ9NDAwJyk7fX0KZnVuY3Rpb24gc2hhcmVUd2l0","dGVyKCl7Y29uc3QgdHh0PWVuY29kZVVSSUNvbXBvbmVudCgn7Jyg7Yqc67iMIOuMk+q4gCDqtIDrpqzqsIAg7J2066CH6rKMIOyJ","rOybjOyguOuPhCDrkJjrgpjsmpQ/IPCfmK4gQy5BLlIuRSDqs7Xsi53snLzroZwg7LCQ7Yys7J2EIOunjOuTnOuKlCBBSSDrjIDr","jJPquIAg7IOd7ISx6riwIScpO3dpbmRvdy5vcGVuKCdodHRwczovL3R3aXR0ZXIuY29tL2ludGVudC90d2VldD90ZXh0PScrdHh0","KycmdXJsPScrZW5jb2RlVVJJQ29tcG9uZW50KFBBR0VfVVJMKSwnX2JsYW5rJyk7fQphc3luYyBmdW5jdGlvbiBjb3B5TGluaygp","e3RyeXthd2FpdCBuYXZpZ2F0b3IuY2xpcGJvYXJkLndyaXRlVGV4dChQQUdFX1VSTCk7c2hvd0luZm8oJ/CflJcg66eB7YGs6rCA","IOuzteyCrOuQmOyXiOyKteuLiOuLpCEg6rO17Jyg7ZW0IOuztOyEuOyalCDwn5iKJyk7fWNhdGNoe3Byb21wdCgn7JWE656YIOun","ge2BrOulvCDrs7XsgqztlZjshLjsmpQ6JyxQQUdFX1VSTCk7fX0KZnVuY3Rpb24gc2hvd1NoYXJlQmFyKCl7ZG9jdW1lbnQuZ2V0","RWxlbWVudEJ5SWQoJ3NoYXJlQmFyJykuc3R5bGUuZGlzcGxheT0nZmxleCc7fQppbml0VHV0b3JpYWwoKTtmdW5jdGlvbiBzbGVl","cChtcyl7cmV0dXJuIG5ldyBQcm9taXNlKHI9PnNldFRpbWVvdXQocixtcykpO30="].join("");(new Function(decodeURIComponent(escape(atob(_x)))))();})();</script>
+
 <script>
-// ===== State =====
-let ytApiKey     = localStorage.getItem('yt_api_key') || '';
-let repliedSet   = new Set(JSON.parse(localStorage.getItem('replied_ids') || '[]'));
-let currentFilter = 'all';
-let pasteBoxVisible = false;
-let geminiApiKey = localStorage.getItem('gemini_api_key') || '';
-let videoData = null, allComments = [], selIdx = -1;
-let analysisResult = null, currentMode = 'url';
-
-// ===== Init =====
-(function init() {
-  if (ytApiKey) {
-    document.getElementById('ytKey').value = ytApiKey;
-    markConnected('ytDot','ytBox','ytBody','ytTog');
-  } else {
-    document.getElementById('ytBody').classList.remove('hidden');
-    document.getElementById('ytTog').textContent = '▲ 접기';
-  }
-  if (geminiApiKey) {
-    document.getElementById('geminiKey').value = geminiApiKey;
-    markConnected('geminiDot','geminiBox','geminiBody','geminiTog');
-  } else {
-    document.getElementById('geminiBody').classList.remove('hidden');
-    document.getElementById('geminiTog').textContent = '▲ 접기';
-  }
-})();
-
-function markConnected(dotId, boxId, bodyId, togId) {
-  document.getElementById(dotId).classList.add('on');
-  document.getElementById(boxId).classList.add('connected');
-  document.getElementById(bodyId).classList.add('hidden');
-  document.getElementById(togId).textContent = '▼ 펼치기';
-}
-
-function tog(bodyId, togId, dotId, boxId) {
-  const b = document.getElementById(bodyId), t = document.getElementById(togId);
-  t.textContent = b.classList.toggle('hidden') ? '▼ 펼치기' : '▲ 접기';
-}
-
-function saveYtKey() {
-  const k = document.getElementById('ytKey').value.trim();
-  if (!k) { showErr('YouTube API 키를 입력해 주세요.'); return; }
-  ytApiKey = k; localStorage.setItem('yt_api_key', k);
-  markConnected('ytDot','ytBox','ytBody','ytTog');
-  showInfo('✅ YouTube API 키가 저장되었습니다!');
-}
-
-function saveGeminiKey() {
-  const k = document.getElementById('geminiKey').value.trim();
-  if (!k) { showErr('Gemini API 키를 입력해 주세요.'); return; }
-  geminiApiKey = k; localStorage.setItem('gemini_api_key', k);
-  markConnected('geminiDot','geminiBox','geminiBody','geminiTog');
-  showInfo('✅ Gemini API 키가 저장되었습니다!');
-}
-
-// ===== Mode =====
-function switchMode(m) {
-  currentMode = m;
-  document.querySelectorAll('.mtab').forEach((t,i) =>
-    t.classList.toggle('active',(i===0&&m==='url')||(i===1&&m==='manual'))
-  );
-  document.getElementById('urlMode').classList.toggle('active', m==='url');
-  document.getElementById('manualMode').classList.toggle('active', m==='manual');
-  if (m==='manual') {
-    ['vprev','cmtSection','selBox'].forEach(id=>document.getElementById(id).classList.remove('on'));
-    document.getElementById('pasteBox').style.display='none';
-    pasteBoxVisible=false; pasteMode=false;
-    resetAnalysis();
-  }
-}
-
-// ===== YouTube =====
-function vidId(url) {
-  const ps=[/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/];
-  for(const p of ps){const m=url.match(p);if(m)return m[1];}return null;
-}
-function fmtN(n) {
-  if(!n)return'0';n=parseInt(n);
-  if(n>=10000)return Math.floor(n/10000)+'만';
-  if(n>=1000)return(n/1000).toFixed(1)+'K';
-  return n.toString();
-}
-
-async function fetchVideo() {
-  if (!ytApiKey) {
-    showErr('먼저 YouTube API 키를 설정해 주세요.');
-    document.getElementById('ytBody').classList.remove('hidden');
-    document.getElementById('ytTog').textContent = '▲ 접기';
-    return;
-  }
-  const url = document.getElementById('videoUrl').value.trim();
-  if (!url) { showErr('유튜브 링크를 입력해 주세요.'); return; }
-  const vid = vidId(url);
-  if (!vid) { showErr('유효한 유튜브 링크가 아닙니다.'); return; }
-  clearMsgs(); resetAnalysis();
-  document.getElementById('fetchBtn').disabled = true;
-  setFS(true,'영상 정보를 불러오는 중...');
-  try {
-    const vj = await (await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${vid}&key=${ytApiKey}`)).json();
-    if (vj.error) throw new Error(vj.error.message);
-    if (!vj.items?.length) throw new Error('영상을 찾을 수 없습니다.');
-    const {snippet:sn,statistics:st} = vj.items[0];
-    videoData = {videoId:vid,title:sn.title,description:(sn.description||'').substring(0,800),
-      thumbnail:sn.thumbnails?.medium?.url||'',views:st.viewCount,likes:st.likeCount,commentCount:st.commentCount};
-    document.getElementById('vpThumb').src = videoData.thumbnail;
-    document.getElementById('vpTitle').textContent = videoData.title;
-    document.getElementById('vpViews').textContent = `👁 ${fmtN(videoData.views)}회`;
-    document.getElementById('vpLikes').textContent = `👍 ${fmtN(videoData.likes)}`;
-    document.getElementById('vpCmts').textContent = `💬 ${fmtN(videoData.commentCount)}개`;
-    document.getElementById('vpDesc').textContent = videoData.description;
-    document.getElementById('vprev').classList.add('on');
-
-    setFS(true,'댓글을 불러오는 중...');
-    const cj = await (await fetch(`https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${vid}&maxResults=30&order=relevance&key=${ytApiKey}`)).json();
-    if (cj.error) throw new Error(cj.error.message);
-    allComments = (cj.items||[]).map(c=>{const s=c.snippet.topLevelComment.snippet;return{id:c.id,author:s.authorDisplayName,text:s.textDisplay,likes:s.likeCount,hasOwnerReply:c.snippet.totalReplyCount>0};});
-    selIdx=-1; document.getElementById('selBox').classList.remove('on');
-    renderCmts(); setFS(false);
-    const unrep = allComments.filter(x=>!repliedSet.has(x.id)).length;
-    showInfo(`✅ "${videoData.title}" — 총 ${allComments.length}개 (미답글 ${unrep}개). 답글 달 댓글을 클릭하거나, 아래 ⚡ 일괄 생성으로 한 번에 처리하세요!`);
-    // 일괄생성 섹션 표시
-    document.getElementById('bulkSection').classList.add('on');
-    document.getElementById('bulkHeaderSub').textContent = `미답글 ${unrep}개 — 한 번에 대댓글을 생성합니다`;
-  } catch(e) { setFS(false); showErr('불러오기 실패: '+e.message); }
-  finally { document.getElementById('fetchBtn').disabled=false; }
-}
-
-function setFS(on,txt) {
-  const el=document.getElementById('fstatus');el.classList.toggle('on',on);
-  if(txt)document.getElementById('fstatusText').textContent=txt;
-}
-function renderCmts() {
-  const repliedCount = allComments.filter(c=>repliedSet.has(c.id)).length;
-  document.getElementById('cmtBadge').textContent=allComments.length+'개';
-  document.getElementById('repliedCount').textContent=`답글완료 ${repliedCount}개 / 미답글 ${allComments.length-repliedCount}개`;
-
-  let list = allComments.map((c,i)=>({...c,idx:i}));
-  if (currentFilter==='unreplied') list=list.filter(c=>!repliedSet.has(c.id));
-  if (currentFilter==='replied')   list=list.filter(c=>repliedSet.has(c.id));
-
-  document.getElementById('cmtList').innerHTML = list.length ? list.map(c=>`
-    <div class="cmt-item${repliedSet.has(c.id)?' replied':''}" id="ci${c.idx}" onclick="selectCmt(${c.idx})">
-      <div class="cmt-author">
-        ${esc(c.author)}
-        <span class="cmt-likes">👍${c.likes||0}</span>
-        ${repliedSet.has(c.id)?'<span class="replied-badge">✓ 답글완료</span>':''}
-      </div>
-      <div class="cmt-text">${esc(c.text)}</div>
-    </div>`).join('')
-  : `<div style="padding:20px;text-align:center;color:var(--text2);font-size:13px">해당 댓글이 없습니다</div>`;
-
-  document.getElementById('cmtSection').classList.add('on');
-}
-function setFilter(f) {
-  currentFilter=f;
-  ['fAll','fUnreplied','fReplied'].forEach(id=>document.getElementById(id).classList.remove('active'));
-  const map={all:'fAll',unreplied:'fUnreplied',replied:'fReplied'};
-  document.getElementById(map[f]).classList.add('active');
-  renderCmts();
-}
-function selectCmt(i) {
-  document.querySelectorAll('.cmt-item').forEach(e=>e.classList.remove('sel'));
-  document.getElementById('ci'+i).classList.add('sel');
-  selIdx=i;
-  // 붙여넣기 모드 해제
-  pasteMode = false;
-  document.getElementById('selTxt').textContent=allComments[i].text;
-  // 답글완료 버튼 표시
-  const isReplied = repliedSet.has(allComments[i].id);
-  document.getElementById('selBox').innerHTML=`
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-      <div class="sel-lbl">✅ 선택된 댓글</div>
-      <button onclick="toggleReplied(${i})" style="padding:4px 12px;border-radius:6px;border:1px solid ${isReplied?'var(--green)':'var(--border)'};background:${isReplied?'rgba(16,185,129,0.12)':'transparent'};color:${isReplied?'var(--green)':'var(--text2)'};font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .18s" id="replyMark">
-        ${isReplied?'✓ 답글완료':'○ 답글완료 표시'}
-      </button>
-    </div>
-    <div class="sel-txt">${esc(allComments[i].text)}</div>`;
-  document.getElementById('selBox').classList.add('on');
-  resetAnalysis();
-  analyzeComment();
-}
-function toggleReplied(i) {
-  const id = allComments[i].id;
-  if (repliedSet.has(id)) repliedSet.delete(id);
-  else repliedSet.add(id);
-  localStorage.setItem('replied_ids', JSON.stringify([...repliedSet]));
-  selectCmt(i); // 버튼 상태 갱신
-  renderCmts();  // 목록 갱신
-}
-
-// ===== 붙여넣기 기능 =====
-let pasteMode = false;
-let pasteComment = '';
-let pasteAuthorName = '';
-
-function togglePasteBox() {
-  pasteBoxVisible = !pasteBoxVisible;
-  document.getElementById('pasteBox').style.display = pasteBoxVisible ? 'block' : 'none';
-  if (pasteBoxVisible) document.getElementById('pasteTxt').focus();
-}
-function usePastedComment() {
-  const txt = document.getElementById('pasteTxt').value.trim();
-  if (!txt) { showErr('댓글 내용을 입력해 주세요.'); return; }
-  pasteComment = txt;
-  pasteAuthorName = document.getElementById('pasteAuthor').value.trim();
-  pasteMode = true;
-  // 선택 박스에 표시
-  document.getElementById('selBox').innerHTML=`
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-      <div class="sel-lbl">📋 붙여넣기 댓글</div>
-      <span style="font-size:11px;color:var(--accent2)">${pasteAuthorName||'닉네임 미입력'}</span>
-    </div>
-    <div class="sel-txt">${esc(txt)}</div>`;
-  document.getElementById('selBox').classList.add('on');
-  resetAnalysis();
-  analyzeComment();
-  // 박스 접기
-  pasteBoxVisible=false;
-  document.getElementById('pasteBox').style.display='none';
-}
-document.getElementById('videoUrl').addEventListener('keydown',e=>{if(e.key==='Enter')fetchVideo();});
-
-// ===== Gemini API =====
-async function callGemini(prompt) {
-  if (!geminiApiKey) throw new Error('Gemini API 키를 먼저 설정해 주세요.');
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiApiKey}`;
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({
-      contents: [{parts:[{text: prompt}]}],
-      generationConfig: {temperature: 0.7, maxOutputTokens: 3000, responseMimeType: 'application/json'}
-    })
-  });
-  const data = await res.json();
-  if (data.error) throw new Error(data.error.message);
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-}
-
-// JSON 안전 추출 (마크다운·앞뒤 텍스트 제거, 불완전 JSON 복구)
-function extractJSON(raw) {
-  let s = raw.replace(/```json/gi,'').replace(/```/g,'').trim();
-  const start = s.search(/[{[]/);
-  const lastCurly = s.lastIndexOf('}');
-  const lastBracket = s.lastIndexOf(']');
-  const end = Math.max(lastCurly, lastBracket);
-  if (start === -1 || end === -1) throw new Error('응답에서 JSON을 찾을 수 없습니다.');
-  return s.slice(start, end + 1);
-}
-
-// ===== Analysis =====
-function resetAnalysis() {
-  analysisResult = null;
-  document.getElementById('analysisBox').classList.remove('on');
-  document.getElementById('trollCard').classList.remove('on');
-}
-
-async function analyzeComment() {
-  const comment = getComment();
-  if (!comment) { showErr('먼저 댓글을 선택하거나 입력해 주세요.'); return; }
-  if (!geminiApiKey) {
-    showErr('Gemini API 키를 먼저 설정해 주세요.');
-    document.getElementById('geminiBody').classList.remove('hidden');
-    document.getElementById('geminiTog').textContent = '▲ 접기';
-    return;
-  }
-  clearMsgs();
-  const btn=document.getElementById('analyzeBtn');
-  btn.classList.add('loading'); btn.disabled=true;
-  document.getElementById('analyzeBtnTxt').textContent='분석 중...';
-  try {
-    const raw = await callGemini(`당신은 유튜브 댓글 분석 전문가입니다. 아래 댓글을 C.A.R.E 공식 관점에서 분석하고 JSON만 반환하세요 (마크다운 없이).
-
-댓글: "${comment}"
-
-반환 JSON 형식 (한국어):
-{
-  "type": "general|question|praise|complaint|feedback|troll",
-  "typeLabel": "일반댓글|질문|칭찬|불만|건설적피드백|악성댓글",
-  "emotion": "긍정|중립|부정|혼합",
-  "emotionEmoji": "😊",
-  "intent": "핵심 의도 20자 이내",
-  "recommendedStyle": "따뜻한 존댓말|정중한 격식체|친근한 반말 섞기|어르신 친화형|전문가 스타일",
-  "styleReason": "이유 15자 이내",
-  "careStrategy": {
-    "C": "Connect 전략 30자 이내",
-    "A": "Appreciate 전략 30자 이내",
-    "R": "Respond 전략 30자 이내",
-    "E": "Engage 전략 30자 이내"
+// ===== 튜토리얼 =====
+const TUT_STEPS = [
+  {
+    icon:'🎬', label:'1 / 5',
+    title:'C.A.R.E 대댓글 생성기에 오신 것을 환영합니다!',
+    desc:'유튜브 댓글에 <strong>전략적으로 답글</strong>을 달아<br>시청자를 <strong>평생 찐팬</strong>으로 만드는 AI 도구입니다.<br><br>30초 안내로 바로 시작해 보세요! 😊',
+    highlight:''
   },
-  "isTroll": false,
-  "trollLevel": 0,
-  "trollGuide": "악플일 경우 대처 가이드"
-}`);
-    const clean = extractJSON(raw);
-    analysisResult = JSON.parse(clean);
-    renderAnalysis(analysisResult);
-  } catch(e) { showErr('분석 오류: '+e.message); }
-  finally { btn.classList.remove('loading'); btn.disabled=false; document.getElementById('analyzeBtnTxt').textContent='🔍 댓글 분석'; }
-}
+  {
+    icon:'🔑', label:'2 / 5',
+    title:'STEP 1 — API 키 설정 (최초 1회만)',
+    desc:'Google 계정 하나로 모든 키를 발급할 수 있습니다.<br>한 번 입력하면 <strong>브라우저에 저장</strong>돼 다음엔 바로 사용!',
+    highlight:'📺 <strong>YouTube API 키</strong> — 댓글 자동 수집<br>🤖 <strong>Gemini API 키</strong> — AI 대댓글 생성 (무료)<br>🔐 <strong>Google 로그인</strong> — YouTube 직접 게시'
+  },
+  {
+    icon:'🔗', label:'3 / 5',
+    title:'STEP 2 — 유튜브 링크 붙여넣기',
+    desc:'내 영상 링크를 붙여넣으면<br><strong>댓글 30개를 자동으로 불러옵니다.</strong><br><br>댓글 클릭 → AI 자동 분석 시작!',
+    highlight:''
+  },
+  {
+    icon:'✨', label:'4 / 5',
+    title:'STEP 3 — C.A.R.E 대댓글 생성',
+    desc:'AI가 댓글 유형·감정을 분석하고<br><strong>C.A.R.E 공식</strong>에 맞는 대댓글 3가지를 생성합니다.<br><br>복사하거나 <strong>YouTube에 직접 게시</strong>하세요!',
+    highlight:''
+  },
+  {
+    icon:'⚡', label:'5 / 5',
+    title:'STEP 4 — 일괄 생성으로 시간 절약',
+    desc:'미답글 댓글 전체를 <strong>한 번에 자동 처리!</strong><br><br><strong>댓글 30개 ≈ 약 2분</strong> 완료 🚀<br>결과를 CSV 저장하거나 한 번에 게시하세요.',
+    highlight:''
+  }
+];
+let tutStep = 0;
 
-function renderAnalysis(a) {
-  const tMap={general:'type-general',question:'type-question',praise:'type-praise',complaint:'type-complaint',feedback:'type-feedback',troll:'type-troll'};
-  document.getElementById('aType').innerHTML=`<span class="type-badge ${tMap[a.type]||'type-general'}">${a.emotionEmoji} ${a.typeLabel}</span>`;
-  document.getElementById('aTone').innerHTML=`<span style="color:${a.emotion==='긍정'?'var(--green)':a.emotion==='부정'?'var(--red)':'var(--text2)'}">${a.emotion}</span>`;
-  document.getElementById('aStyle').innerHTML=`<span class="tone-badge">🎭 ${a.recommendedStyle}</span><span style="font-size:10px;color:var(--text2);margin-left:6px">${a.styleReason}</span>`;
-  document.getElementById('aIntent').textContent=a.intent;
-  document.getElementById('aCareSteps').innerHTML=['C','A','R','E'].map((l,i)=>`
-    <span class="care-step step-${l}"><strong>${l}</strong> ${a.careStrategy[l]}</span>
-    ${i<3?'<span class="step-arrow">→</span>':''}`).join('');
-  const box=document.getElementById('analysisBox');
-  box.style.borderColor=a.isTroll?'rgba(244,63,94,0.3)':'rgba(108,99,255,0.2)';
-  box.style.background=a.isTroll?'rgba(244,63,94,0.05)':'rgba(108,99,255,0.05)';
-  box.classList.add('on');
-  if (a.isTroll && a.trollLevel>=2) {
-    document.getElementById('trollGuide').innerHTML=a.trollGuide||`
-      <strong>악성 댓글 3단계 대처:</strong><br>
-      1단계 — 정중한 답변 1회만 달기<br>
-      2단계 — 추가 공격 시 댓글 숨기기<br>
-      3단계 — 반복 공격 시 차단 + 신고`;
-    document.getElementById('trollCard').classList.add('on');
+function startTutorial() {
+  tutStep = 0;
+  renderTutStep();
+  document.getElementById('tutOverlay').style.display = 'flex';
+}
+function closeTutorial() {
+  document.getElementById('tutOverlay').style.display = 'none';
+  localStorage.setItem('care_tut_done', '1');
+}
+function tutNext() {
+  if (tutStep < TUT_STEPS.length - 1) {
+    tutStep++;
+    renderTutStep();
+  } else {
+    closeTutorial();
   }
 }
+function renderTutStep() {
+  const s = TUT_STEPS[tutStep];
+  document.getElementById('tutIcon').textContent = s.icon;
+  document.getElementById('tutStepLabel').textContent = s.label;
+  document.getElementById('tutTitle').textContent = s.title;
+  document.getElementById('tutDesc').innerHTML = s.desc;
+  const hl = document.getElementById('tutHighlight');
+  if (s.highlight) { hl.innerHTML = s.highlight; hl.style.display = 'block'; }
+  else { hl.style.display = 'none'; }
+  const dots = document.getElementById('tutDots');
+  dots.innerHTML = TUT_STEPS.map((_,i) =>
+    `<div style="width:${i===tutStep?24:8}px;height:8px;border-radius:4px;background:${i===tutStep?'var(--accent)':'var(--border)'};transition:all .3s;display:inline-block;margin:0 3px"></div>`
+  ).join('');
+  document.getElementById('tutNextBtn').textContent = tutStep === TUT_STEPS.length-1 ? '시작하기 🚀' : '다음 →';
+}
 
-// ===== Generate =====
-async function generateReplies() {
-  const comment = getComment(), script = getScript();
-  if (!comment) { showErr('댓글을 선택하거나 입력해 주세요.'); return; }
-  if (!script) { showErr(currentMode==='url'?'영상을 먼저 불러와 주세요.':'영상 대본 내용을 입력해 주세요.'); return; }
-  if (!geminiApiKey) {
-    showErr('Gemini API 키를 먼저 설정해 주세요.');
-    document.getElementById('geminiBody').classList.remove('hidden');
-    document.getElementById('geminiTog').textContent = '▲ 접기';
-    return;
+// 첫 방문 시 튜토리얼 자동 실행
+window.addEventListener('DOMContentLoaded', function() {
+  if (!localStorage.getItem('care_tut_done')) {
+    setTimeout(startTutorial, 700);
   }
-  clearMsgs();
-  if (!analysisResult) { await analyzeComment(); if(!analysisResult)return; }
-
-  const a=analysisResult, channelName=document.getElementById('channelName').value.trim();
-  const btn=document.getElementById('genBtn');
-  btn.classList.add('loading'); btn.disabled=true;
-  document.getElementById('genBtnTxt').textContent='생성 중...';
-
-  const trollNote = a.isTroll ? `\n※ 이 댓글은 ${a.typeLabel}(악성도 ${a.trollLevel}/3)입니다.\n- 악성도 1: 건설적 비판 → 감사+개선약속\n- 악성도 2: 단순 불만 → 공감+심화 콘텐츠 예고\n- 악성도 3: 악의적 공격 → 짧고 품위 있는 1회 답변` : '';
-
-  const prompt = `당신은 한국 시니어 유튜브 채널 전문 댓글 관리자입니다.
-C.A.R.E 공식으로 시청자를 찐팬으로 만드는 전략적 대댓글을 작성합니다.
-대상: 50~80대 시청자 / 채널: 감성드라마·생활정보·건강·인생이야기
-말투: ${a.recommendedStyle} (${a.styleReason})
-${channelName?`채널/운영자: ${channelName} — 마지막에 자연스럽게 서명 추가`:''}
-길이: 4~6문장. 반드시 한국어.
-${trollNote}
-
-C.A.R.E 공식 적용:
-C(Connect): ${a.careStrategy.C} — 닉네임 호명, 댓글 내용 구체적 언급
-A(Appreciate): ${a.careStrategy.A} — 댓글 유형(${a.typeLabel})에 맞는 진심 어린 감사
-R(Respond+): ${a.careStrategy.R} — 명확한 답변 + 추가 가치(정보/팁/역질문) 제공
-E(Engage): ${a.careStrategy.E} — 다음 영상 예고, 구독, 커뮤니티 참여 유도
-
-[영상 내용]
-${script}
-
-[시청자 댓글 - 유형: ${a.typeLabel}, 감정: ${a.emotion}]
-${comment}
-
-대댓글 3가지 버전을 작성하세요. 같은 C.A.R.E 공식이되 표현·강조·어투를 다르게 하세요.
-닉네임이 있으면 반드시 "○○님!" 으로 시작하세요.
-
-JSON만 반환 (마크다운 없이):
-{"replies":[
-  {"label":"감성 연결형","tag":"warm","careHighlight":"C+A","text":"대댓글 내용..."},
-  {"label":"가치 제공형","tag":"pro","careHighlight":"R","text":"대댓글 내용..."},
-  {"label":"관계 심화형","tag":"engage","careHighlight":"E","text":"대댓글 내용..."}
-]}`;
-
-  try {
-    const raw = await callGemini(prompt);
-    const clean = extractJSON(raw);
-    const parsed = JSON.parse(clean);
-    renderReplies(parsed.replies, a);
-    // 답글완료 자동 마킹 (URL 모드 + 목록 선택인 경우)
-    if (currentMode==='url' && !pasteMode && selIdx>=0 && allComments[selIdx]?.id) {
-      repliedSet.add(allComments[selIdx].id);
-      localStorage.setItem('replied_ids', JSON.stringify([...repliedSet]));
-      renderCmts();
-    }
-  } catch(e) { showErr('생성 오류: '+e.message); }
-  finally { btn.classList.remove('loading'); btn.disabled=false; document.getElementById('genBtnTxt').textContent='✨ 대댓글 생성하기'; }
-}
-
-function renderReplies(replies, a) {
-  const cColors={C:'var(--C)',A:'var(--A)',R:'var(--R)',E:'var(--E)'};
-  const tColors={warm:'var(--C)',pro:'var(--R)',engage:'var(--E)'};
-  document.getElementById('replyCards').innerHTML=replies.map((r,i)=>{
-    const careTag=(r.careHighlight||'C').split('+').map(l=>`<span class="care-mini" style="background:${cColors[l.trim()]||'var(--C)'}22;color:${cColors[l.trim()]||'var(--C)'};border:1px solid ${cColors[l.trim()]||'var(--C)'}33">${l.trim()}</span>`).join('');
-    const tagColor=tColors[r.tag]||'var(--C)';
-    return`<div class="rcard" style="animation-delay:${i*.1}s">
-      <div class="rcard-meta">
-        <span class="rcard-tag" style="background:${tagColor}22;color:${tagColor};border:1px solid ${tagColor}44">${r.label}</span>
-        <div class="rcard-care">C.A.R.E: ${careTag} 강조</div>
-      </div>
-      <div class="rcard-text" id="rt${i}">${esc(r.text)}</div>
-      <div class="rcard-actions">
-        <button class="cbtn" id="cb${i}" onclick="copyR(${i})">📋 복사</button>
-        <button class="cbtn" onclick="selAll('rt${i}')">🖱️ 전체선택</button>
-        <button class="post-btn" id="pb${i}" onclick="postSingleReply(${i})" style="display:none">▶ YouTube 게시</button>
-      </div>
-    </div>`;}).join('');
-  const sec=document.getElementById('results');
-  sec.classList.add('on');
-  setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),100);
-}
-
-// ===== Helpers =====
-function getComment() {
-  if(currentMode==='url') {
-    if (pasteMode) return pasteComment;
-    return selIdx>=0?allComments[selIdx].text:'';
-  }
-  return document.getElementById('mComment').value.trim();
-}
-function getScript() {
-  if(currentMode==='url')return videoData?`영상 제목: ${videoData.title}\n\n설명:\n${videoData.description}`:'';
-  return document.getElementById('mScript').value.trim();
-}
-async function copyR(i) {
-  const btn=document.getElementById('cb'+i);
-  try {
-    await navigator.clipboard.writeText(document.getElementById('rt'+i).innerText);
-    btn.textContent='✅ 복사됨!'; btn.classList.add('ok');
-    setTimeout(()=>{btn.textContent='📋 복사';btn.classList.remove('ok');},2000);
-  } catch { selAll('rt'+i); }
-}
-function selAll(id) {
-  const r=document.createRange();r.selectNodeContents(document.getElementById(id));
-  window.getSelection().removeAllRanges();window.getSelection().addRange(r);
-}
-function showErr(m){const e=document.getElementById('errMsg');e.textContent='⚠️ '+m;e.classList.add('on');}
-function showInfo(m){const e=document.getElementById('infoMsg');e.textContent=m;e.classList.add('on');}
-function clearMsgs(){document.getElementById('errMsg').classList.remove('on');document.getElementById('infoMsg').classList.remove('on');}
-function esc(t){return(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-// file:// 프로토콜 감지 → OAuth 경고 표시
-(function checkProtocol() {
-  if (window.location.protocol === 'file:') {
-    const w = document.getElementById('oauthFileWarning');
-    if (w) w.style.display = 'block';
-    const btn = document.getElementById('googleLoginBtn');
-    if (btn) {
-      btn.title = 'file://에서는 Google 로그인이 차단됩니다. 로컬 서버를 사용해 주세요.';
-      btn.style.opacity = '0.5';
-      btn.onclick = (e) => {
-        e.preventDefault();
-        document.getElementById('oauthFileWarning').style.display = 'block';
-        document.getElementById('oauthFileWarning').scrollIntoView({behavior:'smooth'});
-        showErr('Google 로그인은 http://localhost 에서만 작동합니다. 위 안내를 따라주세요.');
-      };
-    }
-  }
-})();
-
-// 직접 입력 모드: 댓글 입력 후 자동 분석
-let aTimer;
-document.getElementById('mComment').addEventListener('input',()=>{
-  clearTimeout(aTimer); resetAnalysis();
-  aTimer=setTimeout(()=>{if(document.getElementById('mComment').value.trim().length>10)analyzeComment();},1200);
 });
 
-// ===== 일괄 생성 =====
-let bulkResults = [];
-let bulkRunning = false;
+// ===== 공유 기능 =====
+const SITE_URL = 'https://pyutyubeu88-commits.github.io/-/';
+const SITE_TITLE = 'C.A.R.E 대댓글 생성기 — 유튜브 찐팬 만들기 AI 툴';
+const SITE_DESC = '유튜브 링크만 넣으면 AI가 C.A.R.E 공식으로 최적의 대댓글을 자동 생성! 무료로 사용해보세요.';
 
-function toggleBulkPanel() {
-  const sec = document.getElementById('bulkSection');
-  // 항상 펼쳐진 상태 유지 (헤더 클릭은 시작 버튼만 동작)
+function shareKakao() {
+  // 카카오 앱 키 없을 때 링크 복사 + 안내
+  copyPageLink();
+  if (typeof showInfo === 'function')
+    showInfo('📋 링크 복사 완료! 카카오톡 채팅창에 붙여넣기 하세요 😊');
 }
 
-async function startBulkGenerate() {
-  if (!videoData) { showErr('먼저 유튜브 영상을 불러와 주세요.'); return; }
-  if (!geminiApiKey) { showErr('Gemini API 키를 먼저 설정해 주세요.'); return; }
-  if (bulkRunning) return;
-
-  // 미답글 댓글만 대상
-  const targets = allComments.filter(c => !repliedSet.has(c.id));
-  if (!targets.length) { showErr('미답글 댓글이 없습니다. 필터를 확인해 주세요.'); return; }
-
-  const channelName = document.getElementById('channelName').value.trim();
-  const script = getScript();
-
-  bulkRunning = true;
-  bulkResults = [];
-  const btn = document.getElementById('bulkStartBtn');
-  btn.classList.add('loading'); btn.disabled = true;
-  document.getElementById('bulkStartTxt').textContent = '생성 중...';
-  document.getElementById('bulkProgressWrap').classList.add('on');
-  document.getElementById('bulkResultWrap').classList.remove('on');
-  document.getElementById('bulkTotalCount').textContent = targets.length;
-  document.getElementById('bulkDoneCount').textContent = '0';
-  document.getElementById('bulkBarFill').style.width = '0%';
-
-  const startTime = Date.now();
-
-  for (let i = 0; i < targets.length; i++) {
-    const cmt = targets[i];
-    const log = document.getElementById('bulkLog');
-    log.textContent = `처리 중: @${cmt.author} 의 댓글... (${i+1}/${targets.length})`;
-
-    try {
-      // 1단계: 분석
-      const analysisRaw = await callGemini(`유튜브 댓글을 C.A.R.E 공식으로 분석하고 JSON만 반환하세요.
-댓글: "${cmt.text.substring(0,300)}"
-{"type":"general|question|praise|complaint|feedback|troll","typeLabel":"일반댓글|질문|칭찬|불만|건설적피드백|악성댓글","emotion":"긍정|중립|부정|혼합","emotionEmoji":"😊","intent":"20자이내","recommendedStyle":"따뜻한 존댓말|정중한 격식체|친근한 반말 섞기|어르신 친화형|전문가 스타일","styleReason":"15자이내","careStrategy":{"C":"30자이내","A":"30자이내","R":"30자이내","E":"30자이내"},"isTroll":false,"trollLevel":0,"trollGuide":""}`);
-      const a = JSON.parse(extractJSON(analysisRaw));
-
-      // 2단계: 생성 (버전 1개만 — 속도 최적화)
-      const trollNote = a.isTroll ? `악성도${a.trollLevel}: 짧고 품위있는 1회 답변` : '';
-      const replyRaw = await callGemini(`한국 시니어 유튜브 채널 전문 댓글 관리자. C.A.R.E 공식으로 대댓글 1개 작성.
-말투:${a.recommendedStyle} / 길이:3~4문장 / 한국어 ${trollNote}
-${channelName?'채널:'+channelName:''}
-C:${a.careStrategy.C} A:${a.careStrategy.A} R:${a.careStrategy.R} E:${a.careStrategy.E}
-[영상]${script.substring(0,400)}
-[댓글 @${cmt.author}]${cmt.text.substring(0,200)}
-닉네임 있으면 "○○님!"으로 시작. JSON만: {"reply":"대댓글내용"}`);
-      const rep = JSON.parse(extractJSON(replyRaw));
-
-      bulkResults.push({ cmt, analysis:a, reply:rep.reply||'', status:'done' });
-
-      // 답글완료 마킹
-      if (cmt.id) {
-        repliedSet.add(cmt.id);
-        localStorage.setItem('replied_ids', JSON.stringify([...repliedSet]));
-      }
-    } catch(e) {
-      bulkResults.push({ cmt, analysis:null, reply:'오류: '+e.message, status:'error' });
-    }
-
-    // 진행 바 업데이트
-    const done = i + 1;
-    document.getElementById('bulkDoneCount').textContent = done;
-    document.getElementById('bulkBarFill').style.width = (done/targets.length*100)+'%';
-    const elapsed = (Date.now()-startTime)/1000;
-    const eta = Math.round((elapsed/done)*(targets.length-done));
-    document.getElementById('bulkEta').textContent = done<targets.length ? `남은 시간 약 ${eta}초` : '완료!';
-
-    // API 속도 제한 방지 (0.8초 간격)
-    if (i < targets.length-1) await sleep(800);
-  }
-
-  // 완료
-  bulkRunning = false;
-  btn.classList.remove('loading'); btn.disabled = false;
-  document.getElementById('bulkStartTxt').textContent = '🔄 다시 생성';
-  document.getElementById('bulkLog').textContent = `✅ 총 ${bulkResults.filter(r=>r.status==='done').length}개 완료, ${bulkResults.filter(r=>r.status==='error').length}개 오류`;
-  renderBulkTable();
-  renderCmts(); // 답글완료 반영
+function shareTwitter() {
+  const text = encodeURIComponent(SITE_TITLE + '\n' + SITE_DESC + '\n' + SITE_URL + '\n\n#유튜브 #대댓글 #AI #시니어유튜브');
+  window.open('https://twitter.com/intent/tweet?text=' + text, '_blank', 'width=550,height=420');
 }
 
-function renderBulkTable() {
-  const tbody = document.getElementById('bulkTableBody');
-  const tMap = {general:'type-general',question:'type-question',praise:'type-praise',complaint:'type-complaint',feedback:'type-feedback',troll:'type-troll'};
-  tbody.innerHTML = bulkResults.map((r,i) => {
-    const a = r.analysis;
-    const isReplied = r.cmt.id && repliedSet.has(r.cmt.id);
-    return `<tr class="${r.status==='done'?'bulk-done':r.status==='error'?'bulk-error':''}" id="brow${i}">
-      <td class="bulk-num">${i+1}</td>
-      <td class="bulk-author-cell">@${esc(r.cmt.author)}<br><span style="color:var(--text2);font-weight:400;font-size:10px">👍${r.cmt.likes||0}</span></td>
-      <td class="bulk-comment-cell">${esc(r.cmt.text.substring(0,80))}${r.cmt.text.length>80?'…':''}</td>
-      <td class="bulk-type-cell">${a?`<span class="type-badge ${tMap[a.type]||'type-general'}" style="font-size:10px">${a.emotionEmoji} ${a.typeLabel}</span>`:'—'}</td>
-      <td class="bulk-reply-cell"><div class="bulk-reply-text selectable" id="brt${i}">${esc(r.reply)}</div></td>
-      <td class="bulk-action-cell">
-        <span class="bulk-status-badge ${r.status==='done'?'bs-done':r.status==='error'?'bs-error':'bs-pending'}" style="margin-bottom:6px;display:inline-flex">
-          ${r.status==='done'?'✓ 생성완료':r.status==='error'?'✗ 오류':'⏳ 대기'}
-        </span><br>
-        ${r.status==='done'?`
-        ${oauthToken?`<button class="row-post-btn" id="bpost${i}" onclick="postBulkRow(${i})" ${r.posted?'disabled':''}>
-          ${r.posted?'✅ 게시됨':'▶ YouTube 게시'}
-        </button>`:''}
-        <button class="row-copy-btn" id="bcp${i}" onclick="copyBulkRow(${i})">📋 복사</button>
-        <button class="row-mark-btn ${isReplied?'done':''}" id="bmk${i}" onclick="markBulkRow(${i})">${isReplied?'✓ 게시완료':'○ 게시완료'}</button>
-        `:''}
-      </td>
-    </tr>`;
-  }).join('');
-  document.getElementById('bulkResultWrap').classList.add('on');
-  document.getElementById('bulkHeaderSub').textContent = `${bulkResults.filter(r=>r.status==='done').length}개 생성 완료`;
-}
-
-async function copyBulkRow(i) {
-  const btn = document.getElementById('bcp'+i);
+async function copyPageLink() {
   try {
-    await navigator.clipboard.writeText(document.getElementById('brt'+i).innerText);
-    btn.textContent='✅ 복사됨!'; btn.classList.add('ok');
-    setTimeout(()=>{btn.textContent='📋 복사';btn.classList.remove('ok');},2000);
-  } catch { selAll('brt'+i); }
-}
-
-function markBulkRow(i) {
-  const r = bulkResults[i];
-  const id = r.cmt.id;
-  const btn = document.getElementById('bmk'+i);
-  if (repliedSet.has(id)) {
-    repliedSet.delete(id);
-    btn.textContent='○ 게시완료'; btn.classList.remove('done');
-  } else {
-    repliedSet.add(id);
-    btn.textContent='✓ 게시완료'; btn.classList.add('done');
-    document.getElementById('brow'+i).classList.add('bulk-done');
-  }
-  localStorage.setItem('replied_ids', JSON.stringify([...repliedSet]));
-  renderCmts();
-}
-
-function copyAllReplies() {
-  const txt = bulkResults
-    .filter(r=>r.status==='done')
-    .map((r,i)=>`[${i+1}] @${r.cmt.author}
-원댓글: ${r.cmt.text}
-대댓글: ${r.reply}`)
-    .join('\n\n---\n\n');
-  navigator.clipboard.writeText(txt).then(()=>alert('전체 복사 완료!'));
-}
-
-function exportCSV() {
-  const rows = [['번호','작성자','원댓글','댓글유형','생성된 대댓글','상태']];
-  bulkResults.forEach((r,i)=>{
-    rows.push([
-      i+1,
-      '@'+r.cmt.author,
-      '"'+r.cmt.text.replace(/"/g,'""')+'"',
-      r.analysis?.typeLabel||'',
-      '"'+(r.reply||'').replace(/"/g,'""')+'"',
-      r.status==='done'?'완료':'오류'
-    ]);
-  });
-  const csv = '\uFEFF' + rows.map(r=>r.join(',')).join('\n');
-  const blob = new Blob([csv],{type:'text/csv;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `대댓글_일괄생성_${new Date().toLocaleDateString('ko')}.csv`;
-  a.click();
-}
-
-
-// ===== Google OAuth =====
-const OAUTH_CLIENT_ID = '1019772443026-ukpf2otutbijqvuis49je2uudgfs9ngm.apps.googleusercontent.com';
-const OAUTH_SCOPE = 'https://www.googleapis.com/auth/youtube.force-ssl';
-let oauthToken = null;
-let oauthUser  = null;
-
-function googleLogin() {
-  // Google Identity Services — TokenClient (팝업, redirect_uri 불필요)
-  const client = google.accounts.oauth2.initTokenClient({
-    client_id: OAUTH_CLIENT_ID,
-    scope: OAUTH_SCOPE,
-    callback: (resp) => {
-      if (resp.error) { showErr('Google 로그인 실패: ' + resp.error); return; }
-      oauthToken = resp.access_token;
-      fetchGoogleProfile();
-    },
-    error_callback: (err) => {
-      showErr('Google 로그인 오류: ' + (err.message || err.type || JSON.stringify(err)));
-    }
-  });
-  client.requestAccessToken({ prompt: 'select_account' });
-}
-
-async function fetchGoogleProfile() {
-  try {
-    const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-      headers: { Authorization: 'Bearer ' + oauthToken }
-    });
-    oauthUser = await res.json();
-    updateOAuthUI(true);
+    await navigator.clipboard.writeText(SITE_URL);
+    const btn = document.querySelector('.share-link');
+    if (btn) { btn.textContent = '✅ 복사됨!'; setTimeout(()=>{ btn.textContent='🔗 링크 복사'; }, 2000); }
   } catch(e) {
-    updateOAuthUI(false);
-    showErr('Google 로그인 실패: ' + e.message);
+    prompt('아래 링크를 복사하세요 (Ctrl+C):', SITE_URL);
   }
 }
 
-function googleSignout() {
-  oauthToken = null; oauthUser = null;
-  updateOAuthUI(false);
-  // 게시 버튼 모두 숨기기
-  document.querySelectorAll('.post-btn').forEach(b=>b.style.display='none');
-  document.getElementById('bulkPostAllBtn')?.classList.add('hidden');
+function showShareBar() {
+  const bar = document.getElementById('shareBar');
+  if (bar) bar.style.display = 'flex';
 }
-
-function updateOAuthUI(signedIn) {
-  const box = document.getElementById('oauthBox');
-  const loginBtn = document.getElementById('googleLoginBtn');
-  const signoutBtn = document.getElementById('googleSignoutBtn');
-  const avatar = document.getElementById('oauthAvatar');
-  const name = document.getElementById('oauthName');
-  const email = document.getElementById('oauthEmail');
-
-  if (signedIn && oauthUser) {
-    box.classList.add('signed-in');
-    loginBtn.style.display = 'none';
-    signoutBtn.style.display = 'block';
-    avatar.innerHTML = oauthUser.picture
-      ? `<img src="${oauthUser.picture}" style="width:36px;height:36px;border-radius:50%;object-fit:cover">`
-      : '✅';
-    name.textContent = oauthUser.name || 'Google 계정';
-    email.textContent = (oauthUser.email || '') + ' — YouTube 댓글 게시 가능';
-    showInfo('✅ Google 로그인 성공! 이제 생성된 대댓글을 YouTube에 직접 게시할 수 있습니다.');
-    // 게시 버튼 표시
-    document.querySelectorAll('.post-btn').forEach(b=>b.style.display='flex');
-    document.getElementById('bulkPostAllBtn')?.classList.remove('hidden');
-  } else {
-    box.classList.remove('signed-in');
-    loginBtn.style.display = 'flex';
-    signoutBtn.style.display = 'none';
-    avatar.innerHTML = '🔓';
-    name.textContent = 'Google 계정 미연결';
-    email.textContent = '로그인하면 YouTube에 직접 댓글을 게시할 수 있습니다';
-  }
-}
-
-// ===== YouTube 댓글 게시 =====
-async function postYouTubeComment(parentId, text) {
-  if (!oauthToken) throw new Error('Google 로그인이 필요합니다.');
-  if (!videoData?.videoId) throw new Error('영상 정보가 없습니다.');
-  const body = {
-    snippet: {
-      parentId: parentId,        // 최상위 댓글의 ID (답글)
-      textOriginal: text
-    }
-  };
-  const res = await fetch('https://www.googleapis.com/youtube/v3/comments?part=snippet', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + oauthToken
-    },
-    body: JSON.stringify(body)
-  });
-  const data = await res.json();
-  if (data.error) throw new Error(data.error.message);
-  return data;
-}
-
-// 개별 카드에서 게시 (단일 대댓글)
-async function postSingleReply(i) {
-  if (!oauthToken) { showErr('먼저 Google 로그인을 해주세요.'); return; }
-  const btn = document.getElementById('pb'+i);
-  const txt = document.getElementById('rt'+i)?.innerText?.trim();
-  if (!txt) return;
-  // 현재 선택된 댓글의 ID 필요
-  const cmtId = (currentMode==='url' && !pasteMode && selIdx>=0) ? allComments[selIdx]?.id : null;
-  if (!cmtId) { showErr('게시할 댓글 ID를 찾을 수 없습니다. 목록에서 댓글을 선택해 주세요.'); return; }
-  btn.disabled = true; btn.textContent = '게시 중...';
-  try {
-    await postYouTubeComment(cmtId, txt);
-    btn.textContent = '✅ 게시됨';
-    btn.classList.add('posted');
-    repliedSet.add(cmtId);
-    localStorage.setItem('replied_ids', JSON.stringify([...repliedSet]));
-    renderCmts();
-  } catch(e) {
-    btn.disabled = false; btn.textContent = '▶ YouTube 게시';
-    showErr('게시 실패: ' + e.message);
-  }
-}
-
-// 일괄 테이블에서 행 게시
-async function postBulkRow(i) {
-  if (!oauthToken) { showErr('먼저 Google 로그인을 해주세요.'); return; }
-  const r = bulkResults[i];
-  if (!r || r.status !== 'done' || !r.cmt.id) return;
-  const btn = document.getElementById('bpost'+i);
-  if (btn) { btn.disabled=true; btn.textContent='게시 중...'; }
-  try {
-    await postYouTubeComment(r.cmt.id, r.reply);
-    r.posted = true;
-    if (btn) { btn.textContent='✅ 게시됨'; btn.classList.add('posted'); }
-    repliedSet.add(r.cmt.id);
-    localStorage.setItem('replied_ids', JSON.stringify([...repliedSet]));
-    renderCmts();
-  } catch(e) {
-    if (btn) { btn.disabled=false; btn.textContent='▶ 게시'; }
-    showErr('게시 실패 (#'+i+'): ' + e.message);
-  }
-}
-
-// 전체 일괄 게시
-async function postAllReplies() {
-  if (!oauthToken) { showErr('먼저 Google 로그인을 해주세요.'); return; }
-  const btn = document.getElementById('bulkPostAllBtn');
-  const pending = bulkResults.filter((r,i)=>r.status==='done'&&!r.posted&&r.cmt.id);
-  if (!pending.length) { showErr('게시할 항목이 없습니다.'); return; }
-  if (!confirm(`미게시 댓글 ${pending.length}개를 YouTube에 실제로 게시합니다.\n게시 후에는 취소할 수 없습니다. 계속하시겠습니까?`)) return;
-
-  btn.disabled = true;
-  btn.querySelector('.spin').style.display = 'block';
-  for (const r of pending) {
-    const idx = bulkResults.indexOf(r);
-    await postBulkRow(idx);
-    await sleep(1000); // YouTube API 속도 제한
-  }
-  btn.disabled = false;
-  btn.querySelector('.spin').style.display = 'none';
-  showInfo(`✅ 일괄 게시 완료!`);
-}
-
-function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
-
 </script>
 </body>
 </html>
