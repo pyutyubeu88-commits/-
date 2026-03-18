@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI 대댓글 생성기</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <script src="https://accounts.google.com/gsi/client" async></script>
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
@@ -17,8 +17,8 @@
   --accent: #6c63ff;
   --accent2: #a78bfa;
   --gold: #fbbf24;
-  --text: #f8fafc;
-  --text2: #a8b4c8;
+  --text: #ffffff;
+  --text2: #b0bec5;
   --green: #10b981;
   --red: #f43f5e;
   --blue: #38bdf8;
@@ -135,7 +135,7 @@ h1 em { font-style: normal; color: var(--accent2); }
 .sel-box { background:rgba(108,99,255,0.07); border:1px solid rgba(108,99,255,0.3); border-radius:var(--radius); padding:14px 16px; margin-bottom:22px; display:none; }
 .sel-box.on { display:block; }
 .sel-lbl { font-size:10px; font-weight:700; color:var(--accent2); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
-.sel-txt { font-size:14px; line-height:1.85; }
+.sel-txt { font-size:15px; line-height:1.9; }
 
 /* Analysis box */
 .analysis-box { border-radius:var(--radius); padding:18px 20px; margin-bottom:22px; display:none; animation:fup .3s ease; border:1px solid rgba(108,99,255,0.2); background:rgba(108,99,255,0.05); }
@@ -217,7 +217,7 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
 .rcard-tag { padding:3px 10px; border-radius:4px; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
 .rcard-care { font-size:10px; color:var(--text2); display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
 .care-mini { padding:2px 7px; border-radius:4px; font-size:10px; font-weight:700; }
-.rcard-text { font-size:15px; line-height:2.1; white-space:pre-wrap; word-break:keep-all; font-weight:400; }
+.rcard-text { font-size:15px; line-height:2.0; white-space:pre-wrap; word-break:keep-all; font-weight:400; }
 .rcard-actions { display:flex; gap:8px; margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
 .cbtn { display:flex; align-items:center; gap:6px; padding:7px 14px; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--text2); font-size:12px; cursor:pointer; transition:all .18s; font-family:'Noto Sans KR',sans-serif; }
 .cbtn:hover { background:var(--surface2); color:var(--text); border-color:var(--accent); }
@@ -594,7 +594,7 @@ textarea::placeholder, input::placeholder { color:#3a4060; }
 .guide-steps { display:flex; flex-direction:column; gap:10px; }
 .guide-step { display:flex; gap:14px; align-items:flex-start; }
 .guide-step-num { width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-size:12px; font-weight:900; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
-.guide-step-text { font-size:14px; line-height:1.8; color:var(--text2); }
+.guide-step-text { font-size:14px; line-height:1.9; color:var(--text2); }
 .guide-step-text strong { color:var(--text); }
 .guide-tip { background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.25); border-radius:10px; padding:12px 16px; font-size:13px; color:var(--text2); line-height:1.8; }
 .guide-tip strong { color:var(--gold); }
