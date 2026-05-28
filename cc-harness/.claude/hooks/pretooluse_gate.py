@@ -15,6 +15,27 @@ import json
 import re
 import os
 from pathlib import Path
+from datetime import datetime, timezone
+
+# ── 이벤트 로그 (자가 학습용) ─────────────────────────────────
+_LOG_TOOL   = ""
+_LOG_DETAIL = ""
+
+def _log_event(decision: str):
+    """deny/ask/allow_bypass 결정을 harness-events.jsonl 에 기록."""
+    try:
+        path = Path(os.environ.get("CLAUDE_PROJECT_DIR", ".")) / ".claude" / "harness-events.jsonl"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        entry = {
+            "ts":       datetime.now(timezone.utc).isoformat(),
+            "decision": decision,
+            "tool":     _LOG_TOOL,
+            "detail":   _LOG_DETAIL[:300],
+        }
+        with path.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    except OSError:
+        pass  # 로깅 실패가 게이트를 멈추면 안 됨
 
 # ── 설정 로드 (있으면 사용, 없으면 기본값) ───────────────────
 def load_config():
@@ -43,6 +64,7 @@ CFG = load_config()
 
 
 def deny(reason: str):
+    _log_event("deny")
     print(json.dumps({
         "hookSpecificOutput": {
             "hookEventName": "PreToolUse",
@@ -54,6 +76,7 @@ def deny(reason: str):
 
 
 def ask(reason: str):
+    _log_event("ask")
     print(json.dumps({
         "hookSpecificOutput": {
             "hookEventName": "PreToolUse",
@@ -174,7 +197,12 @@ def main():
         return
 
     tool = data.get("tool_name", "")
-    tin = data.get("tool_input", {}) or {}
+    tin  = data.get("tool_input", {}) or {}
+
+    # 이벤트 로그용 컨텍스트 세팅
+    global _LOG_TOOL, _LOG_DETAIL
+    _LOG_TOOL   = tool
+    _LOG_DETAIL = (tin.get("command", "") or tin.get("file_path", "") or tin.get("path", ""))[:300]
 
     # 면제 토큰이 명령어/내용에 포함된 경우 통과
     # Claude가 [harness-allow] 주석을 실행할 명령이나 내용에 포함하면 이 게이트를 우회
@@ -186,6 +214,7 @@ def main():
             tin.get("new_string", "") or ""
         )
         if token in cmd_or_content:
+            _log_event("allow_bypass")
             allow()
 
     if tool == "Bash":

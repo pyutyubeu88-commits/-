@@ -37,9 +37,28 @@ mkdir -p "$TARGET/.claude/hooks"
 # ── 파일 복사 ─────────────────────────────────────────────────
 cp "$SRC/.claude/hooks/pretooluse_gate.py"      "$TARGET/.claude/hooks/"
 cp "$SRC/.claude/hooks/posttooluse_validate.py" "$TARGET/.claude/hooks/"
+cp "$SRC/.claude/hooks/posttooluse_review.py"   "$TARGET/.claude/hooks/"
+cp "$SRC/.claude/hooks/learn.py"                "$TARGET/.claude/hooks/"
 cp "$SRC/.claude/hooks/test_gate.py"            "$TARGET/.claude/hooks/"
 cp "$SRC/.claude/harness-policy.json"           "$TARGET/.claude/"
 echo -e "${GREEN}✅ hook 스크립트 복사 완료${NC}"
+
+# ── harness-learn.json (없으면 생성) ─────────────────────────
+LEARN_FILE="$TARGET/.claude/harness-learn.json"
+if [ ! -f "$LEARN_FILE" ]; then
+  cat > "$LEARN_FILE" << 'EOF'
+{
+  "_comment": "AI 하네스 자가 학습 설정 — learn.py 가 읽고 업데이트합니다",
+  "min_freq_propose": 3,
+  "min_freq_apply": 10,
+  "confidence_apply": 0.80,
+  "learned_patterns": [],
+  "false_positives": [],
+  "history": []
+}
+EOF
+  echo -e "${GREEN}✅ harness-learn.json 생성${NC}"
+fi
 
 # ── CLAUDE.md 설치 (프로젝트 루트 — 클로드 코드가 자동으로 읽음) ──
 ROOT_CLAUDE="$TARGET/CLAUDE.md"
@@ -104,6 +123,11 @@ echo "다음 단계:"
 echo "  1. 클로드 코드를 재시작하면 hook이 활성화됩니다"
 echo "  2. 정책 수정: $TARGET/.claude/harness-policy.json"
 echo "  3. 감사 로그: $TARGET/.claude/harness-audit.jsonl"
-echo "  4. 위험 작업을 일시 허용하려면 프롬프트에 [harness-allow] 포함"
+echo "  4. 일시 허용: 명령어 끝에 '# [harness-allow]' 주석 추가"
+echo ""
+echo "자가 학습:"
+echo "  python3 .claude/hooks/learn.py             # 분석 요약"
+echo "  python3 .claude/hooks/learn.py --report    # 전체 리포트"
+echo "  python3 .claude/hooks/learn.py --apply     # 고신뢰 패턴 자동 적용"
 echo ""
 echo "테스트: 클로드 코드에서 'rm -rf 로 임시폴더 지워줘' 라고 해보세요 → 차단됨"
