@@ -1,0 +1,22 @@
+{
+  "_comment": "AI 하네스 정책 설정 — 프로젝트/클라이언트별로 수정하세요",
+
+  "block_destructive": true,
+  "block_secrets_access": true,
+  "block_sudo": true,
+
+  "protect_branches": ["main", "master", "production", "release"],
+
+  "protected_paths": [
+    ".env", ".env.*", "*.pem", "*.key", "id_rsa*", "*.p12",
+    "credentials*", ".aws/*", ".ssh/*", "secrets.*"
+  ],
+
+  "require_review_paths": [
+    "*.prod.*", "config/production/*", "migrations/*",
+    ".github/workflows/*", "Dockerfile", "docker-compose*.yml",
+    "terraform/*", "k8s/prod/*"
+  ],
+
+  "allow_token": "[harness-allow]"
+}
