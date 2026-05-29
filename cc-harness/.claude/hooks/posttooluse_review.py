@@ -182,6 +182,38 @@ def get_checker(fp: Path):
     return LANG_CHECKERS.get(fp.suffix) or LANG_CHECKERS.get(fp.name)
 
 
+# ── Claude API 수정 제안 ───────────────────────────────────────
+def _ai_suggest_fix(fp: Path, issues: list) -> str:
+    """Claude Haiku 로 구체적 수정 방법 제안. API 키 없으면 빈 문자열."""
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if not api_key:
+        return ""
+    try:
+        import anthropic
+        client  = anthropic.Anthropic(api_key=api_key)
+        content = fp.read_text(encoding="utf-8", errors="replace")[:2500]
+        issues_text = "\n".join(f"  {i+1}. {iss}" for i, iss in enumerate(issues[:10]))
+        resp = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=600,
+            system=(
+                "당신은 코드 품질 전문가입니다. "
+                "린터/테스트 오류를 분석해 개발자가 즉시 적용할 수 있는 "
+                "구체적이고 간결한 수정 방법을 한국어로 알려주세요."
+            ),
+            messages=[{"role": "user", "content": (
+                f"파일: `{fp.name}`\n\n"
+                f"```{fp.suffix.lstrip('.')}\n{content}\n```\n\n"
+                f"발견된 문제:\n{issues_text}\n\n"
+                "각 문제에 대한 수정 방법을 번호 목록으로 간결하게 알려주세요. "
+                "수정된 코드 스니펫을 포함하면 더 좋습니다."
+            )}],
+        )
+        return resp.content[0].text.strip()
+    except Exception:
+        return ""
+
+
 # ── 테스트 자동 발견 & 실행 ────────────────────────────────────
 def _run_tests(fp: Path) -> list:
     stem = fp.stem.removeprefix("test_").removesuffix("_test")
@@ -275,6 +307,13 @@ def main():
         sep   = "━" * 52
         lines = [f"🔍 **코드 리뷰** — `{fp_str}` (검토 {n}/{MAX_ITER}회)", sep]
         lines += [f"  {i+1}. {iss}" for i, iss in enumerate(all_issues)]
+
+        # Claude API 수정 제안 (API 키 있을 때만, 첫 3회까지만 호출)
+        if n <= 3:
+            suggestion = _ai_suggest_fix(fp, all_issues)
+            if suggestion:
+                lines.append(f"\n🤖 **AI 수정 제안**\n{suggestion}")
+
         if n >= MAX_ITER - 1:
             lines.append("\n⚠ 다음 검토가 마지막입니다. 해결 어려우면 사용자에게 에스컬레이션하세요.")
         else:

@@ -211,16 +211,75 @@ def backup_policy():
     target.write_text(POLICY_FILE.read_text(encoding="utf-8"))
     return target
 
-def apply_to_policy(patterns: list, policy: dict) -> dict:
-    """학습된 패턴 시그니처를 learned_blocked_cmds 에 추가."""
-    policy.setdefault("learned_blocked_cmds", [])
-    existing = set(policy["learned_blocked_cmds"])
+# ── Claude API / 폴백 정규식 생성 ─────────────────────────────
+def _try_claude_regex(examples: list, signature: str) -> str | None:
+    """Claude API(Haiku)로 예시 명령들에서 검증된 정규식 생성.
+    API 키 없거나 실패 시 None 반환."""
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if not api_key:
+        return None
+    try:
+        import anthropic
+        client = anthropic.Anthropic(api_key=api_key)
+        ex_text = "\n".join(f"  - {e}" for e in examples[:8])
+        resp = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=200,
+            messages=[{"role": "user", "content": (
+                "다음 bash 명령어들은 보안상 위험하여 차단해야 합니다.\n"
+                f"공통 패턴을 잡는 Python 정규식 하나를 작성하세요.\n\n"
+                f"예시:\n{ex_text}\n\n"
+                "조건:\n"
+                "- re.search(pattern, cmd.lower()) 로 사용\n"
+                "- 정규식만 출력 (따옴표·설명 없이)\n"
+                "- 너무 넓어서 정상 명령도 차단하면 안 됨\n"
+                "- \\b 단어 경계 적극 활용\n\n"
+                "패턴:"
+            )}],
+        )
+        raw = resp.content[0].text.strip().strip("\"'`/")
+        re.compile(raw)          # 컴파일 검증
+        # 예시 중 절반 이상 매칭되는지 확인
+        hits = sum(1 for e in examples if re.search(raw, e.lower()))
+        if hits >= max(1, len(examples) // 2):
+            return raw
+    except Exception:
+        pass
+    return None
+
+
+def _fallback_regex(signature: str, examples: list) -> str:
+    """Claude API 없을 때 시그니처에서 기본 정규식 생성."""
+    toks = signature.split()
+    if not toks:
+        return ""
+    parts = []
+    for tok in toks[:4]:
+        if tok.startswith("<"):          # 플레이스홀더
+            parts.append(r"\S+")
+        elif re.match(r"^-[a-z]+$", tok):  # 단순 플래그
+            # -rf → -[a-z]*r[a-z]*f 형식으로
+            chars = tok[1:]
+            if len(chars) <= 3:
+                inner = "".join(f"[a-z]*{c}" for c in chars)
+                parts.append(rf"-{inner}")
+            else:
+                parts.append(re.escape(tok))
+        else:
+            parts.append(rf"\b{re.escape(tok)}\b")
+    return r"\s+".join(parts)
+
+
+def apply_to_policy(rules: list, policy: dict) -> tuple:
+    """생성된 regex 규칙을 learned_rules 에 추가. (updated_policy, added_count) 반환."""
+    policy.setdefault("learned_rules", [])
+    existing_pats = {r.get("pattern") for r in policy["learned_rules"]}
     added = 0
-    for p in patterns:
-        sig = p.get("signature", "")
-        if sig and sig not in existing:
-            policy["learned_blocked_cmds"].append(sig)
-            existing.add(sig)
+    for r in rules:
+        pat = r.get("pattern", "")
+        if pat and pat not in existing_pats:
+            policy["learned_rules"].append(r)
+            existing_pats.add(pat)
             added += 1
     return policy, added
 
@@ -303,38 +362,68 @@ def cmd_report(ana: "Analysis", policy: dict, learn: dict):
 
 def cmd_apply(ana: "Analysis", policy: dict, learn: dict):
     candidates = ana.new_pattern_candidates(policy)
-    to_apply = [
-        {"signature": sig, "confidence": conf, "frequency": freq,
-         "applied": datetime.now(timezone.utc).isoformat()}
-        for sig, conf, freq in candidates
-        if conf >= CONF_APPLY and freq >= MIN_FREQ_APPLY
-    ]
+    high_conf   = [(sig, conf, freq) for sig, conf, freq in candidates
+                   if conf >= CONF_APPLY and freq >= MIN_FREQ_APPLY]
 
-    if not to_apply:
+    if not high_conf:
         print(f"{GRN}✅ 자동 적용 임계값({CONF_APPLY:.0%} 신뢰도 / {MIN_FREQ_APPLY}회 빈도)을 "
               f"넘는 새 패턴이 없습니다.{RST}")
         return
 
-    print(f"\n{B}다음 패턴을 정책에 적용합니다:{RST}")
-    for p in to_apply:
-        print(f"  + [{p['confidence']:.2f}신뢰도  {p['frequency']}회]  {p['signature']}")
+    has_api = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    print(f"\n{B}정규식 생성 중 "
+          f"({'Claude API' if has_api else '폴백 모드 — ANTHROPIC_API_KEY 없음'})...{RST}")
+
+    # 시그니처별 실제 명령 예시 수집
+    sig_examples: dict = {}
+    for e in ana.denies:
+        sig = cmd_signature(e.detail)
+        sig_examples.setdefault(sig, [])
+        raw = e.detail[:200]
+        if raw not in sig_examples[sig]:
+            sig_examples[sig].append(raw)
+
+    new_rules = []
+    for sig, conf, freq in high_conf:
+        examples = sig_examples.get(sig, [sig])
+        regex = _try_claude_regex(examples, sig) or _fallback_regex(sig, examples)
+        if not regex:
+            print(f"  ⚠ 패턴 생성 실패: {sig}")
+            continue
+        rule = {
+            "pattern":     regex,
+            "description": f"학습: {sig} ({freq}회 차단)",
+            "action":      "deny",
+            "confidence":  conf,
+            "frequency":   freq,
+            "scope":       "bash",
+            "source":      "claude_api" if has_api else "fallback",
+            "applied":     datetime.now(timezone.utc).isoformat(),
+        }
+        new_rules.append(rule)
+        src = "🤖 API" if has_api else "📐 폴백"
+        print(f"  + {src} [{conf:.2f}신뢰도  {freq}회]  {regex}")
+
+    if not new_rules:
+        print(f"{YLW}⚠ 적용할 유효한 규칙이 없습니다.{RST}")
+        return
 
     backup_path = backup_policy()
-    updated, added = apply_to_policy(to_apply, policy)
+    updated, added = apply_to_policy(new_rules, policy)
     POLICY_FILE.write_text(json.dumps(updated, indent=2, ensure_ascii=False))
 
-    learn.setdefault("learned_patterns", []).extend(to_apply)
+    learn.setdefault("learned_patterns", []).extend(new_rules)
     learn.setdefault("history", []).append({
         "ts":      datetime.now(timezone.utc).isoformat(),
         "applied": added,
+        "source":  "claude_api" if has_api else "fallback",
     })
     save_learn(learn)
 
-    print(f"\n{GRN}✅ {added}개 패턴을 harness-policy.json 에 적용했습니다.{RST}")
+    print(f"\n{GRN}✅ {added}개 정규식 규칙이 harness-policy.json[learned_rules] 에 추가됐습니다.")
+    print(f"   pretooluse_gate.py 가 즉시 이 규칙을 적용합니다.{RST}")
     if backup_path:
-        print(f"   백업: {backup_path}")
-    print(f"\n{DIM}주의: learned_blocked_cmds 는 pretooluse_gate.py 가 참조하지 않으면 효과 없음.")
-    print(f"gate 를 업데이트하거나 정책 파일을 수동 확인하세요.{RST}\n")
+        print(f"   백업: {backup_path}\n")
 
 
 # ── 메인 ──────────────────────────────────────────────────────

@@ -147,6 +147,19 @@ def check_bash(command: str):
     if re.search(r"\b(curl|wget)\b.*\|\s*(bash|sh|zsh|python|node)\b", norm):
         deny("원격 스크립트 즉시 실행(curl|bash) 차단")
 
+    # 6) 자가 학습 엔진이 생성한 동적 규칙
+    for rule in CFG.get("learned_rules", []):
+        try:
+            if re.search(rule.get("pattern", "(?!x)x"), norm):
+                action = rule.get("action", "deny")
+                desc   = rule.get("description", rule.get("pattern", ""))[:60]
+                if action == "ask":
+                    ask(f"학습 규칙 — {desc}")
+                else:
+                    deny(f"학습 규칙 차단 — {desc}")
+        except re.error:
+            pass  # 잘못된 패턴은 조용히 무시
+
     allow()
 
 
@@ -184,6 +197,22 @@ def check_file_write(file_path: str, content: str = ""):
         for pat in danger:
             if re.search(pat, content):
                 ask(f"위험 코드 패턴 — {file_path} (검토 필요)")
+
+    # 4) 자가 학습 엔진이 생성한 파일 경로 규칙
+    norm_path = file_path.lower()
+    for rule in CFG.get("learned_rules", []):
+        if rule.get("scope") != "file":
+            continue
+        try:
+            if re.search(rule.get("pattern", "(?!x)x"), norm_path):
+                action = rule.get("action", "deny")
+                desc   = rule.get("description", rule.get("pattern", ""))[:60]
+                if action == "ask":
+                    ask(f"학습 규칙 — {desc}")
+                else:
+                    deny(f"학습 규칙 차단 — {desc}")
+        except re.error:
+            pass
 
     allow()
 
