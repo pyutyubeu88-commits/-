@@ -296,6 +296,73 @@ def bar_chart(cnt: int, total: int, width=24) -> str:
 
 
 # ── 커맨드 핸들러 ──────────────────────────────────────────────
+def cmd_stats(ana: "Analysis", policy: dict, learn: dict):
+    """관측성 대시보드: 시계열 트렌드 + 학습 효과 지표."""
+    from collections import defaultdict
+    import statistics
+
+    print(f"\n{B}=== AI 하네스 관측성 대시보드 ==={RST}")
+
+    # ── 일별 이벤트 트렌드 (최근 14일) ──
+    day_deny:  dict = defaultdict(int)
+    day_ask:   dict = defaultdict(int)
+    day_allow: dict = defaultdict(int)
+    for e in ana.events:
+        day = e.ts[:10]
+        if   e.decision == "deny":         day_deny[day]  += 1
+        elif e.decision == "ask":          day_ask[day]   += 1
+        elif e.decision == "allow_bypass": day_allow[day] += 1
+
+    all_days = sorted(set(list(day_deny) + list(day_ask) + list(day_allow)))[-14:]
+    if all_days:
+        print(f"\n{B}▶ 일별 트렌드 (deny / ask / bypass){RST}")
+        max_d = max((day_deny[d] + day_ask[d] + day_allow[d]) for d in all_days) or 1
+        for day in all_days:
+            d = day_deny[day]; a = day_ask[day]; b = day_allow[day]
+            total = d + a + b
+            blen  = int(20 * total / max_d)
+            print(f"  {day}  {'█'*blen:<20}  deny:{d:3d}  ask:{a:3d}  bypass:{b:2d}")
+
+    # ── 학습 효과 지표 ──
+    learned_rules = policy.get("learned_rules", [])
+    active_rules  = len(learned_rules)
+    events_after_rules = 0
+    if learned_rules:
+        earliest_applied = min(
+            (r.get("applied", "9999") for r in learned_rules), default="9999"
+        )
+        events_after_rules = sum(
+            1 for e in ana.denies if e.ts >= earliest_applied
+        )
+
+    deny_rate  = len(ana.denies)  / max(len(ana.events), 1) * 100
+    ask_rate   = len(ana.asks)    / max(len(ana.events), 1) * 100
+    bypass_rate = len(ana.bypasses) / max(len(ana.events), 1) * 100
+
+    print(f"\n{B}▶ 지표 요약{RST}")
+    print(f"  전체 이벤트       : {len(ana.events):6d}")
+    print(f"  차단율            : {deny_rate:5.1f}%  ({len(ana.denies)}건)")
+    print(f"  검토요청율        : {ask_rate:5.1f}%  ({len(ana.asks)}건)")
+    print(f"  bypass율          : {bypass_rate:5.1f}%  ({len(ana.bypasses)}건)")
+    print(f"  활성 학습 규칙    : {active_rules:6d}개")
+    if active_rules:
+        print(f"  규칙 적용 후 차단 : {events_after_rules:6d}건  (학습 기여도)")
+
+    # ── 오탐 위험도 ──
+    fp_cands = ana.false_positive_candidates()
+    if fp_cands:
+        avg_fp = statistics.mean(r for _, _, _, r in fp_cands)
+        print(f"  오탐 위험 패턴    : {len(fp_cands):6d}개  (평균 bypass율 {avg_fp:.0%})")
+
+    # ── 학습 이력 ──
+    hist = learn.get("history", [])
+    if hist:
+        total_applied = sum(h.get("applied", 0) for h in hist)
+        print(f"  누적 학습 이력    : {len(hist):6d}회  (총 {total_applied}개 패턴 추가)")
+
+    print()
+
+
 def cmd_summary(ana: "Analysis"):
     total = len(ana.events)
     if total == 0:
@@ -435,6 +502,7 @@ def main():
     )
     ap.add_argument("--report", action="store_true", help="전체 분석 리포트")
     ap.add_argument("--apply",  action="store_true", help="고신뢰 패턴 자동 적용")
+    ap.add_argument("--stats",  action="store_true", help="관측성 대시보드 (트렌드·지표)")
     ap.add_argument("--reset",  action="store_true", help="이벤트 로그 초기화")
     args = ap.parse_args()
 
@@ -456,6 +524,8 @@ def main():
     elif args.apply:
         cmd_summary(ana)
         cmd_apply(ana, policy, learn)
+    elif args.stats:
+        cmd_stats(ana, policy, learn)
     else:
         cmd_summary(ana)
         candidates = ana.new_pattern_candidates(policy)

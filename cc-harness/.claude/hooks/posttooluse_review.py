@@ -182,6 +182,53 @@ def get_checker(fp: Path):
     return LANG_CHECKERS.get(fp.suffix) or LANG_CHECKERS.get(fp.name)
 
 
+# ── Diff-aware 필터링 ──────────────────────────────────────────
+def _changed_lines(fp: Path) -> set:
+    """git diff 로 현재 편집에서 변경된 줄 번호 집합 반환.
+    새 파일이거나 git 없으면 빈 집합(→ 전체 검토)."""
+    for git_args in (
+        ["git", "diff", "HEAD", "--unified=0", "--", str(fp)],
+        ["git", "diff", "--cached", "--unified=0", "--", str(fp)],
+    ):
+        rc, out = _run(*git_args)
+        if rc is None:
+            return set()   # git 자체가 없음
+        if out:
+            break
+    else:
+        return set()  # 두 diff 모두 비어 있음 (새 파일)
+
+    lines: set = set()
+    for line in out.splitlines():
+        if not line.startswith("@@"):
+            continue
+        m = re.search(r"\+(\d+)(?:,(\d+))?", line)
+        if not m:
+            continue
+        start = int(m.group(1))
+        count = int(m.group(2)) if m.group(2) is not None else 1
+        if count > 0:
+            lines.update(range(start, start + count))
+        else:
+            lines.add(start)   # count=0: 맥락 줄만 (삭제 전용 hunk)
+    return lines
+
+
+def _filter_by_lines(issues: list, changed: set) -> list:
+    """이슈를 변경된 줄로 필터. 줄번호 없는 항목(구문오류·전역경고)은 항상 포함."""
+    if not changed:
+        return issues
+    result = []
+    for iss in issues:
+        m = re.search(r":(\d+):", iss)
+        if m:
+            if int(m.group(1)) in changed:
+                result.append(iss + "  ← 변경된 줄")
+        else:
+            result.append(iss)   # 줄번호 없음 → 항상 포함
+    return result
+
+
 # ── Claude API 수정 제안 ───────────────────────────────────────
 def _ai_suggest_fix(fp: Path, issues: list) -> str:
     """Claude Haiku 로 구체적 수정 방법 제안. API 키 없으면 빈 문자열."""
@@ -296,9 +343,11 @@ def main():
         )
         return
 
-    # ── 멀티패스 검토 ──
-    checker    = get_checker(fp)
-    lint_issues = checker(fp) if checker else []
+    # ── 멀티패스 검토 (diff-aware) ──
+    checker     = get_checker(fp)
+    lint_raw    = checker(fp) if checker else []
+    changed     = _changed_lines(fp)
+    lint_issues = _filter_by_lines(lint_raw, changed)
     test_issues = _run_tests(fp)
     all_issues  = (lint_issues + test_issues)[:MAX_ISSUES]
 
