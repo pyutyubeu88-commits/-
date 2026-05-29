@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>통신사의 사회적 약자 착취 — 완전 해부 보고서</title>
+<style>
+  :root {
+    --red:    #e63946;
+    --orange: #f4a261;
+    --yellow: #e9c46a;
+    --teal:   #2a9d8f;
+    --navy:   #1d3557;
+    --dark:   #0d1b2a;
+    --light:  #f1faee;
+    --gray:   #8d99ae;
+    --white:  #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    background: var(--dark);
+    color: var(--white);
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  /* ── SLIDE WRAPPER ── */
+  .deck { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    padding: 56px 72px;
+    animation: fadeIn .45s ease;
+  }
+  .slide.active { display: flex; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  /* ── SLIDE THEMES ── */
+  .slide-cover   { background: linear-gradient(135deg, #0d1b2a 0%, #1d3557 60%, #2a9d8f22 100%); }
+  .slide-red     { background: linear-gradient(135deg, #1a0a0a 0%, #2d0d0d 100%); }
+  .slide-orange  { background: linear-gradient(135deg, #1a1000 0%, #2d1a00 100%); }
+  .slide-teal    { background: linear-gradient(135deg, #00191a 0%, #002d2e 100%); }
+  .slide-navy    { background: linear-gradient(135deg, #0a0f1a 0%, #1d3557 100%); }
+  .slide-dark    { background: linear-gradient(135deg, #0d1b2a 0%, #111827 100%); }
+  .slide-law     { background: linear-gradient(135deg, #0f0a1a 0%, #1a1040 100%); }
+  .slide-action  { background: linear-gradient(135deg, #001a00 0%, #002800 100%); }
+  .slide-compare { background: linear-gradient(135deg, #1a0f00 0%, #2d1a00 100%); }
+  .slide-end     { background: linear-gradient(135deg, #0d1b2a 0%, #1d3557 60%, #e6394622 100%); }
+  .slide-source  { background: linear-gradient(135deg, #060d14 0%, #0d1b2a 100%); }
+
+  /* ── TYPOGRAPHY ── */
+  .badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 4px 14px; border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .badge-red    { background: #e6394622; color: var(--red);    border: 1px solid #e6394655; }
+  .badge-orange { background: #f4a26122; color: var(--orange); border: 1px solid #f4a26155; }
+  .badge-teal   { background: #2a9d8f22; color: var(--teal);   border: 1px solid #2a9d8f55; }
+  .badge-yellow { background: #e9c46a22; color: var(--yellow); border: 1px solid #e9c46a55; }
+  .badge-gray   { background: #8d99ae22; color: var(--gray);   border: 1px solid #8d99ae55; }
+  .badge-green  { background: #00ff0011; color: #4ade80;       border: 1px solid #4ade8044; }
+  .badge-purple { background: #a78bfa22; color: #a78bfa;       border: 1px solid #a78bfa55; }
+
+  h1 { font-size: clamp(28px, 4vw, 52px); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; }
+  h2 { font-size: clamp(22px, 2.8vw, 38px); font-weight: 700; line-height: 1.2; }
+  h3 { font-size: clamp(15px, 1.6vw, 22px); font-weight: 600; }
+  p, li { font-size: clamp(13px, 1.2vw, 17px); line-height: 1.7; }
+
+  .accent-red    { color: var(--red); }
+  .accent-orange { color: var(--orange); }
+  .accent-teal   { color: var(--teal); }
+  .accent-yellow { color: var(--yellow); }
+  .muted         { color: var(--gray); }
+
+  /* ── COVER ── */
+  .cover-eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .2em; color: var(--teal); text-transform: uppercase; margin-bottom: 24px; }
+  .cover-sub     { font-size: clamp(14px, 1.4vw, 19px); color: #94a3b8; margin-top: 20px; max-width: 680px; line-height: 1.6; }
+  .cover-date    { position: absolute; bottom: 40px; right: 72px; font-size: 12px; color: var(--gray); letter-spacing: .08em; }
+  .cover-num     { position: absolute; bottom: 40px; left: 72px; font-size: 12px; color: var(--gray); }
+
+  .highlight-box {
+    margin-top: 32px;
+    background: #ffffff08;
+    border-left: 3px solid var(--red);
+    padding: 16px 22px;
+    border-radius: 0 8px 8px 0;
+    max-width: 740px;
+    font-size: clamp(13px, 1.2vw, 16px);
+    color: #cbd5e1;
+    line-height: 1.65;
+  }
+
+  /* ── GRID LAYOUTS ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; flex: 1; }
+
+  /* ── CARDS ── */
+  .card {
+    background: #ffffff08;
+    border: 1px solid #ffffff12;
+    border-radius: 14px;
+    padding: 22px 24px;
+  }
+  .card-red    { border-color: #e6394733; background: #e6394708; }
+  .card-orange { border-color: #f4a26133; background: #f4a26108; }
+  .card-teal   { border-color: #2a9d8f33; background: #2a9d8f08; }
+  .card-yellow { border-color: #e9c46a33; background: #e9c46a08; }
+  .card-green  { border-color: #4ade8033; background: #4ade8008; }
+  .card-purple { border-color: #a78bfa33; background: #a78bfa08; }
+
+  .card-icon { font-size: 28px; margin-bottom: 10px; }
+  .card h3   { margin-bottom: 8px; }
+  .card ul   { padding-left: 16px; }
+  .card ul li { font-size: clamp(12px, 1.1vw, 15px); margin-bottom: 4px; color: #cbd5e1; }
+
+  /* ── TABLE ── */
+  table { width: 100%; border-collapse: collapse; font-size: clamp(12px, 1.1vw, 15px); }
+  th {
+    background: #ffffff10;
+    padding: 10px 14px; text-align: left;
+    font-weight: 600; font-size: 12px; letter-spacing: .05em;
+    color: var(--gray); border-bottom: 1px solid #ffffff15;
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid #ffffff08; color: #cbd5e1; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #ffffff05; }
+  .td-red    { color: var(--red);    font-weight: 700; }
+  .td-orange { color: var(--orange); font-weight: 700; }
+  .td-teal   { color: var(--teal);   font-weight: 700; }
+  .td-yellow { color: var(--yellow); font-weight: 700; }
+  .td-green  { color: #4ade80;       font-weight: 700; }
+
+  /* ── STAT BLOCKS ── */
+  .stat-row { display: flex; gap: 16px; flex: 1; align-items: stretch; }
+  .stat-block {
+    flex: 1;
+    background: #ffffff08;
+    border: 1px solid #ffffff12;
+    border-radius: 14px;
+    padding: 24px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .stat-number { font-size: clamp(28px, 4vw, 56px); font-weight: 800; line-height: 1; }
+  .stat-label  { font-size: clamp(11px, 1vw, 14px); color: var(--gray); margin-top: 6px; }
+
+  /* ── STEP LIST ── */
+  .step-list { list-style: none; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .step-list li {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: #ffffff06; border: 1px solid #ffffff10;
+    border-radius: 10px; padding: 14px 18px;
+  }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-num-red    { background: #e6394722; color: var(--red);    border: 1px solid #e6394766; }
+  .step-num-orange { background: #f4a26122; color: var(--orange); border: 1px solid #f4a26166; }
+  .step-num-teal   { background: #2a9d8f22; color: var(--teal);   border: 1px solid #2a9d8f66; }
+  .step-num-yellow { background: #e9c46a22; color: var(--yellow); border: 1px solid #e9c46a66; }
+  .step-content h3 { font-size: clamp(13px, 1.2vw, 16px); margin-bottom: 3px; }
+  .step-content p  { font-size: clamp(11px, 1vw, 14px); color: #94a3b8; line-height: 1.55; }
+
+  /* ── QUOTE ── */
+  .quote-block {
+    background: #ffffff06; border-left: 3px solid var(--teal);
+    border-radius: 0 12px 12px 0; padding: 18px 22px; margin-top: 14px;
+    font-size: clamp(12px, 1.1vw, 15px); color: #94a3b8; line-height: 1.6;
+    font-style: italic;
+  }
+  .quote-source { font-size: 12px; color: var(--gray); margin-top: 6px; font-style: normal; }
+
+  /* ── PILL TAGS ── */
+  .tag {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-size: 11px; font-weight: 600; margin: 2px;
+  }
+  .tag-red    { background: #e6394722; color: var(--red);    border: 1px solid #e6394744; }
+  .tag-orange { background: #f4a26122; color: var(--orange); border: 1px solid #f4a26144; }
+  .tag-teal   { background: #2a9d8f22; color: var(--teal);   border: 1px solid #2a9d8f44; }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 72px;
+    background: linear-gradient(to top, #0d1b2aee, transparent);
+    z-index: 100;
+  }
+  .nav-btn {
+    background: #ffffff12; border: 1px solid #ffffff22;
+    color: var(--white); padding: 8px 22px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: all .2s;
+    font-family: inherit;
+  }
+  .nav-btn:hover { background: #ffffff22; }
+  .nav-btn:disabled { opacity: .25; cursor: default; }
+
+  .progress-bar {
+    flex: 1; height: 2px; background: #ffffff15;
+    margin: 0 24px; border-radius: 2px; overflow: hidden;
+  }
+  .progress-fill { height: 100%; background: var(--teal); border-radius: 2px; transition: width .3s; }
+
+  .slide-counter { font-size: 12px; color: var(--gray); white-space: nowrap; }
+
+  /* ── SOURCE SLIDE ── */
+  .source-list { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; overflow-y: auto; }
+  .source-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 10px 14px; border-radius: 8px;
+    background: #ffffff05; border: 1px solid #ffffff0a;
+    font-size: clamp(11px, 1vw, 13px);
+  }
+  .source-num { color: var(--teal); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+  .source-list a { color: #93c5fd; text-decoration: none; }
+  .source-list a:hover { color: #60a5fa; text-decoration: underline; }
+  .source-desc { color: var(--gray); font-size: 11px; margin-top: 2px; }
+
+  /* ── DIVIDER LINE ── */
+  .divider { height: 1px; background: #ffffff12; margin: 18px 0; }
+
+  /* ── SLIDE HEADER ── */
+  .slide-header { margin-bottom: 24px; }
+  .slide-header h2 { margin-top: 8px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .slide { padding: 32px 24px 72px; }
+    .nav { padding: 14px 24px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .stat-row { flex-direction: column; }
+  }
+
+  /* ── KEYBOARD HINT ── */
+  .key-hint {
+    position: fixed; top: 18px; right: 24px;
+    font-size: 11px; color: #ffffff30;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="key-hint">← → 키 또는 버튼으로 이동</div>
+
+<div class="deck" id="deck">
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 1 — COVER
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="slide slide-cover active">
+    <div class="cover-eyebrow">특별 조사 보고서</div>
+    <h1>통신사의<br><span class="accent-red">사회적 약자 착취</span><br>완전 해부</h1>
+    <p class="cover-sub">
+      SKT 브랜드를 신뢰해 <strong>현금 완납</strong>으로 개통했음에도 불구하고,<br>
+      통신사가 <strong>몰래 할부를 삽입</strong>한 기초수급자 피해 사건을 중심으로<br>
+      대기업의 구조적 취약계층 착취 실태를 10개 관점에서 해부한다.
+    </p>
+    <div class="highlight-box">
+      ⚠️ <strong>핵심 사건</strong>: 기초생활수급자가 SKT 브랜드를 믿고 현금 완납 개통을 요청했으나,
+      대리점이 동의 없이 할부를 삽입. 수급비에서 매달 할부금이 빠져나간 구조적 착취.
+    </div>
+    <div class="cover-date">2026년 5월 29일</div>
+    <div class="cover-num">총 12 슬라이드</div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 2 — 사건 구조
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="slide slide-red">
+    <div class="slide-header">
+      <span class="badge badge-red">Chapter 01</span>
+      <h2>어떻게 이런 일이 가능한가<br><span class="accent-red">사건의 구조적 원인</span></h2>
+    </div>
+    <div class="grid-2" style="gap:24px;">
+      <div>
+        <h3 style="color:#94a3b8; font-size:13px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:14px;">대리점 수익 구조</h3>
+        <div style="background:#ffffff06; border:1px solid #ffffff10; border-radius:12px; padding:18px; margin-bottom:14px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:14px;">
+            <span style="background:#1d3557; padding:4px 10px; border-radius:6px;">SKT 본사</span>
+            <span style="color:#64748b;">→</span>
+            <span style="background:#1d3557; padding:4px 10px; border-radius:6px;">직영대리점</span>
+            <span style="color:#64748b;">→</span>
+            <span style="background:#2d0d0d; border:1px solid #e6394744; padding:4px 10px; border-radius:6px; color:var(--red);">판매점</span>
+            <span style="color:#64748b;">→</span>
+            <span style="color:#cbd5e1; font-size:13px;">소비자</span>
+          </div>
+          <p style="font-size:13px; color:#94a3b8;">직원 수익 = <strong style="color:var(--orange);">인센티브</strong> (약정 길수록 ↑, 할부 길수록 ↑)</p>
+          <p style="font-size:13px; color:#94a3b8; margin-top:4px;"><strong style="color:var(--red);">현금완납 처리 시 인센티브 ≈ 0원</strong></p>
+        </div>
+        <div class="quote-block">
+          "스마트폰 할부 기간이 길거나 교체 부가서비스에 가입시키는 경우 대리점 직원에게 추가 인센티브가 제공된다."
+          <div class="quote-source">— 소비자가만드는신문, 2021</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="color:#94a3b8; font-size:13px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:14px;">확인된 사기 수법 5가지</h3>
+        <ul class="step-list">
+          <li>
+            <div class="step-num step-num-red">①</div>
+            <div class="step-content">
+              <h3>할부 삽입</h3>
+              <p>현금완납 요청에도 24~36개월 할부를 몰래 등록</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num step-num-red">②</div>
+            <div class="step-content">
+              <h3>약정 기간 변조</h3>
+              <p>"24개월"이라 말하고 실제 계약은 48개월로 처리</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num step-num-red">③</div>
+            <div class="step-content">
+              <h3>부가서비스 강제가입</h3>
+              <p>해지 안내 없이 월 수천원짜리 서비스 다수 등록</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num step-num-red">④</div>
+            <div class="step-content">
+              <h3>고가 요금제 등록</h3>
+              <p>기초수급자 감면 요금제 대신 일반 고가 요금제 적용</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num step-num-red">⑤</div>
+            <div class="step-content">
+              <h3>서류 위조</h3>
+              <p>고객 서명란에 직원이 임의 서명 또는 전자서명 처리</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 3 — 기초수급자 취약성
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="slide slide-orange">
+    <div class="slide-header">
+      <span class="badge badge-orange">Chapter 02</span>
+      <h2>기초수급자는 왜<br><span class="accent-orange">최우선 표적</span>이 되는가</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card card-orange">
+        <div class="card-icon">🧠</div>
+        <h3 style="color:var(--orange); margin-bottom:8px;">금융 이해력 격차</h3>
+        <p style="font-size:13px; color:#cbd5e1;">할부 구조, 단말기 대금과 통신료 분리 개념을 명확히 이해하기 어렵다. 복잡한 약관은 이 격차를 의도적으로 이용한다.</p>
+      </div>
+      <div class="card card-orange">
+        <div class="card-icon">😔</div>
+        <h3 style="color:var(--orange); margin-bottom:8px;">학습된 무기력</h3>
+        <p style="font-size:13px; color:#cbd5e1;">"대기업이랑 싸워봤자…" — 이의제기를 포기하는 경향. 실제 피해자의 90% 이상이 항의 없이 포기한다.</p>
+      </div>
+      <div class="card card-orange">
+        <div class="card-icon">💸</div>
+        <h3 style="color:var(--orange); margin-bottom:8px;">통신료 = 생존 위협</h3>
+        <p style="font-size:13px; color:#cbd5e1;">수급비에서 할부금이 빠져나가면 식비·교통비가 무너진다. 연체는 곧 생존 위기로 직결된다.</p>
+      </div>
+      <div class="card card-orange">
+        <div class="card-icon">⚖️</div>
+        <h3 style="color:var(--orange); margin-bottom:8px;">법적 지원 접근 부재</h3>
+        <p style="font-size:13px; color:#cbd5e1;">소비자원·방통위·법원을 이용하는 데 필요한 정보·시간·비용이 없다. 법률 문턱 자체가 장벽이다.</p>
+      </div>
+      <div class="card card-orange">
+        <div class="card-icon">✍️</div>
+        <h3 style="color:var(--orange); margin-bottom:8px;">계약서 검토 불가</h3>
+        <p style="font-size:13px; color:#cbd5e1;">"빨리 사인하세요"에 저항하기 어려운 심리적 압박. 계약서는 작은 글씨로 가득 차 있다.</p>
+      </div>
+      <div class="card" style="border-color:#ffffff15;">
+        <div class="card-icon">📉</div>
+        <h3 style="color:#94a3b8; margin-bottom:8px;">기초수급자 통신비 현실</h3>
+        <p style="font-size:13px; color:#cbd5e1;">월 통신비 감면 혜택 최대 <strong style="color:var(--orange);">26,000원</strong>이 있으나, 대리점이 고의로 감면 미신청하거나 감면 불가 요금제를 등록한다.</p>
+        <div style="margin-top:10px; padding:8px 12px; background:#ffffff06; border-radius:8px; font-size:12px; color:var(--orange);">
+          수급비의 10~20%가 통신비로 유출되는 구조
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 4 — 피해 통계
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="slide slide-dark">
+    <div class="slide-header">
+      <span class="badge badge-gray">Chapter 03</span>
+      <h2>공식 확인된<br><span style="color:#f1faee;">피해 규모 통계</span></h2>
+    </div>
+    <div class="stat-row" style="margin-bottom:20px;">
+      <div class="stat-block" style="border-color:#e6394733;">
+        <div class="stat-number accent-red">102건</div>
+        <div class="stat-label">2021년 장애인 피해구제 상담 접수<br><span style="font-size:11px;">(장애인 소비자 피해구제 상담센터)</span></div>
+      </div>
+      <div class="stat-block" style="border-color:#f4a26133;">
+        <div class="stat-number accent-orange">2억 470만원</div>
+        <div class="stat-label">확인된 50건에서만 발생한 피해 금액<br><span style="font-size:11px;">(실제 피해는 훨씬 클 것으로 추정)</span></div>
+      </div>
+      <div class="stat-block" style="border-color:#e9c46a33;">
+        <div class="stat-number accent-yellow">6,159명</div>
+        <div class="stat-label">장애인복지 할인 등록 중 3회선 이상 개통자<br><span style="font-size:11px;">(SKT 4,010명 + KT 1,317명 + LGU+ 832명)</span></div>
+      </div>
+      <div class="stat-block" style="border-color:#2a9d8f33;">
+        <div class="stat-number accent-teal">21개</div>
+        <div class="stat-label">장애인 1명 명의로 개통된 최다 회선 수<br><span style="font-size:11px;">(2020년 기준 극단적 사례)</span></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div>
+        <h3 style="font-size:14px; color:#94a3b8; margin-bottom:10px;">8개월 누적 피해 (한국장애인소비자연합)</h3>
+        <table>
+          <thead><tr><th>구분</th><th>건수</th><th>피해 금액</th></tr></thead>
+          <tbody>
+            <tr><td>스마트폰 개통 피해</td><td class="td-red">70건</td><td class="td-orange">약 2억 3천만원</td></tr>
+            <tr><td>다회선 불법 개통</td><td colspan="2" style="color:#94a3b8; font-size:12px;">피해자 1명당 최대 21회선</td></tr>
+            <tr><td>유심 탈취·대출 이용</td><td colspan="2" style="color:#94a3b8; font-size:12px;">소액결제·대출 피해 병발</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="quote-block" style="margin-top:0; height:100%; display:flex; flex-direction:column; justify-content:center;">
+        "대리점 직원이 '싼 가격에 최신 휴대전화를 개통해주겠다'며 필요하지도 않은 스마트폰 5대와 태블릿 PC 1대를 <strong style="color:var(--red);">10만원이 넘는 최고가 요금제</strong>로 발달장애인에게 가입시켰다."
+        <div class="quote-source">— 한겨레 / 서울대 소비자법센터, 2022.6.24</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 5 — 실제 사례들
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="slide slide-navy">
+    <div class="slide-header">
+      <span class="badge badge-purple">Chapter 04</span>
+      <h2>취약계층 피해<br><span style="color:#f1faee;">실제 확인 사례 5건</span></h2>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px; flex:1;">
+      <div class="card" style="border-color:#e6394733; background:#e6394706;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px;">
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="tag tag-red">기초수급자</span>
+              <span class="tag tag-orange">현금완납→할부 삽입</span>
+            </div>
+            <p style="font-size:14px; color:#e2e8f0;"><strong>SKT 브랜드를 신뢰해 현금 완납 개통</strong>했으나, 대리점이 동의 없이 할부를 등록. 매달 수급비에서 할부금 공제.</p>
+          </div>
+          <div style="font-size:11px; color:var(--gray); white-space:nowrap;">본 사건</div>
+        </div>
+      </div>
+      <div class="card" style="border-color:#f4a26133; background:#f4a26106;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px;">
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="tag tag-orange">일반 소비자</span>
+              <span class="tag tag-red">약정 기간 변조</span>
+            </div>
+            <p style="font-size:14px; color:#e2e8f0;"><strong>전남 목포 여성</strong> — 2020년 24개월 약정 요청, 실제 계약은 <strong>48개월</strong>로 처리. 수년 후 만료 확인 중 발각.</p>
+          </div>
+          <div style="font-size:11px; color:var(--gray); white-space:nowrap;">소비자가만드는신문 2021</div>
+        </div>
+      </div>
+      <div class="card" style="border-color:#a78bfa33; background:#a78bfa06;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px;">
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="tag" style="background:#a78bfa22; color:#a78bfa; border:1px solid #a78bfa44;">발달장애인</span>
+              <span class="tag tag-red">다회선 불법 개통</span>
+            </div>
+            <p style="font-size:14px; color:#e2e8f0;">발달장애인 속여 여러 지역에서 <strong>선불폰 3대, 일반폰 5대</strong> 개설, 유심 탈취해 불법 대출에 이용.</p>
+          </div>
+          <div style="font-size:11px; color:var(--gray); white-space:nowrap;">한겨레 2022</div>
+        </div>
+      </div>
+      <div class="card" style="border-color:#2a9d8f33; background:#2a9d8f06;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px;">
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="tag tag-teal">요양원 노인</span>
+              <span class="tag tag-orange">유심 도용 결제</span>
+            </div>
+            <p style="font-size:14px; color:#e2e8f0;">대리점 직원이 방문 고객 유심칩 탈취, <strong>5,000만원 무단 소액결제</strong>. 피해자는 인지 못 함.</p>
+          </div>
+          <div style="font-size:11px; color:var(--gray); white-space:nowrap;">한국경제 2022</div>
+        </div>
+      </div>
+      <div class="card" style="border-color:#e9c46a33; background:#e9c46a06;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px;">
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="tag tag-yellow">병원·양로원 노인</span>
+              <span class="tag tag-orange">대포폰 명의 도용</span>
+            </div>
+            <p style="font-size:14px; color:#e2e8f0;">돌봄 공백 노린 사기 — 현금·사은품 미끼로 유심 개통, 피해자 명의 <strong>대포폰·불법 거래</strong>에 활용.</p>
+          </div>
+          <div style="font-size:11px; color:var(--gray); white-space:nowrap;">치매뉴스 보도</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 6 — 대기업 제재
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="slide slide-teal">
+    <div class="slide-header">
+      <span class="badge badge-teal">Chapter 05</span>
+      <h2>SKT·KT·LGU+ 조직적 불공정<br><span class="accent-teal">공식 제재 사례</span></h2>
+    </div>
+    <div class="grid-2" style="gap:22px;">
+      <div>
+        <h3 style="font-size:13px; color:#94a3b8; letter-spacing:.1em; text-transform:uppercase; margin-bottom:12px;">5G 허위·과장광고 과징금 (공정거래위원회)</h3>
+        <table>
+          <thead><tr><th>통신사</th><th style="text-align:right;">과징금</th><th>주요 위반</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>SK텔레콤</strong></td>
+              <td class="td-red" style="text-align:right;">168억 2,900만원</td>
+              <td style="font-size:12px;">허위광고 + 비교광고 기준 위반</td>
+            </tr>
+            <tr>
+              <td><strong>KT</strong></td>
+              <td class="td-orange" style="text-align:right;">139억 3,100만원</td>
+              <td style="font-size:12px;">허위광고 + 비교광고 기준 위반</td>
+            </tr>
+            <tr>
+              <td><strong>LG유플러스</strong></td>
+              <td class="td-yellow" style="text-align:right;">28억원대</td>
+              <td style="font-size:12px;">허위광고</td>
+            </tr>
+            <tr style="background:#ffffff08;">
+              <td><strong>합계</strong></td>
+              <td class="td-teal" style="text-align:right; font-size:17px;"><strong>약 336억원</strong></td>
+              <td style="font-size:12px;">"전국 어디서나 5G" 허위</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top:16px;">
+          <h3 style="font-size:13px; color:#94a3b8; letter-spacing:.1em; text-transform:uppercase; margin-bottom:12px;">단말기유통법 위반 과징금</h3>
+          <div class="card card-teal" style="padding:16px;">
+            <div style="font-size:30px; font-weight:800; color:var(--teal);">506억원</div>
+            <div style="font-size:13px; color:#94a3b8; margin-top:4px;">3사 합산 / 불법 지원금 차별 지급<br>도매·온라인 유통 경로 위반</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:13px; color:#94a3b8; letter-spacing:.1em; text-transform:uppercase; margin-bottom:12px;">책임 회피 구조</h3>
+        <ul class="step-list">
+          <li>
+            <div class="step-num step-num-teal">1</div>
+            <div class="step-content">
+              <h3>인센티브 구조 설계는 본사</h3>
+              <p>할부 기간 길수록 대리점 인센티브 상승하도록 설계한 것은 SKT 본사</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num step-num-teal">2</div>
+            <div class="step-content">
+              <h3>"대리점 개별 행위"로 발뺌</h3>
+              <p>피해 발생 시 본사는 대리점 개인 행위로 책임 전가. 구조적 방조</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num step-num-teal">3</div>
+            <div class="step-content">
+              <h3>솜방망이 행정 처리</h3>
+              <p>방통위 신고 시 "자율정화조치 요청" 수준으로만 처리 → 재발 방지 안 됨</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num step-num-teal">4</div>
+            <div class="step-content">
+              <h3>적발 리스크 &lt; 인센티브 이익</h3>
+              <p>피해자 포기율 90% 이상, 실제 처벌 미미 → 구조 유지에 유리</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 7 — 해외 비교
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="slide slide-compare">
+    <div class="slide-header">
+      <span class="badge badge-orange">Chapter 06</span>
+      <h2>해외는 어떻게 막는가<br><span class="accent-orange">국제 비교 — 한국만 뒤처진다</span></h2>
+    </div>
+    <div class="grid-3" style="margin-bottom:20px;">
+      <div class="card card-teal">
+        <div style="font-size:28px; margin-bottom:10px;">🇦🇺</div>
+        <h3 style="color:var(--teal); margin-bottom:10px;">호주</h3>
+        <ul style="padding-left:16px; list-style:disc;">
+          <li style="font-size:13px; color:#cbd5e1; margin-bottom:6px;"><strong style="color:#4ade80;">법으로 과도한 계약 취소 가능</strong></li>
+          <li style="font-size:13px; color:#cbd5e1; margin-bottom:6px;">불공정 거래 시 통신사에 <strong style="color:#4ade80;">막대한 벌금</strong></li>
+          <li style="font-size:13px; color:#cbd5e1;">피해자가 아닌 통신사가 입증 책임</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color:#60a5fa33; background:#60a5fa06;">
+        <div style="font-size:28px; margin-bottom:10px;">🇯🇵</div>
+        <h3 style="color:#60a5fa; margin-bottom:10px;">일본</h3>
+        <ul style="padding-left:16px; list-style:disc;">
+          <li style="font-size:13px; color:#cbd5e1; margin-bottom:6px;"><strong style="color:#4ade80;">불공정 계약 취소권 법으로 명문화</strong></li>
+          <li style="font-size:13px; color:#cbd5e1; margin-bottom:6px;">취약계층 대상 고압적 판매 행위 형사 처벌</li>
+          <li style="font-size:13px; color:#cbd5e1;">통신사 대리점 연대책임 법제화</li>
+        </ul>
+      </div>
+      <div class="card card-red">
+        <div style="font-size:28px; margin-bottom:10px;">🇰🇷</div>
+        <h3 style="color:var(--red); margin-bottom:10px;">한국 (현실)</h3>
+        <ul style="padding-left:16px; list-style:disc;">
+          <li style="font-size:13px; color:#cbd5e1; margin-bottom:6px;"><strong style="color:var(--red);">피해자가 직접 모든 것을 입증</strong></li>
+          <li style="font-size:13px; color:#cbd5e1; margin-bottom:6px;">신고센터 운영, 자율정화 요청 수준</li>
+          <li style="font-size:13px; color:#cbd5e1;">본사 연대책임 규정 없음</li>
+        </ul>
+      </div>
+    </div>
+    <div class="quote-block">
+      "호주와 일본의 경우 법을 통해 과도한 계약을 취소할 수 있게 하거나, 불공정한 방식으로 거래한 경우 통신사업자에게 막대한 벌금을 물리는 사례를 발견할 수 있었다."
+      <div class="quote-source">— 서울대 공익법률센터 김남희 변호사 (한겨레, 2022.6.24)</div>
+    </div>
+    <div style="margin-top:14px; padding:14px 20px; background:#ffffff06; border-radius:10px; border:1px solid #ffffff10;">
+      <p style="font-size:13px; color:#f1faee;">
+        <strong style="color:var(--orange);">핵심 문제</strong>: 한국은 "신고하면 검토하겠습니다" 수준이지만, 선진국은 <strong>통신사가 취약계층에게 불공정 계약을 했다는 사실 자체로 형사·민사 책임</strong>을 진다.
+        이 구조적 차이가 반복 피해의 근본 원인이다.
+      </p>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 8 — 법률 근거
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="slide slide-law">
+    <div class="slide-header">
+      <span class="badge badge-purple">Chapter 07</span>
+      <h2>적용 가능한<br><span style="color:#a78bfa;">형사·민사·행정 법률</span></h2>
+    </div>
+    <div class="grid-2" style="gap:22px;">
+      <div>
+        <h3 style="font-size:13px; color:#a78bfa; letter-spacing:.1em; text-transform:uppercase; margin-bottom:12px;">⚖️ 형사 책임 (대리점 직원·점주)</h3>
+        <table>
+          <thead><tr><th>죄명</th><th>근거</th><th>적용 이유</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="td-red">사기죄</td>
+              <td style="font-size:11px;">형법 제347조</td>
+              <td style="font-size:12px;">현금완납 의사 속이고 할부 계약 체결</td>
+            </tr>
+            <tr>
+              <td class="td-orange">사문서위조·행사죄</td>
+              <td style="font-size:11px;">형법 제231조</td>
+              <td style="font-size:12px;">계약서 서명 임의 기재 시</td>
+            </tr>
+            <tr>
+              <td class="td-yellow">전기통신사업법 위반</td>
+              <td style="font-size:11px;">제50조</td>
+              <td style="font-size:12px;">이용자 이익 침해 금지 위반</td>
+            </tr>
+            <tr>
+              <td class="td-teal">개인정보보호법 위반</td>
+              <td style="font-size:11px;">제59조</td>
+              <td style="font-size:12px;">고객 정보 이용한 무단 계약</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:16px;">
+          <h3 style="font-size:13px; color:#a78bfa; letter-spacing:.1em; text-transform:uppercase; margin-bottom:12px;">🏛️ 민사 청구권</h3>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="background:#a78bfa11; border:1px solid #a78bfa33; border-radius:8px; padding:10px 14px; font-size:13px; color:#e2e8f0;">
+              <strong style="color:#a78bfa;">계약 취소</strong> — 민법 제110조 (기망에 의한 의사표시 취소)
+            </div>
+            <div style="background:#a78bfa11; border:1px solid #a78bfa33; border-radius:8px; padding:10px 14px; font-size:13px; color:#e2e8f0;">
+              <strong style="color:#a78bfa;">손해배상</strong> — 민법 제750조 (불법행위에 의한 손해배상)
+            </div>
+            <div style="background:#4ade8011; border:1px solid #4ade8033; border-radius:8px; padding:10px 14px; font-size:13px; color:#e2e8f0;">
+              <strong style="color:#4ade80;">부당이득반환</strong> — 민법 제741조 (<strong>이미 낸 할부금 전액 반환 청구 가능</strong>)
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:13px; color:#a78bfa; letter-spacing:.1em; text-transform:uppercase; margin-bottom:12px;">🔔 행정 구제 경로</h3>
+        <ul class="step-list">
+          <li>
+            <div class="step-num" style="background:#2a9d8f22; color:var(--teal); border:1px solid #2a9d8f66;">①</div>
+            <div class="step-content">
+              <h3>방송통신위원회</h3>
+              <p>전기통신사업법 위반 신고 → 행정 제재, 과징금 부과</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num" style="background:#2a9d8f22; color:var(--teal); border:1px solid #2a9d8f66;">②</div>
+            <div class="step-content">
+              <h3>공정거래위원회</h3>
+              <p>불공정거래행위 신고 → 시정명령 및 과징금</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num" style="background:#2a9d8f22; color:var(--teal); border:1px solid #2a9d8f66;">③</div>
+            <div class="step-content">
+              <h3>한국소비자원 (1372)</h3>
+              <p>피해구제 신청 → 30일 내 처리, 분쟁조정 권고</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num" style="background:#2a9d8f22; color:var(--teal); border:1px solid #2a9d8f66;">④</div>
+            <div class="step-content">
+              <h3>과기정통부 (110)</h3>
+              <p>전기통신 민원 → 신고 시 경찰청 동시 접수 가능</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num" style="background:#e6394722; color:var(--red); border:1px solid #e6394766;">⑤</div>
+            <div class="step-content">
+              <h3>경찰청 (112)</h3>
+              <p>사기·사문서위조 형사고소 → 대리점 직원·점주 형사처벌</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 9 — 대응 매뉴얼
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="slide slide-action">
+    <div class="slide-header">
+      <span class="badge badge-green">Chapter 08</span>
+      <h2>지금 당장 해야 할 것<br><span style="color:#4ade80;">실전 대응 4단계 매뉴얼</span></h2>
+    </div>
+    <div class="grid-2" style="gap:20px;">
+      <div>
+        <ul class="step-list">
+          <li style="border-color:#4ade8033; background:#4ade8008;">
+            <div class="step-num step-num-teal" style="background:#4ade8022; color:#4ade80; border-color:#4ade8066;">1</div>
+            <div class="step-content">
+              <h3 style="color:#4ade80;">증거 확보 (즉시)</h3>
+              <p>T월드 앱 → [나의 정보] → 단말기 할부 잔액·개월수 캡처<br>
+              계약서 원본 대리점에 요청 (의무 보관)<br>
+              개통 당일 문자 전체 보존 / 현금 영수증·이체 내역</p>
+            </div>
+          </li>
+          <li style="border-color:#4ade8033; background:#4ade8008;">
+            <div class="step-num step-num-teal" style="background:#4ade8022; color:#4ade80; border-color:#4ade8066;">2</div>
+            <div class="step-content">
+              <h3 style="color:#4ade80;">내용증명 발송</h3>
+              <p>계약 취소 의사 + 납부한 할부금 반환 요구<br>
+              우체국 내용증명 서비스 이용 (법적 효력 발생)<br>
+              발송 날짜가 추후 소송에서 핵심 증거가 됨</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <ul class="step-list">
+          <li style="border-color:#4ade8033; background:#4ade8008;">
+            <div class="step-num step-num-teal" style="background:#4ade8022; color:#4ade80; border-color:#4ade8066;">3</div>
+            <div class="step-content">
+              <h3 style="color:#4ade80;">동시다발 신고 (병렬 진행)</h3>
+              <p>
+                <strong style="color:#4ade80;">한국소비자원 1372</strong> → 피해구제 신청<br>
+                <strong style="color:var(--teal);">방통위 1335</strong> → 불공정행위 신고<br>
+                <strong style="color:var(--orange);">KAIT</strong> (kait.or.kr) → 이동전화 불공정행위<br>
+                <strong style="color:var(--red);">경찰 112</strong> → 사기·서류위조 고소
+              </p>
+            </div>
+          </li>
+          <li style="border-color:#4ade8033; background:#4ade8008;">
+            <div class="step-num step-num-teal" style="background:#4ade8022; color:#4ade80; border-color:#4ade8066;">4</div>
+            <div class="step-content">
+              <h3 style="color:#4ade80;">무료 법률 지원 활용</h3>
+              <p>
+                <strong style="color:#4ade80;">법률구조공단 132</strong> — 기초수급자 <strong>완전 무료</strong> 소송 지원<br>
+                <strong style="color:var(--teal);">주민센터 복지사</strong> — 경위서 작성 동행<br>
+                <strong style="color:var(--orange);">지역 소비자단체</strong> — 대리 신고·협상 지원
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:16px; padding:14px 20px; background:#4ade8011; border:1px solid #4ade8033; border-radius:10px;">
+      <p style="font-size:13px; color:#e2e8f0;">
+        💡 <strong style="color:#4ade80;">핵심 전략</strong>: 신고는 <strong>한 기관이 아닌 모든 기관에 동시에</strong> 하는 것이 효과적.
+        방통위+소비자원+경찰 동시 압박이 대리점·본사에 가장 큰 부담을 준다.
+      </p>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 10 — 비교 유사 사례
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="slide slide-dark">
+    <div class="slide-header">
+      <span class="badge badge-gray">Chapter 09</span>
+      <h2>대기업의 취약계층 착취<br><span style="color:#f1faee;">국내 유사 사례 비교</span></h2>
+    </div>
+    <table style="flex:1;">
+      <thead>
+        <tr>
+          <th>사건명</th>
+          <th>가해 주체</th>
+          <th>피해 집단</th>
+          <th>핵심 수법</th>
+          <th>결과</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-red">신안 염전 노예 사건</td>
+          <td>도서 지역 사업자</td>
+          <td>지적장애인</td>
+          <td>실종·유인 후 수십년 무임금 강제노동, 감금</td>
+          <td style="font-size:12px; color:#94a3b8;">수사·구출 후 일부 처벌, 제도 미비 반복</td>
+        </tr>
+        <tr>
+          <td class="td-orange">통신사 5G 허위광고</td>
+          <td>SKT·KT·LGU+</td>
+          <td>전체 소비자</td>
+          <td>"전국 5G" 허위광고로 고가 요금제 유도</td>
+          <td style="color:#4ade80; font-size:12px;">공정위 과징금 336억원 부과</td>
+        </tr>
+        <tr>
+          <td class="td-yellow">발달장애인 다회선 개통</td>
+          <td>통신사 대리점</td>
+          <td>발달장애인</td>
+          <td>명의 이용 대포폰 개통, 금융사기 병행</td>
+          <td style="font-size:12px; color:#94a3b8;">개별 처벌, 구조 미개선</td>
+        </tr>
+        <tr>
+          <td class="td-teal">보험사 불완전판매</td>
+          <td>대형 생명·손해보험사</td>
+          <td>고령층·저학력층</td>
+          <td>해약환급금 미고지, 보장내용 오설명</td>
+          <td style="font-size:12px; color:#94a3b8;">금감원 제재, 반복 발생</td>
+        </tr>
+        <tr>
+          <td style="color:#a78bfa; font-weight:700;">요양원 유심 도용</td>
+          <td>통신 대리점 직원</td>
+          <td>요양원 노인</td>
+          <td>방문 중 유심 탈취, 수천만원 소액결제</td>
+          <td style="font-size:12px; color:#94a3b8;">형사처벌, 피해금 일부 미회수</td>
+        </tr>
+        <tr>
+          <td style="color:#60a5fa; font-weight:700;">대부업 선이자 깡</td>
+          <td>대부업체·카드사</td>
+          <td>저신용·수급자</td>
+          <td>법정 한도 초과 이자 수취, 고압적 추심</td>
+          <td style="font-size:12px; color:#94a3b8;">금감원 제재, 피해 지속</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px; padding:12px 16px; background:#ffffff06; border-radius:8px; border:1px solid #ffffff10;">
+      <p style="font-size:12px; color:#94a3b8;">
+        <strong style="color:#f1faee;">공통점</strong>: 모든 사례에서 가해자는 피해자의 <strong style="color:var(--orange);">정보 비대칭, 이의제기 포기 경향, 법적 접근 불가</strong>를 의도적으로 이용했다.
+        그리고 제도는 사후 처벌에 그쳐 <strong style="color:var(--red);">구조적 반복</strong>을 막지 못했다.
+      </p>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 11 — 결론
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="slide slide-end">
+    <div class="slide-header">
+      <span class="badge badge-red">결론</span>
+      <h2>이 싸움의 의미</h2>
+    </div>
+    <div class="grid-2" style="gap:24px;">
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div class="card card-red">
+          <h3 style="color:var(--red); margin-bottom:8px;">이 사건의 본질</h3>
+          <p style="font-size:14px; color:#e2e8f0; line-height:1.7;">
+            <strong>"브랜드를 믿고 돈을 냈더니, 그 신뢰가 착취의 도구가 됐다."</strong><br><br>
+            이것은 단순한 개인 분쟁이 아니다. 대기업이 설계한 인센티브 구조가
+            <strong style="color:var(--red);">가장 취약한 사람을 가장 효율적으로 착취</strong>하는
+            시스템을 만들었다. 대리점 직원은 실행자이지만, 그 구조를 설계하고 방치한 것은 <strong>SKT 본사</strong>다.
+          </p>
+        </div>
+        <div class="card card-orange">
+          <h3 style="color:var(--orange); margin-bottom:8px;">기초수급자에게 할부금이란</h3>
+          <p style="font-size:13px; color:#e2e8f0; line-height:1.7;">
+            2024년 기준 1인 가구 기초수급자 월 수급비: <strong style="color:var(--orange);">약 60만~80만원</strong><br>
+            할부금 수만원 = <strong style="color:var(--red);">식비 한 주치</strong><br>
+            이것은 숫자 문제가 아니라 <strong>생존 문제</strong>다.
+          </p>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <h3 style="font-size:13px; color:#94a3b8; letter-spacing:.1em; text-transform:uppercase; margin-bottom:4px;">지인이 반드시 알아야 할 5가지</h3>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="background:#4ade8011; border:1px solid #4ade8033; border-radius:8px; padding:10px 14px; font-size:13px; display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:#4ade80; font-weight:700; flex-shrink:0;">✓</span>
+            <span style="color:#e2e8f0;"><strong style="color:#4ade80;">계약 취소는 가능하다</strong> — 기망에 의한 계약은 민법상 취소권 행사 가능</span>
+          </div>
+          <div style="background:#4ade8011; border:1px solid #4ade8033; border-radius:8px; padding:10px 14px; font-size:13px; display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:#4ade80; font-weight:700; flex-shrink:0;">✓</span>
+            <span style="color:#e2e8f0;"><strong style="color:#4ade80;">이미 낸 돈은 돌려받을 수 있다</strong> — 부당이득반환 청구권</span>
+          </div>
+          <div style="background:#4ade8011; border:1px solid #4ade8033; border-radius:8px; padding:10px 14px; font-size:13px; display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:#4ade80; font-weight:700; flex-shrink:0;">✓</span>
+            <span style="color:#e2e8f0;"><strong style="color:#4ade80;">무료 지원이 있다</strong> — 법률구조공단 132번, 기초수급자 완전 무료</span>
+          </div>
+          <div style="background:#4ade8011; border:1px solid #4ade8033; border-radius:8px; padding:10px 14px; font-size:13px; display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:#4ade80; font-weight:700; flex-shrink:0;">✓</span>
+            <span style="color:#e2e8f0;"><strong style="color:#4ade80;">혼자 싸우지 않아도 된다</strong> — 소비자단체, 복지사, 법률구조 동행</span>
+          </div>
+          <div style="background:#e6394711; border:1px solid #e6394733; border-radius:8px; padding:10px 14px; font-size:13px; display:flex; gap:10px; align-items:flex-start;">
+            <span style="color:var(--red); font-weight:700; flex-shrink:0;">!</span>
+            <span style="color:#e2e8f0;"><strong style="color:var(--red);">동시다발 신고</strong>가 핵심 — 방통위+소비자원+경찰 동시 압박이 본사에 직접 타격</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE 12 — 출처
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="slide slide-source">
+    <div class="slide-header">
+      <span class="badge badge-gray">References</span>
+      <h2>출처 및 참고 자료</h2>
+    </div>
+    <ul class="source-list">
+      <li>
+        <span class="source-num">01</span>
+        <div>
+          <a href="https://slcc.snu.ac.kr/%EC%96%B8%EB%A1%A0%EB%B3%B4%EB%8F%84/document/226/" target="_blank">발달장애인 휴대폰 사기 피해 지난해 2억…"통신사 함께 예방"</a>
+          <div class="source-desc">한겨레 / 서울대 소비자법센터 — 2022.06.24 | 피해 규모 102건, 2억 470만원 통계 근거</div>
+        </div>
+      </li>
+      <li>
+        <span class="source-num">02</span>
+        <div>
+          <a href="https://www.consumernews.co.kr/news/articleView.html?idxno=652687" target="_blank">24개월이라더니 48개월 약정으로 뒷통수…통신사 대리점 사기영업 횡행</a>
+          <div class="source-desc">소비자가만드는신문 — 약정 기간 변조 사례, 인센티브 구조 설명 근거</div>
+        </div>
+      </li>
+      <li>
+        <span class="source-num">03</span>
+        <div>
+          <a href="https://www.imedialife.co.kr/news/articleView.html?idxno=37608" target="_blank">(사설) 장애인 휴대전화 사기피해 이대로 놔둘 건가</a>
+          <div class="source-desc">미디어생활 — 장애인 피해 구조적 문제 분석 근거</div>
+        </div>
+      </li>
+      <li>
+        <span class="source-num">04</span>
+        <div>
+          <a href="http://www.focusgj.com/news/articleView.html?idxno=2424" target="_blank">끊이지 않는 휴대폰 불법 개통 사기 — 취약계층 대상으로 극성</a>
+          <div class="source-desc">포커스경남 — 노인·장애인 대상 불법 개통 수법 사례 근거</div>
+        </div>
+      </li>
+      <li>
+        <span class="source-num">05</span>
+        <div>
+          <a href="https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0002055638" target="_blank">노인 등 취약계층 정보 빼돌려 수억대 휴대폰 불법 개통</a>
+          <div class="source-desc">오마이뉴스 — 취약계층 정보 도용 불법 개통 수법 근거</div>
+        </div>
+      </li>
+      <li>
+        <span class="source-num">06</span>
+        <div>
+          <a href="https://www.hankyung.com/article/2022081939367" target="_blank">고객 유심으로 몰래 결제…5000만원 쓴 휴대폰 대리점 직원</a>
+          <div class="source-desc">한국경제 — 2022.08.19 | 유심 도용 소액결제 5,000만원 사건 근거</div>
+        </div>
+      </li>
+      <li>
+        <span class="source-num">07</span>
+        <div>
+          <a href="https://www.smarttoday.co.kr/news/articleView.html?idxno=30314" target="_blank">공정위 과징금 SKT 168억 vs. LGU+ 28억 차이…왜?</a>
+          <div class="source-desc">스마트투데이 — 5G 허위광고 공정위 과징금 336억원 근거</div>
+        </div>
+      </li>
+      <li>
+        <span class="source-num">08</span>
+        <div>
+          <a href="https://www.dementianews.co.kr/news/articleView.html?idxno=10512" target="_blank">돌봄 공백 노린 '노인 사기' 기승…현금·사은품 미끼로 유심 개통</a>
+          <div class="source-desc">치매뉴스 — 요양원·양로원 노인 대상 유심 개통 사기 사례 근거</div>
+        </div>
+      </li>
+      <li>
+        <span class="source-num">09</span>
+        <div>
+          <a href="https://www.business-humanrights.org/ko/%EC%B5%9C%EC%8B%A0-%EB%89%B4%EC%8A%A4/%ED%95%9C%EA%B5%AD-%EC%83%88%EB%A1%9C%EC%9A%B4-%EC%97%BC%EC%A0%84-%EB%85%B8%EC%98%88-%EC%B0%A9%EC%B7%A8-%EC%82%AC%EB%A1%80-%EB%B0%9C%EA%B2%AC-%EC%8B%9C%EB%AF%BC%EC%82%AC%ED%9A%8C-%EA%B7%9C%ED%83%84/" target="_blank">한국: 새로운 장애인 염전 노예 착취 사례 발견</a>
+          <div class="source-desc">Business & Human Rights Centre — 염전 노예 사건, 취약계층 착취 비교 근거</div>
+        </div>
+      </li>
+      <li>
+        <span class="source-num">10</span>
+        <div>
+          <a href="https://www.kca.go.kr/odr/pg/ma/pgProcssInfo2.do" target="_blank">한국소비자원 피해구제 신청 방법</a>
+          <div class="source-desc">한국소비자원 공식 — 소비자 피해구제 절차 및 처리 기간 30일 근거</div>
+        </div>
+      </li>
+      <li>
+        <span class="source-num">11</span>
+        <div>
+          <a href="https://www.kait.or.kr/user/MainMenuList.do?menuSeq=14&visitChk=Y" target="_blank">이동전화 불공정행위 신고센터 (KAIT)</a>
+          <div class="source-desc">한국정보통신진흥협회 — 불공정행위 신고 절차 근거</div>
+        </div>
+      </li>
+      <li>
+        <span class="source-num">12</span>
+        <div>
+          <a href="https://boda.or.kr/Subject/law.php?tmenu=36&smenu=&fmenu=&stitle=&tsort=36&msort=54&board_code=23&board=23&s_category_name=&key=&no=92397&mode=detail&page=1" target="_blank">발달장애인 스마트폰 사기 개통 근절을 위한 법제도 개선 토론회</a>
+          <div class="source-desc">보다센터 — 해외 비교(호주·일본) 법제도 근거, 서울대 김남희 변호사 발언</div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+</div><!-- /.deck -->
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>← 이전</button>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill" style="width:8.33%"></div>
+  </div>
+  <span class="slide-counter" id="slideCounter">1 / 12</span>
+  <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">다음 →</button>
+</nav>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  function changeSlide(dir) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, current + dir));
+    slides[current].classList.add('active');
+    update();
+  }
+
+  function update() {
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === total - 1;
+    document.getElementById('slideCounter').textContent = `${current + 1} / ${total}`;
+    document.getElementById('progressFill').style.width = `${((current + 1) / total) * 100}%`;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changeSlide(-1);
+  });
+
+  update();
+</script>
+</body>
+</html>
