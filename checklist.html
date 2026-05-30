@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SKT 피해 대응 체크리스트</title>
+<style>
+  :root {
+    --bg:      #0d1b2a;
+    --surface: #111f30;
+    --border:  #1e3048;
+    --red:     #e63946;
+    --orange:  #f4a261;
+    --yellow:  #e9c46a;
+    --teal:    #2a9d8f;
+    --green:   #4ade80;
+    --gray:    #64748b;
+    --muted:   #94a3b8;
+    --text:    #e2e8f0;
+    --white:   #f1faee;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    max-width: 720px;
+    margin: 0 auto 36px;
+  }
+  .header-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 10px;
+  }
+  .header h1 {
+    font-size: clamp(22px, 4vw, 34px); font-weight: 800;
+    line-height: 1.2; letter-spacing: -.02em;
+  }
+  .header p {
+    margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.65;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    max-width: 720px; margin: 0 auto 32px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px 22px;
+  }
+  .progress-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px;
+  }
+  .progress-label { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .progress-count { font-size: 22px; font-weight: 800; color: var(--green); }
+  .progress-bar-bg {
+    height: 8px; background: #1e3048; border-radius: 99px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; background: linear-gradient(90deg, var(--teal), var(--green));
+    border-radius: 99px; transition: width .4s cubic-bezier(.4,0,.2,1);
+    width: 0%;
+  }
+
+  /* ── PHASE ── */
+  .phase {
+    max-width: 720px; margin: 0 auto 28px;
+  }
+  .phase-title {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .phase-badge {
+    font-size: 10px; font-weight: 800; letter-spacing: .12em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 999px;
+  }
+  .phase-name { font-size: 16px; font-weight: 700; }
+  .phase-desc { font-size: 12px; color: var(--muted); margin-left: auto; }
+
+  /* ── ITEM ── */
+  .item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    transition: border-color .2s, background .2s;
+    cursor: pointer;
+    user-select: none;
+  }
+  .item:hover { border-color: #2a4060; }
+  .item.done {
+    background: #0a1a0a;
+    border-color: #1a3a1a;
+  }
+  .item.done .item-title { color: var(--gray); text-decoration: line-through; }
+  .item.done .item-desc  { color: #3a5a3a; }
+
+  .item-inner {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 18px;
+  }
+
+  .checkbox {
+    width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+    border: 2px solid var(--border); margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s;
+    background: transparent;
+  }
+  .item.done .checkbox {
+    background: var(--green); border-color: var(--green);
+  }
+  .check-icon { display: none; }
+  .item.done .check-icon { display: block; }
+
+  .item-body { flex: 1; }
+  .item-title {
+    font-size: 14px; font-weight: 600; color: var(--white);
+    line-height: 1.4; margin-bottom: 3px;
+  }
+  .item-desc {
+    font-size: 12px; color: var(--muted); line-height: 1.55;
+  }
+
+  .item-meta {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px;
+  }
+  .tag {
+    font-size: 10px; font-weight: 700; padding: 2px 8px;
+    border-radius: 999px; letter-spacing: .04em;
+  }
+
+  /* priority colors */
+  .urgent  { color: var(--red);    border: 1px solid #e6394744; background: #e6394710; }
+  .high    { color: var(--orange); border: 1px solid #f4a26144; background: #f4a26110; }
+  .med     { color: var(--yellow); border: 1px solid #e9c46a44; background: #e9c46a10; }
+  .low     { color: var(--teal);   border: 1px solid #2a9d8f44; background: #2a9d8f10; }
+  .free    { color: var(--green);  border: 1px solid #4ade8044; background: #4ade8010; }
+
+  /* phase accent colors */
+  .ph-red    .phase-badge { background: #e6394722; color: var(--red);    border: 1px solid #e6394755; }
+  .ph-orange .phase-badge { background: #f4a26122; color: var(--orange); border: 1px solid #f4a26155; }
+  .ph-yellow .phase-badge { background: #e9c46a22; color: var(--yellow); border: 1px solid #e9c46a55; }
+  .ph-teal   .phase-badge { background: #2a9d8f22; color: var(--teal);   border: 1px solid #2a9d8f55; }
+  .ph-green  .phase-badge { background: #4ade8022; color: var(--green);  border: 1px solid #4ade8055; }
+  .ph-red    .phase-name  { color: var(--red); }
+  .ph-orange .phase-name  { color: var(--orange); }
+  .ph-yellow .phase-name  { color: var(--yellow); }
+  .ph-teal   .phase-name  { color: var(--teal); }
+  .ph-green  .phase-name  { color: var(--green); }
+
+  /* ── RESET BTN ── */
+  .reset-btn {
+    display: block; max-width: 720px; margin: 24px auto 0;
+    background: transparent; border: 1px solid var(--border);
+    color: var(--gray); padding: 10px; border-radius: 10px;
+    font-size: 13px; cursor: pointer; font-family: inherit;
+    transition: all .2s; text-align: center;
+  }
+  .reset-btn:hover { border-color: var(--gray); color: var(--muted); }
+
+  /* ── NOTICE BOX ── */
+  .notice {
+    max-width: 720px; margin: 0 auto 28px;
+    background: #e9c46a0d; border: 1px solid #e9c46a33;
+    border-radius: 12px; padding: 14px 18px;
+    font-size: 13px; color: #e9c46a; line-height: 1.6;
+  }
+  .notice strong { color: var(--white); }
+
+  /* ── COMPLETE BANNER ── */
+  .complete-banner {
+    display: none;
+    max-width: 720px; margin: 0 auto 28px;
+    background: #4ade8011; border: 1px solid #4ade8044;
+    border-radius: 12px; padding: 18px 22px; text-align: center;
+  }
+  .complete-banner.show { display: block; }
+  .complete-banner h2 { font-size: 20px; color: var(--green); margin-bottom: 6px; }
+  .complete-banner p  { font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">SKT 피해 대응 · 실전 행동 목록</div>
+  <h1>지금 당장 해야 할 일<br><span style="color:var(--teal);">체크리스트</span></h1>
+  <p>현금완납 요청 후 할부 삽입 피해 — 기초수급자 대응 순서대로 정리.<br>
+  완료한 항목을 클릭하면 체크됩니다. 진행 상황이 자동 저장됩니다.</p>
+</div>
+
+<!-- 진행률 -->
+<div class="progress-wrap">
+  <div class="progress-header">
+    <span class="progress-label">전체 진행률</span>
+    <span class="progress-count" id="progressCount">0 / 21</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+</div>
+
+<!-- 완료 배너 -->
+<div class="complete-banner" id="completeBanner">
+  <h2>모든 항목 완료!</h2>
+  <p>할 수 있는 모든 압박 수단을 동원했습니다. 이제 기관의 처리를 기다리세요.<br>
+  법률구조공단이 소송까지 무료로 대리해 줍니다.</p>
+</div>
+
+<div class="notice">
+  ⚡ <strong>핵심 전략</strong>: 한 기관에만 신고하면 묻힌다.
+  방통위 + 소비자원 + 경찰에 <strong>동시에</strong> 넣는 것이 본사에 가장 큰 압박이 된다.
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PHASE 1 — 증거 확보
+══════════════════════════════════════════ -->
+<div class="phase ph-red">
+  <div class="phase-title">
+    <span class="phase-badge">STEP 1</span>
+    <span class="phase-name">증거 확보</span>
+    <span class="phase-desc">지금 당장 · 무료</span>
+  </div>
+
+  <div class="item" data-id="ev1" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox">
+        <svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none">
+          <path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="item-body">
+        <div class="item-title">T월드 앱에서 할부 현황 캡처</div>
+        <div class="item-desc">T월드 앱 → [나의 정보] → 단말기 할부 잔액·개월수·월 납부금 스크린샷 저장</div>
+        <div class="item-meta"><span class="tag urgent">최우선</span><span class="tag free">무료</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="ev2" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">개통 당일 문자 메시지 전체 보존</div>
+        <div class="item-desc">SKT에서 온 개통 확인 문자, 요금 안내 문자 모두 스크린샷 또는 백업. 삭제하면 절대 안 됨</div>
+        <div class="item-meta"><span class="tag urgent">최우선</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="ev3" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">현금 납부 영수증 또는 계좌 이체 내역 확보</div>
+        <div class="item-desc">"현금 완납했다"는 증거. 계좌이체 내역서, 현금영수증, 카드 영수증 중 해당하는 것 출력</div>
+        <div class="item-meta"><span class="tag urgent">최우선</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="ev4" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">대리점에 계약서 원본 교부 서면 요청</div>
+        <div class="item-desc">문자 또는 서면으로 "계약서 사본 교부 요청"을 남긴다. 거부하면 그 사실 자체가 추가 증거가 됨</div>
+        <div class="item-meta"><span class="tag urgent">최우선</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="ev5" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">대리점 직원과의 대화 내용 보존</div>
+        <div class="item-desc">카카오톡, 문자, 메모 등 직원과 나눈 대화 전부. "현금완납"을 언급한 내용이 있으면 특히 중요</div>
+        <div class="item-meta"><span class="tag high">높음</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PHASE 2 — 내용증명 발송
+══════════════════════════════════════════ -->
+<div class="phase ph-orange">
+  <div class="phase-title">
+    <span class="phase-badge">STEP 2</span>
+    <span class="phase-name">내용증명 발송</span>
+    <span class="phase-desc">우체국 · 약 2,000원</span>
+  </div>
+
+  <div class="item" data-id="cer1" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">내용증명 작성 — 계약 취소 의사 표시</div>
+        <div class="item-desc">
+          반드시 포함할 문구:<br>
+          ① "민법 제110조에 의한 기망에 의한 계약 취소 의사 표시"<br>
+          ② "민법 제741조 부당이득반환 청구 예정"<br>
+          ③ "방통위·공정위·경찰 동시 신고 진행 중"
+        </div>
+        <div class="item-meta"><span class="tag high">높음</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="cer2" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">우체국 내용증명 발송 (대리점 + SKT 본사 동시)</div>
+        <div class="item-desc">우체국 창구에서 접수. 대리점 주소와 SKT 본사 주소(서울 중구 을지로 65) 두 곳에 동시 발송. 발송 날짜가 법적 효력 기준</div>
+        <div class="item-meta"><span class="tag high">높음</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PHASE 3 — 동시다발 신고
+══════════════════════════════════════════ -->
+<div class="phase ph-yellow">
+  <div class="phase-title">
+    <span class="phase-badge">STEP 3</span>
+    <span class="phase-name">동시다발 신고</span>
+    <span class="phase-desc">전부 무료 · 같은 날 진행</span>
+  </div>
+
+  <div class="item" data-id="rep1" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">방송통신위원회 신고 (☎ 1335)</div>
+        <div class="item-desc">전기통신사업법 제50조 위반 신고. SKT 본사 행정 조사 압박 효과. kcc.go.kr 온라인 신고 가능</div>
+        <div class="item-meta"><span class="tag urgent">최우선</span><span class="tag free">무료</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="rep2" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">한국소비자원 피해구제 신청 (☎ 1372)</div>
+        <div class="item-desc">consumer.go.kr 온라인 접수. 30일 내 처리, 합의 불성립 시 소비자분쟁조정위원회 조정 자동 이관</div>
+        <div class="item-meta"><span class="tag urgent">최우선</span><span class="tag free">무료</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="rep3" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">경찰 사기·사문서위조 고소장 제출 (☎ 112)</div>
+        <div class="item-desc">가까운 경찰서 민원실에 고소장 접수. 죄명: 사기죄(형법 347조), 사문서위조(231조). 고소장 양식은 경찰청 사이트 또는 법률구조공단 도움 요청</div>
+        <div class="item-meta"><span class="tag urgent">최우선</span><span class="tag free">무료</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="rep4" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">KAIT 이동전화 불공정행위 신고센터</div>
+        <div class="item-desc">kait.or.kr → 이동전화 불공정행위 신고. 대리점에 직접 자율정화 압박 + 유통점 제재 절차 개시</div>
+        <div class="item-meta"><span class="tag high">높음</span><span class="tag free">무료</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="rep5" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">공정거래위원회 신고 (ftc.go.kr)</div>
+        <div class="item-desc">불공정거래행위 신고. SKT 본사의 인센티브 구조 자체를 문제 삼아 신고. 시정명령·과징금 압박</div>
+        <div class="item-meta"><span class="tag high">높음</span><span class="tag free">무료</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="rep6" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">과기정통부 민원 (☎ 110)</div>
+        <div class="item-desc">전기통신 민원 접수. 신고 시 경찰청 동시 접수 가능. 행정+형사 이중 압박</div>
+        <div class="item-meta"><span class="tag med">보통</span><span class="tag free">무료</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PHASE 4 — SKT 내부 에스컬레이션
+══════════════════════════════════════════ -->
+<div class="phase ph-teal">
+  <div class="phase-title">
+    <span class="phase-badge">STEP 4</span>
+    <span class="phase-name">SKT 내부 에스컬레이션</span>
+    <span class="phase-desc">고객센터 일반 상담원은 권한 없음</span>
+  </div>
+
+  <div class="item" data-id="esc1" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">114 전화 → "민원 책임자 연결" 요청</div>
+        <div class="item-desc">일반 상담원에게 "고객권익보호실 연결해달라"고 요청. 거부하면 "방통위 신고 진행 중"이라고 명시</div>
+        <div class="item-meta"><span class="tag high">높음</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="esc2" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">모든 통화 내용 녹음</div>
+        <div class="item-desc">통화 시작 전 스마트폰 녹음 앱 실행. 상담원 이름·시간 메모. 추후 분쟁에서 중요한 증거가 됨</div>
+        <div class="item-meta"><span class="tag high">높음</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PHASE 5 — 무료 법률 지원
+══════════════════════════════════════════ -->
+<div class="phase ph-green">
+  <div class="phase-title">
+    <span class="phase-badge">STEP 5</span>
+    <span class="phase-name">무료 법률 지원 활용</span>
+    <span class="phase-desc">기초수급자 — 소송까지 전부 0원</span>
+  </div>
+
+  <div class="item" data-id="leg1" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">법률구조공단 상담 신청 (☎ 132)</div>
+        <div class="item-desc">기초수급자는 착수금·변호사 비용 완전 무료. 고소장 작성, 소장 작성, 법정 대리까지 전부 지원. 가까운 지부 방문 또는 전화</div>
+        <div class="item-meta"><span class="tag urgent">최우선</span><span class="tag free">완전 무료</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="leg2" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">주민센터 복지사에게 동행 지원 요청</div>
+        <div class="item-desc">담당 복지사에게 사건 경위 설명, 각 기관 신고 시 동행 요청. 기초수급자 권리 지원 업무 범위에 해당</div>
+        <div class="item-meta"><span class="tag high">높음</span><span class="tag free">무료</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="leg3" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">지역 소비자단체 연락</div>
+        <div class="item-desc">한국소비자단체협의회 소속 지역 단체. 대리 신고, 협상 지원, 피해 확산 방지 캠페인 연계 가능</div>
+        <div class="item-meta"><span class="tag med">보통</span><span class="tag free">무료</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PHASE 6 — 언론·SNS 공론화
+══════════════════════════════════════════ -->
+<div class="phase" style="max-width:720px; margin:0 auto 28px;">
+  <div class="phase-title">
+    <span class="phase-badge" style="background:#a78bfa22; color:#a78bfa; border:1px solid #a78bfa55;">STEP 6</span>
+    <span class="phase-name" style="color:#a78bfa;">언론·SNS 공론화</span>
+    <span class="phase-desc">대기업이 가장 두려워하는 것</span>
+  </div>
+
+  <div class="item" data-id="pr1" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">소비자고발 전문 매체 제보</div>
+        <div class="item-desc">소비자가만드는신문 (consumernews.co.kr) → 제보 메뉴. 구체적 날짜·금액·대리점명 포함. 기초수급자 피해임을 명시하면 보도 우선순위 높음</div>
+        <div class="item-meta"><span class="tag med">보통</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="pr2" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">방송사 소비자 프로그램 제보</div>
+        <div class="item-desc">KBS 소비자리포트, MBC 불만제로 제보. "기초수급자 + 현금완납 후 할부 삽입" 조합은 방송 보도 가능성 높음</div>
+        <div class="item-meta"><span class="tag low">선택</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-id="pr3" onclick="toggle(this)">
+    <div class="item-inner">
+      <div class="checkbox"><svg class="check-icon" width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="#0d1b2a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="item-body">
+        <div class="item-title">SKT 공식 SNS에 사실 기반 공개 게시</div>
+        <div class="item-desc">구체적 날짜·금액만 적고 감정 표현 자제. 사실만 적으면 명예훼손 아님. SKT 인스타그램·X(트위터)·네이버 블로그 댓글 포함</div>
+        <div class="item-meta"><span class="tag low">선택</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<button class="reset-btn" onclick="resetAll()">↺ 체크 전체 초기화</button>
+
+<script>
+  const STORAGE_KEY = 'skt-checklist-v1';
+  const total = document.querySelectorAll('.item').length;
+
+  function getState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
+  }
+  function saveState(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+  }
+
+  function updateProgress() {
+    const done = document.querySelectorAll('.item.done').length;
+    document.getElementById('progressCount').textContent = `${done} / ${total}`;
+    document.getElementById('progressFill').style.width = `${(done / total) * 100}%`;
+    const banner = document.getElementById('completeBanner');
+    if (done === total) banner.classList.add('show');
+    else banner.classList.remove('show');
+  }
+
+  function toggle(el) {
+    const id = el.dataset.id;
+    el.classList.toggle('done');
+    const state = getState();
+    state[id] = el.classList.contains('done');
+    saveState(state);
+    updateProgress();
+  }
+
+  function resetAll() {
+    if (!confirm('모든 체크를 초기화할까요?')) return;
+    document.querySelectorAll('.item').forEach(el => el.classList.remove('done'));
+    saveState({});
+    updateProgress();
+  }
+
+  // restore on load
+  (function init() {
+    const state = getState();
+    document.querySelectorAll('.item').forEach(el => {
+      if (state[el.dataset.id]) el.classList.add('done');
+    });
+    updateProgress();
+  })();
+</script>
+</body>
+</html>
