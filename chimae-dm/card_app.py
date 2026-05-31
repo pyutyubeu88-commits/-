@@ -72,6 +72,9 @@ def _generate(api_key, quality, log, on_done):
         import card  # 그라운딩된 7일 콘텐츠
         import base64
 
+        import time
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+
         OUT.mkdir(exist_ok=True)
         client = OpenAI()
         specs = card.card_specs()
@@ -79,23 +82,32 @@ def _generate(api_key, quality, log, on_done):
         # gpt_image.py 의 프롬프트 빌더 재사용
         import gpt_image
 
-        log(f"🎨 gpt-image-2 로 {len(specs)}장 생성 시작 (품질: {quality})")
-        for i, s in enumerate(specs, 1):
-            log(f"   [{i}/{len(specs)}] {s['day']}일차 생성 중...")
+        log(f"🎨 gpt-image-2 로 {len(specs)}장 '동시' 생성 시작 (품질: {quality})")
+        log("   (한 장씩이 아니라 동시에 요청 → 훨씬 빠름)")
+        t0 = time.time()
+
+        def _one(s):
             resp = client.images.generate(
                 model="gpt-image-2",
                 prompt=gpt_image.build_prompt(s),
                 size="1024x1536",
                 quality=quality,
             )
-            img_b64 = resp.data[0].b64_json
             (OUT / f"gptcard_day{s['day']}.png").write_bytes(
-                base64.b64decode(img_b64)
+                base64.b64decode(resp.data[0].b64_json)
             )
-            log(f"   ✅ {s['day']}일차 완료")
+            return s["day"]
+
+        done = 0
+        with ThreadPoolExecutor(max_workers=len(specs)) as ex:
+            futures = [ex.submit(_one, s) for s in specs]
+            for fut in as_completed(futures):
+                day = fut.result()
+                done += 1
+                log(f"   ✅ {day}일차 완료  ({done}/{len(specs)}, {time.time()-t0:.0f}초)")
 
         log("")
-        log(f"🎉 완료! 총 {len(specs)}장 → {OUT}")
+        log(f"🎉 완료! 총 {len(specs)}장 · {time.time()-t0:.0f}초 → {OUT}")
         on_done(True)
     except Exception as e:
         log("")

@@ -169,15 +169,28 @@ def main():
             "❌ OPENAI_API_KEY 가 없습니다.\n"
             "   export OPENAI_API_KEY=sk-...  후 다시 실행하세요."
         )
+    import time
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
     OUT.mkdir(exist_ok=True)
     client = OpenAI()
     specs = card.card_specs()
-    print(f"gpt-image-2 로 {len(specs)}장 생성 시작 (size={SIZE}, quality={QUALITY})")
-    for s in specs:
+    print(f"gpt-image-2 로 {len(specs)}장 '동시' 생성 시작 (size={SIZE}, quality={QUALITY})")
+    t0 = time.time()
+
+    def _one(s):
         p = OUT / f"gptcard_day{s['day']}.png"
         generate_card(client, s, p)
-        print(f"  ✅ {s['day']}일차 → {p}")
-    print("완료. out_gpt/ 확인")
+        return s["day"], p
+
+    # 7장을 동시에 요청 → 순차 대비 대폭 단축
+    with ThreadPoolExecutor(max_workers=len(specs)) as ex:
+        futures = {ex.submit(_one, s): s for s in specs}
+        for fut in as_completed(futures):
+            day, p = fut.result()
+            print(f"  ✅ {day}일차 → {p}  ({time.time()-t0:.0f}초 경과)")
+
+    print(f"완료. 총 {time.time()-t0:.0f}초. out_gpt/ 확인")
 
 
 if __name__ == "__main__":
