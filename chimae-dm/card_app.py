@@ -21,6 +21,25 @@ from tkinter import ttk, messagebox
 
 BASE = Path(__file__).parent
 OUT = BASE / "out_gpt"
+KEY_FILE = BASE / ".openai_key"   # 로컬 저장 (gitignore 처리됨, 절대 커밋 안 됨)
+
+
+def load_key() -> str:
+    """저장된 키 불러오기 (없으면 빈 문자열)."""
+    try:
+        if KEY_FILE.exists():
+            return KEY_FILE.read_text(encoding="utf-8").strip()
+    except Exception:
+        pass
+    return os.environ.get("OPENAI_API_KEY", "")
+
+
+def save_key(key: str):
+    """키를 로컬 파일에 저장 (다음 실행 시 자동 입력)."""
+    try:
+        KEY_FILE.write_text(key.strip(), encoding="utf-8")
+    except Exception:
+        pass
 
 
 def _ensure_deps(log):
@@ -131,10 +150,13 @@ def main():
         bg="#f4f7fb", fg="#5f6c7b", font=("맑은 고딕", 9),
     ).pack(anchor="w")
 
-    key_var = tk.StringVar()
+    key_var = tk.StringVar(value=load_key())   # 저장된 키 자동 입력
     key_entry = tk.Entry(body, textvariable=key_var, show="•",
                          font=("Consolas", 11), width=60)
     key_entry.pack(fill="x", pady=(4, 4), ipady=5)
+
+    optrow = tk.Frame(body, bg="#f4f7fb")
+    optrow.pack(anchor="w", fill="x")
 
     show_var = tk.BooleanVar(value=False)
 
@@ -142,10 +164,20 @@ def main():
         key_entry.config(show="" if show_var.get() else "•")
 
     tk.Checkbutton(
-        body, text="키 보이기", variable=show_var, command=toggle_show,
+        optrow, text="키 보이기", variable=show_var, command=toggle_show,
         bg="#f4f7fb", fg="#5f6c7b", font=("맑은 고딕", 9),
         activebackground="#f4f7fb", selectcolor="#f4f7fb",
-    ).pack(anchor="w")
+    ).pack(side="left")
+
+    remember_var = tk.BooleanVar(value=True)
+    tk.Checkbutton(
+        optrow, text="이 PC에 키 저장 (다음부터 자동 입력)", variable=remember_var,
+        bg="#f4f7fb", fg="#5f6c7b", font=("맑은 고딕", 9),
+        activebackground="#f4f7fb", selectcolor="#f4f7fb",
+    ).pack(side="left", padx=10)
+
+    if load_key():
+        key_entry.config(show="•")
 
     # ── 품질 선택 ──
     qframe = tk.Frame(body, bg="#f4f7fb")
@@ -208,6 +240,8 @@ def main():
         if not key.startswith("sk-"):
             if not messagebox.askyesno("확인", "키 형식이 일반적이지 않습니다. 계속할까요?"):
                 return
+        if remember_var.get():
+            save_key(key)        # 다음 실행부터 자동 입력
         gen_btn.config(state="disabled", text="생성 중...")
         log_box.delete("1.0", "end")
         threading.Thread(
@@ -218,7 +252,10 @@ def main():
 
     gen_btn.config(command=start)
 
-    log("준비 완료. API 키를 붙여넣고 [카드 7장 생성]을 누르세요.")
+    if load_key():
+        log("저장된 API 키를 불러왔습니다. [카드 7장 생성]을 누르세요.")
+    else:
+        log("준비 완료. API 키를 한 번만 붙여넣으면 다음부터 자동 입력됩니다.")
     root.mainloop()
 
 
