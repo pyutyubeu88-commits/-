@@ -30,7 +30,7 @@ QUALITY = "high"        # low / medium / high
 # 단, 자체 제작 광고물(5~7일차)은 회사 광고심의를 거쳐 심의필 번호를 받아야 한다.
 # 공식 로고/심볼은 회사 승인 자산(브랜드 가이드)을 받아 쓰는 것이 원칙.
 AGENT_NAME = "롯데손해보험 전속설계사 권용준"
-AGENT_TEL  = "010-0000-0000"   # TODO: 실제 연락처로 교체
+AGENT_TEL  = "010-6783-2588"   # 설계사 연락처
 LOTTE_RED  = "#DA291C"   # LOTTE Red (Pantone 186C 계열, 화면용 근사값)
 INK_NAVY   = "#2b2b2b"   # 본문 가독용 딥 그레이/네이비
 
