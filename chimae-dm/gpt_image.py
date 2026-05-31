@@ -126,8 +126,16 @@ def build_prompt(spec: dict) -> str:
     motif = MOTIF.get(spec["day"], "")
     data_section = _data_block_lines(spec)
 
+    # 1일차 안부 카드: AI 창작 통계/섹션 삽입 방지
+    no_extra = (
+        "⚠️ 중요: 아래 지정된 텍스트 외에 어떤 통계·수치·퍼센트·리스트·체크포인트도 "
+        "임의로 추가하지 말 것. 지정된 내용만 정확히 렌더링.\n\n"
+        if spec["day"] == 1 else ""
+    )
+
     return (
         # ── 스타일/품질 지시 (wonder 카드뉴스 = 사용자 검증 고퀄 기준) ──
+        f"{no_extra}"
         "한국 보험사 공식 SNS 카드뉴스 수준의 프리미엄 인포그래픽 1장. 세로형(1024x1536). "
         "전체 톤: 깔끔한 연한 피치/아이보리 배경 위에 흰색 둥근 카드 패널들이 층층이 쌓인 "
         "정보 풍부한 인포그래픽. 픽사풍 3D 렌더 캐릭터로 따뜻함을, 색상 헤더 바와 큰 숫자로 "
@@ -163,11 +171,46 @@ def generate_card(client: OpenAI, spec: dict, out_path: Path):
     return out_path
 
 
+def export_prompts(out_dir: Path = None) -> Path:
+    """API 호출 없이 7장 프롬프트를 텍스트로 저장 (젠스파크 등에 붙여넣기용).
+
+    OpenAI 결제 한도/비용 없이, 무제한 이미지 생성 도구(젠스파크 gpt-image-2 등)에
+    그대로 복사-붙여넣기 할 수 있는 프롬프트 모음을 만든다.
+    """
+    out_dir = out_dir or (BASE / "prompts")
+    out_dir.mkdir(exist_ok=True)
+    specs = card.card_specs()
+
+    # 일자별 개별 파일
+    for s in specs:
+        (out_dir / f"prompt_day{s['day']}.txt").write_text(
+            build_prompt(s), encoding="utf-8"
+        )
+
+    # 한 파일에 전부 모은 통합본
+    combined = []
+    for s in specs:
+        combined.append(f"{'='*60}\n[{s['day']}일차] {s['badge']} — {s['headline']}\n{'='*60}\n")
+        combined.append(build_prompt(s))
+        combined.append("\n\n")
+    (out_dir / "ALL_prompts.txt").write_text("".join(combined), encoding="utf-8")
+    return out_dir
+
+
 def main():
+    import sys
+    # 'prompts' 인자를 주면 API 없이 프롬프트만 내보낸다.
+    if len(sys.argv) > 1 and sys.argv[1] == "prompts":
+        d = export_prompts()
+        print(f"✅ 프롬프트 {len(card.card_specs())}장 + 통합본 저장 → {d}")
+        print("   젠스파크 등 이미지 생성기에 ALL_prompts.txt 내용을 붙여넣어 사용하세요.")
+        return
+
     if not os.environ.get("OPENAI_API_KEY"):
         raise SystemExit(
             "❌ OPENAI_API_KEY 가 없습니다.\n"
-            "   export OPENAI_API_KEY=sk-...  후 다시 실행하세요."
+            "   export OPENAI_API_KEY=sk-...  후 다시 실행하세요.\n"
+            "   (또는 'python gpt_image.py prompts' 로 프롬프트만 내보내기)"
         )
     import time
     from concurrent.futures import ThreadPoolExecutor, as_completed

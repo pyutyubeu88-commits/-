@@ -4,3 +4,4 @@ __pycache__/
 .openai_key
 out/
 out_gpt/
+prompts/

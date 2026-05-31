@@ -238,6 +238,36 @@ def main():
     )
     folder_btn.pack(side="left", ipady=8, padx=(4, 0))
 
+    def export_prompts_action():
+        """API 호출 없이 7장 프롬프트만 텍스트로 내보내기 (젠스파크 등 무제한 도구용)."""
+        try:
+            import gpt_image
+            d = gpt_image.export_prompts()
+            log("")
+            log(f"📋 프롬프트 7장 + 통합본 저장 완료 → {d}")
+            log("   ALL_prompts.txt 내용을 젠스파크 이미지 생성기에 붙여넣으세요.")
+            if sys.platform == "win32":
+                os.startfile(d)  # type: ignore
+            elif sys.platform == "darwin":
+                subprocess.run(["open", str(d)])
+            else:
+                subprocess.run(["xdg-open", str(d)])
+            messagebox.showinfo(
+                "프롬프트 내보내기 완료",
+                "API 결제 없이 프롬프트 7장을 텍스트로 저장했습니다.\n"
+                "prompts 폴더의 파일을 젠스파크 등에 붙여넣어 무제한 생성하세요.",
+            )
+        except Exception as e:
+            log(f"❌ 프롬프트 내보내기 오류: {e}")
+
+    prompt_btn = tk.Button(
+        btn_frame, text="📋 프롬프트만\n(젠스파크용)", bg="#2b5f8f", fg="white",
+        font=("맑은 고딕", 10, "bold"), relief="flat", cursor="hand2",
+        activebackground="#1f4a73", activeforeground="white",
+        command=export_prompts_action,
+    )
+    prompt_btn.pack(side="left", ipady=4, padx=(4, 0))
+
     def on_done(ok):
         gen_btn.config(state="normal", text="🎨 카드 7장 생성")
         if ok:
