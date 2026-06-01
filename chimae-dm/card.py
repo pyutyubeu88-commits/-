@@ -139,9 +139,9 @@ def make_card(
 def card_specs():
     """일자별 카드 사양. (text DM과 짝이 되는 시각 버전)"""
     return [
-        dict(day=1, badge="안부", headline="환절기,\n건강 잘 챙기세요",
-             big="", body="늘 마음 쓰며 안부 전합니다.\n오늘도 평안한 하루 되세요.",
-             hook="두 분 부모님 모두 건강하시죠?", is_ad=False),
+        dict(day=1, badge="안부", headline="벌써 여름,\n건강 잘 챙기세요",
+             big="", body="초여름 더위가 일찍 찾아왔습니다.\n수분 자주 드시고, 한낮 무리한 활동은\n잠시 쉬어가시는 게 좋다고 해요.",
+             hook="요즘 건강은 어떻게 챙기고 계세요?", is_ad=False),
         dict(day=2, badge="치매 현실", headline="이제 10명 중 1명",
              big="105만 명", body="2025년 65세 이상 추정 치매환자 수.\n더는 남의 일이 아닙니다.",
              hook="주변에 치매로 고생하신 분, 보신 적 있으세요?", is_ad=False),
