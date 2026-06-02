@@ -5,3 +5,5 @@ __pycache__/
 out/
 out_gpt/
 prompts/
+customers.json
+send_log.json
