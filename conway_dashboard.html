@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Conway 대시보드</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f1117;--card:#181a20;--card2:#1e2028;--bdr:#23263a;--tx1:#e5e7ef;--tx2:#9ca3af;--blu:#3b82f6;--grn:#10b981;--red:#ef4444;--yl:#fbbf24;--pink:#ec4899;--pu:#8b5cf6;--r:12px}
+body{font-family:'Noto Sans KR','Pretendard',sans-serif;background:var(--bg);color:var(--tx1);min-height:100vh}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+.sidebar{background:var(--card);border-right:1px solid var(--bdr);padding:20px 0}
+.logo{padding:0 20px 20px;border-bottom:1px solid var(--bdr);margin-bottom:12px}
+.logo h1{font-size:18px;font-weight:900;background:linear-gradient(135deg,var(--blu),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo .sub{font-size:11px;color:var(--tx2);margin-top:2px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;color:var(--tx2);font-size:13px;font-weight:500;transition:.15s;border-left:3px solid transparent}
+.nav-item:hover{background:rgba(59,130,246,.06);color:var(--tx1)}
+.nav-item.on{background:rgba(59,130,246,.1);color:var(--blu);border-left-color:var(--blu)}
+.nav-icon{font-size:16px;width:20px;text-align:center}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--red);margin-left:auto;flex-shrink:0}
+.status-dot.on{background:var(--grn)}
+.main{padding:24px;overflow-y:auto}
+.page{display:none}.page.on{display:block}
+.page-title{font-size:20px;font-weight:900;margin-bottom:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:16px 20px}
+.stat-label{font-size:11px;color:var(--tx2);margin-bottom:4px}
+.stat-val{font-size:28px;font-weight:900}
+.stat-val.blu{color:var(--blu)}.stat-val.grn{color:var(--grn)}.stat-val.yl{color:var(--yl)}
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;margin-bottom:16px}
+.card-head{padding:14px 18px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+.card-head h3{font-size:14px;font-weight:700}
+.card-body{padding:16px 18px}
+.task-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--bdr)}
+.task-item:last-child{border-bottom:none}
+.task-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.badge-pending{background:rgba(251,191,36,.15);color:var(--yl)}
+.badge-processing{background:rgba(59,130,246,.15);color:var(--blu)}
+.badge-done{background:rgba(16,185,129,.15);color:var(--grn)}
+.badge-queued{background:rgba(139,92,246,.15);color:var(--pu)}
+.badge-failed{background:rgba(239,68,68,.15);color:var(--red)}
+.task-info{flex:1;min-width:0}
+.task-title{font-size:13px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.task-meta{font-size:11px;color:var(--tx2)}
+.task-actions{display:flex;gap:6px;flex-shrink:0}
+.btn{padding:6px 14px;border-radius:8px;border:none;font-weight:700;font-size:12px;cursor:pointer;transition:.15s}
+.btn-pr{background:var(--blu);color:#fff}.btn-pr:hover{opacity:.85}
+.btn-gn{background:var(--grn);color:#fff}.btn-gn:hover{opacity:.85}
+.btn-rd{background:rgba(239,68,68,.2);color:var(--red);border:1px solid rgba(239,68,68,.3)}.btn-rd:hover{background:rgba(239,68,68,.3)}
+.btn-sm{padding:4px 10px;font-size:11px}
+.inp{width:100%;background:var(--card2);border:1px solid var(--bdr);border-radius:8px;padding:10px 12px;color:var(--tx1);font-size:13px;outline:none;margin-bottom:8px}
+.inp:focus{border-color:var(--blu)}
+textarea.inp{min-height:80px;resize:vertical;font-family:inherit}
+.row{display:flex;gap:8px;align-items:flex-start}
+.form-label{font-size:12px;color:var(--tx2);margin-bottom:4px}
+.event-item{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid rgba(35,38,58,.5);font-size:12px}
+.event-time{color:var(--tx2);white-space:nowrap;flex-shrink:0}
+.event-type{color:var(--blu);font-weight:600;white-space:nowrap;flex-shrink:0;width:150px}
+.event-data{color:var(--tx2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.memory-box{background:var(--card2);border:1px solid var(--bdr);border-radius:8px;padding:14px;font-size:13px;line-height:1.8;white-space:pre-wrap;max-height:400px;overflow-y:auto;font-family:monospace}
+.ext-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--bdr)}
+.ext-item:last-child{border-bottom:none}
+.ext-name{font-weight:700;font-size:13px}
+.ext-desc{font-size:12px;color:var(--tx2);margin-top:2px}
+.alert{padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px}
+.alert-grn{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);color:var(--grn)}
+.alert-rd{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:var(--red)}
+.server-url{font-size:12px;color:var(--tx2);background:var(--card2);padding:8px 12px;border-radius:6px;font-family:monospace;margin-bottom:12px}
+.result-box{background:var(--card2);border-radius:8px;padding:14px;font-size:12px;color:var(--tx2);max-height:300px;overflow-y:auto;white-space:pre-wrap;margin-top:8px;display:none}
+.copy-btn{font-size:11px;color:var(--tx2);cursor:pointer;padding:2px 8px;border:1px solid var(--bdr);border-radius:4px;background:transparent}
+.copy-btn:hover{color:var(--tx1)}
+</style>
+</head>
+<body>
+<div class="layout">
+  <div class="sidebar">
+    <div class="logo">
+      <h1>Conway</h1>
+      <div class="sub">Always-On Agent Platform</div>
+    </div>
+    <div class="nav-item on" onclick="showPage('dashboard')">
+      <span class="nav-icon">📊</span> 대시보드
+      <span class="status-dot" id="server-dot"></span>
+    </div>
+    <div class="nav-item" onclick="showPage('tasks')">
+      <span class="nav-icon">📋</span> 작업 큐
+    </div>
+    <div class="nav-item" onclick="showPage('webhook')">
+      <span class="nav-icon">🔗</span> 웹훅
+    </div>
+    <div class="nav-item" onclick="showPage('memory')">
+      <span class="nav-icon">🧠</span> 메모리
+    </div>
+    <div class="nav-item" onclick="showPage('extensions')">
+      <span class="nav-icon">🧩</span> 확장
+    </div>
+    <div class="nav-item" onclick="showPage('events')">
+      <span class="nav-icon">📡</span> 이벤트
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- 대시보드 -->
+    <div class="page on" id="page-dashboard">
+      <div class="page-title">대시보드</div>
+      <div class="grid3" id="stats"></div>
+      <div class="card">
+        <div class="card-head"><h3>최근 작업</h3><button class="btn btn-pr btn-sm" onclick="showPage('tasks')">전체 보기</button></div>
+        <div class="card-body" id="recent-tasks"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>최근 이벤트</h3></div>
+        <div class="card-body" id="recent-events"></div>
+      </div>
+    </div>
+
+    <!-- 작업 큐 -->
+    <div class="page" id="page-tasks">
+      <div class="page-title">작업 큐</div>
+      <div class="card">
+        <div class="card-head"><h3>새 작업 추가</h3></div>
+        <div class="card-body">
+          <div class="form-label">작업 제목</div>
+          <input class="inp" id="task-title" placeholder="예: 댓글 분석, 코드 리뷰...">
+          <div class="form-label">상세 설명</div>
+          <textarea class="inp" id="task-desc" placeholder="작업에 대한 자세한 설명..."></textarea>
+          <div class="row">
+            <input class="inp" id="task-ext" placeholder="확장 모듈 (선택)" style="margin:0">
+            <button class="btn btn-pr" onclick="addTask()">작업 추가</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <h3>전체 작업</h3>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-sm btn-gn" onclick="loadTasks()">새로고침</button>
+            <button class="btn btn-sm btn-rd" onclick="clearDone()">완료 삭제</button>
+          </div>
+        </div>
+        <div class="card-body" id="tasks-list"></div>
+      </div>
+    </div>
+
+    <!-- 웹훅 -->
+    <div class="page" id="page-webhook">
+      <div class="page-title">웹훅 설정</div>
+      <div class="card">
+        <div class="card-head"><h3>웹훅 엔드포인트</h3></div>
+        <div class="card-body">
+          <div class="form-label">서버 주소 (Conway 서버 실행 시 사용 가능)</div>
+          <div class="server-url">POST http://localhost:8765/webhook</div>
+          <div class="form-label" style="margin-top:12px">요청 형식 (JSON)</div>
+          <div class="server-url" style="white-space:pre">{
+  "title": "작업 제목",
+  "description": "작업 상세 설명",
+  "source": "github",
+  "extension": "확장모듈명 (선택)",
+  "payload": { "추가": "데이터" }
+}</div>
+          <div style="margin-top:16px">
+            <div class="form-label">웹훅 테스트</div>
+            <input class="inp" id="wh-title" placeholder="테스트 작업 제목">
+            <textarea class="inp" id="wh-body" placeholder="테스트 작업 설명"></textarea>
+            <button class="btn btn-pr" onclick="testWebhook()">웹훅 테스트 전송</button>
+          </div>
+          <div id="wh-result" style="margin-top:12px"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>활용 예시</h3></div>
+        <div class="card-body" style="font-size:13px;line-height:1.8;color:var(--tx2)">
+          <b style="color:var(--tx1)">GitHub Actions에서 자동 트리거:</b>
+          <div class="server-url" style="margin-top:8px;white-space:pre">- name: Notify Conway
+  run: |
+    curl -X POST http://your-server:8765/webhook \
+      -H "Content-Type: application/json" \
+      -d '{"title":"PR 머지됨","source":"github"}'</div>
+          <br>
+          <b style="color:var(--tx1)">cron으로 주기적 실행:</b>
+          <div class="server-url" style="margin-top:8px">0 9 * * * curl -X POST http://localhost:8765/task -d '{"title":"일일 리포트 생성"}'</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 메모리 -->
+    <div class="page" id="page-memory">
+      <div class="page-title">파일 메모리</div>
+      <div class="card">
+        <div class="card-head">
+          <h3>memory.md 내용</h3>
+          <button class="btn btn-sm btn-gn" onclick="loadMemory()">새로고침</button>
+        </div>
+        <div class="card-body">
+          <div class="memory-box" id="memory-content">로딩 중...</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>메모리에 기록</h3></div>
+        <div class="card-body">
+          <input class="inp" id="note-section" placeholder="섹션 이름 (예: 결정사항, 메모)" value="메모">
+          <textarea class="inp" id="note-content" placeholder="기억할 내용을 입력하세요..."></textarea>
+          <button class="btn btn-pr" onclick="addNote()">메모리에 저장</button>
+          <div id="note-result" style="margin-top:8px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 확장 -->
+    <div class="page" id="page-extensions">
+      <div class="page-title">확장 모듈</div>
+      <div class="card">
+        <div class="card-head"><h3>설치된 확장</h3></div>
+        <div class="card-body" id="ext-list">로딩 중...</div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>확장 형식 (.cnw.py)</h3></div>
+        <div class="card-body" style="font-size:13px;color:var(--tx2)">
+          <div class="server-url" style="white-space:pre"># 확장 설명 (첫 번째 줄)
+# 파일 위치: .conway/extensions/{이름}.cnw.py
+
+SYSTEM_PROMPT = """
+이 확장은 특정 도메인에 특화된 지시사항을 제공합니다.
+예: GitHub PR 리뷰, 코드 분석, 데이터 처리 등
+"""
+
+def on_task(task):
+    """작업 전처리 로직 (선택)"""
+    return task</div>
+          <p style="margin-top:12px">확장 파일을 <code>.conway/extensions/</code> 폴더에 저장하고,<br>작업 추가 시 확장 이름을 지정하세요.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 이벤트 -->
+    <div class="page" id="page-events">
+      <div class="page-title">이벤트 로그</div>
+      <div class="card">
+        <div class="card-head">
+          <h3>시스템 이벤트</h3>
+          <button class="btn btn-sm btn-gn" onclick="loadEvents()">새로고침</button>
+        </div>
+        <div class="card-body" id="events-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'http://localhost:8765';
+let serverOnline = false;
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('on'));
+  document.getElementById(`page-${name}`).classList.add('on');
+  event.currentTarget?.classList.add('on');
+
+  if(name === 'dashboard') loadDashboard();
+  else if(name === 'tasks') loadTasks();
+  else if(name === 'memory') loadMemory();
+  else if(name === 'extensions') loadExtensions();
+  else if(name === 'events') loadEvents();
+}
+
+async function apiGet(path) {
+  const r = await fetch(`${API}${path}`);
+  return r.json();
+}
+async function apiPost(path, data) {
+  const r = await fetch(`${API}${path}`, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(data)
+  });
+  return r.json();
+}
+async function apiDelete(path) {
+  const r = await fetch(`${API}${path}`, {method:'DELETE'});
+  return r.json();
+}
+
+function badge(status) {
+  return `<span class="task-badge badge-${status}">${
+    {pending:'⏳ 처리중',processing:'⚙️ 진행',done:'✅ 완료',queued:'📥 대기',failed:'❌ 실패'}[status]||status
+  }</span>`;
+}
+
+function fmtTime(iso) {
+  if(!iso) return '';
+  const d = new Date(iso);
+  return `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+async function loadDashboard() {
+  try {
+    const status = await apiGet('/status');
+    serverOnline = true;
+    document.getElementById('server-dot').classList.add('on');
+
+    document.getElementById('stats').innerHTML = `
+      <div class="stat-card"><div class="stat-label">전체 작업</div><div class="stat-val blu">${status.tasks.total}</div></div>
+      <div class="stat-card"><div class="stat-label">완료</div><div class="stat-val grn">${status.tasks.done}</div></div>
+      <div class="stat-card"><div class="stat-label">대기</div><div class="stat-val yl">${status.tasks.pending + status.tasks.queued}</div></div>
+    `;
+
+    const tasks = await apiGet('/tasks');
+    const recent = tasks.slice(-5).reverse();
+    document.getElementById('recent-tasks').innerHTML = recent.length
+      ? recent.map(t => `
+        <div class="task-item">
+          ${badge(t.status)}
+          <div class="task-info">
+            <div class="task-title">${t.title}</div>
+            <div class="task-meta">${fmtTime(t.created)} · ${t.source}</div>
+          </div>
+        </div>`).join('')
+      : '<div style="color:var(--tx2);font-size:13px">작업이 없습니다</div>';
+
+    const events = await apiGet('/events?limit=5');
+    document.getElementById('recent-events').innerHTML = events.length
+      ? events.reverse().map(e => `
+        <div class="event-item">
+          <span class="event-time">${fmtTime(e.time)}</span>
+          <span class="event-type">${e.type}</span>
+          <span class="event-data">${JSON.stringify(e.data)}</span>
+        </div>`).join('')
+      : '<div style="color:var(--tx2);font-size:13px">이벤트 없음</div>';
+
+  } catch(e) {
+    serverOnline = false;
+    document.getElementById('server-dot').classList.remove('on');
+    document.getElementById('stats').innerHTML = `
+      <div class="stat-card" style="grid-column:1/-1">
+        <div class="alert alert-rd">Conway 서버에 연결할 수 없습니다.<br>서버를 시작하세요: <code>python conway/server.py</code></div>
+        <div style="font-size:12px;color:var(--tx2);margin-top:8px">이 대시보드는 Conway 서버(port 8765)가 실행 중일 때 작동합니다.</div>
+      </div>`;
+    document.getElementById('recent-tasks').innerHTML = '';
+    document.getElementById('recent-events').innerHTML = '';
+  }
+}
+
+async function loadTasks() {
+  const el = document.getElementById('tasks-list');
+  try {
+    const tasks = await apiGet('/tasks');
+    el.innerHTML = tasks.length ? tasks.reverse().map(t => `
+      <div class="task-item">
+        ${badge(t.status)}
+        <div class="task-info">
+          <div class="task-title">${t.title}</div>
+          <div class="task-meta">${fmtTime(t.created)} · ${t.source}${t.extension?' · '+t.extension:''}</div>
+          ${t.result ? `<div class="result-box" id="res-${t.id}">${t.result.replace(/</g,'&lt;')}</div>` : ''}
+        </div>
+        <div class="task-actions">
+          ${t.result ? `<button class="btn btn-sm" onclick="toggleResult('${t.id}')">결과</button>` : ''}
+          <button class="btn btn-sm btn-rd" onclick="deleteTask('${t.id}')">삭제</button>
+        </div>
+      </div>`).join('')
+      : '<div style="color:var(--tx2);font-size:13px">작업이 없습니다</div>';
+  } catch(e) {
+    el.innerHTML = '<div class="alert alert-rd">서버 연결 실패</div>';
+  }
+}
+
+function toggleResult(id) {
+  const el = document.getElementById(`res-${id}`);
+  if(el) el.style.display = el.style.display === 'block' ? 'none' : 'block';
+}
+
+async function addTask() {
+  const title = document.getElementById('task-title').value.trim();
+  if(!title) return alert('제목을 입력하세요');
+  const desc = document.getElementById('task-desc').value.trim();
+  const ext = document.getElementById('task-ext').value.trim();
+  try {
+    await apiPost('/task', {title, description: desc, extension: ext||null, source:'dashboard'});
+    document.getElementById('task-title').value = '';
+    document.getElementById('task-desc').value = '';
+    document.getElementById('task-ext').value = '';
+    loadTasks();
+  } catch(e) { alert('서버 연결 실패'); }
+}
+
+async function deleteTask(id) {
+  try { await apiDelete(`/task/${id}`); loadTasks(); }
+  catch(e) { alert('서버 연결 실패'); }
+}
+
+async function clearDone() {
+  const tasks = await apiGet('/tasks');
+  const done = tasks.filter(t => t.status === 'done');
+  for(const t of done) await apiDelete(`/task/${t.id}`);
+  loadTasks();
+}
+
+async function loadMemory() {
+  try {
+    const data = await apiGet('/memory');
+    document.getElementById('memory-content').textContent = data.content || '(메모리가 비어 있습니다)';
+  } catch(e) {
+    document.getElementById('memory-content').textContent = '서버에 연결할 수 없습니다.\nmemory.md 파일을 직접 확인하세요.';
+  }
+}
+
+async function addNote() {
+  const section = document.getElementById('note-section').value.trim();
+  const content = document.getElementById('note-content').value.trim();
+  if(!content) return;
+  try {
+    await apiPost('/memory/note', {section, note: content});
+    document.getElementById('note-content').value = '';
+    document.getElementById('note-result').innerHTML = '<div class="alert alert-grn">저장되었습니다</div>';
+    loadMemory();
+    setTimeout(() => document.getElementById('note-result').innerHTML = '', 3000);
+  } catch(e) { alert('서버 연결 실패'); }
+}
+
+async function loadExtensions() {
+  const el = document.getElementById('ext-list');
+  try {
+    const exts = await apiGet('/extensions');
+    el.innerHTML = exts.length ? exts.map(e => `
+      <div class="ext-item">
+        <div>
+          <div class="ext-name">🧩 ${e.name}.cnw.py</div>
+          <div class="ext-desc">${e.description}</div>
+        </div>
+      </div>`).join('')
+      : '<div style="color:var(--tx2);font-size:13px">.conway/extensions/ 폴더에 .cnw.py 파일을 추가하세요</div>';
+  } catch(e) { el.innerHTML = '<div class="alert alert-rd">서버 연결 실패</div>'; }
+}
+
+async function loadEvents() {
+  const el = document.getElementById('events-list');
+  try {
+    const events = await apiGet('/events?limit=100');
+    el.innerHTML = events.length ? events.reverse().map(e => `
+      <div class="event-item">
+        <span class="event-time">${fmtTime(e.time)}</span>
+        <span class="event-type">${e.type}</span>
+        <span class="event-data">${JSON.stringify(e.data)}</span>
+      </div>`).join('')
+      : '<div style="color:var(--tx2);font-size:13px">이벤트 없음</div>';
+  } catch(e) { el.innerHTML = '<div class="alert alert-rd">서버 연결 실패</div>'; }
+}
+
+async function testWebhook() {
+  const title = document.getElementById('wh-title').value.trim() || '웹훅 테스트';
+  const body = document.getElementById('wh-body').value.trim();
+  const res = document.getElementById('wh-result');
+  try {
+    const data = await apiPost('/webhook', {title, description: body, source: 'dashboard-test'});
+    res.innerHTML = `<div class="alert alert-grn">✅ 작업 생성됨: ID ${data.task?.id}</div>`;
+  } catch(e) {
+    res.innerHTML = '<div class="alert alert-rd">서버 연결 실패 — Conway 서버를 먼저 시작하세요</div>';
+  }
+}
+
+// Auto-refresh every 30s
+loadDashboard();
+setInterval(loadDashboard, 30000);
+</script>
+</body>
+</html>

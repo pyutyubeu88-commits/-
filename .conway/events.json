@@ -1,0 +1,45 @@
+[
+  {
+    "id": "a30e046f",
+    "type": "server_start",
+    "time": "2026-06-03T04:18:34.159287",
+    "data": {
+      "port": 8765
+    }
+  },
+  {
+    "id": "21536e0a",
+    "type": "task_created",
+    "time": "2026-06-03T04:18:43.005317",
+    "data": {
+      "id": "3c5566ae",
+      "title": "index.html 코드 리뷰",
+      "source": "webhook-test"
+    }
+  },
+  {
+    "id": "7108ac1d",
+    "type": "task_processing",
+    "time": "2026-06-03T04:19:04.157529",
+    "data": {
+      "id": "3c5566ae"
+    }
+  },
+  {
+    "id": "d6e64642",
+    "type": "memory_note",
+    "time": "2026-06-03T04:19:41.159940",
+    "data": {
+      "section": "코드 리뷰 결과"
+    }
+  },
+  {
+    "id": "20fa4d93",
+    "type": "task_done",
+    "time": "2026-06-03T04:20:29.760110",
+    "data": {
+      "id": "3c5566ae",
+      "result_preview": "파일이 650번째 줄에서 잘려있습니다. 전체 코드 분석을 바탕으로 리뷰 결과를 정리하겠습니다.\n\n---\n\n## index.html 코드 리뷰\n\n### 🔴 보안 이슈 (심각)\n\n**1. API 키 및 OAuth 토큰을 localStorage에 저장 (239~242번 줄)**\n```javascript\nvar ytApiKey = localStorage.getIt"
+    }
+  }
+]

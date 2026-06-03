@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "conway-memory": {
+      "command": "python3",
+      "args": ["./conway/mcp_server.py"]
+    }
+  }
+}
