@@ -1,1 +1,36 @@
-[]
+[
+  {
+    "id": "a30e046f",
+    "type": "server_start",
+    "time": "2026-06-03T04:18:34.159287",
+    "data": {
+      "port": 8765
+    }
+  },
+  {
+    "id": "21536e0a",
+    "type": "task_created",
+    "time": "2026-06-03T04:18:43.005317",
+    "data": {
+      "id": "3c5566ae",
+      "title": "index.html 코드 리뷰",
+      "source": "webhook-test"
+    }
+  },
+  {
+    "id": "7108ac1d",
+    "type": "task_processing",
+    "time": "2026-06-03T04:19:04.157529",
+    "data": {
+      "id": "3c5566ae"
+    }
+  },
+  {
+    "id": "d6e64642",
+    "type": "memory_note",
+    "time": "2026-06-03T04:19:41.159940",
+    "data": {
+      "section": "코드 리뷰 결과"
+    }
+  }
+]

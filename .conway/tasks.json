@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "id": "3c5566ae",
+    "title": "index.html 코드 리뷰",
+    "description": "현재 index.html의 코드 품질, 보안, 성능 이슈를 분석해줘",
+    "source": "webhook-test",
+    "extension": "code_review",
+    "payload": {
+      "title": "index.html 코드 리뷰",
+      "description": "현재 index.html의 코드 품질, 보안, 성능 이슈를 분석해줘",
+      "source": "webhook-test",
+      "extension": "code_review"
+    },
+    "status": "done",
+    "created": "2026-06-03T04:18:43.004955",
+    "updated": "2026-06-03T04:19:30.225378",
+    "result": "# index.html 코드 리뷰 결과\n\n## ✅ 잘 된 점\n- CSS 변수(`:root`)로 디자인 시스템 통일 → 유지보수 용이\n- `esc()` 함수로 기본 XSS 방어 구현됨\n- localStorage로 API 키 영속 저장\n- `safeJSON()`으로 JSON 파싱 오류 방어\n\n---\n\n## 🔴 보안 이슈 (우선 처리 필요)\n\n### 1. API 키 평문 노출\n```javascript\nvar GOOGLE_CLIENT_ID='941692480971-o4rls1vjrrocse128f1qe5hqlou3thd3.apps.goog..."
+  }
+]
