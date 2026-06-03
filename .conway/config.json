@@ -1,0 +1,11 @@
+{
+  "port": 8765,
+  "memory_file": "memory.md",
+  "tasks_file": ".conway/tasks.json",
+  "events_file": ".conway/events.json",
+  "results_dir": ".conway/results",
+  "extensions_dir": ".conway/extensions",
+  "max_events": 500,
+  "agent_model": "claude-sonnet-4-6",
+  "agent_enabled": true
+}
