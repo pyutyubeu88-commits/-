@@ -203,6 +203,7 @@ td{padding:8px 6px;border-bottom:1px solid var(--bdr);vertical-align:top}
 <div class="prog"><div class="prog-bar" id="bulkBar" style="width:0%"></div></div>
 <div style="display:flex;gap:8px;margin-top:10px">
 <button class="btn btn-pr" onclick="startBulk()" id="bulkBtn">⚡ 일괄 생성 시작</button>
+<button class="btn btn-rd hide" onclick="stopBulk()" id="bulkStopBtn">⏹ 중단</button>
 <button class="btn btn-gn" onclick="postAll()" id="postAllBtn">📤 전체 게시</button>
 </div>
 </div>
@@ -238,8 +239,8 @@ var GOOGLE_CLIENT_ID='941692480971-o4rls1vjrrocse128f1qe5hqlou3thd3.apps.googleu
 /* ========= STATE ========= */
 var ytApiKey=localStorage.getItem('ytApiKey')||'';
 var gmApiKey=localStorage.getItem('gmApiKey')||'';
-var gToken=localStorage.getItem('gToken')||'';
-var gTokenExp=parseInt(localStorage.getItem('gTokenExp')||'0');
+var gToken='';
+var gTokenExp=0;
 var curMode='url';
 var allCmts=[];
 var selIdx=-1;
@@ -251,6 +252,7 @@ var bulkResults=[];
 var repliedSet=new Set(JSON.parse(localStorage.getItem('replied')||'[]'));
 var vidScript='';
 var vidChannel='';
+var bulkStopped=false;
 
 /* ========= INIT ========= */
 window.addEventListener('DOMContentLoaded',function(){
@@ -311,8 +313,6 @@ function startLogin(){
         if(resp.access_token){
           gToken=resp.access_token;
           gTokenExp=Date.now()+(resp.expires_in||3600)*1000;
-          localStorage.setItem('gToken',gToken);
-          localStorage.setItem('gTokenExp',String(gTokenExp));
           document.getElementById('loginArea').classList.add('hide');
           document.getElementById('loggedArea').classList.remove('hide');
           document.getElementById('loggedName').textContent='✅ 로그인됨';
@@ -463,7 +463,15 @@ function callGemini(prompt){
     body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.8,maxOutputTokens:1024}})
   })
   .then(function(r){
-    if(!r.ok) return r.text().then(function(t){throw new Error('Gemini '+r.status+': '+t);});
+    if(!r.ok){
+      return r.json().catch(function(){return{};}).then(function(j){
+        var msg=(j&&j.error&&j.error.message)||'오류';
+        if(r.status===429)throw new Error('API 사용량 초과 — 잠시 후 재시도하세요');
+        if(r.status===403)throw new Error('API 키가 유효하지 않습니다 (403)');
+        if(r.status===400)throw new Error('잘못된 요청: '+msg);
+        throw new Error('Gemini '+r.status+': '+msg);
+      });
+    }
     return r.json();
   })
   .then(function(d){
@@ -647,4 +655,96 @@ function startBulk(){
   var done=0;
 
   function next(idx){
-    if(idx>=total
+    if(bulkStopped||idx>=total){
+      btn.disabled=false;btn.textContent='⚡ 일괄 생성 시작';
+      document.getElementById('bulkStopBtn').classList.add('hide');
+      if(bulkStopped)toast('중단됨 ('+done+'개 완료)');
+      else{toast('일괄 생성 완료! '+done+'개');if(done>0)document.getElementById('postAllBtn').style.display='inline-block';}
+      return;
+    }
+    var c=unreplied[idx];
+    var prompt='YouTube 댓글에 대한 대댓글 1개를 만들어줘.\n'
+      +'규칙: 4~5문장, 한국어, 따뜻한 말투, "'+c.author+'님!" 으로 시작\n'
+      +(chn?'마지막에 "- '+chn+'" 서명 포함\n':'')
+      +'영상 내용: '+(script?script.substring(0,200):'(없음)')
+      +'\n댓글: '+c.text.substring(0,300)
+      +'\n\nJSON만 반환: {"reply":"대댓글 내용"}';
+    callGemini(prompt).then(function(raw){
+      var d=safeJSON(raw);
+      var reply=d&&d.reply?d.reply:raw.replace(/```[^`]*```/g,'').trim().substring(0,500);
+      done++;
+      bulkResults.push({cmt:c,reply:reply,posted:false});
+      document.getElementById('bulkStat').textContent=String(done);
+      document.getElementById('bulkBar').style.width=Math.round(done/total*100)+'%';
+      appendBulkRow(bulkResults.length-1,c,reply);
+      document.getElementById('bulkRes').classList.add('on');
+    }).catch(function(e){
+      done++;
+      bulkResults.push({cmt:c,reply:'[오류: '+e.message+']',posted:false,error:true});
+      document.getElementById('bulkStat').textContent=String(done);
+      document.getElementById('bulkBar').style.width=Math.round(done/total*100)+'%';
+      appendBulkRow(bulkResults.length-1,c,'[오류: '+e.message+']');
+      document.getElementById('bulkRes').classList.add('on');
+    }).finally(function(){
+      setTimeout(function(){next(idx+1);},BULK_DELAY);
+    });
+  }
+  document.getElementById('bulkStopBtn').classList.remove('hide');
+  next(0);
+}
+
+function stopBulk(){bulkStopped=true;}
+
+function appendBulkRow(rowIdx,c,reply){
+  var tbody=document.getElementById('btbody');
+  var tr=document.createElement('tr');
+  tr.innerHTML='<td>'+(rowIdx+1)+'</td>'
+    +'<td>'+esc(c.author)+'</td>'
+    +'<td style="max-width:160px;white-space:normal">'+esc(c.text.substring(0,80))+(c.text.length>80?'…':'')+'</td>'
+    +'<td style="max-width:200px;white-space:normal" id="breply'+rowIdx+'">'+esc(reply)+'</td>'
+    +'<td><button class="bcpy" onclick="copyBulkReply('+rowIdx+')">복사</button>'
+    +' <button class="btn btn-pr" onclick="postBulkReply('+rowIdx+')" id="bpost'+rowIdx+'" style="font-size:11px;padding:5px 10px">게시</button></td>';
+  tbody.appendChild(tr);
+}
+
+function copyBulkReply(i){
+  var el=document.getElementById('breply'+i);
+  if(!el)return;
+  navigator.clipboard.writeText(el.textContent).then(function(){toast('복사됨!');}).catch(function(){toast('복사 실패');});
+}
+
+function postBulkReply(i){
+  if(i>=bulkResults.length)return;
+  var r=bulkResults[i];
+  if(!r||r.error){toast('생성 실패 항목은 게시 불가');return;}
+  if(r.posted){toast('이미 게시됨');return;}
+  postToYT(r.cmt.id,r.reply).then(function(){
+    r.posted=true;repliedSet.add(r.cmt.id);saveReplied();
+    var b=document.getElementById('bpost'+i);
+    if(b){b.textContent='✅ 완료';b.disabled=true;}
+    toast('✅ 게시 완료!');
+  }).catch(function(e){toast('게시 실패: '+e.message);});
+}
+
+function postAll(){
+  if(!bulkResults.length){toast('생성된 결과가 없습니다');return;}
+  var pending=bulkResults.filter(function(r){return!r.posted&&!r.error;});
+  if(!pending.length){toast('게시할 항목이 없습니다');return;}
+  var i=0;
+  function postNext(){
+    if(i>=pending.length){toast('전체 게시 완료!');return;}
+    var r=pending[i++];
+    postToYT(r.cmt.id,r.reply).then(function(){
+      r.posted=true;repliedSet.add(r.cmt.id);saveReplied();
+      var rowIdx=bulkResults.indexOf(r);
+      var b=document.getElementById('bpost'+rowIdx);
+      if(b){b.textContent='✅ 완료';b.disabled=true;}
+      setTimeout(postNext,1500);
+    }).catch(function(e){toast('게시 실패: '+e.message);setTimeout(postNext,1500);});
+  }
+  postNext();
+}
+
+</script>
+</body>
+</html>
