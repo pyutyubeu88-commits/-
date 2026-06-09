@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>권용준 | 강남구 AI 컨설턴트</title>
+<meta name="description" content="강남구 AI 활용 컨설턴트 권용준. 소상공인 디지털 전환·AI 도구 도입·SNS 마케팅 코칭. 강남구 공식 지원 무료 컨설팅.">
+<meta property="og:title" content="권용준 | 강남구 AI 컨설턴트">
+<meta property="og:description" content="소상공인 디지털 전환·AI 도입·SNS 마케팅. 강남구 공식 무료 컨설팅.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="profile.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="권용준 | 강남구 AI 컨설턴트">
+<meta name="twitter:description" content="소상공인 디지털 전환·AI 도입·SNS 마케팅. 강남구 공식 무료 컨설팅.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -25,8 +33,9 @@ nav{
 }
 .nav-logo{color:#fff;font-size:16px;font-weight:700;text-decoration:none;letter-spacing:-.3px}
 .nav-list{display:flex;gap:28px;list-style:none}
-.nav-list a{color:rgba(255,255,255,.8);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.nav-list a{color:rgba(255,255,255,.8);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s;padding-bottom:3px;border-bottom:2px solid transparent}
 .nav-list a:hover{color:#fff}
+.nav-list a.active{color:#fff;border-bottom-color:var(--ga)}
 .nav-cta{
   background:var(--ga);color:#fff!important;
   padding:7px 18px;border-radius:6px;font-weight:700!important;
@@ -125,7 +134,9 @@ section{padding:88px 24px 80px}
 .c-card{
   background:#fff;border-radius:var(--r);padding:28px;
   box-shadow:var(--sh);border:1px solid var(--bd);
+  transition:transform .2s,box-shadow .2s;
 }
+.c-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(27,67,50,.13)}
 .c-period{font-size:12px;font-weight:700;color:var(--ga);letter-spacing:.5px;margin-bottom:7px}
 .c-role{font-size:18px;font-weight:900;color:var(--t1);margin-bottom:10px;letter-spacing:-.3px}
 .c-desc{font-size:14px;color:var(--t3);line-height:1.75;margin-bottom:16px}
@@ -243,6 +254,13 @@ section{padding:88px 24px 80px}
   font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:background .2s;
 }
 .f-submit:hover{background:var(--gm)}
+.f-err{font-size:12px;color:#dc2626;margin-top:4px;display:none}
+.f-inp.err,.f-ta.err{border-color:#dc2626}
+.f-success{
+  background:var(--gl);border:1px solid var(--gb);border-radius:8px;
+  padding:20px;text-align:center;font-size:15px;color:var(--gd);
+  font-weight:700;display:none;margin-top:8px;
+}
 
 /* ── FOOTER ── */
 footer{
@@ -378,7 +396,7 @@ footer{
 </section>
 
 <!-- ── S4 STYLE ── -->
-<section id="style">
+<section id="values">
   <div class="wrap">
     <div class="lbl">STYLE &amp; VALUES</div>
     <h2 class="stitle">저는 이런 컨설턴트입니다</h2>
@@ -531,11 +549,18 @@ footer{
     <div class="form-wrap">
       <div class="form-ttl">상담 신청하기</div>
       <div class="form-row2">
-        <input class="f-inp" id="f-name"  type="text" placeholder="성함 *" required>
-        <input class="f-inp" id="f-phone" type="tel"  placeholder="연락처 * (010-xxxx-xxxx)" required>
+        <div>
+          <input class="f-inp" id="f-name" type="text" placeholder="성함 *">
+          <div class="f-err" id="err-name">성함을 입력해 주세요.</div>
+        </div>
+        <div>
+          <input class="f-inp" id="f-phone" type="tel" placeholder="연락처 * (010-xxxx-xxxx)">
+          <div class="f-err" id="err-phone">연락처를 입력해 주세요.</div>
+        </div>
       </div>
       <textarea class="f-ta" id="f-msg" placeholder="문의 내용을 입력해 주세요&#10;(업종, 현재 상황, 원하시는 도움 등)"></textarea>
-      <button class="f-submit" onclick="sendForm()">상담 신청하기 →</button>
+      <button class="f-submit" id="f-btn" onclick="sendForm()">상담 신청하기 →</button>
+      <div class="f-success" id="f-success">✅ 메일 앱이 열립니다. 전송하시면 빠르게 연락드리겠습니다!</div>
     </div>
   </div>
 </section>
@@ -545,7 +570,7 @@ footer{
 </footer>
 
 <script>
-/* NAV */
+/* ── NAV TOGGLE ── */
 function toggleNav(){document.getElementById('mobNav').classList.toggle('open');}
 function closeNav(){document.getElementById('mobNav').classList.remove('open');}
 document.addEventListener('click',function(e){
@@ -554,7 +579,7 @@ document.addEventListener('click',function(e){
     m.classList.remove('open');
 });
 
-/* SCROLL OFFSET (fixed nav 60px) */
+/* ── SMOOTH SCROLL (offset 64px for fixed nav) ── */
 document.querySelectorAll('a[href^="#"]').forEach(function(a){
   a.addEventListener('click',function(e){
     var el=document.querySelector(this.getAttribute('href'));
@@ -564,16 +589,53 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   });
 });
 
-/* CONTACT FORM → mailto */
+/* ── SCROLL SPY ── */
+var spySections=['about','career','expertise','services','closing'];
+function updateSpy(){
+  var py=scrollY+90;
+  spySections.forEach(function(id){
+    var sec=document.getElementById(id);
+    var link=document.querySelector('.nav-list a[href="#'+id+'"]');
+    if(!sec||!link)return;
+    var inView=py>=sec.offsetTop&&py<sec.offsetTop+sec.offsetHeight;
+    link.classList.toggle('active',inView);
+  });
+}
+window.addEventListener('scroll',updateSpy,{passive:true});
+updateSpy();
+
+/* ── CONTACT FORM ── */
+function clearErr(){
+  ['f-name','f-phone'].forEach(function(id){
+    document.getElementById(id).classList.remove('err');
+  });
+  document.getElementById('err-name').style.display='none';
+  document.getElementById('err-phone').style.display='none';
+}
+function showErr(field,errId){
+  document.getElementById(field).classList.add('err');
+  document.getElementById(errId).style.display='block';
+}
 function sendForm(){
+  clearErr();
   var name=document.getElementById('f-name').value.trim();
   var phone=document.getElementById('f-phone').value.trim();
   var msg=document.getElementById('f-msg').value.trim();
-  if(!name||!phone){alert('성함과 연락처는 필수입니다.');return;}
+  var ok=true;
+  if(!name){showErr('f-name','err-name');ok=false;}
+  if(!phone){showErr('f-phone','err-phone');ok=false;}
+  if(!ok)return;
   var body='성함: '+name+'\n연락처: '+phone+'\n\n문의 내용:\n'+(msg||'(없음)');
   location.href='mailto:yjkwon@gangnamconsulting.com'
     +'?subject='+encodeURIComponent('[상담신청] '+name+' 님')
     +'&body='+encodeURIComponent(body);
+  document.getElementById('f-btn').disabled=true;
+  document.getElementById('f-btn').textContent='✅ 메일 앱 열리는 중...';
+  document.getElementById('f-success').style.display='block';
+  setTimeout(function(){
+    document.getElementById('f-btn').disabled=false;
+    document.getElementById('f-btn').textContent='상담 신청하기 →';
+  },4000);
 }
 </script>
 </body>
