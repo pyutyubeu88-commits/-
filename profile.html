@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>권용준 | 강남구 AI 컨설턴트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gd:#1B4332;--gm:#2D6A4F;--ga:#40916C;--gl:#F0FAF4;--gb:#B7E4C7;
+  --wh:#FFFFFF;--t1:#111827;--t2:#374151;--t3:#6B7280;--bd:#E5E7EB;
+  --r:12px;--sh:0 2px 16px rgba(27,67,50,.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--t1);line-height:1.75;background:var(--wh)}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;height:60px;
+  background:var(--gd);z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;box-shadow:0 2px 12px rgba(0,0,0,.18);
+}
+.nav-logo{color:#fff;font-size:16px;font-weight:700;text-decoration:none;letter-spacing:-.3px}
+.nav-list{display:flex;gap:28px;list-style:none}
+.nav-list a{color:rgba(255,255,255,.8);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.nav-list a:hover{color:#fff}
+.nav-cta{
+  background:var(--ga);color:#fff!important;
+  padding:7px 18px;border-radius:6px;font-weight:700!important;
+  transition:background .2s!important;
+}
+.nav-cta:hover{background:#52b788!important}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
+.mob-nav{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--gd);z-index:999;
+  flex-direction:column;border-top:1px solid rgba(255,255,255,.1);
+}
+.mob-nav.open{display:flex}
+.mob-nav a{
+  color:rgba(255,255,255,.85);text-decoration:none;
+  font-size:15px;font-weight:500;padding:16px 24px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.mob-nav a:last-child{border-bottom:none}
+
+/* ── COMMON ── */
+section{padding:88px 24px 80px}
+.wrap{max-width:1080px;margin:0 auto}
+.lbl{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--ga);margin-bottom:10px;text-transform:uppercase}
+.stitle{font-size:30px;font-weight:900;color:var(--t1);margin-bottom:40px;letter-spacing:-.5px}
+.btn{
+  display:inline-block;padding:14px 28px;border-radius:8px;
+  font-size:15px;font-weight:700;font-family:'Noto Sans KR',sans-serif;
+  text-decoration:none;cursor:pointer;border:none;transition:all .2s;
+}
+.btn-pri{background:var(--ga);color:#fff}
+.btn-pri:hover{background:var(--gm)}
+.btn-out{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.55)}
+.btn-out:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+
+/* ── S1 HERO ── */
+#hero{
+  background:var(--gd);padding:120px 24px 100px;margin-top:60px;
+  position:relative;overflow:hidden;
+}
+#hero::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:480px;height:480px;
+  background:radial-gradient(circle,rgba(64,145,108,.14) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-in{max-width:740px;margin:0 auto;text-align:center}
+.hero-badge{
+  display:inline-block;
+  background:rgba(64,145,108,.22);border:1px solid rgba(64,145,108,.45);
+  color:#74C69D;font-size:13px;font-weight:700;
+  padding:7px 20px;border-radius:100px;margin-bottom:28px;
+}
+#hero h1{
+  font-size:clamp(30px,5vw,52px);font-weight:900;color:#fff;
+  line-height:1.22;letter-spacing:-1px;margin-bottom:20px;
+}
+#hero h1 span{color:#74C69D}
+.hero-sub{
+  font-size:17px;color:rgba(255,255,255,.7);line-height:1.85;
+  margin:0 auto 40px;max-width:580px;
+}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ── S2 ABOUT ── */
+#about{background:var(--wh)}
+.about-grid{
+  display:grid;grid-template-columns:1fr 300px;gap:64px;align-items:start;
+}
+.about-text p{font-size:16px;color:var(--t2);line-height:1.9;margin-bottom:22px}
+.about-text p:last-child{margin-bottom:0}
+.about-img-col{position:sticky;top:80px}
+.about-img-col img{
+  width:100%;border-radius:var(--r);
+  box-shadow:var(--sh);border:1px solid var(--bd);
+  display:block;
+}
+.img-ph{
+  width:100%;aspect-ratio:3/4;
+  background:var(--gl);border-radius:var(--r);
+  border:2px dashed var(--gb);
+  display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:8px;color:var(--ga);
+}
+.profile-tag{
+  background:var(--gl);border:1px solid var(--gb);
+  border-radius:var(--r);padding:18px;margin-top:14px;text-align:center;
+}
+.profile-tag .pname{font-size:20px;font-weight:900;color:var(--gd)}
+.profile-tag .prole{font-size:12px;font-weight:700;color:var(--ga);margin-top:4px}
+
+/* ── S3 CAREER ── */
+#career{background:var(--gl)}
+.career-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.c-card{
+  background:#fff;border-radius:var(--r);padding:28px;
+  box-shadow:var(--sh);border:1px solid var(--bd);
+}
+.c-period{font-size:12px;font-weight:700;color:var(--ga);letter-spacing:.5px;margin-bottom:7px}
+.c-role{font-size:18px;font-weight:900;color:var(--t1);margin-bottom:10px;letter-spacing:-.3px}
+.c-desc{font-size:14px;color:var(--t3);line-height:1.75;margin-bottom:16px}
+.c-badge{
+  display:inline-block;background:var(--gd);color:#fff;
+  font-size:12px;font-weight:700;padding:5px 14px;border-radius:100px;
+}
+
+/* ── S4 STYLE ── */
+#style{background:var(--wh)}
+.style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.st-card{
+  border:1px solid var(--bd);border-radius:var(--r);padding:32px 26px;
+  text-align:center;transition:box-shadow .2s,border-color .2s;
+}
+.st-card:hover{box-shadow:var(--sh);border-color:var(--gb)}
+.st-icon{
+  width:56px;height:56px;background:var(--gl);border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;margin:0 auto 18px;
+}
+.st-card h3{font-size:17px;font-weight:900;margin-bottom:10px;letter-spacing:-.3px}
+.st-card p{font-size:14px;color:var(--t3);line-height:1.75}
+
+/* ── S5 EXPERTISE ── */
+#expertise{background:var(--gl)}
+.exp-list{display:flex;flex-direction:column;gap:16px}
+.exp-item{
+  background:#fff;border-radius:var(--r);padding:26px 30px;
+  border:1px solid var(--bd);
+  display:grid;grid-template-columns:44px 1fr;gap:20px;align-items:start;
+}
+.exp-num{
+  width:44px;height:44px;background:var(--gd);color:#fff;
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:900;flex-shrink:0;margin-top:2px;
+}
+.exp-body h3{font-size:18px;font-weight:900;margin-bottom:6px;letter-spacing:-.3px}
+.exp-body p{font-size:14px;color:var(--t2);line-height:1.75;margin-bottom:10px}
+.exp-src{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;color:var(--ga);font-weight:700;
+}
+.exp-src::before{content:'✓';font-size:11px}
+
+/* ── S6 FOR YOU ── */
+#foryou{background:var(--wh);text-align:center}
+.fy-intro{font-size:20px;font-weight:700;color:var(--t2);margin-bottom:34px}
+.checklist{
+  display:inline-flex;flex-direction:column;gap:14px;
+  text-align:left;max-width:640px;
+}
+.ck-item{
+  display:flex;gap:14px;align-items:flex-start;
+  background:var(--gl);border:1px solid var(--gb);
+  border-radius:10px;padding:16px 20px;
+}
+.ck-icon{
+  width:24px;height:24px;background:var(--gd);color:#fff;
+  border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;margin-top:1px;
+}
+.ck-item p{font-size:15px;color:var(--t1);line-height:1.65}
+
+/* ── S7 SERVICES ── */
+#services{background:var(--gd)}
+#services .lbl{color:#74C69D}
+#services .stitle{color:#fff}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.svc-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);
+  border-radius:var(--r);padding:32px 26px;color:#fff;
+}
+.svc-name{font-size:19px;font-weight:900;margin-bottom:10px;letter-spacing:-.3px}
+.svc-tags{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.svc-tag{
+  font-size:11px;font-weight:700;padding:4px 11px;border-radius:100px;
+  background:rgba(64,145,108,.28);color:#74C69D;border:1px solid rgba(64,145,108,.4);
+}
+.svc-desc{font-size:14px;color:rgba(255,255,255,.68);line-height:1.8}
+
+/* ── S8 CLOSING ── */
+#closing{background:var(--wh);text-align:center}
+.closing-letter{
+  max-width:640px;margin:0 auto 44px;text-align:left;
+  background:var(--gl);border:1px solid var(--gb);
+  border-radius:var(--r);padding:36px 40px;
+}
+.closing-letter p{font-size:16px;color:var(--t2);line-height:1.9;margin-bottom:18px}
+.closing-letter .sig{font-size:15px;font-weight:700;color:var(--gd);margin-bottom:0}
+.contact-row{
+  display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:44px;
+}
+.cinfo{display:flex;align-items:center;gap:7px;font-size:14px;color:var(--t3)}
+.cinfo a{color:var(--t1);font-weight:700;text-decoration:none}
+.cinfo a:hover{color:var(--ga)}
+
+/* Form */
+.form-wrap{max-width:560px;margin:0 auto}
+.form-ttl{font-size:20px;font-weight:900;text-align:center;margin-bottom:24px}
+.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.f-inp,
+.f-ta{
+  width:100%;background:#F9FAFB;
+  border:1.5px solid var(--bd);border-radius:8px;
+  padding:13px 16px;font-size:14px;
+  font-family:'Noto Sans KR',sans-serif;color:var(--t1);
+  outline:none;transition:border-color .2s;
+}
+.f-inp:focus,.f-ta:focus{border-color:var(--ga)}
+.f-ta{min-height:120px;resize:vertical;display:block;margin-bottom:12px}
+.f-submit{
+  width:100%;padding:15px;background:var(--gd);color:#fff;
+  border:none;border-radius:8px;font-size:16px;font-weight:700;
+  font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:background .2s;
+}
+.f-submit:hover{background:var(--gm)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--gd);color:rgba(255,255,255,.45);
+  text-align:center;padding:22px 24px;font-size:13px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1023px){
+  .style-grid,.svc-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:767px){
+  nav{padding:0 20px}
+  .nav-list{display:none}
+  .hamburger{display:flex}
+  section{padding:64px 20px 56px}
+  .stitle{font-size:24px}
+  #hero{padding:80px 20px 64px}
+  .hero-sub{font-size:15px}
+  .hero-btns{flex-direction:column;align-items:center}
+  .btn{width:100%;max-width:280px;text-align:center}
+  .about-grid{grid-template-columns:1fr}
+  .about-img-col{position:static;order:-1}
+  .about-img-col img{max-width:260px;margin:0 auto}
+  .career-grid{grid-template-columns:1fr}
+  .style-grid{grid-template-columns:1fr}
+  .exp-item{grid-template-columns:1fr;gap:10px}
+  .svc-grid{grid-template-columns:1fr}
+  .form-row2{grid-template-columns:1fr}
+  .closing-letter{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#hero" class="nav-logo">권용준 컨설턴트</a>
+  <ul class="nav-list">
+    <li><a href="#about">소개</a></li>
+    <li><a href="#career">경력</a></li>
+    <li><a href="#expertise">전문 분야</a></li>
+    <li><a href="#services">서비스</a></li>
+    <li><a href="#closing" class="nav-cta">상담 신청</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleNav()" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <a href="#about"     onclick="closeNav()">소개</a>
+  <a href="#career"    onclick="closeNav()">경력</a>
+  <a href="#expertise" onclick="closeNav()">전문 분야</a>
+  <a href="#services"  onclick="closeNav()">서비스</a>
+  <a href="#closing"   onclick="closeNav()">상담 신청</a>
+</div>
+
+<!-- ── S1 HERO ── -->
+<section id="hero">
+  <div class="hero-in">
+    <div class="hero-badge">강남구 AI 활용 컨설턴트 1기 &nbsp;·&nbsp; 13년차 보험·영업 전문가</div>
+    <h1>매출이 답입니다.<br><span>데이터로 길을 찾아드립니다.</span></h1>
+    <p class="hero-sub">
+      사업 기반은 잡혔는데 다음 단계가 막막하신 사장님께.<br>
+      AI 도구와 15년 영업 경험으로 실행 가능한 답을 드립니다.
+    </p>
+    <div class="hero-btns">
+      <a href="mailto:yjkwon@gangnamconsulting.com" class="btn btn-pri">상담 신청하기</a>
+      <a href="tel:010-6783-2588" class="btn btn-out">📞 전화 연결</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── S2 ABOUT ── -->
+<section id="about">
+  <div class="wrap">
+    <div class="lbl">ABOUT ME</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2 class="stitle">전문가 소개</h2>
+        <p>소상공인 사장님들을 만나면 늘 이런 생각이 먼저 듭니다. "내가 도와드릴 방법이 있을 것 같다." 컨설팅을 시작한 건 그 마음 때문입니다. 매출이 오른 사장님, 창업에 성공한 분, 디지털을 처음 써보고 결과물을 만들어낸 분을 곁에서 보는 게 진짜 목표입니다.</p>
+        <p>2014년 메트라이프 입사 후 13년간 개인·법인 보험 영업을 해왔습니다. GA 이직 후 롯데손해보험·동양생명 교차 설계사로 활동 중이며, 2019~2025년에는 유사투자자문업을 직접 창업해 3인 팀으로 월 매출 1억, 유튜브 실시간 시청자 1,000명을 달성했습니다. 기획·영업·SNS 마케팅·콘텐츠 제작까지 혼자 도맡았습니다.</p>
+        <p>공감보다 원인 분석과 해결책을 먼저 찾고, 말보다 행동이 빠릅니다. 숫자와 데이터를 보는 눈, AI 툴 활용 능력을 갖추고 있어 느낌이 아닌 근거 있는 조언을 드릴 수 있습니다.</p>
+      </div>
+      <div class="about-img-col">
+        <img src="profile.jpg" alt="권용준 강남구 AI 컨설턴트"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-ph">
+          <span style="font-size:44px">👤</span>
+          <span style="font-size:13px;font-weight:700">프로필 사진<br>profile.jpg</span>
+        </div>
+        <div class="profile-tag">
+          <div class="pname">권용준</div>
+          <div class="prole">강남구 AI 컨설턴트</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S3 CAREER ── -->
+<section id="career">
+  <div class="wrap">
+    <div class="lbl">CAREER</div>
+    <h2 class="stitle">경력 하이라이트</h2>
+    <div class="career-grid">
+      <div class="c-card">
+        <div class="c-period">2014 – 현재</div>
+        <div class="c-role">개인·법인 보험 설계사</div>
+        <p class="c-desc">메트라이프 → GA → 롯데손보·동양생명 교차 설계사. 고객 니즈 분석·계약 관리·장기 관계 유지.</p>
+        <span class="c-badge">13년 영업 경험</span>
+      </div>
+      <div class="c-card">
+        <div class="c-period">2019 – 2025</div>
+        <div class="c-role">유사투자자문업 대표</div>
+        <p class="c-desc">직접 창업. 기획·영업·SNS 마케팅·유튜브 콘텐츠 제작·회원 관리 전담.</p>
+        <span class="c-badge">월 매출 1억 달성</span>
+      </div>
+      <div class="c-card">
+        <div class="c-period">2019 – 2025</div>
+        <div class="c-role">유튜브 채널 운영</div>
+        <p class="c-desc">3인 팀으로 콘텐츠 기획부터 라이브 운영까지 직접 수행.</p>
+        <span class="c-badge">라이브 동시 시청 1,000명</span>
+      </div>
+      <div class="c-card">
+        <div class="c-period">2025</div>
+        <div class="c-role">강남구 AI 활용 컨설턴트 1기</div>
+        <p class="c-desc">AI 도구 실전 활용 과정 수료. 소상공인 디지털 전환 지원 전문화.</p>
+        <span class="c-badge">AI 컨설턴트 1기 수료</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S4 STYLE ── -->
+<section id="style">
+  <div class="wrap">
+    <div class="lbl">STYLE &amp; VALUES</div>
+    <h2 class="stitle">저는 이런 컨설턴트입니다</h2>
+    <div class="style-grid">
+      <div class="st-card">
+        <div class="st-icon">⚡</div>
+        <h3>빠른 실행, 높은 완성도</h3>
+        <p>말보다 행동이 앞섭니다. 맡은 일은 끝까지 책임지고, 품질을 끌어올리기 위해 끝까지 파고듭니다.</p>
+      </div>
+      <div class="st-card">
+        <div class="st-icon">📊</div>
+        <h3>데이터로 말합니다</h3>
+        <p>느낌이 아닌 숫자와 근거로 진단합니다. 거시경제부터 개별 사업 지표까지 꼼꼼히 분석합니다.</p>
+      </div>
+      <div class="st-card">
+        <div class="st-icon">🤖</div>
+        <h3>AI를 실전에 씁니다</h3>
+        <p>AI 툴을 자유롭게 다루고 학습 속도가 빠릅니다. 디지털에 익숙하지 않은 사장님도 쉽게 따라올 수 있도록 안내합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S5 EXPERTISE ── -->
+<section id="expertise">
+  <div class="wrap">
+    <div class="lbl">EXPERTISE</div>
+    <h2 class="stitle">제가 도와드릴 수 있는 일</h2>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-num">01</div>
+        <div class="exp-body">
+          <h3>SNS·유튜브 마케팅</h3>
+          <p>기획부터 콘텐츠 제작·채널 운영까지. 젊은 고객층을 공략해야 하는 업종에 특히 효과적입니다.</p>
+          <span class="exp-src">유사투자자문업 직접 운영 — SNS 마케팅·유튜브 콘텐츠 전담</span>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-num">02</div>
+        <div class="exp-body">
+          <h3>AI 도구 도입·활용</h3>
+          <p>ChatGPT·이미지 생성·자동화 툴 실전 세팅. 디지털 취약 사장님도 결과물을 낼 수 있도록 단계별로 안내합니다.</p>
+          <span class="exp-src">강남구 AI 활용 컨설턴트 1기 수료</span>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-num">03</div>
+        <div class="exp-body">
+          <h3>매출·고객 데이터 분석</h3>
+          <p>매출 흐름과 고객 패턴을 숫자로 진단하고, 실행 가능한 개선 방향을 제시합니다.</p>
+          <span class="exp-src">15년 영업·데이터 분석 경험</span>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-num">04</div>
+        <div class="exp-body">
+          <h3>창업·취업 준비 지원</h3>
+          <p>창업 초기 기획, 영업 전략, 사업 구조 설계를 실무자 관점에서 함께 점검합니다.</p>
+          <span class="exp-src">직접 창업·운영 경험</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S6 FOR YOU ── -->
+<section id="foryou">
+  <div class="wrap">
+    <div class="lbl" style="text-align:center">FOR YOU</div>
+    <h2 class="stitle" style="text-align:center">이런 분께 권합니다</h2>
+    <p class="fy-intro">혹시 이런 상황이신가요?</p>
+    <div style="display:flex;justify-content:center">
+      <div class="checklist">
+        <div class="ck-item">
+          <div class="ck-icon">✓</div>
+          <p>사업 기반은 잡혔는데, 다음 성장 단계가 막막하다</p>
+        </div>
+        <div class="ck-item">
+          <div class="ck-icon">✓</div>
+          <p>젊은 고객층을 공략해야 하는데 온라인 마케팅이 낯설다</p>
+        </div>
+        <div class="ck-item">
+          <div class="ck-icon">✓</div>
+          <p>AI나 디지털 툴을 써보고 싶은데 어디서부터 시작해야 할지 모르겠다</p>
+        </div>
+        <div class="ck-item">
+          <div class="ck-icon">✓</div>
+          <p>빠른 피드백과 실행 중심의 컨설팅을 원한다</p>
+        </div>
+        <div class="ck-item">
+          <div class="ck-icon">✓</div>
+          <p>창업이나 취업을 준비 중이고 실전 경험자의 조언이 필요하다</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S7 SERVICES ── -->
+<section id="services">
+  <div class="wrap">
+    <div class="lbl">SERVICES</div>
+    <h2 class="stitle">함께하는 방법</h2>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="svc-name">1:1 진단 상담</div>
+        <div class="svc-tags">
+          <span class="svc-tag">모든 소상공인</span>
+          <span class="svc-tag">1회 / 60분</span>
+        </div>
+        <p class="svc-desc">현재 사업 상황을 데이터 기반으로 진단하고, 우선순위 높은 개선 포인트를 정리해 드립니다.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-name">AI·디지털 전환 코칭</div>
+        <div class="svc-tags">
+          <span class="svc-tag">디지털 도입 희망자</span>
+          <span class="svc-tag">4주 / 주 1회</span>
+        </div>
+        <p class="svc-desc">AI 툴 선택부터 실전 세팅·활용까지. 실제 결과물이 나올 때까지 함께합니다.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-name">SNS·콘텐츠 마케팅 코칭</div>
+        <div class="svc-tags">
+          <span class="svc-tag">온라인 마케팅 시작자</span>
+          <span class="svc-tag">월 단위 진행</span>
+        </div>
+        <p class="svc-desc">채널 기획, 콘텐츠 전략 수립, 운영 방법 코칭. 유튜브·인스타그램 중심으로 진행합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S8 CLOSING ── -->
+<section id="closing">
+  <div class="wrap">
+    <div class="lbl" style="text-align:center">CONTACT</div>
+    <h2 class="stitle" style="text-align:center">사장님께</h2>
+
+    <div class="closing-letter">
+      <p>사장님을 만나면 항상 먼저 생각합니다. "내가 어떻게 도와드릴 수 있을까." 화려한 말보다 실제로 숫자가 바뀌는 걸 보고 싶습니다. 거창한 이론이 아니라, 오늘 당장 써먹을 수 있는 한 가지를 드리는 게 제 목표입니다. 편하게 연락 주세요.</p>
+      <p class="sig">— 권용준 드림</p>
+    </div>
+
+    <div class="contact-row">
+      <div class="cinfo">📍 <span>서울 강남 · 전국 온라인 상담 가능</span></div>
+      <div class="cinfo">📞 <a href="tel:010-6783-2588">010-6783-2588</a></div>
+      <div class="cinfo">✉️ <a href="mailto:yjkwon@gangnamconsulting.com">yjkwon@gangnamconsulting.com</a></div>
+    </div>
+
+    <div class="form-wrap">
+      <div class="form-ttl">상담 신청하기</div>
+      <div class="form-row2">
+        <input class="f-inp" id="f-name"  type="text" placeholder="성함 *" required>
+        <input class="f-inp" id="f-phone" type="tel"  placeholder="연락처 * (010-xxxx-xxxx)" required>
+      </div>
+      <textarea class="f-ta" id="f-msg" placeholder="문의 내용을 입력해 주세요&#10;(업종, 현재 상황, 원하시는 도움 등)"></textarea>
+      <button class="f-submit" onclick="sendForm()">상담 신청하기 →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 권용준 강남구 AI 컨설턴트 &nbsp;·&nbsp; yjkwon@gangnamconsulting.com</p>
+</footer>
+
+<script>
+/* NAV */
+function toggleNav(){document.getElementById('mobNav').classList.toggle('open');}
+function closeNav(){document.getElementById('mobNav').classList.remove('open');}
+document.addEventListener('click',function(e){
+  var m=document.getElementById('mobNav');
+  if(m.classList.contains('open')&&!m.contains(e.target)&&!e.target.closest('.hamburger'))
+    m.classList.remove('open');
+});
+
+/* SCROLL OFFSET (fixed nav 60px) */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var el=document.querySelector(this.getAttribute('href'));
+    if(!el)return;
+    e.preventDefault();
+    window.scrollTo({top:el.getBoundingClientRect().top+scrollY-64,behavior:'smooth'});
+  });
+});
+
+/* CONTACT FORM → mailto */
+function sendForm(){
+  var name=document.getElementById('f-name').value.trim();
+  var phone=document.getElementById('f-phone').value.trim();
+  var msg=document.getElementById('f-msg').value.trim();
+  if(!name||!phone){alert('성함과 연락처는 필수입니다.');return;}
+  var body='성함: '+name+'\n연락처: '+phone+'\n\n문의 내용:\n'+(msg||'(없음)');
+  location.href='mailto:yjkwon@gangnamconsulting.com'
+    +'?subject='+encodeURIComponent('[상담신청] '+name+' 님')
+    +'&body='+encodeURIComponent(body);
+}
+</script>
+</body>
+</html>
