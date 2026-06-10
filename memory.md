@@ -29,3 +29,18 @@
 - 첫 컨설팅 사례: 역삼효태권도장
 - 주요 플랫폼: 인스타그램(1순위) → 네이버블로그 → 유튜브쇼츠 → 카카오채널
 - 핵심 포지셔닝: "강남구 소상공인을 AI로 직접 바꾸는 현장 컨설턴트"
+
+### [2026-06-10] 퍼스널 브랜딩 홈페이지 완성 및 배포
+- **파일**: `profile.html` (로컬) / `gh-pages` 브랜치 `index.html` (라이브)
+- **라이브 URL**: https://pyutyubeu88-commits.github.io/-/
+- **색상**: 딥그린 (#1B4332) / 화이트, Noto Sans KR, 8섹션 원페이지
+- **연락처**: tel:010-6783-2588 / yjkwon@gangnamconsulting.com
+- ✅ OG/Twitter 메타태그 (절대경로 og:image, og:url, canonical)
+- ✅ 파비콘 (딥그린 + K 글자 SVG)
+- ✅ 히어로 CTA → #closing 스크롤 (mailto 직접 실행 제거)
+- ✅ 서비스 카드 "상담 문의하기 →" CTA 3개 추가
+- ✅ 스크롤-투-탑 버튼 (우하단 고정)
+- ✅ 푸터 SNS 링크 영역 (Instagram/KakaoTalk/NaverBlog — URL 교체 필요)
+- ✅ 숫자 불일치 수정: "15년" → "13년" 전체 통일
+- ⏳ profile.jpg 업로드 필요 (현재 플레이스홀더 표시 중)
+- ⏳ 푸터 SNS 실제 URL 교체 필요
