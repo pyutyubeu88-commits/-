@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S&H듀얼왁싱 — 사전조사 분석보고서 v4.0</title>
+<title>S&H듀얼왁싱 — 사전조사 분석보고서 v5.0 (Final)</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -144,10 +144,54 @@
   .footer-left p { font-size: 12px; color: #888; line-height: 1.6; }
   .footer-right p { font-size: 12px; color: #888; text-align: right; }
 
+  /* Executive Summary */
+  .exec { background: linear-gradient(135deg, #fffdf5, #fff8e8); border: 2px solid #e8c14a; border-radius: 12px; padding: 24px 26px; margin-bottom: 18px; }
+  .exec-title { font-size: 15px; font-weight: 900; color: #8a6500; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .exec-3line { background: white; border-radius: 8px; padding: 14px 18px; margin-bottom: 14px; border: 1px solid #f0dfa8; }
+  .exec-3line p { font-size: 14px; line-height: 1.8; color: #2a2a2a; }
+  .exec-3line strong { color: #0a1628; }
+  .prio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .prio-card { background: white; border-radius: 8px; padding: 12px 14px; border: 1px solid #f0dfa8; }
+  .prio-rank { font-size: 10px; font-weight: 900; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .prio-1 .prio-rank { color: #c0192b; }
+  .prio-2 .prio-rank { color: #d57800; }
+  .prio-3 .prio-rank { color: #1a6ab5; }
+  .prio-t { font-size: 13px; font-weight: 700; color: #0a1628; margin-bottom: 4px; }
+  .prio-d { font-size: 12px; color: #555; line-height: 1.55; }
+
+  /* SWOT */
+  .swot { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .swot-box { border-radius: 8px; padding: 14px 16px; }
+  .swot-s { background: #e7f5ed; border: 1px solid #a8dfc0; }
+  .swot-w { background: #fde8ea; border: 1px solid #eba8b0; }
+  .swot-o { background: #e4f0fc; border: 1px solid #a8c8ec; }
+  .swot-t { background: #fff5e0; border: 1px solid #ecd49a; }
+  .swot-h { font-size: 12px; font-weight: 900; margin-bottom: 8px; letter-spacing: 0.05em; }
+  .swot-s .swot-h { color: #1a7a40; }
+  .swot-w .swot-h { color: #c0192b; }
+  .swot-o .swot-h { color: #1a4585; }
+  .swot-t .swot-h { color: #9a6800; }
+  .swot-box ul { list-style: none; }
+  .swot-box li { font-size: 12.5px; line-height: 1.6; padding: 2px 0 2px 14px; position: relative; color: #333; }
+  .swot-box li::before { content: '·'; position: absolute; left: 2px; font-weight: 900; }
+
+  /* 로드맵 */
+  .phase { border-left: 3px solid #1a3a5c; padding: 2px 0 2px 18px; margin-bottom: 16px; position: relative; }
+  .phase::before { content: ''; position: absolute; left: -8px; top: 4px; width: 13px; height: 13px; border-radius: 50%; background: #1a3a5c; border: 3px solid white; box-shadow: 0 0 0 1px #1a3a5c; }
+  .phase-label { font-size: 11px; font-weight: 900; color: #1a6ab5; letter-spacing: 0.06em; margin-bottom: 2px; }
+  .phase-t { font-size: 14px; font-weight: 700; color: #0a1628; margin-bottom: 6px; }
+  .phase ul { list-style: none; }
+  .phase li { font-size: 13px; line-height: 1.65; padding: 2px 0 2px 16px; position: relative; color: #333; }
+  .phase li::before { content: '→'; position: absolute; left: 0; color: #1a6ab5; font-weight: 700; }
+
+  /* KPI 목표 테이블 */
+  .kpi-target td:nth-child(2), .kpi-target td:nth-child(3) { text-align: center; }
+  .kpi-target td:nth-child(3) { font-weight: 700; color: #1a7a40; }
+
   @media print {
     body { background: white; font-size: 12px; }
     .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .section { break-inside: avoid; }
+    .section, .exec { break-inside: avoid; }
   }
 </style>
 </head>
@@ -155,7 +199,7 @@
 
 <!-- ══ 커버 ══ -->
 <div class="cover">
-  <div class="cover-label">Pre-Research Report · v4.0 · Crawl-Verified</div>
+  <div class="cover-label">Pre-Research Report · v5.0 Final · Crawl-Verified</div>
   <h1>S&amp;H듀얼왁싱
     <small>사전조사 분석보고서 — 압구정·신사</small>
   </h1>
@@ -192,13 +236,40 @@
 
   <div class="cover-meta">
     <div class="meta-item"><strong>수집일</strong><span>2026-06-13 03:28 KST</span></div>
-    <div class="meta-item"><strong>보고서 버전</strong><span>v4.0 (크롤링 실측값 확정)</span></div>
+    <div class="meta-item"><strong>보고서 버전</strong><span>v5.0 Final (실측값 + 실행 로드맵)</span></div>
     <div class="meta-item"><strong>작성</strong><span>권용준 · 손미현</span></div>
     <div class="meta-item"><strong>소속</strong><span>강남구 AI 마케팅 컨설팅</span></div>
   </div>
 </div>
 
 <div class="content">
+
+  <!-- ══ Executive Summary ══ -->
+  <div class="exec">
+    <div class="exec-title">★ 한 장 요약 — 손미현 프로님 검토용</div>
+    <div class="exec-3line">
+      <p>① <strong>매장은 이미 검증됐다.</strong> 오픈 14개월 만에 플레이스 리뷰 623건, 인스타 팔로워 3,089명, 블로그 33개, 언론 인터뷰 1건 — 콘텐츠와 고객 반응 모두 경쟁사 평균 이상.</p>
+      <p>② <strong>문제는 단 하나, 노출 구조다.</strong> "압구정왁싱" 등 핵심 키워드 전면 미노출("압구정슈가링"만 3위), 구글 비즈니스 미등록(외국인 유입 0%), 자체 블로그가 검색 상위에 못 올라가는 SEO 구조.</p>
+      <p>③ <strong>컨설팅 방향: 만들기가 아니라 보이게 하기.</strong> 신규 콘텐츠 제작이 아닌 기존 자산의 노출 경로 정비 — 1회차 현장에서 절반 이상 즉시 실행 가능.</p>
+    </div>
+    <div class="prio">
+      <div class="prio-card prio-1">
+        <div class="prio-rank">PRIORITY 1 · 즉시</div>
+        <div class="prio-t">구글 비즈니스 등록</div>
+        <div class="prio-d">현장 30분 작업. 같은 건물 퀸슈가링은 이미 등록. 압구정로데오 외국인 수요 선점 가능.</div>
+      </div>
+      <div class="prio-card prio-2">
+        <div class="prio-rank">PRIORITY 2 · 1주</div>
+        <div class="prio-t">"압구정왁싱" 키워드 탈환</div>
+        <div class="prio-d">최대 유입 키워드 미노출 상태. 키워드 집중 블로그 발행 + 플레이스 소개문구 재작성.</div>
+      </div>
+      <div class="prio-card prio-3">
+        <div class="prio-rank">PRIORITY 3 · 1개월</div>
+        <div class="prio-t">전환 경로 최적화</div>
+        <div class="prio-d">인스타 바이오 예약 링크 + 더모스트타임즈 인터뷰 자산을 전 채널 신뢰 소재로 재활용.</div>
+      </div>
+    </div>
+  </div>
 
   <!-- ══ 섹션 0: 기본 정보 ══ -->
   <div class="section">
@@ -211,7 +282,7 @@
         <tr><td><strong>역세권</strong></td><td>압구정로데오역 6번 출구 도보 5분<br><small style="color:#888;">버스 '압구정파출소' 정류장 2분 / 1층: black rumor·마케집 → 엘리베이터 4층</small></td></tr>
         <tr><td><strong>주차</strong></td><td>건물 지하주차장 1시간 무료</td></tr>
         <tr><td><strong>오픈일</strong></td><td>2025년 4월 14일 <span class="badge b-blue">약 14개월 차</span></td></tr>
-        <tr><td><strong>영업시간</strong></td><td>10:30~ <span class="badge b-yellow">마감 현장 확인 필요</span></td></tr>
+        <tr><td><strong>영업시간</strong></td><td>10:30 시작 (플레이스) / 11:00~21:30 (당근) <span class="badge b-yellow">출처 불일치 — 현장 확정 필요</span></td></tr>
         <tr><td><strong>원장</strong></td><td><strong>세아</strong> 원장 <span class="badge b-orange">인스타 바이오 기준 — 기존 "서아" 정정</span></td></tr>
       </table>
       <table>
@@ -640,11 +711,111 @@
         <p style="font-size:12px; font-weight:700; color:#888; margin: 14px 0 8px;">현장 미확인 항목</p>
         <ul class="checklist">
           <li>플레이스 별점 수치</li>
-          <li>영업시간 마감 시간</li>
-          <li>휴무일</li>
+          <li>영업시간 마감 시간 / 휴무일 (출처 간 불일치)</li>
           <li>인스타 릴스 조회수</li>
+          <li>시술실 개수 / 직원 수</li>
         </ul>
       </div>
+    </div>
+  </div>
+
+  <!-- ══ 섹션 11: SWOT ══ -->
+  <div class="section">
+    <div class="section-title"><span class="sec-num">11</span> SWOT 종합 (데이터 출처 명기)</div>
+    <div class="swot">
+      <div class="swot-box swot-s">
+        <div class="swot-h">S — 강점</div>
+        <ul>
+          <li>리뷰 623건 · 키워드 태그 상위 5개 모두 긍정 (플레이스)</li>
+          <li>인스타 팔로워 3,089명 — 직접 경쟁사의 약 4배</li>
+          <li>슈가링+하드 듀얼 선택 구조 — 샵명 자체가 차별점</li>
+          <li>언론 인터뷰(더모스트타임즈) 신뢰 자산 보유</li>
+          <li>멜라닌케어 복합화 — 재방문·객단가 구조 확보</li>
+        </ul>
+      </div>
+      <div class="swot-box swot-w">
+        <div class="swot-h">W — 약점</div>
+        <ul>
+          <li>"압구정왁싱" 등 핵심 키워드 전면 미노출</li>
+          <li>구글 비즈니스 미등록 — 외국인 유입 0%</li>
+          <li>자체 블로그 SEO 미작동 (상위 노출은 타인 후기)</li>
+          <li>인스타 바이오에 예약 링크·핵심 메시지 부재</li>
+          <li>플레이스 소개문구가 오는 길 안내 중심</li>
+        </ul>
+      </div>
+      <div class="swot-box swot-o">
+        <div class="swot-h">O — 기회</div>
+        <ul>
+          <li>압구정로데오 외국인 관광객 급증 — 구글 등록 시 선점</li>
+          <li>"압구정슈가링" 3위 → 슈가링 카테고리 1위 도전 가능</li>
+          <li>바디프로필·웨딩 시즌 수요 (이미 이벤트 경험 보유)</li>
+          <li>멜라닌케어 — 검색 경쟁 낮은 신규 카테고리</li>
+        </ul>
+      </div>
+      <div class="swot-box swot-t">
+        <div class="swot-h">T — 위협</div>
+        <ul>
+          <li>사만다왁싱 — 브랜드 파워·자본 압도적 우위</li>
+          <li>VIP슈가링 — 동일 출구권·동일 카테고리·저가(40,000원)</li>
+          <li>같은 건물 퀸슈가링 — 구글에서 주소 노출 선점 중</li>
+          <li>왁싱 업계 저가 경쟁 심화 추세</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 섹션 12: KPI 목표 ══ -->
+  <div class="section">
+    <div class="section-title"><span class="sec-num">12</span> KPI — 현재 실측값 → 3개월 목표</div>
+    <table class="kpi-target">
+      <tr><th>지표</th><th>현재 (2026-06-13 실측)</th><th>3개월 목표</th><th>달성 수단</th></tr>
+      <tr><td>"압구정왁싱" 플레이스 순위</td><td>미노출</td><td>1페이지 진입</td><td>소개문구·대표키워드 정비 + 리뷰 유도</td></tr>
+      <tr><td>"압구정슈가링" 플레이스 순위</td><td>3위</td><td>1위</td><td>슈가링 키워드 집중 콘텐츠</td></tr>
+      <tr><td>구글 비즈니스</td><td>미등록</td><td>등록 + 리뷰 10건</td><td>현장 등록 + 외국인 고객 리뷰 요청 문구</td></tr>
+      <tr><td>플레이스 총 리뷰</td><td>623건</td><td>750건+</td><td>시술 후 리뷰 안내 동선 표준화</td></tr>
+      <tr><td>인스타 팔로워</td><td>3,089명</td><td>4,000명+</td><td>릴스 주 1회 (슈가링 vs 하드 비교 등)</td></tr>
+      <tr><td>자체 블로그 검색 상위 키워드</td><td>0개</td><td>3개+</td><td>키워드 1개당 포스팅 1건 집중 발행</td></tr>
+    </table>
+    <div class="alert a-info" style="margin-top:12px;">
+      <p><strong>측정 방법</strong>: 매월 1회 동일 키워드 6종 검색 순위 기록 (이번 보고서 5번 섹션 표를 기준선으로 사용). 점주가 직접 측정 가능하도록 체크표 별도 제공 예정 — 자립 구조 원칙.</p>
+    </div>
+  </div>
+
+  <!-- ══ 섹션 13: 90일 로드맵 ══ -->
+  <div class="section">
+    <div class="section-title"><span class="sec-num">13</span> 90일 실행 로드맵</div>
+
+    <div class="phase">
+      <div class="phase-label">PHASE 1 · 1회차 당일 (현장)</div>
+      <div class="phase-t">노출 인프라 복구 — "30분짜리 일부터"</div>
+      <ul>
+        <li>구글 비즈니스 프로필 등록 (원장님 폰, 함께 진행)</li>
+        <li>플레이스 소개문구 재작성: 오는 길 안내 → "듀얼왁싱 + 손 빠르고 안 아픈" 강점 중심</li>
+        <li>인스타 바이오에 네이버 예약 링크 + 핵심 메시지 1줄 추가</li>
+        <li>별점·영업시간·휴무일 등 미확인 수치 확정</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label">PHASE 2 · 1~4주</div>
+      <div class="phase-t">키워드 탈환 — "압구정왁싱이 보이게"</div>
+      <ul>
+        <li>"압구정왁싱" "압구정로데오왁싱" 키워드 블로그 포스팅 각 1건 발행 (제목·소제목 구조 가이드 제공)</li>
+        <li>더모스트타임즈 인터뷰를 플레이스 소개·인스타 하이라이트·블로그 상단 고정으로 재활용</li>
+        <li>릴스 1편: 슈가링 vs 하드왁싱 차이 (이미 블로그에 쓴 글 재활용 — 신규 제작 부담 없음)</li>
+        <li>시술 후 리뷰 요청 동선 표준화 (안내 카드 문구 제공)</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label">PHASE 3 · 1~3개월</div>
+      <div class="phase-t">자립 구조 — "점주 혼자서도 돌아가게"</div>
+      <ul>
+        <li>월 1회 검색 순위 자가 측정 체크표 운영 정착</li>
+        <li>구글 리뷰 10건 확보 (외국인 고객 영문 안내 문구 제공)</li>
+        <li>멜라닌케어 단독 키워드 콘텐츠 시작 (경쟁 낮은 블루오션)</li>
+        <li>2회차 컨설팅: 측정 데이터 기반 보정</li>
+      </ul>
     </div>
   </div>
 
@@ -653,7 +824,7 @@
 <div class="footer">
   <div class="footer-inner">
     <div class="footer-left">
-      <p>사전조사 분석보고서 v4.0 · S&amp;H듀얼왁싱 (압구정·신사) · 수집: 2026-06-13</p>
+      <p>사전조사 분석보고서 v5.0 Final · S&amp;H듀얼왁싱 (압구정·신사) · 수집: 2026-06-13</p>
       <p>크롤링 기반 실측값 보고서. 평점(별점)·일부 리뷰 원문·인스타 릴스 조회수는 로그인/렌더링 제한으로 미수집.</p>
     </div>
     <div class="footer-right">
