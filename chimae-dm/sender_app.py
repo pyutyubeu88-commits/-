@@ -24,10 +24,14 @@ from datetime import date
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
-BASE      = Path(__file__).parent
-CARDS_DIR = BASE / "cards"
-DATA_FILE = BASE / "customers.json"
-LOG_FILE  = BASE  / "send_log.json"
+import broadcast_messages as bm
+
+BASE           = Path(__file__).parent
+CARDS_DIR      = BASE / "cards"
+DATA_FILE      = BASE / "customers.json"
+LOG_FILE       = BASE / "send_log.json"
+BROADCAST_LOG  = BASE / "broadcast_log.json"
+BROADCAST_CFG  = BASE / "broadcast_cfg.json"
 
 NAVY  = "#1f3a5f"
 CORAL = "#e8533f"
@@ -227,14 +231,17 @@ class App(tk.Tk):
         self.nb.pack(fill="both", expand=True, padx=12, pady=10)
 
         self.tab_today     = tk.Frame(self.nb, bg=GRAY)
+        self.tab_broadcast = tk.Frame(self.nb, bg=GRAY)
         self.tab_customers = tk.Frame(self.nb, bg=GRAY)
         self.tab_status    = tk.Frame(self.nb, bg=GRAY)
 
-        self.nb.add(self.tab_today,     text="  📤 오늘 발송  ")
+        self.nb.add(self.tab_today,     text="  📤 7일 시퀀스  ")
+        self.nb.add(self.tab_broadcast, text="  📢 주간 DM  ")
         self.nb.add(self.tab_customers, text="  👥 고객 관리  ")
         self.nb.add(self.tab_status,    text="  📊 전체 현황  ")
 
         self._build_today_tab()
+        self._build_broadcast_tab()
         self._build_customers_tab()
         self._build_status_tab()
 
@@ -377,6 +384,229 @@ class App(tk.Tk):
         row.configure(highlightbackground="#27ae60", highlightthickness=2)
         self._refresh_status()
         self._refresh_customers()
+
+    # ── 주간 DM 브로드캐스트 탭 ──────────────────────────────────────────────
+
+    def _load_broadcast_log(self):
+        if BROADCAST_LOG.exists():
+            return json.loads(BROADCAST_LOG.read_text(encoding="utf-8"))
+        return []
+
+    def _save_broadcast_log(self, log):
+        BROADCAST_LOG.write_text(
+            json.dumps(log, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+
+    def _load_broadcast_cfg(self):
+        if BROADCAST_CFG.exists():
+            return json.loads(BROADCAST_CFG.read_text(encoding="utf-8"))
+        return {"campaign_start": date.today().isoformat()}
+
+    def _save_broadcast_cfg(self, cfg):
+        BROADCAST_CFG.write_text(
+            json.dumps(cfg, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+
+    def _auto_week(self):
+        cfg = self._load_broadcast_cfg()
+        start = date.fromisoformat(cfg.get("campaign_start", date.today().isoformat()))
+        delta = (date.today() - start).days
+        week = min(8, max(1, delta // 7 + 1))
+        return week
+
+    def _build_broadcast_tab(self):
+        f = self.tab_broadcast
+        self._bc_log = self._load_broadcast_log()
+
+        # ── 상단 컨트롤 ──
+        ctrl = tk.Frame(f, bg=GRAY)
+        ctrl.pack(fill="x", padx=10, pady=(10, 4))
+
+        tk.Label(ctrl, text="주차", bg=GRAY, fg=NAVY,
+                 font=("맑은 고딕", 11, "bold")).pack(side="left")
+        self._bc_week = tk.IntVar(value=self._auto_week())
+        tk.Spinbox(ctrl, from_=1, to=8, textvariable=self._bc_week,
+                   width=3, font=("맑은 고딕", 12, "bold"),
+                   command=self._refresh_broadcast).pack(side="left", padx=(4, 14))
+
+        tk.Label(ctrl, text="요일", bg=GRAY, fg=NAVY,
+                 font=("맑은 고딕", 11, "bold")).pack(side="left")
+        self._bc_day = tk.StringVar(value="화")
+        for d in ("화", "금"):
+            tk.Radiobutton(
+                ctrl, text=d, variable=self._bc_day, value=d,
+                bg=GRAY, fg=NAVY, font=("맑은 고딕", 11, "bold"),
+                activebackground=GRAY, selectcolor="#dfe5ec",
+                command=self._refresh_broadcast,
+            ).pack(side="left", padx=4)
+
+        tk.Button(
+            ctrl, text="캠페인 시작일 설정", bg="#dfe5ec", fg=NAVY,
+            font=("맑은 고딕", 9), relief="flat", cursor="hand2",
+            command=self._set_campaign_start,
+        ).pack(side="right")
+
+        # ── 메시지 미리보기 ──
+        preview_frame = tk.Frame(f, bg="white", highlightbackground="#dfe5ec",
+                                  highlightthickness=1)
+        preview_frame.pack(fill="x", padx=10, pady=4)
+
+        self._bc_topic_lbl = tk.Label(
+            preview_frame, text="", bg=CORAL, fg="white",
+            font=("맑은 고딕", 10, "bold"), anchor="w", padx=8, pady=4,
+        )
+        self._bc_topic_lbl.pack(fill="x")
+
+        self._bc_preview = tk.Text(
+            preview_frame, height=7, font=("맑은 고딕", 9),
+            bg="#f8f9fa", fg="#2b2b2b", relief="flat", wrap="word",
+        )
+        self._bc_preview.pack(fill="x", padx=8, pady=6)
+
+        # ── 고객 목록 ──
+        list_hdr = tk.Frame(f, bg=GRAY)
+        list_hdr.pack(fill="x", padx=10, pady=(6, 2))
+        self._bc_count_lbl = tk.Label(
+            list_hdr, text="", bg=GRAY, fg=NAVY, font=("맑은 고딕", 10, "bold")
+        )
+        self._bc_count_lbl.pack(side="left")
+        tk.Button(
+            list_hdr, text="📋 전체 문안 복사 (첫 번째 고객)", bg="#2b5f8f", fg="white",
+            font=("맑은 고딕", 9), relief="flat", cursor="hand2",
+            command=self._copy_broadcast_sample,
+        ).pack(side="right")
+
+        canvas = tk.Canvas(f, bg=GRAY, highlightthickness=0)
+        sb = ttk.Scrollbar(f, orient="vertical", command=canvas.yview)
+        self._bc_inner = tk.Frame(canvas, bg=GRAY)
+        self._bc_inner.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all")),
+        )
+        canvas.create_window((0, 0), window=self._bc_inner, anchor="nw")
+        canvas.configure(yscrollcommand=sb.set)
+        canvas.pack(side="left", fill="both", expand=True, padx=10, pady=4)
+        sb.pack(side="right", fill="y", pady=4)
+        self._bc_canvas = canvas
+
+        self._refresh_broadcast()
+
+    def _refresh_broadcast(self):
+        week = self._bc_week.get()
+        day  = self._bc_day.get()
+
+        topic = bm.get_topic(week, day)
+        ad    = bm.is_ad(week, day)
+        sample_msg = bm.get_message(week, day, "고객님")
+
+        self._bc_topic_lbl.config(
+            text=f"  {week}주차 {day}요일  ·  {topic}"
+                 + ("  ⚠ 광고" if ad else ""),
+            bg=CORAL if not ad else "#c0392b",
+        )
+        self._bc_preview.config(state="normal")
+        self._bc_preview.delete("1.0", "end")
+        self._bc_preview.insert("1.0", sample_msg)
+        self._bc_preview.config(state="disabled")
+
+        for w in self._bc_inner.winfo_children():
+            w.destroy()
+
+        sent_ids = {
+            e["cid"] for e in self._bc_log
+            if e["week"] == week and e["day"] == day
+        }
+        pending = [c for c in self.customers if c["id"] not in sent_ids]
+        done    = [c for c in self.customers if c["id"] in sent_ids]
+
+        self._bc_count_lbl.config(
+            text=f"전체 {len(self.customers)}명  |  미발송 {len(pending)}명  |  완료 {len(done)}명"
+        )
+
+        for c in pending:
+            self._build_bc_row(self._bc_inner, c, week, day, sent=False)
+        for c in done:
+            self._build_bc_row(self._bc_inner, c, week, day, sent=True)
+
+    def _build_bc_row(self, parent, c, week, day, sent=False):
+        bg_color = "#f0faf0" if sent else "white"
+        row = tk.Frame(parent, bg=bg_color, highlightbackground="#dfe5ec",
+                       highlightthickness=1)
+        row.pack(fill="x", padx=2, pady=2, ipady=3)
+
+        tk.Label(row, text=c["name"], bg=bg_color, fg=NAVY,
+                 font=("맑은 고딕", 11, "bold"), width=8).pack(side="left", padx=12)
+        tk.Label(row, text=c.get("phone", ""), bg=bg_color, fg="#5f6c7b",
+                 font=("맑은 고딕", 9), width=14).pack(side="left")
+
+        if sent:
+            tk.Label(row, text="✅ 발송 완료", bg=bg_color, fg="#27ae60",
+                     font=("맑은 고딕", 9, "bold")).pack(side="right", padx=12)
+        else:
+            done_btn = tk.Button(
+                row, text="✓ 완료", bg="#27ae60", fg="white",
+                font=("맑은 고딕", 9, "bold"), relief="flat", cursor="hand2",
+                width=6,
+            )
+            done_btn.pack(side="right", padx=4, ipady=2)
+            done_btn.config(
+                command=lambda cid=c["id"], w=week, d=day, r=row, b=done_btn:
+                    self._bc_mark_done(cid, w, d, r, b)
+            )
+            tk.Button(
+                row, text="📋 복사", bg=NAVY, fg="white",
+                font=("맑은 고딕", 9, "bold"), relief="flat", cursor="hand2",
+                width=6,
+                command=lambda name=c["name"]: self._copy(bm.get_message(week, day, name)),
+            ).pack(side="right", padx=4, ipady=2)
+
+    def _bc_mark_done(self, cid, week, day, row, btn):
+        self._bc_log.append({
+            "cid": cid, "week": week, "day": day,
+            "date": date.today().isoformat(),
+        })
+        self._save_broadcast_log(self._bc_log)
+        btn.config(state="disabled", text="✅", bg="#95a5a6")
+        row.configure(bg="#f0faf0", highlightbackground="#27ae60")
+        self._bc_count_lbl.config(
+            text=self._bc_count_lbl.cget("text")  # 즉각 리프레시 없이 색만 변경
+        )
+
+    def _copy_broadcast_sample(self):
+        if self.customers:
+            self._copy(bm.get_message(
+                self._bc_week.get(), self._bc_day.get(),
+                self.customers[0]["name"]
+            ))
+
+    def _set_campaign_start(self):
+        dlg = tk.Toplevel(self)
+        dlg.title("캠페인 시작일")
+        dlg.geometry("300x140")
+        dlg.configure(bg=GRAY)
+        dlg.transient(self)
+        dlg.grab_set()
+
+        cfg = self._load_broadcast_cfg()
+        tk.Label(dlg, text="캠페인 시작일 (1주차 화요일)",
+                 bg=GRAY, fg=NAVY, font=("맑은 고딕", 10)).pack(padx=16, pady=10)
+        var = tk.StringVar(value=cfg.get("campaign_start", date.today().isoformat()))
+        tk.Entry(dlg, textvariable=var, font=("맑은 고딕", 11), width=16).pack()
+
+        def save():
+            try:
+                date.fromisoformat(var.get().strip())
+                cfg["campaign_start"] = var.get().strip()
+                self._save_broadcast_cfg(cfg)
+                self._bc_week.set(self._auto_week())
+                self._refresh_broadcast()
+                dlg.destroy()
+            except ValueError:
+                messagebox.showwarning("형식 오류", "YYYY-MM-DD 형식으로 입력하세요.", parent=dlg)
+
+        tk.Button(dlg, text="저장", bg=CORAL, fg="white",
+                  font=("맑은 고딕", 11, "bold"), relief="flat",
+                  command=save).pack(pady=12, ipadx=20, ipady=4)
 
     # ── 고객 관리 탭 ──────────────────────────────────────────────────────────
 
@@ -601,6 +831,7 @@ class App(tk.Tk):
 
     def refresh(self):
         self._refresh_today()
+        self._refresh_broadcast()
         self._refresh_customers()
         self._refresh_status()
 
