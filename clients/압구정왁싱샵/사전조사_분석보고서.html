@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&H 왁싱 압구정 — 사전조사 분석보고서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans KR', sans-serif; background: #f4f3ef; color: #1a1a1a; font-size: 14px; line-height: 1.65; }
+
+  /* 커버 */
+  .cover {
+    background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 55%, #2a5580 100%);
+    color: white; padding: 56px 48px 48px; position: relative; overflow: hidden;
+  }
+  .cover::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 380px; height: 380px; background: rgba(255,255,255,0.03); border-radius: 50%;
+  }
+  .cover::after {
+    content: ''; position: absolute; bottom: -60px; left: 200px;
+    width: 200px; height: 200px; background: rgba(255,180,0,0.05); border-radius: 50%;
+  }
+  .cover-label {
+    display: inline-block;
+    background: rgba(255,200,0,0.2); border: 1px solid rgba(255,200,0,0.4);
+    color: #ffd700; font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+  .cover h1 { font-size: 32px; font-weight: 900; line-height: 1.2; margin-bottom: 8px; }
+  .cover h1 span { display: block; font-size: 16px; font-weight: 400; opacity: 0.65; margin-top: 6px; }
+  .cover-warning {
+    margin-top: 20px; background: rgba(255, 80, 80, 0.15);
+    border: 1px solid rgba(255,100,100,0.4); border-radius: 8px;
+    padding: 14px 18px; max-width: 520px;
+  }
+  .cover-warning .w-title { font-size: 12px; font-weight: 700; color: #ff9090; margin-bottom: 5px; letter-spacing: 0.05em; }
+  .cover-warning p { font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.6; }
+  .cover-meta { margin-top: 24px; display: flex; gap: 20px; flex-wrap: wrap; }
+  .cover-meta-item strong { display: block; font-size: 11px; color: rgba(255,255,255,0.5); font-weight: 400; margin-bottom: 2px; }
+  .cover-meta-item span { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); }
+
+  /* 레이아웃 */
+  .content { max-width: 820px; margin: 0 auto; padding: 36px 28px 80px; }
+
+  /* 섹션 카드 */
+  .section { background: white; border-radius: 12px; padding: 26px 28px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  .section-title {
+    font-size: 15px; font-weight: 700; color: #0a1628;
+    padding-bottom: 12px; margin-bottom: 18px;
+    border-bottom: 2px solid #e8f0f8;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-num {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: #1a3a5c; color: white;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+  }
+
+  /* 경고 배너 */
+  .alert-banner {
+    background: #fff5f5; border: 1.5px solid #ffb3b3; border-radius: 10px;
+    padding: 18px 20px; margin-bottom: 20px;
+  }
+  .alert-banner .alert-title { font-size: 14px; font-weight: 700; color: #cc0000; margin-bottom: 8px; }
+  .alert-banner ul { padding-left: 18px; }
+  .alert-banner li { font-size: 13px; color: #444; margin-bottom: 5px; }
+
+  /* 테이블 */
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #eef4fb; color: #1a3a5c; font-size: 12px; font-weight: 600; padding: 9px 12px; text-align: left; border: 1px solid #d8e8f0; }
+  td { padding: 9px 12px; border: 1px solid #e8f0f8; font-size: 13px; vertical-align: top; }
+  tr:nth-child(even) td { background: #fafcff; }
+
+  /* 배지 */
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+  .badge-red { background: #fee; color: #c00; }
+  .badge-green { background: #efe; color: #080; }
+  .badge-blue { background: #eef; color: #00a; }
+  .badge-yellow { background: #ffe; color: #880; }
+  .badge-gray { background: #f0f0f0; color: #666; }
+
+  /* 경쟁사 카드 */
+  .competitor-grid { display: grid; gap: 16px; }
+  .comp-card {
+    border: 1px solid #e0ecf8; border-radius: 10px; padding: 18px;
+    background: #fafcff;
+  }
+  .comp-card.top { border-color: #ffcc00; background: #fffef0; }
+  .comp-name { font-size: 14px; font-weight: 700; color: #0a1628; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .comp-table { width: 100%; }
+  .comp-table td { padding: 5px 8px; border: none; border-bottom: 1px solid #eee; font-size: 12.5px; }
+  .comp-table td:first-child { color: #666; font-weight: 500; width: 100px; }
+  .comp-note { margin-top: 10px; font-size: 12px; color: #c00; background: #fff5f5; padding: 8px 10px; border-radius: 6px; border-left: 3px solid #ffaaaa; }
+
+  /* 플로우 다이어그램 */
+  .flow { display: flex; flex-direction: column; gap: 0; align-items: flex-start; padding: 8px 0; }
+  .flow-item {
+    background: #eef4fb; border: 1px solid #c0d8f0; border-radius: 8px;
+    padding: 10px 18px; font-size: 13px; font-weight: 500; color: #1a3a5c;
+    width: fit-content; min-width: 200px;
+  }
+  .flow-item.highlight { background: #fff5f5; border-color: #ffaaaa; color: #cc0000; font-weight: 700; }
+  .flow-arrow { color: #999; font-size: 18px; padding: 4px 0 4px 28px; }
+
+  /* 가설 카드 */
+  .hypothesis-grid { display: grid; gap: 12px; }
+  .hyp-card {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: #f8fbff; border: 1px solid #dce8f5; border-radius: 8px; padding: 14px 16px;
+  }
+  .hyp-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #1a3a5c; color: white; font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .hyp-title { font-size: 13px; font-weight: 700; color: #1a3a5c; margin-bottom: 4px; }
+  .hyp-check { font-size: 12px; color: #888; }
+  .hyp-check strong { color: #444; }
+
+  /* 포지셔닝 매트릭스 */
+  .pos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pos-card { background: #f8fbff; border: 1px solid #d8e8f5; border-radius: 8px; padding: 14px; }
+  .pos-card.active { background: #fffef0; border-color: #ffcc00; }
+  .pos-card-title { font-size: 12px; font-weight: 700; color: #1a3a5c; margin-bottom: 6px; }
+  .pos-card-cond { font-size: 12px; color: #888; }
+  .pos-card-cond strong { color: #555; }
+
+  /* 체크리스트 */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; color: #333;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .chk-box { width: 16px; height: 16px; border: 1.5px solid #aac; border-radius: 3px; flex-shrink: 0; margin-top: 1px; }
+
+  /* 가격 비교 바 */
+  .price-bar-wrap { margin: 4px 0; }
+  .price-bar { height: 8px; border-radius: 4px; background: #1a3a5c; display: inline-block; }
+
+  /* 인사이트 박스 */
+  .insight {
+    background: #eef4fb; border-left: 4px solid #1a3a5c;
+    padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0;
+    font-size: 13px; color: #1a3a5c; line-height: 1.7;
+  }
+  .insight strong { font-weight: 700; }
+
+  /* 푸터 */
+  .footer { background: #0a1628; color: rgba(255,255,255,0.6); padding: 24px 48px; font-size: 12px; text-align: center; line-height: 1.7; }
+  .footer strong { display: block; color: white; font-size: 13px; margin-bottom: 4px; }
+
+  @media print {
+    body { background: white; }
+    .content { padding: 10px 0; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 커버 -->
+<div class="cover">
+  <div class="cover-label">Pre-Consulting Research</div>
+  <h1>S&H 왁싱 압구정
+    <span>사전조사 분석보고서</span>
+  </h1>
+  <div class="cover-warning">
+    <div class="w-title">⚠ 핵심 발견 — 즉시 주목</div>
+    <p>S&H 왁싱은 웹 검색에서 <strong>사실상 존재하지 않는 매장</strong>입니다.<br>
+    블로그 후기 0건 · SNS 미발견 · 경쟁사 대비 온라인 가시성 제로 수준.</p>
+  </div>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><strong>네이버 플레이스 ID</strong><span>2068917473</span></div>
+    <div class="cover-meta-item"><strong>작성일</strong><span>2026년 6월 12일</span></div>
+    <div class="cover-meta-item"><strong>작성</strong><span>손미현 (강남구 AI 마케팅 컨설팅)</span></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- 핵심 발견 -->
+  <div class="alert-banner">
+    <div class="alert-title">온라인 사전조사 결과: S&H 왁싱 현황</div>
+    <ul>
+      <li>네이버 플레이스 등록 확인 (ID: 2068917473) — 그러나 활성화 수준, 별점, 리뷰 수는 직접 접속 불가로 현장 확인 필요</li>
+      <li>"S&H 왁싱", "에스앤에이치왁싱", "SH왁싱" 등 모든 검색어에서 블로그 후기 0건, 인스타그램 미발견</li>
+      <li>경쟁사 사만다왁싱 압구정점: 네이버 블로그 후기 수백 건 + 인스타 수천 팔로워 운영 중</li>
+      <li>가격, 메뉴, 영업시간, 오픈 시기 등 기본 정보 모두 현장 확인 필요</li>
+    </ul>
+  </div>
+
+  <!-- 1. 현황 확인 필요 항목 -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">1</span>S&H 왁싱 현황 — 1회차 현장 필수 확인 항목</div>
+    <table>
+      <thead><tr><th style="width:180px">항목</th><th style="width:160px">현황</th><th>확인 방법</th></tr></thead>
+      <tbody>
+        <tr><td>상호명 (정확히)</td><td><span class="badge badge-yellow">현장 확인</span></td><td>간판·사업자등록증 확인</td></tr>
+        <tr><td>주소</td><td><span class="badge badge-yellow">현장 확인</span></td><td>네이버 플레이스에서 확인 가능</td></tr>
+        <tr><td>오픈 시기</td><td><span class="badge badge-yellow">현장 확인</span></td><td>원장님께 직접 질문</td></tr>
+        <tr><td>네이버 플레이스 별점·리뷰</td><td><span class="badge badge-yellow">현장 확인</span></td><td>원장님 핸드폰으로 함께 확인</td></tr>
+        <tr><td>인스타그램 계정</td><td><span class="badge badge-red">미발견</span></td><td>계정명 직접 확인 (없으면 즉시 개설 제안)</td></tr>
+        <tr><td>블로그 후기</td><td><span class="badge badge-red">0건 추정</span></td><td>네이버 블로그 검색으로 확인</td></tr>
+        <tr><td>카카오채널</td><td><span class="badge badge-gray">미확인</span></td><td>현장 확인</td></tr>
+        <tr><td>구글 비즈니스</td><td><span class="badge badge-gray">미확인</span></td><td>Google Maps 검색으로 확인</td></tr>
+        <tr><td>메뉴·가격표</td><td><span class="badge badge-yellow">현장 확인</span></td><td>현장 메뉴판 또는 카카오채널</td></tr>
+        <tr><td>월 마케팅 비용</td><td><span class="badge badge-gray">미확인</span></td><td>사전 질문지 또는 현장 질문</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2. 상권 분석 -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">2</span>압구정 왁싱 상권 분석</div>
+
+    <table style="margin-bottom:16px">
+      <thead><tr><th>상권 특성</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td>상권 성격</td><td><strong>프리미엄 뷰티·패션 밀집 상권</strong> (도산대로 중심)</td></tr>
+        <tr><td>공실률</td><td>도산대로 기준 사실상 제로 (2025~2026 기준)</td></tr>
+        <tr><td>임대 동향</td><td>권리금 치솟는 상승 상권 — 브랜딩 경쟁력이 생존 조건</td></tr>
+        <tr><td>주요 방문층</td><td>20~40대 여성 + 외국인 관광객 (중국·일본·태국 順)</td></tr>
+        <tr><td>외국인 비중</td><td>최근 2년간 급증, 가족 단위 방문객 증가 추세</td></tr>
+        <tr><td>왁싱샵 경쟁 강도</td><td><strong>★★★★☆</strong> — 반경 내 5개 이상 전문 왁싱샵 존재</td></tr>
+      </tbody>
+    </table>
+
+    <div class="insight">
+      <strong>시사점:</strong> 압구정 상권에서 "좋은 기술"만으로는 생존 불가. 온라인에서 먼저 발견되어야 고객이 방문한다.
+      외국인 유입 채널(구글·영어 대응)은 타 왁싱샵 대비 미개척 블루오션.
+    </div>
+
+    <div style="margin-top:16px">
+      <div style="font-size:13px; font-weight:700; color:#1a3a5c; margin-bottom:10px">2026년 뷰티 창업 트렌드 (왁싱샵 관련)</div>
+      <table>
+        <tbody>
+          <tr><td style="width:200px; font-weight:500; color:#555">핵심 생존 조건</td><td>"운영 전략 있는 브랜드" — 기술만으로 경쟁 불가</td></tr>
+          <tr><td>신규 고객 유입 채널</td><td>인스타그램 콘텐츠가 핵심 (전/후 사진, 릴스)</td></tr>
+          <tr><td>가격 전략 변화</td><td>저가 경쟁 대신 <strong>신뢰 기반 가격</strong>으로 이동</td></tr>
+          <tr><td>업종 트렌드</td><td>왁싱 단독 → 속눈썹·눈썹·피부관리 복합 확장</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3. 경쟁사 분석 -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">3</span>경쟁사 분석 — 압구정·신사 왁싱샵 5곳</div>
+
+    <div class="competitor-grid">
+
+      <!-- 사만다왁싱 -->
+      <div class="comp-card top">
+        <div class="comp-name">
+          <span class="badge badge-yellow">최강 경쟁자 ★★★★★</span>
+          사만다왁싱 압구정로데오점
+        </div>
+        <table class="comp-table">
+          <tr><td>주소</td><td>강남구 선릉로157길 21 3층</td></tr>
+          <tr><td>전화</td><td>02-723-4002</td></tr>
+          <tr><td>영업</td><td>11:00~22:00 연중무휴</td></tr>
+          <tr><td>브라질리언</td><td>88,000원 (남성 첫방문 50% 할인)</td></tr>
+          <tr><td>VIP</td><td>220,000원 (첫방문 40% 할인)</td></tr>
+          <tr><td>특이사항</td><td>셀럽 300인+ 방문, 남성 왁서 보유, 영어 서비스</td></tr>
+          <tr><td>온라인 강점</td><td>인스타·블로그·플레이스 모두 최상위 운영</td></tr>
+        </table>
+        <div class="comp-note">S&H 입장: 브랜드·가격 모두 다른 포지션으로 차별화 필요</div>
+      </div>
+
+      <!-- 워너비왁싱 -->
+      <div class="comp-card">
+        <div class="comp-name"><span class="badge badge-blue">프라이빗 전문</span> 워너비왁싱</div>
+        <table class="comp-table">
+          <tr><td>위치</td><td>압구정역 8번 출구 도보 3분</td></tr>
+          <tr><td>운영 방식</td><td>원장 직접 1:1 케어, 프라이빗 구조</td></tr>
+          <tr><td>자격</td><td>피부미용 국가자격증, 경력 10년+</td></tr>
+          <tr><td>왁스</td><td>JAXWAX 사용</td></tr>
+          <tr><td>포지션</td><td>"1인 전문가 프라이빗 케어"</td></tr>
+        </table>
+      </div>
+
+      <!-- 무무왁싱 -->
+      <div class="comp-card">
+        <div class="comp-name"><span class="badge badge-green">SNS 운영 중</span> 무무왁싱스튜디오</div>
+        <table class="comp-table">
+          <tr><td>인스타그램</td><td>@moumoustudio (운영 중)</td></tr>
+          <tr><td>서비스 범위</td><td>압구정·신사·청담 + 왁싱 수강</td></tr>
+          <tr><td>포지션</td><td>교육 겸업 전문 스튜디오</td></tr>
+        </table>
+      </div>
+
+      <!-- VIP슈가링 -->
+      <div class="comp-card">
+        <div class="comp-name"><span class="badge badge-blue">슈가링 전문</span> 압구정VIP슈가링왁싱테라피</div>
+        <table class="comp-table">
+          <tr><td>위치</td><td>압구정로데오역 6번 출구 도보 5분</td></tr>
+          <tr><td>방식</td><td>슈가링 (설탕 기반 제모)</td></tr>
+          <tr><td>가격</td><td>프리미엄 패키지 120,000원~</td></tr>
+          <tr><td>특이사항</td><td>남성 왁서 보유</td></tr>
+        </table>
+      </div>
+
+      <!-- 퀸슈가링 -->
+      <div class="comp-card">
+        <div class="comp-name"><span class="badge badge-blue">복합 케어</span> 퀸슈가링왁싱 (신사동)</div>
+        <table class="comp-table">
+          <tr><td>위치</td><td>신사동, 압구정역·로데오역 근처</td></tr>
+          <tr><td>서비스</td><td>슈가링왁싱 + 스웨디시마사지 패키지</td></tr>
+          <tr><td>포지션</td><td>복합 케어 (마사지+왁싱 패키지화)</td></tr>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- 경쟁 구도 플로우 -->
+    <div style="margin-top:20px">
+      <div style="font-size:13px; font-weight:700; color:#1a3a5c; margin-bottom:12px">경쟁 포지션 구도</div>
+      <div class="flow">
+        <div class="flow-item">💎 프리미엄 고가: 사만다왁싱 (브랜드 파워 압도적)</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-item">⭐ 중고가 전문: 워너비왁싱 · VIP슈가링 · 퀸슈가링</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-item">📍 중간가 일반: 발라모왁싱 등</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-item highlight">❓ S&H 왁싱 → 현재 포지션 불명 (온라인 노출 제로)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 가격 시장 -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">4</span>가격 시장 현황</div>
+    <table style="margin-bottom:14px">
+      <thead><tr><th>구분</th><th>브라질리언 왁싱 가격</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>전국 평균 (숨고 기준)</td><td><strong>70,000원</strong></td><td>최저 40,000 / 최고 120,000</td></tr>
+        <tr><td>강남·압구정 중가</td><td><strong>60,000~90,000원</strong></td><td>일반 전문 왁싱샵</td></tr>
+        <tr><td>강남·압구정 프리미엄</td><td><strong>100,000~220,000원</strong></td><td>사만다왁싱 기준</td></tr>
+        <tr><td>S&H 왁싱 추정 구간</td><td><span class="badge badge-yellow">현장 확인 필요</span></td><td>60,000~100,000원 구간 추정</td></tr>
+      </tbody>
+    </table>
+    <div class="insight">
+      압구정 상권 고객층은 "가격=품질 신호"로 인식하는 경향이 강합니다.
+      지나치게 낮은 가격은 오히려 기피 요인이 될 수 있습니다.
+    </div>
+  </div>
+
+  <!-- 5. 채널 중요도 -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">5</span>왁싱샵 온라인 채널 중요도</div>
+    <table>
+      <thead><tr><th style="width:50px">순위</th><th style="width:150px">채널</th><th>이유</th><th style="width:160px">S&H 현황</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>1위</strong></td>
+          <td><strong>인스타그램</strong></td>
+          <td>전/후 사진 콘텐츠 파급력, 20~30대 탐색 1순위 채널</td>
+          <td><span class="badge badge-red">미발견</span></td>
+        </tr>
+        <tr>
+          <td><strong>2위</strong></td>
+          <td><strong>네이버 플레이스</strong></td>
+          <td>"OO역 왁싱" 검색 1순위, 예약 연동, 리뷰 누적</td>
+          <td><span class="badge badge-yellow">등록됨 — 활성화 불명</span></td>
+        </tr>
+        <tr>
+          <td><strong>3위</strong></td>
+          <td><strong>네이버 블로그</strong></td>
+          <td>후기 검색 유입, 장기 SEO 자산</td>
+          <td><span class="badge badge-red">0건 추정</span></td>
+        </tr>
+        <tr>
+          <td><strong>4위</strong></td>
+          <td><strong>카카오채널</strong></td>
+          <td>예약·재방문 알림, 단골 유지 핵심</td>
+          <td><span class="badge badge-gray">미확인</span></td>
+        </tr>
+        <tr>
+          <td><strong>5위</strong></td>
+          <td><strong>구글 비즈니스</strong></td>
+          <td>외국인 고객 접근 채널 (압구정 외국인 多)</td>
+          <td><span class="badge badge-gray">미확인</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 6. 핵심 가설 -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">6</span>1회차 핵심 가설 — 현장 검증 필요</div>
+    <div class="hypothesis-grid">
+      <div class="hyp-card">
+        <div class="hyp-num">1</div>
+        <div>
+          <div class="hyp-title">온라인 가시성 부재</div>
+          <div style="font-size:13px; color:#444; margin-bottom:6px">웹 검색에서 S&H 왁싱이 전혀 노출되지 않는다. 지금 고객이 검색해도 찾지 못한다.</div>
+          <div class="hyp-check"><strong>현장 확인:</strong> 네이버 플레이스 리뷰 수, 블로그 후기 수, 인스타그램 현황 직접 확인</div>
+        </div>
+      </div>
+      <div class="hyp-card">
+        <div class="hyp-num">2</div>
+        <div>
+          <div class="hyp-title">기존 고객은 있으나 신규 유입 없음</div>
+          <div style="font-size:13px; color:#444; margin-bottom:6px">오픈 초기 지인 고객 위주 → 온라인 신규 유입 없는 구조로 고착 가능성</div>
+          <div class="hyp-check"><strong>현장 확인:</strong> 신규 vs 재방문 비율, 최근 신규 고객이 어떻게 알고 왔는지</div>
+        </div>
+      </div>
+      <div class="hyp-card">
+        <div class="hyp-num">3</div>
+        <div>
+          <div class="hyp-title">SNS 운영 여력 부족</div>
+          <div style="font-size:13px; color:#444; margin-bottom:6px">1인 또는 소수 운영 구조로 SNS 관리 시간 없는 구조</div>
+          <div class="hyp-check"><strong>현장 확인:</strong> 직원 수, 원장님이 직접 SNS 운영 가능한지</div>
+        </div>
+      </div>
+      <div class="hyp-card">
+        <div class="hyp-num">4</div>
+        <div>
+          <div class="hyp-title">외국인 수요 미포착</div>
+          <div style="font-size:13px; color:#444; margin-bottom:6px">구글 비즈니스·영어 안내 없어 인근 외국인 고객 유입 전면 차단 상태</div>
+          <div class="hyp-check"><strong>현장 확인:</strong> 외국인 고객 경험 유무, 영어 의사소통 가능 여부</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. 포지셔닝 방향 -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">7</span>포지셔닝 방향 가설 — 현장 확인 후 확정</div>
+    <div class="pos-grid">
+      <div class="pos-card">
+        <div class="pos-card-title">프라이빗·조용한 공간</div>
+        <div class="pos-card-cond"><strong>조건:</strong> 1인 또는 소수 운영, 예약제 구조라면</div>
+      </div>
+      <div class="pos-card">
+        <div class="pos-card-title">압구정 외국인 타겟</div>
+        <div class="pos-card-cond"><strong>조건:</strong> 구글·영어 대응 가능하다면 블루오션</div>
+      </div>
+      <div class="pos-card">
+        <div class="pos-card-title">전문 자격·경력 강조</div>
+        <div class="pos-card-cond"><strong>조건:</strong> 원장 경력·자격증이 있다면</div>
+      </div>
+      <div class="pos-card">
+        <div class="pos-card-title">복합 서비스 확장</div>
+        <div class="pos-card-cond"><strong>조건:</strong> 속눈썹·눈썹·피부관리 병행 가능하다면</div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:16px">
+      <strong>예상 핵심 메시지:</strong><br>
+      "매장의 기술과 퀄리티가 온라인에서 전혀 안 보이는 상태입니다.
+      지금 당장 광고보다, 검색했을 때 찾을 수 있는 구조를 먼저 만드는 것이 우선입니다."
+    </div>
+  </div>
+
+  <!-- 8. 1회차 준비 체크리스트 -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">8</span>1회차 컨설팅 준비 체크리스트</div>
+    <div style="font-size:12px; font-weight:600; color:#555; margin-bottom:10px">현장 지참 자료</div>
+    <ul class="checklist">
+      <li><span class="chk-box"></span>사전 질문지 응답 미리 검토</li>
+      <li><span class="chk-box"></span>경쟁사 5곳 인스타그램·플레이스 스크린샷 출력</li>
+      <li><span class="chk-box"></span>왁싱샵 특화 채널 정비 체크리스트</li>
+      <li><span class="chk-box"></span>잘하는 왁싱샵 인스타그램 레퍼런스 3~5개</li>
+    </ul>
+    <div style="font-size:12px; font-weight:600; color:#555; margin: 14px 0 10px">현장에서 즉시 확인할 5가지</div>
+    <ul class="checklist">
+      <li><span class="chk-box"></span>네이버 플레이스 별점·리뷰·소개문구 (원장님 핸드폰으로 함께 확인)</li>
+      <li><span class="chk-box"></span>인스타그램 계정 여부 및 현황 (없으면 즉시 개설 제안)</li>
+      <li><span class="chk-box"></span>가격표 전체 (경쟁 비교 즉시 가능)</li>
+      <li><span class="chk-box"></span>예약 방식 (지금 어떻게 예약 받는지)</li>
+      <li><span class="chk-box"></span>최근 신규 고객 — 어떤 경로로 알고 왔는지</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>강남구 AI 마케팅 컨설팅</strong>
+  이 문서는 온라인 사전조사 기반입니다. 현장 미팅 후 업데이트 예정.<br>
+  권용준 · 손미현
+</div>
+
+</body>
+</html>
