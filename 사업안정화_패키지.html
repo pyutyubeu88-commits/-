@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사업 안정화 패키지 — 갱남AI컨설팅</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans KR',sans-serif;background:#f0f2f5;color:#1a1a2e;font-size:14px;line-height:1.7}
+
+  /* COVER */
+  .cover{background:linear-gradient(135deg,#0a0a1a 0%,#1a1a2e 45%,#1a3a5c 100%);color:#fff;padding:48px 48px 40px;position:relative;overflow:hidden}
+  .cover::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;border-radius:50%;background:rgba(255,255,255,0.03)}
+  .cover-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px}
+  .cover-badge{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:5px 16px;font-size:11px;letter-spacing:1.5px}
+  .cover-tag{font-size:11px;opacity:0.5;text-align:right}
+  .cover-kv{margin-bottom:20px}
+  .cover-kv .en{font-size:11px;letter-spacing:3px;opacity:0.5;margin-bottom:8px}
+  .cover-kv h1{font-size:30px;font-weight:800;line-height:1.3;letter-spacing:-0.5px}
+  .cover-kv h1 span{color:#4fc3f7}
+  .cover-kv .sub{font-size:15px;opacity:0.75;margin-top:8px;font-weight:300}
+  .cover-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+  .ccard{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:14px 16px}
+  .ccard .num{font-size:24px;font-weight:800;color:#4fc3f7;line-height:1}
+  .ccard .label{font-size:11px;opacity:0.65;margin-top:4px}
+
+  /* LAYOUT */
+  .container{max-width:900px;margin:0 auto;padding:28px 24px 80px}
+
+  /* SECTION */
+  .sec{background:#fff;border-radius:14px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.07);overflow:hidden}
+  .sec-hd{padding:18px 24px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:12px}
+  .sec-icon{font-size:20px}
+  .sec-title{font-size:16px;font-weight:700}
+  .sec-sub{font-size:11px;color:#888;margin-top:2px}
+  .sec-body{padding:24px}
+
+  /* RISK GRID */
+  .risk-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .risk-card{border-radius:10px;padding:18px 16px;border:1.5px solid}
+  .risk-card.online{background:#e3f2fd;border-color:#90caf9}
+  .risk-card.ops{background:#fce4ec;border-color:#f48fb1}
+  .risk-card.revenue{background:#e8f5e9;border-color:#a5d6a7}
+  .risk-card .r-icon{font-size:22px;margin-bottom:8px}
+  .risk-card .r-title{font-size:13px;font-weight:700;margin-bottom:10px}
+  .risk-card .r-list{list-style:none}
+  .risk-card .r-list li{font-size:12px;padding:3px 0;border-bottom:1px solid rgba(0,0,0,0.05);color:#444}
+  .risk-card .r-list li:last-child{border:none}
+  .risk-card .r-list li::before{content:"→ ";font-weight:700;opacity:0.5}
+  .risk-card .r-tag{display:inline-block;margin-top:10px;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700}
+  .risk-card.online .r-tag{background:#1565c0;color:#fff}
+  .risk-card.ops .r-tag{background:#c62828;color:#fff}
+  .risk-card.revenue .r-tag{background:#2e7d32;color:#fff}
+
+  /* PACKAGE PLANS */
+  .plan-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .plan{border-radius:12px;border:2px solid #e0e0e0;overflow:hidden}
+  .plan.featured{border-color:#1a1a2e;box-shadow:0 4px 16px rgba(26,26,46,0.15)}
+  .plan-hd{padding:18px 18px 14px;background:#f8f9fa}
+  .plan.featured .plan-hd{background:#1a1a2e;color:#fff}
+  .plan-name{font-size:14px;font-weight:700;margin-bottom:4px}
+  .plan-price{font-size:26px;font-weight:800;line-height:1}
+  .plan-price .unit{font-size:12px;font-weight:400;opacity:0.7}
+  .plan-target{font-size:11px;margin-top:6px;opacity:0.6}
+  .plan-body{padding:16px 18px}
+  .plan-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:12px}
+  .plan-item:last-child{border:none}
+  .plan-item .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+  .dot-blue{background:#1565c0}
+  .dot-red{background:#c62828}
+  .dot-green{background:#2e7d32}
+  .dot-gray{background:#bbb}
+  .plan-item.ins{background:#fff8f8;border-radius:6px;padding:8px 10px;margin:4px 0;border:1px solid #fce4ec}
+  .plan-item.ins .dot{background:#c62828}
+
+  /* INSURANCE SECTION */
+  .ins-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .ins-card{border-radius:10px;padding:16px;border:1.5px solid #f0f0f0;background:#fafafa}
+  .ins-card .ic-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .ins-card .ic-icon{font-size:18px}
+  .ins-card .ic-name{font-size:13px;font-weight:700;color:#1a1a2e}
+  .ins-card .ic-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:auto}
+  .ic-must{background:#fce4ec;color:#c62828}
+  .ic-rec{background:#fff3e0;color:#e65100}
+  .ic-opt{background:#e8f5e9;color:#2e7d32}
+  .ins-card .ic-desc{font-size:12px;color:#555;margin-bottom:8px}
+  .ins-card .ic-example{font-size:11px;color:#888;background:#f0f0f0;border-radius:6px;padding:6px 10px}
+
+  /* FLOW */
+  .flow{display:flex;align-items:center;gap:0}
+  .flow-step{flex:1;text-align:center;padding:16px 10px}
+  .flow-step .fs-num{width:32px;height:32px;border-radius:50%;background:#1a1a2e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin:0 auto 8px}
+  .flow-step .fs-title{font-size:12px;font-weight:700;margin-bottom:4px}
+  .flow-step .fs-desc{font-size:11px;color:#888}
+  .flow-arrow{color:#ccc;font-size:18px;flex-shrink:0}
+
+  /* GUARANTEE */
+  .guarantee{background:linear-gradient(135deg,#1a1a2e,#1a3a5c);color:#fff;border-radius:12px;padding:24px 28px}
+  .guarantee h3{font-size:16px;font-weight:700;margin-bottom:16px}
+  .g-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .g-item{background:rgba(255,255,255,0.07);border-radius:8px;padding:12px 16px}
+  .g-item .gi-title{font-size:12px;font-weight:700;color:#4fc3f7;margin-bottom:4px}
+  .g-item .gi-desc{font-size:12px;opacity:0.8}
+
+  /* CTA */
+  .cta{background:#fff;border-radius:12px;padding:24px;text-align:center;border:2px solid #1a1a2e}
+  .cta h3{font-size:16px;font-weight:700;margin-bottom:6px}
+  .cta p{font-size:13px;color:#666;margin-bottom:16px}
+  .cta-row{display:flex;justify-content:center;gap:12px}
+  .cta-btn{padding:10px 24px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:2px solid #1a1a2e}
+  .cta-btn.primary{background:#1a1a2e;color:#fff}
+  .cta-btn.secondary{background:#fff;color:#1a1a2e}
+
+  /* FOOTER */
+  .footer-bar{background:#1a1a2e;color:#fff;border-radius:12px;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+
+  @media print{body{background:#fff}.sec{box-shadow:none;border:1px solid #e0e0e0;break-inside:avoid}.cover{break-after:page}}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-top">
+    <span class="cover-badge">GANGNAM AI CONSULTING · 사후 관리</span>
+    <span class="cover-tag">3회 컨설팅 종료 후 제안용</span>
+  </div>
+  <div class="cover-kv">
+    <div class="en">BUSINESS STABILIZATION PACKAGE</div>
+    <h1>잘 만든 가게,<br><span>무너지지 않게</span> 지킵니다</h1>
+    <div class="sub">온라인 관리 + 운영 리스크 관리까지 — 한 사람이 지속적으로 챙기는 구조</div>
+  </div>
+  <div class="cover-cards">
+    <div class="ccard"><div class="num">3</div><div class="label">리스크 영역 전방위 커버</div></div>
+    <div class="ccard"><div class="num">월 1회</div><div class="label">채널 + 사업 리스크 통합 점검</div></div>
+    <div class="ccard"><div class="num">13년</div><div class="label">리스크 관리 전문 경력</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- 왜 필요한가 -->
+<div class="sec">
+  <div class="sec-hd">
+    <span class="sec-icon">⚠️</span>
+    <div>
+      <div class="sec-title">3회 컨설팅으로 기반을 잡았습니다. 그런데 사업은 계속됩니다.</div>
+      <div class="sec-sub">온라인이 잘 돌아가는 동안 뒤에서 무너지는 것들이 있습니다</div>
+    </div>
+  </div>
+  <div class="sec-body">
+    <div class="risk-grid">
+      <div class="risk-card online">
+        <div class="r-icon">📱</div>
+        <div class="r-title">온라인 리스크</div>
+        <ul class="r-list">
+          <li>채널 정보가 다시 틀어짐</li>
+          <li>악성 리뷰 방치</li>
+          <li>키워드 순위 이탈</li>
+          <li>콘텐츠 단절로 유입 감소</li>
+          <li>플랫폼 정책 변경 미대응</li>
+        </ul>
+        <span class="r-tag">채널 관리</span>
+      </div>
+      <div class="risk-card ops">
+        <div class="r-icon">🛡️</div>
+        <div class="r-title">사업 운영 리스크</div>
+        <ul class="r-list">
+          <li>시술 중 고객 피부 트러블 클레임</li>
+          <li>화재·누수·기물 파손</li>
+          <li>대표자 건강 이상 → 매출 0</li>
+          <li>무보험 상태에서 민사 소송</li>
+          <li>설비 고장 · 임대차 분쟁</li>
+        </ul>
+        <span class="r-tag">리스크 관리</span>
+      </div>
+      <div class="risk-card revenue">
+        <div class="r-icon">📈</div>
+        <div class="r-title">수익 리스크</div>
+        <ul class="r-list">
+          <li>비수기 매출 급락</li>
+          <li>재방문율 자연 감소</li>
+          <li>경쟁 매장 신규 오픈</li>
+          <li>가격 경쟁력 저하</li>
+          <li>신규 유입 채널 고갈</li>
+        </ul>
+        <span class="r-tag">지속 성장</span>
+      </div>
+    </div>
+    <div style="background:#f8f9fa;border-radius:8px;padding:14px 18px;margin-top:16px;font-size:13px;color:#444;border-left:3px solid #1a1a2e">
+      <strong>핵심 질문</strong> — 지금 이 세 가지 리스크 중 실제로 관리되고 있는 것이 몇 개인가요?
+    </div>
+  </div>
+</div>
+
+<!-- 패키지 플랜 -->
+<div class="sec">
+  <div class="sec-hd">
+    <span class="sec-icon">📦</span>
+    <div>
+      <div class="sec-title">사업 안정화 패키지 — 3가지 플랜</div>
+      <div class="sec-sub">대표님 상황에 맞게 선택하는 구조</div>
+    </div>
+  </div>
+  <div class="sec-body">
+    <div class="plan-grid">
+
+      <!-- BASIC -->
+      <div class="plan">
+        <div class="plan-hd">
+          <div class="plan-name">베이직</div>
+          <div class="plan-price">10<span class="unit">만원/월</span></div>
+          <div class="plan-target">채널 유지가 우선인 경우</div>
+        </div>
+        <div class="plan-body">
+          <div class="plan-item"><span class="dot dot-blue"></span><span>채널 현황 월 1회 점검 리포트</span></div>
+          <div class="plan-item"><span class="dot dot-blue"></span><span>플레이스·인스타 이슈 알림</span></div>
+          <div class="plan-item"><span class="dot dot-blue"></span><span>리뷰 모니터링 + 대응 가이드</span></div>
+          <div class="plan-item"><span class="dot dot-gray"></span><span style="color:#bbb">방문 점검 없음</span></div>
+          <div class="plan-item ins"><span class="dot dot-red"></span><span><strong>사업 리스크 진단 1회 포함</strong><br><span style="font-size:11px;color:#888">가입 현황 점검 + 공백 확인</span></span></div>
+        </div>
+      </div>
+
+      <!-- STANDARD (featured) -->
+      <div class="plan featured">
+        <div class="plan-hd">
+          <div style="font-size:10px;color:#4fc3f7;letter-spacing:1px;margin-bottom:4px">RECOMMENDED</div>
+          <div class="plan-name">스탠다드</div>
+          <div class="plan-price">25<span class="unit">만원/월</span></div>
+          <div class="plan-target">안정적 운영을 원하는 경우</div>
+        </div>
+        <div class="plan-body">
+          <div class="plan-item"><span class="dot dot-blue"></span><span>채널 월 1회 점검 리포트</span></div>
+          <div class="plan-item"><span class="dot dot-blue"></span><span>월 1회 30분 화상/전화 점검</span></div>
+          <div class="plan-item"><span class="dot dot-blue"></span><span>플레이스 소개글·사진 연 2회 업데이트</span></div>
+          <div class="plan-item"><span class="dot dot-blue"></span><span>리뷰 답글 월 10건 대행</span></div>
+          <div class="plan-item ins"><span class="dot dot-red"></span><span><strong>사업 리스크 진단 + 설계 포함</strong><br><span style="font-size:11px;color:#888">공백 리스크 맞춤 솔루션 제안</span></span></div>
+          <div class="plan-item ins"><span class="dot dot-red"></span><span><strong>보험 갱신·변경 알림 관리</strong></span></div>
+        </div>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="plan">
+        <div class="plan-hd">
+          <div class="plan-name">프리미엄</div>
+          <div class="plan-price">45<span class="unit">만원/월</span></div>
+          <div class="plan-target">성장과 안정 둘 다 챙기는 경우</div>
+        </div>
+        <div class="plan-body">
+          <div class="plan-item"><span class="dot dot-blue"></span><span>스탠다드 전체 포함</span></div>
+          <div class="plan-item"><span class="dot dot-blue"></span><span>월 1회 현장 방문 점검 (1시간)</span></div>
+          <div class="plan-item"><span class="dot dot-green"></span><span>블로그/인스타 콘텐츠 월 2건 대행</span></div>
+          <div class="plan-item"><span class="dot dot-green"></span><span>시즌 이벤트 소개글·채널 업데이트</span></div>
+          <div class="plan-item ins"><span class="dot dot-red"></span><span><strong>리스크 관리 풀케어</strong><br><span style="font-size:11px;color:#888">진단·설계·갱신·청구 서포트</span></span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="background:#fff8f8;border:1.5px solid #fce4ec;border-radius:8px;padding:14px 18px;margin-top:16px;font-size:12px;color:#555">
+      <strong style="color:#c62828">리스크 진단은 모든 플랜에 포함됩니다.</strong> 진단 결과 현재 가입 상태가 충분하다면 추가 제안 없이 그대로 마무리합니다.
+    </div>
+  </div>
+</div>
+
+<!-- 리스크 관리 구체 내용 -->
+<div class="sec">
+  <div class="sec-hd">
+    <span class="sec-icon">🛡️</span>
+    <div>
+      <div class="sec-title">소상공인 사업 리스크 관리 — 실제로 챙겨야 할 4가지</div>
+      <div class="sec-sub">왁싱샵·미용·서비스업 기준</div>
+    </div>
+  </div>
+  <div class="sec-body">
+    <div class="ins-grid">
+      <div class="ins-card">
+        <div class="ic-header">
+          <span class="ic-icon">⚡</span>
+          <span class="ic-name">영업배상책임보험</span>
+          <span class="ic-badge ic-must">필수급</span>
+        </div>
+        <div class="ic-desc">시술 중 고객 피부 트러블·부작용 클레임 발생 시 대인·대물 배상을 커버합니다. 왁싱·미용 업종에서 연간 수건씩 분쟁 발생.</div>
+        <div class="ic-example">💬 "슈가링 받고 피부가 벗겨졌다" → 합의금 50~300만원 요구 사례 실재</div>
+      </div>
+      <div class="ins-card">
+        <div class="ic-header">
+          <span class="ic-icon">🔥</span>
+          <span class="ic-name">사업장 화재/재물보험</span>
+          <span class="ic-badge ic-must">필수급</span>
+        </div>
+        <div class="ic-desc">화재·누수·도난·기물 파손 시 장비와 인테리어 복구 비용을 커버합니다. 왁싱 장비·인테리어 투자금 보호.</div>
+        <div class="ic-example">💬 누수 1건으로 인테리어 재시공 → 수백만원 손실 발생 사례 다수</div>
+      </div>
+      <div class="ins-card">
+        <div class="ic-header">
+          <span class="ic-icon">🏥</span>
+          <span class="ic-name">대표자 건강/소득보장보험</span>
+          <span class="ic-badge ic-rec">권장</span>
+        </div>
+        <div class="ic-desc">1인 운영 사업장에서 대표가 아프면 매출이 즉시 0이 됩니다. 입원·수술비 + 휴업기간 소득 보전을 설계합니다.</div>
+        <div class="ic-example">💬 1인 운영 원장 2주 입원 = 2주치 매출 + 고정비 전액 손실</div>
+      </div>
+      <div class="ins-card">
+        <div class="ic-header">
+          <span class="ic-icon">👥</span>
+          <span class="ic-name">근재보험 (직원 있는 경우)</span>
+          <span class="ic-badge ic-opt">해당 시</span>
+        </div>
+        <div class="ic-desc">직원이 업무 중 부상·질병 발생 시 산재보험 외 추가 보상을 커버합니다. 직원 1명 이상이면 검토 대상.</div>
+        <div class="ic-example">💬 직원 업무 중 부상 → 산재 + 민사 소송 동시 진행 사례</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 진행 흐름 -->
+<div class="sec">
+  <div class="sec-hd">
+    <span class="sec-icon">🔄</span>
+    <div>
+      <div class="sec-title">어떻게 진행되나요</div>
+    </div>
+  </div>
+  <div class="sec-body">
+    <div class="flow">
+      <div class="flow-step">
+        <div class="fs-num">1</div>
+        <div class="fs-title">3회 컨설팅 종료</div>
+        <div class="fs-desc">온라인 기반 구축 완료</div>
+      </div>
+      <div class="flow-arrow">›</div>
+      <div class="flow-step">
+        <div class="fs-num">2</div>
+        <div class="fs-title">사업 리스크 무료 진단</div>
+        <div class="fs-desc">현재 가입 현황 + 공백 리스크 확인</div>
+      </div>
+      <div class="flow-arrow">›</div>
+      <div class="flow-step">
+        <div class="fs-num">3</div>
+        <div class="fs-title">패키지 선택</div>
+        <div class="fs-desc">베이직 / 스탠다드 / 프리미엄</div>
+      </div>
+      <div class="flow-arrow">›</div>
+      <div class="flow-step">
+        <div class="fs-num">4</div>
+        <div class="fs-title">통합 관리 시작</div>
+        <div class="fs-desc">채널 + 리스크 월별 관리</div>
+      </div>
+      <div class="flow-arrow">›</div>
+      <div class="flow-step">
+        <div class="fs-num">5</div>
+        <div class="fs-title">분기 리뷰</div>
+        <div class="fs-desc">성과 점검 + 플랜 조정</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 보장 -->
+<div class="sec">
+  <div class="sec-body" style="padding:0">
+    <div class="guarantee">
+      <h3>이 패키지가 다른 이유</h3>
+      <div class="g-grid">
+        <div class="g-item">
+          <div class="gi-title">온라인과 오프라인 리스크를 한 사람이</div>
+          <div class="gi-desc">채널 담당자 따로, 보험 설계사 따로 두는 비효율이 없습니다. 상황 파악이 된 사람이 통합 관리합니다.</div>
+        </div>
+        <div class="g-item">
+          <div class="gi-title">이미 3회를 같이 한 사람입니다</div>
+          <div class="gi-desc">처음 만나는 보험 설계사가 아닙니다. 대표님 사업 구조와 리스크를 이미 파악하고 있습니다.</div>
+        </div>
+        <div class="g-item">
+          <div class="gi-title">진단 후 필요 없으면 제안하지 않습니다</div>
+          <div class="gi-desc">현재 가입 상태가 충분하면 그대로입니다. 팔기 위한 진단이 아니라 확인을 위한 진단입니다.</div>
+        </div>
+        <div class="g-item">
+          <div class="gi-title">언제든 조정 가능</div>
+          <div class="gi-desc">매월 갱신 구조입니다. 필요에 따라 플랜을 올리거나 내릴 수 있고, 특정 서비스만 선택할 수도 있습니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <h3>먼저 무료 리스크 진단부터 받아보세요</h3>
+  <p>30분이면 충분합니다. 현재 어떤 리스크가 열려 있는지 확인하는 것만으로도 가치가 있습니다.</p>
+  <div class="cta-row">
+    <div class="cta-btn primary">리스크 진단 신청</div>
+    <div class="cta-btn secondary">패키지 상담 문의</div>
+  </div>
+</div>
+
+<div class="footer-bar">
+  <div>
+    <div style="font-size:13px;font-weight:700">갱남AI컨설팅 · 권용준</div>
+    <div style="font-size:11px;opacity:0.55;margin-top:3px">AI 마케팅 컨설팅 · 사업 리스크 관리 · 13년 경력</div>
+  </div>
+  <div style="text-align:right;font-size:12px;opacity:0.65">
+    010-6783-2588<br>
+    yjkwon@gangnamconsulting.com
+  </div>
+</div>
+
+</div>
+</body>
+</html>
