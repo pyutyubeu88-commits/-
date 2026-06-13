@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&H듀얼왁싱 — 현장 관찰 체크리스트</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans KR',sans-serif;background:#f4f6f9;color:#1a1a2e;font-size:13px;line-height:1.6}
+  .cover{background:linear-gradient(135deg,#0d4f3c 0%,#1a7a5e 100%);color:#fff;padding:32px 40px}
+  .cover .top{display:flex;justify-content:space-between;align-items:flex-start}
+  .cover .badge{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);border-radius:20px;padding:4px 14px;font-size:11px;letter-spacing:1px}
+  .cover h1{font-size:22px;font-weight:700;margin:10px 0 4px}
+  .cover .sub{font-size:13px;opacity:0.85}
+  .cover .meta-row{display:flex;gap:20px;margin-top:16px;font-size:12px;opacity:0.75}
+  .write-box{display:flex;gap:6px;align-items:center;margin-top:2px}
+  .write-line{border-bottom:1px solid rgba(255,255,255,0.5);width:120px;height:20px}
+  .container{max-width:860px;margin:0 auto;padding:20px 24px 60px}
+  .section{background:#fff;border-radius:10px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.06);overflow:hidden}
+  .sec-header{display:flex;align-items:center;gap:10px;padding:14px 20px;background:#f8faf9;border-bottom:2px solid #e8f5f0}
+  .sec-icon{font-size:18px}
+  .sec-title{font-size:15px;font-weight:700;color:#0d4f3c}
+  .sec-sub{font-size:11px;color:#666;margin-top:1px}
+  .checklist{padding:0}
+  .check-item{display:flex;align-items:flex-start;gap:12px;padding:12px 20px;border-bottom:1px solid #f5f7f6;transition:background 0.1s}
+  .check-item:last-child{border-bottom:none}
+  .check-item input[type=checkbox]{width:16px;height:16px;cursor:pointer;flex-shrink:0;margin-top:2px;accent-color:#0d4f3c}
+  .item-body{flex:1}
+  .item-text{font-size:13px;color:#222;font-weight:500}
+  .item-note{font-size:11px;color:#888;margin-top:3px}
+  .item-write{border:none;border-bottom:1px solid #d0d5d3;width:100%;font-size:12px;padding:3px 0;margin-top:4px;outline:none;background:transparent;font-family:'Noto Sans KR',sans-serif;color:#333}
+  .tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px}
+  .t-must{background:#fde8e8;color:#c62828}
+  .t-photo{background:#e3f2fd;color:#1565c0}
+  .t-check{background:#e8f5e9;color:#2e7d32}
+  .t-action{background:#fff3e0;color:#e65100}
+  .score-row{display:flex;align-items:center;gap:8px;margin-top:6px}
+  .score-label{font-size:11px;color:#888;width:60px}
+  .score-btn{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border:1.5px solid #d0d5d3;border-radius:12px;font-size:11px;cursor:pointer;background:#fafafa}
+  .score-btn:hover{border-color:#0d4f3c}
+  .obs-area{padding:12px 20px;background:#f8faf9}
+  .obs-label{font-size:11px;font-weight:600;color:#555;margin-bottom:4px}
+  .obs-input{width:100%;border:1.5px solid #d0d5d3;border-radius:6px;padding:8px 10px;font-size:12px;font-family:'Noto Sans KR',sans-serif;resize:vertical;min-height:50px;background:#fff}
+  .summary-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:16px 20px}
+  .sum-card{background:#f8faf9;border-radius:8px;padding:12px;text-align:center}
+  .sum-card .label{font-size:11px;color:#666;margin-bottom:6px}
+  .sum-card .input{border:none;border-bottom:1.5px solid #0d4f3c;width:80px;font-size:14px;font-weight:700;text-align:center;outline:none;background:transparent;color:#0d4f3c}
+  .action-table{width:100%;border-collapse:collapse;font-size:12px}
+  .action-table th{background:#0d4f3c;color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+  .action-table td{padding:8px 12px;border-bottom:1px solid #e8f5f0;vertical-align:top}
+  .action-table td input{border:none;border-bottom:1px solid #ccc;width:100%;font-size:12px;font-family:'Noto Sans KR',sans-serif;outline:none;background:transparent}
+  .footer{text-align:center;font-size:11px;color:#888;padding:16px;background:#f8faf9;border-radius:0 0 10px 10px}
+  @media print{body{background:#fff}.section{box-shadow:none;border:1px solid #ddd;break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="top">
+    <div class="badge">현장 관찰 체크리스트 · 1회차</div>
+    <div style="text-align:right;font-size:11px;opacity:0.75">
+      방문일 <span class="write-line" style="display:inline-block;border-bottom:1px solid rgba(255,255,255,0.5);width:80px"></span>
+    </div>
+  </div>
+  <h1>S&H듀얼왁싱 · 현장 관찰 체크리스트</h1>
+  <div class="sub">서울 강남구 신사동 압구정로46길 5-6 A동 4층 · 원장: 세아</div>
+  <div class="meta-row">
+    <span>컨설턴트: 권용준</span>
+    <span>동행: 손미현</span>
+    <span>미팅 시작: ____:____</span>
+    <span>예상 종료: ____:____</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- 1. 접근성 / 외부 환경 -->
+<div class="section">
+  <div class="sec-header">
+    <span class="sec-icon">🚶</span>
+    <div>
+      <div class="sec-title">1. 접근성 · 외부 환경</div>
+      <div class="sec-sub">고객이 처음 찾아오는 경험 — 네이버 지도 유입 후 실제 도달까지</div>
+    </div>
+  </div>
+  <div class="checklist">
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">건물 입구에서 간판/안내판이 눈에 띄는가 <span class="tag t-must">필수</span></div>
+        <input class="item-write" placeholder="관찰 내용 기록">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">엘리베이터/계단 안내 표시가 명확한가 (4층)</div>
+        <input class="item-write" placeholder="관찰 내용 기록">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">건물 외부/입구 촬영 포인트 <span class="tag t-photo">촬영</span></div>
+        <div class="item-note">네이버 플레이스 대표사진 후보 — 간판, 건물 외관, 진입로</div>
+        <input class="item-write" placeholder="촬영 가능 앵글 메모">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">주변 주차 환경 (고객 민원 다발 여부)</div>
+        <input class="item-write" placeholder="주차 가능 여부, 유료/무료, 거리">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">대중교통 도보 접근성 (압구정역·압구정로데오역 기준)</div>
+        <input class="item-write" placeholder="약 몇 분, 어느 출구">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. 내부 공간 -->
+<div class="section">
+  <div class="sec-header">
+    <span class="sec-icon">🏠</span>
+    <div>
+      <div class="sec-title">2. 내부 공간 · 분위기</div>
+      <div class="sec-sub">콘텐츠 촬영 포인트 + 고객 경험 품질 판단</div>
+    </div>
+  </div>
+  <div class="checklist">
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">전반적 청결도 · 정돈 상태</div>
+        <div class="score-row">
+          <span class="score-label">점수</span>
+          <span class="score-btn">1</span><span class="score-btn">2</span><span class="score-btn">3</span><span class="score-btn">4</span><span class="score-btn">5</span>
+        </div>
+        <input class="item-write" placeholder="특이사항 기록">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">대기 공간 — 좌석 수, 인테리어, 조명 <span class="tag t-photo">촬영</span></div>
+        <input class="item-write" placeholder="분위기, 색감, 소품 등">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">시술 룸 수 · 동선 구조</div>
+        <input class="item-write" placeholder="룸 몇 개, 개인실/오픈형">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">조명 환경 — 촬영 가능 밝기·각도 <span class="tag t-photo">촬영</span></div>
+        <div class="item-note">자연광 있는지, 인스타 감성 연출 가능한 스팟</div>
+        <input class="item-write" placeholder="최적 촬영 스팟 메모">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">메뉴판 · 서비스 안내물 비치 상태</div>
+        <div class="item-note">인쇄물 디자인 수준, 정보 최신성</div>
+        <input class="item-write" placeholder="관찰 내용">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">브랜드 아이덴티티 일관성 (색상·로고·폰트)</div>
+        <div class="item-note">오프라인 ↔ 인스타그램 ↔ 네이버 플레이스 일관성</div>
+        <input class="item-write" placeholder="불일치 항목 기록">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">인터뷰 자료(더모스트타임즈) 현장 비치 여부</div>
+        <div class="item-note">있다면 위치·활용도 기록. 없다면 게시 제안</div>
+        <input class="item-write" placeholder="비치 위치 또는 제안 메모">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. 서비스 접점 -->
+<div class="section">
+  <div class="sec-header">
+    <span class="sec-icon">💬</span>
+    <div>
+      <div class="sec-title">3. 서비스 접점 · 고객 경험</div>
+      <div class="sec-sub">리뷰 언어와 실제 경험이 일치하는지 확인</div>
+    </div>
+  </div>
+  <div class="checklist">
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">첫 응대 방식 (전화/방문 고객 대응 직접 관찰)</div>
+        <input class="item-write" placeholder="응대 톤, 친절도, 소요 시간">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">예약 시스템 실제 작동 방식</div>
+        <div class="item-note">카카오채널 / 전화 / 네이버예약 중 어떤 것이 실제로 쓰이는가</div>
+        <input class="item-write" placeholder="실제 예약 흐름 기록">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">리뷰 요청 프로세스 존재 여부 <span class="tag t-action">개선 대상</span></div>
+        <div class="item-note">시술 후 리뷰 유도 멘트/QR 등이 있는가. 없다면 즉시 설계 대상</div>
+        <input class="item-write" placeholder="있음/없음 + 방식 기록">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">재방문 유도 장치 (포인트·다음예약 안내 등)</div>
+        <input class="item-write" placeholder="있음/없음 + 방식">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">원장 세아님 대화 — 강점 자기인식 수준</div>
+        <div class="item-note">본인이 가장 잘 한다고 생각하는 것을 자연스럽게 확인</div>
+        <input class="item-write" placeholder="원장 언어 그대로 기록">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. 온라인 채널 현장 점검 -->
+<div class="section">
+  <div class="sec-header">
+    <span class="sec-icon">📱</span>
+    <div>
+      <div class="sec-title">4. 온라인 채널 현장 점검</div>
+      <div class="sec-sub">실물 채널 상태를 현장에서 직접 확인</div>
+    </div>
+  </div>
+  <div class="checklist">
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">네이버 플레이스 — 영업시간 정확성 확인 <span class="tag t-must">필수</span></div>
+        <div class="item-note">플레이스 10:30 vs 당근 11:00 불일치 → 현장 확인 후 즉시 수정</div>
+        <div style="display:flex;gap:12px;margin-top:6px">
+          <span style="font-size:12px">실제 오픈: <input style="border:none;border-bottom:1px solid #ccc;width:80px;font-size:12px;outline:none"> 마감: <input style="border:none;border-bottom:1px solid #ccc;width:80px;font-size:12px;outline:none"> 휴무: <input style="border:none;border-bottom:1px solid #ccc;width:100px;font-size:12px;outline:none"></span>
+        </div>
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">네이버 플레이스 — 대표사진 최신성 · 품질</div>
+        <div class="item-note">상위 노출 사진 5장 확인. 교체 필요 여부</div>
+        <input class="item-write" placeholder="현재 대표사진 상태, 교체 대상 항목">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">네이버 플레이스 — 소개글 / 메뉴 정보 정확성</div>
+        <input class="item-write" placeholder="틀린 정보, 누락 항목">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">인스타그램 바이오 — 링크 · 정보 최신성</div>
+        <div class="item-note">링크인바이오 / 전화번호 / 영업시간 표기 여부</div>
+        <input class="item-write" placeholder="바이오 현재 상태 기록">
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">구글 비즈니스 등록 — 현장에서 진행 <span class="tag t-action">당일 실행</span></div>
+        <div class="item-note">원장님 구글 계정으로 로그인 필요. 주소·전화·사진 기본 등록</div>
+        <div class="score-row">
+          <span class="score-btn">등록완료</span>
+          <span class="score-btn">진행 중</span>
+          <span class="score-btn">보류(이유: )</span>
+        </div>
+      </div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body">
+        <div class="item-text">네이버 블로그 — 최근 포스팅 날짜 · 키워드 사용 방식</div>
+        <input class="item-write" placeholder="최근 포스팅 날짜, 키워드 삽입 여부">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. 즉시 실행 항목 -->
+<div class="section">
+  <div class="sec-header">
+    <span class="sec-icon">⚡</span>
+    <div>
+      <div class="sec-title">5. 당일 즉시 실행 항목</div>
+      <div class="sec-sub">미팅 중 바로 수정 · 등록 · 촬영 완료 대상</div>
+    </div>
+  </div>
+  <div class="checklist">
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body"><div class="item-text">네이버 플레이스 영업시간 수정 <span class="tag t-action">실행</span></div></div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body"><div class="item-text">구글 비즈니스 기본 정보 등록 <span class="tag t-action">실행</span></div></div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body"><div class="item-text">인스타그램 바이오 정비 (전화번호·예약링크 추가) <span class="tag t-action">실행</span></div></div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body"><div class="item-text">현장 촬영 — 외부 간판 / 내부 대표 스팟 3~5장 <span class="tag t-photo">촬영</span></div></div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body"><div class="item-text">플레이스 소개글 초안 작성 (현장에서 원장 확인)</div></div>
+    </div>
+    <div class="check-item">
+      <input type="checkbox">
+      <div class="item-body"><div class="item-text">핵심 포지셔닝 문장 확정 + 원장 구두 OK</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 종합 평가 -->
+<div class="section">
+  <div class="sec-header">
+    <span class="sec-icon">📊</span>
+    <div>
+      <div class="sec-title">종합 평가 · 우선순위</div>
+    </div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="label">당일 즉시 실행 완료</div>
+      <input class="input" placeholder="0"> / 6
+    </div>
+    <div class="sum-card">
+      <div class="label">다음 회차 숙제 항목</div>
+      <input class="input" placeholder="0"> 개
+    </div>
+    <div class="sum-card">
+      <div class="label">현장 종합 점수</div>
+      <input class="input" placeholder="7"> / 10
+    </div>
+  </div>
+  <div style="padding:0 20px 16px">
+    <div class="obs-label">오늘 미팅에서 발견한 가장 큰 강점</div>
+    <textarea class="obs-input" placeholder="원장님 언어 그대로 기록 — 나중에 포지셔닝 문구로 사용됩니다"></textarea>
+    <div class="obs-label" style="margin-top:12px">즉시 개선이 필요한 1순위 문제</div>
+    <textarea class="obs-input" placeholder="구체적으로 기록"></textarea>
+    <div class="obs-label" style="margin-top:12px">다음 회차 핵심 과제</div>
+    <textarea class="obs-input" placeholder="다음 방문 전 원장님 숙제 + 컨설턴트 준비사항"></textarea>
+  </div>
+</div>
+
+<!-- 다음 회차 액션 테이블 -->
+<div class="section">
+  <div class="sec-header">
+    <span class="sec-icon">📋</span>
+    <div><div class="sec-title">다음 회차 액션 플랜</div></div>
+  </div>
+  <table class="action-table">
+    <thead>
+      <tr>
+        <th style="width:30%">할 일</th>
+        <th style="width:20%">담당</th>
+        <th style="width:20%">기한</th>
+        <th style="width:30%">메모</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><input placeholder="항목 기록"></td><td><input placeholder="원장/권/손"></td><td><input placeholder="날짜"></td><td><input placeholder="비고"></td></tr>
+      <tr><td><input placeholder="항목 기록"></td><td><input placeholder="원장/권/손"></td><td><input placeholder="날짜"></td><td><input placeholder="비고"></td></tr>
+      <tr><td><input placeholder="항목 기록"></td><td><input placeholder="원장/권/손"></td><td><input placeholder="날짜"></td><td><input placeholder="비고"></td></tr>
+      <tr><td><input placeholder="항목 기록"></td><td><input placeholder="원장/권/손"></td><td><input placeholder="날짜"></td><td><input placeholder="비고"></td></tr>
+      <tr><td><input placeholder="항목 기록"></td><td><input placeholder="원장/권/손"></td><td><input placeholder="날짜"></td><td><input placeholder="비고"></td></tr>
+    </tbody>
+  </table>
+  <div class="footer">갱남AI컨설팅 · 권용준 · 010-6783-2588 · yjkwon@gangnamconsulting.com</div>
+</div>
+
+</div>
+</body>
+</html>
