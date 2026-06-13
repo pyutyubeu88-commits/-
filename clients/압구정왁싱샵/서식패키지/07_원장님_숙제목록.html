@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&H듀얼왁싱 — 원장님 숙제 목록</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans KR',sans-serif;background:#fff;color:#1a1a2e;font-size:14px;line-height:1.7}
+
+  /* A4 인쇄 최적화 */
+  @page{size:A4;margin:20mm 18mm}
+  @media print{body{background:#fff}.no-print{display:none}}
+
+  .cover{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);color:#fff;padding:28px 32px;border-radius:10px;margin-bottom:20px}
+  .cover .badge{display:inline-block;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.35);border-radius:20px;padding:4px 14px;font-size:11px;letter-spacing:1px;margin-bottom:10px}
+  .cover h1{font-size:20px;font-weight:700;margin-bottom:4px}
+  .cover .sub{font-size:13px;opacity:0.8}
+  .cover .date-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+  .cover .date-item{font-size:12px;opacity:0.75}
+  .cover .date-item strong{opacity:1;font-size:13px}
+
+  .intro-box{background:#fff8e1;border:1.5px solid #ffc107;border-radius:8px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:#5d4037}
+  .intro-box strong{color:#e65100}
+
+  .section{margin-bottom:22px;break-inside:avoid}
+  .sec-header{display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:8px 8px 0 0;font-size:14px;font-weight:700}
+  .sec-header.p1{background:#fde8e8;color:#c62828;border:1.5px solid #f48fb1}
+  .sec-header.p2{background:#fff3e0;color:#e65100;border:1.5px solid #ffcc80}
+  .sec-header.p3{background:#e8f5e9;color:#2e7d32;border:1.5px solid #a5d6a7}
+  .sec-header.remind{background:#e3f2fd;color:#1565c0;border:1.5px solid #90caf9}
+  .sec-body{border:1.5px solid #e0e0e0;border-top:none;border-radius:0 0 8px 8px;overflow:hidden}
+
+  .hw-item{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border-bottom:1px solid #f5f5f5}
+  .hw-item:last-child{border-bottom:none}
+  .hw-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+  .hw-num.p1{background:#fde8e8;color:#c62828}
+  .hw-num.p2{background:#fff3e0;color:#e65100}
+  .hw-num.p3{background:#e8f5e9;color:#2e7d32}
+  .hw-body{flex:1}
+  .hw-task{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
+  .hw-detail{font-size:12px;color:#666;margin-bottom:6px}
+  .hw-deadline{display:inline-block;background:#f0f0f0;border-radius:10px;padding:2px 10px;font-size:11px;color:#555;font-weight:600}
+  .hw-deadline.urgent{background:#fde8e8;color:#c62828}
+  .hw-deadline.normal{background:#e8f5e9;color:#2e7d32}
+  .hw-check{display:flex;align-items:center;gap:6px;margin-top:8px}
+  .hw-check input[type=checkbox]{width:16px;height:16px;accent-color:#1a1a2e;cursor:pointer}
+  .hw-check label{font-size:12px;color:#888}
+
+  .write-row{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid #f5f5f5;background:#fafafa}
+  .write-row:last-child{border-bottom:none}
+  .write-label{font-size:13px;font-weight:600;color:#333;width:120px;flex-shrink:0}
+  .write-line{flex:1;border:none;border-bottom:1.5px solid #ccc;font-size:13px;font-family:'Noto Sans KR',sans-serif;outline:none;padding:2px 4px;background:transparent}
+
+  .tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px}
+  .tip-card{background:#f8f9ff;border-radius:6px;padding:10px 12px;border-left:3px solid #5c6bc0}
+  .tip-card .tip-title{font-size:11px;font-weight:700;color:#5c6bc0;margin-bottom:4px}
+  .tip-card .tip-body{font-size:12px;color:#444}
+
+  .footer-box{background:#1a1a2e;color:#fff;border-radius:8px;padding:16px 20px;margin-top:24px;display:flex;justify-content:space-between;align-items:center}
+  .footer-box .left{font-size:12px;opacity:0.8}
+  .footer-box .right{font-size:11px;opacity:0.6;text-align:right}
+  .next-box{background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:8px;padding:14px 18px;margin-top:16px}
+  .next-box .title{font-size:13px;font-weight:700;color:#2e7d32;margin-bottom:8px}
+  .next-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+  .next-label{font-size:12px;font-weight:600;color:#555;width:80px}
+  .next-input{border:none;border-bottom:1.5px solid #4caf50;font-size:13px;font-family:'Noto Sans KR',sans-serif;outline:none;flex:1;background:transparent}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="badge">원장님 숙제 목록 · 1회차 이후</div>
+  <h1>S&H듀얼왁싱 · 원장님 실행 숙제</h1>
+  <div class="sub">이 목록은 오늘 미팅에서 확정된 원장님 직접 실행 항목입니다</div>
+  <div class="date-grid">
+    <div class="date-item">미팅일: <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;년&nbsp;&nbsp;&nbsp;월&nbsp;&nbsp;&nbsp;일</strong></div>
+    <div class="date-item">다음 미팅: <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;년&nbsp;&nbsp;&nbsp;월&nbsp;&nbsp;&nbsp;일</strong></div>
+    <div class="date-item">원장님: <strong>세아</strong></div>
+    <div class="date-item">담당 컨설턴트: <strong>권용준 010-6783-2588</strong></div>
+  </div>
+</div>
+
+<div class="intro-box">
+  <strong>이 목록 사용 안내</strong> — 완료한 항목은 체크박스에 ✓ 표시하세요.
+  잘 모르거나 막히는 항목은 카카오톡이나 전화로 바로 연락 주세요.
+  <strong>다음 미팅 전날까지</strong> 완료하면 됩니다.
+</div>
+
+<!-- P1: 이번 주 안 -->
+<div class="section">
+  <div class="sec-header p1">🔴 P1 — 이번 주 안에 (필수)</div>
+  <div class="sec-body">
+
+    <div class="hw-item">
+      <div class="hw-num p1">1</div>
+      <div class="hw-body">
+        <div class="hw-task">구글 비즈니스 등록 완료 확인</div>
+        <div class="hw-detail">오늘 현장에서 시작했습니다. 구글에서 "인증 코드 엽서"가 오면 입력하거나, 전화 인증을 완료해 주세요.</div>
+        <div style="margin-bottom:6px"><span class="hw-deadline urgent">이번 주 내</span></div>
+        <div class="hw-check"><input type="checkbox" id="g1"><label for="g1">완료</label></div>
+      </div>
+    </div>
+
+    <div class="hw-item">
+      <div class="hw-num p1">2</div>
+      <div class="hw-body">
+        <div class="hw-task">네이버 플레이스 영업시간 최종 확인</div>
+        <div class="hw-detail">오늘 수정했습니다. 네이버 앱에서 "S&H듀얼왁싱"을 검색해 영업시간이 정확히 표시되는지 직접 확인해 주세요.</div>
+        <div style="margin-bottom:6px"><span class="hw-deadline urgent">이번 주</span></div>
+        <div class="hw-check"><input type="checkbox" id="g2"><label for="g2">완료</label></div>
+      </div>
+    </div>
+
+    <div class="hw-item">
+      <div class="hw-num p1">3</div>
+      <div class="hw-body">
+        <div class="hw-task">인스타그램 바이오에 예약 링크 추가</div>
+        <div class="hw-detail">바이오에 카카오채널 또는 네이버 예약 링크가 없으면 신규 고객이 예약 방법을 못 찾습니다. 링크 1개만 추가해 주세요.</div>
+        <div style="margin-bottom:6px"><span class="hw-deadline urgent">이번 주</span></div>
+        <div class="hw-check"><input type="checkbox" id="g3"><label for="g3">완료</label></div>
+      </div>
+    </div>
+
+    <div class="hw-item">
+      <div class="hw-num p1">4</div>
+      <div class="hw-body">
+        <div class="hw-task">오늘 확정한 포지셔닝 문장 — 플레이스 소개글에 반영</div>
+        <div class="hw-detail">오늘 확정한 문장: <span style="color:#c62828;font-weight:700">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"</span><br>이 문장을 네이버 플레이스 사업장 소개에 넣어 주세요.</div>
+        <div style="margin-bottom:6px"><span class="hw-deadline urgent">이번 주</span></div>
+        <div class="hw-check"><input type="checkbox" id="g4"><label for="g4">완료</label></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- P2: 2주 안 -->
+<div class="section">
+  <div class="sec-header p2">🟡 P2 — 2주 안에</div>
+  <div class="sec-body">
+
+    <div class="hw-item">
+      <div class="hw-num p2">5</div>
+      <div class="hw-body">
+        <div class="hw-task">인스타그램 하이라이트 정리</div>
+        <div class="hw-detail">3가지 하이라이트를 만들어 주세요: ① 가격안내 ② 시술후기 ③ 예약방법. 기존 스토리에서 골라서 추가만 하면 됩니다.</div>
+        <div style="margin-bottom:6px"><span class="hw-deadline normal">2주 내</span></div>
+        <div class="hw-check"><input type="checkbox" id="g5"><label for="g5">완료</label></div>
+      </div>
+    </div>
+
+    <div class="hw-item">
+      <div class="hw-num p2">6</div>
+      <div class="hw-body">
+        <div class="hw-task">콘텐츠 루틴 시작 — 주 2회 인스타 게시</div>
+        <div class="hw-detail">요일을 정해서 주 2회 업로드 규칙을 만들어 주세요. 시술 전후 사진 1장 + 짧은 설명만으로 충분합니다. 아이디어가 없으면 바로 연락하세요.</div>
+        <div style="margin-bottom:6px"><span class="hw-deadline normal">2주 내 시작</span></div>
+        <div style="font-size:12px;color:#888;margin-bottom:4px">업로드 요일 결정: <span style="border-bottom:1px solid #ccc;padding:0 30px"></span> 요일 · <span style="border-bottom:1px solid #ccc;padding:0 30px"></span> 요일</div>
+        <div class="hw-check"><input type="checkbox" id="g6"><label for="g6">루틴 시작</label></div>
+      </div>
+    </div>
+
+    <div class="hw-item">
+      <div class="hw-num p2">7</div>
+      <div class="hw-body">
+        <div class="hw-task">네이버 블로그 포스팅 1개 업로드</div>
+        <div class="hw-detail">제목 형식: "[압구정왁싱] (시술 종류) 후기 — S&H듀얼왁싱". 고객 시술 후기 + 사진 + 예약 링크 구조로 써주세요. 초안을 카카오톡으로 보내주시면 제가 피드백 드립니다.</div>
+        <div style="margin-bottom:6px"><span class="hw-deadline normal">2주 내</span></div>
+        <div class="hw-check"><input type="checkbox" id="g7"><label for="g7">완료</label></div>
+      </div>
+    </div>
+
+    <div class="hw-item">
+      <div class="hw-num p2">8</div>
+      <div class="hw-body">
+        <div class="hw-task">더모스트타임즈 인터뷰 자료 현장 게시</div>
+        <div class="hw-detail">인터뷰 기사를 A4 또는 A3 크기로 출력해 대기 공간에 액자로 비치하세요. 신뢰도가 눈에 보이게 됩니다.</div>
+        <div style="margin-bottom:6px"><span class="hw-deadline normal">2주 내</span></div>
+        <div class="hw-check"><input type="checkbox" id="g8"><label for="g8">완료</label></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- P3: 1개월 -->
+<div class="section">
+  <div class="sec-header p3">🟢 P3 — 1개월 안에</div>
+  <div class="sec-body">
+
+    <div class="hw-item">
+      <div class="hw-num p3">9</div>
+      <div class="hw-body">
+        <div class="hw-task">구글 리뷰 첫 5건 받기</div>
+        <div class="hw-detail">단골 고객 5명에게 구글 리뷰 링크를 카카오톡으로 보내주세요. 링크는 오늘 만든 구글 비즈니스에서 "리뷰 받기" 버튼으로 생성됩니다. 부탁 멘트: "저희 샵 구글에도 남겨주시면 정말 큰 힘이 돼요 🙏"</div>
+        <div style="margin-bottom:6px"><span class="hw-deadline normal">1개월</span></div>
+        <div class="hw-check"><input type="checkbox" id="g9"><label for="g9">5건 달성</label></div>
+      </div>
+    </div>
+
+    <div class="hw-item">
+      <div class="hw-num p3">10</div>
+      <div class="hw-body">
+        <div class="hw-task">릴스 1개 제작·업로드</div>
+        <div class="hw-detail">시술 과정 15~30초 영상 (얼굴 노출 불필요). 배경음악만 깔면 됩니다. 탐색 페이지 노출로 신규 팔로워 유입에 가장 효과적입니다.</div>
+        <div style="margin-bottom:6px"><span class="hw-deadline normal">1개월</span></div>
+        <div class="hw-check"><input type="checkbox" id="g10"><label for="g10">완료</label></div>
+      </div>
+    </div>
+
+    <div class="hw-item">
+      <div class="hw-num p3">11</div>
+      <div class="hw-body">
+        <div class="hw-task">카카오채널 자동응답 메시지 설정</div>
+        <div class="hw-detail">채팅 오면 자동으로 "안녕하세요! 예약은 ○○로 주세요" + 가격 안내 + 구글리뷰 링크가 발송되도록 설정합니다. 방법 모르시면 연락 주시면 같이 합니다.</div>
+        <div style="margin-bottom:6px"><span class="hw-deadline normal">1개월</span></div>
+        <div class="hw-check"><input type="checkbox" id="g11"><label for="g11">완료</label></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 오늘 미팅에서 확정한 것 -->
+<div class="section">
+  <div class="sec-header remind">📌 오늘 미팅에서 확정한 기준값 (변경 시 연락 필수)</div>
+  <div class="sec-body">
+    <div class="write-row">
+      <span class="write-label">포지셔닝 문장</span>
+      <input class="write-line" placeholder="오늘 확정한 한 문장">
+    </div>
+    <div class="write-row">
+      <span class="write-label">대표 서비스</span>
+      <input class="write-line" placeholder="고객에게 가장 먼저 소개할 서비스">
+    </div>
+    <div class="write-row">
+      <span class="write-label">정확한 영업시간</span>
+      <input class="write-line" placeholder="오픈 __:__ ~ 마감 __:__ / 정기휴무 ___">
+    </div>
+    <div class="write-row">
+      <span class="write-label">주 예약 경로</span>
+      <input class="write-line" placeholder="카카오채널 / 네이버예약 / 전화">
+    </div>
+  </div>
+</div>
+
+<!-- 막히면 이렇게 -->
+<div class="section">
+  <div class="sec-header" style="background:#f3e5f5;color:#6a1b9a;border:1.5px solid #ce93d8">💡 막히면 이렇게 해주세요</div>
+  <div class="sec-body">
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-title">SNS 올릴 내용 모르겠을 때</div>
+        <div class="tip-body">오늘 시술한 사진 한 장 + "오늘의 시술 완성!" 한 줄이면 충분합니다. 완벽하지 않아도 됩니다.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-title">블로그 글 쓰기 어려울 때</div>
+        <div class="tip-body">저에게 시술 사진과 "오늘 어떤 시술 했는지" 한 줄만 보내주세요. 초안을 써드립니다.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-title">구글 등록 막힐 때</div>
+        <div class="tip-body">구글 계정으로 로그인 후 "business.google.com" 접속. 또는 전화로 같이 진행합니다.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-title">모든 것이 벅찰 때</div>
+        <div class="tip-body">P1 딱 1번만 해주세요: "인스타에 사진 1장 올리기". 나머지는 다음 미팅에서 같이 합니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 다음 미팅 -->
+<div class="next-box">
+  <div class="title">📅 다음 미팅 정보</div>
+  <div class="next-row">
+    <span class="next-label">날짜·시간</span>
+    <input class="next-input" placeholder="______년 __월 __일 ____:____">
+  </div>
+  <div class="next-row">
+    <span class="next-label">장소</span>
+    <input class="next-input" placeholder="S&H듀얼왁싱 / 기타">
+  </div>
+  <div class="next-row">
+    <span class="next-label">가져올 것</span>
+    <input class="next-input" placeholder="이 숙제 목록 (완료 체크 표시 후), 블로그 초안">
+  </div>
+</div>
+
+<div class="footer-box">
+  <div class="left">
+    갱남AI컨설팅 · 권용준<br>
+    📞 010-6783-2588 · yjkwon@gangnamconsulting.com
+  </div>
+  <div class="right">
+    언제든 연락 주세요.<br>
+    막히는 것 혼자 해결하려 하지 마세요.
+  </div>
+</div>
+
+</body>
+</html>
