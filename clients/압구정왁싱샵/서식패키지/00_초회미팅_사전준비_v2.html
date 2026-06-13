@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>압구정 S&H 듀얼왁싱 · 초회 미팅 전 사전 준비 v2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans KR',sans-serif;background:#f0f2f5;color:#1a1a2e;font-size:13px;line-height:1.7}
+
+  /* COVER */
+  .cover{background:linear-gradient(135deg,#0a0a1a 0%,#1a1a2e 40%,#0f3460 100%);color:#fff;padding:48px 48px 40px;position:relative;overflow:hidden}
+  .cover::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.03);pointer-events:none}
+  .cover::after{content:'';position:absolute;bottom:-40px;left:40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.02);pointer-events:none}
+  .cover-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
+  .cover-badge{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:5px 16px;font-size:11px;letter-spacing:1.5px;font-weight:500}
+  .cover-version{font-size:11px;opacity:0.6;text-align:right;line-height:1.6}
+  .cover h1{font-size:24px;font-weight:700;margin-bottom:6px;letter-spacing:-0.3px}
+  .cover h2{font-size:16px;font-weight:400;opacity:0.75;margin-bottom:24px}
+  .cover-meta{display:flex;gap:24px;font-size:12px;opacity:0.65}
+  .cover-rule{margin-top:28px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:14px 20px;font-size:12px;line-height:1.8;opacity:0.9}
+  .cover-rule .rule-title{font-size:11px;font-weight:700;letter-spacing:1px;opacity:0.7;margin-bottom:6px}
+
+  /* LAYOUT */
+  .container{max-width:960px;margin:0 auto;padding:28px 24px 80px}
+
+  /* SECTION */
+  .sec{background:#fff;border-radius:12px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);overflow:hidden}
+  .sec-hd{padding:16px 24px;border-bottom:2px solid #f0f2f5;display:flex;align-items:center;gap:12px}
+  .sec-num{width:30px;height:30px;border-radius:50%;background:#1a1a2e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+  .sec-title{font-size:15px;font-weight:700;color:#1a1a2e}
+  .sec-sub{font-size:11px;color:#888;margin-top:2px}
+  .sec-body{padding:20px 24px}
+
+  /* SUBSECTION */
+  .sub-sec{margin-bottom:20px}
+  .sub-sec:last-child{margin-bottom:0}
+  .sub-title{font-size:12px;font-weight:700;color:#0f3460;margin-bottom:10px;padding-left:10px;border-left:3px solid #0f3460}
+
+  /* TABLE */
+  .t{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px}
+  .t th{background:#f5f7ff;padding:9px 12px;text-align:left;font-weight:700;font-size:11px;color:#333;border-bottom:2px solid #e0e6ff}
+  .t td{padding:9px 12px;border-bottom:1px solid #f5f5f5;vertical-align:top}
+  .t tr:last-child td{border-bottom:none}
+  .t tr:hover td{background:#fafbff}
+
+  /* STATUS TAGS */
+  .tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap}
+  .t-fixed{background:#e8f5e9;color:#2e7d32}
+  .t-check{background:#fff3e0;color:#e65100}
+  .t-none{background:#fce4ec;color:#c62828}
+  .t-partial{background:#e3f2fd;color:#1565c0}
+  .t-na{background:#f5f5f5;color:#999}
+  .t-hold{background:#f3e5f5;color:#6a1b9a}
+  .t-verified{background:#e0f2f1;color:#00695c}
+
+  /* PRIORITY TAGS */
+  .p1{background:#fde8e8;color:#c62828;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}
+  .p2{background:#fff3e0;color:#e65100;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}
+  .p3{background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}
+
+  /* CHECKLIST */
+  .cl{list-style:none}
+  .cl li{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:13px}
+  .cl li:last-child{border-bottom:none}
+  .cl li input[type=checkbox]{width:15px;height:15px;flex-shrink:0;margin-top:2px;cursor:pointer;accent-color:#1a1a2e}
+  .cl li.done input[type=checkbox]{accent-color:#2e7d32}
+  .cl li label{cursor:pointer;line-height:1.5}
+
+  /* QA LIST */
+  .qa-list{list-style:none}
+  .qa-list li{padding:7px 0 7px 16px;border-bottom:1px solid #f8f8f8;font-size:13px;position:relative;color:#333}
+  .qa-list li:last-child{border-bottom:none}
+  .qa-list li::before{content:"Q";position:absolute;left:0;font-size:10px;font-weight:700;color:#0f3460;top:9px}
+
+  /* RISK TABLE */
+  .risk-table{width:100%;border-collapse:collapse;font-size:12px}
+  .risk-table th{background:#1a1a2e;color:#fff;padding:9px 12px;text-align:left;font-weight:600}
+  .risk-table td{padding:9px 12px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+  .risk-table tr:last-child td{border-bottom:none}
+  .risk-table tr:nth-child(even) td{background:#fafafa}
+
+  /* 5-BLOCK */
+  .five-block{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .fb-card{border-radius:8px;padding:14px 16px}
+  .fb-card.c1{background:#e8f5e9;border:1.5px solid #a5d6a7}
+  .fb-card.c2{background:#fce4ec;border:1.5px solid #f48fb1}
+  .fb-card.c3{background:#e3f2fd;border:1.5px solid #90caf9}
+  .fb-card.c4{background:#fff3e0;border:1.5px solid #ffcc80}
+  .fb-card.c5{background:#f3e5f5;border:1.5px solid #ce93d8}
+  .fb-card:last-child{grid-column:span 2}
+  .fb-title{font-size:11px;font-weight:700;margin-bottom:6px;letter-spacing:0.5px}
+  .fb-body{font-size:12px;color:#555;line-height:1.6}
+
+  /* CODE BLOCK */
+  .code-block{background:#1a1a2e;color:#e8f5e9;padding:20px 24px;border-radius:8px;font-family:'Courier New',monospace;font-size:12px;line-height:1.8;overflow-x:auto;white-space:pre-wrap}
+  .code-block .comment{color:#69f0ae;font-weight:700}
+  .code-block .key{color:#80cbc4}
+  .code-block .val{color:#fff9c4}
+
+  /* IMPORTANT BOX */
+  .imp-box{background:#fff9e6;border:1.5px solid #ffc107;border-radius:8px;padding:14px 18px;font-size:12px;color:#555;margin-bottom:16px}
+  .imp-box strong{color:#e65100}
+
+  /* PRE-DATA BOX */
+  .predata-box{background:#e8f4fd;border:1.5px solid #90caf9;border-radius:8px;padding:16px 20px;margin-bottom:16px}
+  .predata-title{font-size:12px;font-weight:700;color:#1565c0;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+  .predata-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .predata-item{background:#fff;border-radius:6px;padding:8px 12px;font-size:12px}
+  .predata-item .key{font-weight:700;color:#1565c0;font-size:11px}
+  .predata-item .val{color:#333;margin-top:2px}
+  .predata-item .note{font-size:10px;color:#888;margin-top:2px}
+
+  /* PRINT NAV */
+  .toc{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+  .toc-title{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f0f2f5}
+  .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+  .toc-item{font-size:12px;color:#555;padding:3px 0}
+  .toc-item span{font-weight:700;color:#0f3460;margin-right:4px}
+
+  @media print{
+    body{background:#fff;font-size:11px}
+    .sec{box-shadow:none;border:1px solid #e0e0e0;break-inside:avoid;margin-bottom:12px}
+    .cover{padding:32px;break-after:page}
+    .toc{break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-top">
+    <span class="cover-badge">GANGNAM AI CONSULTING · 내부 운영문서</span>
+    <div class="cover-version">
+      권용준 방식 v2 실전 준비본<br>
+      작성일: 2026-06-13<br>
+      상태: 초회 미팅 전 · 정보 수집 단계
+    </div>
+  </div>
+  <h1>압구정 S&H 듀얼왁싱 압구정점<br>초회 미팅 전 사전 준비</h1>
+  <h2>기준값 확정 · 관계자 구조 파악 · 권한 구조 확인 · 채널 점검 · 지원사업 검토 준비</h2>
+  <div class="cover-meta">
+    <span>담당: 권용준</span>
+    <span>동행: 손미현</span>
+    <span>현재 확정값: 업체명 1개 (나머지 전부 확인 필요)</span>
+    <span>우규 프로젝트: 선행 사례 참고용만</span>
+  </div>
+  <div class="cover-rule">
+    <div class="rule-title">최상위 원칙</div>
+    정확도 우선 · 기준값 고정 · 단계별 진행 · 10레벨 결과물 · 현장 실행성 · 문서 실용성 ·
+    관계자 구조 분리 · 체인점은 권한 구조 우선 · 추상보다 실행 · 미확정은 사실처럼 쓰지 않음
+  </div>
+</div>
+
+<div class="container">
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">목차</div>
+  <div class="toc-grid">
+    <div class="toc-item"><span>1</span> 문서 개요 및 사용 목적</div>
+    <div class="toc-item"><span>2</span> 최상위 운영 원칙</div>
+    <div class="toc-item"><span>3</span> 확정 사실 / 확인 필요 항목 구분표</div>
+    <div class="toc-item"><span>4</span> 기준값 잠금 시트</div>
+    <div class="toc-item"><span>5</span> 이해관계자 / 역할 구조 초안</div>
+    <div class="toc-item"><span>6</span> 권한 구조 확인 포인트</div>
+    <div class="toc-item"><span>7</span> 사전 질문 설계</div>
+    <div class="toc-item"><span>8</span> 채널 점검 프레임</div>
+    <div class="toc-item"><span>9</span> 현장 미팅 목표</div>
+    <div class="toc-item"><span>10</span> 초회 미팅 전 준비 체크리스트</div>
+    <div class="toc-item"><span>11</span> 정책자금 / 지원사업 적용 판단 프레임</div>
+    <div class="toc-item"><span>12</span> 지원사업 검증 시트 초안</div>
+    <div class="toc-item"><span>13</span> 리스크 관리표</div>
+    <div class="toc-item"><span>14</span> AI 응답 포맷 / 후속 AI 작업 규칙</div>
+    <div class="toc-item"><span>15</span> 후속 AI 인수인계 블록</div>
+    <div class="toc-item"><span>16</span> 다음 단계 체크리스트</div>
+  </div>
+</div>
+
+<!-- 사전 수집 데이터 안내 -->
+<div class="predata-box">
+  <div class="predata-title">📡 사전 크롤링 수집 데이터 (2026-06-13 · 초회 미팅에서 원장님과 검증 필요)</div>
+  <div class="predata-grid">
+    <div class="predata-item"><div class="key">주소 (추정)</div><div class="val">서울 강남구 신사동 압구정로46길 5-6 A동 4층</div><div class="note">플레이스·당근 수집 → 초회 미팅 확정 필요</div></div>
+    <div class="predata-item"><div class="key">원장 (추정)</div><div class="val">세아</div><div class="note">인스타그램 바이오 기준 → 초회 미팅 확정</div></div>
+    <div class="predata-item"><div class="key">전화 (추정)</div><div class="val">010-8187-6455</div><div class="note">플레이스 기준 → 초회 미팅 확정</div></div>
+    <div class="predata-item"><div class="key">오픈일 (추정)</div><div class="val">2025.04.14 (약 14개월)</div><div class="note">당근 기준</div></div>
+    <div class="predata-item"><div class="key">플레이스 리뷰 (추정)</div><div class="val">623건</div><div class="note">크롤링 실측 → 현재 시점 재확인 필요</div></div>
+    <div class="predata-item"><div class="key">인스타그램 (추정)</div><div class="val">@shdual_waxing · 팔로워 3,089명</div><div class="note">크롤링 실측</div></div>
+    <div class="predata-item"><div class="key">블로그 (추정)</div><div class="val">blog.naver.com/shdual_waxing · 33개</div><div class="note">크롤링 실측</div></div>
+    <div class="predata-item"><div class="key">구글 비즈니스 (추정)</div><div class="val">미등록 (퀸슈가링은 등록 완료)</div><div class="note">직접 확인</div></div>
+    <div class="predata-item"><div class="key">가격 (추정)</div><div class="val">브라질리언 여성 하드 49,000 / 슈가링 60,000</div><div class="note">크롤링 수집 → 현장 최신 가격 확인 필요</div></div>
+    <div class="predata-item"><div class="key">영업시간 (불일치)</div><div class="val">플레이스 10:30~ vs 당근 11:00~21:30</div><div class="note">⚠️ 두 채널 불일치 → 반드시 현장 확인</div></div>
+    <div class="predata-item"><div class="key">인터뷰 자산</div><div class="val">더모스트타임즈 (2025.08)</div><div class="note">크롤링 확인</div></div>
+    <div class="predata-item"><div class="key">검색 노출 (추정)</div><div class="val">'압구정슈가링' 3위만 · 나머지 미노출</div><div class="note">크롤링 실측 → 현재 시점 재확인 필요</div></div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">1</div><div><div class="sec-title">문서 개요 및 사용 목적</div></div></div>
+  <div class="sec-body">
+    <div class="sub-sec">
+      <div class="sub-title">1-1. 문서 목적</div>
+      <p style="font-size:13px;color:#333;margin-bottom:12px">이 문서는 <strong>압구정 S&H 듀얼왁싱 압구정점</strong> 프로젝트의 <strong>초회 미팅 전 준비 문서</strong>다. 현재 단계는 실행 단계가 아니라 <strong>정보 수집 및 구조 파악 단계</strong>이며, 아직 확정되지 않은 정보를 사실처럼 다루지 않기 위한 운영 기준서다.</p>
+      <table class="t">
+        <thead><tr><th>#</th><th>목적</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>현재 시점의 <strong>확정 사실과 미확정 항목을 분리</strong>한다</td></tr>
+          <tr><td>2</td><td>초회 미팅 전에 반드시 확인해야 할 <strong>기준값 · 사람 구조 · 권한 구조 · 채널 구조</strong>를 정리한다</td></tr>
+          <tr><td>3</td><td>현장 또는 초회 미팅에서 바로 사용할 수 있는 <strong>질문지 · 체크리스트 · 판단 프레임</strong>을 준비한다</td></tr>
+          <tr><td>4</td><td>후속 AI 또는 협업자가 동일한 기준으로 이어받을 수 있도록 <strong>인수인계 가능한 작업본</strong>을 만든다</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">1-2. 사용 대상</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="tag t-fixed">권용준 본인</span><span class="tag t-fixed">손미현 컨설턴트</span><span class="tag t-fixed">초회 미팅 동행자</span><span class="tag t-fixed">후속 AI 세션 담당자</span><span class="tag t-fixed">정책지원사업 검토용 작성자</span><span class="tag t-fixed">내부 운영 정리 담당자</span>
+      </div>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">1-3. 이 문서의 성격</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="background:#fafbff;border-radius:6px;padding:10px 12px;font-size:12px"><span style="color:#c62828;font-weight:700">✗ 아님:</span> 소개문 / 아이디어 노트 / 전략 완성본 / 마케팅 문서</div>
+        <div style="background:#f0fff0;border-radius:6px;padding:10px 12px;font-size:12px"><span style="color:#2e7d32;font-weight:700">✓ 맞음:</span> 운영문서 / 사전 준비 기준서 / 초회 미팅 전 구조 파악용</div>
+      </div>
+      <div style="margin-top:8px;background:#f5f7ff;border-radius:6px;padding:10px 12px;font-size:12px;color:#333">
+        회의 전 사전정리본 + 내부 운영본 + 타 AI 전달본을 동시에 만족하는 문서
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">2</div><div><div class="sec-title">프로젝트 최상위 운영 원칙</div></div></div>
+  <div class="sec-body">
+    <div class="sub-sec">
+      <div class="sub-title">2-1. 최상위 원칙</div>
+      <div style="background:#1a1a2e;color:#e8f5e9;border-radius:8px;padding:14px 18px;font-size:13px;line-height:2;font-weight:500">
+        정확도 우선 · 기준값 고정 · 단계별 진행 · 10레벨 결과물 · 현장 실행성 · 문서 실용성 · 관계자 구조 분리 · 체인점은 권한 구조 우선 · 추상보다 실행
+      </div>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">2-2. 본 프로젝트 적용 원칙</div>
+      <ul class="cl">
+        <li><input type="checkbox" checked disabled><label>현재 대상 프로젝트는 <strong>압구정 S&H 듀얼왁싱 압구정점</strong>만이다</label></li>
+        <li><input type="checkbox" checked disabled><label>우규 프로젝트는 <strong>과거 완료/선행 사례</strong>로만 참고하며, 현재 프로젝트 기준값으로 사용하지 않는다</label></li>
+        <li><input type="checkbox" checked disabled><label>현재 확정된 기준값은 <strong>업체명 1개뿐</strong>이다 (사전 수집값은 초회 미팅 검증 대상)</label></li>
+        <li><input type="checkbox"><label>확인되지 않은 정보는 절대 사실처럼 쓰지 않는다</label></li>
+        <li><input type="checkbox"><label>초회 미팅 전 단계에서는 전략 문안보다 <strong>질문 설계와 구조 확인</strong>이 우선이다</label></li>
+        <li><input type="checkbox"><label>체인점/가맹점/본사-지점 구조 가능성이 보이면 <strong>권한 구조를 먼저 확인</strong>한다</label></li>
+        <li><input type="checkbox"><label>산출물 없는 대화는 완료로 보지 않는다</label></li>
+        <li><input type="checkbox"><label>모든 결과물은 <strong>인쇄 가능 / 복붙 가능 / 후속 AI 전달 가능</strong> 상태여야 한다</label></li>
+      </ul>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">2-3. 실전 사용 포인트</div>
+      <div class="imp-box">
+        지금 단계의 목적은 "멋진 제안서 작성"이 아니라 <strong>초회 미팅 실패를 막는 준비</strong>다.<br>
+        현재는 정보가 거의 없으므로, 가장 중요한 산출물은 <strong>질문지, 체크리스트, 확인 포인트</strong>다.<br>
+        미확정 항목이 많은 상태에서 성급한 전략 제안은 오히려 정확도를 해친다.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">3</div><div><div class="sec-title">확정 사실 / 확인 필요 항목 구분표</div></div></div>
+  <div class="sec-body">
+    <div class="sub-sec">
+      <div class="sub-title">3-1. 확정 사실</div>
+      <table class="t">
+        <thead><tr><th>항목</th><th>내용</th><th>상태</th><th>근거</th></tr></thead>
+        <tbody>
+          <tr><td>프로젝트명</td><td>압구정 S&H 듀얼왁싱 압구정점 초회 미팅 전 사전 준비</td><td><span class="tag t-fixed">확정</span></td><td>본 문서 기준값</td></tr>
+          <tr><td>업체명</td><td>압구정 S&H 듀얼왁싱 압구정점</td><td><span class="tag t-fixed">확정</span></td><td>사용자 제공 기준값</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">3-2. 확인 필요 항목</div>
+      <table class="t">
+        <thead><tr><th>항목</th><th>현재 상태</th><th>왜 확인이 필요한가</th><th>우선 확인 주체</th></tr></thead>
+        <tbody>
+          <tr><td>주소</td><td><span class="tag t-check">초회 미팅 확정 필요</span></td><td>기준값 잠금 필요</td><td>업체 측</td></tr>
+          <tr><td>대표 연락처</td><td><span class="tag t-check">초회 미팅 확정 필요</span></td><td>실무 커뮤니케이션 필요</td><td>업체 측</td></tr>
+          <tr><td>대표자명 / 사업 신청자명</td><td><span class="tag t-none">미확인</span></td><td>명의상 책임자 + 지원사업 행정 확인 필요</td><td>업체 측</td></tr>
+          <tr><td>실제 운영자명</td><td><span class="tag t-check">초회 미팅 확정 필요</span></td><td>현장 실행 핵심 주체 확인</td><td>업체 측</td></tr>
+          <tr><td>승인권자 / 비용 결재권자</td><td><span class="tag t-none">미확인</span></td><td>실행 가능 범위 결정</td><td>업체 측</td></tr>
+          <tr><td>본사/가맹/독립 운영 여부</td><td><span class="tag t-check">확인 필요</span></td><td>권한 구조 판단 선행 조건</td><td>업체 측</td></tr>
+          <tr><td>서비스 구성 / 가격표</td><td><span class="tag t-check">현장 최신값 확인</span></td><td>포지셔닝 및 경쟁력 판단 필요</td><td>업체 측</td></tr>
+          <tr><td>채널 관리자 권한</td><td><span class="tag t-check">확인 필요</span></td><td>즉시 실행 가능 여부 판단</td><td>업체 측</td></tr>
+          <tr><td>사진/영상 자산</td><td><span class="tag t-none">미확인</span></td><td>콘텐츠 실행 가능성 판단</td><td>업체 측</td></tr>
+          <tr><td>지원사업 참여 이력</td><td><span class="tag t-none">미확인</span></td><td>중복 수혜 및 적합성 검토 필요</td><td>업체 측</td></tr>
+          <tr><td>사업자 유형/업력/매출/직원 수</td><td><span class="tag t-none">미확인</span></td><td>정책지원사업 자격 판단 핵심</td><td>업체 측</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="imp-box">
+      <strong>실전 해석</strong> — 현재 문서 기준으로 확정 사실은 업체명과 프로젝트명뿐이다. 나머지는 모두 <strong>질문, 확인, 검증의 대상</strong>이다. 초회 미팅 전까지는 전략보다 <strong>정보 구조화</strong>를 우선한다.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">4</div><div><div class="sec-title">기준값 잠금 시트</div></div></div>
+  <div class="sec-body">
+    <div class="sub-sec">
+      <div class="sub-title">4-1. 일반 기준값 잠금 표</div>
+      <table class="t">
+        <thead><tr><th>항목</th><th>기준값</th><th>확인 상태</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr><td>프로젝트명</td><td>압구정 S&H 듀얼왁싱 압구정점 초회 미팅 전 사전 준비</td><td><span class="tag t-fixed">확정</span></td><td>고정</td></tr>
+          <tr><td>사업체명</td><td>압구정 S&H 듀얼왁싱 압구정점</td><td><span class="tag t-fixed">확정</span></td><td>고정</td></tr>
+          <tr><td>지점명/대상 단위</td><td>압구정점</td><td><span class="tag t-partial">부분 확정</span></td><td>독립 지점 표기 방식 확인 필요</td></tr>
+          <tr><td>공식 상호/법인명</td><td>미확인</td><td><span class="tag t-none">미확인</span></td><td>사업자등록 기준 확인 필요</td></tr>
+          <tr><td>주소/소재지</td><td>미확인 (사전수집: 신사동 압구정로46길 5-6 A동 4층)</td><td><span class="tag t-check">초회 미팅 확정</span></td><td>반드시 잠금 필요</td></tr>
+          <tr><td>대표 연락처</td><td>미확인 (사전수집: 010-8187-6455)</td><td><span class="tag t-check">초회 미팅 확정</span></td><td>실무 연락 기준 필요</td></tr>
+          <tr><td>대표자명 / 사업 신청자명 / 실제 운영자명</td><td>미확인 (원장 추정: 세아)</td><td><span class="tag t-none">미확인</span></td><td>반드시 구분해서 확인</td></tr>
+          <tr><td>승인권자명 / 비용 결재권자명</td><td>미확인</td><td><span class="tag t-none">미확인</span></td><td>수정 및 유료 실행 승인 구조</td></tr>
+          <tr><td>공식 링크 (플레이스/인스타/블로그)</td><td>사전수집 완료 — 초회 미팅 확인 필요</td><td><span class="tag t-check">초회 미팅 확정</span></td><td>관리자 권한 보유 여부 함께 확인</td></tr>
+          <tr><td>핵심 운영 채널</td><td>사전수집: 플레이스·인스타·블로그</td><td><span class="tag t-check">초회 미팅 확정</span></td><td>예약채널 확인 필요</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">4-2. 정책지원사업 기준값 잠금 표</div>
+      <table class="t">
+        <thead><tr><th>항목</th><th>현재 값</th><th>상태</th></tr></thead>
+        <tbody>
+          <tr><td>검토 대상 사업명</td><td>미확인</td><td><span class="tag t-hold">판단 보류</span></td></tr>
+          <tr><td>공식 공고문 링크</td><td>미확보</td><td><span class="tag t-none">확보 전 판단 금지</span></td></tr>
+          <tr><td>주관기관 / 수행기관</td><td>미확인</td><td><span class="tag t-none">미확인</span></td></tr>
+          <tr><td>신청 자격 / 지원 한도 / 자부담</td><td>미확인</td><td><span class="tag t-none">공고문 확보 후 판단</span></td></tr>
+          <tr><td>필수 제출 서류 / 정산 요구사항</td><td>미확인</td><td><span class="tag t-none">미확인</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">4-3. 기준값 잠금 체크리스트</div>
+      <ul class="cl">
+        <li class="done"><input type="checkbox" checked disabled><label>사업체명이 고정되었다: <strong>압구정 S&H 듀얼왁싱 압구정점</strong></label></li>
+        <li class="done"><input type="checkbox" checked disabled><label>프로젝트명이 고정되었다</label></li>
+        <li><input type="checkbox"><label>주소가 고정되었다 (초회 미팅 확정)</label></li>
+        <li><input type="checkbox"><label>대표 연락처가 확보되었다</label></li>
+        <li><input type="checkbox"><label>사업 신청자명 / 실제 운영자명 / 승인권자가 확인되었다</label></li>
+        <li><input type="checkbox"><label>공식 링크와 채널 관리자 권한이 확인되었다</label></li>
+        <li><input type="checkbox"><label>정책지원사업 공식 공고문이 확보되었다</label></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">5</div><div><div class="sec-title">이해관계자 / 역할 구조 초안</div></div></div>
+  <div class="sec-body">
+    <table class="t">
+      <thead><tr><th>역할</th><th>현재 상태</th><th>왜 중요한가</th><th>초회 미팅 확인 포인트</th></tr></thead>
+      <tbody>
+        <tr><td>사업 신청자</td><td><span class="tag t-none">미확인</span></td><td>지원사업/행정 커뮤니케이션 주체</td><td>신청자 실명, 역할, 연락 가능 여부</td></tr>
+        <tr><td>실제 운영 책임자</td><td><span class="tag t-check">초회 미팅 확인</span></td><td>현장 실행·숙제 수행 핵심 주체</td><td>실제 운영 주체가 누구인지</td></tr>
+        <tr><td>명의상 책임자</td><td><span class="tag t-none">미확인</span></td><td>사업자등록 대표와 실행 주체 다를 수 있음</td><td>사업자등록 기준 대표 확인</td></tr>
+        <tr><td>승인권자 / 비용 결재권자</td><td><span class="tag t-none">미확인</span></td><td>채널 수정, 문구 변경, 비용 승인에 필요</td><td>누가 최종 승인하는지</td></tr>
+        <tr><td>실무 담당자</td><td><span class="tag t-none">미확인</span></td><td>자료 전달, 채널 관리, 숙제 수행 담당</td><td>실제 실무 연락 창구 확인</td></tr>
+        <tr><td>외부 협력사</td><td><span class="tag t-none">미확인</span></td><td>대행사·디자이너·플랫폼 관리사 존재 가능</td><td>외부 파트너 관여 여부</td></tr>
+        <tr><td>본사/가맹본부 관여 여부</td><td><span class="tag t-check">확인 필요</span></td><td>권한 구조 및 브랜드 수정 가능 범위 결정</td><td>독립 운영인지 여부</td></tr>
+        <tr><td>지원사업 수행자 / 정산 담당자</td><td><span class="tag t-none">미확인</span></td><td>선정 후 수행·보고·정산 담당</td><td>재무·행정 담당 존재 여부</td></tr>
+      </tbody>
+    </table>
+    <div class="imp-box">
+      <strong>왜 이 구조를 먼저 풀어야 하는가</strong><br>
+      누가 말하는가와 누가 실제로 바꾸는가는 다를 수 있다. 실제 운영자와 승인권자가 다르면 실행 속도가 크게 달라진다.
+      지원사업은 신청자·수행자·대표자·정산 담당이 분리될 수 있다.
+      이 구조를 먼저 풀지 않으면 초회 미팅에서 좋은 아이디어를 내도 <strong>실행 주체 부재로 멈춘다</strong>.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">6</div><div><div class="sec-title">권한 구조 확인 포인트</div></div></div>
+  <div class="sec-body">
+    <div class="sub-sec">
+      <div class="sub-title">6-1. 채널/콘텐츠/비용 권한 확인 표</div>
+      <table class="t">
+        <thead><tr><th>항목</th><th>현재 상태</th><th>질문 포인트</th></tr></thead>
+        <tbody>
+          <tr><td>네이버 플레이스 관리 권한</td><td><span class="tag t-check">확인 필요</span></td><td>"플레이스는 누가 직접 관리하시나요?"</td></tr>
+          <tr><td>인스타그램 관리 권한</td><td><span class="tag t-check">확인 필요</span></td><td>"인스타 계정은 누가 운영하시나요?"</td></tr>
+          <tr><td>예약 플랫폼 관리 권한</td><td><span class="tag t-check">확인 필요</span></td><td>"예약 플랫폼 관리자 접근 가능하신가요?"</td></tr>
+          <tr><td>가격표 수정 권한</td><td><span class="tag t-check">확인 필요</span></td><td>"가격표를 바로 수정할 수 있나요?"</td></tr>
+          <tr><td>소개 문구 수정 권한</td><td><span class="tag t-check">확인 필요</span></td><td>"소개 문구 변경은 점포에서 가능한가요?"</td></tr>
+          <tr><td>사진 수정 권한</td><td><span class="tag t-check">확인 필요</span></td><td>"대표 사진 교체 권한이 있나요?"</td></tr>
+          <tr><td>리뷰 응대 권한</td><td><span class="tag t-check">확인 필요</span></td><td>"리뷰 답글은 누가 작성하나요?"</td></tr>
+          <tr><td>광고 집행 권한</td><td><span class="tag t-check">확인 필요</span></td><td>"광고 집행은 누가 승인하나요?"</td></tr>
+          <tr><td>프로모션/이벤트 운영 권한</td><td><span class="tag t-check">확인 필요</span></td><td>"자체 이벤트를 점포에서 결정할 수 있나요?"</td></tr>
+          <tr><td>지원사업 신청/제출/정산 권한</td><td><span class="tag t-none">미확인</span></td><td>"지원사업은 누가 신청·정산 맡나요?"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">6-2. 체인점/가맹 권한 진단표</div>
+      <table class="t">
+        <thead><tr><th>진단 항목</th><th>현재 상태</th><th>초회 미팅 질문</th><th>판단 기준</th></tr></thead>
+        <tbody>
+          <tr><td>브랜드명 사용 주체</td><td><span class="tag t-none">미확인</span></td><td>"브랜드명/상호 사용은 점포 자율인가요, 본사 기준이 있나요?"</td><td>본사 기준 시 독립 수정 불가 가능성 높음</td></tr>
+          <tr><td>가격 자율 결정권</td><td><span class="tag t-none">미확인</span></td><td>"서비스 가격은 점포에서 바로 조정 가능한가요?"</td><td>본사 승인 필요 시 가격 전략 즉시 실행 제한</td></tr>
+          <tr><td>플레이스/SNS 수정권</td><td><span class="tag t-none">미확인</span></td><td>"플레이스·인스타 소개문/사진 수정은 점포 단독으로 가능한가요?"</td><td>수정권 없으면 승인 구조 필요</td></tr>
+          <tr><td>이벤트/프로모션 자율 운영권</td><td><span class="tag t-none">미확인</span></td><td>"현장 이벤트를 점포에서 직접 기획·운영할 수 있나요?"</td><td>자율 운영 불가 시 캠페인 설계 범위 제한</td></tr>
+          <tr><td>광고 집행 승인 구조</td><td><span class="tag t-none">미확인</span></td><td>"광고비 집행은 점포 승인인가요, 본사 승인인가요?"</td><td>비용 승인권자가 다르면 실행 속도 저하 가능</td></tr>
+          <tr><td>디자인/가이드 준수 의무</td><td><span class="tag t-none">미확인</span></td><td>"본사 디자인 가이드나 금지 표현 기준이 있나요?"</td><td>가이드 존재 시 문안/비주얼 수정 범위 제한</td></tr>
+          <tr><td>지원사업 신청 주체</td><td><span class="tag t-none">미확인</span></td><td>"지원사업은 점포 단독 신청인지, 본사/법인 단위 신청인지요?"</td><td>신청 단위가 다르면 자격 판단 자체가 달라짐</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">7</div><div><div class="sec-title">사전 질문 설계</div></div></div>
+  <div class="sec-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="sub-sec">
+        <div class="sub-title">7-1. 기본 식별 정보</div>
+        <ul class="qa-list">
+          <li>상호를 정확히 어떻게 사용하고 계신가요?</li>
+          <li>현재 사용 중인 공식 주소는 무엇인가요?</li>
+          <li>대표 연락처와 대표 이메일은 무엇인가요?</li>
+          <li>사업자등록상 대표자명은 누구인가요?</li>
+          <li>실제로 매장을 운영하는 분은 누구인가요?</li>
+        </ul>
+      </div>
+      <div class="sub-sec">
+        <div class="sub-title">7-2. 운영 구조</div>
+        <ul class="qa-list">
+          <li>독립 운영 매장인가요, 브랜드/본사/가맹 구조가 있나요?</li>
+          <li>채널 수정이나 가격 변경 시 별도 승인 절차가 있나요?</li>
+          <li>실무적으로 가장 자주 연락할 담당자는 누구인가요?</li>
+          <li>비용 집행이나 광고 승인 권한은 누구에게 있나요?</li>
+        </ul>
+      </div>
+      <div class="sub-sec">
+        <div class="sub-title">7-3. 서비스 구성/가격</div>
+        <ul class="qa-list">
+          <li>현재 제공 중인 핵심 서비스는 무엇인가요?</li>
+          <li>서비스별 가격표가 정리되어 있나요?</li>
+          <li>가장 매출 비중이 큰 서비스는 무엇인가요?</li>
+          <li>패키지, 멤버십, 재방문 유도 상품이 있나요?</li>
+        </ul>
+      </div>
+      <div class="sub-sec">
+        <div class="sub-title">7-4. 고객층/핵심 수요</div>
+        <ul class="qa-list">
+          <li>주 고객층은 어떤 분들인가요?</li>
+          <li>고객이 가장 많이 찾는 이유는 무엇이라고 생각하시나요?</li>
+          <li>신규 고객과 재방문 고객 중 어느 쪽 비중이 더 큰가요?</li>
+          <li>고객이 자주 묻는 질문이나 망설이는 포인트가 있나요?</li>
+        </ul>
+      </div>
+      <div class="sub-sec">
+        <div class="sub-title">7-5. 현재 운영 채널</div>
+        <ul class="qa-list">
+          <li>현재 운영 중인 공식 채널은 무엇인가요?</li>
+          <li>네이버 플레이스 / 인스타그램 / 예약 플랫폼 / 메신저 채널?</li>
+          <li>각 채널은 누가 관리하나요?</li>
+        </ul>
+      </div>
+      <div class="sub-sec">
+        <div class="sub-title">7-6. 보유 자산</div>
+        <ul class="qa-list">
+          <li>고화질 사진이 있나요?</li>
+          <li>전/후 비교 사진 또는 서비스 과정 사진이 있나요?</li>
+          <li>영상, 릴스, 숏폼 원본 자료가 있나요?</li>
+          <li>고객 후기 캡처나 리뷰 모음이 있나요?</li>
+        </ul>
+      </div>
+      <div class="sub-sec">
+        <div class="sub-title">7-7. 가장 큰 고민</div>
+        <ul class="qa-list">
+          <li>현재 온라인 운영에서 가장 답답한 점은 무엇인가요?</li>
+          <li>신규 유입과 재방문 중 어느 쪽이 더 문제인가요?</li>
+          <li>이번 컨설팅에서 가장 먼저 해결하고 싶은 1가지는 무엇인가요?</li>
+        </ul>
+      </div>
+      <div class="sub-sec">
+        <div class="sub-title">7-8. 지원사업/정책자금</div>
+        <ul class="qa-list">
+          <li>과거에 지원사업이나 바우처를 신청하거나 수혜받은 적이 있나요?</li>
+          <li>사업자 형태는 개인사업자인가요, 법인인가요?</li>
+          <li>업력은 어느 정도인가요? 직원 수는요?</li>
+          <li>자부담이 필요한 사업에도 참여 의향이 있나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">8</div><div><div class="sec-title">채널 점검 프레임</div></div></div>
+  <div class="sec-body">
+    <div class="imp-box">현재 공식 링크가 없으므로, 채널 점검은 <strong>링크 수집 → 소유권 확인 → 상태 점검</strong> 순서로 진행한다.</div>
+    <table class="t">
+      <thead><tr><th>채널</th><th>현재 상태</th><th>초회 미팅 전 확인 포인트</th></tr></thead>
+      <tbody>
+        <tr><td>네이버 플레이스</td><td><span class="tag t-check">관리자 권한 확인 필요</span></td><td>존재 여부 ✓, 관리자 접근 가능 여부, 정보 최신성</td></tr>
+        <tr><td>인스타그램</td><td><span class="tag t-check">운영 주체 확인 필요</span></td><td>존재 여부 ✓, 공식 계정 여부, 운영 주체</td></tr>
+        <tr><td>예약 플랫폼</td><td><span class="tag t-none">미확인</span></td><td>사용 여부, 관리자 접근 여부, 예약 흐름</td></tr>
+        <tr><td>카카오/메신저 채널</td><td><span class="tag t-none">미확인</span></td><td>문의 유입 여부, 응답 주체</td></tr>
+        <tr><td>네이버 블로그</td><td><span class="tag t-check">운영 주기 확인 필요</span></td><td>운영 여부 ✓, 최근 활동 여부, 키워드 활용도</td></tr>
+        <tr><td>구글 비즈니스</td><td><span class="tag t-none">미등록 (사전 수집)</span></td><td>초회 미팅 당일 등록 예정</td></tr>
+        <tr><td>광고 계정</td><td><span class="tag t-none">미확인</span></td><td>집행 여부, 승인 구조, 접근 권한</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 9 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">9</div><div><div class="sec-title">현장 미팅 목표</div></div></div>
+  <div class="sec-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <div class="sub-title" style="margin-bottom:10px">반드시 얻어야 할 것</div>
+        <ul class="cl">
+          <li><input type="checkbox"><label>업체 기본 정보 (주소·연락처·대표자)</label></li>
+          <li><input type="checkbox"><label>실제 운영자 및 승인권자</label></li>
+          <li><input type="checkbox"><label>채널 목록과 관리자 구조</label></li>
+          <li><input type="checkbox"><label>서비스 구성과 가격표 유무</label></li>
+          <li><input type="checkbox"><label>보유 사진/영상/후기 자산</label></li>
+          <li><input type="checkbox"><label>가장 큰 고민 1개</label></li>
+          <li><input type="checkbox"><label>향후 지원사업 검토 기초 데이터</label></li>
+        </ul>
+      </div>
+      <div>
+        <div class="sub-title" style="margin-bottom:10px">아직 하지 않아도 되는 것</div>
+        <ul style="list-style:none">
+          <li style="padding:5px 0;font-size:13px;color:#c62828;border-bottom:1px solid #fce4ec">✗ 근거 없는 포지셔닝 확정</li>
+          <li style="padding:5px 0;font-size:13px;color:#c62828;border-bottom:1px solid #fce4ec">✗ 채널 전면 수정</li>
+          <li style="padding:5px 0;font-size:13px;color:#c62828;border-bottom:1px solid #fce4ec">✗ 지원사업 적합성 단정</li>
+          <li style="padding:5px 0;font-size:13px;color:#c62828;border-bottom:1px solid #fce4ec">✗ 광고 예산안 확정</li>
+          <li style="padding:5px 0;font-size:13px;color:#c62828">✗ 상세 실행 로드맵 완성</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:16px">
+      <div class="sub-title" style="margin-bottom:8px">초회 미팅 6대 핵심 목표</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <div style="background:#e8f4fd;border-radius:6px;padding:10px 12px;text-align:center;font-size:12px;font-weight:700;color:#1565c0">① 기준값 확정</div>
+        <div style="background:#e8f4fd;border-radius:6px;padding:10px 12px;text-align:center;font-size:12px;font-weight:700;color:#1565c0">② 관계자 구조 확인</div>
+        <div style="background:#e8f4fd;border-radius:6px;padding:10px 12px;text-align:center;font-size:12px;font-weight:700;color:#1565c0">③ 권한 구조 확인</div>
+        <div style="background:#e8f4fd;border-radius:6px;padding:10px 12px;text-align:center;font-size:12px;font-weight:700;color:#1565c0">④ 현재 운영 상태 파악</div>
+        <div style="background:#e8f4fd;border-radius:6px;padding:10px 12px;text-align:center;font-size:12px;font-weight:700;color:#1565c0">⑤ 즉시 실행 항목 도출</div>
+        <div style="background:#e8f4fd;border-radius:6px;padding:10px 12px;text-align:center;font-size:12px;font-weight:700;color:#1565c0">⑥ 다음 회차 자료 요청</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 10 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">10</div><div><div class="sec-title">초회 미팅 전 준비 체크리스트</div></div></div>
+  <div class="sec-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+      <div>
+        <div class="sub-title" style="margin-bottom:10px">권용준 측 준비물</div>
+        <ul class="cl">
+          <li><input type="checkbox"><label>기준값 잠금 시트 (본 문서 §4)</label></li>
+          <li><input type="checkbox"><label>역할·권한 구조 초안 (§5·6)</label></li>
+          <li><input type="checkbox"><label>사전 질문지 출력본</label></li>
+          <li><input type="checkbox"><label>채널 점검 프레임 (§8)</label></li>
+          <li><input type="checkbox"><label>서식 패키지 01~07 출력본</label></li>
+          <li><input type="checkbox"><label>노트북 / 보조배터리 / 핫스팟</label></li>
+          <li><input type="checkbox"><label>후속 AI 인수인계 블록 초안 (§15)</label></li>
+        </ul>
+      </div>
+      <div>
+        <div class="sub-title" style="margin-bottom:10px">상대방에게 요청할 자료</div>
+        <ul class="cl">
+          <li><input type="checkbox"><label>공식 상호 및 사업자 정보</label></li>
+          <li><input type="checkbox"><label>주소 및 연락처</label></li>
+          <li><input type="checkbox"><label>서비스 목록 및 가격표</label></li>
+          <li><input type="checkbox"><label>운영 중인 채널 링크</label></li>
+          <li><input type="checkbox"><label>사진/영상 자료</label></li>
+          <li><input type="checkbox"><label>지원사업/바우처 수혜 이력</label></li>
+          <li><input type="checkbox"><label>실제 운영 담당자 정보</label></li>
+        </ul>
+      </div>
+      <div>
+        <div class="sub-title" style="margin-bottom:10px">미팅 직전 최종 확인</div>
+        <ul class="cl">
+          <li><input type="checkbox"><label>미팅 참석자 이름과 역할</label></li>
+          <li><input type="checkbox"><label>실제 운영 책임자 참석 여부</label></li>
+          <li><input type="checkbox"><label>채널 링크 최소 1개 이상 확보</label></li>
+          <li><input type="checkbox"><label>서비스/가격표 사전 수령 여부</label></li>
+          <li><input type="checkbox"><label>질문지 전달 여부</label></li>
+          <li><input type="checkbox"><label>미팅 목적을 "구조 파악 및 기준값 확정"으로 공유했는지</label></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 11 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">11</div><div><div class="sec-title">정책자금 / 지원사업 적용 판단 프레임</div></div></div>
+  <div class="sec-body">
+    <div class="imp-box">
+      현재 시점에서 지원사업 참여 가능성: <strong>미확정</strong><br>
+      공식 공고문 확보 여부: <strong>미확인</strong> | 사업자 유형/업력/매출/직원 수: <strong>미확인</strong><br>
+      따라서 지금 단계에서는 <strong>지원 가능/불가 판단 보류</strong>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">자격 판단 변수 확인 체크리스트</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+        <ul class="cl" style="border-right:1px solid #f0f0f0;padding-right:12px">
+          <li><input type="checkbox"><label>사업자 유형 확인</label></li>
+          <li><input type="checkbox"><label>업력 확인</label></li>
+          <li><input type="checkbox"><label>사업장 소재 지역</label></li>
+          <li><input type="checkbox"><label>매출 규모</label></li>
+          <li><input type="checkbox"><label>직원 수</label></li>
+          <li><input type="checkbox"><label>디지털 전환 필요성 정리</label></li>
+        </ul>
+        <ul class="cl" style="padding-left:12px">
+          <li><input type="checkbox"><label>과거 수혜 이력</label></li>
+          <li><input type="checkbox"><label>자부담 가능성</label></li>
+          <li><input type="checkbox"><label>대표자/명의자 정보</label></li>
+          <li><input type="checkbox"><label>신청 가능 주체 확인</label></li>
+          <li><input type="checkbox"><label>정산 대응 가능성</label></li>
+          <li><input type="checkbox"><label>공식 공고문 확보</label></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">검토 후보군 카테고리 (공고문 확보 후 판단)</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <span class="tag t-hold">소상공인 컨설팅 지원사업</span>
+        <span class="tag t-hold">디지털 전환/온라인 채널 고도화</span>
+        <span class="tag t-hold">마케팅/브랜딩 지원사업</span>
+        <span class="tag t-hold">바우처형 전문 서비스 지원사업</span>
+        <span class="tag t-hold">교육/멘토링 연계 사업</span>
+        <span class="tag t-hold">공간/환경개선 연계 사업</span>
+      </div>
+      <p style="font-size:11px;color:#888;margin-top:8px">※ 위는 예시 카테고리일 뿐이며, 실제 적합성은 공식 공고문 확보 후 판단</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 12 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">12</div><div><div class="sec-title">지원사업 검증 시트 초안</div></div></div>
+  <div class="sec-body">
+    <div class="imp-box">공식 공고문이 확보되지 않았으므로, 아래 시트는 <strong>검증 전 초안</strong>이다. <strong>공식 공고문 없이는 판단 불가</strong> 원칙을 강하게 유지한다.</div>
+    <table class="t">
+      <thead><tr><th>항목</th><th>현재 값</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td>대상 사업체</td><td>압구정 S&H 듀얼왁싱 압구정점</td><td><span class="tag t-fixed">확정</span></td></tr>
+        <tr><td>검토 대상 사업명</td><td>미확인</td><td><span class="tag t-hold">판단 보류</span></td></tr>
+        <tr><td>공식 공고문 링크 확보 여부</td><td>아니오</td><td><span class="tag t-none">확보 전 판단 금지</span></td></tr>
+        <tr><td>운영지침 / 정산지침 / 신청 시스템 링크</td><td>미확인</td><td><span class="tag t-none">미확보</span></td></tr>
+        <tr><td>주관기관 / 신청 자격 / 지원 한도 / 자부담</td><td>미확인</td><td><span class="tag t-none">공고문 후 판단</span></td></tr>
+        <tr><td>검증 상태</td><td>검증 필요</td><td><span class="tag t-check">검증 필요</span></td></tr>
+        <tr><td>비고</td><td colspan="2">홍보물은 후보 발굴용, 공고문은 판단 기준용으로 분리</td></tr>
+      </tbody>
+    </table>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+      <div style="background:#e8f5e9;border-radius:8px;padding:12px 16px">
+        <div style="font-size:11px;font-weight:700;color:#2e7d32;margin-bottom:6px">현재 단계에서 가능한 일</div>
+        <ul style="font-size:12px;color:#333;list-style:none">
+          <li style="padding:3px 0">→ 사업 후보군만 메모</li>
+          <li style="padding:3px 0">→ 공식 공고문 확보 요청</li>
+          <li style="padding:3px 0">→ 사업자 정보 확인 준비</li>
+        </ul>
+      </div>
+      <div style="background:#fce4ec;border-radius:8px;padding:12px 16px">
+        <div style="font-size:11px;font-weight:700;color:#c62828;margin-bottom:6px">현재 단계에서 하면 안 되는 일</div>
+        <ul style="font-size:12px;color:#333;list-style:none">
+          <li style="padding:3px 0">✗ 지원 가능/불가 단정</li>
+          <li style="padding:3px 0">✗ 지원금 규모 추정</li>
+          <li style="padding:3px 0">✗ 카드뉴스만 보고 사업 판단</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 13 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">13</div><div><div class="sec-title">리스크 관리표</div></div></div>
+  <div class="sec-body">
+    <table class="risk-table">
+      <thead><tr><th>리스크</th><th>영향</th><th>예방</th><th>대응</th></tr></thead>
+      <tbody>
+        <tr><td>기준값 부족</td><td>문서 전체 신뢰도 저하</td><td>확정값·미확정값 분리</td><td>기준값 잠금 시트 우선 업데이트</td></tr>
+        <tr><td>역할 구조 미확정</td><td>숙제 배정 실패, 커뮤니케이션 누락</td><td>신청자/운영자/승인권자 질문 필수화</td><td>미팅 후 역할표 즉시 갱신</td></tr>
+        <tr><td>권한 구조 미확정</td><td>실행안이 현장에서 막힘</td><td>채널/가격/문구/광고 권한 질문 우선</td><td>즉시 실행/승인 필요 분리</td></tr>
+        <tr><td>채널 정보 미확보</td><td>진단 시작 불가</td><td>링크 요청 체크리스트 사전 발송</td><td>미팅 전 최소 1개 채널 확보 요청</td></tr>
+        <tr><td>서비스/가격 정보 부재</td><td>포지셔닝·제안 정확도 저하</td><td>가격표/서비스표 사전 요청</td><td>초회 미팅에서 실물 확인 또는 후속 요청</td></tr>
+        <tr><td>지원사업 오판</td><td>시간 낭비, 잘못된 제안</td><td>공식 공고문 확보 전 판단 금지</td><td>검증 시트에 `검증 필요` 유지</td></tr>
+        <tr><td>실제 운영자 미참석</td><td>실행 구조 파악 실패</td><td>참석자 역할 사전 확인</td><td>미팅 재조정 또는 후속 확인 세션</td></tr>
+        <tr><td>승인권자 미확정</td><td>수정안 보류, 일정 지연</td><td>승인 구조 질문 필수화</td><td>승인 필요 항목 별도 목록화</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 14 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">14</div><div><div class="sec-title">AI 응답 포맷 / 후속 AI 작업 규칙</div></div></div>
+  <div class="sec-body">
+    <div class="sub-sec">
+      <div class="sub-title">14-1. 후속 AI 작업 규칙 (AI 필독)</div>
+      <ul class="cl">
+        <li><input type="checkbox" checked disabled><label>현재 대상 프로젝트는 <strong>압구정 S&H 듀얼왁싱 압구정점</strong>만이다</label></li>
+        <li><input type="checkbox" checked disabled><label>우규 프로젝트는 과거 완료/선행 사례로만 참고하며, 현재 프로젝트 기준값으로 사용하지 않는다</label></li>
+        <li><input type="checkbox" checked disabled><label>현재 확정된 기준값은 <strong>업체명 1개뿐</strong>이라는 점을 유지한다</label></li>
+        <li><input type="checkbox" checked disabled><label>주소, 신청자, 실제 운영자, 채널 구조, 가격표, 리뷰 현황 등을 추정하지 않는다</label></li>
+        <li><input type="checkbox" checked disabled><label>미확인 항목은 사실처럼 쓰지 않는다</label></li>
+        <li><input type="checkbox" checked disabled><label>지원사업은 공식 공고문 확보 전 `후보` 또는 `검증 필요` 상태로 둔다</label></li>
+        <li><input type="checkbox" checked disabled><label>매 단계 결과물은 반드시 복붙 가능한 문장/표/체크리스트로 정리한다</label></li>
+      </ul>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">14-2. 고정 응답 포맷 (모든 후속 응답 마지막에 반드시 포함)</div>
+      <div class="five-block">
+        <div class="fb-card c1"><div class="fb-title">① 확정 사실</div><div class="fb-body">[해당 단계에서 확정된 항목]</div></div>
+        <div class="fb-card c2"><div class="fb-title">② 미확인 사항</div><div class="fb-body">[아직 확인되지 않은 항목]</div></div>
+        <div class="fb-card c3"><div class="fb-title">③ 즉시 실행</div><div class="fb-body">[지금 바로 할 수 있는 것]</div></div>
+        <div class="fb-card c4"><div class="fb-title">④ 승인 필요</div><div class="fb-body">[업체 승인이 필요한 항목]</div></div>
+        <div class="fb-card c5"><div class="fb-title">⑤ 다음 요청사항</div><div class="fb-body">[업체·컨설턴트에게 요청할 것]</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 15 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">15</div><div><div class="sec-title">후속 AI 인수인계 블록</div><div class="sec-sub">이 블록을 그대로 복사해 다음 AI 세션에 붙여넣으세요</div></div></div>
+  <div class="sec-body">
+    <div class="code-block"><span class="comment"># 후속 AI 인수인계 블록 — 압구정 S&H 듀얼왁싱 압구정점</span>
+
+<span class="key">[프로젝트명]</span>
+<span class="val">- 압구정 S&H 듀얼왁싱 압구정점 초회 미팅 전 사전 준비</span>
+
+<span class="key">[업체명]</span>
+<span class="val">- 압구정 S&H 듀얼왁싱 압구정점</span>
+
+<span class="key">[현재 확정 사실]</span>
+<span class="val">- 현재 확정된 기준값은 업체명 `압구정 S&H 듀얼왁싱 압구정점`뿐이다.
+- 프로젝트명은 `압구정 S&H 듀얼왁싱 압구정점 초회 미팅 전 사전 준비`로 사용한다.
+- 현재 단계는 실행 단계가 아니라 정보 수집 및 구조 파악 단계다.
+- 우규 프로젝트는 과거 완료/선행 사례일 뿐이며, 현재 프로젝트 기준값으로 사용하지 않는다.
+- 사전 크롤링 수집값(주소·전화·원장명·리뷰 수 등)은 초회 미팅에서 원장님과 검증 필요.</span>
+
+<span class="key">[사전 크롤링 수집값 — 초회 미팅에서 검증 필요]</span>
+<span class="val">- 주소(추정): 서울 강남구 신사동 압구정로46길 5-6 A동 4층
+- 원장(추정): 세아 / 전화(추정): 010-8187-6455
+- 오픈일(추정): 2025.04.14 / 플레이스 리뷰(추정): 623건
+- 인스타(추정): @shdual_waxing / 팔로워 3,089명
+- 블로그(추정): blog.naver.com/shdual_waxing / 33개 포스팅
+- 구글 비즈니스(추정): 미등록
+- 영업시간: 불일치 (플레이스 10:30 vs 당근 11:00) → 현장 확인 필수</span>
+
+<span class="key">[현재 미확정 핵심 항목]</span>
+<span class="val">- 주소(공식 확정), 대표 연락처, 대표자명, 사업 신청자명, 실제 운영자명
+- 명의상 책임자, 승인권자, 비용 결재권자
+- 본사/가맹/독립 운영 여부, 채널별 관리자 권한
+- 서비스 구성 최신값, 가격표 최신값
+- 사진/영상 자산, 지원사업 참여 이력, 사업자 유형/업력/매출/직원 수</span>
+
+<span class="key">[초회 미팅 목표]</span>
+<span class="val">기준값 확정 → 관계자 구조 확인 → 권한 구조 확인 → 현재 운영 상태 파악
+→ 즉시 실행 가능 항목 도출 → 다음 회차 전 자료 요청 정리</span>
+
+<span class="key">[응답 형식 규칙]</span>
+<span class="val">모든 응답 마지막은 반드시 아래 5블록으로 끝낼 것:
+① 확정 사실 / ② 미확인 사항 / ③ 즉시 실행 / ④ 승인 필요 / ⑤ 다음 요청사항</span></div>
+  </div>
+</div>
+
+<!-- SECTION 16 -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">16</div><div><div class="sec-title">다음 단계 체크리스트</div></div></div>
+  <div class="sec-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="sub-sec">
+        <div class="sub-title">16-1. 미팅 전 체크리스트</div>
+        <ul class="cl">
+          <li><input type="checkbox"><label>업체 기본 정보 요청</label></li>
+          <li><input type="checkbox"><label>채널 링크 요청</label></li>
+          <li><input type="checkbox"><label>서비스 목록 요청</label></li>
+          <li><input type="checkbox"><label>가격표 요청</label></li>
+          <li><input type="checkbox"><label>사진/영상 자산 보유 여부 확인 요청</label></li>
+          <li><input type="checkbox"><label>참석자 이름과 역할 확인</label></li>
+        </ul>
+      </div>
+      <div class="sub-sec">
+        <div class="sub-title">16-2. 초회 미팅 당일 체크리스트</div>
+        <ul class="cl">
+          <li><input type="checkbox"><label>프로젝트명·업체명 재확인</label></li>
+          <li><input type="checkbox"><label>주소 확인</label></li>
+          <li><input type="checkbox"><label>실제 운영자 확인</label></li>
+          <li><input type="checkbox"><label>신청자/명의자/승인권자 구분</label></li>
+          <li><input type="checkbox"><label>채널 관리자 확인</label></li>
+          <li><input type="checkbox"><label>서비스 구성 확인</label></li>
+          <li><input type="checkbox"><label>가격표 확인</label></li>
+          <li><input type="checkbox"><label>가장 큰 고민 1개 확인</label></li>
+          <li><input type="checkbox"><label>다음 회차 전 전달 자료 확정</label></li>
+        </ul>
+      </div>
+      <div class="sub-sec">
+        <div class="sub-title">16-3. 미팅 후 체크리스트</div>
+        <ul class="cl">
+          <li><input type="checkbox"><label>기준값 잠금 시트 업데이트</label></li>
+          <li><input type="checkbox"><label>역할·권한 구조표 업데이트</label></li>
+          <li><input type="checkbox"><label>즉시 실행 가능 항목 정리</label></li>
+          <li><input type="checkbox"><label>승인 필요 항목 정리</label></li>
+          <li><input type="checkbox"><label>후속 회차 목표 설정</label></li>
+          <li><input type="checkbox"><label>후속 AI 인수인계 블록 업데이트</label></li>
+        </ul>
+      </div>
+      <div class="sub-sec">
+        <div class="sub-title">16-4. 지원사업 검토 전 체크리스트</div>
+        <ul class="cl">
+          <li><input type="checkbox"><label>사업자 유형 / 업력 / 매출 / 직원 수 확인</label></li>
+          <li><input type="checkbox"><label>과거 수혜 이력 확인</label></li>
+          <li><input type="checkbox"><label>자부담 가능 여부 확인</label></li>
+          <li><input type="checkbox"><label>디지털 전환 필요성 정리</label></li>
+          <li><input type="checkbox"><label>공식 공고문 확보 여부 확인</label></li>
+          <li><input type="checkbox"><label>신청/제출/정산 권한자 확인</label></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="background:#1a1a2e;color:#fff;border-radius:12px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+  <div>
+    <div style="font-size:13px;font-weight:700">갱남AI컨설팅 · 권용준 방식 v2 실전 준비본</div>
+    <div style="font-size:11px;opacity:0.6;margin-top:4px">압구정 S&H 듀얼왁싱 압구정점 초회 미팅 전 사전 준비 · 작성일: 2026-06-13</div>
+  </div>
+  <div style="text-align:right;font-size:12px;opacity:0.7">
+    권용준 · 010-6783-2588<br>
+    yjkwon@gangnamconsulting.com
+  </div>
+</div>
+
+</div>
+</body>
+</html>
