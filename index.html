@@ -201,6 +201,37 @@ section{padding:92px 24px 84px}
   padding:18px 24px;text-align:center;font-size:14.5px;color:var(--t2);line-height:1.7;
 }
 .tg-note b{color:var(--gd)}
+/* primary target (소상공인 강조) */
+.tg-primary{
+  display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center;
+  background:linear-gradient(135deg,var(--gl),#fff);
+  border:2px solid var(--ga);border-radius:20px;padding:38px 40px;
+  box-shadow:0 10px 32px rgba(46,139,98,.16);margin-bottom:18px;
+}
+.tg-ic-lg{
+  width:88px;height:88px;border-radius:24px;
+  background:linear-gradient(135deg,var(--gd),var(--ga));
+  display:flex;align-items:center;justify-content:center;font-size:42px;flex-shrink:0;
+}
+.tg-tag-main{
+  display:inline-block;background:var(--ga);color:#fff;
+  font-size:12px;font-weight:900;letter-spacing:.5px;padding:5px 14px;border-radius:100px;margin-bottom:12px;
+}
+.tg-primary h3{font-size:clamp(20px,3vw,26px);font-weight:900;letter-spacing:-.6px;margin-bottom:10px;line-height:1.3}
+.tg-primary p{font-size:15px;color:var(--t2);line-height:1.8}
+/* minor targets (기타) */
+.tg-minor{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  background:#fff;border:1px solid var(--bd);border-radius:14px;padding:16px 22px;
+}
+.tg-minor-label{font-size:13px;font-weight:700;color:var(--t3);flex-shrink:0}
+.tg-minor-items{display:flex;gap:12px;flex-wrap:wrap;flex:1}
+.tg-minor-item{
+  font-size:14px;color:var(--t2);background:var(--gl);border:1px solid var(--gb);
+  border-radius:10px;padding:9px 16px;
+}
+.tg-minor-item b{font-weight:700;color:var(--t1)}
+.tg-minor-item small{color:var(--t3);font-size:12px;margin-left:6px}
 
 /* ── PROCESS ── */
 #process{background:var(--gd);color:#fff}
@@ -335,6 +366,10 @@ footer{
   #hero{padding:96px 18px 70px}
   .about-grid,.sc-grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr}
+  .tg-primary{grid-template-columns:1fr;text-align:center;gap:16px;padding:30px 24px}
+  .tg-ic-lg{margin:0 auto}
+  .tg-minor{flex-direction:column;align-items:flex-start;gap:12px}
+  .tg-minor-item{width:100%}
   .stats-in{grid-template-columns:1fr 1fr;transform:translateY(-34px)}
   .hero-btns,.apply-btns{flex-direction:column;align-items:stretch}
   .btn{width:100%}
@@ -435,26 +470,26 @@ footer{
 <section id="benefit">
   <div class="wrap">
     <div class="lbl reveal">SUPPORT</div>
-    <h2 class="stitle reveal">이런 도움을 받을 수 있어요</h2>
-    <p class="ssub reveal">사장님의 업종과 상황에 맞춰, 오늘 당장 써먹을 수 있는 것부터 시작합니다.</p>
+    <h2 class="stitle reveal">실제 이런 일을 함께 합니다</h2>
+    <p class="ssub reveal">사장님의 업종과 상황에 맞춰, 매출과 직결되는 것부터 차근차근 진행합니다.</p>
     <div class="bf-grid">
       <div class="bf-card reveal">
+        <div class="bf-ic">📈</div>
+        <h3>매출 확대를 위한<br>마케팅 전략 수립</h3>
+        <p>우리 가게의 고객과 매출 흐름을 진단하고, 무엇을 어떻게 알릴지 구체적인 마케팅 전략을 함께 세웁니다. 느낌이 아니라 실행 가능한 계획으로 매출 확대의 길을 찾아드립니다.</p>
+        <span class="tag">매출 성장 설계</span>
+      </div>
+      <div class="bf-card reveal">
         <div class="bf-ic">🤖</div>
-        <h3>AI 도구 도입·활용</h3>
-        <p>ChatGPT, 이미지·영상 생성, 업무 자동화 툴까지. 무엇을 어디에 써야 효과적인지 우리 가게 기준으로 골라드리고, 실제 결과물이 나올 때까지 단계별로 안내합니다.</p>
-        <span class="tag">실전 세팅까지 함께</span>
+        <h3>AI 도구 도입·활용을 통한<br>매장 운영과 홍보</h3>
+        <p>ChatGPT·이미지/영상 생성·자동화 툴을 우리 매장에 맞게 골라 도입하고, 운영과 홍보에 실제로 활용하는 방법까지 안내합니다. 디지털이 낯설어도 결과물이 나올 때까지 함께합니다.</p>
+        <span class="tag">운영·홍보 디지털화</span>
       </div>
       <div class="bf-card reveal">
         <div class="bf-ic">📣</div>
-        <h3>온라인·SNS 마케팅</h3>
-        <p>인스타그램·블로그·유튜브 등 채널 기획부터 콘텐츠 제작 방법까지. AI를 활용해 적은 비용으로 손님을 불러오는 홍보 전략을 함께 만듭니다.</p>
+        <h3>온라인·SNS 채널<br>홍보 실행</h3>
+        <p>인스타그램·블로그·유튜브 등 채널 기획부터 콘텐츠 제작까지. AI를 활용해 적은 비용으로 단골과 신규 고객을 불러오는 홍보를 직접 실행하도록 돕습니다.</p>
         <span class="tag">단골·신규 고객 확보</span>
-      </div>
-      <div class="bf-card reveal">
-        <div class="bf-ic">📈</div>
-        <h3>매장 운영 디지털 전환</h3>
-        <p>예약·주문·고객관리·매출 분석을 디지털로 바꿔 일손을 줄입니다. 사장님이 본업에 집중할 수 있도록 반복 업무를 자동화하는 방법을 알려드립니다.</p>
-        <span class="tag">시간·비용 절감</span>
       </div>
     </div>
   </div>
@@ -464,29 +499,24 @@ footer{
 <section id="target">
   <div class="wrap">
     <div class="lbl reveal">WHO</div>
-    <h2 class="stitle reveal">이런 분이 신청하실 수 있어요</h2>
-    <p class="ssub reveal">AI 활용 지원이 필요한 강남구민 및 관내 소상공인이라면 누구나 신청 가능합니다.</p>
-    <div class="tg-grid">
-      <div class="tg-card reveal">
-        <div class="tg-ic">🏪</div>
-        <h3>강남구 소상공인</h3>
-        <p>강남구 소재 소상공인, 소규모 사업장 운영자 또는 종사자</p>
-        <span class="age">관내 사업장 기준</span>
-      </div>
-      <div class="tg-card reveal">
-        <div class="tg-ic">🚀</div>
-        <h3>창업·취업 희망자</h3>
-        <p>강남구에서 창업 또는 취업을 준비 중인 분</p>
-        <span class="age">2007년생 이상 성인</span>
-      </div>
-      <div class="tg-card reveal">
-        <div class="tg-ic">🤝</div>
-        <h3>디지털 취약계층</h3>
-        <p>디지털 활용이 어려운 어르신, 청소년 등</p>
-        <span class="age">노인 · 2007년생 이상 청소년 등</span>
+    <h2 class="stitle reveal">강남구 소상공인이라면 신청하세요</h2>
+    <p class="ssub reveal">AI 활용 지원이 필요한 강남구 관내 소상공인을 위한 사업입니다.</p>
+    <div class="tg-primary reveal">
+      <div class="tg-ic-lg">🏪</div>
+      <div>
+        <span class="tg-tag-main">주요 신청 대상</span>
+        <h3>강남구 소상공인 · 소규모 사업장</h3>
+        <p>강남구 소재 소상공인, 소규모 사업장 운영자 또는 종사자라면 누구나 신청하실 수 있습니다. 우리 매장의 매출과 운영을 AI로 직접 바꿔보세요.</p>
       </div>
     </div>
-    <div class="tg-note reveal">
+    <div class="tg-minor reveal">
+      <span class="tg-minor-label">그 외 신청 가능</span>
+      <div class="tg-minor-items">
+        <div class="tg-minor-item">🚀 <b>창업·취업 희망자</b><small>2007년생 이상 성인</small></div>
+        <div class="tg-minor-item">🤝 <b>디지털 취약계층</b><small>어르신·청소년 등</small></div>
+      </div>
+    </div>
+    <div class="tg-note reveal" style="margin-top:22px">
       📌 <b>본인이 대상에 해당하는지 헷갈리시나요?</b> 운영기관(상상우리)으로 편하게 문의하시면 친절히 안내해 드립니다. 자세한 내용은 강남구청 홈페이지 고시·공고를 참고하세요.
     </div>
   </div>

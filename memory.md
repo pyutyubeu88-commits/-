@@ -46,3 +46,8 @@
 - 조치: program.html → index.html(사업 소개 페이지를 루트로), 기존 대댓글생성기 index.html → reply.html
 - vercel.json: /consultant→profile.html, /reply·/comment→reply.html
 - 대댓글 생성기 접속 주소: /reply.html (또는 /reply)
+
+### [2026-06-14] 운영기관(상상우리) 피드백 반영 + 배포처 확인
+- 신청대상: 소상공인 위주 부각(대형 강조카드), 창업·취업희망자+디지털취약계층은 "그 외 신청 가능" 기타로 통합·축소
+- 지원내용: 실제 업무 중심 재구성 → ①매출확대 마케팅 전략 수립 ②AI 도구 도입·활용을 통한 매장 운영·홍보 ③온라인·SNS 홍보 실행
+- 배포처 확인: aiconsultant-two.vercel.app 이 저장소(pyutyubeu88-commits/-) main과 연결됨 → push 시 자동 배포
