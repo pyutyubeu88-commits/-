@@ -1,6 +1,7 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/profile.html" }
+    { "source": "/", "destination": "/program.html" },
+    { "source": "/consultant", "destination": "/profile.html" }
   ],
   "headers": [
     {
