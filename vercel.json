@@ -1,7 +1,8 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/program.html" },
-    { "source": "/consultant", "destination": "/profile.html" }
+    { "source": "/consultant", "destination": "/profile.html" },
+    { "source": "/reply", "destination": "/reply.html" },
+    { "source": "/comment", "destination": "/reply.html" }
   ],
   "headers": [
     {

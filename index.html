@@ -2,749 +2,674 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AI 자동 대댓글 생성기</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>강남구 맞춤형 AI 활용 컨설팅 &amp; 멘토링 | 소상공인 무료 지원</title>
+<meta name="description" content="2026년 강남구가 추진하는 소상공인 맞춤형 AI 활용 컨설팅·멘토링 사업. 강남구민·관내 소상공인 대상 1:1 무료 컨설팅. 신청기간 2026.5.4~11.27 상시모집.">
+<meta property="og:title" content="강남구 맞춤형 AI 활용 컨설팅 &amp; 멘토링 수혜자 모집">
+<meta property="og:description" content="강남구 소상공인을 위한 전액 무료 1:1 AI 컨설팅. 강남구(일자리정책과) 주최 · (주)상상우리 주관.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="강남구 맞춤형 AI 활용 컨설팅 &amp; 멘토링 수혜자 모집">
+<meta name="twitter:description" content="강남구 소상공인을 위한 전액 무료 1:1 AI 컨설팅.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0f1117;--card:#181a20;--card2:#1e2028;--bdr:#23263a;--tx1:#e5e7ef;--tx2:#9ca3af;--blu:#3b82f6;--grn:#10b981;--red:#ef4444;--yl:#fbbf24;--pink:#ec4899;--r:14px}
-body{font-family:'Noto Sans KR','Pretendard',sans-serif;background:var(--bg);color:var(--tx1);line-height:1.7;min-height:100vh}
-.wrap{max-width:780px;margin:0 auto;padding:20px 16px 60px}
-h1{font-size:20px;font-weight:900;text-align:center;padding:24px 0 4px;background:linear-gradient(135deg,var(--blu),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.sub{text-align:center;font-size:12px;color:var(--tx2);margin-bottom:20px}
-.tip{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(236,72,153,.08));border:1px solid rgba(59,130,246,.15);border-radius:var(--r);padding:14px 16px;margin-bottom:18px;font-size:13px;text-align:center}
-.tip a{color:var(--blu);text-decoration:underline}
-.card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
-.card-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;cursor:pointer;user-select:none}
-.card-title{font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block}
-.dot.on{background:var(--grn)}
-.tog{font-size:11px;color:var(--tx2)}
-.card-body{padding:0 18px 16px}
-.hide{display:none!important}
-.row{display:flex;gap:8px;align-items:center;margin-top:8px}
-.inp{flex:1;background:var(--card2);border:1px solid var(--bdr);border-radius:8px;padding:10px 12px;color:var(--tx1);font-size:13px;outline:none}
-.inp:focus{border-color:var(--blu)}
-.btn{padding:10px 18px;border-radius:8px;border:none;font-weight:700;font-size:13px;cursor:pointer;transition:.15s}
-.btn-pr{background:var(--blu);color:#fff}.btn-pr:hover{opacity:.85}
-.btn-gn{background:var(--grn);color:#fff}.btn-gn:hover{opacity:.85}
-.btn-ot{background:transparent;border:1px solid var(--bdr);color:var(--tx2)}.btn-ot:hover{border-color:var(--blu);color:var(--blu)}
-.btn-rd{background:var(--red);color:#fff}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-textarea.inp{min-height:80px;resize:vertical;font-family:inherit}
-.tabs{display:flex;gap:6px;margin-bottom:12px}
-.tab{flex:1;text-align:center;padding:10px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;background:var(--card2);border:1px solid var(--bdr);color:var(--tx2);transition:.15s}
-.tab.on{background:rgba(59,130,246,.12);border-color:var(--blu);color:var(--blu)}
-.cmts{max-height:260px;overflow-y:auto;margin:8px 0}
-.cmt-item{display:flex;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;border:1px solid transparent;margin-bottom:4px;transition:.15s}
-.cmt-item:hover{background:var(--card2)}.cmt-item.sel{border-color:var(--blu);background:rgba(59,130,246,.06)}
-.cmt-aut{font-weight:700;font-size:12px;color:var(--blu);white-space:nowrap}
-.cmt-txt{font-size:13px;color:var(--tx2);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.an-box{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
-.an-item{background:var(--card2);border-radius:10px;padding:10px 12px;text-align:center}
-.an-label{font-size:10px;color:var(--tx2);margin-bottom:2px}
-.an-val{font-size:14px;font-weight:700}
-.warn{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:10px 14px;margin:8px 0;font-size:12px;color:var(--red)}
-.rcard{background:var(--card2);border:1px solid var(--bdr);border-radius:12px;padding:14px 16px;margin-bottom:10px}
-.rcard .tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:6px}
-.rcard .rtxt{font-size:14px;line-height:1.8;white-space:pre-wrap}
-.rcard .acts{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
-.rcard .acts button{font-size:11px;padding:6px 12px}
-.bcpy{font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--bdr);background:transparent;color:var(--tx2);cursor:pointer}
-.bcpy:hover{border-color:var(--blu);color:var(--blu)}
-.bmk{font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--bdr);background:transparent;color:var(--tx2);cursor:pointer}
-.bmk.done{border-color:var(--grn);color:var(--grn);background:rgba(16,185,129,.06)}
-.bdone{opacity:.5}
-.prog{height:6px;border-radius:3px;background:var(--card2);overflow:hidden;margin:10px 0}
-.prog-bar{height:100%;background:linear-gradient(90deg,var(--blu),var(--pink));border-radius:3px;transition:width .3s}
-.spin{display:inline-block;width:16px;height:16px;border:2px solid var(--bdr);border-top-color:var(--blu);border-radius:50%;animation:sp .6s linear infinite;vertical-align:middle;margin-right:6px}
-@keyframes sp{to{transform:rotate(360deg)}}
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:12px 24px;font-size:13px;z-index:999;display:none;box-shadow:0 4px 20px rgba(0,0,0,.4)}
-table{width:100%;border-collapse:collapse;font-size:12px}
-th{background:var(--card2);padding:8px 6px;text-align:left;font-size:11px;color:var(--tx2);border-bottom:1px solid var(--bdr)}
-td{padding:8px 6px;border-bottom:1px solid var(--bdr);vertical-align:top}
-#bulkRes{display:none}#bulkRes.on{display:block}
-#postAllBtn{display:none}
-.ld{text-align:center;padding:30px;color:var(--tx2);font-size:13px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gd:#0B3D2E;--gm:#1B5E43;--ga:#2E8B62;--gh:#3FA877;
+  --gl:#F1FAF5;--gb:#BBE6CE;--mint:#74C69D;
+  --wh:#FFFFFF;--t1:#0F172A;--t2:#374151;--t3:#6B7280;--bd:#E5E7EB;
+  --r:14px;--sh:0 4px 24px rgba(11,61,46,.08);
+  --gov:#1A4A8B;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--t1);line-height:1.75;background:var(--wh);-webkit-font-smoothing:antialiased}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;height:62px;
+  background:rgba(11,61,46,.97);backdrop-filter:blur(8px);z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;box-shadow:0 2px 14px rgba(0,0,0,.16);
+}
+.nav-logo{color:#fff;font-size:15px;font-weight:900;text-decoration:none;letter-spacing:-.3px;display:flex;align-items:center;gap:9px}
+.nav-logo .gng{background:var(--mint);color:var(--gd);font-size:11px;font-weight:900;padding:3px 8px;border-radius:5px;letter-spacing:0}
+.nav-list{display:flex;gap:26px;list-style:none;align-items:center}
+.nav-list a{color:rgba(255,255,255,.82);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s;padding-bottom:3px;border-bottom:2px solid transparent}
+.nav-list a:hover{color:#fff}
+.nav-list a.active{color:#fff;border-bottom-color:var(--mint)}
+.nav-cta{
+  background:var(--ga);color:#fff!important;
+  padding:8px 18px;border-radius:7px;font-weight:700!important;border-bottom:none!important;
+  transition:background .2s!important;
+}
+.nav-cta:hover{background:var(--gh)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:23px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
+.mob-nav{
+  display:none;position:fixed;top:62px;left:0;right:0;
+  background:var(--gd);z-index:999;
+  flex-direction:column;border-top:1px solid rgba(255,255,255,.1);
+}
+.mob-nav.open{display:flex}
+.mob-nav a{
+  color:rgba(255,255,255,.88);text-decoration:none;
+  font-size:15px;font-weight:500;padding:16px 24px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.mob-nav a:last-child{border-bottom:none}
+
+/* ── COMMON ── */
+section{padding:92px 24px 84px}
+.wrap{max-width:1080px;margin:0 auto}
+.lbl{font-size:12px;font-weight:900;letter-spacing:2.5px;color:var(--ga);margin-bottom:12px;text-transform:uppercase}
+.stitle{font-size:clamp(24px,4vw,34px);font-weight:900;color:var(--t1);margin-bottom:14px;letter-spacing:-.6px;line-height:1.3}
+.ssub{font-size:16px;color:var(--t3);margin-bottom:44px;line-height:1.8}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:16px 30px;border-radius:10px;
+  font-size:16px;font-weight:700;font-family:'Noto Sans KR',sans-serif;
+  text-decoration:none;cursor:pointer;border:none;transition:all .2s;
+}
+.btn-pri{background:var(--ga);color:#fff;box-shadow:0 6px 20px rgba(46,139,98,.32)}
+.btn-pri:hover{background:var(--gh);transform:translateY(-2px);box-shadow:0 10px 28px rgba(46,139,98,.4)}
+.btn-out{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5)}
+.btn-out:hover{border-color:#fff;background:rgba(255,255,255,.12)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ── HERO ── */
+#hero{
+  background:linear-gradient(160deg,#0B3D2E 0%,#11543C 55%,#0B3D2E 100%);
+  padding:130px 24px 96px;margin-top:62px;
+  position:relative;overflow:hidden;
+}
+#hero::before{
+  content:'';position:absolute;top:-120px;right:-100px;
+  width:560px;height:560px;
+  background:radial-gradient(circle,rgba(116,198,157,.18) 0%,transparent 68%);
+  pointer-events:none;
+}
+#hero::after{
+  content:'';position:absolute;bottom:-160px;left:-120px;
+  width:520px;height:520px;
+  background:radial-gradient(circle,rgba(63,168,119,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-in{max-width:820px;margin:0 auto;text-align:center;position:relative;z-index:2}
+.hero-badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(116,198,157,.16);border:1px solid rgba(116,198,157,.4);
+  color:var(--mint);font-size:13px;font-weight:700;
+  padding:8px 18px;border-radius:100px;
+}
+.hero-badge.gov{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.28);color:#fff}
+#hero h1{
+  font-size:clamp(30px,5.6vw,56px);font-weight:900;color:#fff;
+  line-height:1.2;letter-spacing:-1.4px;margin-bottom:24px;
+}
+#hero h1 span{color:var(--mint)}
+.hero-sub{
+  font-size:clamp(15px,2.2vw,19px);color:rgba(255,255,255,.78);line-height:1.85;
+  margin:0 auto 22px;max-width:640px;
+}
+.hero-free{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.08);border:1px dashed rgba(116,198,157,.5);
+  border-radius:12px;padding:12px 22px;margin-bottom:34px;
+  font-size:15px;color:#fff;font-weight:700;
+}
+.hero-free b{color:var(--mint);font-size:18px}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero-meta{
+  margin-top:30px;display:flex;gap:28px;justify-content:center;flex-wrap:wrap;
+  font-size:13px;color:rgba(255,255,255,.6);
+}
+.hero-meta span{display:inline-flex;align-items:center;gap:6px}
+.hero-meta b{color:rgba(255,255,255,.92);font-weight:700}
+
+/* ── STATS BAR ── */
+#stats{background:var(--gd);padding:0 24px 0}
+.stats-in{
+  max-width:1080px;margin:0 auto;transform:translateY(-44px);
+  background:#fff;border-radius:18px;box-shadow:0 16px 44px rgba(11,61,46,.18);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  overflow:hidden;border:1px solid var(--bd);
+}
+.stat{padding:32px 20px;text-align:center;border-right:1px solid var(--bd)}
+.stat:last-child{border-right:none}
+.stat .num{font-size:clamp(26px,4vw,38px);font-weight:900;color:var(--gd);letter-spacing:-1px;line-height:1.1}
+.stat .num small{font-size:16px;font-weight:700;color:var(--ga)}
+.stat .cap{font-size:13px;color:var(--t3);margin-top:8px;font-weight:500}
+
+/* ── ABOUT ── */
+#about{background:var(--wh);padding-top:48px}
+.about-lead{
+  font-size:clamp(18px,2.6vw,22px);font-weight:700;color:var(--t1);
+  line-height:1.7;max-width:820px;margin:0 auto 40px;text-align:center;letter-spacing:-.4px;
+}
+.about-lead b{color:var(--ga);background:linear-gradient(transparent 62%,rgba(116,198,157,.32) 62%)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:8px}
+.ab-card{
+  background:var(--gl);border:1px solid var(--gb);border-radius:var(--r);
+  padding:30px 28px;
+}
+.ab-card .ic{font-size:30px;margin-bottom:14px;display:block}
+.ab-card h3{font-size:18px;font-weight:900;margin-bottom:8px;letter-spacing:-.3px}
+.ab-card p{font-size:14.5px;color:var(--t2);line-height:1.8}
+
+/* ── BENEFIT ── */
+#benefit{background:var(--gl)}
+.bf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.bf-card{
+  background:#fff;border-radius:var(--r);padding:34px 28px;
+  box-shadow:var(--sh);border:1px solid var(--bd);
+  transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden;
+}
+.bf-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--ga),var(--mint))}
+.bf-card:hover{transform:translateY(-6px);box-shadow:0 14px 36px rgba(11,61,46,.14)}
+.bf-ic{
+  width:60px;height:60px;border-radius:16px;
+  background:linear-gradient(135deg,var(--gd),var(--ga));
+  display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px;
+}
+.bf-card h3{font-size:19px;font-weight:900;margin-bottom:10px;letter-spacing:-.3px}
+.bf-card p{font-size:14.5px;color:var(--t2);line-height:1.8}
+.bf-card .tag{display:inline-block;margin-top:14px;font-size:12px;font-weight:700;color:var(--ga);background:var(--gl);border:1px solid var(--gb);padding:5px 13px;border-radius:100px}
+
+/* ── TARGET ── */
+#target{background:var(--wh)}
+.tg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:30px}
+.tg-card{
+  border:1.5px solid var(--bd);border-radius:var(--r);padding:30px 26px;
+  text-align:center;transition:border-color .2s,box-shadow .2s,background .2s;
+}
+.tg-card:hover{border-color:var(--ga);box-shadow:var(--sh);background:var(--gl)}
+.tg-ic{
+  width:64px;height:64px;border-radius:18px;background:var(--gl);border:1px solid var(--gb);
+  display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 18px;
+}
+.tg-card h3{font-size:18px;font-weight:900;margin-bottom:8px;letter-spacing:-.3px}
+.tg-card p{font-size:14px;color:var(--t3);line-height:1.7}
+.tg-card .age{display:block;margin-top:10px;font-size:12.5px;font-weight:700;color:var(--ga)}
+.tg-note{
+  background:var(--gl);border:1px solid var(--gb);border-radius:12px;
+  padding:18px 24px;text-align:center;font-size:14.5px;color:var(--t2);line-height:1.7;
+}
+.tg-note b{color:var(--gd)}
+
+/* ── PROCESS ── */
+#process{background:var(--gd);color:#fff}
+#process .lbl{color:var(--mint)}
+#process .stitle{color:#fff}
+#process .ssub{color:rgba(255,255,255,.65)}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;position:relative}
+.step{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--r);padding:28px 18px;text-align:center;position:relative;
+  transition:background .25s,transform .25s;
+}
+.step:hover{background:rgba(255,255,255,.11);transform:translateY(-5px)}
+.step .sn{
+  width:42px;height:42px;border-radius:50%;
+  background:linear-gradient(135deg,var(--ga),var(--mint));
+  color:var(--gd);font-weight:900;font-size:17px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
+}
+.step h4{font-size:15px;font-weight:900;margin-bottom:7px;letter-spacing:-.3px;color:#fff}
+.step p{font-size:12.5px;color:rgba(255,255,255,.62);line-height:1.6}
+.step .arrow{display:none}
+
+/* ── SCHEDULE ── */
+#schedule{background:var(--gl)}
+.sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.sc-card{
+  background:#fff;border-radius:var(--r);border:1px solid var(--bd);
+  box-shadow:var(--sh);padding:30px 30px;
+}
+.sc-card .ic{font-size:24px}
+.sc-card h3{font-size:16px;font-weight:900;margin:12px 0 16px;letter-spacing:-.3px;color:var(--gd)}
+.sc-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px dashed var(--bd)}
+.sc-row:last-child{border-bottom:none}
+.sc-row .k{font-size:14px;color:var(--t3);font-weight:500}
+.sc-row .v{font-size:15px;color:var(--t1);font-weight:700;letter-spacing:-.3px}
+.sc-row .v .pill{display:inline-block;margin-left:8px;font-size:11px;font-weight:700;color:var(--ga);background:var(--gl);border:1px solid var(--gb);padding:2px 9px;border-radius:100px;vertical-align:middle}
+.sc-foot{margin-top:14px;font-size:12.5px;color:var(--t3)}
+
+/* ── TRUST ── */
+#trust{background:var(--wh)}
+.trust-banner{
+  background:linear-gradient(135deg,var(--gd),var(--gm));border-radius:20px;
+  padding:48px 44px;color:#fff;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;
+  box-shadow:0 16px 44px rgba(11,61,46,.22);
+}
+.trust-banner h2{font-size:clamp(22px,3vw,28px);font-weight:900;line-height:1.4;letter-spacing:-.6px;margin-bottom:14px}
+.trust-banner h2 span{color:var(--mint)}
+.trust-banner p{font-size:15px;color:rgba(255,255,255,.78);line-height:1.85}
+.trust-points{display:flex;flex-direction:column;gap:14px}
+.tp{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:16px 20px}
+.tp .ck{width:26px;height:26px;border-radius:7px;background:var(--mint);color:var(--gd);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0;margin-top:1px}
+.tp p{font-size:14.5px;color:#fff;font-weight:500;line-height:1.6}
+.tp b{color:var(--mint)}
+
+/* ── FAQ ── */
+#faq{background:var(--gl)}
+.faq-list{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{background:#fff;border:1px solid var(--bd);border-radius:12px;overflow:hidden;transition:box-shadow .2s}
+.faq-item.open{box-shadow:var(--sh);border-color:var(--gb)}
+.faq-q{
+  width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  padding:20px 24px;font-size:16px;font-weight:700;color:var(--t1);
+  font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center;gap:16px;
+}
+.faq-q .qi{color:var(--ga);font-weight:900;flex-shrink:0;margin-right:4px}
+.faq-q .tg{width:24px;height:24px;flex-shrink:0;transition:transform .3s;color:var(--ga);font-size:20px;display:flex;align-items:center;justify-content:center}
+.faq-item.open .faq-q .tg{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{padding:0 24px 22px 50px;font-size:14.5px;color:var(--t2);line-height:1.85}
+
+/* ── APPLY / CTA ── */
+#apply{background:linear-gradient(160deg,#0B3D2E,#11543C);color:#fff;text-align:center}
+#apply .lbl{color:var(--mint)}
+.apply-box{max-width:720px;margin:0 auto}
+#apply h2{font-size:clamp(26px,4.4vw,40px);font-weight:900;line-height:1.3;letter-spacing:-1px;margin-bottom:20px}
+#apply h2 span{color:var(--mint)}
+.apply-sub{font-size:17px;color:rgba(255,255,255,.78);line-height:1.85;margin-bottom:14px}
+.apply-deadline{
+  display:inline-flex;align-items:center;gap:10px;margin:0 auto 34px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(116,198,157,.4);
+  border-radius:100px;padding:10px 24px;font-size:15px;font-weight:700;
+}
+.apply-deadline b{color:var(--mint)}
+.apply-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:34px}
+.contact-card{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);
+  border-radius:16px;padding:28px 30px;max-width:560px;margin:0 auto;text-align:left;
+}
+.contact-card .cc-ttl{font-size:13px;font-weight:900;letter-spacing:1px;color:var(--mint);margin-bottom:16px}
+.cc-row{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:15px;color:rgba(255,255,255,.9)}
+.cc-row .ic{width:38px;height:38px;border-radius:10px;background:rgba(116,198,157,.18);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cc-row a{color:#fff;font-weight:700;text-decoration:none}
+.cc-row a:hover{color:var(--mint)}
+.cc-row span.k{color:rgba(255,255,255,.55);font-size:13px;display:block;margin-bottom:1px}
+
+/* ── FOOTER ── */
+footer{
+  background:#08291F;color:rgba(255,255,255,.55);
+  padding:40px 24px 32px;
+}
+.foot-in{max-width:1080px;margin:0 auto}
+.foot-org{display:flex;gap:32px;flex-wrap:wrap;align-items:center;margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.1)}
+.foot-org .oi{font-size:13px}
+.foot-org .oi b{display:block;color:rgba(255,255,255,.45);font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:4px}
+.foot-org .oi strong{color:#fff;font-size:15px;font-weight:700}
+.foot-note{font-size:12.5px;color:rgba(255,255,255,.42);line-height:1.7}
+.foot-copy{margin-top:16px;font-size:12px;color:rgba(255,255,255,.3)}
+
+/* float CTA (mobile) */
+.float-cta{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:900;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(11,61,46,.96);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.12);
+}
+.float-cta a{display:block;text-align:center;background:var(--ga);color:#fff;font-weight:700;font-size:16px;padding:15px;border-radius:10px;text-decoration:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1023px){
+  .bf-grid,.tg-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .stats-in{grid-template-columns:1fr 1fr}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--bd)}
+  .trust-banner{grid-template-columns:1fr;gap:28px}
+}
+@media(max-width:767px){
+  nav{padding:0 18px}
+  .nav-list{display:none}
+  .hamburger{display:flex}
+  section{padding:62px 18px 58px}
+  #hero{padding:96px 18px 70px}
+  .about-grid,.sc-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .stats-in{grid-template-columns:1fr 1fr;transform:translateY(-34px)}
+  .hero-btns,.apply-btns{flex-direction:column;align-items:stretch}
+  .btn{width:100%}
+  .hero-meta{gap:14px;font-size:12px}
+  .trust-banner{padding:32px 24px}
+  .float-cta{display:block}
+  body{padding-bottom:74px}
+  .float-cta{padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-<h1>AI 자동 대댓글 생성기</h1>
-<p class="sub">댓글 유형 자동 분석 → 최적 말투 선택 → 대댓글 즉시 생성<br>Powered by Gemini AI</p>
 
-<div class="tip">
-💡 <b>Google API 키 하나로 YouTube + Gemini 모두 해결!</b><br>
-<a href="https://aistudio.google.com/app/apikey" target="_blank">→ Gemini API 키 무료 발급</a>
-</div>
-
-<!-- YouTube API Key -->
-<div class="card">
-<div class="card-head" onclick="toggleCard('yt')">
-<div class="card-title"><span class="dot" id="ytDot"></span> 📺 YouTube Data API 키</div>
-<span class="tog" id="ytTog">▼ 펼치기</span>
-</div>
-<div class="card-body hide" id="ytBody">
-<p style="font-size:11px;color:var(--tx2);margin-bottom:8px">📌 <a href="https://console.cloud.google.com/" target="_blank" style="color:var(--blu)">Google Cloud Console</a> → YouTube Data API v3 활성화 → API 키</p>
-<div class="row">
-<input class="inp" id="ytKey" placeholder="YouTube API 키 입력">
-<button class="btn btn-pr" onclick="saveYt()">저장</button>
-</div>
-</div>
-</div>
-
-<!-- Gemini API Key -->
-<div class="card">
-<div class="card-head" onclick="toggleCard('gm')">
-<div class="card-title"><span class="dot" id="gmDot"></span> 🤖 Gemini API 키 (무료)</div>
-<span class="tog" id="gmTog">▼ 펼치기</span>
-</div>
-<div class="card-body hide" id="gmBody">
-<p style="font-size:11px;color:var(--tx2);margin-bottom:8px">📌 <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--blu)">Google AI Studio</a> → Get API key</p>
-<div class="row">
-<input class="inp" id="gmKey" placeholder="Gemini API 키 입력">
-<button class="btn btn-pr" onclick="saveGm()">저장</button>
-</div>
-</div>
+<!-- ── NAV ── -->
+<nav>
+  <a href="#hero" class="nav-logo"><span class="gng">강남구</span> AI 컨설팅 · 멘토링</a>
+  <ul class="nav-list">
+    <li><a href="#about">사업안내</a></li>
+    <li><a href="#benefit">지원내용</a></li>
+    <li><a href="#target">신청대상</a></li>
+    <li><a href="#process">진행절차</a></li>
+    <li><a href="#faq">자주묻는질문</a></li>
+    <li><a href="#apply" class="nav-cta">무료 신청하기</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleNav()" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <a href="#about"   onclick="closeNav()">사업안내</a>
+  <a href="#benefit" onclick="closeNav()">지원내용</a>
+  <a href="#target"  onclick="closeNav()">신청대상</a>
+  <a href="#process" onclick="closeNav()">진행절차</a>
+  <a href="#faq"     onclick="closeNav()">자주묻는질문</a>
+  <a href="#apply"   onclick="closeNav()">무료 신청하기</a>
 </div>
 
-<!-- Google OAuth Login -->
-<div class="card">
-<div class="card-body" style="padding:14px 18px">
-<div class="card-title" style="margin-bottom:8px">🔐 Google 계정 연결 (YouTube 게시용)</div>
-<div id="loginArea">
-<button class="btn btn-pr" onclick="startLogin()" id="loginBtn">Google 로그인</button>
-</div>
-<div id="loggedArea" class="hide">
-<span style="color:var(--grn);font-size:13px" id="loggedName">✅ 로그인됨</span>
-<button class="btn btn-ot" onclick="doLogout()" style="margin-left:8px;font-size:11px;padding:6px 12px">로그아웃</button>
-</div>
-</div>
-</div>
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-in">
+    <div class="hero-badges">
+      <span class="hero-badge gov">🏛️ 강남구(일자리정책과) 주최</span>
+      <span class="hero-badge">2026 강남구 중장년 AI 전문가 양성 사업</span>
+    </div>
+    <h1>우리 가게에 딱 맞는<br><span>AI 활용법,</span> 전문가가<br>1:1로 찾아드립니다</h1>
+    <p class="hero-sub">
+      강남구가 직접 추진하는 소상공인 맞춤형 AI 컨설팅·멘토링.<br>
+      디지털이 낯설어도 괜찮습니다. 우리 매장이 바뀌는 걸 직접 경험하세요.
+    </p>
+    <div class="hero-free">
+      💰 강남구 보조금 지원 사업 · 수혜자 부담 <b>전액 무료</b>
+    </div>
+    <div class="hero-btns">
+      <a href="#apply" class="btn btn-pri">무료 컨설팅 신청하기 →</a>
+      <a href="#about" class="btn btn-out">사업 자세히 보기</a>
+    </div>
+    <div class="hero-meta">
+      <span>🗓️ 신청 <b>2026.5.4~11.27</b> (상시모집)</span>
+      <span>📍 <b>온·오프라인</b> 병행</span>
+      <span>🤝 <b>1:1 맞춤형</b> 컨설턴트 매칭</span>
+    </div>
+  </div>
+</section>
 
-<!-- Tabs -->
-<div class="tabs">
-<div class="tab on" id="tabUrl" onclick="switchTab('url')">📎 유튜브 영상 링크</div>
-<div class="tab" id="tabManual" onclick="switchTab('manual')">✍️ 직접 입력</div>
-</div>
+<!-- ── STATS ── -->
+<section id="stats">
+  <div class="stats-in reveal">
+    <div class="stat"><div class="num">100<small>%</small></div><div class="cap">수혜자 부담금 무료</div></div>
+    <div class="stat"><div class="num">1:1</div><div class="cap">맞춤형 컨설턴트 매칭</div></div>
+    <div class="stat"><div class="num">5<small>단계</small></div><div class="cap">간편한 신청·진행 절차</div></div>
+    <div class="stat"><div class="num">온·오프</div><div class="cap">사업장 방문·비대면 병행</div></div>
+  </div>
+</section>
 
-<!-- URL Mode -->
-<div id="urlMode">
-<div class="row" style="margin-bottom:12px">
-<input class="inp" id="vidUrl" placeholder="https://www.youtube.com/watch?v=..." style="font-size:13px">
-<button class="btn btn-pr" onclick="fetchVid()" id="fetchBtn">불러오기</button>
-</div>
-<div id="vidInfo" class="hide">
-<div style="font-weight:700;font-size:14px;margin-bottom:6px" id="vidTitle"></div>
-<div style="font-size:11px;color:var(--tx2);margin-bottom:12px" id="vidCh"></div>
-</div>
-<div id="cmtSection" class="hide">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-<b style="font-size:13px">💬 댓글 선택</b>
-<span style="font-size:11px;color:var(--tx2)" id="cmtCnt">0개</span>
-</div>
-<div class="cmts" id="cmtList"></div>
-<div style="margin-top:8px">
-<button class="btn btn-ot" onclick="togglePaste()" style="font-size:11px">📋 댓글 직접 붙여넣기</button>
-<div id="pasteArea" class="hide" style="margin-top:8px">
-<textarea class="inp" id="pasteTxt" placeholder="작성자: 댓글내용&#10;예) 홍길동: 좋은 영상입니다!"></textarea>
-<button class="btn btn-pr" onclick="parsePaste()" style="margin-top:6px;font-size:12px">적용</button>
-</div>
-</div>
-</div>
-</div>
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="wrap">
+    <p class="about-lead reveal">
+      "AI가 좋다는 건 아는데, <b>우리 가게엔 어떻게 써야 할지</b> 모르겠다."<br>
+      그 막막함을, 강남구 AI 컨설턴트가 곁에서 함께 풀어드립니다.
+    </p>
+    <div class="about-grid">
+      <div class="ab-card reveal">
+        <span class="ic">🎯</span>
+        <h3>왜 이 사업을 하나요</h3>
+        <p>강남구민·관내 소상공인의 디지털 활용 역량을 강화해, 지역사회 전반의 AI·디지털 경쟁력을 끌어올리기 위해 강남구가 직접 추진하는 <b>공식 무료 컨설팅 지원 프로그램</b>입니다.</p>
+      </div>
+      <div class="ab-card reveal">
+        <span class="ic">🧭</span>
+        <h3>무엇을 받게 되나요</h3>
+        <p>검증된 AI 컨설턴트가 컨설팅을 원하는 강남구민과 강남구 소재 사업장 운영자를 대상으로, 현장에 바로 적용 가능한 <b>맞춤형 AI 컨설팅과 멘토링</b>을 1:1로 제공합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- Manual Mode -->
-<div id="manualMode" class="hide">
-<div style="margin-bottom:8px"><b style="font-size:13px">📹 영상 내용</b></div>
-<textarea class="inp" id="mScript" placeholder="영상 스크립트나 내용을 입력하세요..."></textarea>
-<div style="margin:12px 0 8px"><b style="font-size:13px">💬 시청자 댓글</b></div>
-<textarea class="inp" id="mComment" placeholder="시청자 댓글을 입력하세요..."></textarea>
-</div>
+<!-- ── BENEFIT ── -->
+<section id="benefit">
+  <div class="wrap">
+    <div class="lbl reveal">SUPPORT</div>
+    <h2 class="stitle reveal">이런 도움을 받을 수 있어요</h2>
+    <p class="ssub reveal">사장님의 업종과 상황에 맞춰, 오늘 당장 써먹을 수 있는 것부터 시작합니다.</p>
+    <div class="bf-grid">
+      <div class="bf-card reveal">
+        <div class="bf-ic">🤖</div>
+        <h3>AI 도구 도입·활용</h3>
+        <p>ChatGPT, 이미지·영상 생성, 업무 자동화 툴까지. 무엇을 어디에 써야 효과적인지 우리 가게 기준으로 골라드리고, 실제 결과물이 나올 때까지 단계별로 안내합니다.</p>
+        <span class="tag">실전 세팅까지 함께</span>
+      </div>
+      <div class="bf-card reveal">
+        <div class="bf-ic">📣</div>
+        <h3>온라인·SNS 마케팅</h3>
+        <p>인스타그램·블로그·유튜브 등 채널 기획부터 콘텐츠 제작 방법까지. AI를 활용해 적은 비용으로 손님을 불러오는 홍보 전략을 함께 만듭니다.</p>
+        <span class="tag">단골·신규 고객 확보</span>
+      </div>
+      <div class="bf-card reveal">
+        <div class="bf-ic">📈</div>
+        <h3>매장 운영 디지털 전환</h3>
+        <p>예약·주문·고객관리·매출 분석을 디지털로 바꿔 일손을 줄입니다. 사장님이 본업에 집중할 수 있도록 반복 업무를 자동화하는 방법을 알려드립니다.</p>
+        <span class="tag">시간·비용 절감</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- Analysis -->
-<div class="card" style="margin-top:12px">
-<div class="card-body" style="padding:14px 18px">
-<div class="card-title" style="margin-bottom:10px">🤖 AI 분석 결과</div>
-<div class="an-box">
-<div class="an-item"><div class="an-label">유형</div><div class="an-val" id="anType">—</div></div>
-<div class="an-item"><div class="an-label">감정</div><div class="an-val" id="anEmo">—</div></div>
-<div class="an-item"><div class="an-label">말투</div><div class="an-val" id="anStyle">—</div></div>
-</div>
-<div id="anWarn" class="warn hide">⚠️ 주의 댓글</div>
-<div class="row" style="margin-top:10px">
-<input class="inp" id="chanName" placeholder="✏️ 채널 이름 (선택)" style="flex:1;font-size:12px">
-<button class="btn btn-pr" onclick="generate()" id="genBtn">🤖 대댓글 생성</button>
-</div>
-</div>
-</div>
+<!-- ── TARGET ── -->
+<section id="target">
+  <div class="wrap">
+    <div class="lbl reveal">WHO</div>
+    <h2 class="stitle reveal">이런 분이 신청하실 수 있어요</h2>
+    <p class="ssub reveal">AI 활용 지원이 필요한 강남구민 및 관내 소상공인이라면 누구나 신청 가능합니다.</p>
+    <div class="tg-grid">
+      <div class="tg-card reveal">
+        <div class="tg-ic">🏪</div>
+        <h3>강남구 소상공인</h3>
+        <p>강남구 소재 소상공인, 소규모 사업장 운영자 또는 종사자</p>
+        <span class="age">관내 사업장 기준</span>
+      </div>
+      <div class="tg-card reveal">
+        <div class="tg-ic">🚀</div>
+        <h3>창업·취업 희망자</h3>
+        <p>강남구에서 창업 또는 취업을 준비 중인 분</p>
+        <span class="age">2007년생 이상 성인</span>
+      </div>
+      <div class="tg-card reveal">
+        <div class="tg-ic">🤝</div>
+        <h3>디지털 취약계층</h3>
+        <p>디지털 활용이 어려운 어르신, 청소년 등</p>
+        <span class="age">노인 · 2007년생 이상 청소년 등</span>
+      </div>
+    </div>
+    <div class="tg-note reveal">
+      📌 <b>본인이 대상에 해당하는지 헷갈리시나요?</b> 운영기관(상상우리)으로 편하게 문의하시면 친절히 안내해 드립니다. 자세한 내용은 강남구청 홈페이지 고시·공고를 참고하세요.
+    </div>
+  </div>
+</section>
 
-<!-- Results -->
-<div id="results" class="hide">
-<b style="font-size:14px;display:block;margin-bottom:10px">💬 생성된 대댓글</b>
-<div id="replyCards"></div>
-</div>
+<!-- ── PROCESS ── -->
+<section id="process">
+  <div class="wrap">
+    <div class="lbl reveal">PROCESS</div>
+    <h2 class="stitle reveal">신청부터 컨설팅까지, 5단계</h2>
+    <p class="ssub reveal">복잡하지 않습니다. 온라인 신청 한 번이면 나머지는 저희가 안내해 드립니다.</p>
+    <div class="steps">
+      <div class="step reveal"><div class="sn">1</div><h4>온라인 신청</h4><p>네이버폼으로 간편 접수</p></div>
+      <div class="step reveal"><div class="sn">2</div><h4>수요 검토</h4><p>신청 내용·필요사항 확인</p></div>
+      <div class="step reveal"><div class="sn">3</div><h4>대상 선정·안내</h4><p>선정 후 참여 절차 안내</p></div>
+      <div class="step reveal"><div class="sn">4</div><h4>컨설턴트 매칭</h4><p>분야에 맞는 전문가 연결</p></div>
+      <div class="step reveal"><div class="sn">5</div><h4>1:1 컨설팅·멘토링</h4><p>맞춤형 현장 컨설팅 진행</p></div>
+    </div>
+  </div>
+</section>
 
-<!-- Share -->
-<div id="shareSection" class="hide" style="text-align:center;margin:16px 0">
-<b style="font-size:13px">🎉 공유하기</b><br>
-<button class="btn btn-ot" onclick="shareResult()" style="margin-top:8px;font-size:12px">📤 결과 공유</button>
-</div>
+<!-- ── SCHEDULE ── -->
+<section id="schedule">
+  <div class="wrap">
+    <div class="lbl reveal">SCHEDULE &amp; PLACE</div>
+    <h2 class="stitle reveal">운영 일정 및 장소</h2>
+    <p class="ssub reveal">상시모집이지만 여건에 따라 기간이 조정될 수 있으니, 마음먹으셨다면 일찍 신청하시는 것을 권합니다.</p>
+    <div class="sc-grid">
+      <div class="sc-card reveal">
+        <span class="ic">🗓️</span>
+        <h3>신청 및 운영 기간</h3>
+        <div class="sc-row"><span class="k">신청 기간</span><span class="v">2026. 5. 4 ~ 11. 27 <span class="pill">상시모집</span></span></div>
+        <div class="sc-row"><span class="k">운영 기간</span><span class="v">2026. 6. 8 ~ 12. 11 <span class="pill">예정</span></span></div>
+        <p class="sc-foot">※ 향후 여건에 따라 기간은 단축·조정될 수 있습니다.</p>
+      </div>
+      <div class="sc-card reveal">
+        <span class="ic">📍</span>
+        <h3>진행 장소 및 방식</h3>
+        <div class="sc-row"><span class="k">장소</span><span class="v">수혜자 사업장 또는 희망 장소</span></div>
+        <div class="sc-row"><span class="k">방식</span><span class="v">온·오프라인 병행</span></div>
+        <p class="sc-foot">※ 사장님이 편한 시간·장소에 맞춰 진행합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- Bulk -->
-<div class="card" style="margin-top:16px">
-<div class="card-body" style="padding:14px 18px">
-<div class="card-title" style="margin-bottom:4px">⚡ 미답글 일괄 생성</div>
-<div style="font-size:11px;color:var(--tx2);margin-bottom:10px">미답글을 한 번에 처리</div>
-<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
-<b id="bulkStat" style="font-size:14px">0</b><span style="color:var(--tx2);font-size:12px">/ <span id="bulkTotal">0</span></span>
-</div>
-<div class="prog"><div class="prog-bar" id="bulkBar" style="width:0%"></div></div>
-<div style="display:flex;gap:8px;margin-top:10px">
-<button class="btn btn-pr" onclick="startBulk()" id="bulkBtn">⚡ 일괄 생성 시작</button>
-<button class="btn btn-rd hide" onclick="stopBulk()" id="bulkStopBtn">⏹ 중단</button>
-<button class="btn btn-gn" onclick="postAll()" id="postAllBtn">📤 전체 게시</button>
-</div>
-</div>
-</div>
+<!-- ── TRUST ── -->
+<section id="trust">
+  <div class="wrap">
+    <div class="trust-banner reveal">
+      <div>
+        <h2>강남구가 보증하는<br><span>믿을 수 있는 무료 사업</span>입니다</h2>
+        <p>광고성 컨설팅이 아닙니다. 강남구의 보조금 지원으로 추진되는 공식 사업으로, 컨설팅·멘토링 서비스는 수혜자에게 전액 무료로 제공됩니다.</p>
+      </div>
+      <div class="trust-points">
+        <div class="tp"><div class="ck">✓</div><p><b>강남구(일자리정책과) 주최</b> · (주)상상우리 주관의 공식 프로그램</p></div>
+        <div class="tp"><div class="ck">✓</div><p>수혜자 부담 <b>0원</b> — 추가 결제·판매 권유 없음</p></div>
+        <div class="tp"><div class="ck">✓</div><p>검증된 컨설턴트가 <b>1:1 맞춤</b>으로 끝까지 동행</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- Bulk Results Table -->
-<div id="bulkRes">
-<b style="font-size:13px;display:block;margin:12px 0 8px">📋 결과</b>
-<div style="font-size:11px;color:var(--tx2);margin-bottom:6px" id="bulkSub"></div>
-<div style="overflow-x:auto">
-<table>
-<thead><tr><th>#</th><th>작성자</th><th>원댓글</th><th>대댓글</th><th>액션</th></tr></thead>
-<tbody id="btbody"></tbody>
-</table>
-</div>
-</div>
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="wrap">
+    <div class="lbl reveal" style="text-align:center">FAQ</div>
+    <h2 class="stitle reveal" style="text-align:center">자주 묻는 질문</h2>
+    <p class="ssub reveal" style="text-align:center">궁금한 점을 미리 정리했습니다.</p>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)"><span><span class="qi">Q.</span>정말 비용이 전혀 들지 않나요?</span><span class="tg">+</span></button>
+        <div class="faq-a"><p>네. 본 사업은 강남구의 보조금으로 추진되어, 컨설팅·멘토링 서비스가 수혜자에게 <b>전액 무료</b>로 제공됩니다. 별도의 결제나 상품 판매 권유는 없습니다.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)"><span><span class="qi">Q.</span>컴퓨터·스마트폰이 익숙하지 않아도 괜찮을까요?</span><span class="tg">+</span></button>
+        <div class="faq-a"><p>물론입니다. 디지털이 낯선 어르신·소상공인도 따라올 수 있도록 컨설턴트가 <b>단계별로 차근차근</b> 안내합니다. 디지털 취약계층도 신청 대상에 포함됩니다.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)"><span><span class="qi">Q.</span>어디서 어떻게 진행되나요?</span><span class="tg">+</span></button>
+        <div class="faq-a"><p>수혜자의 사업장 또는 원하시는 장소에서 <b>온·오프라인을 병행</b>해 진행합니다. 바쁜 영업 중에도 부담 없이 참여하실 수 있도록 일정을 맞춰 드립니다.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)"><span><span class="qi">Q.</span>신청하면 바로 시작하나요?</span><span class="tg">+</span></button>
+        <div class="faq-a"><p>온라인 신청(네이버폼) 후 <b>수요 검토 → 대상 선정·안내 → 컨설턴트 매칭</b>을 거쳐 1:1 컨설팅이 시작됩니다. 선정 결과와 일정은 운영기관에서 개별 안내드립니다.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)"><span><span class="qi">Q.</span>내가 대상자인지 잘 모르겠어요.</span><span class="tg">+</span></button>
+        <div class="faq-a"><p>강남구 소재 소상공인, 창업·취업 희망자(2007년생 이상 성인), 디지털 취약계층 등이 대상입니다. 헷갈리시면 운영기관(상상우리, <b>02-2274-7762</b>)으로 문의해 주세요.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-</div>
+<!-- ── APPLY ── -->
+<section id="apply">
+  <div class="apply-box">
+    <div class="lbl reveal">APPLY NOW</div>
+    <h2 class="reveal">우리 가게의 다음 한 걸음,<br><span>지금 무료로 시작하세요</span></h2>
+    <p class="apply-sub reveal">신청은 온라인 네이버폼으로 1분이면 충분합니다.<br>망설이는 동안에도 모집 기간은 줄어듭니다.</p>
+    <div class="apply-deadline reveal">⏳ 신청 기간 <b>2026. 5. 4 ~ 11. 27</b> · 상시모집 (조기 마감될 수 있음)</div>
+    <div class="apply-btns reveal">
+      <a href="https://form.naver.com/response/S_qMiM8obzfAonIKL_f6Zw" target="_blank" rel="noopener" class="btn btn-pri">📝 온라인 신청하기 (네이버폼)</a>
+      <a href="tel:02-2274-7762" class="btn btn-out">📞 전화로 문의하기</a>
+    </div>
+    <div class="contact-card reveal">
+      <div class="cc-ttl">📮 문의처 — 운영기관 (주)상상우리</div>
+      <div class="cc-row"><div class="ic">📞</div><div><span class="k">전화 문의</span><a href="tel:02-2274-7762">02-2274-7762</a></div></div>
+      <div class="cc-row"><div class="ic">✉️</div><div><span class="k">이메일 문의</span><a href="mailto:hspark@gangnamconsulting.com">hspark@gangnamconsulting.com</a></div></div>
+      <div class="cc-row"><div class="ic">🏛️</div><div><span class="k">공고 확인</span><a href="https://www.gangnam.go.kr" target="_blank" rel="noopener">강남구청 홈페이지 고시·공고</a></div></div>
+    </div>
+  </div>
+</section>
 
-<div class="toast" id="toast"></div>
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="foot-in">
+    <div class="foot-org">
+      <div class="oi"><b>주최</b><strong>강남구 (일자리정책과)</strong></div>
+      <div class="oi"><b>주관</b><strong>(주)상상우리</strong></div>
+      <div class="oi"><b>사업명</b><strong>2026년 강남구 중장년 AI 전문가 양성 및 맞춤형 AI 컨설팅 사업</strong></div>
+    </div>
+    <p class="foot-note">
+      본 사업은 강남구의 보조금 지원으로 추진되는 사업으로, 컨설팅·멘토링 서비스는 수혜자에게 전액 무료로 제공됩니다.
+      자세한 내용은 강남구청 홈페이지 고시·공고를 참고하시기 바랍니다. 신청 대상·기간·진행 방식은 운영 사정에 따라 변경될 수 있습니다.
+    </p>
+    <p class="foot-copy">© 2026 강남구 맞춤형 AI 활용 컨설팅 &amp; 멘토링 사업 · 운영기관 (주)상상우리</p>
+  </div>
+</footer>
 
-<!-- Google Identity Services -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+<!-- float CTA mobile -->
+<div class="float-cta"><a href="#apply">무료 컨설팅 신청하기 →</a></div>
 
 <script>
-/* ========= CONFIG ========= */
-var GEMINI_MODEL='gemini-2.5-flash';
-var GEMINI_API_VER='v1beta';
-var BULK_DELAY=8000;
-var SITE_URL='https://auto-delta-five.vercel.app';
-var GOOGLE_CLIENT_ID='941692480971-o4rls1vjrrocse128f1qe5hqlou3thd3.apps.googleusercontent.com';
-
-/* ========= STATE ========= */
-var ytApiKey=localStorage.getItem('ytApiKey')||'';
-var gmApiKey=localStorage.getItem('gmApiKey')||'';
-var gToken='';
-var gTokenExp=0;
-var curMode='url';
-var allCmts=[];
-var selIdx=-1;
-var pasteMode=false;
-var pasteData={author:'',text:''};
-var lastAnalysis=null;
-var lastSelectedCommentId='';
-var bulkResults=[];
-var repliedSet=new Set(JSON.parse(localStorage.getItem('replied')||'[]'));
-var vidScript='';
-var vidChannel='';
-var bulkStopped=false;
-
-/* ========= INIT ========= */
-window.addEventListener('DOMContentLoaded',function(){
-  if(ytApiKey){document.getElementById('ytKey').value=ytApiKey;document.getElementById('ytDot').classList.add('on');}
-  if(gmApiKey){document.getElementById('gmKey').value=gmApiKey;document.getElementById('gmDot').classList.add('on');}
-  checkLogin();
+/* NAV */
+function toggleNav(){document.getElementById('mobNav').classList.toggle('open');}
+function closeNav(){document.getElementById('mobNav').classList.remove('open');}
+document.addEventListener('click',function(e){
+  var m=document.getElementById('mobNav');
+  if(m.classList.contains('open')&&!m.contains(e.target)&&!e.target.closest('.hamburger'))
+    m.classList.remove('open');
 });
 
-/* ========= UTILITY ========= */
-function esc(s){if(!s)return'';var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
-function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(function(){t.style.display='none';},2500);}
-function saveReplied(){localStorage.setItem('replied',JSON.stringify(Array.from(repliedSet)));}
+/* SMOOTH SCROLL (offset for fixed nav) */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var href=this.getAttribute('href');
+    if(href==='#')return;
+    var el=document.querySelector(href);
+    if(!el)return;
+    e.preventDefault();
+    window.scrollTo({top:el.getBoundingClientRect().top+scrollY-64,behavior:'smooth'});
+  });
+});
 
-/* ========= TOGGLE CARD ========= */
-function toggleCard(prefix){
-  var body=document.getElementById(prefix+'Body');
-  var tog=document.getElementById(prefix+'Tog');
-  if(!body||!tog)return;
-  var hidden=body.classList.toggle('hide');
-  tog.textContent=hidden?'▼ 펼치기':'▲ 접기';
-}
-
-/* ========= SAVE KEYS ========= */
-function saveYt(){
-  ytApiKey=document.getElementById('ytKey').value.trim();
-  if(!ytApiKey){toast('YouTube API 키를 입력하세요');return;}
-  localStorage.setItem('ytApiKey',ytApiKey);
-  document.getElementById('ytDot').classList.add('on');
-  toast('YouTube API 키 저장됨');
-}
-function saveGm(){
-  gmApiKey=document.getElementById('gmKey').value.trim();
-  if(!gmApiKey){toast('Gemini API 키를 입력하세요');return;}
-  localStorage.setItem('gmApiKey',gmApiKey);
-  document.getElementById('gmDot').classList.add('on');
-  toast('Gemini API 키 저장됨');
-}
-
-/* ========= OAUTH LOGIN ========= */
-function checkLogin(){
-  if(gToken && gTokenExp>Date.now()){
-    document.getElementById('loginArea').classList.add('hide');
-    document.getElementById('loggedArea').classList.remove('hide');
-  } else {
-    gToken='';
-    localStorage.removeItem('gToken');
-    localStorage.removeItem('gTokenExp');
-    document.getElementById('loginArea').classList.remove('hide');
-    document.getElementById('loggedArea').classList.add('hide');
-  }
-}
-function startLogin(){
-  try{
-    var client=google.accounts.oauth2.initTokenClient({
-      client_id:GOOGLE_CLIENT_ID,
-      scope:'https://www.googleapis.com/auth/youtube.force-ssl',
-      callback:function(resp){
-        if(resp.access_token){
-          gToken=resp.access_token;
-          gTokenExp=Date.now()+(resp.expires_in||3600)*1000;
-          document.getElementById('loginArea').classList.add('hide');
-          document.getElementById('loggedArea').classList.remove('hide');
-          document.getElementById('loggedName').textContent='✅ 로그인됨';
-          toast('Google 로그인 성공!');
-        }
-      }
-    });
-    client.requestAccessToken();
-  }catch(e){
-    toast('로그인 실패: Google Identity 로드 확인');
-    console.error(e);
-  }
-}
-function doLogout(){
-  gToken='';gTokenExp=0;
-  localStorage.removeItem('gToken');localStorage.removeItem('gTokenExp');
-  document.getElementById('loginArea').classList.remove('hide');
-  document.getElementById('loggedArea').classList.add('hide');
-  toast('로그아웃 완료');
-}
-
-/* ========= TAB SWITCH ========= */
-function switchTab(mode){
-  curMode=mode;
-  document.getElementById('tabUrl').classList.toggle('on',mode==='url');
-  document.getElementById('tabManual').classList.toggle('on',mode==='manual');
-  document.getElementById('urlMode').classList.toggle('hide',mode!=='url');
-  document.getElementById('manualMode').classList.toggle('hide',mode!=='manual');
-}
-
-/* ========= FETCH VIDEO ========= */
-function fetchVid(){
-  var url=document.getElementById('vidUrl').value.trim();
-  if(!url){toast('영상 URL을 입력하세요');return;}
-  if(!ytApiKey){toast('YouTube API 키를 먼저 저장하세요');return;}
-  var vid=extractVid(url);
-  if(!vid){toast('유효한 YouTube URL이 아닙니다');return;}
-  document.getElementById('fetchBtn').disabled=true;
-  document.getElementById('fetchBtn').textContent='로딩...';
-  fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet&id='+vid+'&key='+ytApiKey)
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(!d.items||!d.items.length){toast('영상을 찾을 수 없습니다');return;}
-    var s=d.items[0].snippet;
-    vidScript=s.description||s.title||'';
-    vidChannel=s.channelTitle||'';
-    document.getElementById('vidTitle').textContent=s.title;
-    document.getElementById('vidCh').textContent=s.channelTitle;
-    document.getElementById('vidInfo').classList.remove('hide');
-    document.getElementById('chanName').value=s.channelTitle;
-    return fetchComments(vid);
-  })
-  .catch(function(e){toast('오류: '+e.message);console.error(e);})
-  .finally(function(){document.getElementById('fetchBtn').disabled=false;document.getElementById('fetchBtn').textContent='불러오기';});
-}
-function extractVid(url){
-  var m=url.match(/[?&]v=([^&#]+)/)||url.match(/youtu\.be\/([^?&#]+)/)||url.match(/shorts\/([^?&#]+)/);
-  return m?m[1]:'';
-}
-function fetchComments(vid){
-  return fetch('https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId='+vid+'&maxResults=100&order=time&key='+ytApiKey)
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(!d.items){toast('댓글을 불러올 수 없습니다');return;}
-    allCmts=d.items.map(function(it){
-      var sn=it.snippet.topLevelComment.snippet;
-      return{
-        id:it.snippet.topLevelComment.id,
-        threadId:it.id,
-        author:sn.authorDisplayName,
-        text:sn.textDisplay,
-        likes:sn.likeCount||0,
-        replyCount:it.snippet.totalReplyCount||0
-      };
-    });
-    renderCmts();
-    document.getElementById('cmtSection').classList.remove('hide');
-    document.getElementById('cmtCnt').textContent=allCmts.length+'개';
-    var unreplied=allCmts.filter(function(c){return c.replyCount===0&&!repliedSet.has(c.id);});
-    document.getElementById('bulkTotal').textContent=String(unreplied.length);
+/* SCROLL SPY */
+var spy=['about','benefit','target','process','faq','apply'];
+function updateSpy(){
+  var py=scrollY+120;
+  spy.forEach(function(id){
+    var sec=document.getElementById(id);
+    var link=document.querySelector('.nav-list a[href="#'+id+'"]');
+    if(!sec||!link)return;
+    link.classList.toggle('active',py>=sec.offsetTop&&py<sec.offsetTop+sec.offsetHeight);
   });
 }
-function renderCmts(){
-  var html='';
-  allCmts.forEach(function(c,i){
-    html+='<div class="cmt-item'+(i===selIdx?' sel':'')+'" onclick="selectCmt('+i+')">'
-      +'<div><div class="cmt-aut">@'+esc(c.author)+'</div>'
-      +'<div class="cmt-txt">'+esc(c.text)+'</div></div></div>';
+window.addEventListener('scroll',updateSpy,{passive:true});updateSpy();
+
+/* FAQ */
+function toggleFaq(btn){
+  var item=btn.parentElement;
+  var a=btn.nextElementSibling;
+  var open=item.classList.toggle('open');
+  a.style.maxHeight=open?a.scrollHeight+'px':null;
+}
+
+/* REVEAL ON SCROLL */
+var io=new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
   });
-  document.getElementById('cmtList').innerHTML=html;
-}
-function selectCmt(i){
-  selIdx=i;
-  pasteMode=false;
-  lastSelectedCommentId=allCmts[i].id;
-  renderCmts();
-  analyze();
-}
-
-/* ========= PASTE MODE ========= */
-function togglePaste(){
-  document.getElementById('pasteArea').classList.toggle('hide');
-}
-function parsePaste(){
-  var txt=document.getElementById('pasteTxt').value.trim();
-  if(!txt){toast('댓글을 입력하세요');return;}
-  var parts=txt.split(':');
-  if(parts.length>=2){
-    pasteData.author=parts[0].trim();
-    pasteData.text=parts.slice(1).join(':').trim();
-  } else {
-    pasteData.author='시청자';
-    pasteData.text=txt;
-  }
-  pasteMode=true;
-  selIdx=-1;
-  toast('붙여넣기 댓글 적용됨: @'+pasteData.author);
-  analyze();
-}
-
-/* ========= GET COMMENT / AUTHOR / SCRIPT ========= */
-function getComment(){
-  if(curMode==='url'){
-    if(pasteMode) return pasteData.text;
-    return selIdx>=0&&allCmts[selIdx]?allCmts[selIdx].text:'';
-  }
-  return document.getElementById('mComment').value.trim();
-}
-function getAuthor(){
-  if(curMode==='url'){
-    if(pasteMode) return pasteData.author||'시청자';
-    return selIdx>=0&&allCmts[selIdx]?allCmts[selIdx].author:'시청자';
-  }
-  return '시청자';
-}
-function getScript(){
-  if(curMode==='url') return vidScript;
-  return document.getElementById('mScript').value.trim();
-}
-
-/* ========= GEMINI API CALL ========= */
-function callGemini(prompt){
-  if(!gmApiKey)return Promise.reject(new Error('Gemini API 키 없음'));
-  var url='https://generativelanguage.googleapis.com/'+GEMINI_API_VER+'/models/'+GEMINI_MODEL+':generateContent?key='+gmApiKey;
-  return fetch(url,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.8,maxOutputTokens:1024}})
-  })
-  .then(function(r){
-    if(!r.ok){
-      return r.json().catch(function(){return{};}).then(function(j){
-        var msg=(j&&j.error&&j.error.message)||'오류';
-        if(r.status===429)throw new Error('API 사용량 초과 — 잠시 후 재시도하세요');
-        if(r.status===403)throw new Error('API 키가 유효하지 않습니다 (403)');
-        if(r.status===400)throw new Error('잘못된 요청: '+msg);
-        throw new Error('Gemini '+r.status+': '+msg);
-      });
-    }
-    return r.json();
-  })
-  .then(function(d){
-    try{return d.candidates[0].content.parts[0].text;}
-    catch(e){throw new Error('Gemini 응답 파싱 실패');}
-  });
-}
-
-/* ========= SAFE JSON PARSE ========= */
-function safeJSON(raw){
-  if(!raw)return null;
-  raw=raw.replace(/```json\s*/gi,'').replace(/```\s*/g,'').trim();
-  raw=raw.replace(/[\x00-\x1F]/g,' ');
-  try{return JSON.parse(raw);}catch(e){}
-  var m=raw.match(/\{[\s\S]*\}/);
-  if(m){
-    try{return JSON.parse(m[0]);}catch(e){}
-    var c=m[0].replace(/,\s*([}\]])/g,'$1').replace(/'/g,'"').replace(/([{,]\s*)(\w+)\s*:/g,'$1"$2":');
-    try{return JSON.parse(c);}catch(e){}
-  }
-  m=raw.match(/\[[\s\S]*\]/);
-  if(m){try{return JSON.parse(m[0]);}catch(e){}}
-  return null;
-}
-
-/* ========= ANALYZE ========= */
-function analyze(){
-  var cmt=getComment();
-  if(!cmt){toast('댓글을 선택하거나 입력하세요');return;}
-  if(!gmApiKey){toast('Gemini API 키를 먼저 저장하세요');return;}
-  var prompt='YouTube 댓글을 분석하세요. JSON만 반환:\n'
-    +'{"type":"응원|질문|감사|불만|제안|일반","emotion":"긍정|부정|중립","recommendedStyle":"따뜻한|정보형|공감|유머","isTroll":false,"trollLevel":0,"typeLabel":"유형"}\n'
-    +'댓글: '+cmt.substring(0,300);
-  callGemini(prompt).then(function(raw){
-    var a=safeJSON(raw);
-    if(!a){document.getElementById('anType').textContent='분석 실패';return;}
-    lastAnalysis=a;
-    document.getElementById('anType').textContent=a.type||'—';
-    document.getElementById('anEmo').textContent=a.emotion||'—';
-    document.getElementById('anStyle').textContent=a.recommendedStyle||'—';
-    if(a.isTroll){
-      document.getElementById('anWarn').textContent='⚠️ 악성 댓글 감지 (레벨 '+a.trollLevel+')';
-      document.getElementById('anWarn').classList.remove('hide');
-    } else {
-      document.getElementById('anWarn').classList.add('hide');
-    }
-  }).catch(function(e){
-    document.getElementById('anType').textContent='오류';
-    console.error(e);
-  });
-}
-
-/* ========= GENERATE REPLIES ========= */
-function generate(){
-  var cmt=getComment();
-  if(!cmt){toast('댓글을 선택하거나 입력하세요');return;}
-  if(!gmApiKey){toast('Gemini API 키를 먼저 저장하세요');return;}
-  var btn=document.getElementById('genBtn');
-  btn.disabled=true;btn.innerHTML='<span class="spin"></span>생성 중...';
-
-  var script=getScript();
-  var chn=document.getElementById('chanName').value.trim();
-  var author=getAuthor();
-  var a=lastAnalysis||{recommendedStyle:'따뜻한',isTroll:false,trollLevel:0,typeLabel:'일반'};
-
-  var prompt='너는 한국 시니어 유튜브 채널의 댓글 담당자야.\n'
-    +'아래 댓글에 대한 대댓글 3가지를 만들어줘.\n'
-    +'규칙:\n'
-    +'- 각 대댓글은 4~5문장, 한국어, '+a.recommendedStyle+' 말투\n'
-    +'- 반드시 "'+author+'님!" 으로 시작할 것\n'
-    +'- OO님, ○○님 사용 금지\n'
-    +(chn?'- 마지막에 "- '+chn+'" 서명 포함\n':'')
-    +(a.isTroll?'- 악성 댓글(레벨'+a.trollLevel+'), 침착하게 대응\n':'')
-    +'\n영상 내용: '+(script?script.substring(0,400):'(없음)')
-    +'\n댓글 작성자: '+author
-    +'\n댓글 내용: '+cmt
-    +'\n\n반드시 아래 JSON 형식으로만 응답해. 다른 텍스트 절대 금지:\n'
-    +'{"replies":[{"label":"감성형","text":"내용"},{"label":"정보형","text":"내용"},{"label":"소통형","text":"내용"}]}';
-
-  callGemini(prompt).then(function(raw){
-    var d=safeJSON(raw);
-    if(!d||!d.replies){toast('응답 파싱 실패');return;}
-    renderReplies(d.replies);
-    document.getElementById('results').classList.remove('hide');
-    document.getElementById('shareSection').classList.remove('hide');
-  }).catch(function(e){
-    toast('생성 오류: '+e.message);
-    console.error(e);
-  }).finally(function(){
-    btn.disabled=false;btn.textContent='🤖 대댓글 생성';
-  });
-}
-
-/* ========= RENDER REPLIES ========= */
-function renderReplies(replies){
-  var colors=[{bg:'rgba(59,130,246,.1)',border:'rgba(59,130,246,.3)',color:'var(--blu)'},
-              {bg:'rgba(16,185,129,.1)',border:'rgba(16,185,129,.3)',color:'var(--grn)'},
-              {bg:'rgba(236,72,153,.1)',border:'rgba(236,72,153,.3)',color:'var(--pink)'}];
-  var html='';
-  replies.forEach(function(r,i){
-    var c=colors[i%3];
-    html+='<div class="rcard"><span class="tag" style="background:'+c.bg+';border:1px solid '+c.border+';color:'+c.color+'">'+esc(r.label||('옵션 '+(i+1)))+'</span>'
-      +'<div class="rtxt" id="rtxt'+i+'">'+esc(r.text)+'</div>'
-      +'<div class="acts">'
-      +'<button class="btn btn-ot" onclick="copyReply('+i+')">📋 복사</button>'
-      +'<button class="btn btn-pr" onclick="postSingle('+i+')">▶ YouTube 게시</button>'
-      +'</div></div>';
-  });
-  document.getElementById('replyCards').innerHTML=html;
-}
-
-/* ========= COPY REPLY ========= */
-function copyReply(i){
-  var el=document.getElementById('rtxt'+i);
-  if(!el)return;
-  navigator.clipboard.writeText(el.textContent).then(function(){toast('복사됨!');}).catch(function(){toast('복사 실패');});
-}
-
-/* ========= POST TO YOUTUBE ========= */
-function postToYT(parentId,text){
-  if(!gToken||gTokenExp<=Date.now()){
-    toast('Google 로그인이 필요합니다');
-    return Promise.reject(new Error('로그인 필요'));
-  }
-  if(!parentId){
-    toast('댓글 ID가 없습니다. 댓글을 선택해주세요');
-    return Promise.reject(new Error('parentId 없음'));
-  }
-  return fetch('https://www.googleapis.com/youtube/v3/comments?part=snippet',{
-    method:'POST',
-    headers:{
-      'Authorization':'Bearer '+gToken,
-      'Content-Type':'application/json'
-    },
-    body:JSON.stringify({
-      snippet:{
-        parentId:parentId,
-        textOriginal:text
-      }
-    })
-  }).then(function(r){
-    if(!r.ok) return r.text().then(function(t){throw new Error('YouTube API '+r.status+': '+t);});
-    return r.json();
-  });
-}
-
-/* ========= POST SINGLE REPLY ========= */
-function postSingle(i){
-  var el=document.getElementById('rtxt'+i);
-  if(!el){toast('텍스트를 찾을 수 없습니다');return;}
-  var text=el.textContent;
-  if(!lastSelectedCommentId){toast('댓글을 먼저 선택하세요');return;}
-  if(!gToken||gTokenExp<=Date.now()){toast('Google 로그인이 필요합니다');return;}
-  postToYT(lastSelectedCommentId,text).then(function(){
-    toast('✅ YouTube에 게시 완료!');
-    repliedSet.add(lastSelectedCommentId);
-    saveReplied();
-  }).catch(function(e){
-    toast('게시 실패: '+e.message);
-    console.error(e);
-  });
-}
-
-/* ========= SHARE ========= */
-function shareResult(){
-  var text='AI 자동 대댓글 생성기로 만든 댓글입니다!\n'+SITE_URL;
-  navigator.clipboard.writeText(text).then(function(){toast('공유 링크 복사됨!');}).catch(function(){toast('복사 실패');});
-}
-
-/* ========= BULK GENERATION ========= */
-function startBulk(){
-  if(!gmApiKey){toast('Gemini API 키를 먼저 저장하세요');return;}
-  var unreplied=allCmts.filter(function(c){return c.replyCount===0&&!repliedSet.has(c.id);});
-  if(!unreplied.length){toast('미답글 댓글이 없습니다');return;}
-  var btn=document.getElementById('bulkBtn');
-  btn.disabled=true;btn.innerHTML='<span class="spin"></span>생성 중...';
-  bulkResults=[];
-  var script=getScript();
-  var chn=document.getElementById('chanName').value.trim();
-  var total=unreplied.length;
-  var done=0;
-
-  function next(idx){
-    if(bulkStopped||idx>=total){
-      btn.disabled=false;btn.textContent='⚡ 일괄 생성 시작';
-      document.getElementById('bulkStopBtn').classList.add('hide');
-      if(bulkStopped)toast('중단됨 ('+done+'개 완료)');
-      else{toast('일괄 생성 완료! '+done+'개');if(done>0)document.getElementById('postAllBtn').style.display='inline-block';}
-      return;
-    }
-    var c=unreplied[idx];
-    var prompt='YouTube 댓글에 대한 대댓글 1개를 만들어줘.\n'
-      +'규칙: 4~5문장, 한국어, 따뜻한 말투, "'+c.author+'님!" 으로 시작\n'
-      +(chn?'마지막에 "- '+chn+'" 서명 포함\n':'')
-      +'영상 내용: '+(script?script.substring(0,200):'(없음)')
-      +'\n댓글: '+c.text.substring(0,300)
-      +'\n\nJSON만 반환: {"reply":"대댓글 내용"}';
-    callGemini(prompt).then(function(raw){
-      var d=safeJSON(raw);
-      var reply=d&&d.reply?d.reply:raw.replace(/```[^`]*```/g,'').trim().substring(0,500);
-      done++;
-      bulkResults.push({cmt:c,reply:reply,posted:false});
-      document.getElementById('bulkStat').textContent=String(done);
-      document.getElementById('bulkBar').style.width=Math.round(done/total*100)+'%';
-      appendBulkRow(bulkResults.length-1,c,reply);
-      document.getElementById('bulkRes').classList.add('on');
-    }).catch(function(e){
-      done++;
-      bulkResults.push({cmt:c,reply:'[오류: '+e.message+']',posted:false,error:true});
-      document.getElementById('bulkStat').textContent=String(done);
-      document.getElementById('bulkBar').style.width=Math.round(done/total*100)+'%';
-      appendBulkRow(bulkResults.length-1,c,'[오류: '+e.message+']');
-      document.getElementById('bulkRes').classList.add('on');
-    }).finally(function(){
-      setTimeout(function(){next(idx+1);},BULK_DELAY);
-    });
-  }
-  document.getElementById('bulkStopBtn').classList.remove('hide');
-  next(0);
-}
-
-function stopBulk(){bulkStopped=true;}
-
-function appendBulkRow(rowIdx,c,reply){
-  var tbody=document.getElementById('btbody');
-  var tr=document.createElement('tr');
-  tr.innerHTML='<td>'+(rowIdx+1)+'</td>'
-    +'<td>'+esc(c.author)+'</td>'
-    +'<td style="max-width:160px;white-space:normal">'+esc(c.text.substring(0,80))+(c.text.length>80?'…':'')+'</td>'
-    +'<td style="max-width:200px;white-space:normal" id="breply'+rowIdx+'">'+esc(reply)+'</td>'
-    +'<td><button class="bcpy" onclick="copyBulkReply('+rowIdx+')">복사</button>'
-    +' <button class="btn btn-pr" onclick="postBulkReply('+rowIdx+')" id="bpost'+rowIdx+'" style="font-size:11px;padding:5px 10px">게시</button></td>';
-  tbody.appendChild(tr);
-}
-
-function copyBulkReply(i){
-  var el=document.getElementById('breply'+i);
-  if(!el)return;
-  navigator.clipboard.writeText(el.textContent).then(function(){toast('복사됨!');}).catch(function(){toast('복사 실패');});
-}
-
-function postBulkReply(i){
-  if(i>=bulkResults.length)return;
-  var r=bulkResults[i];
-  if(!r||r.error){toast('생성 실패 항목은 게시 불가');return;}
-  if(r.posted){toast('이미 게시됨');return;}
-  postToYT(r.cmt.id,r.reply).then(function(){
-    r.posted=true;repliedSet.add(r.cmt.id);saveReplied();
-    var b=document.getElementById('bpost'+i);
-    if(b){b.textContent='✅ 완료';b.disabled=true;}
-    toast('✅ 게시 완료!');
-  }).catch(function(e){toast('게시 실패: '+e.message);});
-}
-
-function postAll(){
-  if(!bulkResults.length){toast('생성된 결과가 없습니다');return;}
-  var pending=bulkResults.filter(function(r){return!r.posted&&!r.error;});
-  if(!pending.length){toast('게시할 항목이 없습니다');return;}
-  var i=0;
-  function postNext(){
-    if(i>=pending.length){toast('전체 게시 완료!');return;}
-    var r=pending[i++];
-    postToYT(r.cmt.id,r.reply).then(function(){
-      r.posted=true;repliedSet.add(r.cmt.id);saveReplied();
-      var rowIdx=bulkResults.indexOf(r);
-      var b=document.getElementById('bpost'+rowIdx);
-      if(b){b.textContent='✅ 완료';b.disabled=true;}
-      setTimeout(postNext,1500);
-    }).catch(function(e){toast('게시 실패: '+e.message);setTimeout(postNext,1500);});
-  }
-  postNext();
-}
-
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 </script>
 </body>
 </html>

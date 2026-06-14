@@ -39,3 +39,10 @@
 - 구성: Hero→통계바→사업안내→지원내용→신청대상→5단계 절차→일정/장소→신뢰배너→FAQ→신청CTA→공식 푸터
 - 디자인: profile.html 그린 테마 계승, 스크롤 리빌·FAQ 아코디언·모바일 하단 고정 CTA
 - vercel.json 루트(/)를 program.html로 변경, /consultant→profile.html 추가
+
+### [2026-06-14] 배포 구조 변경 (Vercel 파일 우선순위 이슈 대응)
+- 문제: Vercel은 rewrites보다 실제 파일을 우선 → 루트의 index.html(대댓글생성기)이 항상 떠서 사업페이지 안 보임
+- 추가 문제: Vercel 프로덕션이 3월 18일 커밋(85d2)에 고정, 이후 main 푸시를 자동배포 안 함
+- 조치: program.html → index.html(사업 소개 페이지를 루트로), 기존 대댓글생성기 index.html → reply.html
+- vercel.json: /consultant→profile.html, /reply·/comment→reply.html
+- 대댓글 생성기 접속 주소: /reply.html (또는 /reply)
