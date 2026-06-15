@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>초회 미팅 당일 동선 최종 점검표 — 컨설턴트용</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    font-size: 9.5pt;
+    color: #1a1a1a;
+    line-height: 1.6;
+    background: #fff;
+  }
+
+  /* ── 커버 ── */
+  .cover {
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 260mm;
+    padding: 40mm 20mm 20mm;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 8pt;
+    letter-spacing: 0.12em;
+    padding: 4px 12px;
+    border-radius: 3px;
+    margin-bottom: 24px;
+  }
+  .cover-title {
+    font-size: 22pt;
+    font-weight: 800;
+    line-height: 1.3;
+    color: #0d0d1a;
+    margin-bottom: 12px;
+  }
+  .cover-sub {
+    font-size: 12pt;
+    color: #444;
+    font-weight: 500;
+    margin-bottom: 36px;
+  }
+  .cover-meta {
+    border-top: 2px solid #1a1a2e;
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .cover-meta-item { font-size: 9pt; color: #555; }
+  .cover-meta-item strong { color: #1a1a2e; display: block; font-size: 8pt; letter-spacing: 0.05em; margin-bottom: 2px; }
+  .cover-principle {
+    margin-top: 32px;
+    background: #f4f4f8;
+    border-left: 4px solid #1a1a2e;
+    padding: 14px 18px;
+    font-size: 8.5pt;
+    color: #333;
+    line-height: 1.8;
+  }
+  .cover-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    font-size: 8pt;
+    color: #888;
+  }
+
+  /* ── 공통 섹션 ── */
+  .page { page-break-before: always; padding-top: 6mm; }
+  .section { margin-bottom: 18px; }
+
+  .section-title {
+    font-size: 12pt;
+    font-weight: 800;
+    color: #1a1a2e;
+    border-bottom: 2.5px solid #1a1a2e;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .num {
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 8pt;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+  }
+
+  .subsection-title {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 12px 0 6px;
+    padding-left: 10px;
+    border-left: 3px solid #4a6fa5;
+  }
+
+  /* ── 2단 표 (확정/미확인) ── */
+  .dual-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    margin-bottom: 10px;
+  }
+  .dual-table th {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 7px 10px;
+    text-align: left;
+    font-size: 8pt;
+  }
+  .dual-table th.confirm { background: #2e4a7a; }
+  .dual-table th.check { background: #5a3a7a; }
+  .dual-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #e8e8ee;
+    vertical-align: top;
+  }
+  .dual-table tr:nth-child(even) td { background: #f9f9fc; }
+
+  /* ── 체크리스트 ── */
+  .checklist { list-style: none; margin: 6px 0; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 9pt;
+    border-bottom: 1px dotted #e0e0e0;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: '□';
+    font-size: 11pt;
+    color: #1a1a2e;
+    flex-shrink: 0;
+    line-height: 1.3;
+  }
+  .checklist li.sub { padding-left: 20px; font-size: 8.5pt; color: #555; }
+  .checklist li.sub::before { content: '–'; color: #888; }
+
+  /* ── 타임라인 표 ── */
+  .timeline-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+  }
+  .timeline-table th {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 7px 8px;
+    text-align: center;
+    font-size: 8pt;
+  }
+  .timeline-table td {
+    padding: 7px 8px;
+    border-bottom: 1px solid #e0e0ee;
+    vertical-align: top;
+  }
+  .timeline-table tr:nth-child(even) td { background: #f8f8fc; }
+  .timeline-table .time-col { text-align: center; font-weight: 700; color: #1a1a2e; white-space: nowrap; }
+  .timeline-table .goal-col { font-weight: 600; color: #2e4a7a; }
+  .branch-note {
+    background: #e8eef6;
+    border-left: 3px solid #4a6fa5;
+    padding: 8px 12px;
+    font-size: 8.5pt;
+    margin-top: 8px;
+    color: #2a2a4a;
+    line-height: 1.7;
+  }
+
+  /* ── 질문 우선순위 ── */
+  .q-block {
+    background: #f7f7fa;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+  }
+  .q-block .q-label {
+    font-size: 8pt;
+    font-weight: 700;
+    color: #fff;
+    background: #1a1a2e;
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .q-list { list-style: none; }
+  .q-list li {
+    padding: 3px 0;
+    font-size: 9pt;
+    padding-left: 14px;
+    position: relative;
+  }
+  .q-list li::before {
+    content: 'Q.';
+    position: absolute;
+    left: 0;
+    color: #4a6fa5;
+    font-weight: 700;
+    font-size: 8.5pt;
+  }
+
+  /* ── 채널 점검표 ── */
+  .channel-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+  }
+  .channel-table th {
+    background: #2e4a7a;
+    color: #fff;
+    padding: 6px 8px;
+    text-align: left;
+    font-size: 7.5pt;
+  }
+  .channel-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #e0e0ee;
+    vertical-align: top;
+  }
+  .channel-table tr:nth-child(even) td { background: #f8f8fc; }
+  .channel-table .ch-name { font-weight: 700; color: #1a1a2e; }
+
+  /* ── 메모 폼 ── */
+  .memo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .memo-block {
+    background: #f7f7fa;
+    border: 1px solid #dde;
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+  .memo-block .mb-title {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ccd;
+  }
+  .memo-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 4px 0;
+    border-bottom: 1px dotted #ddd;
+    font-size: 8.5pt;
+  }
+  .memo-line:last-child { border-bottom: none; }
+  .memo-label { color: #555; white-space: nowrap; flex-shrink: 0; min-width: 80px; }
+  .memo-value { flex: 1; color: #999; font-size: 8pt; }
+  .check-mini { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .check-mini span { font-size: 8pt; color: #555; }
+  .check-mini span::before { content: '□ '; }
+
+  /* ── 돌발 대응표 ── */
+  .contingency-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+  }
+  .contingency-table th {
+    background: #5a3a7a;
+    color: #fff;
+    padding: 7px 10px;
+    text-align: left;
+    font-size: 8pt;
+  }
+  .contingency-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #e8e0f0;
+    vertical-align: top;
+  }
+  .contingency-table tr:nth-child(even) td { background: #f9f7fc; }
+  .contingency-table .situation { font-weight: 600; color: #3a1a5a; }
+  .contingency-table .forbidden { color: #c0392b; font-size: 8pt; }
+
+  /* ── 산출물 체크 ── */
+  .deliverable-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .d-item {
+    background: #f7f7fa;
+    border: 1px solid #dde;
+    border-radius: 5px;
+    padding: 10px 12px;
+  }
+  .d-item .d-title {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ccd;
+  }
+  .d-item ul { list-style: none; }
+  .d-item ul li {
+    padding: 3px 0;
+    font-size: 8.5pt;
+    padding-left: 14px;
+    position: relative;
+  }
+  .d-item ul li::before { content: '□'; position: absolute; left: 0; color: #4a6fa5; }
+
+  /* ── AI 인수인계 블록 ── */
+  .handover-block {
+    background: #0d0d1a;
+    color: #e0e0f0;
+    border-radius: 8px;
+    padding: 18px 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 8.5pt;
+    line-height: 1.8;
+    margin-top: 10px;
+  }
+  .handover-block .hb-section {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #333;
+  }
+  .handover-block .hb-section:last-child { border-bottom: none; margin-bottom: 0; }
+  .handover-block .hb-label {
+    color: #7eb0f0;
+    font-weight: 700;
+    font-size: 8pt;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .handover-block .hb-item {
+    padding-left: 12px;
+    color: #ccd;
+    font-size: 8pt;
+  }
+  .handover-block .hb-item::before { content: '• '; color: #5590d0; }
+
+  /* ── 후처리 체크 ── */
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .post-item {
+    background: #f0f4fa;
+    border-radius: 5px;
+    padding: 8px 10px;
+    font-size: 8pt;
+    text-align: center;
+  }
+  .post-item::before { content: '□ '; color: #4a6fa5; font-weight: 700; }
+
+  /* ── 주의 배너 ── */
+  .alert-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-left: 4px solid #e6a817;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 8.5pt;
+    margin: 8px 0;
+    line-height: 1.7;
+    color: #6b4c00;
+  }
+  .principle-box {
+    background: #e8f4e8;
+    border-left: 4px solid #27ae60;
+    padding: 8px 12px;
+    font-size: 8.5pt;
+    margin: 8px 0;
+    line-height: 1.7;
+    color: #1a3a1a;
+  }
+
+  /* ── 페이지 헤더 ── */
+  .page-header {
+    font-size: 7.5pt;
+    color: #999;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .page-header strong { color: #1a1a2e; font-size: 8pt; }
+
+  footer {
+    position: fixed;
+    bottom: 8mm;
+    left: 16mm;
+    right: 16mm;
+    font-size: 7pt;
+    color: #bbb;
+    border-top: 1px solid #eee;
+    padding-top: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ 커버 ══════════════════ -->
+<div class="cover">
+  <span class="cover-badge">CONSULTANT ONLY · 내부 실행본</span>
+  <div class="cover-title">초회 미팅 당일<br>동선 최종 점검표</div>
+  <div class="cover-sub">압구정 S&H 듀얼 왁싱 압구정점 · 권용준 방식 v2 현장 실행본</div>
+
+  <div class="cover-meta">
+    <div class="cover-meta-item"><strong>CLIENT</strong>압구정 S&H 듀얼 왁싱 압구정점</div>
+    <div class="cover-meta-item"><strong>단계</strong>초회 미팅 당일 실행 프로토콜</div>
+    <div class="cover-meta-item"><strong>작성일</strong>2026-06-15</div>
+    <div class="cover-meta-item"><strong>상태</strong>초회 미팅 당일 실행용</div>
+    <div class="cover-meta-item"><strong>컨설턴트</strong>권용준 · 손미현 (강남AI컨설팅)</div>
+    <div class="cover-meta-item"><strong>문서 목적</strong>출발→현장→미팅→산출물 한 장 통제</div>
+  </div>
+
+  <div class="cover-principle">
+    <strong>실전 원칙 8가지</strong><br>
+    정확도 우선 · 기준값 고정 · 단계별 진행 · 10레벨 결과물 · 현장 실행성 · 관계자 구조 분리 · 권한 구조 우선 · 추상보다 실행 · 미확정은 사실처럼 쓰지 않음
+  </div>
+
+  <div class="cover-footer">
+    <span>강남AI컨설팅 · 권용준 · 손미현</span>
+    <span>CONFIDENTIAL — 컨설턴트 내부용</span>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE 2: 문서 목적 + 확정/미확인 ══════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <strong>초회 미팅 당일 동선 최종 점검표</strong>
+    <span>압구정 S&H 듀얼 왁싱 압구정점</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">1</span> 문서 사용 목적</div>
+    <div class="principle-box">
+      이 문서는 <strong>압구정 S&H 듀얼 왁싱 압구정점 초회 미팅 당일</strong>에 컨설턴트가 바로 사용하는 현장 실행 프로토콜이다.<br>
+      <strong>오늘 목적:</strong> 멋진 전략 발표가 아니라 <strong>구조 확정과 실행 가능성 확인</strong>이다.
+    </div>
+    <ul class="checklist" style="margin-top:8px;">
+      <li>출발 전 준비 상태를 점검한다</li>
+      <li>현장 도착 직후 확인해야 할 항목을 빠르게 통제한다</li>
+      <li>미팅 60~90분을 단계별로 리딩한다</li>
+      <li>기준값·사람 구조·권한 구조·채널 구조를 우선 확인한다</li>
+      <li>미팅 종료 전 반드시 남겨야 할 산출물을 확보한다</li>
+      <li>미팅 직후 후속 AI와 다음 회차로 바로 넘길 수 있게 정리한다</li>
+    </ul>
+    <div class="alert-box" style="margin-top:10px;">
+      ⚠ 현장에서 확인되지 않은 정보는 끝까지 <strong>미확인</strong>으로 둔다. 권한이 없으면 현장 즉시 실행으로 몰아붙이지 않고 <strong>후속 처리로 분기</strong>한다.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">2</span> 오늘 미팅의 확정 사실 / 현장 확인 필요 항목</div>
+    <table class="dual-table">
+      <tr>
+        <th class="confirm" style="width:48%">✔ 확정 사실</th>
+        <th class="check">? 현장 확인 필요 항목</th>
+      </tr>
+      <tr>
+        <td>업체명: <strong>압구정 S&H 듀얼 왁싱 압구정점</strong></td>
+        <td>공식 주소</td>
+      </tr>
+      <tr>
+        <td>오늘 문서: <strong>초회 미팅 당일 실행 프로토콜</strong></td>
+        <td>대표 연락처</td>
+      </tr>
+      <tr>
+        <td>현재 단계: <strong>초회 미팅 당일 구조 확인 단계</strong></td>
+        <td>대표자명</td>
+      </tr>
+      <tr>
+        <td>오늘 최우선 과제: <strong>기준값 잠금, 사람 구조 분리, 권한 구조 확인</strong></td>
+        <td>실제 운영자명</td>
+      </tr>
+      <tr>
+        <td>미확정 정보는 사실처럼 쓰지 않는다</td>
+        <td>사업 신청자명 / 승인권자명 / 비용 결재권자명</td>
+      </tr>
+      <tr>
+        <td>사전수집값은 참고용일 뿐 확정값이 아니다</td>
+        <td>본사/가맹/독립 운영 여부</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>네이버 플레이스 · 인스타그램 · 예약채널 관리자 권한</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>카카오/메신저 응대 주체</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>구글 비즈니스 보유 여부</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>가격표 최종본 / 대표 서비스·핵심 시술 구조</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>고객층·주력 수요 / 리뷰 현황·응대 구조</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>사진·영상 자산 보유 여부 / 정책지원사업 참여 이력</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>사업자 유형 / 업력 / 직원 수 / 지원사업 신청 가능 주체</td>
+      </tr>
+    </table>
+    <div class="alert-box">
+      ⚠ 사전수집 추정값이 있더라도 오늘 실행 기준은 <strong>현장 확인 우선</strong>이다. 주소·연락처·운영자·권한 구조는 확인 전까지 <strong>확정 금지</strong>.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE 3: 출발 전 체크리스트 + 현장 도착 ══════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <strong>출발 전 체크리스트 + 현장 도착 직후 점검</strong>
+    <span>컨설턴트 내부용</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">3</span> 출발 전 최종 체크리스트</div>
+
+    <div class="subsection-title">3-1. 장비 및 준비물</div>
+    <ul class="checklist">
+      <li>노트북 본체 지참</li>
+      <li>노트북 충전기 지참</li>
+      <li>휴대폰 배터리 확인</li>
+      <li>휴대폰 핫스팟 가능 상태 확인</li>
+      <li>기준값 잠금 시트 출력 또는 오프라인 열람 준비</li>
+      <li>사전 질문지 출력 또는 메모 앱 준비</li>
+      <li>권한 구조 확인표 출력 또는 열람 준비</li>
+      <li>현장 메모 도구 및 필기도구 준비</li>
+      <li>사진 촬영 가능 장비 준비</li>
+      <li>케이블/에어드롭/메신저 전송 수단 확인</li>
+    </ul>
+
+    <div class="subsection-title">3-2. 정보 및 일정 확인</div>
+    <ul class="checklist">
+      <li>미팅 장소 예약/일정 재확인</li>
+      <li>사전수집 주소는 참고용으로만 재확인 (확정값 아님)</li>
+      <li>마스터 문서 링크 확보</li>
+      <li>인터넷 불가 상황 대비 오프라인 메모 가능 상태 확인</li>
+      <li>미팅 목적 문장 1줄 준비 <span style="color:#888">— "오늘은 전략 확정보다 기준값·운영구조·권한구조를 정확히 잠그는 것이 목적입니다."</span></li>
+    </ul>
+
+    <div class="subsection-title">3-3. 동행자 역할 분담</div>
+    <ul class="checklist">
+      <li>누가 질문 리딩할지 결정</li>
+      <li>누가 메모할지 결정</li>
+      <li>누가 채널 확인을 병행할지 결정</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">4</span> 현장 도착 직후 10분 체크 포인트</div>
+
+    <div class="subsection-title">4-1. 외부 확인</div>
+    <ul class="checklist">
+      <li>간판이 현장 상호와 일치하는지 확인</li>
+      <li>입구 유도성이 충분한지 확인</li>
+      <li>층수/호수/건물 진입 동선 확인</li>
+      <li>처음 방문자가 헷갈릴 요소가 있는지 확인</li>
+    </ul>
+
+    <div class="subsection-title">4-2. 현장 운영 확인</div>
+    <ul class="checklist">
+      <li>현장 상호 표기 확인</li>
+      <li>실제 영업 중 / 오픈 / 휴무 / 준비중 상태 확인</li>
+      <li>첫 응대자 이름 또는 역할 확인</li>
+      <li>첫 응대자가 실무 담당인지 확인</li>
+      <li>실제 의사결정자 참석 여부 확인</li>
+      <li>오늘 승인 가능한 사람 참석 여부 확인</li>
+    </ul>
+
+    <div class="subsection-title">4-3. 현장 실행 조건 확인</div>
+    <ul class="checklist">
+      <li>촬영 가능 여부 확인</li>
+      <li>채널 화면 확인 가능 여부 확인</li>
+      <li>즉시 수정 가능한 채널 존재 여부 확인</li>
+      <li>와이파이 또는 핫스팟 사용 가능 여부 확인</li>
+      <li>현장 소음/대화 가능 환경 확인</li>
+    </ul>
+
+    <div class="subsection-title">4-4. 첫인상 메모 (도착 직후 기록)</div>
+    <div style="background:#f7f7fa; border-radius:5px; padding:10px 14px; margin-top:4px; font-size:8.5pt;">
+      <div class="memo-line"><span class="memo-label">외부 첫인상</span><span class="memo-value">___________________________________________</span></div>
+      <div class="memo-line"><span class="memo-label">입구/동선</span><span class="memo-value">___________________________________________</span></div>
+      <div class="memo-line"><span class="memo-label">현장 응대</span><span class="memo-value">___________________________________________</span></div>
+      <div class="memo-line"><span class="memo-label">즉시 눈에 띄는 장점/문제</span><span class="memo-value">___________________________________</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE 4: 타임라인 + 질문 우선순위 ══════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <strong>초회 미팅 60~90분 타임라인 + 질문 우선순위</strong>
+    <span>컨설턴트 내부용</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">5</span> 초회 미팅 60~90분 타임라인 운영표</div>
+    <p style="font-size:8pt;color:#666;margin-bottom:8px;">총 소요시간: 60~90분 범위, 현장 상황에 따라 조정</p>
+    <table class="timeline-table">
+      <tr>
+        <th style="width:10%">시간</th>
+        <th style="width:18%">대목표</th>
+        <th style="width:44%">컨설턴트 액션</th>
+        <th style="width:28%">반드시 확보할 결과</th>
+      </tr>
+      <tr>
+        <td class="time-col">0~10분</td>
+        <td class="goal-col">관계 형성 및 오늘 미팅 목적 정렬</td>
+        <td>미팅 목적을 짧게 설명하고, 오늘은 기준값·역할·권한 확인이 우선임을 합의한다. 참석자 이름과 역할을 먼저 확인한다.</td>
+        <td>참석자 명단 초안, 오늘 대화 목적 합의</td>
+      </tr>
+      <tr>
+        <td class="time-col">10~25분</td>
+        <td class="goal-col">기준값 잠금 시작</td>
+        <td>상호·주소·연락처·대표자·실제 운영자·신청자 여부를 질문한다. 미확인은 미확인으로 둔다. 사전수집값은 확인 질문용으로만 사용한다.</td>
+        <td>기준값 잠금 1차 메모, 확정값/미확정값 분리</td>
+      </tr>
+      <tr>
+        <td class="time-col">25~45분</td>
+        <td class="goal-col">사람 구조 및 권한 구조 확인</td>
+        <td>승인권자·결재권자·실무 담당자·본사/가맹 여부·채널별 관리자 권한을 확인한다. 점포 단독 수정 가능 범위를 구분한다.</td>
+        <td>역할 구조 메모, 권한 구조 메모</td>
+      </tr>
+      <tr>
+        <td class="time-col">45~65분</td>
+        <td class="goal-col">서비스/가격/채널 현황 파악</td>
+        <td>대표 서비스·가격표·예약 구조·리뷰 대응 구조·채널 현황을 확인한다. 가능하면 현장 화면 또는 자료로 교차 검증한다.</td>
+        <td>서비스 구조 메모, 가격표 확인 상태, 채널 현황 메모</td>
+      </tr>
+      <tr>
+        <td class="time-col">65~80분</td>
+        <td class="goal-col">즉시 실행 가능 범위 판정</td>
+        <td>권한 있는 채널이 있는지 확인하고, 지금 가능한 일과 승인 후 가능한 일을 분리한다. 권한이 없으면 후속 요청자료로 넘긴다.</td>
+        <td>즉시 실행 목록, 승인 필요 목록</td>
+      </tr>
+      <tr>
+        <td class="time-col">80~90분</td>
+        <td class="goal-col">마감 및 후속 과제 정리</td>
+        <td>오늘 확정 사실·미확인 사항·다음 요청자료·다음 회차 전 숙제를 구두로 정리하고 메모를 확인받는다.</td>
+        <td>종료 요약 5블록 초안, 다음 단계 요청자료 목록</td>
+      </tr>
+    </table>
+    <div class="branch-note">
+      <strong>실전 분기 원칙</strong><br>
+      로그인 가능 + 수정 권한 있음 → 현장 즉시 확인 또는 후속 반영 준비<br>
+      로그인 불가 또는 권한 불명확 → 후속 처리<br>
+      본사/가맹 승인 필요 → 점포 단독 실행으로 간주하지 않음
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">6</span> 반드시 확인해야 할 질문 우선순위</div>
+    <div class="q-block">
+      <div class="q-label">1순위 · 기준값 잠금</div>
+      <ul class="q-list">
+        <li>공식 상호를 정확히 어떻게 사용하고 계신가요?</li>
+        <li>공식 주소는 무엇인가요?</li>
+        <li>대표 연락처는 무엇인가요?</li>
+        <li>사업자등록상 대표자는 누구인가요?</li>
+        <li>오늘 기준으로 고객에게 안내하는 공식 영업 정보가 있나요?</li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-label" style="background:#2e4a7a;">2순위 · 사람 구조 분리</div>
+      <ul class="q-list">
+        <li>실제로 매장을 운영하는 분은 누구인가요?</li>
+        <li>사업 신청 또는 행정 커뮤니케이션을 맡는 분은 누구인가요?</li>
+        <li>오늘 이후 가장 자주 연락할 실무 담당자는 누구인가요?</li>
+        <li>현장 결정과 실행을 움직이는 핵심 인물은 누구인가요?</li>
+        <li>대표자·운영자·신청자가 서로 같은 사람인가요 다른 사람인가요?</li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-label" style="background:#4a3a7a;">3순위 · 권한 구조 확인</div>
+      <ul class="q-list">
+        <li>네이버 플레이스는 누가 관리하시나요?</li>
+        <li>인스타그램은 누가 직접 운영하시나요?</li>
+        <li>예약채널은 누가 관리하시나요?</li>
+        <li>가격표나 소개 문구를 바로 수정할 수 있나요?</li>
+        <li>비용 집행과 최종 승인은 누가 하나요?</li>
+      </ul>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;">
+      <div class="q-block" style="margin-bottom:0;">
+        <div class="q-label" style="background:#3a6a3a;">4순위 · 서비스/가격 구조</div>
+        <ul class="q-list">
+          <li>현재 핵심 서비스는 무엇인가요?</li>
+          <li>대표 서비스별 가격표 최신본이 있나요?</li>
+          <li>가장 많이 판매되는 서비스는?</li>
+          <li>성별/부위/방식별 대표 구성은?</li>
+          <li>패키지·멤버십·재방문 유도 상품이 있나요?</li>
+        </ul>
+      </div>
+      <div class="q-block" style="margin-bottom:0;">
+        <div class="q-label" style="background:#6a4a1a;">5순위 · 채널/리뷰</div>
+        <ul class="q-list">
+          <li>현재 공식 운영 채널은 무엇인가요?</li>
+          <li>각 채널 링크를 바로 보여주실 수 있나요?</li>
+          <li>리뷰는 어느 채널에 가장 많이 쌓이나요?</li>
+          <li>리뷰 답변은 누가 하고 있나요?</li>
+          <li>예약·문의 유입은 어디서 가장 많이 오나요?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="q-block" style="margin-top:8px;">
+      <div class="q-label" style="background:#5a1a1a;">6순위 · 정책지원사업 기초 자격</div>
+      <ul class="q-list">
+        <li>개인사업자인가요, 법인인가요?</li>
+        <li>업력은 어느 정도인가요?</li>
+        <li>직원 수는 어느 정도인가요?</li>
+        <li>과거에 지원사업이나 바우처 수혜 이력이 있나요?</li>
+        <li>자부담이 필요한 사업에도 검토 의향이 있나요?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE 5: 채널 점검 + 현장 메모 ══════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <strong>채널/권한 즉시 점검 프로토콜 + 현장 메모 필수 확보 항목</strong>
+    <span>컨설턴트 내부용</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">7</span> 채널/권한 즉시 점검 프로토콜</div>
+    <table class="channel-table">
+      <tr>
+        <th style="width:14%">채널</th>
+        <th style="width:24%">현장 확인 내용</th>
+        <th style="width:22%">권한 확인 질문</th>
+        <th style="width:22%">즉시 가능한 일</th>
+        <th style="width:18%">권한 없을 때 후속</th>
+      </tr>
+      <tr>
+        <td class="ch-name">네이버<br>플레이스</td>
+        <td>채널 존재 여부, 정보 최신성, 관리자 접근 가능 여부</td>
+        <td>"플레이스는 누가 직접 관리하시나요?"</td>
+        <td>링크 확인, 정보 불일치 메모, 관리자 여부 확인</td>
+        <td>관리자 정보 요청, 권한자 연결 요청, 후속 수정 항목 목록화</td>
+      </tr>
+      <tr>
+        <td class="ch-name">인스타그램</td>
+        <td>공식 계정 여부, 최근 게시 상태, 운영 주체</td>
+        <td>"인스타 계정은 누가 운영하시나요?"</td>
+        <td>계정 확인, 최근 콘텐츠 상태 메모</td>
+        <td>운영 주체 확인 후 후속 계정 점검 요청</td>
+      </tr>
+      <tr>
+        <td class="ch-name">예약채널</td>
+        <td>사용 여부, 예약 흐름, 관리자 접근 가능 여부</td>
+        <td>"예약 채널은 누가 관리하시나요?"</td>
+        <td>플랫폼명 확인, 예약 흐름 메모</td>
+        <td>관리자 연결 요청, 접근 권 확보 후 후속 점검</td>
+      </tr>
+      <tr>
+        <td class="ch-name">카카오/<br>메신저</td>
+        <td>문의 유입 여부, 응답 주체, 응답 속도 구조</td>
+        <td>"문의 답변은 누가 직접 하나요?"</td>
+        <td>메신저 운영 여부 메모</td>
+        <td>응답 담당자 지정 요청</td>
+      </tr>
+      <tr>
+        <td class="ch-name">구글<br>비즈니스</td>
+        <td>보유 여부 자체가 미확인 상태</td>
+        <td>"구글 비즈니스는 등록되어 있나요?"</td>
+        <td>등록 여부 확인 메모</td>
+        <td>미등록 시 후속 검토 과제로 분리</td>
+      </tr>
+    </table>
+    <div class="principle-box">
+      "채널이 존재한다"와 "점포가 수정할 수 있다"를 반드시 분리해서 기록한다.<br>
+      링크 확인만으로 관리자 권한 확보로 간주하지 않는다.<br>
+      권한 불명확 상태에서는 실행안이 아니라 <strong>확인 요청안</strong>을 남긴다.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">8</span> 현장 메모 필수 확보 항목</div>
+    <div class="memo-grid">
+      <div class="memo-block">
+        <div class="mb-title">8-1. 기준값 메모</div>
+        <div class="memo-line"><span class="memo-label">공식 상호</span><span class="memo-value">____________________</span></div>
+        <div class="memo-line"><span class="memo-label">공식 주소</span><span class="memo-value">____________________</span></div>
+        <div class="memo-line"><span class="memo-label">대표 연락처</span><span class="memo-value">__________________</span></div>
+        <div class="memo-line"><span class="memo-label">대표자명</span><span class="memo-value">____________________</span></div>
+        <div class="memo-line"><span class="memo-label">영업 정보</span><span class="memo-value">____________________</span></div>
+      </div>
+      <div class="memo-block">
+        <div class="mb-title">8-2. 참석자/역할 메모</div>
+        <div class="memo-line"><span class="memo-label">참석자 1 이름/역할</span><span class="memo-value">_____________</span></div>
+        <div class="memo-line"><span class="memo-label">참석자 2 이름/역할</span><span class="memo-value">_____________</span></div>
+        <div class="memo-line"><span class="memo-label">실제 운영 책임자</span><span class="memo-value">_______________</span></div>
+        <div class="memo-line"><span class="memo-label">실무 연락 창구</span><span class="memo-value">_________________</span></div>
+      </div>
+      <div class="memo-block">
+        <div class="mb-title">8-3. 승인/결재 구조 메모</div>
+        <div class="memo-line"><span class="memo-label">승인권자</span><span class="memo-value">____________________</span></div>
+        <div class="memo-line"><span class="memo-label">비용 결재권자</span><span class="memo-value">________________</span></div>
+        <div class="memo-line"><span class="memo-label">본사/가맹/독립</span><span class="memo-value">_______________</span></div>
+        <div class="memo-line"><span class="memo-label">즉시 수정 가능 범위</span><span class="memo-value">___________</span></div>
+      </div>
+      <div class="memo-block">
+        <div class="mb-title">8-4. 서비스/가격 메모</div>
+        <div class="memo-line"><span class="memo-label">대표 서비스</span><span class="memo-value">__________________</span></div>
+        <div class="memo-line"><span class="memo-label">가격표 확보 여부</span><span class="memo-value">______________</span></div>
+        <div class="memo-line"><span class="memo-label">주력 판매 서비스</span><span class="memo-value">______________</span></div>
+        <div class="memo-line"><span class="memo-label">패키지/멤버십</span><span class="memo-value">________________</span></div>
+      </div>
+      <div class="memo-block">
+        <div class="mb-title">8-5. 고객층/주력 수요</div>
+        <div class="memo-line"><span class="memo-label">주 고객층</span><span class="memo-value">____________________</span></div>
+        <div class="memo-line"><span class="memo-label">신규/재방문 비중</span><span class="memo-value">______________</span></div>
+        <div class="memo-line"><span class="memo-label">가장 많이 찾는 이유</span><span class="memo-value">___________</span></div>
+        <div class="memo-line"><span class="memo-label">망설임 포인트</span><span class="memo-value">________________</span></div>
+      </div>
+      <div class="memo-block">
+        <div class="mb-title">8-6. 채널 링크/아이디</div>
+        <div class="memo-line"><span class="memo-label">네이버 플레이스</span><span class="memo-value">______________</span></div>
+        <div class="memo-line"><span class="memo-label">인스타그램</span><span class="memo-value">__________________</span></div>
+        <div class="memo-line"><span class="memo-label">예약채널</span><span class="memo-value">____________________</span></div>
+        <div class="memo-line"><span class="memo-label">카카오/메신저</span><span class="memo-value">________________</span></div>
+        <div class="memo-line"><span class="memo-label">기타</span><span class="memo-value">________________________</span></div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+      <div class="memo-block">
+        <div class="mb-title">8-7. 사진/영상 자산 보유 여부</div>
+        <div class="check-mini">
+          <span>고화질 사진 있음</span>
+          <span>영상/릴스 원본 있음</span>
+          <span>후기 캡처 있음</span>
+          <span>전/후 비교 자산 있음</span>
+          <span>현장 촬영 필요</span>
+        </div>
+        <div class="memo-line" style="margin-top:6px;"><span class="memo-label">메모</span><span class="memo-value">________________________</span></div>
+      </div>
+      <div class="memo-block">
+        <div class="mb-title">8-8. 정책지원사업 메모</div>
+        <div class="check-mini">
+          <span>사업자 유형 확인</span>
+          <span>업력 확인</span>
+          <span>직원 수 확인</span>
+          <span>수혜 이력 확인</span>
+          <span>자부담 가능성 확인</span>
+        </div>
+        <div class="memo-line" style="margin-top:6px;"><span class="memo-label">메모</span><span class="memo-value">________________________</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE 6: 돌발 대응 + 산출물 ══════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <strong>돌발 상황 대응 + 미팅 종료 전 산출물 + 후처리</strong>
+    <span>컨설턴트 내부용</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">9</span> 돌발 상황 대응 프로토콜</div>
+    <table class="contingency-table">
+      <tr>
+        <th style="width:20%">상황</th>
+        <th style="width:45%">즉시 대응 원칙</th>
+        <th style="width:35%">금지사항</th>
+      </tr>
+      <tr>
+        <td class="situation">실제 운영자 부재</td>
+        <td>오늘 참석자의 역할만 먼저 분리하고, 실제 운영자 확인 세션 또는 후속 연락 일정을 잡는다.</td>
+        <td class="forbidden">참석자를 실제 운영자로 단정하지 않는다.</td>
+      </tr>
+      <tr>
+        <td class="situation">승인권자 부재</td>
+        <td>즉시 실행안과 승인 필요 항목을 분리한다.</td>
+        <td class="forbidden">승인자 확인 전 수정 확정처럼 말하지 않는다. "오늘 바로 진행 가능"이라고 단정하지 않는다.</td>
+      </tr>
+      <tr>
+        <td class="situation">채널 로그인 불가</td>
+        <td>로그인 복구에 매몰되지 말고 관리자 주체·계정 소유권·후속 요청자료를 정리한다.</td>
+        <td class="forbidden">현장 시간을 비밀번호 복구에 과도하게 소모하지 않는다.</td>
+      </tr>
+      <tr>
+        <td class="situation">촬영 거부</td>
+        <td>촬영 없이도 구조 확인 중심으로 진행하고, 필요한 촬영은 후속 승인 항목으로 남긴다.</td>
+        <td class="forbidden">무리하게 촬영을 요청하거나 강행하지 않는다.</td>
+      </tr>
+      <tr>
+        <td class="situation">가격표 미지참</td>
+        <td>구두 확인은 임시 메모로만 남기고, 최종 가격표는 후속 자료 요청으로 분리한다.</td>
+        <td class="forbidden">구두 가격을 최종 확정값처럼 사용하지 않는다.</td>
+      </tr>
+      <tr>
+        <td class="situation">본사/가맹 구조로 즉시 수정 불가</td>
+        <td>점포 단독 실행 범위를 먼저 분리하고, 본사 승인 필요 항목을 별도 목록화한다.</td>
+        <td class="forbidden">독립 매장처럼 가정하고 실행안을 확정하지 않는다.</td>
+      </tr>
+      <tr>
+        <td class="situation">일정 지연</td>
+        <td>우선순위를 기준값 → 사람 구조 → 권한 구조 → 채널 구조 순으로 압축한다.</td>
+        <td class="forbidden">후순위 논의에 시간을 쓰다가 핵심 확인을 놓치지 않는다.</td>
+      </tr>
+      <tr>
+        <td class="situation">정책지원사업 질문 나오나 공고문 없음</td>
+        <td>후보군 수준으로만 이야기하고, 공식 공고문 확보 전 판단 보류를 명확히 한다.</td>
+        <td class="forbidden">지원 가능/불가·금액·선정 가능성을 단정하지 않는다.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">10</span> 미팅 종료 전 반드시 남겨야 할 산출물</div>
+    <div class="deliverable-grid">
+      <div class="d-item">
+        <div class="d-title">10-1. 확정 사실 목록</div>
+        <ul><li>오늘 확정된 업체명 재확인</li><li>오늘 확정된 기준값 문서화</li><li>확정된 참석자 역할 문서화</li></ul>
+      </div>
+      <div class="d-item">
+        <div class="d-title">10-2. 미확인 사항 목록</div>
+        <ul><li>끝까지 확인되지 않은 항목 분리</li><li>추정값과 미확인값 구분</li><li>후속 확인 필요 항목 정리</li></ul>
+      </div>
+      <div class="d-item">
+        <div class="d-title">10-3. 즉시 실행 가능 항목</div>
+        <ul><li>오늘 바로 할 수 있는 일 정리</li><li>권한 있는 채널 기준으로만 분리</li><li>현장 실행 여부 표시</li></ul>
+      </div>
+      <div class="d-item">
+        <div class="d-title">10-4. 승인 필요 항목</div>
+        <ul><li>승인권자 확인 필요한 항목 정리</li><li>본사/가맹 승인 필요한 항목 분리</li><li>비용 집행 필요한 항목 분리</li></ul>
+      </div>
+      <div class="d-item">
+        <div class="d-title">10-5. 다음 요청자료</div>
+        <ul><li>공식 주소 / 대표 연락처</li><li>가격표 최종본 / 채널 링크</li><li>관리자 정보 / 사진·영상 자산</li><li>사업자 정보</li></ul>
+      </div>
+      <div class="d-item">
+        <div class="d-title">10-6. 다음 회차 전 숙제</div>
+        <ul><li>업체 측 숙제 정리</li><li>컨설턴트 측 숙제 정리</li><li>다음 회차 전 제출 기한 정리</li></ul>
+      </div>
+    </div>
+    <div class="principle-box" style="margin-top:10px;">
+      <strong>종료 전 최종 한 줄 점검:</strong> 오늘 대화가 말로만 끝나지 않고 <strong>문장/표/체크리스트로 남았다.</strong>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">11</span> 미팅 직후 30분 후처리 체크리스트</div>
+    <div class="post-grid">
+      <div class="post-item">기준값 잠금 시트 업데이트</div>
+      <div class="post-item">사람 구조표 업데이트</div>
+      <div class="post-item">권한 구조표 업데이트</div>
+      <div class="post-item">채널 점검 결과 정리</div>
+      <div class="post-item">즉시 실행 / 승인 필요 분리</div>
+      <div class="post-item">미확인 사항 별도 목록화</div>
+      <div class="post-item">후속 AI 인수인계 블록 작성</div>
+      <div class="post-item">다음 회차 목표 한 줄 정의</div>
+      <div class="post-item">후속 요청자료 발송 초안 작성</div>
+    </div>
+    <div style="background:#f7f7fa; border-radius:5px; padding:10px 14px; margin-top:10px; font-size:8.5pt;">
+      <div class="memo-line"><span class="memo-label">후처리 한 줄 정의</span><span class="memo-value">____________________________________________</span></div>
+      <div class="memo-line"><span class="memo-label">다음 회차 목표</span><span class="memo-value">______________________________________________</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE 7: AI 인수인계 블록 ══════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <strong>후속 AI 인수인계용 초압축 블록</strong>
+    <span>컨설턴트 내부용 — AI에게 그대로 붙여넣기</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="num">12</span> 후속 AI 인수인계용 초압축 블록</div>
+    <p style="font-size:8pt;color:#666;margin-bottom:10px;">아래 블록을 미팅 후 채워서 다음 AI 세션에 그대로 붙여넣는다.</p>
+    <div class="handover-block">
+      <div class="hb-section">
+        <div class="hb-label"># 후속 AI 인수인계 — 압구정 S&H 듀얼 왁싱 압구정점</div>
+      </div>
+      <div class="hb-section">
+        <div class="hb-label">[현재 프로젝트명]</div>
+        <div class="hb-item">압구정 S&H 듀얼 왁싱 압구정점 초회 미팅 당일 동선 최종 점검표</div>
+      </div>
+      <div class="hb-section">
+        <div class="hb-label">[오늘 미팅 성격]</div>
+        <div class="hb-item">초회 미팅 당일 실행 프로토콜</div>
+        <div class="hb-item">목적: 기준값 잠금 / 사람 구조 분리 / 권한 구조 확인 / 채널 구조 확인</div>
+      </div>
+      <div class="hb-section">
+        <div class="hb-label">[현재 확정 사실]</div>
+        <div class="hb-item">업체명: 압구정 S&H 듀얼 왁싱 압구정점</div>
+        <div class="hb-item">현재 단계: 초회 미팅 당일 구조 확인 단계</div>
+        <div class="hb-item">미확정 정보는 사실처럼 쓰지 않음</div>
+        <div style="margin-top:8px;padding-left:12px;color:#aaa;font-size:8pt;">
+          — 공식 주소: (현장 확인 후 기입)<br>
+          — 대표자명: (현장 확인 후 기입)<br>
+          — 실제 운영자: (현장 확인 후 기입)<br>
+          — 신청자/승인권자/결재권자: (현장 확인 후 기입)<br>
+          — 본사/가맹 여부: (현장 확인 후 기입)
+        </div>
+      </div>
+      <div class="hb-section">
+        <div class="hb-label">[오늘 반드시 확인할 항목]</div>
+        <div class="hb-item">공식 주소 / 대표 연락처 / 대표자명 / 실제 운영자 / 신청자 / 승인권자 / 비용 결재권자</div>
+        <div class="hb-item">본사/가맹 여부 / 네이버·인스타·예약채널 관리자 권한</div>
+        <div class="hb-item">가격표 최종본 / 대표 서비스 구조 / 리뷰 및 채널 현황</div>
+        <div class="hb-item">사업자 유형 / 업력 / 직원 수 / 지원사업 참여 이력</div>
+      </div>
+      <div class="hb-section">
+        <div class="hb-label">[응답 원칙]</div>
+        <div class="hb-item">사전수집 추정값은 참고용일 뿐 확정값이 아님</div>
+        <div class="hb-item">타 업체 값 혼입 금지</div>
+        <div class="hb-item">권한 없으면 즉시 실행으로 쓰지 말고 후속 처리로 분기</div>
+        <div class="hb-item">지원사업은 공식 공고문 확보 전 판단 금지</div>
+      </div>
+      <div class="hb-section">
+        <div class="hb-label">[출력 포맷] 모든 응답 마지막은 반드시 아래 5개 블록으로 끝낼 것</div>
+        <div class="hb-item">① 확정 사실</div>
+        <div class="hb-item">② 미확인 사항</div>
+        <div class="hb-item">③ 즉시 실행</div>
+        <div class="hb-item">④ 승인 필요</div>
+        <div class="hb-item">⑤ 다음 요청사항</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px; border-top:2px solid #1a1a2e; padding-top:14px; display:flex; justify-content:space-between; align-items:flex-end;">
+    <div style="font-size:8pt; color:#555;">
+      <div style="font-weight:700; color:#1a1a2e; margin-bottom:4px;">강남AI컨설팅</div>
+      <div>컨설턴트 권용준</div>
+      <div>컨설턴트 손미현</div>
+    </div>
+    <div style="text-align:right; font-size:8pt; color:#999;">
+      <div>작성일: 2026-06-15</div>
+      <div>CONFIDENTIAL · 컨설턴트 내부용</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>강남AI컨설팅 · 권용준 · 손미현</span>
+  <span>압구정 S&H 듀얼 왁싱 압구정점 초회 미팅 당일 동선 최종 점검표 — 컨설턴트용</span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>초회 컨설팅 미팅 안내문 — 원장님용</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 16mm 20mm 16mm;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    font-size: 10pt;
+    color: #1a1a1a;
+    line-height: 1.7;
+    background: #fff;
+  }
+
+  /* ── 커버 ── */
+  .cover {
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 260mm;
+    text-align: center;
+    padding: 20mm 20mm;
+  }
+  .cover-logo-area {
+    margin-bottom: 40px;
+  }
+  .cover-logo {
+    display: inline-block;
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 10pt;
+    font-weight: 600;
+    padding: 8px 24px;
+    border-radius: 4px;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  .cover-greeting {
+    font-size: 11pt;
+    color: #555;
+    font-weight: 500;
+  }
+  .cover-title-big {
+    font-size: 28pt;
+    font-weight: 800;
+    color: #1a1a2e;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+  .cover-title-sub {
+    font-size: 13pt;
+    color: #4a6fa5;
+    font-weight: 600;
+    margin-bottom: 36px;
+  }
+  .cover-divider {
+    width: 60px;
+    height: 3px;
+    background: #1a1a2e;
+    margin: 0 auto 36px;
+  }
+  .cover-info-box {
+    background: #f4f6fa;
+    border-radius: 12px;
+    padding: 24px 36px;
+    display: inline-block;
+    text-align: left;
+    margin-bottom: 36px;
+    min-width: 320px;
+  }
+  .cover-info-row {
+    display: flex;
+    gap: 12px;
+    padding: 7px 0;
+    border-bottom: 1px solid #e0e0ee;
+    font-size: 10pt;
+  }
+  .cover-info-row:last-child { border-bottom: none; }
+  .cover-info-label { color: #888; min-width: 80px; }
+  .cover-info-value { color: #1a1a2e; font-weight: 600; }
+  .cover-promise {
+    background: #e8f4e8;
+    border-radius: 8px;
+    padding: 18px 28px;
+    text-align: left;
+    max-width: 460px;
+    font-size: 10pt;
+    color: #1a3a1a;
+    line-height: 1.9;
+  }
+  .cover-promise strong { color: #0a5a0a; }
+  .cover-footer-area {
+    margin-top: 40px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+    width: 100%;
+  }
+  .cover-consultants {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 8px;
+  }
+  .cover-consultant {
+    text-align: center;
+  }
+  .consultant-name {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .consultant-role {
+    font-size: 8.5pt;
+    color: #888;
+    margin-top: 2px;
+  }
+  .cover-org {
+    font-size: 9pt;
+    color: #aaa;
+    margin-top: 6px;
+  }
+
+  /* ── 공통 섹션 ── */
+  .page { page-break-before: always; padding-top: 4mm; }
+  .section { margin-bottom: 22px; }
+
+  .section-title {
+    font-size: 14pt;
+    font-weight: 800;
+    color: #1a1a2e;
+    border-bottom: 2.5px solid #1a1a2e;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+  .section-title .badge {
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 9pt;
+    padding: 2px 10px;
+    border-radius: 10px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .subsection-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #2e4a7a;
+    margin: 16px 0 8px;
+    padding-left: 12px;
+    border-left: 4px solid #4a6fa5;
+  }
+
+  /* ── 오늘의 목적 카드 ── */
+  .purpose-card {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2e4a7a 100%);
+    color: #fff;
+    border-radius: 10px;
+    padding: 22px 28px;
+    margin-bottom: 14px;
+  }
+  .purpose-card .pc-title {
+    font-size: 13pt;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .purpose-card .pc-desc {
+    font-size: 10pt;
+    color: #ccd;
+    line-height: 1.8;
+  }
+  .purpose-card .pc-highlight {
+    color: #7eb0f0;
+    font-weight: 600;
+  }
+
+  /* ── 진행 흐름 타임라인 ── */
+  .timeline {
+    position: relative;
+    margin: 10px 0;
+  }
+  .timeline-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .tl-time {
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 8.5pt;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+    min-width: 72px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .tl-content {
+    flex: 1;
+    background: #f7f7fa;
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  .tl-content .tl-goal {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+  }
+  .tl-content .tl-detail {
+    font-size: 9pt;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  /* ── 준비물 체크리스트 ── */
+  .prep-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .prep-card {
+    background: #f7f7fa;
+    border-radius: 8px;
+    padding: 14px 16px;
+    border: 1px solid #e0e0ee;
+  }
+  .prep-card .pc-head {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #dde;
+  }
+  .prep-list { list-style: none; }
+  .prep-list li {
+    padding: 5px 0;
+    font-size: 9.5pt;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    border-bottom: 1px dotted #ddd;
+  }
+  .prep-list li:last-child { border-bottom: none; }
+  .prep-list li::before {
+    content: '□';
+    font-size: 12pt;
+    color: #4a6fa5;
+    flex-shrink: 0;
+    line-height: 1.2;
+  }
+  .prep-list li.done::before {
+    content: '✓';
+    color: #27ae60;
+  }
+
+  /* ── 질문 미리보기 ── */
+  .q-preview-block {
+    background: #f0f4fa;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    border-left: 4px solid #4a6fa5;
+  }
+  .q-preview-block .qpb-label {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #2e4a7a;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .q-preview-list { list-style: none; }
+  .q-preview-list li {
+    font-size: 9.5pt;
+    padding: 3px 0 3px 16px;
+    position: relative;
+    color: #333;
+  }
+  .q-preview-list li::before {
+    content: '›';
+    position: absolute;
+    left: 4px;
+    color: #4a6fa5;
+    font-size: 12pt;
+    line-height: 1.2;
+  }
+
+  /* ── 기대 성과 카드 ── */
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .outcome-card {
+    background: #fff;
+    border: 1.5px solid #dde;
+    border-radius: 8px;
+    padding: 14px 14px;
+    text-align: center;
+  }
+  .outcome-card .oc-icon {
+    font-size: 20pt;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .outcome-card .oc-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+  }
+  .outcome-card .oc-desc {
+    font-size: 8.5pt;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* ── 안내 메시지 ── */
+  .notice-box {
+    background: #fff8e1;
+    border: 1px solid #ffd54f;
+    border-left: 4px solid #f9a825;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 9.5pt;
+    color: #5a4000;
+    line-height: 1.8;
+    margin: 10px 0;
+  }
+  .green-box {
+    background: #e8f5e9;
+    border-left: 4px solid #27ae60;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 9.5pt;
+    color: #1a3a1a;
+    line-height: 1.8;
+    margin: 10px 0;
+  }
+  .blue-box {
+    background: #e8f0fa;
+    border-left: 4px solid #4a6fa5;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 9.5pt;
+    color: #1a2a4a;
+    line-height: 1.8;
+    margin: 10px 0;
+  }
+
+  /* ── 다음 단계 ── */
+  .next-steps {
+    counter-reset: step;
+    margin-top: 10px;
+  }
+  .next-step {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .step-num {
+    background: #4a6fa5;
+    color: #fff;
+    font-size: 10pt;
+    font-weight: 700;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-content { flex: 1; padding-top: 2px; }
+  .step-content .sc-title { font-size: 10pt; font-weight: 700; color: #1a1a2e; }
+  .step-content .sc-desc { font-size: 9pt; color: #555; margin-top: 2px; }
+
+  /* ── 서명란 ── */
+  .sign-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #1a1a2e;
+  }
+  .sign-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 14px;
+  }
+  .sign-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+  .sign-box {
+    border: 1.5px solid #ccd;
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+  }
+  .sign-box .sb-label {
+    font-size: 8.5pt;
+    color: #888;
+    margin-bottom: 8px;
+  }
+  .sign-box .sb-name {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 30px;
+  }
+  .sign-box .sb-line {
+    border-bottom: 1.5px solid #1a1a2e;
+    margin-bottom: 4px;
+  }
+  .sign-box .sb-sign-label {
+    font-size: 7.5pt;
+    color: #aaa;
+  }
+
+  /* ── 페이지 헤더 ── */
+  .page-header {
+    font-size: 8pt;
+    color: #aaa;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .page-header strong { color: #1a1a2e; font-size: 9pt; }
+
+  footer {
+    position: fixed;
+    bottom: 8mm;
+    left: 16mm;
+    right: 16mm;
+    font-size: 7pt;
+    color: #ccc;
+    border-top: 1px solid #eee;
+    padding-top: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ 커버 ══════════════════ -->
+<div class="cover">
+  <div class="cover-logo-area">
+    <div class="cover-logo">강남AI컨설팅</div>
+    <div class="cover-greeting">원장님, 오늘 미팅을 위해 준비했습니다.</div>
+  </div>
+
+  <div class="cover-title-big">초회 컨설팅<br>미팅 안내문</div>
+  <div class="cover-title-sub">압구정 S&H 듀얼 왁싱 압구정점</div>
+  <div class="cover-divider"></div>
+
+  <div class="cover-info-box">
+    <div class="cover-info-row">
+      <span class="cover-info-label">대상 매장</span>
+      <span class="cover-info-value">압구정 S&H 듀얼 왁싱 압구정점</span>
+    </div>
+    <div class="cover-info-row">
+      <span class="cover-info-label">미팅 유형</span>
+      <span class="cover-info-value">초회 현장 컨설팅 미팅</span>
+    </div>
+    <div class="cover-info-row">
+      <span class="cover-info-label">소요 시간</span>
+      <span class="cover-info-value">약 60~90분</span>
+    </div>
+    <div class="cover-info-row">
+      <span class="cover-info-label">담당 컨설턴트</span>
+      <span class="cover-info-value">권용준 · 손미현</span>
+    </div>
+  </div>
+
+  <div class="cover-promise">
+    오늘 미팅의 목적은 <strong>멋진 발표가 아닙니다.</strong><br>
+    원장님의 매장을 <strong>정확하게 이해하고</strong>,<br>
+    지금 당장 바꿀 수 있는 것부터 <strong>함께 확인하는 자리</strong>입니다.
+  </div>
+
+  <div class="cover-footer-area">
+    <div class="cover-consultants">
+      <div class="cover-consultant">
+        <div class="consultant-name">권용준</div>
+        <div class="consultant-role">컨설턴트</div>
+      </div>
+      <div style="color:#ccc;padding-top:8px;">·</div>
+      <div class="cover-consultant">
+        <div class="consultant-name">손미현</div>
+        <div class="consultant-role">컨설턴트</div>
+      </div>
+    </div>
+    <div class="cover-org">강남AI컨설팅</div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE 2: 오늘 미팅 소개 + 진행 흐름 ══════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <strong>오늘 미팅 소개 및 진행 흐름</strong>
+    <span>압구정 S&H 듀얼 왁싱 압구정점 · 원장님용</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="badge">1</span>오늘 미팅, 이런 자리입니다</div>
+    <div class="purpose-card">
+      <div class="pc-title">구조 확인 · 현황 파악 · 실행 가능성 점검</div>
+      <div class="pc-desc">
+        오늘은 <span class="pc-highlight">전략을 발표하는 자리가 아닙니다.</span><br>
+        원장님의 매장 운영 구조, 채널 현황, 결정 권한을 <span class="pc-highlight">정확하게 파악</span>하고,<br>
+        지금 바로 할 수 있는 일과 추가로 준비가 필요한 일을 함께 나누는 시간입니다.<br><br>
+        오늘 대화에서 나온 내용은 <span class="pc-highlight">그 자리에서 문서로 남깁니다.</span><br>
+        말로만 끝나는 미팅이 되지 않도록 합니다.
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="badge">2</span>오늘 미팅 진행 흐름 (60~90분)</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-time">0~10분</div>
+        <div class="tl-content">
+          <div class="tl-goal">인사 및 오늘 미팅 목적 공유</div>
+          <div class="tl-detail">간단한 소개와 함께 오늘 대화의 목적을 먼저 맞춥니다. 참석하신 분들의 역할도 확인합니다.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">10~25분</div>
+        <div class="tl-content">
+          <div class="tl-goal">매장 기본 정보 확인 (기준값 잠금)</div>
+          <div class="tl-detail">상호명·주소·연락처·대표자 등 기본 정보를 정확하게 확인합니다. 사전에 수집한 내용이 맞는지 함께 확인합니다.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">25~45분</div>
+        <div class="tl-content">
+          <div class="tl-goal">운영 구조 및 채널 권한 확인</div>
+          <div class="tl-detail">실제 운영 담당자·결정 권한·채널별 관리 주체를 파악합니다. 어느 채널을 직접 수정할 수 있는지 함께 확인합니다.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">45~65분</div>
+        <div class="tl-content">
+          <div class="tl-goal">서비스·가격·채널 현황 파악</div>
+          <div class="tl-detail">대표 시술·가격표·예약 방식·리뷰 현황·주력 고객층을 확인합니다. 가능하면 실제 화면을 함께 봅니다.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">65~80분</div>
+        <div class="tl-content">
+          <div class="tl-goal">즉시 가능한 일 vs 추가 준비가 필요한 일 구분</div>
+          <div class="tl-detail">지금 바로 할 수 있는 것과, 승인 또는 추가 확인 후 가능한 것을 명확하게 나눕니다.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">80~90분</div>
+        <div class="tl-content">
+          <div class="tl-goal">정리 및 다음 단계 안내</div>
+          <div class="tl-detail">오늘 확인된 내용, 아직 확인이 필요한 항목, 원장님 숙제와 다음 일정을 함께 정리합니다.</div>
+        </div>
+      </div>
+    </div>
+    <div class="green-box">
+      <strong>안심하셔도 됩니다.</strong> 오늘 모든 것을 결정하거나 바로 실행하지 않아도 됩니다.<br>
+      확인되지 않은 내용은 "확인 필요" 항목으로 따로 기록하고, 다음 단계에서 진행합니다.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE 3: 준비 사항 + 오늘 여쭤볼 내용 ══════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <strong>미팅 전 준비 사항 + 오늘 여쭤볼 내용 미리보기</strong>
+    <span>압구정 S&H 듀얼 왁싱 압구정점 · 원장님용</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="badge">3</span>미팅 전 원장님이 준비해 주시면 좋은 것들</div>
+    <div class="notice-box">
+      꼭 완벽하게 준비하실 필요는 없습니다. 없는 항목은 오늘 대화 중에 함께 파악합니다.
+    </div>
+    <div class="prep-grid">
+      <div class="prep-card">
+        <div class="pc-head">📋 정보 & 서류</div>
+        <ul class="prep-list">
+          <li>사업자등록증 (또는 사업자번호)</li>
+          <li>공식 매장 주소 확인</li>
+          <li>대표 연락처 (고객 안내용)</li>
+          <li>최근 가격표 (메뉴판/안내물)</li>
+          <li>과거 지원사업 수혜 이력 (있다면)</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <div class="pc-head">📱 채널 & 계정</div>
+        <ul class="prep-list">
+          <li>네이버 플레이스 링크 또는 로그인 여부 확인</li>
+          <li>인스타그램 계정 (공식 계정 여부)</li>
+          <li>예약 채널 플랫폼명 (네이버예약·카카오 등)</li>
+          <li>카카오채널 또는 메신저 응대 방식 확인</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <div class="pc-head">📸 사진 & 영상 자산</div>
+        <ul class="prep-list">
+          <li>보유 중인 매장/시술 고화질 사진</li>
+          <li>전/후 비교 사진 (있다면)</li>
+          <li>릴스/영상 원본 (있다면)</li>
+          <li>고객 후기 캡처 (있다면)</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <div class="pc-head">💬 생각해 두시면 좋은 것</div>
+        <ul class="prep-list">
+          <li>우리 매장의 가장 큰 강점 1~2가지</li>
+          <li>온라인에서 가장 아쉽다고 느끼는 점</li>
+          <li>고객들이 가장 많이 찾는 서비스</li>
+          <li>재방문 고객 비중이 어느 정도인지</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="badge">4</span>오늘 여쭤볼 내용 미리보기</div>
+    <p style="font-size:9.5pt;color:#555;margin-bottom:12px;">아래 질문들을 오늘 대화 중에 드릴 예정입니다. 미리 보시고 생각해 두시면 대화가 더 원활합니다.</p>
+
+    <div class="q-preview-block">
+      <div class="qpb-label">기본 정보 확인</div>
+      <ul class="q-preview-list">
+        <li>공식 상호명은 정확히 어떻게 사용하고 계신가요?</li>
+        <li>대표자 성함과 실제 매장을 운영하시는 분이 같은 분인가요?</li>
+        <li>고객에게 안내하는 영업시간과 연락처가 최신 상태인가요?</li>
+      </ul>
+    </div>
+
+    <div class="q-preview-block">
+      <div class="qpb-label">채널 운영 현황</div>
+      <ul class="q-preview-list">
+        <li>네이버 플레이스, 인스타그램 중 직접 관리하고 계신 채널이 있나요?</li>
+        <li>예약 문의가 가장 많이 들어오는 경로는 어디인가요?</li>
+        <li>리뷰 답변은 누가 하고 계신가요?</li>
+        <li>현재 채널 정보(가격·소개문구 등)를 직접 수정하실 수 있나요?</li>
+      </ul>
+    </div>
+
+    <div class="q-preview-block">
+      <div class="qpb-label">서비스 & 고객</div>
+      <ul class="q-preview-list">
+        <li>가장 많이 판매되는 시술은 무엇인가요?</li>
+        <li>주로 어떤 분들이 많이 오시나요? (성별·연령대·지역)</li>
+        <li>패키지나 멤버십 상품이 있나요?</li>
+        <li>고객들이 처음 오실 때 가장 많이 하는 질문이 무엇인가요?</li>
+      </ul>
+    </div>
+
+    <div class="q-preview-block">
+      <div class="qpb-label">운영 구조 파악</div>
+      <ul class="q-preview-list">
+        <li>마케팅이나 채널 관련 결정은 누가 하시나요?</li>
+        <li>이번 컨설팅 진행에서 비용 관련 결정권은 누구에게 있나요?</li>
+        <li>직원 수와 업력이 어느 정도 되시나요?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE 4: 오늘의 성과 + 다음 단계 ══════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <strong>오늘 미팅 후 기대 성과 + 다음 단계</strong>
+    <span>압구정 S&H 듀얼 왁싱 압구정점 · 원장님용</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="badge">5</span>오늘 미팅이 끝나면 이런 결과가 남습니다</div>
+    <div class="outcome-grid">
+      <div class="outcome-card">
+        <span class="oc-icon">📌</span>
+        <div class="oc-title">기준 정보 확정</div>
+        <div class="oc-desc">매장 기본 정보와 운영 구조가 문서로 정리됩니다</div>
+      </div>
+      <div class="outcome-card">
+        <span class="oc-icon">🔍</span>
+        <div class="oc-title">채널 현황 파악</div>
+        <div class="oc-desc">현재 운영 중인 채널과 수정 가능 여부가 확인됩니다</div>
+      </div>
+      <div class="outcome-card">
+        <span class="oc-icon">⚡</span>
+        <div class="oc-title">즉시 실행 목록</div>
+        <div class="oc-desc">오늘 바로 할 수 있는 일과 준비가 필요한 일이 구분됩니다</div>
+      </div>
+      <div class="outcome-card">
+        <span class="oc-icon">📝</span>
+        <div class="oc-title">확인 필요 항목</div>
+        <div class="oc-desc">오늘 확인하지 못한 내용을 놓치지 않고 목록화합니다</div>
+      </div>
+      <div class="outcome-card">
+        <span class="oc-icon">📋</span>
+        <div class="oc-title">숙제 목록</div>
+        <div class="oc-desc">원장님과 컨설턴트 각자의 다음 준비 항목이 정해집니다</div>
+      </div>
+      <div class="outcome-card">
+        <span class="oc-icon">📅</span>
+        <div class="oc-title">다음 일정 합의</div>
+        <div class="oc-desc">2회차 미팅 전 제출 자료와 다음 목표가 정리됩니다</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="badge">6</span>오늘 이후 진행 단계</div>
+    <div class="next-steps">
+      <div class="next-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="sc-title">오늘 확인된 내용 정리 (미팅 직후)</div>
+          <div class="sc-desc">컨설턴트가 오늘 확인한 기준값·운영 구조·채널 현황을 문서로 정리하여 공유합니다.</div>
+        </div>
+      </div>
+      <div class="next-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="sc-title">즉시 실행 가능 항목 처리</div>
+          <div class="sc-desc">오늘 바로 확인된 채널 정보 불일치, 수정 가능한 항목부터 빠르게 정비합니다.</div>
+        </div>
+      </div>
+      <div class="next-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="sc-title">원장님 자료 전달 요청</div>
+          <div class="sc-desc">가격표 최신본·채널 링크·사진 자산 등 오늘 확인하지 못한 자료를 전달해 주시면 됩니다.</div>
+        </div>
+      </div>
+      <div class="next-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="sc-title">2회차 미팅 준비</div>
+          <div class="sc-desc">오늘 파악한 내용을 바탕으로 포지셔닝 방향·채널 정비 실행안을 준비하여 2회차 미팅에 임합니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blue-box" style="margin-top:14px;">
+      <strong>컨설팅 철학:</strong> 좋은 매장이 온라인 때문에 손해 보지 않게 합니다.<br>
+      광고비보다 먼저 <strong>정보 정비와 포지셔닝</strong>을 바로잡는 것이 첫 번째입니다.<br>
+      강점을 새로 만드는 것이 아니라 <strong>이미 있는 강점을 온라인에서 보이게</strong> 만드는 컨설팅입니다.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="badge">7</span>오늘 미팅 확인 서명</div>
+    <p style="font-size:9pt;color:#555;margin-bottom:12px;">오늘 미팅 내용 및 진행 방식에 대해 확인하고 동의합니다.</p>
+    <div class="sign-grid">
+      <div class="sign-box">
+        <div class="sb-label">컨설턴트</div>
+        <div class="sb-name">권용준</div>
+        <div class="sb-line"></div>
+        <div class="sb-sign-label">서명 · 날짜</div>
+      </div>
+      <div class="sign-box">
+        <div class="sb-label">컨설턴트</div>
+        <div class="sb-name">손미현</div>
+        <div class="sb-line"></div>
+        <div class="sb-sign-label">서명 · 날짜</div>
+      </div>
+      <div class="sign-box">
+        <div class="sb-label">원장님 확인</div>
+        <div class="sb-name" style="color:#888;">성함: ___________</div>
+        <div class="sb-line"></div>
+        <div class="sb-sign-label">서명 · 날짜</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px; text-align:center; border-top:1px solid #eee; padding-top:14px;">
+    <div style="font-size:9pt;color:#888;">궁금하신 점은 언제든지 편하게 말씀해 주세요.</div>
+    <div style="font-size:10pt;font-weight:700;color:#1a1a2e;margin-top:4px;">강남AI컨설팅 · 권용준 · 손미현</div>
+  </div>
+</div>
+
+<footer>
+  <span>강남AI컨설팅 · 권용준 · 손미현</span>
+  <span>압구정 S&H 듀얼 왁싱 압구정점 초회 컨설팅 미팅 안내문 — 원장님용</span>
+</footer>
+
+</body>
+</html>
