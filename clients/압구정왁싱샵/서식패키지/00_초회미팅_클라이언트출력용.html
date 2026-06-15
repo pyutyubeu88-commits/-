@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&H듀얼왁싱 · 초회 컨설팅 안내 — 갱남AI컨설팅</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap');
+
+  /* ── RESET ── */
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans KR',sans-serif;color:#1a1a2e;font-size:12px;line-height:1.75;background:#fff}
+
+  /* ── PRINT PAGE ── */
+  @page{size:A4;margin:18mm 20mm}
+
+  /* ── COVER ── */
+  .cover{
+    background:#1a1a2e;
+    color:#fff;
+    padding:52px 48px 44px;
+    min-height:260mm;
+    position:relative;
+    page-break-after:always;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .cover-top{display:flex;justify-content:space-between;align-items:flex-start}
+  .cover-logo{font-size:11px;font-weight:700;letter-spacing:2px;opacity:0.8}
+  .cover-date{font-size:11px;opacity:0.55;text-align:right;line-height:1.7}
+  .cover-mid{margin-top:60px}
+  .cover-label{font-size:10px;letter-spacing:3px;opacity:0.5;margin-bottom:12px}
+  .cover-title{font-size:34px;font-weight:800;line-height:1.25;letter-spacing:-0.5px;margin-bottom:10px}
+  .cover-title span{color:#4fc3f7}
+  .cover-sub{font-size:14px;opacity:0.7;font-weight:300;line-height:1.6}
+  .cover-divider{width:48px;height:3px;background:#4fc3f7;margin:28px 0}
+  .cover-consultant{font-size:13px;opacity:0.8;line-height:2}
+  .cover-consultant strong{color:#fff;font-weight:600}
+  .cover-bottom{border-top:1px solid rgba(255,255,255,0.12);padding-top:20px}
+  .cover-agenda{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .cover-agenda-item{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:14px 16px}
+  .cover-agenda-item .ca-num{font-size:11px;color:#4fc3f7;font-weight:700;margin-bottom:4px}
+  .cover-agenda-item .ca-title{font-size:12px;font-weight:600}
+  .cover-agenda-item .ca-desc{font-size:10px;opacity:0.55;margin-top:3px}
+
+  /* ── PAGE WRAPPER ── */
+  .page{padding:0;page-break-after:always}
+  .page:last-child{page-break-after:auto}
+
+  /* ── PAGE HEADER ── */
+  .page-header{border-bottom:2px solid #1a1a2e;padding-bottom:10px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-end}
+  .page-header .ph-brand{font-size:10px;font-weight:700;letter-spacing:1.5px;color:#888}
+  .page-header .ph-client{font-size:11px;font-weight:700;color:#1a1a2e}
+  .page-header .ph-num{font-size:10px;color:#aaa}
+
+  /* ── SECTION ── */
+  .sec{margin-bottom:24px}
+  .sec-hd{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .sec-num{width:26px;height:26px;background:#1a1a2e;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+  .sec-title{font-size:14px;font-weight:700;color:#1a1a2e}
+  .sec-sub{font-size:10px;color:#888;margin-top:1px}
+
+  /* ── TABLE ── */
+  .t{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:12px}
+  .t th{background:#1a1a2e;color:#fff;padding:8px 11px;text-align:left;font-weight:600;font-size:10px}
+  .t td{padding:8px 11px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+  .t tr:last-child td{border-bottom:none}
+  .t tr:nth-child(even) td{background:#fafafa}
+
+  /* ── DATA CARDS (pre-research) ── */
+  .data-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+  .data-card{border:1.5px solid #e0e0e0;border-radius:8px;padding:12px 14px;background:#fafafa}
+  .data-card .dc-label{font-size:10px;font-weight:700;color:#888;letter-spacing:0.5px;margin-bottom:4px}
+  .data-card .dc-val{font-size:12px;font-weight:600;color:#1a1a2e;line-height:1.4}
+  .data-card .dc-note{font-size:10px;color:#aaa;margin-top:3px}
+  .data-card.highlight{border-color:#f48fb1;background:#fff5f7}
+  .data-card.highlight .dc-label{color:#c62828}
+
+  /* ── AGENDA FLOW ── */
+  .agenda-flow{display:flex;flex-direction:column;gap:0}
+  .agenda-row{display:flex;align-items:stretch;border:1.5px solid #e8e8e8;border-radius:0;margin-bottom:-1px}
+  .agenda-row:first-child{border-radius:8px 8px 0 0}
+  .agenda-row:last-child{border-radius:0 0 8px 8px;margin-bottom:0}
+  .agenda-time{width:72px;background:#f5f5f5;padding:12px 10px;font-size:10px;font-weight:700;color:#555;flex-shrink:0;border-right:1.5px solid #e8e8e8;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.4}
+  .agenda-content{flex:1;padding:12px 16px}
+  .agenda-title{font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
+  .agenda-desc{font-size:11px;color:#666}
+  .agenda-badge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:9px;font-weight:700;margin-left:6px;vertical-align:middle}
+  .ab-exec{background:#e8f5e9;color:#2e7d32}
+  .ab-talk{background:#e3f2fd;color:#1565c0}
+  .ab-confirm{background:#fff3e0;color:#e65100}
+
+  /* ── FORM FIELDS ── */
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .form-row{margin-bottom:10px}
+  .form-label{font-size:10px;font-weight:700;color:#1a1a2e;margin-bottom:4px;letter-spacing:0.3px}
+  .form-line{border:none;border-bottom:1.5px solid #ccc;width:100%;padding:4px 0;font-size:12px;font-family:'Noto Sans KR',sans-serif;background:transparent;outline:none}
+  .form-note{font-size:10px;color:#aaa;margin-top:2px}
+
+  /* ── QUESTION LIST ── */
+  .q-block{margin-bottom:16px}
+  .q-category{font-size:10px;font-weight:700;letter-spacing:1px;color:#0f3460;background:#f0f4ff;padding:5px 10px;border-radius:4px;margin-bottom:8px;display:inline-block}
+  .q-list{list-style:none}
+  .q-list li{padding:5px 0;font-size:12px;color:#333;border-bottom:1px solid #f5f5f5;display:flex;align-items:flex-start;gap:8px}
+  .q-list li:last-child{border-bottom:none}
+  .q-list li::before{content:"·";color:#1a1a2e;font-weight:700;flex-shrink:0;margin-top:1px}
+  .q-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+
+  /* ── CHANNEL TABLE ── */
+  .ch-table{width:100%;border-collapse:collapse;font-size:11px}
+  .ch-table th{background:#f5f5f5;padding:8px 12px;text-align:left;font-weight:700;font-size:10px;color:#444;border-bottom:2px solid #e0e0e0}
+  .ch-table td{padding:10px 12px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+  .ch-table tr:last-child td{border-bottom:none}
+  .ch-status{display:flex;gap:16px}
+  .ch-status label{display:flex;align-items:center;gap:5px;font-size:11px;cursor:pointer}
+  .ch-cb{width:13px;height:13px;border:1.5px solid #aaa;border-radius:3px;flex-shrink:0;display:inline-block}
+
+  /* ── PRINT CHECKBOX ── */
+  .pcb{display:inline-block;width:14px;height:14px;border:1.5px solid #888;border-radius:3px;flex-shrink:0;margin-right:8px;vertical-align:middle}
+  .pcb-row{display:flex;align-items:flex-start;gap:0;padding:6px 0;border-bottom:1px solid #f5f5f5;font-size:12px}
+  .pcb-row:last-child{border-bottom:none}
+  .pcb-row .pcb{margin-top:1px}
+
+  /* ── OUTCOME CARDS ── */
+  .outcome-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .outcome-card{border:1.5px solid #e0e0e0;border-radius:8px;padding:14px;text-align:center}
+  .outcome-card .oc-icon{font-size:22px;margin-bottom:6px}
+  .outcome-card .oc-title{font-size:11px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+  .outcome-card .oc-desc{font-size:10px;color:#666;line-height:1.5}
+
+  /* ── NOTICE BOX ── */
+  .notice{background:#f8f9fa;border-left:3px solid #1a1a2e;padding:10px 14px;border-radius:0 6px 6px 0;font-size:11px;color:#444;margin-bottom:12px}
+  .notice strong{color:#1a1a2e}
+
+  /* ── PAGE FOOTER ── */
+  .page-footer{border-top:1px solid #e0e0e0;padding-top:10px;margin-top:20px;display:flex;justify-content:space-between;font-size:10px;color:#aaa}
+
+  /* ── TWO-COL ── */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+  /* ── GOALS ── */
+  .goal-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+  .goal-card{background:#1a1a2e;color:#fff;border-radius:8px;padding:12px 14px;text-align:center}
+  .goal-card .gc-num{font-size:9px;color:#4fc3f7;font-weight:700;letter-spacing:1px;margin-bottom:4px}
+  .goal-card .gc-title{font-size:11px;font-weight:700}
+
+  /* ── NEXT BOX ── */
+  .next-box{background:#f0f4ff;border:1.5px solid #c5cae9;border-radius:8px;padding:14px 18px;margin-top:12px}
+  .next-box .nb-title{font-size:11px;font-weight:700;color:#3949ab;margin-bottom:10px}
+  .next-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .next-label{font-size:11px;color:#555;font-weight:600;width:72px;flex-shrink:0}
+  .next-line{border:none;border-bottom:1.5px solid #9fa8da;flex:1;font-size:11px;font-family:'Noto Sans KR',sans-serif;background:transparent;outline:none;padding:2px 4px}
+
+  /* ── SIGNATURE ROW ── */
+  .sign-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:20px}
+  .sign-box{text-align:center}
+  .sign-line{border-top:1.5px solid #333;padding-top:8px;font-size:11px;color:#555;margin-top:40px}
+
+  /* ──  SCREEN DISPLAY ── */
+  @media screen{
+    body{background:#f0f2f5;padding:24px}
+    .cover{border-radius:12px;max-width:860px;margin:0 auto 20px}
+    .page{background:#fff;max-width:860px;margin:0 auto 20px;padding:40px 48px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+  }
+
+  /* ── PRINT OVERRIDES ── */
+  @media print{
+    body{background:#fff;padding:0}
+    .cover{border-radius:0;max-width:none;margin:0;page-break-after:always}
+    .page{border-radius:0;max-width:none;margin:0;padding:0;box-shadow:none}
+    .page-header,.page-footer{display:flex}
+    a{text-decoration:none;color:inherit}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ COVER ══════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-logo">GANGNAM AI CONSULTING</div>
+    <div class="cover-date">
+      초회 컨설팅 안내 자료<br>
+      2026년 6월 ___일<br>
+      담당: 권용준
+    </div>
+  </div>
+
+  <div class="cover-mid">
+    <div class="cover-label">FIRST CONSULTING SESSION</div>
+    <div class="cover-title">
+      S&H듀얼왁싱<br>
+      <span>초회 컨설팅 안내</span>
+    </div>
+    <div class="cover-sub">
+      오늘 미팅에서 다룰 내용과 진행 순서를 정리했습니다.<br>
+      함께 확인하며 진행하겠습니다.
+    </div>
+    <div class="cover-divider"></div>
+    <div class="cover-consultant">
+      컨설턴트 <strong>권용준</strong>&nbsp;&nbsp;·&nbsp;&nbsp;010-6783-2588&nbsp;&nbsp;·&nbsp;&nbsp;갱남AI컨설팅<br>
+      동행 <strong>손미현</strong>&nbsp;&nbsp;·&nbsp;&nbsp;기술·채널 정비 담당
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div style="font-size:10px;opacity:0.5;margin-bottom:12px">오늘 진행 순서</div>
+    <div class="cover-agenda">
+      <div class="cover-agenda-item">
+        <div class="ca-num">PART 1 · 사전 조사 공유</div>
+        <div class="ca-title">저희가 미리 살펴봤습니다</div>
+        <div class="ca-desc">사전 조사 결과 공유 및 검증</div>
+      </div>
+      <div class="cover-agenda-item">
+        <div class="ca-num">PART 2 · 현황 확인</div>
+        <div class="ca-title">기본 정보 · 채널 · 운영 구조</div>
+        <div class="ca-desc">기준값 확정 및 구조 파악</div>
+      </div>
+      <div class="cover-agenda-item">
+        <div class="ca-num">PART 3 · 즉시 실행</div>
+        <div class="ca-title">오늘 바로 바꾸는 것들</div>
+        <div class="ca-desc">채널 정비 + 다음 단계 확정</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════ PAGE 1 : 사전 조사 결과 ══════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div class="ph-brand">GANGNAM AI CONSULTING</div>
+    <div class="ph-client">S&H듀얼왁싱 · 초회 컨설팅 안내</div>
+    <div class="ph-num">1 / 5</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-num">1</div>
+      <div>
+        <div class="sec-title">저희가 미리 살펴봤습니다</div>
+        <div class="sec-sub">미팅 전 수집한 사전 조사 데이터 — 오늘 함께 정확한 값으로 확정합니다</div>
+      </div>
+    </div>
+
+    <div class="notice">
+      아래 데이터는 네이버 플레이스, 인스타그램, 당근마켓 등 공개 채널을 통해 사전 수집한 값입니다.
+      일부 항목은 실제와 다를 수 있으므로, <strong>오늘 원장님과 함께 최종 확인·확정합니다.</strong>
+    </div>
+
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="dc-label">상호</div>
+        <div class="dc-val">S&H듀얼왁싱</div>
+        <div class="dc-note">오늘 공식 표기 확정</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">주소 (추정)</div>
+        <div class="dc-val">신사동 압구정로46길 5-6 A동 4층</div>
+        <div class="dc-note">플레이스·당근 수집 → 오늘 확정</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">원장 (추정)</div>
+        <div class="dc-val">세아</div>
+        <div class="dc-note">인스타그램 바이오 기준</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">전화 (추정)</div>
+        <div class="dc-val">010-8187-6455</div>
+        <div class="dc-note">플레이스 기준</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">오픈일 (추정)</div>
+        <div class="dc-val">2025년 4월 14일 (약 14개월)</div>
+        <div class="dc-note">당근마켓 기준</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">네이버 플레이스 리뷰</div>
+        <div class="dc-val">623건 (수집 시점 기준)</div>
+        <div class="dc-note">현재 시점 재확인 필요</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">인스타그램</div>
+        <div class="dc-val">@shdual_waxing</div>
+        <div class="dc-note">팔로워 3,089명 (수집 기준)</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">네이버 블로그</div>
+        <div class="dc-val">blog.naver.com/shdual_waxing</div>
+        <div class="dc-note">포스팅 33개 확인</div>
+      </div>
+      <div class="data-card highlight">
+        <div class="dc-label">⚠ 구글 비즈니스</div>
+        <div class="dc-val">미등록 상태</div>
+        <div class="dc-note">오늘 현장 등록 예정</div>
+      </div>
+      <div class="data-card highlight">
+        <div class="dc-label">⚠ 영업시간 (불일치)</div>
+        <div class="dc-val">플레이스 10:30~ / 당근 11:00~21:30</div>
+        <div class="dc-note">채널별 불일치 → 오늘 반드시 확정</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">대표 가격 (추정)</div>
+        <div class="dc-val">브라질리언 여성 하드 49,000원</div>
+        <div class="dc-note">슈가링 60,000원 / 오늘 최신 가격 확인</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">키워드 노출</div>
+        <div class="dc-val">'압구정슈가링' 3위만 노출</div>
+        <div class="dc-note">나머지 주요 키워드 미노출 상태</div>
+      </div>
+    </div>
+
+    <div class="notice" style="background:#fff8e1;border-color:#ffc107">
+      <strong>특이 자산 발견</strong> — 더모스트타임즈 인터뷰 기사 (2025년 8월) 확인.
+      신뢰도 강화 자산으로 활용 가능 여부 오늘 논의합니다.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>갱남AI컨설팅 · 권용준 · 010-6783-2588</span>
+    <span>S&H듀얼왁싱 초회 컨설팅 · 2026년 6월</span>
+  </div>
+</div>
+
+
+<!-- ══════════════ PAGE 2 : 오늘 진행 순서 ══════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div class="ph-brand">GANGNAM AI CONSULTING</div>
+    <div class="ph-client">S&H듀얼왁싱 · 초회 컨설팅 안내</div>
+    <div class="ph-num">2 / 5</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-num">2</div>
+      <div>
+        <div class="sec-title">오늘 진행 순서</div>
+        <div class="sec-sub">약 2시간 30분 · 아래 순서로 진행됩니다</div>
+      </div>
+    </div>
+
+    <div class="agenda-flow">
+      <div class="agenda-row">
+        <div class="agenda-time">도착<br>~10분</div>
+        <div class="agenda-content">
+          <div class="agenda-title">외부 환경 및 공간 관찰</div>
+          <div class="agenda-desc">건물 진입 동선, 간판, 주변 상권 확인 / 내부 공간 전체 투어</div>
+        </div>
+      </div>
+      <div class="agenda-row">
+        <div class="agenda-time">~15분</div>
+        <div class="agenda-content">
+          <div class="agenda-title">인사 및 오늘 미팅 안내 <span class="agenda-badge ab-talk">대화</span></div>
+          <div class="agenda-desc">오늘 진행 방식 소개 / 원장님 근황 및 가장 큰 고민 청취</div>
+        </div>
+      </div>
+      <div class="agenda-row">
+        <div class="agenda-time">~30분</div>
+        <div class="agenda-content">
+          <div class="agenda-title">사전 조사 결과 공유 <span class="agenda-badge ab-confirm">확인</span></div>
+          <div class="agenda-desc">수집된 데이터 원장님과 함께 검토 / 영업시간·가격·채널 정확값 확정</div>
+        </div>
+      </div>
+      <div class="agenda-row">
+        <div class="agenda-time">~40분</div>
+        <div class="agenda-content">
+          <div class="agenda-title">채널 즉시 정비 <span class="agenda-badge ab-exec">즉시 실행</span></div>
+          <div class="agenda-desc">네이버 플레이스 영업시간 수정 / 인스타 바이오 점검 / 구글 비즈니스 기본 등록</div>
+        </div>
+      </div>
+      <div class="agenda-row">
+        <div class="agenda-time">~20분</div>
+        <div class="agenda-content">
+          <div class="agenda-title">포지셔닝 확정 <span class="agenda-badge ab-talk">대화</span></div>
+          <div class="agenda-desc">"S&H듀얼왁싱을 선택하는 이유" — 원장님이 직접 말할 수 있는 한 문장 도출</div>
+        </div>
+      </div>
+      <div class="agenda-row">
+        <div class="agenda-time">~20분</div>
+        <div class="agenda-content">
+          <div class="agenda-title">현장 촬영 <span class="agenda-badge ab-exec">즉시 실행</span></div>
+          <div class="agenda-desc">플레이스·인스타·구글 교체용 공간 및 서비스 사진 촬영</div>
+        </div>
+      </div>
+      <div class="agenda-row">
+        <div class="agenda-time">~20분</div>
+        <div class="agenda-content">
+          <div class="agenda-title">숙제 전달 및 마무리 <span class="agenda-badge ab-confirm">확정</span></div>
+          <div class="agenda-desc">원장님 실행 과제 목록 전달 / 다음 미팅 일정 확정 / 연락 채널 확인</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-num">3</div>
+      <div>
+        <div class="sec-title">오늘 우리가 함께 달성할 6가지</div>
+      </div>
+    </div>
+    <div class="goal-grid">
+      <div class="goal-card">
+        <div class="gc-num">GOAL 01</div>
+        <div class="gc-title">기본 정보 확정</div>
+      </div>
+      <div class="goal-card">
+        <div class="gc-num">GOAL 02</div>
+        <div class="gc-title">운영 구조 파악</div>
+      </div>
+      <div class="goal-card">
+        <div class="gc-num">GOAL 03</div>
+        <div class="gc-title">채널 현황 점검</div>
+      </div>
+      <div class="goal-card">
+        <div class="gc-num">GOAL 04</div>
+        <div class="gc-title">즉시 수정 실행</div>
+      </div>
+      <div class="goal-card">
+        <div class="gc-num">GOAL 05</div>
+        <div class="gc-title">포지셔닝 한 문장 확정</div>
+      </div>
+      <div class="goal-card">
+        <div class="gc-num">GOAL 06</div>
+        <div class="gc-title">다음 단계 계획 확정</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>갱남AI컨설팅 · 권용준 · 010-6783-2588</span>
+    <span>S&H듀얼왁싱 초회 컨설팅 · 2026년 6월</span>
+  </div>
+</div>
+
+
+<!-- ══════════════ PAGE 3 : 기본 정보 확인 ══════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div class="ph-brand">GANGNAM AI CONSULTING</div>
+    <div class="ph-client">S&H듀얼왁싱 · 초회 컨설팅 안내</div>
+    <div class="ph-num">3 / 5</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-num">4</div>
+      <div>
+        <div class="sec-title">오늘 확정할 기본 정보</div>
+        <div class="sec-sub">미팅 중 함께 작성합니다</div>
+      </div>
+    </div>
+
+    <div class="notice">
+      아래 항목들을 오늘 미팅에서 확정합니다. 정확한 값이 있으시면 직접 적어 주세요.
+    </div>
+
+    <div class="form-grid">
+      <div>
+        <div class="form-row">
+          <div class="form-label">공식 상호명 (간판·사업자 기준)</div>
+          <input class="form-line" placeholder="예: S&H듀얼왁싱">
+        </div>
+        <div class="form-row">
+          <div class="form-label">정확한 주소</div>
+          <input class="form-line" placeholder="">
+        </div>
+        <div class="form-row">
+          <div class="form-label">대표 연락처</div>
+          <input class="form-line" placeholder="">
+        </div>
+        <div class="form-row">
+          <div class="form-label">실제 운영 담당자 (원장님 성함)</div>
+          <input class="form-line" placeholder="">
+        </div>
+        <div class="form-row">
+          <div class="form-label">영업시간 (정확한 오픈·마감)</div>
+          <input class="form-line" placeholder="예: 10:30~20:00 / 일요일 휴무">
+        </div>
+      </div>
+      <div>
+        <div class="form-row">
+          <div class="form-label">예약 방법 (고객이 어떻게 예약하나요)</div>
+          <input class="form-line" placeholder="카카오채널 / 네이버예약 / 전화 등">
+        </div>
+        <div class="form-row">
+          <div class="form-label">가장 많이 찾는 서비스 1위</div>
+          <input class="form-line" placeholder="">
+        </div>
+        <div class="form-row">
+          <div class="form-label">직원 수</div>
+          <input class="form-line" placeholder="원장 포함 총 ___명">
+        </div>
+        <div class="form-row">
+          <div class="form-label">사업자 형태</div>
+          <input class="form-line" placeholder="개인사업자 / 법인 / 프리랜서">
+        </div>
+        <div class="form-row">
+          <div class="form-label">지금 가장 큰 고민 한 가지</div>
+          <input class="form-line" placeholder="">
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px">
+      <div class="sec-hd" style="margin-bottom:10px">
+        <div class="sec-num" style="font-size:10px;width:22px;height:22px">채널</div>
+        <div>
+          <div class="sec-title" style="font-size:12px">운영 중인 채널 현황</div>
+        </div>
+      </div>
+      <table class="ch-table">
+        <thead>
+          <tr>
+            <th>채널</th>
+            <th>링크 / 아이디</th>
+            <th>직접 수정 가능</th>
+            <th>현재 상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>네이버 플레이스</strong></td>
+            <td><input style="border:none;border-bottom:1px solid #ccc;width:100%;font-size:11px;font-family:inherit;outline:none" placeholder=""></td>
+            <td>
+              <div class="ch-status">
+                <label><span class="ch-cb"></span> 가능</label>
+                <label><span class="ch-cb"></span> 불가</label>
+              </div>
+            </td>
+            <td><input style="border:none;border-bottom:1px solid #ccc;width:100%;font-size:11px;font-family:inherit;outline:none" placeholder=""></td>
+          </tr>
+          <tr>
+            <td><strong>인스타그램</strong></td>
+            <td><input style="border:none;border-bottom:1px solid #ccc;width:100%;font-size:11px;font-family:inherit;outline:none" placeholder="@shdual_waxing"></td>
+            <td>
+              <div class="ch-status">
+                <label><span class="ch-cb"></span> 가능</label>
+                <label><span class="ch-cb"></span> 불가</label>
+              </div>
+            </td>
+            <td><input style="border:none;border-bottom:1px solid #ccc;width:100%;font-size:11px;font-family:inherit;outline:none" placeholder=""></td>
+          </tr>
+          <tr>
+            <td><strong>네이버 블로그</strong></td>
+            <td><input style="border:none;border-bottom:1px solid #ccc;width:100%;font-size:11px;font-family:inherit;outline:none" placeholder="shdual_waxing"></td>
+            <td>
+              <div class="ch-status">
+                <label><span class="ch-cb"></span> 가능</label>
+                <label><span class="ch-cb"></span> 불가</label>
+              </div>
+            </td>
+            <td><input style="border:none;border-bottom:1px solid #ccc;width:100%;font-size:11px;font-family:inherit;outline:none" placeholder=""></td>
+          </tr>
+          <tr>
+            <td><strong>카카오채널</strong></td>
+            <td><input style="border:none;border-bottom:1px solid #ccc;width:100%;font-size:11px;font-family:inherit;outline:none" placeholder=""></td>
+            <td>
+              <div class="ch-status">
+                <label><span class="ch-cb"></span> 가능</label>
+                <label><span class="ch-cb"></span> 불가</label>
+              </div>
+            </td>
+            <td><input style="border:none;border-bottom:1px solid #ccc;width:100%;font-size:11px;font-family:inherit;outline:none" placeholder=""></td>
+          </tr>
+          <tr>
+            <td><strong>구글 비즈니스</strong></td>
+            <td><input style="border:none;border-bottom:1px solid #ccc;width:100%;font-size:11px;font-family:inherit;outline:none" placeholder="오늘 등록 예정"></td>
+            <td>
+              <div class="ch-status">
+                <label><span class="ch-cb"></span> 가능</label>
+                <label><span class="ch-cb"></span> 불가</label>
+              </div>
+            </td>
+            <td><input style="border:none;border-bottom:1px solid #ccc;width:100%;font-size:11px;font-family:inherit;outline:none" placeholder="미등록"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>갱남AI컨설팅 · 권용준 · 010-6783-2588</span>
+    <span>S&H듀얼왁싱 초회 컨설팅 · 2026년 6월</span>
+  </div>
+</div>
+
+
+<!-- ══════════════ PAGE 4 : 오늘의 대화 ══════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div class="ph-brand">GANGNAM AI CONSULTING</div>
+    <div class="ph-client">S&H듀얼왁싱 · 초회 컨설팅 안내</div>
+    <div class="ph-num">4 / 5</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-num">5</div>
+      <div>
+        <div class="sec-title">오늘 함께 이야기할 것들</div>
+        <div class="sec-sub">정답이 없습니다 — 지금 상황을 그대로 말씀해 주세요</div>
+      </div>
+    </div>
+
+    <div class="q-grid">
+      <div>
+        <div class="q-block">
+          <div class="q-category">서비스 구성</div>
+          <ul class="q-list">
+            <li>현재 제공하는 핵심 서비스는 무엇인가요?</li>
+            <li>매출 비중이 가장 큰 서비스는요?</li>
+            <li>패키지·멤버십·재방문 혜택이 있나요?</li>
+            <li>'듀얼왁싱'이 의미하는 것은 무엇인가요?</li>
+          </ul>
+        </div>
+        <div class="q-block">
+          <div class="q-category">고객 이야기</div>
+          <ul class="q-list">
+            <li>주 고객층은 어떤 분들인가요?</li>
+            <li>고객이 자주 하는 칭찬은 무엇인가요?</li>
+            <li>고객이 망설이거나 자주 묻는 것은요?</li>
+            <li>신규 고객과 단골 중 어느 쪽이 더 많나요?</li>
+          </ul>
+        </div>
+        <div class="q-block">
+          <div class="q-category">지금 가장 큰 고민</div>
+          <ul class="q-list">
+            <li>온라인 운영에서 가장 답답한 점은요?</li>
+            <li>신규 유입과 재방문 중 더 문제는요?</li>
+            <li>이번 컨설팅에서 1개만 해결한다면요?</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="q-block">
+          <div class="q-category">보유 자산</div>
+          <ul class="q-list">
+            <li>고화질 사진 자료가 있나요?</li>
+            <li>시술 전/후 비교 사진이 있나요?</li>
+            <li>릴스·쇼츠용 영상 원본이 있나요?</li>
+            <li>고객 후기 캡처 모음이 있나요?</li>
+          </ul>
+        </div>
+        <div class="q-block">
+          <div class="q-category">운영 구조</div>
+          <ul class="q-list">
+            <li>독립 운영인가요, 브랜드 소속인가요?</li>
+            <li>채널 수정은 직접 가능한가요?</li>
+            <li>가격표 변경 시 별도 승인이 필요한가요?</li>
+            <li>실무 연락은 주로 누구와 하면 될까요?</li>
+          </ul>
+        </div>
+        <div class="q-block">
+          <div class="q-category">포지셔닝</div>
+          <ul class="q-list">
+            <li>경쟁 왁싱샵과 S&H의 차이는 무엇인가요?</li>
+            <li>단골 고객이 계속 오는 이유는 뭐라고 생각하세요?</li>
+            <li>본인이 가장 자신 있는 시술은 무엇인가요?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;background:#1a1a2e;color:#fff;border-radius:8px;padding:16px 20px">
+      <div style="font-size:10px;color:#4fc3f7;font-weight:700;letter-spacing:1px;margin-bottom:8px">오늘 확정할 한 문장</div>
+      <div style="font-size:12px;opacity:0.8;margin-bottom:12px">S&H듀얼왁싱이 선택되는 이유를 원장님이 직접 말할 수 있는 한 문장으로 만듭니다.</div>
+      <div style="border-bottom:1.5px solid rgba(255,255,255,0.3);padding-bottom:4px;font-size:13px;min-height:28px">&nbsp;</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>갱남AI컨설팅 · 권용준 · 010-6783-2588</span>
+    <span>S&H듀얼왁싱 초회 컨설팅 · 2026년 6월</span>
+  </div>
+</div>
+
+
+<!-- ══════════════ PAGE 5 : 오늘의 성과 + 다음 단계 ══════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div class="ph-brand">GANGNAM AI CONSULTING</div>
+    <div class="ph-client">S&H듀얼왁싱 · 초회 컨설팅 안내</div>
+    <div class="ph-num">5 / 5</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-num">6</div>
+      <div>
+        <div class="sec-title">오늘 미팅이 끝나면 이렇게 됩니다</div>
+        <div class="sec-sub">오늘 하루만으로도 의미 있는 변화가 만들어집니다</div>
+      </div>
+    </div>
+
+    <div class="outcome-grid">
+      <div class="outcome-card">
+        <div class="oc-icon">✅</div>
+        <div class="oc-title">채널 정보 정비 완료</div>
+        <div class="oc-desc">플레이스 영업시간 수정, 인스타 바이오 점검, 구글 비즈니스 등록 시작</div>
+      </div>
+      <div class="outcome-card">
+        <div class="oc-icon">🎯</div>
+        <div class="oc-title">포지셔닝 문장 확정</div>
+        <div class="oc-desc">원장님이 직접 고객에게 말할 수 있는 S&H만의 한 문장</div>
+      </div>
+      <div class="outcome-card">
+        <div class="oc-icon">📋</div>
+        <div class="oc-title">실행 숙제 목록 전달</div>
+        <div class="oc-desc">다음 미팅까지 원장님이 직접 할 수 있는 과제 목록 인쇄 전달</div>
+      </div>
+      <div class="outcome-card">
+        <div class="oc-icon">📸</div>
+        <div class="oc-title">현장 사진 확보</div>
+        <div class="oc-desc">플레이스·인스타·구글 업로드용 공간 및 서비스 사진</div>
+      </div>
+      <div class="outcome-card">
+        <div class="oc-icon">🗺️</div>
+        <div class="oc-title">2·3회차 방향 확정</div>
+        <div class="oc-desc">오늘 파악한 내용 기준으로 다음 회차 과제와 방향 확정</div>
+      </div>
+      <div class="outcome-card">
+        <div class="oc-icon">📅</div>
+        <div class="oc-title">다음 미팅 일정 확정</div>
+        <div class="oc-desc">2회차 날짜 확정 후 오늘 자료와 함께 공유</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-num">7</div>
+      <div>
+        <div class="sec-title">다음 미팅 정보</div>
+      </div>
+    </div>
+
+    <div class="next-box">
+      <div class="nb-title">📅 2회차 미팅 일정</div>
+      <div class="next-row">
+        <div class="next-label">날짜·시간</div>
+        <input class="next-line" placeholder="______년 __월 __일 ____:____">
+      </div>
+      <div class="next-row">
+        <div class="next-label">장소</div>
+        <input class="next-line" placeholder="S&H듀얼왁싱 현장 / 기타">
+      </div>
+      <div class="next-row">
+        <div class="next-label">2회차 목표</div>
+        <input class="next-line" placeholder="콘텐츠 전략 · 키워드 · 블로그 첫 포스팅">
+      </div>
+      <div class="next-row">
+        <div class="next-label">원장님 준비</div>
+        <input class="next-line" placeholder="숙제 목록 완료 체크 후 지참 / 블로그 초안">
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:16px">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#1a1a2e;margin-bottom:10px;padding-left:8px;border-left:3px solid #1a1a2e">오늘 바꾼 것 (즉시 실행 완료)</div>
+        <div class="pcb-row"><span class="pcb"></span> 네이버 플레이스 영업시간 수정</div>
+        <div class="pcb-row"><span class="pcb"></span> 인스타그램 바이오 점검</div>
+        <div class="pcb-row"><span class="pcb"></span> 구글 비즈니스 등록</div>
+        <div class="pcb-row"><span class="pcb"></span> 포지셔닝 문장 확정</div>
+        <div class="pcb-row"><span class="pcb"></span> 현장 사진 촬영</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#1a1a2e;margin-bottom:10px;padding-left:8px;border-left:3px solid #1a1a2e">오늘 확정한 기준값</div>
+        <div class="next-row" style="border-bottom:1px solid #f0f0f0;padding-bottom:4px"><div class="next-label" style="width:80px">포지셔닝</div><input class="next-line" placeholder=""></div>
+        <div class="next-row" style="border-bottom:1px solid #f0f0f0;padding-bottom:4px"><div class="next-label" style="width:80px">영업시간</div><input class="next-line" placeholder=""></div>
+        <div class="next-row" style="border-bottom:1px solid #f0f0f0;padding-bottom:4px"><div class="next-label" style="width:80px">예약 경로</div><input class="next-line" placeholder=""></div>
+        <div class="next-row"><div class="next-label" style="width:80px">대표 서비스</div><input class="next-line" placeholder=""></div>
+      </div>
+    </div>
+
+    <div class="sign-row">
+      <div class="sign-box">
+        <div class="sign-line">권용준 (컨설턴트)</div>
+      </div>
+      <div class="sign-box">
+        <div class="sign-line">손미현 (기술 담당)</div>
+      </div>
+      <div class="sign-box">
+        <div class="sign-line">원장님 (확인)</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#1a1a2e;color:#fff;border-radius:8px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+    <div>
+      <div style="font-size:12px;font-weight:700">갱남AI컨설팅 · 권용준</div>
+      <div style="font-size:10px;opacity:0.55;margin-top:3px">현장형 AI 마케팅 컨설팅 · S&H듀얼왁싱 초회 컨설팅 자료</div>
+    </div>
+    <div style="text-align:right;font-size:11px;opacity:0.65;line-height:1.8">
+      010-6783-2588<br>
+      yjkwon@gangnamconsulting.com
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>갱남AI컨설팅 · 권용준 · 010-6783-2588</span>
+    <span>S&H듀얼왁싱 초회 컨설팅 · 2026년 6월</span>
+  </div>
+</div>
+
+</body>
+</html>
