@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이자카야 우규 역삼점 — 2회차 미팅 전 체크리스트</title>
+<style>
+@page {
+  size: A4;
+  margin: 14mm 14mm 16mm 14mm;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-size: 9.5pt;
+  color: #1a1a1a;
+  background: #fff;
+  line-height: 1.5;
+}
+
+/* ── 커버 헤더 ── */
+.cover-header {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 18px 22px 16px;
+  margin-bottom: 0;
+  page-break-after: avoid;
+}
+.cover-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+.cover-badge {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 3px;
+  padding: 3px 10px;
+  font-size: 7.5pt;
+  letter-spacing: 0.12em;
+  color: #ccd;
+}
+.cover-title {
+  font-size: 20pt;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.cover-sub {
+  font-size: 10.5pt;
+  color: #8aaad8;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+.cover-meta-row {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top: 12px;
+}
+.cover-meta-item {
+  font-size: 8.5pt;
+  color: #aabbdd;
+}
+.cover-meta-item strong {
+  color: #fff;
+  font-size: 8pt;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 1px;
+}
+
+/* ── 진행 상황 요약 바 ── */
+.progress-bar-area {
+  background: #f0f3fa;
+  border-bottom: 2px solid #1a1a2e;
+  padding: 10px 22px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  page-break-after: avoid;
+}
+.progress-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 8.5pt;
+}
+.pill-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-done   { background: #27ae60; }
+.dot-need   { background: #e6a817; }
+.dot-no     { background: #c0392b; }
+.dot-na     { background: #aaa; }
+.progress-total {
+  margin-left: auto;
+  font-size: 8.5pt;
+  color: #555;
+  font-weight: 600;
+}
+
+/* ── 섹션 ── */
+.section {
+  margin-bottom: 0;
+  page-break-inside: avoid;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 22px 8px;
+  border-bottom: 1px solid #e0e0ee;
+  background: #fff;
+  page-break-after: avoid;
+}
+.section-num {
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 8pt;
+  font-weight: 700;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-title-text {
+  font-size: 12pt;
+  font-weight: 800;
+  color: #1a1a2e;
+  flex: 1;
+}
+.section-badge {
+  font-size: 8pt;
+  padding: 2px 9px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.badge-warn  { background: #fff3cd; color: #8a5e00; border: 1px solid #f9c74f; }
+.badge-crit  { background: #fde8e8; color: #8a1a1a; border: 1px solid #f1aeb5; }
+.badge-info  { background: #e8eef8; color: #1a3a7a; border: 1px solid #b8ccf0; }
+.badge-ok    { background: #e8f5e9; color: #1a5a2a; border: 1px solid #90d4a0; }
+
+/* ── 체크 아이템 ── */
+.check-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.check-table td, .check-table th {
+  padding: 0;
+}
+/* 열 헤더 */
+.col-header {
+  background: #f4f6fa;
+  border-bottom: 1.5px solid #d8dcea;
+  font-size: 7.5pt;
+  font-weight: 700;
+  color: #555;
+  letter-spacing: 0.06em;
+  padding: 5px 8px;
+  text-align: left;
+}
+.col-cb  { width: 28px; }
+.col-item { /* flex */ }
+.col-priority { width: 50px; text-align: center; }
+.col-status { width: 72px; text-align: center; }
+.col-note { width: 140px; }
+
+/* 행 */
+.row-item {
+  border-bottom: 1px solid #e8e8f0;
+  transition: background 0.1s;
+}
+.row-item:nth-child(even) .cell-main { background: #fafafa; }
+.row-item:last-child { border-bottom: none; }
+
+.cell-cb {
+  width: 28px;
+  padding: 7px 6px 7px 22px;
+  vertical-align: top;
+}
+.checkbox {
+  width: 14px; height: 14px;
+  border: 1.5px solid #1a1a2e;
+  border-radius: 2px;
+  display: block;
+  margin-top: 1px;
+}
+.cell-main {
+  padding: 7px 8px;
+  vertical-align: top;
+}
+.item-name {
+  font-size: 9.5pt;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 2px;
+}
+.item-desc {
+  font-size: 8.5pt;
+  color: #555;
+  line-height: 1.55;
+}
+.item-link-field {
+  margin-top: 4px;
+  border-bottom: 1px solid #ccd;
+  font-size: 8pt;
+  color: #aaa;
+  padding-bottom: 1px;
+  min-width: 180px;
+  display: inline-block;
+}
+.item-link-field::before {
+  content: attr(data-label) ' ';
+  color: #888;
+  font-weight: 600;
+}
+.cell-priority {
+  width: 50px;
+  padding: 7px 4px;
+  text-align: center;
+  vertical-align: top;
+}
+.priority-chip {
+  display: inline-block;
+  font-size: 7.5pt;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+.p-must  { background: #c0392b; color: #fff; }
+.p-high  { background: #e6a817; color: #fff; }
+.p-mid   { background: #4a6fa5; color: #fff; }
+.p-low   { background: #aaa; color: #fff; }
+
+.cell-status {
+  width: 80px;
+  padding: 7px 4px;
+  text-align: center;
+  vertical-align: top;
+}
+.status-chip {
+  display: inline-block;
+  font-size: 7.5pt;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 8px;
+  border: 1px solid;
+}
+.s-done   { background: #e8f5e9; color: #1a5a2a; border-color: #90d4a0; }
+.s-need   { background: #fff3cd; color: #8a5e00; border-color: #f9c74f; }
+.s-no     { background: #fde8e8; color: #8a1a1a; border-color: #f1aeb5; }
+.s-check  { background: #e8eef8; color: #1a3a7a; border-color: #b8ccf0; }
+
+.cell-note {
+  width: 145px;
+  padding: 7px 8px 7px 4px;
+  vertical-align: top;
+}
+.note-line {
+  border-bottom: 1px solid #ccd;
+  height: 16px;
+  margin-bottom: 3px;
+}
+.note-label {
+  font-size: 7.5pt;
+  color: #bbb;
+  margin-bottom: 2px;
+}
+
+/* ── 섹션 구분선 ── */
+.section-divider {
+  height: 8px;
+  background: #f0f2f8;
+  border-top: 1px solid #dde;
+  border-bottom: 1px solid #dde;
+  margin: 0;
+}
+
+/* ── 인물 구조 카드 ── */
+.person-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px 22px;
+}
+.person-card {
+  border: 1.5px solid #dde;
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: #fff;
+}
+.person-card.confirmed { border-left: 4px solid #27ae60; }
+.person-card.unconfirmed { border-left: 4px solid #e6a817; }
+.person-role {
+  font-size: 8pt;
+  color: #888;
+  margin-bottom: 3px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.person-name {
+  font-size: 12pt;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+}
+.person-status {
+  font-size: 8pt;
+  font-weight: 700;
+  padding: 1px 8px;
+  border-radius: 10px;
+  display: inline-block;
+}
+.ps-confirmed  { background: #e8f5e9; color: #1a5a2a; }
+.ps-unconfirmed { background: #fff3cd; color: #8a5e00; }
+.person-note {
+  margin-top: 6px;
+  font-size: 8pt;
+  color: #555;
+  padding-top: 5px;
+  border-top: 1px solid #eee;
+  line-height: 1.55;
+}
+.person-fill {
+  margin-top: 6px;
+  border-bottom: 1px solid #ccd;
+  font-size: 8pt;
+  color: #ccc;
+  padding-bottom: 2px;
+}
+.person-fill::before { content: '확인값: '; color: #999; }
+
+/* ── 타임라인 ── */
+.timeline-area {
+  padding: 10px 22px;
+}
+.tl-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 7px;
+  align-items: flex-start;
+}
+.tl-time {
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 8.5pt;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 10px;
+  white-space: nowrap;
+  min-width: 70px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.tl-body {
+  flex: 1;
+  background: #f4f6fa;
+  border-radius: 5px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tl-goal { font-size: 10pt; font-weight: 700; color: #1a1a2e; flex: 1; }
+.tl-result { font-size: 8.5pt; color: #555; }
+.tl-cb-area { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+
+/* ── 포지셔닝 카드 ── */
+.positioning-area {
+  padding: 12px 22px;
+}
+.pos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.pos-card {
+  border-radius: 8px;
+  padding: 12px 14px;
+  border: 1.5px solid #dde;
+}
+.pos-card.fresh { border-top: 4px solid #27ae60; }
+.pos-card.value { border-top: 4px solid #4a6fa5; }
+.pos-card.cozy  { border-top: 4px solid #8a5a9a; }
+.pos-card-title {
+  font-size: 14pt;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.fresh .pos-card-title { color: #1a6a2a; }
+.value .pos-card-title { color: #1a3a7a; }
+.cozy  .pos-card-title { color: #5a2a7a; }
+.pos-card-desc {
+  font-size: 8.5pt;
+  color: #555;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+.pos-draft-box {
+  background: #f9f9fc;
+  border: 1px dashed #ccd;
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: 8pt;
+  color: #bbb;
+  min-height: 38px;
+}
+.pos-draft-box::before {
+  content: '문장 초안: ';
+  color: #aaa;
+  font-weight: 600;
+}
+
+/* ── 핵심 질문 ── */
+.q-area {
+  padding: 10px 22px;
+}
+.q-item {
+  display: flex;
+  gap: 10px;
+  padding: 7px 12px;
+  border-bottom: 1px dotted #dde;
+  align-items: flex-start;
+}
+.q-item:last-child { border-bottom: none; }
+.q-num {
+  background: #2e4a7a;
+  color: #fff;
+  font-size: 9pt;
+  font-weight: 700;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.q-text { font-size: 9.5pt; font-weight: 600; color: #1a1a2e; flex: 1; }
+.q-note { font-size: 8.5pt; color: #888; margin-top: 2px; }
+.q-answer-line {
+  width: 120px;
+  border-bottom: 1px solid #ccd;
+  font-size: 8pt;
+  color: #ccc;
+  padding-bottom: 2px;
+  text-align: center;
+  flex-shrink: 0;
+  align-self: center;
+}
+.q-answer-line::before { content: '확인: '; color: #bbb; }
+
+/* ── 산출물 체크 ── */
+.output-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 10px 22px;
+}
+.output-item {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  background: #f4f6fa;
+  border-radius: 5px;
+  padding: 7px 10px;
+}
+.output-item .checkbox { flex-shrink: 0; margin-top: 2px; }
+.output-name { font-size: 9.5pt; font-weight: 600; color: #1a1a2e; }
+.output-sub { font-size: 8pt; color: #777; margin-top: 1px; }
+
+/* ── 경고/안내 박스 ── */
+.alert-row {
+  background: #fff3cd;
+  border-left: 4px solid #e6a817;
+  padding: 8px 22px;
+  font-size: 9pt;
+  color: #6b4c00;
+  line-height: 1.7;
+}
+.principle-row {
+  background: #e8f0fa;
+  border-left: 4px solid #4a6fa5;
+  padding: 8px 22px;
+  font-size: 9pt;
+  color: #1a2a4a;
+  line-height: 1.7;
+}
+.danger-row {
+  background: #fde8e8;
+  border-left: 4px solid #c0392b;
+  padding: 8px 22px;
+  font-size: 9pt;
+  color: #6a1a1a;
+  line-height: 1.7;
+}
+
+/* ── 페이지 나누기 ── */
+.page-break { page-break-before: always; }
+
+/* ── 푸터 ── */
+.doc-footer {
+  border-top: 1.5px solid #1a1a2e;
+  padding: 8px 22px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 7.5pt;
+  color: #999;
+  margin-top: 12px;
+}
+
+/* ── 채널 링크 입력 박스 ── */
+.channel-input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 10px 22px;
+}
+.ch-input-item {
+  background: #f7f7fc;
+  border: 1px solid #dde;
+  border-radius: 5px;
+  padding: 8px 12px;
+}
+.ch-input-label {
+  font-size: 8pt;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 5px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #e0e0ee;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ch-status-dot { width: 8px; height: 8px; border-radius: 50%; }
+.ch-field {
+  font-size: 8pt;
+  color: #ccc;
+  border-bottom: 1px solid #ccd;
+  padding-bottom: 2px;
+  margin-bottom: 4px;
+  display: block;
+}
+.ch-field-label { color: #999; margin-right: 4px; font-weight: 600; }
+.ch-field-value { display: inline-block; min-width: 140px; }
+.ch-perm {
+  margin-top: 4px;
+  display: flex;
+  gap: 6px;
+  font-size: 8pt;
+}
+.ch-perm span { color: #888; }
+.ch-perm .perm-box {
+  border: 1px solid #ccd;
+  border-radius: 3px;
+  width: 12px; height: 12px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* ── 돌발상황 미니 ── */
+.contingency-mini {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  padding: 10px 22px;
+}
+.cont-item {
+  background: #f9f7fc;
+  border: 1px solid #e8e0f0;
+  border-left: 3px solid #5a3a7a;
+  border-radius: 4px;
+  padding: 7px 10px;
+}
+.cont-situation { font-size: 9pt; font-weight: 700; color: #3a1a5a; margin-bottom: 2px; }
+.cont-action { font-size: 8.5pt; color: #555; line-height: 1.5; }
+.cont-forbid { font-size: 8pt; color: #c0392b; margin-top: 3px; padding-top: 3px; border-top: 1px dotted #ddd; }
+.cont-forbid::before { content: '✗ 금지: '; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ 커버 헤더 ══════════════════ -->
+<div class="cover-header">
+  <div class="cover-header-top">
+    <div>
+      <div class="cover-badge">CONSULTANT INTERNAL · 2026-06-17 기준</div>
+      <div class="cover-title" style="margin-top:10px;">2회차 미팅 전<br>체크리스트</div>
+      <div class="cover-sub">이자카야 우규 역삼점 · 서울 강남구 테헤란로19길 19</div>
+    </div>
+    <div style="text-align:right;margin-top:8px;">
+      <div style="font-size:8.5pt;color:#8aaad8;margin-bottom:4px;">강남AI컨설팅</div>
+      <div style="font-size:10pt;font-weight:700;color:#fff;">권용준 · 손미현</div>
+      <div style="font-size:8pt;color:#8aaad8;margin-top:6px;line-height:1.7;">
+        신청자: 이명순<br>실제 점주: 임채성
+      </div>
+    </div>
+  </div>
+  <div class="cover-meta-row">
+    <div class="cover-meta-item"><strong>사용 목적</strong>2회차 현장 미팅 전 준비 완료 여부 점검</div>
+    <div class="cover-meta-item"><strong>사전 확보 목표</strong>14개 항목 · 5개 섹션 전체</div>
+    <div class="cover-meta-item"><strong>2회차 핵심 목표</strong>채널 정합성 · 리뷰 메시지화 · 포지셔닝 문장화</div>
+    <div class="cover-meta-item"><strong>원칙</strong>확인되지 않은 항목은 미확인 유지</div>
+  </div>
+</div>
+
+<!-- 진행 상황 범례 -->
+<div class="progress-bar-area">
+  <div class="progress-pill"><div class="pill-dot dot-done"></div>준비됨 (확보 완료)</div>
+  <div class="progress-pill"><div class="pill-dot dot-need"></div>준비 중 (일부 확인)</div>
+  <div class="progress-pill"><div class="pill-dot dot-no"></div>미확보 (즉시 필요)</div>
+  <div class="progress-pill"><div class="pill-dot dot-na"></div>현장 확인 (미팅 당일)</div>
+  <div class="progress-total">총 체크 항목: 47개 · 미팅 전 필수: 32개</div>
+</div>
+
+<!-- ══════════════════ SEC 1: 장비 및 출발 준비 ══════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div class="section-title-text">장비 및 출발 전 준비</div>
+    <div class="section-badge badge-crit">출발 전 필수</div>
+  </div>
+  <table class="check-table">
+    <tr>
+      <th class="col-header col-cb"></th>
+      <th class="col-header">항목</th>
+      <th class="col-header col-priority" style="text-align:center;">우선</th>
+      <th class="col-header col-status" style="text-align:center;">상태</th>
+      <th class="col-header col-note">메모</th>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">노트북 본체 + 충전기</div>
+        <div class="item-desc">배터리 100% 충전 확인 / 충전기 반드시 지참</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-need">준비중</div></td>
+      <td class="cell-note"><div class="note-label">메모</div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">휴대폰 배터리 + 핫스팟 설정</div>
+        <div class="item-desc">배터리 100% 확인 / 핫스팟 사전 테스트 권장</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-need">준비중</div></td>
+      <td class="cell-note"><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">필기도구 + 현장 메모 도구</div>
+        <div class="item-desc">볼펜 2개 이상 / 메모지 또는 태블릿 / 인터넷 불가 상황 대비</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-need">준비중</div></td>
+      <td class="cell-note"><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">사진·영상 촬영 장비</div>
+        <div class="item-desc">스마트폰 카메라 상태 확인 / 용량 여유 확보 / 추가 기기 필요 시 준비</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-high">높음</div></td>
+      <td class="cell-status"><div class="status-chip s-need">준비중</div></td>
+      <td class="cell-note"><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">파일 전송 수단 확인</div>
+        <div class="item-desc">에어드롭 · 카카오 · 케이블 등 파일 전송 방법 사전 테스트</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-mid">보통</div></td>
+      <td class="cell-status"><div class="status-chip s-need">준비중</div></td>
+      <td class="cell-note"><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">이 체크리스트 출력 또는 오프라인 열람 준비</div>
+        <div class="item-desc">현장에서 바로 꺼낼 수 있는 상태로 준비</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-high">높음</div></td>
+      <td class="cell-status"><div class="status-chip s-need">준비중</div></td>
+      <td class="cell-note"><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">미팅 장소·일정 최종 재확인</div>
+        <div class="item-desc">이자카야 우규 역삼점 — 서울 강남구 테헤란로19길 19 / 미팅 일시 이중 확인</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-need">준비중</div></td>
+      <td class="cell-note"><div class="note-label">일시</div><div class="note-line"></div></td>
+    </tr>
+  </table>
+
+  <div class="alert-row">
+    ⚠ <strong>동행자 역할 분담 확정:</strong> 질문 리딩 담당 __________  /  메모 담당 __________  /  채널 확인 병행 담당 __________
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════ SEC 2: 자료 확보 ══════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div class="section-title-text">사전 자료 확보 체크리스트 <span style="font-size:10pt;font-weight:400;color:#888;">(14개)</span></div>
+    <div class="section-badge badge-warn">미팅 전 확보 권장</div>
+  </div>
+  <table class="check-table">
+    <tr>
+      <th class="col-header col-cb"></th>
+      <th class="col-header">확보 항목</th>
+      <th class="col-header col-priority" style="text-align:center;">우선</th>
+      <th class="col-header col-status" style="text-align:center;">상태</th>
+      <th class="col-header col-note">링크 / 확인값</th>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">① 네이버 플레이스 링크</div>
+        <div class="item-desc">이자카야 우규 역삼점 공식 플레이스 페이지 URL 확보 · 정보 최신성 사전 확인</div>
+        <div class="item-link-field" data-label="링크"></div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">상호·주소 일치 여부</div><div class="note-line"></div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">② 인스타그램 링크 / 계정명</div>
+        <div class="item-desc">공식 계정 여부 확인 · 최근 게시물 상태 사전 파악</div>
+        <div class="item-link-field" data-label="@계정명"></div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">최근 게시일</div><div class="note-line"></div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">③ 메뉴판 최신본</div>
+        <div class="item-desc">현재 운영 중인 메뉴·가격 반영 최신 메뉴판 확보 (사진 또는 파일)</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">확보 방법</div><div class="note-line"></div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">④ 대표 메뉴 사진</div>
+        <div class="item-desc">연어 · 육회 · 한우 모츠나베 · 하이볼/사케 각 메뉴별 사진 확보 여부</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">확보 수량</div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">⑤ 주차 안내 문구 존재 여부</div>
+        <div class="item-desc">현재 채널(플레이스·인스타 등)에 주차 안내 문구가 있는지 사전 확인</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-high">높음</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">주차 가능 여부</div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">⑥ 리뷰 최근 반응 확인</div>
+        <div class="item-desc">네이버·구글·카카오맵 등 최근 3개월 리뷰 키워드 사전 파악</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">주요 키워드</div><div class="note-line"></div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">⑦ 예약/문의 동선 확인</div>
+        <div class="item-desc">예약은 어디서? 문의는 어디서? 주 유입 채널 사전 파악</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-high">높음</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">주 유입 채널</div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">⑧ 현장 촬영 가능 여부</div>
+        <div class="item-desc">점주 사전 동의 여부 확인 / 촬영 불가 시 대안 준비</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-high">높음</div></td>
+      <td class="cell-status"><div class="status-chip s-check">현장 확인</div></td>
+      <td class="cell-note"><div class="note-label">동의 여부</div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">⑨ 수정 권한 보유자 참석 여부</div>
+        <div class="item-desc">채널(플레이스·인스타·예약채널)을 즉시 수정할 수 있는 사람이 2회차에 참석하는지 사전 확인</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">참석자</div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">⑩ 가격표 최신성 확인</div>
+        <div class="item-desc">현재 운영 가격과 채널 표기 가격 일치 여부 / 최근 가격 변동 여부</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">최신 가격표</div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">⑪ 하이볼/사케 노출 상태</div>
+        <div class="item-desc">채널(플레이스·인스타)에서 하이볼/사케가 현재 어떻게 노출되고 있는지 사전 파악</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-high">높음</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">현재 노출</div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">⑫ 연어·육회·한우 모츠나베 노출 상태</div>
+        <div class="item-desc">각 메뉴가 채널에서 어떤 순서로 노출되고 있는지 사진·설명 상태 파악</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">노출 순서</div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">⑬ 리뷰 답변 주체 확인</div>
+        <div class="item-desc">현재 리뷰 답변을 누가 하는지 · 답변 톤/빈도 사전 파악</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-high">높음</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">답변 담당자</div><div class="note-line"></div></td>
+    </tr>
+    <tr class="row-item">
+      <td class="cell-cb"><div class="checkbox"></div></td>
+      <td class="cell-main">
+        <div class="item-name">⑭ 현장 미팅 참석자 이름·역할 사전 확인</div>
+        <div class="item-desc">2회차 참석 예정자 목록 확보 · 임채성 점주 직접 참석 여부 확인</div>
+      </td>
+      <td class="cell-priority"><div class="priority-chip p-must">필수</div></td>
+      <td class="cell-status"><div class="status-chip s-no">미확보</div></td>
+      <td class="cell-note"><div class="note-label">참석자 목록</div><div class="note-line"></div><div class="note-line"></div></td>
+    </tr>
+  </table>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════ SEC 3: 채널별 링크 입력 ══════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div class="section-title-text">채널별 링크·권한 사전 점검 시트</div>
+    <div class="section-badge badge-warn">미팅 전 작성</div>
+  </div>
+  <div class="channel-input-grid">
+    <div class="ch-input-item">
+      <div class="ch-input-label">
+        <div class="ch-status-dot" style="background:#e6a817;"></div>
+        네이버 플레이스
+      </div>
+      <span class="ch-field"><span class="ch-field-label">링크</span><span class="ch-field-value">_____________________________________</span></span>
+      <span class="ch-field"><span class="ch-field-label">관리자</span><span class="ch-field-value">_________________________</span></span>
+      <span class="ch-field"><span class="ch-field-label">정보 최신성</span><span class="ch-field-value">상호 □ 주소 □ 연락처 □ 영업시간 □</span></span>
+      <div class="ch-perm">
+        <span>수정 권한:</span>
+        <div class="perm-box"></div><span>직접 가능</span>
+        <div class="perm-box"></div><span>승인 필요</span>
+        <div class="perm-box"></div><span>불가</span>
+      </div>
+    </div>
+    <div class="ch-input-item">
+      <div class="ch-input-label">
+        <div class="ch-status-dot" style="background:#e6a817;"></div>
+        인스타그램
+      </div>
+      <span class="ch-field"><span class="ch-field-label">@계정</span><span class="ch-field-value">_____________________________________</span></span>
+      <span class="ch-field"><span class="ch-field-label">운영 주체</span><span class="ch-field-value">_________________________</span></span>
+      <span class="ch-field"><span class="ch-field-label">최근 게시물</span><span class="ch-field-value">______일 전 / 팔로워 ________명</span></span>
+      <div class="ch-perm">
+        <span>수정 권한:</span>
+        <div class="perm-box"></div><span>직접 가능</span>
+        <div class="perm-box"></div><span>승인 필요</span>
+        <div class="perm-box"></div><span>불가</span>
+      </div>
+    </div>
+    <div class="ch-input-item">
+      <div class="ch-input-label">
+        <div class="ch-status-dot" style="background:#e6a817;"></div>
+        예약채널
+      </div>
+      <span class="ch-field"><span class="ch-field-label">플랫폼명</span><span class="ch-field-value">네이버예약 □ 카카오 □ 전화 □ 기타 ____</span></span>
+      <span class="ch-field"><span class="ch-field-label">관리자</span><span class="ch-field-value">_________________________</span></span>
+      <span class="ch-field"><span class="ch-field-label">유입 비중</span><span class="ch-field-value">약 _____ %</span></span>
+      <div class="ch-perm">
+        <span>수정 권한:</span>
+        <div class="perm-box"></div><span>직접 가능</span>
+        <div class="perm-box"></div><span>승인 필요</span>
+        <div class="perm-box"></div><span>불가</span>
+      </div>
+    </div>
+    <div class="ch-input-item">
+      <div class="ch-input-label">
+        <div class="ch-status-dot" style="background:#e6a817;"></div>
+        카카오채널 / 메신저 문의
+      </div>
+      <span class="ch-field"><span class="ch-field-label">채널명</span><span class="ch-field-value">_____________________________________</span></span>
+      <span class="ch-field"><span class="ch-field-label">응답 담당</span><span class="ch-field-value">_________________________</span></span>
+      <span class="ch-field"><span class="ch-field-label">평균 응답속도</span><span class="ch-field-value">약 _______분</span></span>
+      <div class="ch-perm">
+        <span>수정 권한:</span>
+        <div class="perm-box"></div><span>직접 가능</span>
+        <div class="perm-box"></div><span>승인 필요</span>
+        <div class="perm-box"></div><span>불가</span>
+      </div>
+    </div>
+  </div>
+  <div class="principle-row">
+    📌 <strong>원칙:</strong> "채널이 존재한다"와 "점포가 직접 수정할 수 있다"는 다르다 — 반드시 분리해서 기록한다.
+    링크 확인만으로 관리자 권한 확보로 간주하지 않는다.
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE BREAK ══════════════════ -->
+<div class="page-break"></div>
+
+<!-- ══════════════════ SEC 4: 이해관계자 구조 ══════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div class="section-title-text">이해관계자 구조 — 2회차 확인 대상</div>
+    <div class="section-badge badge-crit">핵심: 누가 실제로 바꿀 수 있는가</div>
+  </div>
+  <div class="person-grid">
+    <div class="person-card confirmed">
+      <div class="person-role">컨설팅 신청자</div>
+      <div class="person-name">이명순</div>
+      <div class="person-status ps-confirmed">✓ 확정</div>
+      <div class="person-note">일정 조율·초기 커뮤니케이션 주체<br>실제 운영 개입 범위 → 2회차 확인</div>
+    </div>
+    <div class="person-card confirmed">
+      <div class="person-role">실제 점주</div>
+      <div class="person-name">임채성</div>
+      <div class="person-status ps-confirmed">✓ 확정</div>
+      <div class="person-note">현장 실행·최종 운영 판단 핵심 주체<br>수정 가능 범위·우선순위 → 2회차 확인</div>
+    </div>
+    <div class="person-card unconfirmed">
+      <div class="person-role">승인권자</div>
+      <div class="person-name" style="color:#888;">미확인</div>
+      <div class="person-status ps-unconfirmed">⚠ 확인 필요</div>
+      <div class="person-note">소개문·사진·프로모션·채널 수정 승인</div>
+      <div class="person-fill">_______________________</div>
+    </div>
+    <div class="person-card unconfirmed">
+      <div class="person-role">비용 결재권자</div>
+      <div class="person-name" style="color:#888;">미확인</div>
+      <div class="person-status ps-unconfirmed">⚠ 확인 필요</div>
+      <div class="person-note">유료 촬영·광고·디자인 집행 결정</div>
+      <div class="person-fill">_______________________</div>
+    </div>
+    <div class="person-card unconfirmed">
+      <div class="person-role">실무 담당자</div>
+      <div class="person-name" style="color:#888;">미확인</div>
+      <div class="person-status ps-unconfirmed">⚠ 확인 필요</div>
+      <div class="person-note">자료 전달·채널 수정·사진 수집 담당</div>
+      <div class="person-fill">_______________________</div>
+    </div>
+    <div class="person-card unconfirmed">
+      <div class="person-role">채널 관리자</div>
+      <div class="person-name" style="color:#888;">미확인</div>
+      <div class="person-status ps-unconfirmed">⚠ 확인 필요</div>
+      <div class="person-note">네이버/인스타/예약채널 관리 주체</div>
+      <div class="person-fill">_______________________</div>
+    </div>
+  </div>
+  <div class="danger-row">
+    ⛔ <strong>이명순(신청자) ≠ 임채성(점주)</strong> — 반드시 분리 유지. "누가 말하느냐"보다 "누가 실제로 바꿀 수 있느냐"가 2회차 핵심 파악 목표다.
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════ SEC 5: 미팅 전 핵심 질문 ══════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div class="section-title-text">미팅 전 사전 확인 핵심 질문 4가지</div>
+    <div class="section-badge badge-info">도착 전 연락으로 사전 확인 권장</div>
+  </div>
+  <div class="q-area">
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div style="flex:1;">
+        <div class="q-text">오늘 채널 수정 권한을 가진 분이 미팅에 참석하시나요?</div>
+        <div class="q-note">→ 플레이스·인스타·예약채널을 직접 수정할 수 있는 사람이 있어야 즉시 실행 가능</div>
+      </div>
+      <div class="q-answer-line">___________</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div style="flex:1;">
+        <div class="q-text">현재 메뉴판과 실제 판매 메뉴가 일치하나요?</div>
+        <div class="q-note">→ 메뉴판 최신본을 미리 보내주시면 사전에 파악하고 올 수 있습니다</div>
+      </div>
+      <div class="q-answer-line">___________</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div style="flex:1;">
+        <div class="q-text">최근 고객이 가장 많이 찾는 메뉴는 무엇인가요?</div>
+        <div class="q-note">→ 연어·육회·한우 모츠나베·하이볼 중 체감 1순위 파악</div>
+      </div>
+      <div class="q-answer-line">___________</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div style="flex:1;">
+        <div class="q-text">주차 관련 문의가 실제로 자주 들어오나요?</div>
+        <div class="q-note">→ 주차 안내 문구 준비 여부 판단 기준</div>
+      </div>
+      <div class="q-answer-line">___________</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════ SEC 6: 포지셔닝 준비 ══════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <div class="section-title-text">포지셔닝 초안 사전 준비 — Fresh × Value × Cozy</div>
+    <div class="section-badge badge-info">2회차에서 문장화할 핵심 프레임</div>
+  </div>
+  <div class="positioning-area">
+    <div class="pos-grid">
+      <div class="pos-card fresh">
+        <div class="pos-card-title">Fresh</div>
+        <div class="pos-card-desc">연어·육회·모츠나베·주류 구성을 통해<br>고객이 느끼는 신선함·활기 표현</div>
+        <div class="pos-draft-box">________________________________________________________________________________________</div>
+        <div style="margin-top:6px;font-size:8pt;color:#888;">확인 포인트: 실제 고객이 신선함을 어떻게 느끼는지</div>
+      </div>
+      <div class="pos-card value">
+        <div class="pos-card-title">Value</div>
+        <div class="pos-card-desc">가격 대비 만족감·구성 대비 인식<br>"작은 양" 인식 보완 필요</div>
+        <div class="pos-draft-box">________________________________________________________________________________________</div>
+        <div style="margin-top:6px;font-size:8pt;color:#888;">확인 포인트: 작은 양 인식과 충돌 여부</div>
+      </div>
+      <div class="pos-card cozy">
+        <div class="pos-card-title">Cozy</div>
+        <div class="pos-card-desc">분위기·데이트·모임 수요와 연결<br>고객이 편안함/아늑함을 느끼는 포인트</div>
+        <div class="pos-draft-box">________________________________________________________________________________________</div>
+        <div style="margin-top:6px;font-size:8pt;color:#888;">확인 포인트: 좌석·분위기·조명 등 실제 요소</div>
+      </div>
+    </div>
+    <div style="background:#f0f3fa;border-radius:6px;padding:10px 14px;font-size:8.5pt;color:#333;line-height:1.7;">
+      <strong style="color:#1a1a2e;">리뷰 강점 핵심 3가지 사전 메모</strong><br>
+      <span style="color:#888;">맛 강점 — 어떤 메뉴가 맛 언급과 가장 강하게 연결되는가?</span><br>
+      <span style="display:inline-block;border-bottom:1px solid #ccd;min-width:320px;padding-bottom:2px;margin-bottom:4px;"></span><br>
+      <span style="color:#888;">분위기 강점 — 고객이 말하는 분위기의 실제 의미는?</span><br>
+      <span style="display:inline-block;border-bottom:1px solid #ccd;min-width:320px;padding-bottom:2px;margin-bottom:4px;"></span><br>
+      <span style="color:#888;">친절 강점 — 어떤 응대 경험이 "친절"로 해석되는가?</span><br>
+      <span style="display:inline-block;border-bottom:1px solid #ccd;min-width:320px;padding-bottom:2px;"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE BREAK ══════════════════ -->
+<div class="page-break"></div>
+
+<!-- ══════════════════ SEC 7: 당일 타임라인 숙지 ══════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <div class="section-title-text">당일 90분 타임라인 — 미팅 전 숙지</div>
+    <div class="section-badge badge-ok">진행 순서 확인용</div>
+  </div>
+  <div class="timeline-area">
+    <div class="tl-row">
+      <div class="tl-time">0~10분</div>
+      <div class="tl-body">
+        <div>
+          <div class="tl-goal">1회차 복기 및 오늘 목표 정렬</div>
+          <div class="tl-result">확보 결과: 2회차 우선순위 합의, 오늘 목표 메모</div>
+        </div>
+        <div class="tl-cb-area"><div class="checkbox"></div><span style="font-size:8pt;color:#888;">준비됨</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">10~25분</div>
+      <div class="tl-body">
+        <div>
+          <div class="tl-goal">채널/권한 확인</div>
+          <div class="tl-result">확보 결과: 채널 권한 구조표, 수정 가능 범위 메모</div>
+        </div>
+        <div class="tl-cb-area"><div class="checkbox"></div><span style="font-size:8pt;color:#888;">준비됨</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">25~40분</div>
+      <div class="tl-body">
+        <div>
+          <div class="tl-goal">리뷰/포지셔닝 점검</div>
+          <div class="tl-result">확보 결과: 리뷰 강점 정리, 포지셔닝 문장 초안</div>
+        </div>
+        <div class="tl-cb-area"><div class="checkbox"></div><span style="font-size:8pt;color:#888;">준비됨</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">40~55분</div>
+      <div class="tl-body">
+        <div>
+          <div class="tl-goal">메뉴/현장 운영 점검</div>
+          <div class="tl-result">확보 결과: 메뉴 노출 우선순위안, 운영 보완 포인트</div>
+        </div>
+        <div class="tl-cb-area"><div class="checkbox"></div><span style="font-size:8pt;color:#888;">준비됨</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">55~70분</div>
+      <div class="tl-body">
+        <div>
+          <div class="tl-goal">즉시 실행 항목 정리</div>
+          <div class="tl-result">확보 결과: 즉시 실행 가능 항목 목록</div>
+        </div>
+        <div class="tl-cb-area"><div class="checkbox"></div><span style="font-size:8pt;color:#888;">준비됨</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">70~80분</div>
+      <div class="tl-body">
+        <div>
+          <div class="tl-goal">승인 필요 항목 분리</div>
+          <div class="tl-result">확보 결과: 승인 필요 항목 목록 (가격·소개문·사진·광고·채널 등)</div>
+        </div>
+        <div class="tl-cb-area"><div class="checkbox"></div><span style="font-size:8pt;color:#888;">준비됨</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">80~90분</div>
+      <div class="tl-body">
+        <div>
+          <div class="tl-goal">후속 과제 및 3회차 연결</div>
+          <div class="tl-result">확보 결과: 다음 요청자료, 3회차 연결 메모, 숙제 목록</div>
+        </div>
+        <div class="tl-cb-area"><div class="checkbox"></div><span style="font-size:8pt;color:#888;">준비됨</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="principle-row" style="margin:0 0 0 0;">
+    💡 <strong>일정 지연 시 우선순위:</strong> 기준값 잠금 → 사람 구조 → 권한 구조 → 채널 구조 → 메뉴/포지셔닝 순서로 압축 진행
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════ SEC 8: 돌발 상황 대응 ══════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <div class="section-title-text">돌발 상황 대응 프로토콜 — 사전 숙지</div>
+    <div class="section-badge badge-crit">현장에서 즉시 적용</div>
+  </div>
+  <div class="contingency-mini">
+    <div class="cont-item">
+      <div class="cont-situation">채널 로그인 불가</div>
+      <div class="cont-action">로그인 복구에 매몰되지 말고 관리자 주체·계정 소유권·후속 요청자료를 정리한다</div>
+      <div class="cont-forbid">현장 시간을 비밀번호 복구에 과도하게 소모하지 않는다</div>
+    </div>
+    <div class="cont-item">
+      <div class="cont-situation">승인권자 부재</div>
+      <div class="cont-action">즉시 실행안과 승인 필요 항목을 분리하여 정리한다</div>
+      <div class="cont-forbid">"오늘 바로 진행 가능"이라고 단정하지 않는다</div>
+    </div>
+    <div class="cont-item">
+      <div class="cont-situation">가격표 미지참</div>
+      <div class="cont-action">구두 확인은 임시 메모로만 남기고, 최종 가격표는 후속 자료 요청으로 분리한다</div>
+      <div class="cont-forbid">구두 가격을 최종 확정값처럼 사용하지 않는다</div>
+    </div>
+    <div class="cont-item">
+      <div class="cont-situation">촬영 거부</div>
+      <div class="cont-action">촬영 없이도 구조 확인 중심으로 진행하고, 촬영은 후속 승인 항목으로 남긴다</div>
+      <div class="cont-forbid">무리하게 촬영을 요청하거나 강행하지 않는다</div>
+    </div>
+    <div class="cont-item">
+      <div class="cont-situation">임채성 점주 불참</div>
+      <div class="cont-action">참석자의 역할만 먼저 분리하고, 점주 확인 세션 또는 후속 연락 일정을 잡는다</div>
+      <div class="cont-forbid">참석자를 실제 점주로 단정하거나 즉시 확정처럼 처리하지 않는다</div>
+    </div>
+    <div class="cont-item">
+      <div class="cont-situation">정책지원사업 질문 나올 경우</div>
+      <div class="cont-action">후보군 수준으로만 이야기하고, 공식 공고문 확보 전 판단 보류를 명확히 한다</div>
+      <div class="cont-forbid">지원 가능/불가·금액·선정 가능성을 단정하지 않는다</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════ SEC 9: 미팅 종료 전 반드시 남길 산출물 ══════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <div class="section-title-text">2회차 종료 전 반드시 확보할 산출물</div>
+    <div class="section-badge badge-crit">말로만 끝나면 실패</div>
+  </div>
+  <div class="output-grid">
+    <div class="output-item">
+      <div class="checkbox"></div>
+      <div><div class="output-name">확정 사실 목록</div><div class="output-sub">오늘 확인된 기준값 전체</div></div>
+    </div>
+    <div class="output-item">
+      <div class="checkbox"></div>
+      <div><div class="output-name">확인 필요 목록</div><div class="output-sub">끝까지 미확인 항목 별도 분리</div></div>
+    </div>
+    <div class="output-item">
+      <div class="checkbox"></div>
+      <div><div class="output-name">채널 수정안 초안</div><div class="output-sub">플레이스/인스타 기준값 정리표</div></div>
+    </div>
+    <div class="output-item">
+      <div class="checkbox"></div>
+      <div><div class="output-name">포지셔닝 문장 초안</div><div class="output-sub">Fresh × Value × Cozy 1차안</div></div>
+    </div>
+    <div class="output-item">
+      <div class="checkbox"></div>
+      <div><div class="output-name">메뉴 노출 우선순위안</div><div class="output-sub">연어·육회·모츠나베·주류 순서</div></div>
+    </div>
+    <div class="output-item">
+      <div class="checkbox"></div>
+      <div><div class="output-name">즉시 실행 항목 목록</div><div class="output-sub">권한 있는 채널 기준</div></div>
+    </div>
+    <div class="output-item">
+      <div class="checkbox"></div>
+      <div><div class="output-name">승인 필요 항목 목록</div><div class="output-sub">가격·사진·소개문·광고 등</div></div>
+    </div>
+    <div class="output-item">
+      <div class="checkbox"></div>
+      <div><div class="output-name">다음 요청자료 목록</div><div class="output-sub">업체 측이 보내줄 자료 목록화</div></div>
+    </div>
+    <div class="output-item">
+      <div class="checkbox"></div>
+      <div><div class="output-name">3회차 전 숙제 정리</div><div class="output-sub">업체 측·컨설턴트 측 각각</div></div>
+    </div>
+  </div>
+  <div class="danger-row">
+    ⛔ <strong>종료 전 최종 한 줄 점검:</strong> 오늘 대화가 말로만 끝나지 않고 <strong>문장·표·체크리스트로 남았는가?</strong> — YES 확인 후 종료
+  </div>
+</div>
+
+<!-- ══════════════════ 최종 실전 원칙 ══════════════════ -->
+<div class="section-divider"></div>
+<div style="background:#1a1a2e;color:#fff;padding:14px 22px;margin-top:0;">
+  <div style="font-size:11pt;font-weight:800;margin-bottom:10px;letter-spacing:0.03em;">2회차 실전 원칙 3가지 — 현장에서 반드시 지킨다</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+    <div style="background:rgba(255,255,255,0.08);border-radius:6px;padding:10px 12px;">
+      <div style="color:#8aaad8;font-size:8pt;font-weight:700;margin-bottom:4px;">원칙 1</div>
+      <div style="font-size:9.5pt;color:#ccd;line-height:1.6;">권한이 없으면 현장 확정으로 처리하지 않는다</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);border-radius:6px;padding:10px 12px;">
+      <div style="color:#8aaad8;font-size:8pt;font-weight:700;margin-bottom:4px;">원칙 2</div>
+      <div style="font-size:9.5pt;color:#ccd;line-height:1.6;">수정 가능 여부는 "채널 존재"가 아닌 "접근 권한" 기준으로 판단한다</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);border-radius:6px;padding:10px 12px;">
+      <div style="color:#8aaad8;font-size:8pt;font-weight:700;margin-bottom:4px;">원칙 3</div>
+      <div style="font-size:9.5pt;color:#ccd;line-height:1.6;">포지셔닝은 추상 문장으로 끝내지 않고 메뉴·사진·소개문에 연결한다</div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <span>강남AI컨설팅 · 권용준 · 손미현</span>
+  <span>이자카야 우규 역삼점 · 2회차 미팅 전 체크리스트 · 2026-06-17</span>
+  <span>CONFIDENTIAL — 컨설턴트 내부용</span>
+</div>
+
+</body>
+</html>
