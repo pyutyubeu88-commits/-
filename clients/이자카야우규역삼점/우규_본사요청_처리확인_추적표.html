@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이자카야 우규 역삼점 — 본사 요청·처리 확인 추적표</title>
+<style>
+@page { size: A4; margin: 13mm 13mm 15mm 13mm; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-size: 9.3pt;
+  color: #1a1a1a;
+  background: #fff;
+  line-height: 1.5;
+}
+
+/* ── 커버 헤더 ── */
+.cover-header {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 18px 22px 16px;
+  page-break-after: avoid;
+}
+.cover-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+.cover-badge {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 3px;
+  padding: 3px 10px;
+  font-size: 7.5pt;
+  letter-spacing: 0.12em;
+  color: #ccd;
+}
+.cover-title { font-size: 20pt; font-weight: 800; line-height: 1.2; margin-bottom: 6px; }
+.cover-sub { font-size: 10.5pt; color: #8aaad8; font-weight: 500; margin-bottom: 14px; }
+.cover-meta-row {
+  display: flex; gap: 26px; flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,0.15); padding-top: 12px;
+}
+.cover-meta-item { font-size: 8.5pt; color: #aabbdd; }
+.cover-meta-item strong {
+  color: #fff; font-size: 8pt; letter-spacing: 0.06em; display: block; margin-bottom: 1px;
+}
+
+/* ── 안내 박스 ── */
+.intro {
+  background: #fff8e6;
+  border-left: 4px solid #e6a817;
+  padding: 11px 18px;
+  margin: 0 0 4px;
+  font-size: 8.8pt;
+  color: #5a4a1a;
+}
+.intro strong { color: #1a1a2e; }
+
+/* ── 상태 범례 바 ── */
+.legend-bar {
+  background: #f0f3fa;
+  border-bottom: 2px solid #1a1a2e;
+  padding: 9px 22px;
+  display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+  page-break-after: avoid;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 8.2pt; }
+.lg-chip {
+  display: inline-block; padding: 2px 8px; border-radius: 3px;
+  font-size: 7.5pt; font-weight: 700; color: #fff;
+}
+.c-before { background: #aaa; }
+.c-sent   { background: #2e6fb0; }
+.c-doing  { background: #e6a817; }
+.c-done   { background: #27ae60; }
+.c-verify { background: #1a8a4a; }
+.legend-note { margin-left: auto; font-size: 8pt; color: #666; }
+
+/* ── 섹션 ── */
+.section { page-break-inside: avoid; margin-top: 14px; }
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 22px; border-bottom: 1px solid #1a1a2e;
+  page-break-after: avoid;
+}
+.sec-num {
+  background: #1a1a2e; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  font-size: 9pt; font-weight: 800; flex-shrink: 0;
+}
+.sec-title { font-size: 12pt; font-weight: 800; color: #1a1a2e; }
+.sec-tag {
+  margin-left: auto; font-size: 7.8pt; font-weight: 700;
+  padding: 2px 9px; border-radius: 3px;
+}
+.tag-hq { background: #fde8e8; color: #b03030; }
+.tag-self { background: #e6f4ec; color: #1a7a45; }
+
+/* ── 테이블 ── */
+table { width: 100%; border-collapse: collapse; margin: 8px 0 4px; font-size: 8.5pt; }
+th {
+  background: #2e4a7a; color: #fff; font-weight: 700;
+  padding: 6px 8px; text-align: left; font-size: 8pt; border: 1px solid #2e4a7a;
+}
+td { padding: 6px 8px; border: 1px solid #d5dae6; vertical-align: top; }
+tr:nth-child(even) td { background: #f7f9fc; }
+.col-no { width: 26px; text-align: center; color: #888; font-weight: 700; }
+.col-date { width: 58px; }
+.col-status { width: 60px; text-align: center; }
+.col-verify { width: 70px; text-align: center; }
+.fill {
+  display: inline-block; min-width: 44px; border-bottom: 1px solid #bbb;
+  height: 13px;
+}
+.req-item { font-weight: 700; color: #1a1a2e; }
+.req-desc { color: #555; font-size: 8.2pt; display: block; margin-top: 2px; }
+.box { display:inline-block; width: 12px; height: 12px; border: 1.4px solid #888; border-radius: 2px; vertical-align: middle; }
+
+/* ── 비용 추적 ── */
+.cost-box {
+  background: #f0f3fa; border: 1px solid #c5d0e6; border-radius: 5px;
+  padding: 12px 16px; margin: 8px 0;
+}
+.cost-title { font-weight: 800; color: #1a1a2e; font-size: 9.5pt; margin-bottom: 8px; }
+
+/* ── 점주 메모 ── */
+.memo {
+  border: 1px dashed #b5bdd0; border-radius: 5px; padding: 10px 14px; margin-top: 8px;
+  min-height: 52px; background: #fcfcfe;
+}
+.memo-label { font-size: 8pt; font-weight: 700; color: #2e4a7a; margin-bottom: 4px; }
+
+/* ── 푸터 ── */
+.footer {
+  margin-top: 18px; border-top: 2px solid #1a1a2e;
+  padding: 10px 22px; font-size: 7.8pt; color: #666;
+  display: flex; justify-content: space-between;
+}
+.footer strong { color: #1a1a2e; }
+.pagewrap { padding: 0 0; }
+.body-pad { padding: 0 0; }
+.note-line { font-size: 8.2pt; color: #777; padding: 2px 22px 0; }
+</style>
+</head>
+<body>
+
+<div class="cover-header">
+  <div class="cover-header-top">
+    <div class="cover-badge">본사 처리 항목 · 요청/검증 추적</div>
+    <div class="cover-badge">INTERNAL TRACKING</div>
+  </div>
+  <div class="cover-title">본사 요청·처리 확인 추적표</div>
+  <div class="cover-sub">이자카야 우규 역삼점 · 본사 경유 항목 누락 방지 관리 시트</div>
+  <div class="cover-meta-row">
+    <div class="cover-meta-item"><strong>대상 점포</strong>이자카야 우규 역삼점</div>
+    <div class="cover-meta-item"><strong>주소</strong>서울 강남구 테헤란로19길 19</div>
+    <div class="cover-meta-item"><strong>실점주 / 신청자</strong>임채성 / 이명순</div>
+    <div class="cover-meta-item"><strong>작성일</strong>2026. 06. 19</div>
+  </div>
+</div>
+
+<div class="intro">
+  본 시트는 <strong>본사가 처리하는 항목(네이버·다국어 메뉴 등)</strong>을 점포가 요청한 뒤,
+  <strong>요청 → 본사 처리 → 매장 반영 → 검증</strong>까지 누락 없이 추적하기 위한 관리 문서입니다.
+  네이버·다국어 메뉴는 점포가 직접 수정하는 것이 아니라 <strong>본사에 요청해야 처리되며</strong>,
+  비용(300만 원)은 본사가 받아 처리하는 구조이므로 <strong>처리 완료 여부를 반드시 확인</strong>해야 합니다.
+</div>
+
+<div class="legend-bar">
+  <div class="legend-item"><span class="lg-chip c-before">요청전</span></div>
+  <div class="legend-item"><span class="lg-chip c-sent">요청완료</span></div>
+  <div class="legend-item"><span class="lg-chip c-doing">처리중</span></div>
+  <div class="legend-item"><span class="lg-chip c-done">반영완료</span></div>
+  <div class="legend-item"><span class="lg-chip c-verify">검증완료</span></div>
+  <div class="legend-note">상태칸에 위 단계를 기입 · 검증칸은 매장에서 실제 확인 후 ✓</div>
+</div>
+
+<!-- 섹션 1: 네이버 -->
+<div class="section">
+  <div class="section-header">
+    <span class="sec-num">1</span>
+    <span class="sec-title">네이버 플레이스 정비 (본사 처리)</span>
+    <span class="sec-tag tag-hq">본사 경유 · 요청 필수</span>
+  </div>
+  <div class="note-line">점포가 직접 수정 불가. 아래 내용을 정리해 본사에 요청 → 본사 반영 후 매장에서 실제 노출 확인.</div>
+  <table>
+    <thead>
+      <tr>
+        <th class="col-no">No</th>
+        <th>요청 항목 / 요청 내용</th>
+        <th class="col-date">요청일</th>
+        <th class="col-status">처리상태</th>
+        <th class="col-verify">매장검증</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="col-no">1</td><td><span class="req-item">업체 소개문 수정</span><span class="req-desc">역삼 도보 5분 · 30~40대 직장인 · 퇴근 후 식사/한잔 · 연어·육회 중심 이자카야 키워드 반영</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">2</td><td><span class="req-item">대표 사진 교체/추가</span><span class="req-desc">외관·내부·대표메뉴(연어·육회)·좌석·분위기 — 점포 촬영본 전달</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">3</td><td><span class="req-item">메뉴 정보 갱신</span><span class="req-desc">메뉴명·가격·한 줄 설명 최신화 (점포 확정 메뉴판 기준)</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">4</td><td><span class="req-item">대표 메뉴 강조 설정</span><span class="req-desc">밀고 싶은 메뉴 5개 상단 노출 요청</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">5</td><td><span class="req-item">영업시간·휴무일 정정</span><span class="req-desc">실제 운영 기준과 일치하는지 확인 후 요청</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">6</td><td><span class="req-item">기타 정보 정정</span><span class="req-desc">전화번호·주소·편의시설·키워드 등 (필요 시 기입)</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 섹션 2: 다국어 메뉴 -->
+<div class="section">
+  <div class="section-header">
+    <span class="sec-num">2</span>
+    <span class="sec-title">다국어 메뉴 (본사 처리 · 수정 예정)</span>
+    <span class="sec-tag tag-hq">본사 경유 · 요청 필수</span>
+  </div>
+  <div class="note-line">점포 한글 메뉴 확정 → 본사에 다국어 반영 요청 → 본사 수정 후 각 채널 반영 확인.</div>
+  <table>
+    <thead>
+      <tr>
+        <th class="col-no">No</th>
+        <th>요청 항목 / 요청 내용</th>
+        <th class="col-date">요청일</th>
+        <th class="col-status">처리상태</th>
+        <th class="col-verify">매장검증</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="col-no">1</td><td><span class="req-item">한글 메뉴 기준 확정 전달</span><span class="req-desc">번역 기준이 될 최종 한글 메뉴판(메뉴명·가격·설명) 전달</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">2</td><td><span class="req-item">영문(EN) 메뉴 반영</span><span class="req-desc">메뉴명·한 줄 설명 영문화 요청 (외국인 검색·주문용)</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">3</td><td><span class="req-item">일문(JP) 메뉴 반영</span><span class="req-desc">이자카야 특성상 일본어 표기 우선순위 높음</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">4</td><td><span class="req-item">중문(CN) 메뉴 반영</span><span class="req-desc">중국어 메뉴명 표기 요청</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">5</td><td><span class="req-item">다국어 업체 소개문</span><span class="req-desc">외국인용 영문 소개문 본사 반영 요청</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">6</td><td><span class="req-item">채널별 반영 확인</span><span class="req-desc">다국어 메뉴가 네이버/구글맵 등 어디까지 반영되는지 확인</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 섹션 3: 비용 추적 -->
+<div class="section">
+  <div class="section-header">
+    <span class="sec-num">3</span>
+    <span class="sec-title">비용 처리 확인 (본사 수취)</span>
+    <span class="sec-tag tag-hq">300만 원 · 본사 비용</span>
+  </div>
+  <div class="cost-box">
+    <div class="cost-title">300만 원은 본사가 받아 처리하는 비용 — 점포 자유 집행 예산 아님</div>
+    <table>
+      <thead>
+        <tr><th class="col-no">No</th><th>확인 항목</th><th class="col-date">확인일</th><th class="col-verify">확인</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-no">1</td><td>본사가 300만 원으로 처리하는 <strong>항목 범위</strong>를 서면/메시지로 명확히 받았는가</td><td class="col-date"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+        <tr><td class="col-no">2</td><td>네이버 정비가 이 비용에 <strong>포함</strong>되는지 확인했는가</td><td class="col-date"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+        <tr><td class="col-no">3</td><td>다국어 메뉴 작업이 이 비용에 <strong>포함</strong>되는지 확인했는가</td><td class="col-date"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+        <tr><td class="col-no">4</td><td>비용 외 <strong>추가 청구 가능 항목</strong>이 있는지 사전 확인했는가</td><td class="col-date"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+        <tr><td class="col-no">5</td><td>처리 <strong>완료 기준·예상 소요 기간</strong>을 본사로부터 안내받았는가</td><td class="col-date"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 섹션 4: 점포 직접 항목 (대비) -->
+<div class="section">
+  <div class="section-header">
+    <span class="sec-num">4</span>
+    <span class="sec-title">점포 직접 처리 항목 (참고 · 본사 무관)</span>
+    <span class="sec-tag tag-self">점포 직접</span>
+  </div>
+  <div class="note-line">아래는 본사 요청 없이 점포가 직접 진행하는 항목. 본사 추적 대상과 혼동 방지용으로 함께 표기.</div>
+  <table>
+    <thead>
+      <tr><th class="col-no">No</th><th>항목 / 내용</th><th class="col-date">시작일</th><th class="col-status">진행상태</th><th class="col-verify">완료</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="col-no">1</td><td><span class="req-item">구글맵 등록 마무리</span><span class="req-desc">현재 기본 설정·인증 완료 → 등록 대기 상태. 등록 확정·정보 입력 마무리</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">2</td><td><span class="req-item">카카오맵 등록·정비</span><span class="req-desc">점포 직접 등록 가능</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">3</td><td><span class="req-item">티맵 등록·정비</span><span class="req-desc">점포 직접 등록 가능</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">4</td><td><span class="req-item">인스타·블로그 운영</span><span class="req-desc">점포 계정 직접 운영</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+      <tr><td class="col-no">5</td><td><span class="req-item">현장 홍보물·POP·포토존</span><span class="req-desc">개별 이벤트·현장 설치 직접 진행</span></td><td class="col-date"><span class="fill"></span></td><td class="col-status"><span class="fill"></span></td><td class="col-verify"><span class="box"></span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 섹션 5: 본사 소통 로그 -->
+<div class="section">
+  <div class="section-header">
+    <span class="sec-num">5</span>
+    <span class="sec-title">본사 소통 로그</span>
+    <span class="sec-tag tag-hq">요청·회신 기록</span>
+  </div>
+  <div class="note-line">본사와 주고받은 요청·회신을 날짜순으로 기록 (구두 약속 누락 방지).</div>
+  <table>
+    <thead>
+      <tr><th class="col-date">날짜</th><th>내용 (요청 / 본사 회신)</th><th class="col-verify">담당</th><th class="col-status">후속</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="col-date"><span class="fill"></span></td><td style="height:24px"></td><td class="col-verify"></td><td class="col-status"></td></tr>
+      <tr><td class="col-date"><span class="fill"></span></td><td style="height:24px"></td><td class="col-verify"></td><td class="col-status"></td></tr>
+      <tr><td class="col-date"><span class="fill"></span></td><td style="height:24px"></td><td class="col-verify"></td><td class="col-status"></td></tr>
+      <tr><td class="col-date"><span class="fill"></span></td><td style="height:24px"></td><td class="col-verify"></td><td class="col-status"></td></tr>
+      <tr><td class="col-date"><span class="fill"></span></td><td style="height:24px"></td><td class="col-verify"></td><td class="col-status"></td></tr>
+    </tbody>
+  </table>
+  <div class="memo">
+    <div class="memo-label">미해결·확인 필요 사항 메모</div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>강남AI컨설팅 · <strong>권용준 · 손미현</strong></div>
+  <div>이자카야 우규 역삼점 · 본사 요청·처리 확인 추적표 · 2026.06.19</div>
+</div>
+
+</body>
+</html>
