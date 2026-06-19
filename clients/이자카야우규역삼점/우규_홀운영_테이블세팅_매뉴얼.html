@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>우규 홀 운영 및 테이블 세팅 매뉴얼 v2</title>
+<style>
+@page { size: A4; margin: 9mm 10mm 9mm 10mm; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-size: 8.2pt;
+  color: #1a1a1a;
+  background: #fff;
+  line-height: 1.45;
+}
+
+/* ── 헤더 ── */
+.header {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 8px 14px 7px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 7px;
+}
+.h-title { font-size: 13.5pt; font-weight: 800; letter-spacing: -0.01em; }
+.h-sub { font-size: 8pt; color: #9ab; letter-spacing: 0.05em; }
+.h-ver { margin-left: auto; font-size: 7.5pt; background: rgba(255,255,255,0.18); border-radius: 3px; padding: 2px 8px; color: #ccd; letter-spacing: 0.08em; }
+
+/* ── 컬럼 레이아웃 ── */
+.row { display: flex; gap: 7px; margin-bottom: 7px; }
+.col-6 { flex: 1; }
+.col-5 { flex: 0 0 calc(50% - 3.5px); }
+
+/* ── 섹션 ── */
+.sec { border: 1.2px solid #d0d5e0; border-radius: 5px; overflow: hidden; height: 100%; }
+.sec-head {
+  background: #2e4a7a;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 9pt;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.sec-num {
+  background: rgba(255,255,255,0.25);
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 8pt; font-weight: 800; flex-shrink: 0;
+}
+.sec-body { padding: 6px 9px; }
+
+/* ── 사진 있는 섹션 내부 ── */
+.sec-inner { display: flex; gap: 8px; }
+.sec-content { flex: 1; }
+.photo-box {
+  flex: 0 0 62px;
+  border: 1px dashed #bbb;
+  border-radius: 4px;
+  background: #f5f6f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  color: #999;
+  font-size: 6.5pt;
+  text-align: center;
+  gap: 2px;
+}
+.photo-icon { font-size: 16pt; line-height: 1; }
+.photo-label { font-size: 6pt; color: #aaa; line-height: 1.3; }
+
+/* ── 리스트 ── */
+ol { list-style: none; counter-reset: item; }
+ol li {
+  counter-increment: item;
+  padding: 2.5px 0 2.5px 18px;
+  position: relative;
+  border-bottom: 1px dotted #e8e8ee;
+}
+ol li:last-child { border-bottom: none; }
+ol li::before {
+  content: counter(item) ".";
+  position: absolute; left: 0;
+  font-weight: 800; color: #2e4a7a;
+  font-size: 8pt;
+}
+.kw { color: #c0392b; font-weight: 800; }
+.kw2 { color: #d18700; font-weight: 700; }
+.ment {
+  display: inline-block;
+  background: #fff3e0;
+  border: 1px solid #f0a030;
+  border-radius: 3px;
+  padding: 0px 5px;
+  font-weight: 800;
+  color: #b05a00;
+  font-size: 8pt;
+}
+
+/* 소제목 */
+.sub-kw { font-weight: 800; color: #1a1a2e; }
+
+/* ── 서랍 세팅 그리드 ── */
+.drawer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  margin-bottom: 0;
+}
+.drawer-cell {
+  border: 1px solid #d0d5e0;
+  border-radius: 4px;
+  padding: 5px 7px;
+  background: #f9fafc;
+}
+.dc-head {
+  font-weight: 800;
+  color: #2e4a7a;
+  font-size: 8pt;
+  border-bottom: 1px solid #d0d5e0;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+}
+.dc-body { font-size: 8pt; color: #333; line-height: 1.4; }
+.dc-badge {
+  display: inline-block;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 6.5pt;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin-left: 3px;
+  vertical-align: middle;
+}
+
+/* ── 주의 배너 ── */
+.notice {
+  background: #fff8e6;
+  border: 1px solid #f0c040;
+  border-radius: 4px;
+  padding: 4px 9px;
+  font-size: 8pt;
+  color: #6a4a00;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.notice strong { color: #1a1a2e; }
+
+/* ── 푸터 ── */
+.footer {
+  border-top: 1.5px solid #1a1a2e;
+  padding: 5px 2px 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 7pt;
+  color: #888;
+  margin-top: 6px;
+}
+.footer strong { color: #1a1a2e; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="h-title">우규 홀 운영 및 테이블 세팅 매뉴얼</span>
+  <span class="h-sub">현장 사진 기반 표준 운영 방침 · 전 직원 공용</span>
+  <span class="h-ver">v2</span>
+</div>
+
+<!-- Row 1: 섹션 1 + 섹션 2 -->
+<div class="row">
+  <!-- 섹션 1 -->
+  <div class="col-6">
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">1</span>고객 맞이 및 인원별 기본 세팅</div>
+      <div class="sec-body">
+        <div class="sec-inner">
+          <div class="sec-content">
+            <ol>
+              <li><span class="sub-kw">입점 인사</span> 손님이 오시면 <span class="kw">전 직원이 큰 소리</span>와 함께 친절하게 맞이합니다.<br>
+              <span class="ment">"반갑습니다! 어서오세요!"</span></li>
+              <li><span class="sub-kw">인원 확인</span> 고객 방문 시 몇 분이신지 먼저 정중히 여쭤봅니다.</li>
+              <li><span class="sub-kw">세팅 변경</span> 기본은 <span class="kw2">2인 세팅</span>이 기준입니다.<br>
+              <span class="kw2">3인 고객 방문 시</span>: 기본 세팅에서 <span class="kw">컵 1개와 앞접시 1개</span>를 추가 제공합니다.</li>
+              <li><span class="sub-kw">기본 찬 출하</span> 테이블 인원 확인 및 조율 후, <span class="kw">물과 콩</span>을 기본 세팅으로 즉시 손님상에 나갑니다.</li>
+            </ol>
+          </div>
+          <div class="photo-box">
+            <div class="photo-icon">📷</div>
+            <div class="photo-label">기본 테이블<br>및 의자<br>정렬 상태</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 섹션 2 -->
+  <div class="col-6">
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">2</span>캐치테이블 및 고객 부름 응대</div>
+      <div class="sec-body">
+        <ol>
+          <li>매장 내에 캐치테이블 태블릿 시스템이 구비되어 있으나, 손님이 직접 말로 직원을 부르시는 경우도 항상 대비합니다.</li>
+          <li>손님이 부르시면 즉시 매장 어디서나 들릴 수 있도록 <span class="kw">큰 소리로 <span class="ment">"네!"</span></span> 하고 신속하게 답변합니다.</li>
+          <li>정중하고 정성스러운 느낌을 주도록 <span class="kw">빠른 걸음</span>으로 고객 테이블에 다가갑니다.</li>
+          <li>고객 앞에 도착하면 <span class="kw2">허리를 살짝 굽히며</span> 공손한 톤으로 <span class="ment">"필요하신 거 있으실까요?"</span>라고 여쭤본 후 신속하게 처리합니다.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Row 2: 섹션 3 + 섹션 4 -->
+<div class="row">
+  <!-- 섹션 3 -->
+  <div class="col-6">
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">3</span>퇴점 테이블 정리 및 상단 세팅</div>
+      <div class="sec-body">
+        <ol>
+          <li>손님이 다 드시고 가신 테이블은 즉시 식기류를 <span class="kw2">퇴점 카트</span>로 정리하고 깨끗하게 <span class="kw">알코올/행주</span>로 닦아냅니다.</li>
+          <li>다음 손님 배치를 위해 상단에 <span class="kw">컵 2개와 앞접시 2개</span>를 규격에 맞춰 정갈하게 먼저 세팅합니다.</li>
+          <li>서랍 내부의 집기류 세팅 상태를 다시 점검하여 채워 넣습니다.</li>
+          <li>마지막으로 테이블 주변의 <span class="kw">의자 정돈(안쪽으로 정렬)</span>을 바르게 하여 마무리를 짓습니다.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- 섹션 4 -->
+  <div class="col-6">
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">4</span>서랍 내 집기류 세팅 가이드 <span style="font-size:7.5pt;font-weight:500;opacity:0.85;">(실물 사진 기준)</span></div>
+      <div class="sec-body">
+        <div class="sec-inner">
+          <div class="sec-content">
+            <div style="font-size:7.5pt;color:#667;margin-bottom:4px;">※ 집기류 수납 서랍 구성 — 사진 배치 준수</div>
+            <div class="drawer-grid">
+              <div class="drawer-cell">
+                <div class="dc-head">왼쪽 상단 <span class="dc-badge">젓가락</span></div>
+                <div class="dc-body">젓가락을 <span class="kw2">가로 방향</span>으로 정갈하고 넉넉하게 정돈하여 채워둡니다.</div>
+              </div>
+              <div class="drawer-cell">
+                <div class="dc-head">오른쪽 상단 <span class="dc-badge">물티슈</span></div>
+                <div class="dc-body">물티슈를 정확히 <span class="kw">5개</span> 날개로 끌끔하게 겹쳐서 적재합니다.</div>
+              </div>
+              <div class="drawer-cell">
+                <div class="dc-head">왼쪽 하단 <span class="dc-badge">숟가락</span></div>
+                <div class="dc-body">숟가락 <span class="kw2">머리 방향</span>을 맞추어 정갈하게 포개어 세팅됩니다.</div>
+              </div>
+              <div class="drawer-cell">
+                <div class="dc-head">오른쪽 하단 <span class="dc-badge">티슈·병따개</span></div>
+                <div class="dc-body">티슈를 세팅하고, 그 위에 Cass 병따개를 <span class="kw">대각선 아래 방향</span>으로 가지런히 배치합니다.</div>
+              </div>
+            </div>
+          </div>
+          <div class="photo-box">
+            <div class="photo-icon">📷</div>
+            <div class="photo-label">수저 서랍<br>표준 세팅<br>모습</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="notice">
+  ⚠ <strong>전 직원 공통 기준</strong> — 위 4가지 기준은 모든 직원이 동일하게 적용합니다. 사장님 개인 판단이 아닌 <strong>이 매뉴얼 기준</strong>으로 통일합니다.
+  인원·시간대·담당자에 관계없이 <strong>동일한 품질의 세팅과 응대</strong>를 유지해 주세요.
+</div>
+
+<div class="footer">
+  <div>강남AI컨설팅 · <strong>권용준 · 손미현</strong></div>
+  <div>이자카야 우규 역삼점 · 홀 운영 및 테이블 세팅 매뉴얼 v2 · 2026.06.19</div>
+</div>
+
+</body>
+</html>
