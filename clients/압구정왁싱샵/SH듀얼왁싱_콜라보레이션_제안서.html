@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Collaboration Proposal — S&H Dual Waxing Apgujeong</title>
+<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', Georgia, serif;
+  font-size: 9.5pt;
+  color: #1a1a1a;
+  background: #fff;
+  line-height: 1.65;
+}
+
+:root {
+  --navy: #1a1a2e;
+  --rose: #8b2252;
+  --rose2: #f7eef2;
+  --rose3: #e2b0c4;
+  --rose4: #fdf6f9;
+  --nude: #f5ede8;
+  --gold: #c0902a;
+  --green: #1a5a38;
+  --gray: #888;
+  --light: #fafafa;
+}
+
+/* ══ 커버 ══ */
+.cover {
+  height: 297mm;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  page-break-after: always;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 180mm;
+  height: 180mm;
+  border-radius: 50%;
+  background: var(--rose);
+  opacity: 0.12;
+  transform: translate(40%, 40%);
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  top: -30mm;
+  left: -20mm;
+  width: 120mm;
+  height: 120mm;
+  border-radius: 50%;
+  background: var(--rose);
+  opacity: 0.08;
+}
+.cover-top-bar {
+  background: var(--rose);
+  padding: 9px 26px;
+  font-size: 8pt;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  z-index: 1;
+}
+.cover-body {
+  flex: 1;
+  padding: 44px 32px 36px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+.cover-eyebrow {
+  font-size: 8.5pt;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.cover-brand {
+  font-size: 30pt;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+.cover-brand span { color: var(--rose); }
+.cover-location {
+  font-size: 11pt;
+  color: rgba(255,255,255,0.65);
+  font-style: italic;
+  margin-bottom: 34px;
+}
+.cover-tagline {
+  font-size: 14pt;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.45;
+  max-width: 140mm;
+  margin-bottom: 40px;
+  border-left: 4px solid var(--rose);
+  padding-left: 14px;
+}
+.cover-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 44px;
+}
+.pill {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 8.5pt;
+  color: rgba(255,255,255,0.88);
+}
+.cover-info-row {
+  display: flex;
+  gap: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.14);
+  margin-top: auto;
+}
+.cir-item { }
+.cir-label {
+  font-size: 7pt;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.cir-val {
+  font-size: 9pt;
+  font-weight: 700;
+  color: #fff;
+}
+.cover-proof {
+  margin-bottom: 28px;
+}
+.proof-row {
+  display: flex;
+  gap: 0;
+}
+.proof-item {
+  flex: 1;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-right: none;
+  padding: 12px 16px;
+  text-align: center;
+}
+.proof-item:first-child { border-radius: 8px 0 0 8px; }
+.proof-item:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid rgba(255,255,255,0.16); }
+.proof-num {
+  font-size: 18pt;
+  font-weight: 900;
+  color: var(--rose);
+  line-height: 1;
+  margin-bottom: 3px;
+}
+.proof-label {
+  font-size: 7.5pt;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.35;
+}
+
+/* ══ 콘텐츠 페이지 ══ */
+.page {
+  min-height: 297mm;
+  padding: 20mm 18mm 18mm;
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+}
+.page:last-of-type { page-break-after: avoid; }
+
+/* ══ 섹션 헤더 ══ */
+.sec-h {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid var(--rose3);
+}
+.sec-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--rose);
+  color: #fff;
+  font-size: 10pt;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.sec-title { font-size: 13pt; font-weight: 800; color: var(--navy); }
+.sec-sub { font-size: 8.5pt; color: var(--gray); margin-left: 2px; }
+
+/* ══ 카드 ══ */
+.card {
+  border: 1px solid #e8d8e0;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  background: #fff;
+}
+.card-rose { border-left: 4px solid var(--rose); background: var(--rose4); }
+.card-gold { border-left: 4px solid var(--gold); background: #fdf8f0; }
+.card-green { border-left: 4px solid var(--green); background: #f0faf4; }
+
+/* ══ 서비스 그리드 ══ */
+.service-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.service-card {
+  border: 1.5px solid var(--rose3);
+  border-radius: 9px;
+  padding: 13px 15px;
+  background: var(--rose4);
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 30px; height: 30px;
+  background: var(--rose);
+  opacity: 0.08;
+  border-radius: 0 0 0 30px;
+}
+.sc-icon { font-size: 14pt; margin-bottom: 5px; }
+.sc-name { font-size: 9.5pt; font-weight: 800; color: var(--navy); margin-bottom: 3px; }
+.sc-desc { font-size: 8.3pt; color: #555; line-height: 1.5; }
+.sc-price {
+  margin-top: 6px;
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--rose);
+  background: rgba(139,34,82,0.08);
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* ══ 협찬 내용 ══ */
+.offer-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.offer-box {
+  border-radius: 10px;
+  padding: 16px 16px;
+}
+.ob-give { background: #edfaf3; border: 1.5px solid #8adbb6; }
+.ob-ask { background: var(--rose4); border: 1.5px solid var(--rose3); }
+.ob-head {
+  font-size: 8pt;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding-bottom: 7px;
+  border-bottom: 1.5px solid;
+}
+.ob-give .ob-head { color: var(--green); border-color: #8adbb6; }
+.ob-ask .ob-head { color: var(--rose); border-color: var(--rose3); }
+.ob-list { list-style: none; }
+.ob-list li {
+  padding: 4px 0 4px 18px;
+  position: relative;
+  font-size: 8.8pt;
+  line-height: 1.5;
+  border-bottom: 1px dotted rgba(0,0,0,0.08);
+}
+.ob-list li:last-child { border-bottom: none; }
+.ob-give .ob-list li::before { content: "✦"; position: absolute; left: 0; color: var(--green); font-size: 9pt; }
+.ob-ask .ob-list li::before { content: "✦"; position: absolute; left: 0; color: var(--rose); font-size: 9pt; }
+
+/* ══ 가이드라인 ══ */
+.guideline-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.gl-box {
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.gl-do { background: #edfaf3; border: 1px solid #8adbb6; }
+.gl-dont { background: #fff1f0; border: 1px solid #f5a0a0; }
+.gl-head {
+  font-size: 9pt;
+  font-weight: 800;
+  margin-bottom: 7px;
+}
+.gl-do .gl-head { color: var(--green); }
+.gl-dont .gl-head { color: #b01a1a; }
+.gl-list { list-style: none; }
+.gl-list li {
+  padding: 3px 0 3px 16px;
+  position: relative;
+  font-size: 8.3pt;
+  color: #333;
+  line-height: 1.48;
+}
+.gl-do .gl-list li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+.gl-dont .gl-list li::before { content: "✗"; position: absolute; left: 0; color: #b01a1a; font-weight: 800; }
+
+/* ══ 사이드바 레이아웃 ══ */
+.sidebar-layout {
+  display: grid;
+  grid-template-columns: 1fr 80mm;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.sidebar-box {
+  border: 1.5px solid var(--rose3);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.sb-head {
+  background: var(--rose);
+  color: #fff;
+  padding: 8px 14px;
+  font-size: 9.5pt;
+  font-weight: 800;
+}
+.sb-body { padding: 12px 14px; background: var(--rose4); }
+
+/* ══ 연락처 ══ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.contact-card {
+  border: 1.5px solid var(--rose3);
+  border-radius: 9px;
+  padding: 13px 15px;
+  background: var(--rose4);
+  text-align: center;
+}
+.cc-icon { font-size: 18pt; margin-bottom: 5px; }
+.cc-label { font-size: 8pt; color: var(--gray); letter-spacing: 0.08em; margin-bottom: 3px; }
+.cc-val { font-size: 9.5pt; font-weight: 700; color: var(--navy); }
+
+/* ══ 우리 이야기 블록 ══ */
+.story-block {
+  background: var(--navy);
+  color: #fff;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+.story-q {
+  font-size: 11pt;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.story-q span { color: var(--rose); }
+.story-a {
+  font-size: 8.8pt;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.7;
+}
+
+/* ══ 리뷰 인용 ══ */
+.review-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.review-card {
+  border: 1px solid var(--rose3);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: var(--rose4);
+  position: relative;
+}
+.review-card::before {
+  content: '"';
+  position: absolute;
+  top: 6px; left: 10px;
+  font-size: 28pt;
+  color: var(--rose3);
+  line-height: 1;
+  font-family: Georgia, serif;
+}
+.rv-text {
+  font-size: 8.3pt;
+  color: #333;
+  line-height: 1.58;
+  margin-top: 12px;
+  font-style: italic;
+}
+.rv-source {
+  margin-top: 6px;
+  font-size: 7.5pt;
+  color: var(--rose);
+  font-weight: 700;
+}
+
+/* ══ 타임라인 ══ */
+.timeline {
+  display: flex;
+  gap: 0;
+  margin-bottom: 14px;
+}
+.tl-item {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+.tl-item:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -10px;
+  top: 10px;
+  font-size: 13pt;
+  color: var(--rose);
+}
+.tl-circle {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--rose);
+  color: #fff;
+  font-size: 9pt;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 6px;
+}
+.tl-label { font-size: 8pt; font-weight: 700; color: var(--navy); }
+.tl-desc { font-size: 7.3pt; color: var(--gray); margin-top: 2px; line-height: 1.4; }
+
+/* ══ 배너 ══ */
+.banner-rose {
+  background: var(--rose2);
+  border: 1.5px solid var(--rose3);
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  font-size: 8.8pt;
+  color: #3a1020;
+  line-height: 1.6;
+}
+.banner-rose strong { color: var(--rose); }
+
+/* ══ 지도 안내 ══ */
+.map-box {
+  background: var(--nude);
+  border: 1.5px solid #d8c8be;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  font-size: 9pt;
+  color: #3a2a1a;
+  line-height: 1.7;
+}
+.map-box .map-label {
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+/* ══ 최종 CTA ══ */
+.cta-box {
+  background: var(--rose);
+  border-radius: 10px;
+  padding: 18px 22px;
+  text-align: center;
+  margin-top: auto;
+}
+.cta-t { font-size: 13pt; font-weight: 800; color: #fff; margin-bottom: 6px; }
+.cta-sub { font-size: 9pt; color: rgba(255,255,255,0.85); margin-bottom: 14px; line-height: 1.5; }
+.cta-contact {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 9pt;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ══ 푸터 ══ */
+.footer {
+  margin-top: 16px;
+  border-top: 1px solid var(--rose3);
+  padding-top: 7px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 7.5pt;
+  color: var(--gray);
+}
+.footer strong { color: var(--navy); }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════
+     COVER
+════════════════════════ -->
+<div class="cover">
+  <div class="cover-top-bar">Collaboration Proposal · Influencer Partnership · 2026</div>
+  <div class="cover-body">
+    <div class="cover-eyebrow">Apgujeong · Seoul · South Korea</div>
+    <div class="cover-brand">S&amp;H<br><span>Dual</span> Waxing</div>
+    <div class="cover-location">Premium Waxing Studio · Apgujeong Rodeo</div>
+    <div class="cover-tagline">
+      Your skin, your choice.<br>
+      Hard wax or sugaring — we let you decide<br>
+      what feels right for your body.
+    </div>
+
+    <div class="cover-proof">
+      <div class="proof-row">
+        <div class="proof-item">
+          <div class="proof-num">600+</div>
+          <div class="proof-label">Five-Star<br>Reviews</div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-num">2</div>
+          <div class="proof-label">Waxing<br>Methods</div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-num">14+</div>
+          <div class="proof-label">Months of<br>Excellence</div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-num">1</div>
+          <div class="proof-label">Korean<br>Media Feature</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-pills">
+      <div class="pill">Brazilian Waxing</div>
+      <div class="pill">Sugaring</div>
+      <div class="pill">Full-Body Waxing</div>
+      <div class="pill">Melanin Skin Care</div>
+      <div class="pill">Eyebrow Shaping</div>
+      <div class="pill">LED Regeneration</div>
+    </div>
+
+    <div class="cover-info-row">
+      <div class="cir-item">
+        <div class="cir-label">Instagram</div>
+        <div class="cir-val">@shdual_waxing</div>
+      </div>
+      <div class="cir-item">
+        <div class="cir-label">Location</div>
+        <div class="cir-val">Apgujeong-ro 46-gil 5-6, 4F</div>
+      </div>
+      <div class="cir-item">
+        <div class="cir-label">Contact</div>
+        <div class="cir-val">010-8187-6455</div>
+      </div>
+      <div class="cir-item">
+        <div class="cir-label">Prepared by</div>
+        <div class="cir-val">Gangnam AI Consulting</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════
+     PAGE 2 — About + Services
+════════════════════════ -->
+<div class="page">
+
+  <div class="sec-h">
+    <div class="sec-num">1</div>
+    <div>
+      <div class="sec-title">About S&amp;H Dual Waxing</div>
+      <div class="sec-sub">Who we are · What makes us different</div>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <div class="story-q">Why is it called <span>"Dual"</span> Waxing?</div>
+    <div class="story-a">
+      Most waxing studios offer one method and ask you to adapt to it. We believe your skin deserves better. S&H Dual Waxing is the only studio in Apgujeong where you choose between <strong>hard waxing</strong> (firm, fast, ideal for sensitive skin) and <strong>sugaring</strong> (natural sugar paste, gentler on delicate areas) — based on what works for <em>your</em> skin, not ours. This is what our clients love most, and what keeps them coming back.
+    </div>
+  </div>
+
+  <div class="review-grid">
+    <div class="review-card">
+      <div class="rv-text">압구정왁싱 찾다가 방문한 S&amp;H듀얼왁싱 압구정점 슈가링 왁싱은 처음이라 조금 긴장했는데 생각보다 자극이 훨씬 덜하고 피부 부담이 적어서 만족스러웠어요</div>
+      <div class="rv-source">⭐⭐⭐⭐⭐ Naver Review · May 2026</div>
+    </div>
+    <div class="review-card">
+      <div class="rv-text">단 한번의 멜라닌 관리만으로는 큰 착색개선효과 바랄 순 없겠지만, 관리 전보다 확실히 거뭇함도 살짝 옅어지는 느낌이에요. 다음에 또 올게요!</div>
+      <div class="rv-source">⭐⭐⭐⭐⭐ Naver Review · May 2026</div>
+    </div>
+  </div>
+
+  <div class="sec-h" style="margin-top:18px;">
+    <div class="sec-num">2</div>
+    <div>
+      <div class="sec-title">Services Available for Collaboration</div>
+      <div class="sec-sub">Choose one complimentary service — or we can curate a package for your content</div>
+    </div>
+  </div>
+
+  <div class="service-grid">
+    <div class="service-card">
+      <div class="sc-icon">🌿</div>
+      <div class="sc-name">Brazilian Waxing</div>
+      <div class="sc-desc">Our signature service. Choose hard wax or sugaring — whichever feels right for your skin. Fast, precise, minimal discomfort.</div>
+      <div class="sc-price">From ₩49,000 (women's first visit)</div>
+    </div>
+    <div class="service-card">
+      <div class="sc-icon">✨</div>
+      <div class="sc-name">Full-Body Waxing</div>
+      <div class="sc-desc">Head-to-toe smooth. Popular for body profile photoshoots (바디프로필). Event / seasonal special pricing available.</div>
+      <div class="sc-price">From ₩180,000 (event pricing)</div>
+    </div>
+    <div class="service-card">
+      <div class="sc-icon">👁</div>
+      <div class="sc-name">Eyebrow &amp; Face Waxing</div>
+      <div class="sc-desc">Eyebrow shaping, hairline waxing, highlighter waxing (nose + brow or nose + eye area). Quick, precise, visible results.</div>
+      <div class="sc-price">From ₩22,000</div>
+    </div>
+    <div class="service-card">
+      <div class="sc-icon">🔬</div>
+      <div class="sc-name">Melanin Care + LED Treatment</div>
+      <div class="sc-desc">Our most unique offering in Korea. Targets hyperpigmentation, skin darkening, and ingrown hair aftermath. Not available at typical waxing studios.</div>
+      <div class="sc-price">Consultation-based pricing</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>S&amp;H Dual Waxing · Apgujeong, Seoul</div>
+    <div>Collaboration Proposal · 2026 · Page 2</div>
+  </div>
+</div>
+
+<!-- ════════════════════════
+     PAGE 3 — Offer + Guidelines
+════════════════════════ -->
+<div class="page">
+
+  <div class="sec-h">
+    <div class="sec-num">3</div>
+    <div>
+      <div class="sec-title">The Collaboration Offer</div>
+      <div class="sec-sub">What we provide · What we hope for in return</div>
+    </div>
+  </div>
+
+  <div class="offer-split">
+    <div class="offer-box ob-give">
+      <div class="ob-head">WHAT WE OFFER YOU</div>
+      <ul class="ob-list">
+        <li><strong>1 complimentary session</strong> of your choice (full value)</li>
+        <li>Hard wax <em>or</em> sugaring — you decide which method</li>
+        <li>Private, comfortable treatment room</li>
+        <li>Free underground parking (1 hour)</li>
+        <li>English-friendly communication</li>
+        <li>Flexible scheduling to fit your calendar</li>
+        <li>Warm welcome + no rush — take your time</li>
+      </ul>
+    </div>
+    <div class="offer-box ob-ask">
+      <div class="ob-head">WHAT WE HOPE FOR IN RETURN</div>
+      <ul class="ob-list">
+        <li><strong>1 honest Instagram Reel or Story</strong> about your experience</li>
+        <li>Tag <strong>@shdual_waxing</strong> in your post</li>
+        <li>Use hashtag <strong>#shdualwaxing</strong></li>
+        <li>No script — your genuine thoughts only</li>
+        <li>Posted within 2 weeks of your visit</li>
+        <li>No minimum view / like requirements</li>
+        <li>Sharing with your audience, not ours 💛</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-h" style="margin-top:16px;">
+    <div class="sec-num">4</div>
+    <div>
+      <div class="sec-title">Content Guidelines</div>
+      <div class="sec-sub">Simple guidelines to keep things comfortable for everyone</div>
+    </div>
+  </div>
+
+  <div class="guideline-grid">
+    <div class="gl-box gl-do">
+      <div class="gl-head">✅ Feel free to share</div>
+      <ul class="gl-list">
+        <li>Your overall experience &amp; honest impressions</li>
+        <li>The studio atmosphere, decor, cleanliness</li>
+        <li>Eyebrow / face waxing before &amp; after results</li>
+        <li>Your thoughts on hard wax vs. sugaring</li>
+        <li>Melanin care / skin treatment results (arms, legs, etc.)</li>
+        <li>Travel content: "Beauty studio in Apgujeong Seoul"</li>
+        <li>Any text, voiceover, or B-roll inside the studio</li>
+      </ul>
+    </div>
+    <div class="gl-box gl-dont">
+      <div class="gl-head">🚫 Please avoid</div>
+      <ul class="gl-list">
+        <li>Filming or showing intimate waxing areas</li>
+        <li>Sharing other clients' images without consent</li>
+        <li>Content that misrepresents the service or pricing</li>
+        <li>Using our studio name alongside competitor brands</li>
+        <li>Editing out our tag / handle after posting</li>
+        <li>Posting content that could be flagged by Instagram's policies</li>
+        <li>Sharing internal areas not approved by our team</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="banner-rose">
+    <strong>Content angle idea:</strong> "I tried Apgujeong's only dual-method waxing studio in Seoul 🇰🇷" — This framing works perfectly for travel, K-beauty, and lifestyle audiences. No pressure to use it, but it's a strong hook!
+  </div>
+
+  <div class="sec-h" style="margin-top:16px;">
+    <div class="sec-num">5</div>
+    <div>
+      <div class="sec-title">How It Works</div>
+      <div class="sec-sub">From DM to posting — simple 4-step process</div>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-circle">1</div>
+      <div class="tl-label">Reply to us</div>
+      <div class="tl-desc">DM us on Instagram<br>or KakaoTalk</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-circle">2</div>
+      <div class="tl-label">Book a date</div>
+      <div class="tl-desc">We find a time<br>that works for you</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-circle">3</div>
+      <div class="tl-label">Visit & enjoy</div>
+      <div class="tl-desc">Your complimentary<br>session at S&amp;H</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-circle">4</div>
+      <div class="tl-label">Share (optional)</div>
+      <div class="tl-desc">Post when you feel<br>ready — no rush</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>S&amp;H Dual Waxing · Apgujeong, Seoul</div>
+    <div>Collaboration Proposal · 2026 · Page 3</div>
+  </div>
+</div>
+
+<!-- ════════════════════════
+     PAGE 4 — Location + Contact
+════════════════════════ -->
+<div class="page">
+
+  <div class="sec-h">
+    <div class="sec-num">6</div>
+    <div>
+      <div class="sec-title">Finding Us</div>
+      <div class="sec-sub">Apgujeong Rodeo — the heart of Seoul's beauty district</div>
+    </div>
+  </div>
+
+  <div class="map-box">
+    <div class="map-label">📍 FULL ADDRESS</div>
+    <strong>S&amp;H Dual Waxing</strong><br>
+    4F, Building A · 5-6 Apgujeong-ro 46-gil · Gangnam-gu · Seoul, South Korea<br><br>
+    <div style="font-size:8.5pt;color:#555;line-height:1.8;">
+      🚇 <strong>Subway:</strong> Apgujeong Rodeo Station (분당선 수인분당선) Exit 6 → 5-min walk<br>
+      🚌 <strong>Bus stop:</strong> "압구정파출소 (Apgujeong Police Station)" — 2-min walk<br>
+      🏢 <strong>Building landmark:</strong> Look for <em>black rumor</em> café on the ground floor → take the elevator at the back to 4F<br>
+      🅿 <strong>Parking:</strong> Free underground parking available (1 hour) in the building<br>
+      🗺 <strong>Google Maps:</strong> Search "S&H Dual Waxing" or "S&H듀얼왁싱"
+    </div>
+  </div>
+
+  <div class="sec-h" style="margin-top:16px;">
+    <div class="sec-num">7</div>
+    <div>
+      <div class="sec-title">Get in Touch</div>
+      <div class="sec-sub">Ready to collaborate? We'd love to hear from you!</div>
+    </div>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="cc-icon">📸</div>
+      <div class="cc-label">INSTAGRAM DM</div>
+      <div class="cc-val">@shdual_waxing</div>
+    </div>
+    <div class="contact-card">
+      <div class="cc-icon">💬</div>
+      <div class="cc-label">KAKAO CHANNEL</div>
+      <div class="cc-val">S&amp;H듀얼왁싱</div>
+    </div>
+    <div class="contact-card">
+      <div class="cc-icon">📞</div>
+      <div class="cc-label">PHONE</div>
+      <div class="cc-val">010-8187-6455</div>
+    </div>
+    <div class="contact-card">
+      <div class="cc-icon">🕐</div>
+      <div class="cc-label">HOURS</div>
+      <div class="cc-val">From 10:30 AM daily</div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <div class="cta-t">Ready to experience the difference?</div>
+    <div class="cta-sub">
+      We believe the best collaboration starts with a genuine experience.<br>
+      No pressure, no hard sell — just come in, try it, and share what you truly feel.<br>
+      We'd be honored to have you.
+    </div>
+    <div class="cta-contact">
+      <div>📸 @shdual_waxing</div>
+      <div>📞 010-8187-6455</div>
+      <div>📍 Apgujeong, Seoul</div>
+    </div>
+  </div>
+
+  <div class="footer" style="margin-top:14px;">
+    <div>강남AI컨설팅 · <strong>권용준 · 손미현</strong> | S&amp;H Dual Waxing · Apgujeong · 2026.06.20</div>
+    <div>Collaboration Proposal · Confidential</div>
+  </div>
+</div>
+
+</body>
+</html>

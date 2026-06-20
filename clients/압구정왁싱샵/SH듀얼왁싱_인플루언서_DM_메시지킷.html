@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>S&H듀얼왁싱 — 인플루언서 DM 메시지킷</title>
+<style>
+@page { size: A4; margin: 14mm 15mm 16mm 15mm; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-size: 9.5pt;
+  color: #1a1a1a;
+  background: #fff;
+  line-height: 1.65;
+}
+
+:root {
+  --navy: #1a1a2e;
+  --rose: #9b3a5c;
+  --rose2: #f7eef2;
+  --rose3: #e8c4d0;
+  --rose4: #fdf5f8;
+  --blue: #2e4a7a;
+  --amber: #c08000;
+  --green: #1e7a45;
+  --gray: #888;
+  --light: #f7f8fa;
+}
+
+/* 헤더 */
+.header {
+  background: var(--navy);
+  color: #fff;
+  padding: 16px 22px 14px;
+  margin-bottom: 16px;
+}
+.h-top {
+  font-size: 7.8pt;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+}
+.h-title { font-size: 16pt; font-weight: 800; }
+.h-sub { font-size: 9pt; color: rgba(255,255,255,0.7); margin-top: 3px; }
+
+/* 섹션 제목 */
+.sec-h {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0 10px;
+}
+.sec-bar { width: 4px; height: 18px; background: var(--rose); border-radius: 2px; flex-shrink: 0; }
+.sec-t { font-size: 11.5pt; font-weight: 800; color: var(--navy); }
+
+/* 타겟 기준 표 */
+.target-table {
+  border: 1.5px solid var(--rose3);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.tt-head {
+  background: var(--rose);
+  color: #fff;
+  padding: 7px 14px;
+  font-size: 9.5pt;
+  font-weight: 800;
+}
+.tt-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.tt-cell {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--rose3);
+  border-right: 1px solid var(--rose3);
+  font-size: 8.8pt;
+}
+.tt-cell:nth-child(even) { border-right: none; }
+.tt-label { font-weight: 700; color: var(--rose); font-size: 8pt; margin-bottom: 2px; }
+
+/* DM 박스 */
+.dm-block {
+  margin-bottom: 16px;
+}
+.dm-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 7px 7px 0 0;
+}
+.dh-rose { background: var(--rose); }
+.dh-blue { background: var(--blue); }
+.dh-green { background: var(--green); }
+.dm-type {
+  font-size: 7.8pt;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.08em;
+}
+.dm-title {
+  font-size: 10pt;
+  font-weight: 800;
+  color: #fff;
+}
+.dm-tag {
+  margin-left: auto;
+  font-size: 7.5pt;
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 2px 9px;
+  color: rgba(255,255,255,0.9);
+  white-space: nowrap;
+}
+.dm-body {
+  border: 1.5px solid;
+  border-top: none;
+  border-radius: 0 0 7px 7px;
+  padding: 14px 16px;
+}
+.db-rose { border-color: var(--rose3); background: var(--rose4); }
+.db-blue { border-color: #c0cce0; background: #f4f7fc; }
+.db-green { border-color: #a0d8b4; background: #f0faf4; }
+.dm-msg {
+  font-family: 'Georgia', serif;
+  font-size: 9.5pt;
+  color: #1a1a1a;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  padding: 10px 14px;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.07);
+  margin-bottom: 10px;
+}
+.dm-guide {
+  font-size: 8.2pt;
+  color: var(--gray);
+  line-height: 1.55;
+}
+.dm-guide strong { color: var(--navy); }
+.dm-guide .tip-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 3px;
+}
+.dm-guide .tip-icon { flex-shrink: 0; color: var(--rose); }
+
+/* 배너 */
+.banner {
+  border-radius: 7px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  font-size: 8.8pt;
+  line-height: 1.58;
+}
+.bn-amber { background: #fff8e6; border: 1px solid #f0c040; color: #5a3a00; }
+.bn-amber strong { color: var(--amber); }
+.bn-rose { background: var(--rose2); border: 1px solid var(--rose3); color: #4a1a2a; }
+.bn-rose strong { color: var(--rose); }
+.bn-navy { background: #f0f2f8; border: 1px solid #c0cce0; color: #1a1a3a; }
+.bn-navy strong { color: var(--blue); }
+
+/* 두 열 */
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.mini-card {
+  border: 1px solid #d8dde8;
+  border-radius: 6px;
+  padding: 10px 13px;
+  background: var(--light);
+}
+.mc-t { font-size: 9pt; font-weight: 800; color: var(--navy); margin-bottom: 5px; }
+.mc-b { font-size: 8.2pt; color: #444; line-height: 1.5; }
+
+/* 체크 리스트 */
+.cl { list-style: none; }
+.cl li {
+  padding: 3.5px 0 3.5px 20px;
+  position: relative;
+  font-size: 8.8pt;
+  border-bottom: 1px dotted #e0e0ee;
+  line-height: 1.5;
+}
+.cl li:last-child { border-bottom: none; }
+.cl li::before { content: "✓"; position: absolute; left: 0; color: var(--rose); font-weight: 800; }
+
+/* 표 */
+table { width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 8.5pt; }
+th { background: var(--navy); color: #fff; padding: 6px 10px; text-align: left; font-weight: 700; }
+td { padding: 5.5px 10px; border-bottom: 1px solid #e0e4ee; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: var(--light); }
+
+/* 푸터 */
+.footer {
+  margin-top: 20px;
+  border-top: 1.5px solid var(--navy);
+  padding-top: 7px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 7.5pt;
+  color: var(--gray);
+}
+.footer strong { color: var(--navy); }
+
+/* 태그 */
+.tag {
+  display: inline-block;
+  font-size: 7.5pt;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 10px;
+  margin: 1px 2px;
+}
+.tg-rose { background: var(--rose2); color: var(--rose); border: 1px solid var(--rose3); }
+.tg-blue { background: #e8f0fe; color: var(--blue); border: 1px solid #c0d0f0; }
+.tg-green { background: #edfaf3; color: var(--green); border: 1px solid #8adbb6; }
+.tg-amber { background: #fff3e0; color: var(--amber); border: 1px solid #f0c040; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="h-top">INFLUENCER DM MESSAGE KIT · S&H DUAL WAXING · APGUJEONG</div>
+  <div class="h-title">외국인 인플루언서 협찬 DM 메시지킷</div>
+  <div class="h-sub">상황별 3종 · 복사 즉시 발송 가능 · 영문 작성</div>
+</div>
+
+<!-- 타겟 인플루언서 기준 -->
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">타겟 인플루언서 선정 기준</span></div>
+
+<div class="target-table">
+  <div class="tt-head">✓ 이런 계정에 DM을 보내세요</div>
+  <div class="tt-body">
+    <div class="tt-cell">
+      <div class="tt-label">팔로워 규모</div>
+      5,000 ~ 150,000명 (마이크로·미드 인플루언서)<br>
+      <span style="font-size:7.8pt;color:#666;">팔로워보다 <strong>참여율(좋아요+댓글/팔로워)</strong>이 3% 이상인 계정 우선</span>
+    </div>
+    <div class="tt-cell">
+      <div class="tt-label">콘텐츠 카테고리</div>
+      뷰티 / K-뷰티 / 서울 여행 / 라이프스타일 / 웰니스 / 바디 케어
+    </div>
+    <div class="tt-cell">
+      <div class="tt-label">우선 국적</div>
+      미국·영국·호주·캐나다 (영어권) / 동남아·일본 계정도 가능<br>
+      <span style="font-size:7.8pt;color:#666;">팔로워 구성이 해당 국가 중심인 계정</span>
+    </div>
+    <div class="tt-cell">
+      <div class="tt-label">계정 확인 포인트</div>
+      최근 3개월 게시물 활발 / 광고 과다 계정 제외 / 서울·한국 방문 이력 or 거주 중
+    </div>
+    <div class="tt-cell" style="border-bottom:none;">
+      <div class="tt-label">피해야 할 계정</div>
+      팔로워 대비 좋아요 100개 미만 / 마지막 게시물 2개월 이상 공백 / 스폰서 포스트만 가득한 계정
+    </div>
+    <div class="tt-cell" style="border-bottom:none;">
+      <div class="tt-label">DM 발송 목표 수</div>
+      주 10~15개 발송 → 응답률 10~20% 목표<br>
+      <span style="font-size:7.8pt;color:#666;">하루 5개 이하 발송 권장 (스팸 방지)</span>
+    </div>
+  </div>
+</div>
+
+<!-- DM 1 -->
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">DM 유형 1 — 서울 방문·여행 인플루언서용</span></div>
+
+<div class="dm-block">
+  <div class="dm-header dh-rose">
+    <div>
+      <div class="dm-type">TYPE 1 · TRAVEL INFLUENCER</div>
+      <div class="dm-title">서울 여행 중이거나 방문 예정인 계정</div>
+    </div>
+    <div class="dm-tag">길이: 5줄 이내 · 즉시 사용</div>
+  </div>
+  <div class="dm-body db-rose">
+    <div class="dm-msg">Hi [Name]! We came across your Seoul content and love your eye for experiences 💛
+
+We're S&H Dual Waxing — a specialist waxing studio in Apgujeong, Seoul, with 600+ five-star reviews and a unique dual method (choose hard wax OR sugaring for your skin type).
+
+We'd love to invite you for a complimentary session during your time in Seoul — Brazilian, full-body, eyebrow, or melanin skin care 🌸
+
+No pressure on content, but if you'd love to share your experience we'd be truly grateful! Would you be interested? 😊</div>
+    <div class="dm-guide">
+      <div class="tip-row"><span class="tip-icon">▶</span><strong>[Name]</strong> — 반드시 실제 이름 또는 닉네임으로 교체 (Dear @username 방식은 스팸 느낌)</div>
+      <div class="tip-row"><span class="tip-icon">▶</span>첫 줄 "Seoul content"를 실제 게시물 내용으로 커스터마이즈 — 예: "your Apgujeong beauty series", "your Korea trip highlights"</div>
+      <div class="tip-row"><span class="tip-icon">▶</span>"No pressure on content" 문구가 핵심 — 부담 없이 느껴지게 해서 응답률 높임</div>
+    </div>
+  </div>
+</div>
+
+<!-- DM 2 -->
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">DM 유형 2 — K-뷰티·뷰티 전문 크리에이터용</span></div>
+
+<div class="dm-block">
+  <div class="dm-header dh-blue">
+    <div>
+      <div class="dm-type">TYPE 2 · K-BEAUTY CREATOR</div>
+      <div class="dm-title">뷰티·K-뷰티·스킨케어 전문 콘텐츠 계정</div>
+    </div>
+    <div class="dm-tag">길이: 5줄 이내 · 즉시 사용</div>
+  </div>
+  <div class="dm-body db-blue">
+    <div class="dm-msg">Hi [Name]! Your beauty content is exactly the kind of honest, quality content we love 💄
+
+We're S&H Dual Waxing, Apgujeong's only studio offering both hard waxing AND sugaring — so every client chooses the method that works best for their skin. We've been featured in Korean media and trusted by 600+ clients.
+
+We'd love to offer you a complimentary experience (Brazilian, eyebrow shaping, full-body, or our exclusive melanin skin care treatment) and create content together.
+
+Think this fits your content? We'd love to chat! 📩</div>
+    <div class="dm-guide">
+      <div class="tip-row"><span class="tip-icon">▶</span>"honest, quality content" — 상대방 콘텐츠 스타일에 맞게 교체 가능 ("your clean girl aesthetic", "your skincare-first approach")</div>
+      <div class="tip-row"><span class="tip-icon">▶</span>K-뷰티 크리에이터는 <strong>차별점(듀얼 방식)</strong>과 <strong>신뢰도(미디어 피처·리뷰 수)</strong>에 반응 → 두 가지 모두 언급</div>
+      <div class="tip-row"><span class="tip-icon">▶</span>"melanin skin care" 는 한국에서만 가능한 특화 서비스로 외국인 크리에이터에게 신선한 콘텐츠 소재</div>
+    </div>
+  </div>
+</div>
+
+<!-- DM 3 -->
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">DM 유형 3 — 한국 거주 외국인 인플루언서용</span></div>
+
+<div class="dm-block">
+  <div class="dm-header dh-green">
+    <div>
+      <div class="dm-type">TYPE 3 · KOREA-BASED EXPAT</div>
+      <div class="dm-title">서울 거주 중인 외국인 크리에이터</div>
+    </div>
+    <div class="dm-tag">길이: 5줄 이내 · 즉시 사용</div>
+  </div>
+  <div class="dm-body db-green">
+    <div class="dm-msg">Hi [Name]! We love seeing Seoul through your eyes 🇰🇷
+
+We're S&H Dual Waxing, a waxing specialist in Apgujeong — known for offering both hard wax and sugaring so you can pick what suits your skin best. 600+ happy clients and even a Korean media feature 🎉
+
+We'd love to invite you for a complimentary session as a thank-you for representing the foreign community in Seoul so authentically. If you enjoy it and want to share — we'd be thrilled!
+
+Want to come by? 💌</div>
+    <div class="dm-guide">
+      <div class="tip-row"><span class="tip-icon">▶</span>거주 외국인에게는 "여행 경험" 대신 <strong>"서울 생활 커뮤니티 일원"</strong>으로 접근 — 소속감·인정 포인트</div>
+      <div class="tip-row"><span class="tip-icon">▶</span>"representing the foreign community" 문구로 그들의 콘텐츠 가치를 인정 → 응답 가능성 높음</div>
+      <div class="tip-row"><span class="tip-icon">▶</span>거주자는 반복 방문 가능 → 장기 앰배서더 관계로 발전 가능성 높음</div>
+    </div>
+  </div>
+</div>
+
+<!-- 응답 후 후속 DM -->
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">관심 응답 후 — 상세 안내 DM (2차 메시지)</span></div>
+
+<div class="banner bn-navy">
+  <strong>사용 타이밍</strong> — 위 3종 DM에 "관심 있어요" / "더 알려주세요" 등 긍정 응답이 왔을 때 발송. 이 단계에서 협찬 제안서 PDF 파일도 함께 전달.
+</div>
+
+<div class="dm-block">
+  <div class="dm-header" style="background:#555;">
+    <div>
+      <div class="dm-type">FOLLOW-UP · AFTER POSITIVE REPLY</div>
+      <div class="dm-title">관심 표현 후 상세 안내 메시지</div>
+    </div>
+    <div class="dm-tag">첨부파일: 협찬 제안서 PDF 함께 발송</div>
+  </div>
+  <div class="dm-body" style="border-color:#ccc;background:#fafafa;">
+    <div class="dm-msg">Hi [Name]! So happy to hear from you 😊
+
+Here's a quick overview of what we have in mind:
+
+🌸 What we offer
+Complimentary session of your choice:
+- Brazilian waxing (hard wax or sugaring — your pick!)
+- Full-body waxing
+- Eyebrow / hairline / face waxing
+- Melanin care + LED skin regeneration treatment
+
+📸 What we'd love in return
+An honest Instagram Reel or Story sharing your experience — no script, just your genuine thoughts. Tagging @shdual_waxing and #shdualwaxing is all we ask.
+
+📍 Where we are
+4F, Building A · 5-6 Apgujeong-ro 46-gil, Gangnam-gu, Seoul
+(5-min walk from Apgujeong Rodeo Station, Exit 6 · Free underground parking)
+
+I've also attached our full collaboration kit for more details!
+
+When would work best for you? We're open from 10:30am and would love to schedule something that fits your calendar 🗓</div>
+  </div>
+</div>
+
+<!-- DO / DON'T -->
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">DM 발송 시 주의사항</span></div>
+
+<div class="two">
+  <div class="mini-card">
+    <div class="mc-t" style="color:var(--green);">✅ 이렇게 하세요</div>
+    <ul class="cl">
+      <li>반드시 실명 또는 닉네임으로 개인화</li>
+      <li>상대방 게시물 1~2개 먼저 좋아요 후 DM</li>
+      <li>하루 5개 이하, 주 15개 이하 발송</li>
+      <li>응답 없으면 7일 후 1회 팔로업 허용</li>
+      <li>협찬 내용은 명확하게 ("complimentary")</li>
+      <li>상대방 계정 피드 톤에 맞게 이모지 조절</li>
+    </ul>
+  </div>
+  <div class="mini-card">
+    <div class="mc-t" style="color:var(--rose);">❌ 피해야 할 것</div>
+    <ul class="cl">
+      <li>대량 복붙 느낌 나는 첫 문장 금지</li>
+      <li>"free" 단어를 너무 강조 (스팸 느낌)</li>
+      <li>팔로워 수 언급하거나 숫자 요구</li>
+      <li>첫 DM에서 게시물 수·조회수 요구</li>
+      <li>왁싱 부위 사진 DM으로 전송 금지</li>
+      <li>응답 없는데 3회 이상 반복 연락</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 성과 추적 -->
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">협찬 진행 추적표</span></div>
+
+<table>
+  <tr>
+    <th>계정명</th>
+    <th>DM 유형</th>
+    <th>발송일</th>
+    <th>응답 여부</th>
+    <th>협찬일</th>
+    <th>게시물 링크</th>
+    <th>비고</th>
+  </tr>
+  <tr>
+    <td>@_________</td>
+    <td>Type __</td>
+    <td>&nbsp;</td>
+    <td>☐ Y / ☐ N</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>@_________</td>
+    <td>Type __</td>
+    <td>&nbsp;</td>
+    <td>☐ Y / ☐ N</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>@_________</td>
+    <td>Type __</td>
+    <td>&nbsp;</td>
+    <td>☐ Y / ☐ N</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>@_________</td>
+    <td>Type __</td>
+    <td>&nbsp;</td>
+    <td>☐ Y / ☐ N</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>@_________</td>
+    <td>Type __</td>
+    <td>&nbsp;</td>
+    <td>☐ Y / ☐ N</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+<div class="banner bn-rose">
+  <strong>협찬 제안서 파일</strong> — 이 메시지킷과 함께 별도로 제공된 <strong>콜라보레이션 제안서 PDF</strong>를 관심 응답 후 첨부하여 전달하세요. 비주얼 브랜드 자료로 설득력을 높입니다.
+</div>
+
+<div class="footer">
+  <div>강남AI컨설팅 · <strong>권용준 · 손미현</strong></div>
+  <div>S&H듀얼왁싱 압구정점 · 인플루언서 DM 메시지킷 · 2026.06.20</div>
+</div>
+
+</body>
+</html>
