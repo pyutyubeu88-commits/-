@@ -51,3 +51,12 @@
 - 신청대상: 소상공인 위주 부각(대형 강조카드), 창업·취업희망자+디지털취약계층은 "그 외 신청 가능" 기타로 통합·축소
 - 지원내용: 실제 업무 중심 재구성 → ①매출확대 마케팅 전략 수립 ②AI 도구 도입·활용을 통한 매장 운영·홍보 ③온라인·SNS 홍보 실행
 - 배포처 확인: aiconsultant-two.vercel.app 이 저장소(pyutyubeu88-commits/-) main과 연결됨 → push 시 자동 배포
+
+### [2026-06-22] 에이전트 시스템 적용 (서브 에이전트 & 에이전트 팀)
+- CLAUDE.md에 "에이전트 시스템" 섹션 추가: 선택 기준, 비용 규칙(매 세션 자동 적용), 계획 승인(Plan Approval)
+- 비용 규칙 핵심: 리드=Opus / 팀원·서브에이전트=Sonnet, 독립작업은 서브에이전트, 3~5명 유지, 완료 즉시 종료, 결과 검증
+- 프로젝트 전용 서브 에이전트 3종 생성 (`.claude/agents/`, Git 공유):
+  - frontend-reviewer (Sonnet, 읽기전용): HTML/CSS/JS 단일파일 코드 리뷰
+  - security-auditor (Sonnet, 읽기전용): API키·OAuth토큰 노출·XSS 등 클라이언트 보안 점검
+  - landing-copywriter (Sonnet, Edit 가능): 강남구 컨설팅 랜딩 한국어 카피
+- 작업 브랜치: claude/sub-agents-agent-teams-h8b3ib
