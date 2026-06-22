@@ -135,3 +135,11 @@
 - 배포 방식: 사용자가 Gumroad/페이히어에 이 PDF 업로드 → 결제 시 자동 전달. 그 결제URL을 ebook.html BUY_LINKS.ebook 에 넣으면 구매버튼 작동
 - 재생성: product/ebook-full.html 수정 후 chromium --headless --print-to-pdf (컨테이너는 ephemeral이라 html도 미커밋 → 필요시 이 세션에서 수정/재생성)
 - 다음(②): 결제 플랫폼 가입은 사용자 필요 → 단계별 안내 예정
+
+### [2026-06-22] 결제=크몽 전자책, 가격=14,900원 결정 (AskUserQuestion)
+- 사용자 선택: 판매처=크몽 전자책, 가격=14,900원(진입용)
+- ebook.html 수정: 메인 e북 가격 19,000→14,900, 구성 섹션을 실제 8챕터(각10개)로 갱신, "PDF 50페이지" 명시, "노션 버전" 문구 삭제(실제 미제작), BUY_LINKS 주석 갱신
+- kmong-listing.md 작성: 크몽 등록용 제목/카테고리/상세설명/태그/미리보기 가이드 복붙 완성본 (마케팅 카피라 public 커밋 OK)
+- ★사용자 할 일: 크몽 가입→전문가 등록→전자책 서비스 등록(위 문구 붙여넣기)→PDF(product/ebook-full.pdf, 사용자 보유) 업로드→심사(1~3일)→서비스 URL 확보
+- URL 받으면 BUY_LINKS.ebook 에 넣고 머지 → /ebook '지금 구매하기' 작동
+- 제안: 크몽 썸네일·상세이미지도 Claude가 제작 가능(미니북 표지 방식)
