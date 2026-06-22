@@ -78,3 +78,12 @@
 - 로컬 헤드리스 크로미움으로 데스크톱/모바일 렌더링 검증 완료 (정상)
 - Vercel 자동 배포: main 연결되어 머지 시 자동 배포 (aiconsultant-two.vercel.app/ebook)
 - 주의: 실행 환경에서 vercel 도메인 outbound 차단됨(x-deny-reason: host_not_allowed) → 라이브 URL은 사용자가 직접 확인 필요. 루트 / 도 동일 차단이므로 사이트 문제 아님
+
+### [2026-06-22] ★Vercel 자동배포 안 되던 진짜 원인 규명·해결★
+- 증상: main 머지·푸시해도 aiconsultant-two.vercel.app/ebook 이 404 (옛 페이지만 뜸)
+- 진짜 원인: aiconsultant 프로젝트(=aiconsultant-two.vercel.app)가 **GitHub에 연결 안 돼 있었음**. 프로덕션이 6/14 "Vercel Drop"(수동 업로드)에 고정. → GitHub push가 도달 못 함
+- (참고) GitHub 저장소(pyutyubeu88-commits/-)는 엉뚱하게 'auto' 프로젝트(auto-delta-five.vercel.app)에 연결돼 있었고 그건 3/18 고정. 과거 "3월 18일 커밋 고정" 메모가 이 프로젝트였음
+- 해결: 사용자가 Vercel → aiconsultant → Settings → Git 에서 pyutyubeu88-commits/- 저장소 연결(Production Branch=main). "Connected just now" 확인
+- 연결 후 첫 배포 트리거: main에 빈 커밋(37760fb) 푸시 → 자동 배포 시작
+- ⚠️주의(향후): 로컬에 오래된 별개 'main' 브랜치(e6ee911/d60ead3 계열, ebook 없음)가 존재함. main 작업 시 반드시 `git reset --hard origin/main`으로 origin 기준 맞출 것. 진짜 origin/main 은 b738706(e북 포함)
+- 이제부터 main push 시 aiconsultant-two.vercel.app 자동 배포 정상화됨
