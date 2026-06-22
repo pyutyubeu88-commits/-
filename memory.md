@@ -124,3 +124,14 @@
 - minibook-print.html: .card.bonus 골드 강조 스타일 + 보너스 카드, 표지 "10 +BONUS 1", 클로징 "맛보기 10개+보너스"
 - PDF 15p로 재렌더링·헤드리스 검증 완료. minibook-content.md 동기화. ebook.html 리드 문구에 보너스 명시
 - 미니북은 이제 "프롬프트 10개 + 보너스 1개"로 통일
+
+### [2026-06-22] ★메인 e북(유료 상품) 80개 제작 완료★
+- 사용자 "순서대로 다 수행" → 남은 ①메인e북 ②결제 중 ①을 Claude가 직접 제작
+- product/ebook-full.html → 헤드리스 크로미움 렌더 → product/ebook-full.pdf (50페이지, 80개 프롬프트)
+- 구성: 표지(80 REAL-WORLD PROMPTS) + 들어가며 + 목차 + 8챕터×10개 + 클로징(1:1 컨설팅 CTA)
+  - CH1 마케팅·홍보문구 / CH2 SNS콘텐츠 / CH3 네이버플레이스·지역 / CH4 고객응대·단골 / CH5 리뷰·평판 / CH6 매장운영·직원 / CH7 이벤트·프로모션 / CH8 매출·사업전략
+- 각 카드: 제목+이럴때+복붙프롬프트+빈칸가이드+출력예시 (미니북과 동일 3종세트, compact)
+- ★중요: 저장소가 PUBLIC → 유료상품을 커밋하면 무료 유출. 그래서 .gitignore에 product/ 추가(커밋 안 함). PDF는 SendUserFile로 사용자에게 직접 전달
+- 배포 방식: 사용자가 Gumroad/페이히어에 이 PDF 업로드 → 결제 시 자동 전달. 그 결제URL을 ebook.html BUY_LINKS.ebook 에 넣으면 구매버튼 작동
+- 재생성: product/ebook-full.html 수정 후 chromium --headless --print-to-pdf (컨테이너는 ephemeral이라 html도 미커밋 → 필요시 이 세션에서 수정/재생성)
+- 다음(②): 결제 플랫폼 가입은 사용자 필요 → 단계별 안내 예정
