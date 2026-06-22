@@ -103,6 +103,5 @@
 ### [2026-06-22] ★Web3Forms 키 발급·연결 완료★
 - 사용자가 web3forms.com 가입(yjkwon@gangnamconsulting.com)·이메일 인증·첫 폼 생성 완료
 - 발급 액세스 키: bb7f3432-7a1d-4f1a-8710-68e88e40e2ca → ebook.html WEB3FORMS_ACCESS_KEY 에 입력
-- 커밋 894bb74, 브랜치 claude/ai-prompt-ebook-sales-c8iaec 푸시 완료
-- ⚠️ 라이브(aiconsultant-two.vercel.app) 반영하려면 main 머지 필요(프로덕션=main). PR은 사용자 요청 시에만 생성
+- PR #9로 main 머지 → aiconsultant-two.vercel.app/ebook 라이브 반영
 - 남은 TODO: ① 결제 URL(BUY_LINKS.ebook/.pack) 확보 ② 미니북/메인 e북 PDF 콘텐츠 제작
