@@ -72,3 +72,30 @@
 - 연락 이메일: yjkwon@gangnamconsulting.com (profile.html과 동일)
 - vercel.json: /ebook, /prompt → ebook.html 라우팅 추가
 - TODO(사용자): 실제 결제 URL 확보 후 BUY_LINKS 채우기, 실제 후기 수집, 미니북 PDF 제작
+
+### [2026-06-22] e북 사업 PR #7 머지·배포
+- PR #7 (계획서 ebook-business-plan.md + 랜딩 ebook.html + vercel.json /ebook 라우팅) squash 머지 완료 → main 반영
+- 로컬 헤드리스 크로미움으로 데스크톱/모바일 렌더링 검증 완료 (정상)
+- Vercel 자동 배포: main 연결되어 머지 시 자동 배포 (aiconsultant-two.vercel.app/ebook)
+- 주의: 실행 환경에서 vercel 도메인 outbound 차단됨(x-deny-reason: host_not_allowed) → 라이브 URL은 사용자가 직접 확인 필요. 루트 / 도 동일 차단이므로 사이트 문제 아님
+
+### [2026-06-22] ★Vercel 자동배포 안 되던 진짜 원인 규명·해결★
+- 증상: main 머지·푸시해도 aiconsultant-two.vercel.app/ebook 이 404 (옛 페이지만 뜸)
+- 진짜 원인: aiconsultant 프로젝트(=aiconsultant-two.vercel.app)가 **GitHub에 연결 안 돼 있었음**. 프로덕션이 6/14 "Vercel Drop"(수동 업로드)에 고정. → GitHub push가 도달 못 함
+- (참고) GitHub 저장소(pyutyubeu88-commits/-)는 엉뚱하게 'auto' 프로젝트(auto-delta-five.vercel.app)에 연결돼 있었고 그건 3/18 고정. 과거 "3월 18일 커밋 고정" 메모가 이 프로젝트였음
+- 해결: 사용자가 Vercel → aiconsultant → Settings → Git 에서 pyutyubeu88-commits/- 저장소 연결(Production Branch=main). "Connected just now" 확인
+- 연결 후 첫 배포 트리거: main에 빈 커밋(37760fb) 푸시 → 자동 배포 시작
+- ⚠️주의(향후): 로컬에 오래된 별개 'main' 브랜치(e6ee911/d60ead3 계열, ebook 없음)가 존재함. main 작업 시 반드시 `git reset --hard origin/main`으로 origin 기준 맞출 것. 진짜 origin/main 은 b738706(e북 포함)
+- 이제부터 main push 시 aiconsultant-two.vercel.app 자동 배포 정상화됨
+
+### [2026-06-22] e북 실메일 전송 + 결제링크 연결 구현
+- 사용자 선택(AskUserQuestion): 결제=결제링크 연결(외부 URL), 메일=Web3Forms 무료
+- ebook.html 스크립트 상단에 ⚙️설정 블록 3개: WEB3FORMS_ACCESS_KEY / BUY_LINKS(ebook,pack) / CONTACT_EMAIL
+- sendMail(): fetch로 api.web3forms.com/submit POST (백엔드 불필요, 정적 사이트 그대로 작동). 성공 시 true
+- submitLead(): Web3Forms로 미니북 신청 실제 메일 전송, 키 미설정/실패 시 mailto 폴백. 버튼 로딩상태 처리
+- 구매버튼: BUY_LINKS[key] 있으면 새탭 결제페이지, 없으면 알림+미니북 폴백
+- 헤드리스 검증: JS문법 OK, 이메일검증/구매버튼 알림 정상
+- ★사용자 활성화 TODO(이거 해야 실제 작동):
+  1) web3forms.com 에서 받을이메일 입력→액세스키 발급→ebook.html WEB3FORMS_ACCESS_KEY 에 붙여넣기
+  2) 검로드/페이팔/스마트스토어 등에서 e북 상품 만들고 결제URL을 BUY_LINKS.ebook / .pack 에 넣기
+- 키/링크는 ebook.html 안에 직접 들어감 → 사용자가 알려주면 Claude가 대신 넣어줄 수 있음

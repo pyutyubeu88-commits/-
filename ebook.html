@@ -601,12 +601,40 @@ footer a{color:rgba(255,255,255,.7);text-decoration:none}
 </div>
 
 <script>
-/* === 결제 링크 설정: 크몽/스마트스토어/토스 결제 URL을 여기에 넣으세요 === */
+/* ======================================================================
+   ⚙️ 설정 — 아래 3가지만 채우면 실제 메일 전송·결제가 작동합니다
+   ====================================================================== */
+
+/* 1) Web3Forms 액세스 키 (무료·가입 불필요)
+      https://web3forms.com 접속 → 받을 이메일 주소 입력 → 발급된 키 복사 → 아래에 붙여넣기 */
+var WEB3FORMS_ACCESS_KEY = 'YOUR_ACCESS_KEY';
+
+/* 2) 결제 링크 — 검로드/페이팔/스마트스토어 등에서 만든 "상품 결제 페이지 URL"을 넣으세요
+      (비워두면 버튼은 무료 미니북 안내로 자연스럽게 폴백됩니다) */
 var BUY_LINKS = {
-  ebook: '',   // 메인 e북 결제 URL
-  pack:  ''    // 템플릿 패키지 결제 URL
+  ebook: '',   // 메인 e북(19,000원) 결제 페이지 URL
+  pack:  ''    // 템플릿 패키지(49,000원) 결제 페이지 URL
 };
+
+/* 3) 폴백 알림 이메일 (Web3Forms 키 미설정 시 메일 앱으로 대체) */
 var CONTACT_EMAIL = 'yjkwon@gangnamconsulting.com';
+/* ===================================================================== */
+
+function w3keyReady(){ return WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== 'YOUR_ACCESS_KEY'; }
+
+/* Web3Forms로 실제 메일 전송 (백엔드 불필요). 성공 시 true 반환 */
+async function sendMail(payload){
+  if(!w3keyReady()) return false;
+  try{
+    var res = await fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify(Object.assign({ access_key: WEB3FORMS_ACCESS_KEY, botcheck:'' }, payload))
+    });
+    var data = await res.json();
+    return !!data.success;
+  }catch(e){ return false; }
+}
 
 /* ── NAV ── */
 function toggleNav(){document.getElementById('mobNav').classList.toggle('open');}
@@ -655,33 +683,54 @@ function toggleFaq(btn){
   if(!open)item.classList.add('open');
 }
 
-/* ── BUY BUTTONS ── */
+/* ── BUY BUTTONS (결제 링크 연결) ── */
 document.querySelectorAll('[data-buy]').forEach(function(b){
   b.addEventListener('click',function(e){
+    e.preventDefault();
     var key=this.getAttribute('data-buy');
     var url=BUY_LINKS[key];
-    if(url){ window.open(url,'_blank'); }
-    else{
-      e.preventDefault();
-      var label=key==='pack'?'템플릿 패키지':'메인 e북';
-      location.href='mailto:'+CONTACT_EMAIL
-        +'?subject='+encodeURIComponent('['+label+' 구매문의]')
-        +'&body='+encodeURIComponent(label+' 구매를 원합니다.\n\n성함:\n연락처:\n업종/지역:\n');
-    }
+    if(url){ window.open(url,'_blank','noopener'); return; }   // 결제 페이지로 이동
+    /* 결제 링크 미설정 시: 끊김 없이 무료 미니북 안내로 폴백 */
+    var label=key==='pack'?'템플릿 패키지':'메인 e북';
+    alert(label+' 결제 페이지를 준비 중입니다.\n먼저 무료 미니북을 받아보세요!');
+    var el=document.getElementById('lead');
+    if(el) window.scrollTo({top:el.getBoundingClientRect().top+scrollY-64,behavior:'smooth'});
   });
 });
 
-/* ── LEAD FORM ── */
-function submitLead(){
+/* ── LEAD FORM (Web3Forms 실제 메일 전송) ── */
+async function submitLead(){
   var inp=document.getElementById('lead-email');
+  var btn=document.querySelector('.lead-form button');
+  var box=document.getElementById('lead-success');
   var email=inp.value.trim();
   var valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   if(!valid){ inp.classList.add('err'); inp.focus(); return; }
   inp.classList.remove('err');
-  location.href='mailto:'+CONTACT_EMAIL
-    +'?subject='+encodeURIComponent('[무료 미니북 신청]')
-    +'&body='+encodeURIComponent('무료 미니북을 신청합니다.\n신청 이메일: '+email+'\n\n(이 메일을 그대로 보내주세요. 미니북을 보내드립니다.)');
-  document.getElementById('lead-success').style.display='block';
+
+  var orig=btn.textContent;
+  btn.disabled=true; btn.textContent='전송 중...';
+
+  var ok = await sendMail({
+    subject:'[무료 미니북 신청] '+email,
+    from_name:'AI 프롬프트북 랜딩',
+    email: email,
+    message:'무료 미니북 신청\n신청자 이메일: '+email
+  });
+
+  if(ok){
+    box.textContent='✅ 신청 완료! 입력하신 메일로 미니북을 보내드리겠습니다.';
+    box.style.display='block';
+    inp.value='';
+  } else {
+    /* Web3Forms 키 미설정/전송 실패 시: 메일 앱 폴백 */
+    location.href='mailto:'+CONTACT_EMAIL
+      +'?subject='+encodeURIComponent('[무료 미니북 신청]')
+      +'&body='+encodeURIComponent('무료 미니북을 신청합니다.\n신청 이메일: '+email+'\n\n(이 메일을 그대로 보내주세요.)');
+    box.textContent='✅ 메일 앱이 열립니다. 전송해 주시면 미니북을 보내드립니다.';
+    box.style.display='block';
+  }
+  btn.disabled=false; btn.textContent=orig;
 }
 </script>
 </body>
