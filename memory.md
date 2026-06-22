@@ -87,3 +87,15 @@
 - 연결 후 첫 배포 트리거: main에 빈 커밋(37760fb) 푸시 → 자동 배포 시작
 - ⚠️주의(향후): 로컬에 오래된 별개 'main' 브랜치(e6ee911/d60ead3 계열, ebook 없음)가 존재함. main 작업 시 반드시 `git reset --hard origin/main`으로 origin 기준 맞출 것. 진짜 origin/main 은 b738706(e북 포함)
 - 이제부터 main push 시 aiconsultant-two.vercel.app 자동 배포 정상화됨
+
+### [2026-06-22] e북 실메일 전송 + 결제링크 연결 구현
+- 사용자 선택(AskUserQuestion): 결제=결제링크 연결(외부 URL), 메일=Web3Forms 무료
+- ebook.html 스크립트 상단에 ⚙️설정 블록 3개: WEB3FORMS_ACCESS_KEY / BUY_LINKS(ebook,pack) / CONTACT_EMAIL
+- sendMail(): fetch로 api.web3forms.com/submit POST (백엔드 불필요, 정적 사이트 그대로 작동). 성공 시 true
+- submitLead(): Web3Forms로 미니북 신청 실제 메일 전송, 키 미설정/실패 시 mailto 폴백. 버튼 로딩상태 처리
+- 구매버튼: BUY_LINKS[key] 있으면 새탭 결제페이지, 없으면 알림+미니북 폴백
+- 헤드리스 검증: JS문법 OK, 이메일검증/구매버튼 알림 정상
+- ★사용자 활성화 TODO(이거 해야 실제 작동):
+  1) web3forms.com 에서 받을이메일 입력→액세스키 발급→ebook.html WEB3FORMS_ACCESS_KEY 에 붙여넣기
+  2) 검로드/페이팔/스마트스토어 등에서 e북 상품 만들고 결제URL을 BUY_LINKS.ebook / .pack 에 넣기
+- 키/링크는 ebook.html 안에 직접 들어감 → 사용자가 알려주면 Claude가 대신 넣어줄 수 있음
