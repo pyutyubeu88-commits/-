@@ -616,7 +616,12 @@ var BUY_LINKS = {
   pack:  ''    // 템플릿 패키지(49,000원) 결제 페이지 URL
 };
 
-/* 3) 폴백 알림 이메일 (Web3Forms 키 미설정 시 메일 앱으로 대체) */
+/* 3) 무료 미니북 다운로드 링크 — 신청 즉시 이 링크로 바로 받게 됩니다
+      (구글드라이브/PDF 공개 링크를 넣으세요. 비워두면 "메일로 보내드린다" 안내로 폴백)
+      예) 구글드라이브 업로드 → 공유 → '링크가 있는 모든 사용자' → 링크 복사 */
+var MINIBOOK_URL = '/minibook.pdf';
+
+/* 4) 폴백 알림 이메일 (Web3Forms 키 미설정 시 메일 앱으로 대체) */
 var CONTACT_EMAIL = 'yjkwon@gangnamconsulting.com';
 /* ===================================================================== */
 
@@ -719,7 +724,14 @@ async function submitLead(){
   });
 
   if(ok){
-    box.textContent='✅ 신청 완료! 입력하신 메일로 미니북을 보내드리겠습니다.';
+    if(MINIBOOK_URL){
+      /* 즉시 다운로드: 신청 직후 바로 받게 */
+      box.innerHTML='✅ 신청 완료! 아래 버튼으로 지금 바로 받으세요.'
+        +'<br><a class="btn btn-acc" style="margin-top:14px" href="'
+        +MINIBOOK_URL+'" target="_blank" rel="noopener">📘 무료 미니북 다운로드</a>';
+    } else {
+      box.textContent='✅ 신청 완료! 입력하신 메일로 미니북을 보내드리겠습니다.';
+    }
     box.style.display='block';
     inp.value='';
   } else {
