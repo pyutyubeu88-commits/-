@@ -1,41 +1,287 @@
-name: Nightly QA (Claude Code)
+name: Nightly QA — 자동 검수 + 긴급 자동 수정
 
 on:
   schedule:
-    - cron: '0 18 * * *'  # 매일 새벽 3시 KST (UTC 18:00)
-  workflow_dispatch:        # 수동 실행 버튼
+    - cron: '0 18 * * *'   # 매일 새벽 3시 KST (UTC 18:00)
+  workflow_dispatch:
 
 jobs:
-  qa:
+
+  # ──────────────────────────────────────────
+  # Job 1: 검수 (파일 수정 없음, 결과 JSON 저장)
+  # ──────────────────────────────────────────
+  qa-scan:
+    name: QA 검수
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      issues: write
-      pull-requests: write
+      contents: read
+
+    outputs:
+      has_critical: ${{ steps.parse.outputs.has_critical }}
+      has_advisory: ${{ steps.parse.outputs.has_advisory }}
 
     steps:
       - uses: actions/checkout@v4
 
-      - uses: anthropics/claude-code-action@v1
+      - name: Claude 검수 실행
+        uses: anthropics/claude-code-action@v1
         with:
           anthropic_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: |
-            이 프로젝트(강남구 AI 컨설팅 사이트)의 QA 검수를 수행해주세요.
+            이 프로젝트(강남구 AI 컨설팅 사이트)의 정적 HTML/JS 코드를 읽기 전용으로 검수하세요.
+            코드를 수정하지 마세요. 검수 결과만 qa-result.json 파일로 저장합니다.
 
-            검수 대상 파일: index.html, profile.html, reply.html, ebook.html, vercel.json
+            검수 대상: index.html, profile.html, reply.html, ebook.html, vercel.json
 
             검수 항목:
             1. HTML 구조 오류 (태그 누락, 잘못된 중첩, 중복 id)
-            2. JavaScript 오류 가능성 (undefined 변수, 런타임 오류)
-            3. 링크/버튼 연결 이상 (깨진 href, 미연결 버튼)
-            4. 가격·문구 일관성 (ebook.html 기준 14,900원)
-            5. 모바일 반응형 이상
-            6. 보안 문제 (XSS, 민감 정보 노출)
+            2. JavaScript 런타임 오류 가능성 (undefined 변수, 잘못된 DOM 참조)
+            3. 깨진 링크·버튼 (실제 href 미연결, onclick 미연결 버튼)
+            4. 가격·문구 불일치 (e북 가격 기준: 14,900원. 다른 파일에서 불일치 시 긴급)
+            5. 보안 문제 (하드코딩된 API 키, XSS 취약점)
+            6. CTA 버튼 미작동 (크몽 링크, 컨설팅 신청 버튼 href 비어있는지)
+            7. 연락처 오류 (tel:, mailto: 형식 유효성)
+            8. vercel.json 라우팅 정합성 (존재하지 않는 파일로의 rewrite)
 
-            발견된 문제는 심각도별로 분류하고:
-            - 🔴 긴급: 즉시 GitHub Issue 생성 (label: bug)
-            - 🟡 권고: GitHub Issue 생성 (label: enhancement)
-            - 🟢 이상없음: 이슈 생성 생략
+            심각도 분류:
+            - critical(🔴): 사이트 작동 방해, 보안·결제·가격에 영향. 예) 구매버튼 미작동, API키 노출, 가격 불일치
+            - advisory(🟡): UX 저하, 잠재적 오류이나 즉각 장애 아님. 예) alt 누락, 반응형 미흡
+            - clean(🟢): 이상없는 파일
 
-            이슈 제목 형식: "[Nightly QA] {파일명} - {문제 요약}"
-          claude_args: "--max-turns 15"
+            결과를 정확히 아래 JSON 형식으로 qa-result.json에 저장하고 종료하세요:
+            {
+              "scanned_at": "UTC ISO 타임스탬프",
+              "critical": [
+                { "file": "파일명", "summary": "한 줄 요약", "detail": "구체적 문제 설명", "action": "권고 수정 방법" }
+              ],
+              "advisory": [
+                { "file": "파일명", "summary": "한 줄 요약", "detail": "구체적 문제 설명", "action": "권고 수정 방법" }
+              ],
+              "clean": [
+                { "file": "파일명" }
+              ]
+            }
+          claude_args: "--max-turns 20"
+
+      - name: 검수 결과 파싱
+        id: parse
+        run: |
+          if [ ! -f qa-result.json ]; then
+            echo "has_critical=false" >> $GITHUB_OUTPUT
+            echo "has_advisory=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "has_critical=$(jq -r 'if (.critical | length) > 0 then "true" else "false" end' qa-result.json)" >> $GITHUB_OUTPUT
+          echo "has_advisory=$(jq -r 'if (.advisory | length) > 0 then "true" else "false" end' qa-result.json)" >> $GITHUB_OUTPUT
+
+      - name: 검수 결과 아티팩트 저장 (30일 보관)
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-result-${{ github.run_id }}
+          path: qa-result.json
+          retention-days: 30
+
+  # ──────────────────────────────────────────
+  # Job 2: 🔴 긴급 항목 자동 수정 + PR 생성
+  # ──────────────────────────────────────────
+  auto-fix:
+    name: 긴급 자동 수정 + PR 생성
+    needs: qa-scan
+    if: needs.qa-scan.outputs.has_critical == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 수정용 브랜치 생성
+        run: |
+          BRANCH="fix/nightly-qa-$(date -u +%Y%m%d-%H%M)"
+          git checkout -b "$BRANCH"
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+
+      - name: 검수 결과 다운로드
+        uses: actions/download-artifact@v4
+        with:
+          name: qa-result-${{ github.run_id }}
+
+      - name: Claude 자동 수정 실행
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            qa-result.json 파일을 읽고, critical 배열의 항목만 실제 파일에서 수정하세요.
+
+            수정 규칙:
+            1. qa-result.json의 critical 항목만 수정합니다. advisory는 건드리지 않습니다.
+            2. 수정 범위를 최소화합니다. 문제가 된 코드만 고칩니다.
+            3. 가격 불일치: ebook.html 기준 14,900원으로 통일합니다.
+            4. 보안 문제(API 키 노출): 해당 값을 TODO 플레이스홀더로 대체합니다.
+            5. 수정 후 해당 파일 HTML/JS 구조가 유효한지 재확인합니다.
+            6. 판단이 필요하거나 수정 불가한 항목은 건너뛰고 fix-summary.md에 "수동 조치 필요"로 기록합니다.
+
+            수정 완료 후 fix-summary.md를 생성하고 아래 내용을 기록하세요:
+            - 수정한 파일 목록과 변경 내용 요약 (Before/After 코드 포함)
+            - 수정하지 못한 항목과 이유
+          claude_args: "--max-turns 30"
+
+      - name: 변경사항 커밋 & 푸시
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "CHANGES=false" >> $GITHUB_ENV
+          else
+            git commit -m "fix: [Nightly QA] 긴급 버그 자동 수정 $(date -u +%Y-%m-%d)"
+            git push origin "$BRANCH"
+            echo "CHANGES=true" >> $GITHUB_ENV
+          fi
+
+      - name: PR 자동 생성
+        if: env.CHANGES == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('qa-result.json', 'utf8'));
+            const items = (report.critical || [])
+              .map(i => `- 🔴 \`${i.file}\`: ${i.summary}`)
+              .join('\n');
+            const fixSummary = fs.existsSync('fix-summary.md')
+              ? fs.readFileSync('fix-summary.md', 'utf8')
+              : '(요약 없음)';
+
+            await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              title: `[Nightly QA] 긴급 자동 수정 (${new Date().toISOString().slice(0,10)})`,
+              head:  process.env.BRANCH,
+              base:  'main',
+              body: [
+                '## Nightly QA 자동 수정 PR',
+                '',
+                '> ⚠️ 이 PR은 Claude가 자동 생성했습니다. **머지 전 반드시 변경 내용을 검토하세요.**',
+                '',
+                '### 감지된 긴급 항목',
+                items,
+                '',
+                '### 수정 요약',
+                fixSummary,
+                '',
+                `---`,
+                `_자동 생성: ${new Date().toUTCString()}_`,
+              ].join('\n'),
+            });
+
+  # ──────────────────────────────────────────
+  # Job 3: 이슈 생성 + 일일 검수 리포트 기록
+  # ──────────────────────────────────────────
+  issue-report:
+    name: 이슈 생성 + 일일 리포트
+    needs: qa-scan
+    if: always() && needs.qa-scan.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - name: 검수 결과 다운로드
+        uses: actions/download-artifact@v4
+        with:
+          name: qa-result-${{ github.run_id }}
+
+      - name: 🟡 권고 이슈 생성 (중복 방지)
+        if: needs.qa-scan.outputs.has_advisory == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('qa-result.json', 'utf8'));
+
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              labels: 'nightly-qa',
+              state: 'open',
+              per_page: 100,
+            });
+            const existingTitles = existing.data.map(i => i.title);
+
+            for (const item of (report.advisory || [])) {
+              const title = `[Nightly QA] ${item.file} - ${item.summary}`;
+              if (existingTitles.includes(title)) continue;
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo:  context.repo.repo,
+                title,
+                body: [
+                  `## 발견 위치`,
+                  `\`${item.file}\``,
+                  ``,
+                  `## 문제 설명`,
+                  item.detail,
+                  ``,
+                  `## 권고 조치`,
+                  item.action,
+                  ``,
+                  `---`,
+                  `_자동 생성: ${new Date().toUTCString()}_`,
+                ].join('\n'),
+                labels: ['enhancement', 'nightly-qa'],
+              });
+            }
+
+      - name: 일일 검수 리포트 이슈 생성
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('qa-result.json', 'utf8'));
+            const date = new Date().toISOString().slice(0, 10);
+            const critical = report.critical || [];
+            const advisory = report.advisory || [];
+            const clean    = report.clean    || [];
+
+            const fmt = (items) =>
+              items.length
+                ? items.map(i => `- \`${i.file}\`: ${i.summary}`).join('\n')
+                : '_없음_';
+
+            const status = critical.length === 0 && advisory.length === 0
+              ? '🟢 이상없음'
+              : critical.length > 0 ? '🔴 긴급 발견 (자동 수정 PR 생성됨)' : '🟡 권고 사항 있음';
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              title: `[Nightly QA 리포트] ${date}`,
+              body: [
+                `## Nightly QA 검수 결과 — ${date}`,
+                ``,
+                `**종합 상태: ${status}**`,
+                ``,
+                `| 구분 | 건수 |`,
+                `|------|------|`,
+                `| 🔴 긴급 (자동 수정 PR 생성) | ${critical.length}건 |`,
+                `| 🟡 권고 (이슈 생성) | ${advisory.length}건 |`,
+                `| 🟢 이상없음 | ${clean.length}개 파일 |`,
+                ``,
+                `### 🔴 긴급`,
+                fmt(critical),
+                ``,
+                `### 🟡 권고`,
+                fmt(advisory),
+                ``,
+                `### 🟢 이상없음`,
+                clean.map(f => `- \`${f.file}\``).join('\n') || '_없음_',
+                ``,
+                `---`,
+                `_검수 실행: ${new Date().toUTCString()}_`,
+              ].join('\n'),
+              labels: ['nightly-qa', 'report'],
+            });
