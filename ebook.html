@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>소상공인 AI 프롬프트북 | 복붙만 하면 끝나는 사장님 AI 비서</title>
+<meta name="description" content="강남구 AI 컨설턴트가 현장에서 검증한 소상공인 마케팅·운영 프롬프트 80개. 복붙용 프롬프트 + 빈칸 + 실제 출력 예시 3종 세트. 무료 미니북 받기.">
+<meta property="og:title" content="소상공인 AI 프롬프트북 — 복붙만 하면 끝">
+<meta property="og:description" content="현장에서 검증한 마케팅·운영 프롬프트 80개. 복붙·빈칸채우기·출력예시 3종 세트.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="profile.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gd:#1B4332;--gm:#2D6A4F;--ga:#40916C;--gl:#F0FAF4;--gb:#B7E4C7;
+  --wh:#FFFFFF;--t1:#111827;--t2:#374151;--t3:#6B7280;--bd:#E5E7EB;
+  --acc:#FFB703;--r:12px;--sh:0 2px 16px rgba(27,67,50,.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--t1);line-height:1.75;background:var(--wh)}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;height:60px;
+  background:var(--gd);z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;box-shadow:0 2px 12px rgba(0,0,0,.18);
+}
+.nav-logo{color:#fff;font-size:16px;font-weight:700;text-decoration:none;letter-spacing:-.3px}
+.nav-list{display:flex;gap:28px;list-style:none;align-items:center}
+.nav-list a{color:rgba(255,255,255,.8);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s;padding-bottom:3px;border-bottom:2px solid transparent}
+.nav-list a:hover{color:#fff}
+.nav-list a.active{color:#fff;border-bottom-color:var(--ga)}
+.nav-cta{
+  background:var(--acc);color:var(--gd)!important;
+  padding:8px 18px;border-radius:6px;font-weight:700!important;
+  transition:filter .2s!important;border-bottom:none!important;
+}
+.nav-cta:hover{filter:brightness(1.06)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
+.mob-nav{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--gd);z-index:999;
+  flex-direction:column;border-top:1px solid rgba(255,255,255,.1);
+}
+.mob-nav.open{display:flex}
+.mob-nav a{
+  color:rgba(255,255,255,.85);text-decoration:none;
+  font-size:15px;font-weight:500;padding:16px 24px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.mob-nav a:last-child{border-bottom:none}
+
+/* ── COMMON ── */
+section{padding:88px 24px 80px}
+.wrap{max-width:1080px;margin:0 auto}
+.narrow{max-width:780px;margin:0 auto}
+.lbl{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--ga);margin-bottom:10px;text-transform:uppercase}
+.stitle{font-size:30px;font-weight:900;color:var(--t1);margin-bottom:16px;letter-spacing:-.5px}
+.ssub{font-size:16px;color:var(--t3);margin-bottom:40px;line-height:1.8}
+.btn{
+  display:inline-block;padding:15px 30px;border-radius:8px;
+  font-size:16px;font-weight:700;font-family:'Noto Sans KR',sans-serif;
+  text-decoration:none;cursor:pointer;border:none;transition:all .2s;text-align:center;
+}
+.btn-acc{background:var(--acc);color:var(--gd);box-shadow:0 4px 14px rgba(255,183,3,.35)}
+.btn-acc:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn-pri{background:var(--ga);color:#fff}
+.btn-pri:hover{background:var(--gm)}
+.btn-out{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.55)}
+.btn-out:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ── HERO ── */
+#hero{
+  background:var(--gd);padding:120px 24px 96px;margin-top:60px;
+  position:relative;overflow:hidden;
+}
+#hero::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:520px;height:520px;
+  background:radial-gradient(circle,rgba(64,145,108,.16) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-in{max-width:760px;margin:0 auto;text-align:center;position:relative}
+.hero-badge{
+  display:inline-block;
+  background:rgba(255,183,3,.16);border:1px solid rgba(255,183,3,.5);
+  color:var(--acc);font-size:13px;font-weight:700;
+  padding:7px 20px;border-radius:100px;margin-bottom:28px;
+}
+#hero h1{
+  font-size:clamp(30px,5vw,52px);font-weight:900;color:#fff;
+  line-height:1.24;letter-spacing:-1px;margin-bottom:22px;
+}
+#hero h1 span{color:#74C69D}
+.hero-sub{
+  font-size:17px;color:rgba(255,255,255,.74);line-height:1.85;
+  margin:0 auto 38px;max-width:600px;
+}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero-note{margin-top:18px;font-size:13px;color:rgba(255,255,255,.5)}
+
+/* ── TRUST BAR ── */
+#trust{background:var(--gm);padding:0}
+.trust-row{
+  max-width:1080px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.trust-cell{
+  padding:26px 16px;text-align:center;color:#fff;
+  border-right:1px solid rgba(255,255,255,.14);
+}
+.trust-cell:last-child{border-right:none}
+.trust-num{font-size:28px;font-weight:900;color:var(--acc);letter-spacing:-.5px}
+.trust-cap{font-size:13px;color:rgba(255,255,255,.8);margin-top:4px}
+
+/* ── PAIN ── */
+#pain{background:var(--wh)}
+.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+.pain-card{
+  background:var(--gl);border:1px solid var(--gb);border-radius:var(--r);
+  padding:22px 24px;display:flex;gap:14px;align-items:flex-start;
+}
+.pain-emoji{font-size:24px;flex-shrink:0;line-height:1.4}
+.pain-card p{font-size:15px;color:var(--t2);line-height:1.7}
+.pain-card b{color:var(--gd)}
+
+/* ── SOLUTION / SAMPLE ── */
+#solution{background:var(--gl)}
+.sol-lead{font-size:19px;font-weight:700;color:var(--t2);text-align:center;max-width:680px;margin:0 auto 44px;line-height:1.8}
+.sol-lead em{color:var(--gd);font-style:normal;border-bottom:3px solid var(--acc)}
+.sample{
+  background:#fff;border:1px solid var(--bd);border-radius:16px;
+  box-shadow:var(--sh);overflow:hidden;max-width:720px;margin:0 auto;
+}
+.sample-head{
+  background:var(--gd);color:#fff;padding:16px 24px;
+  font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;
+}
+.sample-head .dot{width:10px;height:10px;border-radius:50%;background:var(--acc)}
+.sample-body{padding:8px 24px 24px}
+.sblock{padding:18px 0;border-bottom:1px dashed var(--bd)}
+.sblock:last-child{border-bottom:none}
+.sblock-tag{
+  display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;
+  padding:4px 11px;border-radius:100px;margin-bottom:10px;
+}
+.tag-1{background:#E7F1FF;color:#1d4ed8}
+.tag-2{background:#FFF4E0;color:#b45309}
+.tag-3{background:var(--gl);color:var(--gm)}
+.sblock-text{font-size:14px;color:var(--t2);line-height:1.8}
+.sblock code{
+  display:block;background:#0F2A20;color:#C7F0D8;
+  border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.7;
+  font-family:'Courier New',monospace;white-space:pre-wrap;
+}
+.sblock .fill{background:#FFF4E0;color:#b45309;padding:1px 5px;border-radius:4px;font-weight:700}
+.sample-foot{
+  background:var(--gl);padding:14px 24px;font-size:13px;color:var(--gm);
+  font-weight:700;text-align:center;border-top:1px solid var(--gb);
+}
+
+/* ── INSIDE / TOC ── */
+#inside{background:var(--wh)}
+.toc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:8px}
+.toc-card{
+  border:1px solid var(--bd);border-radius:var(--r);padding:26px 28px;
+  transition:box-shadow .2s,border-color .2s,transform .2s;
+}
+.toc-card:hover{box-shadow:var(--sh);border-color:var(--gb);transform:translateY(-3px)}
+.toc-ico{
+  width:48px;height:48px;background:var(--gl);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:14px;
+}
+.toc-card h3{font-size:17px;font-weight:900;margin-bottom:8px;letter-spacing:-.3px}
+.toc-card .cnt{font-size:12px;font-weight:700;color:var(--ga);margin-bottom:8px}
+.toc-card p{font-size:14px;color:var(--t3);line-height:1.7}
+
+/* ── PRICING ── */
+#pricing{background:var(--gd)}
+#pricing .lbl{color:var(--acc)}
+#pricing .stitle{color:#fff}
+#pricing .ssub{color:rgba(255,255,255,.6)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.price-card{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+  border-radius:16px;padding:32px 26px;color:#fff;display:flex;flex-direction:column;
+  position:relative;
+}
+.price-card.best{
+  background:#fff;border:2px solid var(--acc);transform:scale(1.03);
+}
+.price-card.best .pc-name,.price-card.best .pc-feat li{color:var(--t1)}
+.price-card.best .pc-desc{color:var(--t3)}
+.best-flag{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  background:var(--acc);color:var(--gd);font-size:12px;font-weight:900;
+  padding:5px 16px;border-radius:100px;white-space:nowrap;
+}
+.pc-name{font-size:18px;font-weight:900;margin-bottom:6px}
+.pc-desc{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:18px;min-height:38px}
+.pc-price{font-size:32px;font-weight:900;margin-bottom:2px;letter-spacing:-1px}
+.pc-price.free{color:var(--acc)}
+.pc-old{font-size:14px;color:var(--t3);text-decoration:line-through;margin-bottom:18px}
+.pc-old.dark{color:rgba(255,255,255,.4)}
+.pc-feat{list-style:none;margin:18px 0 24px;display:flex;flex-direction:column;gap:10px;flex-grow:1}
+.pc-feat li{font-size:14px;color:rgba(255,255,255,.82);display:flex;gap:9px;align-items:flex-start;line-height:1.55}
+.pc-feat li::before{content:'✓';color:var(--ga);font-weight:900;flex-shrink:0}
+.price-card.best .pc-feat li::before{color:var(--gm)}
+.pc-btn{
+  display:block;text-align:center;padding:14px;border-radius:8px;
+  font-size:15px;font-weight:700;text-decoration:none;cursor:pointer;transition:all .2s;
+  border:none;font-family:'Noto Sans KR',sans-serif;width:100%;
+}
+.pc-btn.solid{background:var(--acc);color:var(--gd)}
+.pc-btn.solid:hover{filter:brightness(1.06)}
+.pc-btn.ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.pc-btn.ghost:hover{background:rgba(255,255,255,.18)}
+
+/* ── REVIEWS ── */
+#reviews{background:var(--gl)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+.rev-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:26px;box-shadow:var(--sh)}
+.rev-stars{color:var(--acc);font-size:15px;margin-bottom:12px;letter-spacing:1px}
+.rev-text{font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:16px}
+.rev-who{font-size:13px;font-weight:700;color:var(--gd)}
+.rev-who span{font-weight:400;color:var(--t3)}
+
+/* ── LEAD FORM ── */
+#lead{background:var(--wh)}
+.lead-box{
+  max-width:620px;margin:0 auto;background:var(--gl);
+  border:1px solid var(--gb);border-radius:16px;padding:40px;text-align:center;
+}
+.lead-box h2{font-size:24px;font-weight:900;letter-spacing:-.5px;margin-bottom:10px}
+.lead-box .gift{font-size:42px;margin-bottom:8px}
+.lead-box p{font-size:15px;color:var(--t2);margin-bottom:24px;line-height:1.7}
+.lead-form{display:flex;gap:10px;max-width:460px;margin:0 auto;flex-wrap:wrap}
+.lead-form input{
+  flex:1;min-width:200px;background:#fff;border:1.5px solid var(--bd);border-radius:8px;
+  padding:14px 16px;font-size:14px;font-family:'Noto Sans KR',sans-serif;color:var(--t1);outline:none;transition:border-color .2s;
+}
+.lead-form input:focus{border-color:var(--ga)}
+.lead-form input.err{border-color:#dc2626}
+.lead-form button{
+  background:var(--gd);color:#fff;border:none;border-radius:8px;
+  padding:14px 26px;font-size:15px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:background .2s;
+}
+.lead-form button:hover{background:var(--gm)}
+.lead-note{font-size:12px;color:var(--t3);margin-top:14px}
+.lead-success{
+  display:none;background:#fff;border:1px solid var(--gb);border-radius:10px;
+  padding:18px;margin-top:18px;font-size:15px;font-weight:700;color:var(--gd);
+}
+
+/* ── FAQ ── */
+#faq{background:var(--gl)}
+.faq-list{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{background:#fff;border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
+.faq-q{
+  width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  padding:20px 24px;font-size:16px;font-weight:700;color:var(--t1);
+  font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center;gap:16px;
+}
+.faq-q .ico{color:var(--ga);font-size:20px;flex-shrink:0;transition:transform .25s}
+.faq-item.open .faq-q .ico{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 24px}
+.faq-item.open .faq-a{max-height:320px;padding:0 24px 20px}
+.faq-a p{font-size:14px;color:var(--t2);line-height:1.85}
+
+/* ── FINAL CTA ── */
+#final{background:var(--gd);text-align:center}
+#final h2{font-size:clamp(26px,4vw,38px);font-weight:900;color:#fff;line-height:1.3;margin-bottom:18px;letter-spacing:-.8px}
+#final h2 span{color:var(--acc)}
+#final p{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:34px}
+
+/* ── STICKY MOBILE CTA ── */
+.sticky-cta{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:998;
+  background:var(--gd);padding:12px 16px;
+  box-shadow:0 -2px 16px rgba(0,0,0,.2);gap:10px;
+}
+.sticky-cta a{flex:1;padding:13px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;text-align:center}
+.sticky-cta .s-free{background:rgba(255,255,255,.14);color:#fff}
+.sticky-cta .s-buy{background:var(--acc);color:var(--gd)}
+
+/* ── FOOTER ── */
+footer{background:var(--gd);color:rgba(255,255,255,.45);text-align:center;padding:24px;font-size:13px;border-top:1px solid rgba(255,255,255,.08)}
+footer a{color:rgba(255,255,255,.7);text-decoration:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1023px){
+  .toc-grid,.rev-grid{grid-template-columns:1fr 1fr}
+  .price-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}
+  .price-card.best{transform:none}
+}
+@media(max-width:767px){
+  nav{padding:0 20px}
+  .nav-list{display:none}
+  .hamburger{display:flex}
+  section{padding:60px 20px 56px}
+  .stitle{font-size:23px}
+  #hero{padding:80px 20px 64px}
+  .hero-sub{font-size:15px}
+  .hero-btns{flex-direction:column;align-items:center}
+  .hero-btns .btn{width:100%;max-width:300px}
+  .trust-row{grid-template-columns:1fr 1fr}
+  .trust-cell:nth-child(2){border-right:none}
+  .trust-cell:nth-child(1),.trust-cell:nth-child(2){border-bottom:1px solid rgba(255,255,255,.14)}
+  .pain-grid,.toc-grid,.rev-grid{grid-template-columns:1fr}
+  .lead-box{padding:28px 20px}
+  body{padding-bottom:64px}
+  .sticky-cta{display:flex}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#hero" class="nav-logo">소상공인 AI 프롬프트북</a>
+  <ul class="nav-list">
+    <li><a href="#solution">차별점</a></li>
+    <li><a href="#inside">구성</a></li>
+    <li><a href="#pricing">가격</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#pricing" class="nav-cta">구매하기</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleNav()" aria-label="메뉴"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <a href="#solution" onclick="closeNav()">차별점</a>
+  <a href="#inside"   onclick="closeNav()">구성</a>
+  <a href="#pricing"  onclick="closeNav()">가격</a>
+  <a href="#reviews"  onclick="closeNav()">후기</a>
+  <a href="#faq"      onclick="closeNav()">FAQ</a>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-in">
+    <div class="hero-badge">강남구 AI 컨설턴트가 현장에서 검증한 프롬프트</div>
+    <h1>ChatGPT, 뭘 물어볼지<br><span>이제 고민하지 마세요.</span></h1>
+    <p class="hero-sub">
+      복붙만 하면 인스타 글·단골 메시지·매장 홍보가 5분 만에 끝납니다.<br>
+      소상공인 사장님을 위해 실제 컨설팅에서 검증한 프롬프트 80개를 한 권에 담았습니다.
+    </p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn btn-acc">e북 구매하기 →</a>
+      <a href="#lead" class="btn btn-out">🎁 무료 미니북 받기</a>
+    </div>
+    <p class="hero-note">PDF + 노션 즉시 다운로드 · 모바일에서도 바로 복붙</p>
+  </div>
+</section>
+
+<!-- ── TRUST BAR ── -->
+<section id="trust">
+  <div class="trust-row">
+    <div class="trust-cell"><div class="trust-num">80+</div><div class="trust-cap">검증된 실전 프롬프트</div></div>
+    <div class="trust-cell"><div class="trust-num">5분</div><div class="trust-cap">한 건 작성 평균 시간</div></div>
+    <div class="trust-cell"><div class="trust-num">3종</div><div class="trust-cap">복붙+빈칸+예시 세트</div></div>
+    <div class="trust-cell"><div class="trust-num">평생</div><div class="trust-cap">무료 업데이트 제공</div></div>
+  </div>
+</section>
+
+<!-- ── PAIN ── -->
+<section id="pain">
+  <div class="wrap reveal">
+    <div class="lbl" style="text-align:center">SO, 사장님</div>
+    <h2 class="stitle" style="text-align:center">혹시 이런 적 있으신가요?</h2>
+    <p class="ssub" style="text-align:center">AI가 좋다는 건 아는데, 막상 켜면 막막하셨죠.</p>
+    <div class="pain-grid">
+      <div class="pain-card"><div class="pain-emoji">😵</div><p>"ChatGPT 켜긴 했는데 <b>뭐라고 입력해야 할지</b> 모르겠다."</p></div>
+      <div class="pain-card"><div class="pain-emoji">⏰</div><p>인스타·블로그 글 하나 쓰는 데 <b>30분씩 붙잡고</b> 있다.</p></div>
+      <div class="pain-card"><div class="pain-emoji">💸</div><p>광고 대행 맡기자니 <b>매달 나가는 비용</b>이 부담된다.</p></div>
+      <div class="pain-card"><div class="pain-emoji">🤷</div><p>물어봐도 <b>뻔하고 어색한 답</b>만 나와서 결국 안 쓰게 된다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOLUTION / SAMPLE ── -->
+<section id="solution">
+  <div class="wrap reveal">
+    <div class="lbl" style="text-align:center">THE DIFFERENCE</div>
+    <h2 class="stitle" style="text-align:center">무료 ChatGPT와 뭐가 다른가요?</h2>
+    <p class="sol-lead">검색하면 나오는 프롬프트 모음과 다릅니다.<br>모든 프롬프트가 <em>복붙용 문장 + 빈칸 + 실제 출력 예시</em> 3종 세트입니다.</p>
+
+    <div class="sample">
+      <div class="sample-head"><span class="dot"></span> 실제 수록 예시 — 헬스장 신규회원 모집 인스타 글</div>
+      <div class="sample-body">
+        <div class="sblock">
+          <span class="sblock-tag tag-1">① 복붙용 프롬프트</span>
+          <code>너는 동네 헬스장 마케터야. 아래 정보로 인스타 피드 글을 써줘.
+- 업종/지역: <span class="fill">강남 역삼동 헬스장</span>
+- 이벤트: <span class="fill">3개월 등록 시 PT 2회 무료</span>
+- 타겟: <span class="fill">운동 처음 시작하는 30~40대 직장인</span>
+- 톤: 친근하고 부담 없게, 이모지 적당히, 해시태그 8개</code>
+        </div>
+        <div class="sblock">
+          <span class="sblock-tag tag-2">② 사장님이 채울 빈칸</span>
+          <p class="sblock-text">노란 칸만 우리 매장 정보로 바꾸면 끝. 무엇을 어떻게 채우는지 가이드까지 함께 들어 있습니다.</p>
+        </div>
+        <div class="sblock">
+          <span class="sblock-tag tag-3">③ 실제 출력 예시</span>
+          <p class="sblock-text">💪 "운동, 작심삼일이셨다면 이번엔 다릅니다" — 역삼동 직장인을 위한 3개월 등록 시 PT 2회 무료! 퇴근 후 10분 거리, 초보자 전담 코치가… <span style="color:var(--t3)">(실제 결과물 전문 수록)</span></p>
+        </div>
+      </div>
+      <div class="sample-foot">✓ 이런 프롬프트가 마케팅·고객관리·운영·홍보까지 80개</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INSIDE / TOC ── -->
+<section id="inside">
+  <div class="wrap reveal">
+    <div class="lbl" style="text-align:center">WHAT'S INSIDE</div>
+    <h2 class="stitle" style="text-align:center">이런 내용이 담겨 있습니다</h2>
+    <p class="ssub" style="text-align:center">사장님 하루 업무 순서 그대로, 4개 챕터로 정리했습니다.</p>
+    <div class="toc-grid">
+      <div class="toc-card">
+        <div class="toc-ico">📣</div><div class="cnt">프롬프트 24개</div>
+        <h3>매출 확대 — 마케팅</h3>
+        <p>인스타 피드·릴스 대본, 네이버 블로그 포스팅, 이벤트·할인 문구까지. 손님을 끌어오는 글쓰기.</p>
+      </div>
+      <div class="toc-card">
+        <div class="toc-ico">💬</div><div class="cnt">프롬프트 20개</div>
+        <h3>고객 관리 — 소통</h3>
+        <p>단골 만드는 카톡 메시지, 리뷰 답글, 컴플레인 응대까지. 한 번 온 손님을 다시 오게.</p>
+      </div>
+      <div class="toc-card">
+        <div class="toc-ico">⚙️</div><div class="cnt">프롬프트 18개</div>
+        <h3>매장 운영 — 효율</h3>
+        <p>메뉴·가격 기획, 직원 공지, 예약·문의 자동 답변. 사장님 머릿속 일을 AI에게.</p>
+      </div>
+      <div class="toc-card">
+        <div class="toc-ico">🚀</div><div class="cnt">프롬프트 18개</div>
+        <h3>광고·홍보 — 전환</h3>
+        <p>전단지 카피, 당근 동네홍보, 배달앱 소개글. 보는 사람이 발걸음하게 만드는 문구.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ── -->
+<section id="pricing">
+  <div class="wrap reveal">
+    <div class="lbl" style="text-align:center">PRICING</div>
+    <h2 class="stitle" style="text-align:center">합리적인 가격으로 시작하세요</h2>
+    <p class="ssub" style="text-align:center">광고 대행 한 달 비용도 안 되는 가격에, 평생 쓰는 자산.</p>
+    <div class="price-grid">
+
+      <div class="price-card">
+        <div class="pc-name">무료 미니북</div>
+        <div class="pc-desc">맛보기용 핵심 프롬프트 10개</div>
+        <div class="pc-price free">0원</div>
+        <div class="pc-old dark">&nbsp;</div>
+        <ul class="pc-feat">
+          <li>업종 공통 프롬프트 10개</li>
+          <li>복붙 + 빈칸 가이드 포함</li>
+          <li>PDF 즉시 다운로드</li>
+        </ul>
+        <a href="#lead" class="pc-btn ghost">무료로 받기</a>
+      </div>
+
+      <div class="price-card best">
+        <div class="best-flag">가장 많이 선택</div>
+        <div class="pc-name">메인 e북</div>
+        <div class="pc-desc">실전 프롬프트 80개 + 사용 가이드</div>
+        <div class="pc-price">19,000원</div>
+        <div class="pc-old">정가 29,000원</div>
+        <ul class="pc-feat">
+          <li>4개 챕터 프롬프트 80개 전체</li>
+          <li>복붙+빈칸+출력예시 3종 세트</li>
+          <li>PDF + 노션 버전 제공</li>
+          <li>평생 무료 업데이트</li>
+        </ul>
+        <a href="#" class="pc-btn solid" data-buy="ebook">지금 구매하기 →</a>
+      </div>
+
+      <div class="price-card">
+        <div class="pc-name">템플릿 패키지</div>
+        <div class="pc-desc">e북 + 노션 복붙 템플릿 + 분기 업데이트</div>
+        <div class="pc-price">49,000원</div>
+        <div class="pc-old dark">정가 79,000원</div>
+        <ul class="pc-feat">
+          <li>메인 e북 전체 포함</li>
+          <li>바로 쓰는 노션 템플릿팩</li>
+          <li>분기별 신규 프롬프트 추가</li>
+          <li>1:1 컨설팅 1회 할인권</li>
+        </ul>
+        <a href="#" class="pc-btn ghost" data-buy="pack">패키지 구매</a>
+      </div>
+
+    </div>
+    <p style="text-align:center;color:rgba(255,255,255,.5);font-size:13px;margin-top:24px">
+      안전 결제 · 구매 후 즉시 다운로드 링크 발송
+    </p>
+  </div>
+</section>
+
+<!-- ── REVIEWS ── -->
+<section id="reviews">
+  <div class="wrap reveal">
+    <div class="lbl" style="text-align:center">REVIEWS</div>
+    <h2 class="stitle" style="text-align:center">먼저 써본 사장님들</h2>
+    <p class="ssub" style="text-align:center">현장 컨설팅에서 직접 검증한 프롬프트입니다.</p>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"인스타에 뭘 올릴지가 제일 스트레스였는데, 빈칸만 채우니까 글이 나와요. 진짜 5분이면 끝납니다."</p>
+        <div class="rev-who">역삼동 태권도장 원장 <span>· 50대</span></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"AI 어렵게만 생각했는데 복붙이라 바로 따라 했어요. 리뷰 답글 쓰는 시간이 확 줄었습니다."</p>
+        <div class="rev-who">강남 카페 사장 <span>· 40대</span></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"출력 예시가 같이 있어서 어떤 결과 나올지 알고 쓰니 안심돼요. 광고 맡기던 거 줄였습니다."</p>
+        <div class="rev-who">헬스장 운영 <span>· 30대</span></div>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--t3);font-size:12px;margin-top:20px">* 컨설팅 참여 사장님 피드백 기반 예시이며, 실제 후기는 순차 업데이트됩니다.</p>
+  </div>
+</section>
+
+<!-- ── LEAD FORM ── -->
+<section id="lead">
+  <div class="narrow reveal">
+    <div class="lead-box">
+      <div class="gift">🎁</div>
+      <h2>무료 미니북 먼저 받아보세요</h2>
+      <p>핵심 프롬프트 10개를 무료로 보내드립니다.<br>먼저 써보고 마음에 들면 전체 e북으로 이어가세요.</p>
+      <div class="lead-form">
+        <input type="email" id="lead-email" placeholder="이메일 주소를 입력하세요">
+        <button onclick="submitLead()">무료로 받기</button>
+      </div>
+      <p class="lead-note">스팸 없이 미니북과 가끔의 유용한 AI 활용 팁만 보내드립니다. 언제든 수신 거부 가능.</p>
+      <div class="lead-success" id="lead-success">✅ 신청 메일 앱이 열립니다. 전송해 주시면 미니북을 보내드릴게요!</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="wrap reveal">
+    <div class="lbl" style="text-align:center">FAQ</div>
+    <h2 class="stitle" style="text-align:center">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">ChatGPT 무료인데 왜 돈 주고 사야 하나요? <span class="ico">+</span></button>
+        <div class="faq-a"><p>무료로 좋은 답을 받으려면 '어떻게 물어보는지'가 핵심인데, 그게 가장 어렵습니다. 이 e북은 검증된 질문(프롬프트)과 실제 출력 예시를 함께 줘서, 빈칸만 채우면 바로 결과가 나옵니다. 시행착오에 쓸 시간을 아껴드립니다.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">AI를 한 번도 안 써봤는데 따라 할 수 있나요? <span class="ico">+</span></button>
+        <div class="faq-a"><p>네. ChatGPT를 처음 켜는 것부터 단계별로 안내합니다. 프롬프트는 복사 → 붙여넣기 → 노란 칸만 우리 매장 정보로 바꾸기, 이 3단계면 됩니다. 디지털이 익숙하지 않은 사장님도 충분히 하실 수 있게 만들었습니다.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">제 업종에도 맞나요? <span class="ico">+</span></button>
+        <div class="faq-a"><p>요식·미용·헬스·학원·소매 등 동네 매장 공통으로 쓰는 마케팅·고객관리·운영 프롬프트 중심입니다. 빈칸에 업종 정보를 넣는 방식이라 업종이 달라도 그대로 응용됩니다. 무료 미니북으로 먼저 확인해 보세요.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">구매하면 어떻게 받나요? <span class="ico">+</span></button>
+        <div class="faq-a"><p>결제 후 PDF와 노션 링크를 즉시 받으실 수 있습니다. PC·모바일 어디서나 열리고, 평생 무료 업데이트가 제공되어 새 프롬프트가 추가되면 계속 받아보실 수 있습니다.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">1:1 컨설팅도 받을 수 있나요? <span class="ico">+</span></button>
+        <div class="faq-a"><p>네. 강남구 소상공인이라면 공식 지원으로 무료 1:1 AI 컨설팅도 가능합니다. e북으로 먼저 시작하고, 더 깊은 도움이 필요하면 <a href="/consultant" style="color:var(--ga);font-weight:700">컨설턴트 소개 페이지</a>에서 상담을 신청하세요.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ── -->
+<section id="final">
+  <div class="narrow reveal">
+    <h2>오늘 저녁 인스타 글,<br><span>AI에게 맡겨보세요.</span></h2>
+    <p>고민하던 시간을 매출에 쓰세요. 지금 바로 시작할 수 있습니다.</p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn btn-acc">e북 구매하기 →</a>
+      <a href="#lead" class="btn btn-out">🎁 무료 미니북 받기</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 소상공인 AI 프롬프트북 · 강남구 AI 컨설턴트 권용준 &nbsp;·&nbsp; <a href="/consultant">컨설턴트 소개</a></p>
+</footer>
+
+<!-- ── STICKY MOBILE CTA ── -->
+<div class="sticky-cta">
+  <a href="#lead" class="s-free">🎁 무료 미니북</a>
+  <a href="#pricing" class="s-buy">e북 구매하기</a>
+</div>
+
+<script>
+/* === 결제 링크 설정: 크몽/스마트스토어/토스 결제 URL을 여기에 넣으세요 === */
+var BUY_LINKS = {
+  ebook: '',   // 메인 e북 결제 URL
+  pack:  ''    // 템플릿 패키지 결제 URL
+};
+var CONTACT_EMAIL = 'yjkwon@gangnamconsulting.com';
+
+/* ── NAV ── */
+function toggleNav(){document.getElementById('mobNav').classList.toggle('open');}
+function closeNav(){document.getElementById('mobNav').classList.remove('open');}
+document.addEventListener('click',function(e){
+  var m=document.getElementById('mobNav');
+  if(m.classList.contains('open')&&!m.contains(e.target)&&!e.target.closest('.hamburger'))
+    m.classList.remove('open');
+});
+
+/* ── SMOOTH SCROLL (offset for fixed nav) ── */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var href=this.getAttribute('href');
+    if(href==='#')return;
+    var el=document.querySelector(href);
+    if(!el)return;
+    e.preventDefault();
+    window.scrollTo({top:el.getBoundingClientRect().top+scrollY-64,behavior:'smooth'});
+  });
+});
+
+/* ── SCROLL SPY ── */
+var spy=['solution','inside','pricing','faq'];
+window.addEventListener('scroll',function(){
+  var py=scrollY+90;
+  spy.forEach(function(id){
+    var sec=document.getElementById(id);
+    var link=document.querySelector('.nav-list a[href="#'+id+'"]');
+    if(!sec||!link)return;
+    link.classList.toggle('active',py>=sec.offsetTop&&py<sec.offsetTop+sec.offsetHeight);
+  });
+},{passive:true});
+
+/* ── REVEAL ON SCROLL ── */
+var io=new IntersectionObserver(function(entries){
+  entries.forEach(function(en){ if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);} });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+/* ── FAQ ── */
+function toggleFaq(btn){
+  var item=btn.parentElement;
+  var open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(f){f.classList.remove('open');});
+  if(!open)item.classList.add('open');
+}
+
+/* ── BUY BUTTONS ── */
+document.querySelectorAll('[data-buy]').forEach(function(b){
+  b.addEventListener('click',function(e){
+    var key=this.getAttribute('data-buy');
+    var url=BUY_LINKS[key];
+    if(url){ window.open(url,'_blank'); }
+    else{
+      e.preventDefault();
+      var label=key==='pack'?'템플릿 패키지':'메인 e북';
+      location.href='mailto:'+CONTACT_EMAIL
+        +'?subject='+encodeURIComponent('['+label+' 구매문의]')
+        +'&body='+encodeURIComponent(label+' 구매를 원합니다.\n\n성함:\n연락처:\n업종/지역:\n');
+    }
+  });
+});
+
+/* ── LEAD FORM ── */
+function submitLead(){
+  var inp=document.getElementById('lead-email');
+  var email=inp.value.trim();
+  var valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if(!valid){ inp.classList.add('err'); inp.focus(); return; }
+  inp.classList.remove('err');
+  location.href='mailto:'+CONTACT_EMAIL
+    +'?subject='+encodeURIComponent('[무료 미니북 신청]')
+    +'&body='+encodeURIComponent('무료 미니북을 신청합니다.\n신청 이메일: '+email+'\n\n(이 메일을 그대로 보내주세요. 미니북을 보내드립니다.)');
+  document.getElementById('lead-success').style.display='block';
+}
+</script>
+</body>
+</html>
