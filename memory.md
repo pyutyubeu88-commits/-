@@ -158,3 +158,10 @@
 - 수정: pikepdf 재적용 시 Permissions(extract=True ★복사허용, print 허용, modify_*=False 편집만 차단)
 - 결과: 구매자 프롬프트 복붙 OK / 인쇄 OK / 문서 편집·재가공만 차단 + 저작권 푸터 유지
 - 교훈: 복붙이 핵심 가치인 상품엔 copy-lock 금지. 보호는 푸터(+추후 구매자별 워터마크)로만
+
+### [2026-06-22] 크몽 썸네일·상세이미지 제작
+- 사용자 선택(2): 크몽 등록용 이미지 제작
+- kmong-img/thumb.html → thumbnail.png (1200x900, 대표이미지): 그린/골드, "소상공인 AI 프롬프트북 복붙만 하면 끝", 80 실전프롬프트, 복붙→빈칸→완성 칩
+- kmong-img/detail.html → detail.png (860x3929, 상세페이지): Hero→Pain(3고민)→3종세트 솔루션→실제 샘플카드→8챕터 그리드→스펙→CTA(14,900원/정가29,000)
+- 렌더: 헤드리스 크로미움 + Pillow로 하단 흰여백 트리밍(ImageChops getbbox)
+- PNG는 SendUserFile로 전달(미커밋, kmong-img html소스만 커밋). 사용자가 크몽 등록 시 업로드
