@@ -117,3 +117,10 @@
 - PDF 재생성 명령: chromium --headless --no-sandbox --print-to-pdf=minibook.pdf --no-pdf-header-footer file://.../minibook-print.html
 - PR #10으로 main 머지 → /ebook 즉시다운로드 라이브
 - 남은 TODO: ① 결제 URL(BUY_LINKS.ebook/.pack) ② 메인 e북(80개) 본편 제작
+
+### [2026-06-22] 미니북에 보너스 프롬프트 추가 (네이버 플레이스 소식 자동화)
+- 사용자 요청: "네이버 플레이스 소식란 자동화 프롬프트, 10/10 품질로 포함"
+- 추가: 🎁BONUS 프롬프트 — 한 번에 한 달치 소식 8개+발행 캘린더 자동 생성(종류 믹스/지역키워드 SEO/발행시간 추천)
+- minibook-print.html: .card.bonus 골드 강조 스타일 + 보너스 카드, 표지 "10 +BONUS 1", 클로징 "맛보기 10개+보너스"
+- PDF 15p로 재렌더링·헤드리스 검증 완료. minibook-content.md 동기화. ebook.html 리드 문구에 보너스 명시
+- 미니북은 이제 "프롬프트 10개 + 보너스 1개"로 통일
