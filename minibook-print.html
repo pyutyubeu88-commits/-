@@ -48,6 +48,11 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--t1);line-height:1.7;font-
 .card-head .num{flex-shrink:0;width:30px;height:30px;border-radius:8px;background:var(--acc);color:var(--gd);font-weight:900;display:flex;align-items:center;justify-content:center;font-size:12pt}
 .card-head h3{font-size:13.5pt;font-weight:700;letter-spacing:-.3px}
 .card-body{padding:18px 22px}
+/* BONUS 카드 (골드 강조) */
+.card.bonus{border:2px solid var(--acc);box-shadow:0 4px 18px rgba(255,183,3,.18)}
+.card.bonus .card-head{background:linear-gradient(100deg,#7a5700,#b45309)}
+.card.bonus .card-head .num{background:var(--acc);color:#5a3e00;width:auto;padding:0 12px;border-radius:100px;font-size:10pt;letter-spacing:.5px}
+.bonus-tag{display:inline-block;background:var(--acc);color:#5a3e00;font-size:9pt;font-weight:900;letter-spacing:1px;padding:4px 12px;border-radius:100px;margin-bottom:12px}
 .when{font-size:10.5pt;color:var(--gm);font-weight:700;margin-bottom:14px}
 .when::before{content:'💡 ';}
 .block-lbl{font-size:9.5pt;font-weight:700;letter-spacing:.5px;color:var(--t3);margin:14px 0 7px;text-transform:uppercase}
@@ -75,7 +80,7 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--t1);line-height:1.7;font-
   <span class="badge">강남구 소상공인 AI 컨설턴트 검증</span>
   <h1>소상공인<br><span>AI 프롬프트북</span></h1>
   <p class="sub">복붙만 하면 끝나는 사장님 AI 비서<br>지금 바로 쓰는 핵심 프롬프트</p>
-  <div class="count">10<small>FREE MINI-BOOK</small></div>
+  <div class="count">10<small>+ BONUS 1 &nbsp;·&nbsp; FREE MINI-BOOK</small></div>
   <div class="foot">ChatGPT · Gemini · Claude 어디서나 작동</div>
 </section>
 
@@ -297,12 +302,61 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--t1);line-height:1.7;font-
     </div>
   </div>
 
+  <div class="card bonus">
+    <div class="card-head"><div class="num">🎁 BONUS</div><h3>네이버 플레이스 '소식' 한 달치 자동 생성</h3></div>
+    <div class="card-body">
+      <span class="bonus-tag">★ 가장 강력한 자동화</span>
+      <div class="when">매번 뭘 올릴지 고민하지 말고, 한 번에 한 달치 '소식'을 통째로 뽑고 싶을 때 (네이버 검색 노출↑·단골 유입↑)</div>
+      <div class="block-lbl">📋 복붙용 프롬프트</div>
+      <div class="prompt">너는 네이버 플레이스 마케팅 전문가이자 [업종] 사장이야.
+우리 가게의 한 달치 네이버 플레이스 '소식'을 한 번에 만들어줘.
+
+[가게 정보]
+- 가게명: [가게명]
+- 위치(동네): [지역]
+- 업종·강점: [업종 및 내세울 점]
+- 이번 달 이벤트/신메뉴: [있으면 입력, 없으면 '없음']
+- 주요 손님: [타겟 고객층]
+
+[작성 규칙]
+1) 소식 8개를 종류 골고루 섞어서: 이벤트·할인 / 신메뉴·신상품 /
+   꿀팁·정보 / 고객 후기 소개 / 영업·휴무 안내 / 시즌 인사 / 비하인드
+2) 각 소식마다:
+   - 제목(공백 포함 25자 이내, 클릭하고 싶게)
+   - 본문(2~4문장, 친근한 말투, 이모지 1~2개)
+   - 검색 노출용 '지역+업종' 키워드를 본문에 자연스럽게 넣기
+   - 추천 발행 요일·시간
+3) 마지막에 '한 달 발행 캘린더'를 표로 정리
+   (날짜 | 소식 종류 | 제목 | 발행 시간)
+
+복사해서 바로 올릴 수 있게 깔끔하게 정리해줘.</div>
+      <div class="block-lbl">✍️ 빈칸 채우는 법</div>
+      <div class="fillguide"><code>[업종]</code> → 동네 베이커리카페 &nbsp; <code>[가게명]</code> → 도담베이커리 &nbsp; <code>[지역]</code> → 강남 역삼동 &nbsp; <code>[강점]</code> → 매일 굽는 천연발효빵 &nbsp; <code>[타겟]</code> → 30~40대 직장인·주부</div>
+      <div class="block-lbl">💬 출력 예시 (일부)</div>
+      <div class="output"><b>① [신메뉴]</b> 제목: 오늘 첫 등장🥐 흑임자 크루아상
+본문: 역삼동 도담베이커리에 고소함 가득 흑임자 크루아상이 나왔어요!
+국산 흑임자 듬뿍, 겉은 바삭 속은 촉촉 🥐 역삼 베이커리 빵맛집에서 만나요.
+→ 추천 발행: 화요일 오전 9시
+
+<b>② [꿀팁]</b> 제목: 빵 가장 맛있게 데우는 법 🔥
+본문: 천연발효빵은 에어프라이어 160도 3분이면 갓 구운 맛! 강남 역삼동 도담베이커리 꿀팁이에요 😊
+→ 추천 발행: 목요일 오후 5시
+
+<b>[한 달 발행 캘린더]</b>
+| 날짜 | 종류 | 제목 | 시간 |
+| 3일(화) | 신메뉴 | 흑임자 크루아상 | 09:00 |
+| 6일(금) | 이벤트 | 오픈 1주년 10% 할인 | 11:00 |
+| 11일(수) | 꿀팁 | 빵 데우는 법 | 17:00 |
+| … (8개 전체) … |</div>
+    </div>
+  </div>
+
 </section>
 
 <!-- CLOSING -->
 <section class="closing">
   <div class="gift">🎁</div>
-  <h2>여기까지 잘 따라오셨나요?<br>이건 <span>맛보기 10개</span>입니다</h2>
+  <h2>여기까지 잘 따라오셨나요?<br>이건 <span>맛보기 10개 + 보너스</span>입니다</h2>
   <p>전체 e북에는 <b style="color:#fff">업종별 실전 프롬프트 80개 + 빈칸 채우기 가이드 + 실제 출력 예시</b>가 모두 담겨 있어요.</p>
   <div class="quote">"AI를 <b>어떻게 쓰는지</b>"가 아니라,<br>"내 가게 <b>매출에 바로 쓰는 법</b>"을 알려드립니다.</div>
   <a class="cta" href="https://aiconsultant-two.vercel.app/ebook">전체 e북 보러 가기 →</a>
