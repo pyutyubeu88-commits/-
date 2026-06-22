@@ -105,3 +105,10 @@
 - 발급 액세스 키: bb7f3432-7a1d-4f1a-8710-68e88e40e2ca → ebook.html WEB3FORMS_ACCESS_KEY 에 입력
 - PR #9로 main 머지 → aiconsultant-two.vercel.app/ebook 라이브 반영
 - 남은 TODO: ① 결제 URL(BUY_LINKS.ebook/.pack) 확보 ② 미니북/메인 e북 PDF 콘텐츠 제작
+
+### [2026-06-22] 미니북 자동전달 = "즉시 다운로드" 방식 채택 + 콘텐츠 초안
+- Web3Forms 자동답장은 Pro($12/월) 유료 → 무료로 "신청 즉시 다운로드" 방식 선택(사용자 AskUserQuestion)
+- ebook.html: MINIBOOK_URL 설정 변수 추가. 신청 성공+링크 설정 시 성공박스에 "📘 무료 미니북 다운로드" 버튼 노출. 링크 비면 기존 "메일로 보내드림" 폴백
+- minibook-content.md: 소상공인 핵심 프롬프트 10개 초안 (복붙용+빈칸+출력예시 3종). 업종 예시: 헬스/미용/식당/태권도/카페/네일/치과/필라테스
+- 커밋 a43f066, 브랜치 푸시 완료 (아직 main 미머지 — MINIBOOK_URL 비어있어 라이브 변화 없음)
+- ★다음: 사용자가 minibook-content.md → PDF(Canva/한글) → 구글드라이브 공개링크 → 그 URL을 MINIBOOK_URL에 넣고 main 머지하면 즉시다운로드 작동
