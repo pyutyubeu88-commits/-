@@ -1,0 +1,41 @@
+name: Nightly QA (Claude Code)
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # 매일 새벽 3시 KST (UTC 18:00)
+  workflow_dispatch:        # 수동 실행 버튼
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            이 프로젝트(강남구 AI 컨설팅 사이트)의 QA 검수를 수행해주세요.
+
+            검수 대상 파일: index.html, profile.html, reply.html, ebook.html, vercel.json
+
+            검수 항목:
+            1. HTML 구조 오류 (태그 누락, 잘못된 중첩, 중복 id)
+            2. JavaScript 오류 가능성 (undefined 변수, 런타임 오류)
+            3. 링크/버튼 연결 이상 (깨진 href, 미연결 버튼)
+            4. 가격·문구 일관성 (ebook.html 기준 14,900원)
+            5. 모바일 반응형 이상
+            6. 보안 문제 (XSS, 민감 정보 노출)
+
+            발견된 문제는 심각도별로 분류하고:
+            - 🔴 긴급: 즉시 GitHub Issue 생성 (label: bug)
+            - 🟡 권고: GitHub Issue 생성 (label: enhancement)
+            - 🟢 이상없음: 이슈 생성 생략
+
+            이슈 제목 형식: "[Nightly QA] {파일명} - {문제 요약}"
+          claude_args: "--max-turns 15"
