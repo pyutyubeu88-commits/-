@@ -143,3 +143,12 @@
 - ★사용자 할 일: 크몽 가입→전문가 등록→전자책 서비스 등록(위 문구 붙여넣기)→PDF(product/ebook-full.pdf, 사용자 보유) 업로드→심사(1~3일)→서비스 URL 확보
 - URL 받으면 BUY_LINKS.ebook 에 넣고 머지 → /ebook '지금 구매하기' 작동
 - 제안: 크몽 썸네일·상세이미지도 Claude가 제작 가능(미니북 표지 방식)
+
+### [2026-06-22] 메인 e북 복제방지 1차 적용 (푸터 + 복사잠금)
+- 사용자 우려: "PDF면 되팔이·무료공유 못 막지 않냐" → 100% 불가 인정, 미끼+컨설팅 퍼널 전략 설명 + 가벼운 보호 적용(AskUserQuestion: "푸터+복사잠금" 선택)
+- ① 저작권 푸터: ebook-full.html에 .pagefoot(position:fixed) 추가 → 전 페이지 하단 "ⓒ 2026 강남구 소상공인 AI 컨설턴트 · 무단 복제·공유·재배포 금지 · 구매자 전용". print 시 fixed가 모든 페이지 반복됨
+- ② 복사잠금: pip install pikepdf(10.9.1) → Encryption(owner=랜덤, user='', R=6/AES-256, Permissions(extract=False, modify_*=False, print 허용)). 열기는 비번 불필요, 복사·추출·편집 차단, 인쇄 허용
+- 재적용 명령: pikepdf.open(src).save(dst, encryption=pikepdf.Encryption(owner=secrets.token_urlsafe(18), user='', allow=perms, R=6))
+- product/ebook-full.pdf = 보호본으로 교체됨(50p). SendUserFile로 사용자에게 전달
+- 한계 명시함: 복사잠금은 우회 가능(약한 보호). 진짜 강력한 건 '구매자별 워터마크(수동배달)' → 유출 실제 문제시 2차로 전환 예정
+- (옵션) 크몽 자동배달과 병행. 무료 미니북은 보호 불필요(free 리드마그넷)
