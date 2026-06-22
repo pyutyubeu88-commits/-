@@ -106,9 +106,14 @@
 - PR #9로 main 머지 → aiconsultant-two.vercel.app/ebook 라이브 반영
 - 남은 TODO: ① 결제 URL(BUY_LINKS.ebook/.pack) 확보 ② 미니북/메인 e북 PDF 콘텐츠 제작
 
-### [2026-06-22] 미니북 자동전달 = "즉시 다운로드" 방식 채택 + 콘텐츠 초안
-- Web3Forms 자동답장은 Pro($12/월) 유료 → 무료로 "신청 즉시 다운로드" 방식 선택(사용자 AskUserQuestion)
-- ebook.html: MINIBOOK_URL 설정 변수 추가. 신청 성공+링크 설정 시 성공박스에 "📘 무료 미니북 다운로드" 버튼 노출. 링크 비면 기존 "메일로 보내드림" 폴백
-- minibook-content.md: 소상공인 핵심 프롬프트 10개 초안 (복붙용+빈칸+출력예시 3종). 업종 예시: 헬스/미용/식당/태권도/카페/네일/치과/필라테스
-- 커밋 a43f066, 브랜치 푸시 완료 (아직 main 미머지 — MINIBOOK_URL 비어있어 라이브 변화 없음)
-- ★다음: 사용자가 minibook-content.md → PDF(Canva/한글) → 구글드라이브 공개링크 → 그 URL을 MINIBOOK_URL에 넣고 main 머지하면 즉시다운로드 작동
+### [2026-06-22] ★미니북 즉시 다운로드 완성 (PDF 자체 제작·배포)★
+- Web3Forms 자동답장은 Pro($12/월) 유료 → 무료 "신청 즉시 다운로드" 방식 채택(사용자 AskUserQuestion)
+- ebook.html: MINIBOOK_URL='/minibook.pdf' 연결. 신청 성공 시 성공박스에 "📘 무료 미니북 다운로드" 버튼 노출(링크 비면 메일 폴백)
+- ★Claude가 PDF 직접 제작★: minibook-print.html(디자인 HTML) → 헤드리스 크로미움(/opt/pw-browsers/chromium-1194)으로 print-to-pdf → minibook.pdf (13p)
+  - 한글 폰트: github noto-cjk에서 NotoSansKR-VF.ttf 다운로드→~/.fonts 설치→fc-cache. 이모지=Noto Color Emoji(기설치)
+  - 검증: 헤드리스 스크린샷으로 표지·카드 렌더링 확인(한글/이모지/코드블록 정상)
+  - 구글드라이브 불필요 → 사이트 루트에 minibook.pdf 두고 /minibook.pdf 로 직접 제공(Vercel 정적)
+- minibook-content.md: 미니북 텍스트 원고(프롬프트 10개). minibook-print.html 수정 후 재렌더링하면 PDF 갱신
+- PDF 재생성 명령: chromium --headless --no-sandbox --print-to-pdf=minibook.pdf --no-pdf-header-footer file://.../minibook-print.html
+- PR #10으로 main 머지 → /ebook 즉시다운로드 라이브
+- 남은 TODO: ① 결제 URL(BUY_LINKS.ebook/.pack) ② 메인 e북(80개) 본편 제작
