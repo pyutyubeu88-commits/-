@@ -233,7 +233,7 @@ td{padding:8px 6px;border-bottom:1px solid var(--bdr);vertical-align:top}
 var GEMINI_MODEL='gemini-2.5-flash';
 var GEMINI_API_VER='v1beta';
 var BULK_DELAY=8000;
-var SITE_URL='https://auto-delta-five.vercel.app';
+var SITE_URL='https://aiconsultant-two.vercel.app/reply';
 var GOOGLE_CLIENT_ID='941692480971-o4rls1vjrrocse128f1qe5hqlou3thd3.apps.googleusercontent.com';
 
 /* ========= STATE ========= */
@@ -649,6 +649,7 @@ function startBulk(){
   var btn=document.getElementById('bulkBtn');
   btn.disabled=true;btn.innerHTML='<span class="spin"></span>생성 중...';
   bulkResults=[];
+  bulkStopped=false;
   var script=getScript();
   var chn=document.getElementById('chanName').value.trim();
   var total=unreplied.length;
