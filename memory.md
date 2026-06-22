@@ -62,3 +62,13 @@
 - 채널: 자체 랜딩페이지(주력)+크몽(보조)+인스타/블로그(유입)
 - 다음 액션 후보: e북 판매 랜딩페이지(/ebook), 무료 미니북 리드 수집 폼
 - 사용자 선택: "전체 사업 계획서" (AskUserQuestion)
+
+### [2026-06-22] e북 판매 랜딩페이지 제작
+- 파일: `ebook.html` (단일 파일, profile.html 그린 테마 계승 + 골드 포인트 --acc:#FFB703)
+- 구성: Hero→통계바→Pain(공감)→차별점(복붙+빈칸+예시 3종 세트 실제 샘플)→구성(4챕터 TOC)→가격(3티어: 무료미니북/메인19,000원/패키지49,000원)→후기→무료미니북 리드폼→FAQ아코디언→최종CTA→푸터
+- 인터랙션: 스크롤 리빌(IntersectionObserver), FAQ 아코디언, 모바일 하단 고정 CTA, 스크롤스파이
+- 결제: BUY_LINKS 변수(ebook/pack)에 크몽·스마트스토어·토스 URL 넣으면 연결, 비어있으면 메일 구매문의로 폴백
+- 리드폼: 이메일 입력 → mailto로 무료 미니북 신청 (추후 실제 폼/자동화로 교체 가능)
+- 연락 이메일: yjkwon@gangnamconsulting.com (profile.html과 동일)
+- vercel.json: /ebook, /prompt → ebook.html 라우팅 추가
+- TODO(사용자): 실제 결제 URL 확보 후 BUY_LINKS 채우기, 실제 후기 수집, 미니북 PDF 제작
