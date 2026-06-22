@@ -99,3 +99,9 @@
   1) web3forms.com 에서 받을이메일 입력→액세스키 발급→ebook.html WEB3FORMS_ACCESS_KEY 에 붙여넣기
   2) 검로드/페이팔/스마트스토어 등에서 e북 상품 만들고 결제URL을 BUY_LINKS.ebook / .pack 에 넣기
 - 키/링크는 ebook.html 안에 직접 들어감 → 사용자가 알려주면 Claude가 대신 넣어줄 수 있음
+
+### [2026-06-22] ★Web3Forms 키 발급·연결 완료★
+- 사용자가 web3forms.com 가입(yjkwon@gangnamconsulting.com)·이메일 인증·첫 폼 생성 완료
+- 발급 액세스 키: bb7f3432-7a1d-4f1a-8710-68e88e40e2ca → ebook.html WEB3FORMS_ACCESS_KEY 에 입력
+- PR #9로 main 머지 → aiconsultant-two.vercel.app/ebook 라이브 반영
+- 남은 TODO: ① 결제 URL(BUY_LINKS.ebook/.pack) 확보 ② 미니북/메인 e북 PDF 콘텐츠 제작
