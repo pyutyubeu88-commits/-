@@ -77,6 +77,7 @@ td{padding:8px 6px;border-bottom:1px solid var(--bdr);vertical-align:top}
 <div class="tip">
 💡 <b>Google API 키 하나로 YouTube + Gemini 모두 해결!</b><br>
 <a href="https://aistudio.google.com/app/apikey" target="_blank">→ Gemini API 키 무료 발급</a>
+<br><span style="font-size:11px;color:var(--tx2)">🔒 입력한 API 키는 이 브라우저 탭에만 저장되며 탭을 닫으면 삭제됩니다. <b>공용 PC에서는 사용하지 마세요.</b></span>
 </div>
 
 <!-- YouTube API Key -->
@@ -237,8 +238,8 @@ var SITE_URL='https://auto-delta-five.vercel.app';
 var GOOGLE_CLIENT_ID='941692480971-o4rls1vjrrocse128f1qe5hqlou3thd3.apps.googleusercontent.com';
 
 /* ========= STATE ========= */
-var ytApiKey=localStorage.getItem('ytApiKey')||'';
-var gmApiKey=localStorage.getItem('gmApiKey')||'';
+var ytApiKey=sessionStorage.getItem('ytApiKey')||'';
+var gmApiKey=sessionStorage.getItem('gmApiKey')||'';
 var gToken='';
 var gTokenExp=0;
 var curMode='url';
@@ -279,14 +280,14 @@ function toggleCard(prefix){
 function saveYt(){
   ytApiKey=document.getElementById('ytKey').value.trim();
   if(!ytApiKey){toast('YouTube API 키를 입력하세요');return;}
-  localStorage.setItem('ytApiKey',ytApiKey);
+  sessionStorage.setItem('ytApiKey',ytApiKey);
   document.getElementById('ytDot').classList.add('on');
   toast('YouTube API 키 저장됨');
 }
 function saveGm(){
   gmApiKey=document.getElementById('gmKey').value.trim();
   if(!gmApiKey){toast('Gemini API 키를 입력하세요');return;}
-  localStorage.setItem('gmApiKey',gmApiKey);
+  sessionStorage.setItem('gmApiKey',gmApiKey);
   document.getElementById('gmDot').classList.add('on');
   toast('Gemini API 키 저장됨');
 }
@@ -353,7 +354,7 @@ function fetchVid(){
   document.getElementById('fetchBtn').disabled=true;
   document.getElementById('fetchBtn').textContent='로딩...';
   fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet&id='+vid+'&key='+ytApiKey)
-  .then(function(r){return r.json();})
+  .then(ytJson)
   .then(function(d){
     if(!d.items||!d.items.length){toast('영상을 찾을 수 없습니다');return;}
     var s=d.items[0].snippet;
@@ -368,13 +369,26 @@ function fetchVid(){
   .catch(function(e){toast('오류: '+e.message);console.error(e);})
   .finally(function(){document.getElementById('fetchBtn').disabled=false;document.getElementById('fetchBtn').textContent='불러오기';});
 }
+function ytJson(r){
+  if(!r.ok){
+    return r.json().catch(function(){return{};}).then(function(j){
+      var msg=(j&&j.error&&j.error.message)||'오류';
+      if(r.status===401)throw new Error('API 키가 만료되었거나 유효하지 않습니다 (401)');
+      if(r.status===403)throw new Error('API 키 권한 없음 또는 일일 할당량 초과 (403)');
+      if(r.status===429)throw new Error('YouTube API 요청 한도 초과 — 잠시 후 재시도하세요');
+      if(r.status===400)throw new Error('잘못된 요청: '+msg);
+      throw new Error('YouTube '+r.status+': '+msg);
+    });
+  }
+  return r.json();
+}
 function extractVid(url){
   var m=url.match(/[?&]v=([^&#]+)/)||url.match(/youtu\.be\/([^?&#]+)/)||url.match(/shorts\/([^?&#]+)/);
   return m?m[1]:'';
 }
 function fetchComments(vid){
   return fetch('https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId='+vid+'&maxResults=100&order=time&key='+ytApiKey)
-  .then(function(r){return r.json();})
+  .then(ytJson)
   .then(function(d){
     if(!d.items){toast('댓글을 불러올 수 없습니다');return;}
     allCmts=d.items.map(function(it){

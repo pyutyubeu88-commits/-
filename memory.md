@@ -60,3 +60,9 @@
   - security-auditor (Sonnet, 읽기전용): API키·OAuth토큰 노출·XSS 등 클라이언트 보안 점검
   - landing-copywriter (Sonnet, Edit 가능): 강남구 컨설팅 랜딩 한국어 카피
 - 작업 브랜치: claude/sub-agents-agent-teams-h8b3ib
+
+### [2026-06-22] reply.html 보안 점검 + 수정 (security-auditor 서브에이전트)
+- 감사 결과: XSS(esc())·OAuth 토큰 메모리관리·시크릿 하드코딩 이상 없음. Medium 2건 + Low 1건 발견
+- ✅ 수정1(Medium): YouTube/Gemini API 키 저장을 localStorage → sessionStorage 전환(탭 닫으면 삭제) + 공용PC 사용 경고 문구 추가
+- ✅ 수정3(Low): YouTube Data API fetch에 ytJson() 헬퍼 도입 — 401/403/429/400 상태코드 분기 처리(videos·commentThreads 둘 다)
+- 미수정(사용자 조치 필요): OAuth Client ID 도메인 제한 → Google Cloud Console에서 허용 Origin을 배포 도메인으로 제한 권장
