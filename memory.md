@@ -72,3 +72,9 @@
 - 연락 이메일: yjkwon@gangnamconsulting.com (profile.html과 동일)
 - vercel.json: /ebook, /prompt → ebook.html 라우팅 추가
 - TODO(사용자): 실제 결제 URL 확보 후 BUY_LINKS 채우기, 실제 후기 수집, 미니북 PDF 제작
+
+### [2026-06-22] e북 사업 PR #7 머지·배포
+- PR #7 (계획서 ebook-business-plan.md + 랜딩 ebook.html + vercel.json /ebook 라우팅) squash 머지 완료 → main 반영
+- 로컬 헤드리스 크로미움으로 데스크톱/모바일 렌더링 검증 완료 (정상)
+- Vercel 자동 배포: main 연결되어 머지 시 자동 배포 (aiconsultant-two.vercel.app/ebook)
+- 주의: 실행 환경에서 vercel 도메인 outbound 차단됨(x-deny-reason: host_not_allowed) → 라이브 URL은 사용자가 직접 확인 필요. 루트 / 도 동일 차단이므로 사이트 문제 아님
