@@ -1,0 +1,76 @@
+IMAT — Logical Reasoning 기출문제 (2024–2025)
+==================================================
+
+[2024년 — 5문제]
+
+Q5. The following table shows the results of a test:        To pass the test, a mark of higher than 5 is needed. What percentage of the candidates  passed the test?
+  A) 25%
+  B) 24%
+  C) 20%
+  D) 30%
+  E) 50%
+
+Q6. Shelly is one of 1500 participants in a Latin contest. 12% of the participants will receive  as a prize either a silver-plated or gold-plated pen. If the number of silver-plated pens is  twice the number of gold-plated ones, what is the probability that Shelly will receive a  gold-plated one?
+  A) 4 %
+  B) 33 %
+  C) 8 %
+  D) 67 %
+  E) 6 %
+
+Q7. Two consecutive discounts of 10% and 20% are equal to a single discount of:
+  A) 28%
+  B) 25%
+  C) 30%
+  D) 18%
+  E) 15%
+
+Q8. Stacie builds a cube using 343 blocks of wood. She decides to paint the cube green. How  many of the wooden blocks will have at least one side painted green?
+  A) 218
+  B) 125
+  C) 245
+  D) 238
+  E) 105
+
+Q9. “When he takes the train, Marco always arrives at work on time.”    Which of the following statements can be deduced from the preceding proposition?
+  A) Marco arrived late; therefore he did not take the train.
+  B) Marco arrived late; therefore he took the train.
+  C) Marco arrived on time; therefore he missed the train.
+  D) Marco did not take the train; therefore he arrived late.
+  E) Marco took his car; therefore he arrived on time.    Biology
+
+[2025년 — 5문제]
+
+Q5. Consider this statement:    The number two is a prime number.    Which of the following statements is deducible from the given statement?
+  A) At least one prime number exists.
+  B) No prime numbers exist.
+  C) At least one number is not a prime number.
+  D) No number is a prime number.
+  E) All numbers are prime numbers.
+
+Q6. From the given statements    If today is Saturday, then I am a philosopher    I am not a philosopher    Which conclusion can be deduced?
+  A) Today is not Saturday.
+  B) Today is Saturday.
+  C) Today is Friday.
+  D) I am a philosopher.
+  E) None of the other choices is correct.      Ministero dell'Università e della Ricerca
+
+Q7. Alberto, Beatrice, Carlo, and Daniela are dining at the same square table, each seated on  one side of the table. Alberto is seated to the left of Beatrice but not to the right of Carlo.  Which of the following statements can be deduced?
+  A) Daniela is seated to the right of Carlo.
+  B) Carlo is seated across from Beatrice.
+  C) Daniela is seated to the left of Beatrice.
+  D) Alberto is seated to the left of Carlo.
+  E) Beatrice is seated across from Alberto.
+
+Q8. Three pills — coloured blue, red, and green, respectively, — are each placed individually  inside three small boxes of the same colours — blue, red, and green — in such a way that  no pill is inside the box of its own colour. Additionally, the blue pill is not in the green box.  Which pill is in which box?
+  A) The green pill is in the blue box, the red pill is in the green box, the blue pill is in the red box.
+  B) The green pill is in the blue box, the red pill is in the blue box, the blue pill is in the green box.
+  C) The blue pill is in the green box, the green pill is in the red box, the red pill is in the blue box.
+  D) The red pill is in the blue box, the green pill is in the green box, the blue pill is in the red box.
+  E) The blue pill is in the blue box, the green pill is in the green box, the red pill is in the red box.
+
+Q9. At this moment, an analogue clock is showing exactly 3:00 PM. After the minute hand has  completed 1.75 full rotations from its current position, what time will the clock indicate?
+  A) 4:45 PM
+  B) 1:25 PM
+  C) 3:35 PM
+  D) 4:30 PM
+  E) 5:00 PM    Biology

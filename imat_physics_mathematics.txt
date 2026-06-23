@@ -1,0 +1,188 @@
+IMAT — Physics & Mathematics 기출문제 (2024–2025)
+==================================================
+
+[2024년 — 13문제]
+
+Q48. The expression  2 1 3 1 ) 512 (  is equivalent to:
+  A) 2 2
+  B) 2
+  C) 3 4
+  D) 6 2
+  E) 6 2 2
+
+Q49. If   ( ) 12 log ) ( 2 2 + = x x f     What is the reciprocal of  ) 2 ( f  ?
+  A) 4 1
+  B) 4
+  C) 2
+  D) 2 1
+  E) 6        Ministero dell’Università e della Ricerca           9
+
+Q50. In a bag are 3 red balls and 7 green balls, indistinguishable by touch. Two extractions are  made, with the first ball being returned to the bag before the second extraction. What is  the probability of extracting 2 green balls?
+  A) 100 49
+  B) 90 42
+  C) 10 7
+  D) 100 51
+  E) 100 9
+
+Q51. Which of the following is the solution of the inequality  0 3 4 3 4 2 ≥ − + + x x x  ?
+  A) each real x with  3 4 < x
+  B) each real x with  0 4 3 ≠ ∧ − ≠ x x
+  C) each real x with  3 4 ≥ x
+  D) each real x with  3 4 > x
+  E) each real x with  3 4 ≤ x
+
+Q52. Let θ  be the acute angle formed between the tangent at point A to a circle and one of its  chords, AB. Considering any point D on the larger of the arcs AB, denoted by ϕ  as the  angle  B D A ˆ , what relationship exists between the angles ϕ  and θ  ?
+  A) They are equal.
+  B) They are explementary.
+  C) There is no relationship between the two angles.
+  D) They are complementary.
+  E) They are supplementary.
+
+Q53. Given a cylinder with a base radius of 5 cm and a height of 7 cm, what is its volume?
+  A) 3 175 cm π
+  B) 3 245 cm π
+  C) 3 70 cm π
+  D) 3 105 cm π
+  E) This cannot be calculated with these data         10
+
+Q54. In a right triangle, let a and b represent the legs and c the hypotenuse. If α is the angle  opposite a, which of the following relations is true?
+  A) a = c sin(α)
+  B) a = c cos(α)
+  C) c = a sin(α)
+  D) c = a cos(α)
+  E) a = b cos(α)
+
+Q55. A boat is moving in a uniform straight motion at a certain speed v. If a braking force of  210 N is applied for a distance of 5 m, how much power is developed by the braking  force?
+  A) 210 W
+  B) 105 W
+  C) 1050 W
+  D) 8,4 W
+  E) 420 W
+
+Q56. An ideal gas is in a container placed on a thermostat at temperature T and occupies   volume V at pressure P. If the volume occupied by the gas is tripled while keeping the  temperature constant, its pressure …
+  A) becomes P/3
+  B) does not change
+  C) becomes 3P
+  D) becomes P/2
+  E) changes, depending on T
+
+Q57. In a conductor, when a current of 10A flows, 2922W are dissipated. What is the resistance  value of the conductor?
+  A) 29.22 Ω
+  B) 2922 Ω
+  C) 2.922 Ω
+  D) 292.2 Ω
+  E) 29220 Ω
+
+Q58. An electron in motion with a constant velocity vr , enters a uniform magnetic field B  perpendicularly.  Given that me, e, v represent the mass, charge, and magnitude of the  electron’s velocity respectively, which of the following statements is false?
+  A) The electron continues to move with a constant velocity vr
+  B) The trajectory of the electron is a circle with a radius of eB v me
+  C) The motion of the electron is uniformly circular with a period of  eB me π 2
+  D) The motion of the electron is circular with constant angular velocity
+  E) The motion of the electron is uniformly circular with a frequency  e m eB π 2
+
+Q59. A point particle moves along a given x-axis with the law of motion x(t) = 4 cos(ωt) where x  is in metres, t in seconds and ω = 2π rad/s. The velocity of the point particle at the instant  t*=1/2s equals:
+  A) 0 m/s
+  B) approximately −4 m/s
+  C) approximately 8,5 m/s
+  D) approximately 4,2 m/s
+  E) approximately 25,1 m/s       Ministero dell’Università e della Ricerca           11
+
+Q60. A pendulum rod moves from the vertical position. Which of the following statements is  false?
+  A) In the absence of friction, the pendulum tends to come to a stop after a certain time
+  B) In the absence of friction, the motion is simple harmonic oscillation.
+  C) In the presence of friction oscillatory motion is damped.
+  D) The pendulum stops after reaching a certain height and then swings back.
+  E) The pendulum describes a circular arc during its motion.            ********** FINE DELLE DOMANDE **********          In all the presented questions the right answer is at letter A)
+
+[2025년 — 13문제]
+
+Q48. What is the solution to the inequality  x x + < 1 2  ?
+  A) 0 ≥ ∀x
+  B) R
+  C) 0 > ∀x
+  D) ∅
+  E) 0 ≠ ∀x
+
+Q49. Which of the following inequalities is satisfied for every real value of x ?
+  A) sin2x + sin x − 2 ≤ 0
+  B) cos2x − cos x − 2 ≥ 0
+  C) tan2x − 2tan x + 1 > 0
+  D) 2sin2x − sin x − 1 > 0
+  E) 2cos2x + cos x − 1 < 0
+
+Q50. What does the Cartesian product of a set A and a set B correspond to?
+  A) The set of all possible ordered pairs having as the first component an element of A and  as the second component an element of B
+  B) The representation of the intersection set of A and B
+  C) The representation of the union set of A and B
+  D) The set consisting of the products of corresponding numerical elements of A and B
+  E) The representation of the difference set of A and B
+
+Q51. The trinomial a2 − 4ab + 4b2 is equal to:
+  A) (a − 2b)2
+  B) a2 + b2
+  C) a2 − b2
+  D) 2(a + b)2
+  E) a2 + b2
+
+Q52. In a rectangle ABCD the base AB is 5/4 of the height BC and the perimeter is 72 cm. What  are the dimensions of the rectangle?
+  A) AB = 20 m;  BC = 16 m
+  B) AB = 10 m;  BC = 8 m
+  C) AB = 12 m;  BC = 10 m
+  D) AB = 18 m;  BC = 16 m
+  E) AB = 20 m;  BC = 18 m
+
+Q53. For which values of a is the equation 3x + a = 3 determined?
+  A) For any value of a
+  B) For no value of a
+  C) For a ≠ −3
+  D) For a ≠ 3
+  E) For  a ≠ 0
+
+Q54. Given the equation (a + 3) x = 5, which of the following values of a is impossible?
+  A) a = −3
+  B) a = 3
+  C) a = 5
+  D) a = −5
+  E) a = 0
+
+Q55. Two cars, A and B, are moving in uniform rectilinear motion with speeds of 120 km/h and  80 km/h, respectively. If at the initial moment A is 500 meters behind B, after one minute:
+  A) A has overtaken B
+  B) A has not yet overtaken B
+  C) A has exactly reached B
+  D) A will never overtake B
+  E) A will overtake B after a much longer time than one minute
+
+Q56. An electric circuit consists of 100 branches connected in parallel. Each branch has 10  resistors in series, each with a value of R. What is the equivalent resistance?
+  A) R/10
+  B) 10R
+  C) 100R
+  D) R/100
+  E) R
+
+Q57. Which of these particles move in a straight horizontal metal wire carrying a current from  left to right?
+  A) Only the electrons moving from right to left
+  B) Only the protons moving from right to left
+  C) Only the electrons moving from left to right
+  D) Only protons moving from left to right
+  E) The electrons moving from left to right and the protons from right to left
+
+Q58. An astronaut takes a spacewalk at a distance from the Earth's surface equal to three  times the Earth's radius. What fraction of g corresponds to the acceleration experienced  by the astronaut?
+  A) 1/16
+  B) 1/9
+  C) 1/3
+  D) 1/4
+  E) 1/6
+
+Q59. A car with a mass of 2.0 × 103 kg travels in a straight line at a constant speed on a flat  road. Its speed is 15 m/s. At a certain moment (t = 0) it accelerates with a constant  acceleration of 2.0 m/s2, in the same direction as the velocity. The constant friction force  is 2000 N. The forces F1 e F2 exerted by the engine in the first and second segments,  respectively, are:
+  A) F1 = 2000 N,   F2 = 6000 N
+  B) F1 = 0,   F2 = 4000 N
+  C) F1 = 0,   F2 = 6000 N
+  D) F1 = 30 × 103 N,   F2 = 4000 N
+  E) F1 = F2 = 2000 N     Ministero dell'Università e della Ricerca
+
+Q60. A stationary liquid exerts on the walls of the container that holds it:
+  A) forces always perpendicular to the walls at every point
+  B) forces in any direction relative to the walls
+  C) forces always parallel to the walls at every point
+  D) no forces on the walls, only pressure
+  E) forces equal to zero          ********** FINE DELLE DOMANDE **********

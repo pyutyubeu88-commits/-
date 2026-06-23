@@ -1,0 +1,216 @@
+IMAT — Chemistry 기출문제 (2024–2025)
+==================================================
+
+[2024년 — 15문제]
+
+Q33. A mixture of 0.3 mol of N2, 0.5 mol of CO2, and 0.4 mol of O2 exerts a pressure of 2.4 atm  on the walls of the vessel that contains it. What is the pressure exerted by the nitrogen?
+  A) 0.6 atm
+  B) 0.8 atm
+  C) 0.5 atm
+  D) 0.3 atm
+  E) 0.75 atm
+
+Q34. A gas, confined in a rigid cylinder and maintained at a temperature of −3 °C exerts a  pressure of 9 atm. What pressure would the same gas exert if it were heated to 27 °C?
+  A) 10 atm
+  B) −81 atm
+  C) 8.1 atm
+  D) 9.6 atm
+  E) 12.5 atm
+
+Q35. Which of the following compounds forms a hydroxide when reacting with water?
+  A) BaO
+  B) Cl2O
+  C) SO3
+  D) SiO2
+  E) N2O3
+
+Q36. Given the theoretical reaction yield of 4 FeS2 + 11 O2 → 2 Fe2O3 + 8 SO2 which of the  following statements is correct
+  A) From 2 mol of FeS2 and 11 mol of O2, 1 mol of Fe2O3 can be obtained.
+  B) From 4 mol of O2 and 11 mol of FeS2, 8 mol of SO2 can be obtained.
+  C) To obtain 1 mol of Fe2O3, 2 mol of FeS2 and 5 mol of O2 are necessary.
+  D) From 10 mol of O2 and 1 mol of FeS2, 3 mol of SO2 can be obtained.
+  E) To obtain 1 mol of Fe2O3 and 6 mol of SO2, 2 mol of FeS2 and 9 mol of O2 are necessary.
+
+Q37. How many mL of water must be added to 15 mL of a 0.25 M solution of H2SO4 to obtain a  0.05 M solution?
+  A) 60 mL
+  B) 30 mL
+  C) 120 mL
+  D) 75 mL
+  E) 50 mL
+
+Q38. How many Na+ ion moles can be found in 250 mL of a 1.2 M solution of Na2SO4?
+  A) 0.6
+  B) 1.2
+  C) 1.8
+  D) 0.3
+  E) 0.4       Ministero dell’Università e della Ricerca           7
+
+Q39. In the reaction  NH3 + BF3 ⇄ NH3BF3  the ammonia behaves as a:
+  A) Lewis base
+  B) Brönsted base
+  C) Brönsted acid
+  D) Lewis acid
+  E) Arrhenius base
+
+Q40. Zinc nitrate, nitrogen dioxide, and water are obtained from the reaction of metallic zinc  and nitric acid in an aqueous solution. What is the reducing species?
+  A) Zn(s)
+  B) Zn2+ (aq)
+  C) H+ (aq)
+  D) Zn(NO3)2(aq)
+  E) HNO3(aq)
+
+Q41. Which of the following compounds contains the most hydrogen atoms?
+  A) 2,3-Dimethylpentane
+  B) Cyclohexane
+  C) 1,2-Dimethylcyclobutane
+  D) 2,3-Dimethyl-2-butene
+  E) 2-Hexanol
+
+Q42. A carbon-oxygen double bond is NOT present in which of the following molecules?
+  A) Dimethyl ether
+  B) Acetaldehyde
+  C) Acetone
+  D) Acetic acid
+  E) Methyl acetate
+
+Q43. Various units of measurement can be used to express the value of pressure. Which of the  following values of pressure does NOT correspond to 1 atm?
+  A) 1013.25 kPa
+  B) 101325 Pa
+  C) 1013 millibar
+  D) 760 mmHg
+  E) 760 torr
+
+Q44. Given that the relative atomic mass of nitrogen is 14 u, how many nitrogen atoms are  present in 0.7 g of gaseous nitrogen?
+  A) 3.01×1022
+  B) 6.02×1022
+  C) 3.01×1023
+  D) 1.51×1022
+  E) 2.01×10-23         8
+
+Q45. Carbon and oxygen can react at high temperatures to form CO2. Assuming that the  relative atomic mass of the carbon is 12 u, the relative atomic mass of the oxygen is 16 u  and the yield of the reaction is 100%, what happens when 9 g of carbon reacts with 36 g  of oxygen?
+  A) 33 g of CO2 are produced.
+  B) 45 g of CO2 are produced.
+  C) 9 g of oxygen remain.
+  D) 4 g of oxygen remain.
+  E) 18 g of oxygen remain.
+
+Q46. How much water needs to be added to 1 mL of an HCI solution with a pH of 2 to obtain a  solution with a pH of 4?
+  A) 99 mL
+  B) 1 mL
+  C) 2 mL
+  D) 24 mL
+  E) 49 mL
+
+Q47. According to the Brønsted−Lowry theory:
+  A) a strong acid forms a conjugate with a weak base
+  B) the conjugate base is formed by an acid that has acquired an OH− ion
+  C) the conjugate acid is the product of the bonding of the base with an OH− ion
+  D) a base is a compound which can donate OH− ions
+  E) an acid is a substance which can provide a pair of electrons     Physics and Mathematics
+
+[2025년 — 15문제]
+
+Q33. The equation of state for ideal gases is:
+  A) PV = nRT
+  B) nV = PRT
+  C) V = RT/(Pn)
+  D) V = Pn/(RT)
+  E) Pn = VRT
+
+Q34. In which of these compounds does Cl have an oxidation number of +3:
+  A) HClO2
+  B) Cl2
+  C) HCl
+  D) HClO
+  E) HClO3
+
+Q35. An oxidation number cannot be:
+  A) an irrational number
+  B) a negative number
+  C) a positive number
+  D) a number with a decimal point
+  E) zero
+
+Q36. What kind of solid is NaCl?
+  A) Ionic
+  B) Molecular
+  C) Metallic
+  D) Covalent network
+  E) Amorphous
+
+Q37. In the periodic table, the atomic radius increases going:
+  A) from right to left and from top to bottom
+  B) from left to right and from top to bottom
+  C) from right to left and from bottom to top
+  D) from left to right and from bottom to top
+  E) from top to bottom but horizontally in a very irregularly way
+
+Q38. A pure covalent bond is a bond that forms between:
+  A) two atoms of the same element
+  B) two atoms with quite similar electronegativity
+  C) two atoms with very different electronegativity
+  D) two atoms with no electronegativity
+  E) two identical ions
+
+Q39. The pH of an aqueous solution of a monoprotic weak acid with the constant  Ka = 1.0 × 10−5 and concentration 0.001 M is:
+  A) 4
+  B) 3
+  C) 10−8
+  D) 8
+  E) 5.5
+
+Q40. What is the pH of a 0.7 M aqueous solution of KBr?
+  A) 7
+  B) 0.7
+  C) 13.3
+  D) 10−7
+  E) 10−0.7
+
+Q41. Given the equilibrium   Heat + 2FeCl3 (s)  2FeCl2 (s) + Cl2 (g)    Which of the following options is correct:
+  A) to shift the equilibrium to the left, it is necessary to increase the concentration of Cl2.
+  B) to shift the equilibrium to the left, it is necessary to increase the concentration of FeCl2 (s).
+  C) to shift the equilibrium to the left, it is necessary to remove FeCl3 (s).
+  D) to shift the equilibrium to the right, it is necessary to cool the reaction.
+  E) to shift the equilibrium to the right, it is necessary to increase the concentration of FeCl3 (s).
+
+Q42. The activation energy of a reaction represents:
+  A) the energy barrier that the reactants must overcome to transform into products
+  B) the difference between the energy of the products and that of the reactants
+  C) the difference between the kinetic energy and the potential energy of the reactants
+  D) the energy released during the progress of a reaction
+  E) the energy that is released only in the initial phase of any reaction in solution
+
+Q43. In benzene:
+  A) all the carbon atoms are sp2 hybridized and the molecule has a planar structure
+  B) all the carbon atoms are sp3 hybridized and the molecule has a planar structure
+  C) all the carbon atoms are sp2 hybridized and the molecule has a chair or boat structure
+  D) all the carbon atoms are sp hybridized
+  E) three carbon atoms are sp3 hybridized and three atoms are sp2 hybridized
+
+Q44. Glycogen:
+  A) is a homopolysaccharide
+  B) is a heteropolysaccharide
+  C) is a disaccharide
+  D) is a storage molecule present in both animal and plant cells
+  E) is a polypeptide
+
+Q45. The compound FeCO3 is:
+  A) ferrous carbonate
+  B) ferric carbonate
+  C) iron oxide
+  D) iron pentacarbonyl
+  E) none of the other answers is correct
+
+Q46. How many electrons can occupy an orbital?
+  A) Two with antiparallel spins
+  B) Two with parallel spins
+  C) Three
+  D) Just one
+  E) Four     Ministero dell'Università e della Ricerca
+
+Q47. Which of the following statements about amino acids is true?
+  A) They contain an amine group and a carboxyl group
+  B) They are normally poorly soluble in water
+  C) They dissolve well in hexane
+  D) They are one of the main constituents of carbohydrates
+  E) They have no acid/base activity    Physics and Mathematics

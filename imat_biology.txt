@@ -1,0 +1,328 @@
+IMAT — Biology 기출문제 (2024–2025)
+==================================================
+
+[2024년 — 23문제]
+
+Q10. Which process occurs within mitochondria?
+  A) Cellular respiration
+  B) Glycolysis
+  C) Photosynthesis
+  D) The methylation of sugars
+  E) The formation of microbodies       Ministero dell’Università e della Ricerca           3
+
+Q11. What is a hydrogen bond?
+  A) It is a bond between a hydrogen atom and another strongly electronegative atom (such  as oxygen or nitrogen) which is present in another molecule.
+  B) It is a covalent bond between hydrogen and oxygen.
+  C) It is a strong bond which allows bonding between non-polar molecules.
+  D) It is the bond which occurs between hydrogen and oxygen within a water molecule.
+  E) It is the bond between hydrogen and ionised atoms (such as phosphorus).
+
+Q12. In eukaryotic cells, Krebs cycle reactions occur:
+  A) In the mitochondrial matrix
+  B) On the internal membrane of the mitochondria
+  C) In the cytoplasm
+  D) In the large ribosomal subunit
+  E) Close to the plasma membrane
+
+Q13. What kind of monosaccharide is glucose?
+  A) hexose
+  B) pentose
+  C) triose
+  D) tetrose
+  E) nonose
+
+Q14. Which pentose sugar is present in RNA nucleotides?
+  A) Ribose
+  B) Glucose
+  C) Fructose
+  D) Glycerol
+  E) Lactose
+
+Q15. What are carrier proteins?
+  A) They are the proteins that transfer molecules and ions across the plasma  membrane
+  B) They are proteins that phosphorylate enzymes in the plasma membrane.
+  C) They are proteins that break down phospholipids in the plasma membrane.
+  D) They are proteins that transport mRNA in the nucleus.
+  E) They are proteins that transport tRNA in the nucleolus.
+
+Q16. What is the cell’s energy currency?
+  A) ATP
+  B) FADH2
+  C) NADH
+  D) Creatine
+  E) NADPH
+
+Q17. Which kind of reaction is ATP hydrolysis?
+  A) exergonic
+  B) endergonic
+  C) condensation
+  D) Oxidation-reduction
+  E) Lipolysis          4
+
+Q18. The presence of intercellular compartmentalisation is a characteristic of which  organisms?
+  A) Of eukaryotes
+  B) Of viruses
+  C) Of bacteria
+  D) Of prokaryotes
+  E) Only of algae
+
+Q19. Which intracellular structure is composed of microtubules?
+  A) The centriole
+  B) The nucleus
+  C) The Golgi apparatus
+  D) The nucleolus
+  E) The endoplasmic reticulum
+
+Q20. Mitochondria have:
+  A) An outer membrane and a very selective inner membrane
+  B) Only a very selective outer membrane
+  C) An outer membrane, an intermediate membrane, and a very selective inner membrane
+  D) An outer membrane consisting of a phospholipid monolayer
+  E) A very selective membrane in which no proteins are present
+
+Q21. What is an anticodon?
+  A) The sequence of three nucleotides found on the tRNA corresponding to a codon on the  mRNA.
+  B) A sequence three nucleotides transcribed from the mRNA and translated by rRNA
+  C) A part of the DNA that codes for a specific amino acid
+  D) A terminal triplet of rRNA that binds a specific amino acid
+  E) The sequence of three mRNA nucleotides corresponding to a DNA codon
+
+Q22. What are ribosomes made of?
+  A) RNA and proteins
+  B) DNA and proteins
+  C) DNA and lipids
+  D) RNA and DNA
+  E) RNA, DNA, and proteins
+
+Q23. The cell membrane consists of:
+  A) a double phospholipid layer with hydrophobic tails facing inward and the presence of  integral and peripheral proteins
+  B) Cholesterol and phospholipid molecules enclosing a protein layer
+  C) A double layer of triglycerides and cholesterol
+  D) A glycoprotein layer containing phospholipids and cholesterol
+  E) A layer of fatty acids and globular proteins containing phospholipids and cholesterol
+
+Q24. In protein synthesis, what is translation?
+  A) It is the process by which mRNA is read and converted into a specific sequence of amino  acids.
+  B) It is the process of transcribing the mRNA sequence into a corresponding DNA molecule.
+  C) It is the process of specific recognition of rRNA by amino acids.
+  D) It is the process in which DNA is read and the corresponding mRNA produced.
+  E) It is the process of pairing between DNA codons and tRNA anticodons.        Ministero dell’Università e della Ricerca           5
+
+Q25. What are the principal components of the cytoskeleton?
+  A) Microtubules, microfilaments, and intermediate filaments
+  B) Microtubules, myosin, and filamin
+  C) Microtubules, dynein, and myosin
+  D) Actin, myosin and dynein
+  E) Collagen fibres and reticular fibres
+
+Q26. The term “allele” defines:
+  A) one of several alternative forms of a gene
+  B) A coding DNA base for a specific amino acid
+  C) A hereditary trait only found in haploid cells
+  D) The phenotypic manifestation of a given gene
+  E) A set of coding DNA triplets for a specific amino acid
+
+Q27. In a heterozygous condition, an allele can certainly express itself when:
+  A) dominant
+  B) recessive
+  C) mutated
+  D) multiple
+  E) associated
+
+Q28. What are mutations?
+  A) Alterations in the genetic information of a cell
+  B) Alteration in the energy metabolism of a cell
+  C) Alterations in enzyme functionality during zygote formation
+  D) Alterations in the active transport system of biological membranes
+  E) Alterations in the mechanism of cell division.
+
+Q29. Translation is a process which:
+  A) leads to the synthesis of polypeptide chains from mRNA
+  B) occurs in the nucleus of eukaryotic cells
+  C) leads to the synthesis of RNA from DNA
+  D) is very similar to transcription
+  E) Is exclusively eukaryotic
+
+Q30. If the sequence CCGTTATTGA is found on a strand of DNA helix, what sequence will be  found on the complementary strand?
+  A) GGCAATAACT
+  B) AGTTATTGCC
+  C) GGACATCCCT
+  D) CGCACCTCCT
+  E) GGCAATTAAT
+
+Q31. Replication is the process through which:
+  A) DNA is used as a template to synthesise new DNA molecules
+  B) DNA is used as a template to synthesise new RNA molecules
+  C) Daughter cells are formed from a mother cell
+  D) RNA is used as a template to synthesise proteins
+  E) RNA is used as a template to synthesise new RNA molecules          6
+
+Q32. The prokaryotic operon is:
+  A) A functional unit composed of a group of adjacent genes, co-ordinately controlled, and of  DNA sequences with regulatory functions.
+  B) A group of adjacent genes independent from each other
+  C) a protein complex that catalyses the process of protein synthesis
+  D) An RNA complex that is involved in the replication of DNA
+  E) A DNA sequence element without any type of regulatory function     Chemistry
+
+[2025년 — 23문제]
+
+Q10. During lactic fermentation, pyruvic acid is:
+  A) reduced
+  B) oxidised
+  C) decarboxylated
+  D) phosphorylated
+  E) dephosphorylated
+
+Q11. Which of the following statements about glycolysis is correct?
+  A) When a molecule of glucose is converted to pyruvate in glycolysis, 2 NAD+ are reduced.
+  B) Triose phosphate isomerase catalyses the conversion of dihydroxyacetone phosphate to  1,3-bisphosphoglycerate.
+  C) Phosphofructokinase catalyses the conversion of fructose 1,6-bisphosphate to  dihydroxyacetone phosphate.
+  D) When a molecule of glucose is converted to pyruvate in glycolysis, CO2 is produced.
+  E) In the first part, FADH2 is formed.
+
+Q12. Each acetyl-CoA molecule that enters the Krebs cycle produces:
+  A) 3 NADH, 1 FADH2, 1 GTP and 2 molecules of CO2
+  B) 1 NADH, 3 FADH2, 1 GTP and 2 molecules of CO2
+  C) 3 NADH, 1 FADH2, 1 GTP and 3 molecules of CO2
+  D) 3 NADH, 1 FADH2, 2 GTP and 3 molecules of CO2
+  E) 2 NADH, 2 FADH2, 2 GTP and 2 molecules of CO2
+
+Q13. Oxidative phosphorylation is a metabolic pathway:
+  A) through which the energy stored in reduced coenzymes is used for the synthesis of ATP
+  B) through which the amino group resulting from the degradation of amino acids is  eliminated
+  C) through which fatty acids are broken down by removing two carbon atoms at a time
+  D) which represents the final stage of the anabolism of amino acids, carbohydrates, and  fatty acids
+  E) through which fatty acid synthesis occurs
+
+Q14. Cytochromes are:
+  A) present in the respiratory chain
+  B) transporters of hydrogen atoms in the respiratory chain
+  C) enzymes that synthesize ATP
+  D) inhibitors of oxidative phosphorylation
+  E) cofactors of glycolysis
+
+Q15. Collagen is a protein that is:
+  A) extracellular
+  B) membranous
+  C) intracellular
+  D) abundant in the thick filament
+  E) nuclear
+
+Q16. Muscle contraction is triggered by an increase in the concentration of calcium ions that  bind to:
+  A) troponin
+  B) myosin
+  C) tropomyosin
+  D) actin
+  E) vimentin
+
+Q17. Which of the following statements about myosin and actin is CORRECT?
+  A) The binding of ATP to the actin-myosin complex promotes the dissociation of the  complex.
+  B) The binding of ATP to the actin-myosin complex promotes the formation of the complex.
+  C) The binding of calcium to troponin is necessary for the dissociation of the actin-myosin  complex.
+  D) Actin has ATPase activity.
+  E) Tropomyosin has ATPase activity.
+
+Q18. The Bohr effect is observed in tissues that are oxidizing large amounts of nutrients,  generating hydrogen ions, and releasing CO2 into the blood. This results in:
+  A) a decrease in oxygenated haemoglobin molecules
+  B) an increase in oxygenated haemoglobin molecules
+  C) an increase in the total number of red blood cells
+  D) the denaturation of haemoglobin
+  E) an increase in protein synthesis     Ministero dell'Università e della Ricerca
+
+Q19. Which of the following compounds corresponds to the statement "a substance that  increases the speed of a reaction and is found unchanged at the end of it”?
+  A) Catalyst
+  B) Effector
+  C) Cofactor
+  D) Modulator
+  E) Cholesterol
+
+Q20. In competitive inhibition:
+  A) the inhibitor and the substrate compete for the active site of the enzyme
+  B) the inhibitor binds to the substrate, preventing a reaction with the enzyme
+  C) the inhibitor binds to the allosteric site and prevents the substrate from binding to the  enzyme
+  D) the inhibitor prevents the release of products from the active site
+  E) the inhibitor binds to the enzyme-cholesterol complex
+
+Q21. Which of the following classes of digestive enzymes is involved in the digestion of  proteins?
+  A) Peptidase
+  B) Amylase
+  C) Lipase
+  D) Isomerase
+  E) Transaminase
+
+Q22. Oxidative phosphorylation involves:
+  A) both membrane proteins and mobile molecules
+  B) exclusively mitochondrial matrix proteins
+  C) exclusively integral membrane proteins
+  D) exclusively peripheral proteins
+  E) only nuclear proteins
+
+Q23. How are the reduced coenzymes that are formed during biological oxidation reoxidized?
+  A) Through the respiratory chain
+  B) Through the process of beta oxidation
+  C) By direct action of oxygen
+  D) Through the passage of electrons in ATP synthase
+  E) With the synthesis of hormones
+
+Q24. Which high-energy reserve compound contains phosphate groups and is present in  muscles?
+  A) Creatine phosphate
+  B) Carnitine phosphate
+  C) Creatinine phosphate
+  D) Glucose 1-phosphate
+  E) Phosphofructokinase
+
+Q25. Which of the following metabolic processes occurs mainly in the liver?
+  A) Urea cycle
+  B) Glycolysis
+  C) β-oxidation of fatty acids
+  D) The Krebs Cycle
+  E) Transamination
+
+Q26. It is more advantageous for humans to store energy as triglycerides in adipose tissue  rather than as proteins in muscles because triglycerides in adipose tissue contain:
+  A) more calories and less water
+  B) fewer calories and less water
+  C) fewer calories and more water
+  D) more calories and more water
+  E) more oxygen and less nitrogen
+
+Q27. Lysosomes are organelles:
+  A) that form by budding from the Golgi apparatus
+  B) equipped with enzymes that function optimally at a pH above 7
+  C) that form by budding from the smooth endoplasmic reticulum
+  D) whose malfunction is currently not believed to be associated with diseases
+  E) responsible for the synthesis of proteins destined for secretion
+
+Q28. Which of the following statements is correct?
+  A) The nucleus, mitochondria and chloroplasts all contain DNA.
+  B) Only the nucleus contains DNA while mitochondria and chloroplasts contain RNA.
+  C) All cellular organelles possess a small amount of DNA.
+  D) The rough endoplasmic reticulum contains the DNA necessary for protein synthesis.
+  E) Prokaryotes have a well-defined nucleus containing DNA.
+
+Q29. What is the main function of the plasma membrane in cells?
+  A) Regulating exchanges between the inside and outside of the cell
+  B) Providing energy to the cell
+  C) Synthesizing proteins
+  D) Containing the cell's genetic material
+  E) Facilitating cell movement
+
+Q30. Which reactions are defined as exergonic?
+  A) Reactions that release energy and occur spontaneously
+  B) Reactions that require heat to proceed
+  C) Reactions that occur only in the presence of light
+  D) Reactions that produce chemical energy without the consumption of reactants
+  E) Reactions that always involve the synthesis of new compounds
+
+Q31. What is the main role of osteoblasts?
+  A) Producing collagen and minerals for the bone matrix
+  B) Resorbing minerals from the bone
+  C) Regulating blood pH
+  D) Breaking down damaged bone tissue
+  E) Transporting nutrients in the bone marrow
+
+Q32. Insulin:
+  A) stimulates glucose uptake in muscle
+  B) stimulates the breakdown of glycogen
+  C) is a steroid hormone
+  D) inhibits fatty acid synthesis
+  E) is secreted by the adrenal gland     Ministero dell'Università e della Ricerca        Chemistry
