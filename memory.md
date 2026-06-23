@@ -165,3 +165,9 @@
 - kmong-img/detail.html → detail.png (860x3929, 상세페이지): Hero→Pain(3고민)→3종세트 솔루션→실제 샘플카드→8챕터 그리드→스펙→CTA(14,900원/정가29,000)
 - 렌더: 헤드리스 크로미움 + Pillow로 하단 흰여백 트리밍(ImageChops getbbox)
 - PNG는 SendUserFile로 전달(미커밋, kmong-img html소스만 커밋). 사용자가 크몽 등록 시 업로드
+
+### [2026-06-22] 크몽 포트폴리오 등록용 파일 제작
+- 사용자 요청: 포트폴리오 등록 파일
+- kmong-img/portfolio.html → portfolio.pdf (3p, A4): ①표지(WORK PORTFOLIO, 권용준 소개+태그) ②작업개요(3종세트+8개분야 범위)+샘플1(재방문문자) ③샘플2(네이버소식자동),3(나쁜리뷰답글)+CTA
+- 표지 full-bleed 위해 .cover height:297mm. 헤드리스 크로미움 렌더
+- 무료 미니북(minibook.pdf)도 추가 포트폴리오/샘플로 활용 가능
