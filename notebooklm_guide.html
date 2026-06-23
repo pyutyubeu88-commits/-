@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NotebookLM 기본 사용 가이드</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+  :root {
+    --g1: #1a6b3a; --g2: #e8f5ee; --g3: #7ec89a;
+    --b1: #1a3a6b; --b2: #e8eef8; --b3: #7ea8d8;
+    --o1: #e07000; --o2: #fff3e0; --o3: #f5a623;
+    --p1: #5b2d8e; --p2: #f3eeff; --p3: #a87ed8;
+    --gray1: #f7f8fa; --gray2: #e9edf2; --gray3: #8a96a8;
+    --text: #1a1f2e; --sub: #4a5568; --border: #d1d9e0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans KR', sans-serif; background: #f0f2f5; color: var(--text); font-size: 13px; line-height: 1.7; }
+
+  .page {
+    width: 794px; min-height: 1123px; background: #fff;
+    margin: 24px auto; padding: 48px 52px 68px;
+    box-shadow: 0 4px 24px rgba(0,0,0,.10);
+    border-radius: 4px; page-break-after: always; position: relative;
+  }
+  .page:last-child { page-break-after: avoid; }
+
+  /* ── COVER HEADER ── */
+  .cover-header {
+    background: linear-gradient(135deg, #0f4f2a 0%, #1a6b3a 60%, #2d9e5e 100%);
+    border-radius: 10px; padding: 32px 36px; margin-bottom: 28px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .cover-header .logo {
+    width: 56px; height: 56px; background: rgba(255,255,255,.15);
+    border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    font-size: 28px; flex-shrink: 0;
+  }
+  .cover-header h1 { font-size: 22px; font-weight: 900; color: #fff; letter-spacing: -.3px; }
+  .cover-header p  { font-size: 12px; color: rgba(255,255,255,.75); margin-top: 3px; }
+  .cover-header .badge {
+    margin-left: auto; background: rgba(255,255,255,.2); color: #fff;
+    font-size: 11px; font-weight: 700; padding: 5px 13px; border-radius: 16px; white-space: nowrap;
+  }
+
+  /* ── SECTION TITLE ── */
+  .sec { margin-bottom: 24px; }
+  .sec-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; color: var(--g1);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+  }
+  .sec-title::before { content:''; width:4px; height:14px; background:var(--g1); border-radius:2px; display:inline-block; }
+
+  /* ── STEP FLOW ── */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: flex; gap: 0; align-items: stretch;
+  }
+  .step-left {
+    display: flex; flex-direction: column; align-items: center; width: 36px; flex-shrink: 0;
+  }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+  .step-line { flex: 1; width: 2px; background: var(--gray2); margin: 3px 0; }
+  .step:last-child .step-line { display: none; }
+  .step-body {
+    flex: 1; padding: 0 0 18px 12px;
+  }
+  .step-body .s-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .step-body .s-desc { font-size: 12px; color: var(--sub); }
+  .step-body .s-path {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--gray1); border: 1px solid var(--border);
+    border-radius: 5px; padding: 4px 10px; font-size: 11px;
+    font-weight: 600; margin-top: 6px; color: var(--text);
+  }
+  .arrow { font-size: 10px; color: var(--gray3); }
+
+  /* ── FEATURE GRID ── */
+  .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .feat-card {
+    border-radius: 8px; border: 1.5px solid var(--border); overflow: hidden;
+  }
+  .feat-card-head {
+    padding: 10px 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .feat-icon { font-size: 16px; }
+  .feat-card-head .f-title { font-size: 12.5px; font-weight: 700; }
+  .feat-card-head .f-tag {
+    margin-left: auto; font-size: 10px; font-weight: 700;
+    padding: 2px 7px; border-radius: 8px;
+  }
+  .feat-card-body { padding: 10px 14px; font-size: 12px; color: var(--sub); background: #fff; }
+  .feat-card-body ul { padding-left: 14px; }
+  .feat-card-body li { margin-bottom: 4px; }
+  .feat-card-body li strong { color: var(--text); }
+
+  /* ── SOURCE TYPES ── */
+  .src-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .src-chip {
+    display: flex; align-items: center; gap: 6px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    padding: 6px 12px; font-size: 12px; background: var(--gray1);
+  }
+  .src-chip .s-icon { font-size: 15px; }
+  .src-chip .s-info { }
+  .src-chip .s-name { font-weight: 700; font-size: 11.5px; }
+  .src-chip .s-limit { font-size: 10px; color: var(--gray3); }
+
+  /* ── AUDIO GUIDE ── */
+  .audio-flow {
+    display: flex; align-items: center; gap: 0; margin: 12px 0;
+    background: var(--gray1); border-radius: 8px; padding: 14px 18px;
+  }
+  .af-step {
+    display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1;
+  }
+  .af-step .af-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .af-step .af-label { font-size: 10.5px; font-weight: 700; text-align: center; }
+  .af-step .af-sub   { font-size: 9.5px; color: var(--gray3); text-align: center; }
+  .af-arrow { color: var(--gray3); font-size: 14px; padding: 0 6px; margin-bottom: 14px; }
+
+  /* ── TIP BOX ── */
+  .tip {
+    background: var(--o2); border: 1.5px solid var(--o3);
+    border-radius: 7px; padding: 11px 14px; font-size: 12px; color: #6b4000;
+    margin-top: 10px;
+  }
+  .tip strong { color: var(--o1); }
+
+  .note {
+    background: var(--b2); border-left: 4px solid var(--b1);
+    border-radius: 0 7px 7px 0; padding: 10px 14px;
+    font-size: 12px; color: var(--sub); margin-top: 8px;
+  }
+
+  /* ── CHAT BUBBLE ── */
+  .chat-demo { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .bubble {
+    max-width: 85%; padding: 9px 13px; border-radius: 12px; font-size: 12px; line-height: 1.5;
+  }
+  .bubble.user {
+    background: var(--g1); color: #fff; align-self: flex-end;
+    border-bottom-right-radius: 3px;
+  }
+  .bubble.ai {
+    background: var(--gray1); border: 1px solid var(--border);
+    align-self: flex-start; border-bottom-left-radius: 3px; color: var(--text);
+  }
+  .bubble-label { font-size: 9.5px; color: var(--gray3); margin-bottom: 2px; }
+
+  /* ── TABLE ── */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: var(--g1); color: #fff; padding: 8px 12px; text-align: left; font-weight: 700; font-size: 11px; }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--gray2); color: var(--sub); }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--gray1); }
+  td strong { color: var(--text); font-weight: 600; }
+
+  /* ── LIMIT BAR ── */
+  .limit-row { display: flex; gap: 10px; margin-top: 8px; }
+  .limit-item {
+    flex: 1; background: var(--gray1); border: 1px solid var(--border);
+    border-radius: 7px; padding: 10px 12px;
+  }
+  .limit-item .l-label { font-size: 10px; color: var(--gray3); font-weight: 700; margin-bottom: 3px; }
+  .limit-item .l-val   { font-size: 13px; font-weight: 700; color: var(--text); }
+
+  /* ── SHORTCUT ── */
+  .shortcut-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+  .sc-item {
+    display: flex; align-items: center; gap: 8px; padding: 7px 10px;
+    background: var(--gray1); border-radius: 6px; font-size: 12px;
+  }
+  .sc-item .sc-q { color: var(--sub); flex: 1; }
+  .sc-item .sc-a { font-weight: 700; color: var(--g1); font-size: 11.5px; white-space: nowrap; }
+
+  /* ── PAGE FOOTER ── */
+  .page-footer {
+    position: absolute; bottom: 22px; left: 52px; right: 52px;
+    display: flex; justify-content: space-between;
+    font-size: 10px; color: var(--gray3);
+    border-top: 1px solid var(--gray2); padding-top: 8px;
+  }
+
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ PAGE 1 : 접속 · 노트북 생성 · 소스 추가 ═══ -->
+<div class="page">
+  <div class="cover-header">
+    <div class="logo">📓</div>
+    <div>
+      <h1>NotebookLM 기본 사용 가이드</h1>
+      <p>Google NotebookLM · AI 학습 도우미 · IMAT 대비 활용판</p>
+    </div>
+    <div class="badge">notebooklm.google.com</div>
+  </div>
+
+  <!-- STEP 1 : 접속 -->
+  <div class="sec">
+    <div class="sec-title">STEP 1 · 접속 및 노트북 생성</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num" style="background:var(--g1)">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="s-title">브라우저에서 접속</div>
+          <div class="s-desc">Google 계정으로 로그인 필요 (Gmail 계정 사용)</div>
+          <div class="s-path">notebooklm.google.com</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num" style="background:var(--g1)">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="s-title">새 노트북 만들기</div>
+          <div class="s-desc">홈 화면 우상단 또는 중앙의 버튼 클릭</div>
+          <div class="s-path"><span>+ New notebook</span> <span class="arrow">또는</span> <span>새 노트북</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num" style="background:var(--g1)">3</div>
+        </div>
+        <div class="step-body">
+          <div class="s-title">노트북 이름 설정 (선택)</div>
+          <div class="s-desc">상단 제목 클릭 → 과목명 입력 예: "IMAT Biology 2025"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 : 소스 추가 -->
+  <div class="sec">
+    <div class="sec-title">STEP 2 · 소스(자료) 추가</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num" style="background:var(--b1)">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="s-title">왼쪽 패널 → "+ 소스 추가" 클릭</div>
+          <div class="s-desc">Sources 패널에서 Add source 버튼</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num" style="background:var(--b1)">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="s-title">소스 형식 선택 후 업로드</div>
+          <div class="src-row">
+            <div class="src-chip">
+              <span class="s-icon">📄</span>
+              <div class="s-info">
+                <div class="s-name">PDF / 문서</div>
+                <div class="s-limit">최대 200MB, 500p</div>
+              </div>
+            </div>
+            <div class="src-chip">
+              <span class="s-icon">▶️</span>
+              <div class="s-info">
+                <div class="s-name">유튜브 링크</div>
+                <div class="s-limit">자막 있는 영상만</div>
+              </div>
+            </div>
+            <div class="src-chip">
+              <span class="s-icon">🔗</span>
+              <div class="s-info">
+                <div class="s-name">웹페이지 URL</div>
+                <div class="s-limit">공개 페이지</div>
+              </div>
+            </div>
+            <div class="src-chip">
+              <span class="s-icon">📋</span>
+              <div class="s-info">
+                <div class="s-name">텍스트 복붙</div>
+                <div class="s-limit">500,000자 이내</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num" style="background:var(--b1)">3</div>
+        </div>
+        <div class="step-body">
+          <div class="s-title">소스 여러 개 동시에 추가 가능</div>
+          <div class="s-desc">기출 PDF 여러 연도 + 교재 + 유튜브 링크를 한 노트북에 모두 넣으면 통합 분석됨</div>
+          <div class="tip"><strong>IMAT 활용 팁</strong> — imat_biology.txt를 텍스트 붙여넣기로 추가하면 15년치 Biology 기출 전체를 한번에 분석 가능</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>NotebookLM 기본 사용 가이드</span>
+    <span>1 / 3</span>
+  </div>
+</div>
+
+
+<!-- ═══ PAGE 2 : 주요 기능 4가지 ═══ -->
+<div class="page">
+  <div class="cover-header" style="background: linear-gradient(135deg, #1a3a6b, #2563eb); padding:22px 36px; margin-bottom:24px;">
+    <div class="logo">⚡</div>
+    <div>
+      <h1 style="font-size:18px;">주요 기능 4가지</h1>
+      <p>오른쪽 패널(Studio)에서 모두 사용 가능</p>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <!-- Study Guide -->
+    <div class="feat-card">
+      <div class="feat-card-head" style="background:var(--g2);">
+        <span class="feat-icon">📚</span>
+        <span class="f-title" style="color:var(--g1)">Study Guide</span>
+        <span class="f-tag" style="background:var(--g1);color:#fff;">핵심</span>
+      </div>
+      <div class="feat-card-body">
+        <ul>
+          <li>소스 내용을 <strong>섹션별 요약</strong> 자동 생성</li>
+          <li>각 섹션마다 <strong>Q&A 문제</strong> 자동 포함</li>
+          <li>생성 후 복사해서 ChatGPT에 붙여 플래시카드로 변환 가능</li>
+          <li>생성 시간: 약 30초~1분</li>
+        </ul>
+        <div class="s-path" style="margin-top:8px;">오른쪽 패널 → Study Guide → Generate</div>
+      </div>
+    </div>
+
+    <!-- Audio Overview -->
+    <div class="feat-card">
+      <div class="feat-card-head" style="background:var(--p2);">
+        <span class="feat-icon">🎙️</span>
+        <span class="f-title" style="color:var(--p1)">Audio Overview</span>
+        <span class="f-tag" style="background:var(--p1);color:#fff;">팟캐스트</span>
+      </div>
+      <div class="feat-card-body">
+        <ul>
+          <li>AI 2인 대화 형식의 <strong>영어 팟캐스트</strong> 자동 생성</li>
+          <li>이동 중 듣기 → <strong>다운로드 버튼</strong>으로 MP3 저장</li>
+          <li>2인 고정 (남성+여성 AI 목소리)</li>
+          <li>Biology 기출 넣으면 개념 설명 팟캐스트 생성</li>
+        </ul>
+        <div class="s-path" style="margin-top:8px;">오른쪽 패널 → Audio Overview → Generate</div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="feat-card">
+      <div class="feat-card-head" style="background:var(--o2);">
+        <span class="feat-icon">❓</span>
+        <span class="f-title" style="color:var(--o1)">FAQ</span>
+        <span class="f-tag" style="background:var(--o1);color:#fff;">질문 정리</span>
+      </div>
+      <div class="feat-card-body">
+        <ul>
+          <li>소스에서 <strong>자주 묻는 질문</strong> 형태로 자동 정리</li>
+          <li>개념 정리 카드처럼 활용 가능</li>
+          <li>각 답변에 <strong>출처 표시</strong> → 원문 즉시 확인</li>
+          <li>시험 전 빠른 복습에 적합</li>
+        </ul>
+        <div class="s-path" style="margin-top:8px;">오른쪽 패널 → FAQ → Generate</div>
+      </div>
+    </div>
+
+    <!-- Timeline / Briefing -->
+    <div class="feat-card">
+      <div class="feat-card-head" style="background:var(--b2);">
+        <span class="feat-icon">📋</span>
+        <span class="f-title" style="color:var(--b1)">Briefing Doc</span>
+        <span class="f-tag" style="background:var(--b1);color:#fff;">요약문서</span>
+      </div>
+      <div class="feat-card-body">
+        <ul>
+          <li>소스 전체를 <strong>문서 형식으로 요약</strong></li>
+          <li>시험 직전 훑기용 1페이지 요약 생성 가능</li>
+          <li>복사 → Word/Notion에 붙여넣어 보관</li>
+          <li>여러 소스를 통합한 브리핑 문서 제작</li>
+        </ul>
+        <div class="s-path" style="margin-top:8px;">오른쪽 패널 → Briefing doc → Generate</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 채팅 기능 -->
+  <div class="sec" style="margin-top:20px;">
+    <div class="sec-title">채팅으로 심화 질문 — 가장 강력한 기능</div>
+    <div class="chat-demo">
+      <div>
+        <div class="bubble-label">나</div>
+        <div class="bubble user">이 내용에서 IMAT에 자주 나오는 Biology 개념 5개만 뽑아줘</div>
+      </div>
+      <div>
+        <div class="bubble-label">NotebookLM</div>
+        <div class="bubble ai">업로드한 자료를 분석한 결과, 가장 자주 등장하는 개념은 ① 세포분열(mitosis/meiosis) ② DNA 복제와 전사 ③ 효소 반응 ④ 세포 호흡 ⑤ 유전 법칙입니다. [출처: 2022 Q24, 2023 Q18...]</div>
+      </div>
+      <div>
+        <div class="bubble-label">나</div>
+        <div class="bubble user">세포분열 관련 IMAT 스타일 문제 5개 만들어줘</div>
+      </div>
+    </div>
+    <div class="note">한국어로 질문해도 소스 기반으로 답변함. 답변 옆 숫자 클릭 시 원문 소스 바로 확인 가능.</div>
+  </div>
+
+  <div class="page-footer">
+    <span>NotebookLM 기본 사용 가이드</span>
+    <span>2 / 3</span>
+  </div>
+</div>
+
+
+<!-- ═══ PAGE 3 : Audio Overview 상세 · 제한사항 · 채팅 질문 모음 ═══ -->
+<div class="page">
+  <div class="cover-header" style="background: linear-gradient(135deg, #5b2d8e, #7c3aed); padding:22px 36px; margin-bottom:24px;">
+    <div class="logo">🎙️</div>
+    <div>
+      <h1 style="font-size:18px;">Audio Overview 상세 & 자주 쓰는 질문 모음</h1>
+      <p>팟캐스트 생성 · 다운로드 · 활용법</p>
+    </div>
+  </div>
+
+  <!-- Audio Overview 흐름 -->
+  <div class="sec">
+    <div class="sec-title">Audio Overview 생성 · 저장 흐름</div>
+    <div class="audio-flow">
+      <div class="af-step">
+        <div class="af-icon" style="background:var(--p2);">📄</div>
+        <div class="af-label">소스 업로드</div>
+        <div class="af-sub">PDF · 텍스트<br>유튜브 링크</div>
+      </div>
+      <div class="af-arrow">▶</div>
+      <div class="af-step">
+        <div class="af-icon" style="background:var(--p2);">🖱️</div>
+        <div class="af-label">Generate 클릭</div>
+        <div class="af-sub">오른쪽 패널<br>Audio Overview</div>
+      </div>
+      <div class="af-arrow">▶</div>
+      <div class="af-step">
+        <div class="af-icon" style="background:var(--p2);">⏳</div>
+        <div class="af-label">생성 대기</div>
+        <div class="af-sub">1~3분<br>소스량에 따라</div>
+      </div>
+      <div class="af-arrow">▶</div>
+      <div class="af-step">
+        <div class="af-icon" style="background:var(--p2);">▶️</div>
+        <div class="af-label">미리 듣기</div>
+        <div class="af-sub">재생 버튼<br>AI 2인 대화</div>
+      </div>
+      <div class="af-arrow">▶</div>
+      <div class="af-step">
+        <div class="af-icon" style="background:var(--p2);">💾</div>
+        <div class="af-label">다운로드</div>
+        <div class="af-sub">⬇ 버튼<br>MP3 저장</div>
+      </div>
+    </div>
+    <div class="tip"><strong>IMAT 활용법</strong> — imat_biology.txt 업로드 → Audio Overview 생성 → 통학 중 영어 팟캐스트로 개념 복습. 영어 듣기 실력도 함께 향상됨.</div>
+  </div>
+
+  <!-- 제한 사항 -->
+  <div class="sec">
+    <div class="sec-title">알아두면 좋은 제한사항</div>
+    <div class="limit-row">
+      <div class="limit-item">
+        <div class="l-label">소스당 최대</div>
+        <div class="l-val">500페이지 / 200MB</div>
+      </div>
+      <div class="limit-item">
+        <div class="l-label">노트북당 소스</div>
+        <div class="l-val">최대 50개</div>
+      </div>
+      <div class="limit-item">
+        <div class="l-label">Audio 언어</div>
+        <div class="l-val">영어 전용</div>
+      </div>
+      <div class="limit-item">
+        <div class="l-label">요금</div>
+        <div class="l-val">무료 (Google 계정)</div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:10px;">유튜브 자막이 없는 영상은 소스로 추가 불가. 자막(CC) 있는 영상만 지원.</div>
+  </div>
+
+  <!-- 채팅 질문 모음 -->
+  <div class="sec">
+    <div class="sec-title">수업 중 바로 쓸 채팅 질문 모음</div>
+    <div class="shortcut-grid">
+      <div class="sc-item">
+        <div class="sc-q">핵심 개념 추출</div>
+        <div class="sc-a">"중요한 개념 5개 뽑아줘"</div>
+      </div>
+      <div class="sc-item">
+        <div class="sc-q">한글 요약</div>
+        <div class="sc-a">"한국어로 요약해줘"</div>
+      </div>
+      <div class="sc-item">
+        <div class="sc-q">문제 생성</div>
+        <div class="sc-a">"IMAT 스타일 문제 10개 만들어줘"</div>
+      </div>
+      <div class="sc-item">
+        <div class="sc-q">비교 설명</div>
+        <div class="sc-a">"A와 B 차이점 설명해줘"</div>
+      </div>
+      <div class="sc-item">
+        <div class="sc-q">어려운 부분</div>
+        <div class="sc-a">"쉽게 설명해줘"</div>
+      </div>
+      <div class="sc-item">
+        <div class="sc-q">출제 경향</div>
+        <div class="sc-a">"자주 나오는 주제 알려줘"</div>
+      </div>
+      <div class="sc-item">
+        <div class="sc-q">플래시카드</div>
+        <div class="sc-a">"Q&A 20개 만들어줘"</div>
+      </div>
+      <div class="sc-item">
+        <div class="sc-q">오답 분석</div>
+        <div class="sc-a">"이 개념 왜 틀리기 쉬운지"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 빠른 참조 -->
+  <div class="sec">
+    <div class="sec-title">기능별 빠른 참조</div>
+    <table>
+      <thead>
+        <tr><th>목적</th><th>사용할 기능</th><th>위치</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>개념 정리 + 문제 세트</td><td><strong>Study Guide</strong></td><td>오른쪽 패널</td></tr>
+        <tr><td>이동 중 복습</td><td><strong>Audio Overview</strong> → 다운로드</td><td>오른쪽 패널</td></tr>
+        <tr><td>시험 직전 훑기</td><td><strong>Briefing Doc</strong></td><td>오른쪽 패널</td></tr>
+        <tr><td>맞춤 질문 / 문제 생성</td><td><strong>채팅창</strong></td><td>하단 입력창</td></tr>
+        <tr><td>15년치 출제 경향 분석</td><td>여러 PDF 소스 추가 → <strong>채팅</strong></td><td>소스 패널 + 채팅</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <span>NotebookLM 기본 사용 가이드</span>
+    <span>3 / 3</span>
+  </div>
+</div>
+
+</body>
+</html>
