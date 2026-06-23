@@ -143,3 +143,38 @@
 - ★사용자 할 일: 크몽 가입→전문가 등록→전자책 서비스 등록(위 문구 붙여넣기)→PDF(product/ebook-full.pdf, 사용자 보유) 업로드→심사(1~3일)→서비스 URL 확보
 - URL 받으면 BUY_LINKS.ebook 에 넣고 머지 → /ebook '지금 구매하기' 작동
 - 제안: 크몽 썸네일·상세이미지도 Claude가 제작 가능(미니북 표지 방식)
+
+### [2026-06-22] 메인 e북 복제방지 1차 적용 (푸터 + 복사잠금)
+- 사용자 우려: "PDF면 되팔이·무료공유 못 막지 않냐" → 100% 불가 인정, 미끼+컨설팅 퍼널 전략 설명 + 가벼운 보호 적용(AskUserQuestion: "푸터+복사잠금" 선택)
+- ① 저작권 푸터: ebook-full.html에 .pagefoot(position:fixed) 추가 → 전 페이지 하단 "ⓒ 2026 강남구 소상공인 AI 컨설턴트 · 무단 복제·공유·재배포 금지 · 구매자 전용". print 시 fixed가 모든 페이지 반복됨
+- ② 복사잠금: pip install pikepdf(10.9.1) → Encryption(owner=랜덤, user='', R=6/AES-256, Permissions(extract=False, modify_*=False, print 허용)). 열기는 비번 불필요, 복사·추출·편집 차단, 인쇄 허용
+- 재적용 명령: pikepdf.open(src).save(dst, encryption=pikepdf.Encryption(owner=secrets.token_urlsafe(18), user='', allow=perms, R=6))
+- product/ebook-full.pdf = 보호본으로 교체됨(50p). SendUserFile로 사용자에게 전달
+- 한계 명시함: 복사잠금은 우회 가능(약한 보호). 진짜 강력한 건 '구매자별 워터마크(수동배달)' → 유출 실제 문제시 2차로 전환 예정
+- (옵션) 크몽 자동배달과 병행. 무료 미니북은 보호 불필요(free 리드마그넷)
+
+### [2026-06-22] ★복사잠금 철회 — 상품은 '복붙용 프롬프트'라 복사 허용 필수★
+- 사용자 지적: "복사 잠그면 복붙 못 하지 않냐" → 맞음. extract=False는 프롬프트 복붙 불가 = 상품 가치 파괴. Claude 판단 오류 정정
+- 수정: pikepdf 재적용 시 Permissions(extract=True ★복사허용, print 허용, modify_*=False 편집만 차단)
+- 결과: 구매자 프롬프트 복붙 OK / 인쇄 OK / 문서 편집·재가공만 차단 + 저작권 푸터 유지
+- 교훈: 복붙이 핵심 가치인 상품엔 copy-lock 금지. 보호는 푸터(+추후 구매자별 워터마크)로만
+
+### [2026-06-22] 크몽 썸네일·상세이미지 제작
+- 사용자 선택(2): 크몽 등록용 이미지 제작
+- kmong-img/thumb.html → thumbnail.png (1200x900, 대표이미지): 그린/골드, "소상공인 AI 프롬프트북 복붙만 하면 끝", 80 실전프롬프트, 복붙→빈칸→완성 칩
+- kmong-img/detail.html → detail.png (860x3929, 상세페이지): Hero→Pain(3고민)→3종세트 솔루션→실제 샘플카드→8챕터 그리드→스펙→CTA(14,900원/정가29,000)
+- 렌더: 헤드리스 크로미움 + Pillow로 하단 흰여백 트리밍(ImageChops getbbox)
+- PNG는 SendUserFile로 전달(미커밋, kmong-img html소스만 커밋). 사용자가 크몽 등록 시 업로드
+
+### [2026-06-22] 크몽 포트폴리오 등록용 파일 제작
+- 사용자 요청: 포트폴리오 등록 파일
+- kmong-img/portfolio.html → portfolio.pdf (3p, A4): ①표지(WORK PORTFOLIO, 권용준 소개+태그) ②작업개요(3종세트+8개분야 범위)+샘플1(재방문문자) ③샘플2(네이버소식자동),3(나쁜리뷰답글)+CTA
+- 표지 full-bleed 위해 .cover height:297mm. 헤드리스 크로미움 렌더
+- 무료 미니북(minibook.pdf)도 추가 포트폴리오/샘플로 활용 가능
+
+### [2026-06-23] 컨설턴트 프로필 사진 추가
+- 사용자가 프로필 사진(스튜디오 정면, 흰 셔츠/네이비 슬랙스, 1024x1536 JPEG) 업로드
+- 파일 자동저장 안 됨 → 세션 transcript(.jsonl)의 base64 image 블록에서 추출(마지막 image/jpeg)해 profile.jpg로 저장(루트)
+- profile.html이 src="profile.jpg" 참조 → 이제 /consultant 에서 사진 표시됨. og:image도 해결
+- 부수: .img-ph 자리표시를 점선박스→그린 그라데이션+골드 아바타(권)로 개선(폴백용)
+- 추출법(재사용): jsonl walk로 type=image source.data base64 디코드, PIL로 크기확인

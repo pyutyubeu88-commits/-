@@ -116,11 +116,18 @@ section{padding:88px 24px 80px}
 }
 .img-ph{
   width:100%;aspect-ratio:3/4;
-  background:var(--gl);border-radius:var(--r);
-  border:2px dashed var(--gb);
+  background:linear-gradient(160deg,var(--gd),var(--gm));
+  border-radius:var(--r);box-shadow:var(--sh);
   display:none;align-items:center;justify-content:center;
-  flex-direction:column;gap:8px;color:var(--ga);
+  flex-direction:column;gap:18px;color:#fff;text-align:center;padding:24px;
 }
+.img-ph .avatar{
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:2px solid rgba(255,183,3,.6);
+  display:flex;align-items:center;justify-content:center;
+  font-size:54px;font-weight:900;color:var(--acc);
+}
+.img-ph .ph-cap{font-size:13px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.78)}
 .profile-tag{
   background:var(--gl);border:1px solid var(--gb);
   border-radius:var(--r);padding:18px;margin-top:14px;text-align:center;
