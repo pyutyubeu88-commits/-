@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>강사용 진행 스크립트 — 1회차</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+  :root {
+    --primary: #1a3a6b;
+    --primary-light: #e8eef8;
+    --accent: #e05a00;
+    --accent-light: #fff3ed;
+    --green: #1a6b3a;
+    --green-light: #e8f5ee;
+    --red: #c0392b;
+    --red-light: #fff0ee;
+    --gray1: #f7f8fa;
+    --gray2: #e9edf2;
+    --gray3: #8a96a8;
+    --text: #1a1f2e;
+    --text-sub: #4a5568;
+    --border: #d1d9e0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #eceef2;
+    color: var(--text);
+    font-size: 13.5px;
+    line-height: 1.75;
+  }
+  .page {
+    width: 794px;
+    min-height: 1123px;
+    background: #fff;
+    margin: 24px auto;
+    padding: 48px 54px 70px;
+    box-shadow: 0 4px 24px rgba(0,0,0,.1);
+    border-radius: 4px;
+    page-break-after: always;
+    position: relative;
+  }
+  .page:last-child { page-break-after: avoid; }
+
+  /* header */
+  .doc-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    border-bottom: 3px solid var(--primary);
+    margin-bottom: 26px;
+  }
+  .doc-header h1 { font-size: 20px; font-weight: 900; color: var(--primary); }
+  .doc-header p { font-size: 11.5px; color: var(--text-sub); margin-top: 3px; }
+  .badge-instructor {
+    background: var(--accent);
+    color: #fff;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 5px 13px;
+    border-radius: 20px;
+  }
+
+  /* section */
+  .section { margin-bottom: 24px; }
+  .section-title {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; color: var(--primary);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .section-title::before {
+    content:''; width:4px; height:14px;
+    background:var(--primary); border-radius:2px; display:inline-block;
+  }
+
+  /* block */
+  .phase {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .phase-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px;
+    background: var(--primary);
+  }
+  .phase-header .time {
+    background: rgba(255,255,255,.2);
+    color: #fff; font-size: 11px; font-weight: 700;
+    padding: 2px 10px; border-radius: 10px; white-space: nowrap;
+  }
+  .phase-header .phase-title { color: #fff; font-size: 13px; font-weight: 700; flex:1; }
+  .phase-header .goal-tag {
+    background: rgba(255,255,255,.15);
+    color: #fff; font-size: 10px;
+    padding: 2px 8px; border-radius: 8px;
+  }
+  .phase-body { padding: 14px 16px; }
+
+  /* say block */
+  .say {
+    background: var(--green-light);
+    border-left: 4px solid var(--green);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 12.5px;
+  }
+  .say .say-label {
+    font-size: 10px; font-weight: 700; color: var(--green);
+    letter-spacing: .5px; margin-bottom: 4px;
+  }
+
+  /* do block */
+  .do-block {
+    background: var(--primary-light);
+    border-left: 4px solid var(--primary);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 12.5px;
+  }
+  .do-block .do-label {
+    font-size: 10px; font-weight: 700; color: var(--primary);
+    letter-spacing: .5px; margin-bottom: 4px;
+  }
+
+  /* warn block */
+  .warn {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  .warn .warn-label {
+    font-size: 10px; font-weight: 700; color: var(--accent);
+    letter-spacing: .5px; margin-bottom: 4px;
+  }
+
+  /* question list */
+  .q-list { list-style: none; padding: 0; margin-top: 8px; }
+  .q-list li {
+    display: flex; gap: 8px;
+    font-size: 12.5px; color: var(--text-sub);
+    padding: 6px 0; border-bottom: 1px solid var(--gray2);
+  }
+  .q-list li:last-child { border-bottom: none; }
+  .q-list li::before {
+    content: 'Q';
+    background: var(--primary); color: #fff;
+    font-size: 10px; font-weight: 700;
+    width: 18px; height: 18px;
+    border-radius: 50%; display: flex;
+    align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* checklist */
+  .cl { list-style: none; padding: 0; }
+  .cl li {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 12.5px; padding: 6px 0;
+    border-bottom: 1px solid var(--gray2);
+  }
+  .cl li:last-child { border-bottom: none; }
+  .cb {
+    width: 16px; height: 16px;
+    border: 2px solid var(--primary); border-radius: 3px;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* tip */
+  .tip {
+    background: #fffbe6;
+    border: 1.5px solid #f0c254;
+    border-radius: 7px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #6b4f00;
+    margin-top: 8px;
+  }
+  .tip strong { color: #c67c00; }
+
+  /* divider */
+  hr { border: none; border-top: 1px dashed var(--gray2); margin: 12px 0; }
+
+  /* footer */
+  .page-footer {
+    position: absolute; bottom: 24px;
+    left: 54px; right: 54px;
+    display: flex; justify-content: space-between;
+    font-size: 10px; color: var(--gray3);
+    border-top: 1px solid var(--gray2); padding-top: 8px;
+  }
+
+  .inline-badge {
+    display: inline-block;
+    font-size: 10px; font-weight: 700;
+    padding: 1px 7px; border-radius: 8px;
+    vertical-align: middle; margin-left: 4px;
+  }
+  .ib-green { background: var(--green-light); color: var(--green); }
+  .ib-blue  { background: var(--primary-light); color: var(--primary); }
+  .ib-red   { background: var(--red-light); color: var(--red); }
+
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <h1>강사용 진행 스크립트</h1>
+      <p>AI 학습 효율화 1:1 코칭 · 1회차 · 인쇄 후 수업 중 옆에 놓고 사용</p>
+    </div>
+    <div class="badge-instructor">강사 전용 — 비공개</div>
+  </div>
+
+  <!-- 수업 전 체크 -->
+  <div class="section">
+    <div class="section-title">수업 시작 전 (집 or 이동 중) 확인사항</div>
+    <ul class="cl">
+      <li><div class="cb"></div>노트북 충전 100% + 마우스 지참</li>
+      <li><div class="cb"></div>NotebookLM 탭 미리 열어두기 (notebooklm.google.com)</li>
+      <li><div class="cb"></div>ChatGPT 탭 미리 열어두기</li>
+      <li><div class="cb"></div>Claude.ai 탭 미리 열어두기</li>
+      <li><div class="cb"></div>백업용 생물화학 유튜브 링크 1개 메모장에 복사해두기</li>
+      <li><div class="cb"></div>프롬프트 모음 파일(lesson1_prompts.txt) 메모장으로 열어두기</li>
+      <li><div class="cb"></div>의뢰인이 준비물 가져왔는지 카톡으로 미리 확인 (선택)</li>
+    </ul>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="time">0 – 10분</div>
+      <div class="phase-title">현황 파악 & 라포 형성</div>
+      <div class="goal-tag">목표: 의뢰인 상황 파악</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="say">
+        <div class="say-label">💬 오프닝 멘트</div>
+        "안녕하세요! 오늘 짧은 시간 안에 실질적인 변화를 드리려고 준비 많이 해왔어요. 일단 지금 어떻게 공부하고 계신지 먼저 좀 여쭤봐도 될까요?"
+      </div>
+
+      <div class="do-block">
+        <div class="do-label">📋 파악할 질문 순서</div>
+        <ul class="q-list">
+          <li>지금 준비하시는 시험이 어떤 건가요? (MCAT? 학교 자체 시험? 특정 과목?)</li>
+          <li>주로 어떤 영상 보세요? 강사 이름이나 채널 있으면 알려주세요.</li>
+          <li>지금 Gemini 쓰실 때 가장 불편한 게 뭔가요? 시간이 너무 걸려서? 결과가 마음에 안 들어서?</li>
+          <li>교재 PDF는 오늘 가져오셨나요?</li>
+        </ul>
+      </div>
+
+      <div class="warn">
+        <div class="warn-label">⚠ 주의</div>
+        질문을 한꺼번에 쏟아내지 말고 대화하듯 1개씩. 의뢰인 말 끊지 말기. 이 단계에서 파악한 시험 종류에 따라 3파트 프롬프트 포맷을 그 자리에서 조정해야 함.
+      </div>
+
+      <div class="tip">
+        <strong>TIP</strong> — MCAT이라면 프롬프트에 "MCAT 수준" 이미 들어가 있음. 학교 자체 시험이라면 "교수님 출제 스타일에 맞게"로 바꿔주면 됨.
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>강사용 스크립트 · 1회차 · 비공개</span>
+    <span>1 / 3</span>
+  </div>
+</div>
+
+
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <h1>강사용 진행 스크립트</h1>
+      <p>파트 1 (플로우 재설계) + 파트 2 (플래시카드)</p>
+    </div>
+    <div class="badge-instructor">강사 전용 — 비공개</div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="time">10 – 30분</div>
+      <div class="phase-title">NotebookLM 실습 — 플로우 재설계</div>
+      <div class="goal-tag">핵심 파트</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="say">
+        <div class="say-label">💬 도입 멘트</div>
+        "지금 쓰시는 방식이 나쁜 게 아니라, 단계가 너무 많아서 피곤하신 거예요. 오늘 이걸 하나로 줄여드릴게요. 제 화면 보시겠어요?"
+      </div>
+
+      <div class="do-block">
+        <div class="do-label">🖥 시연 순서 (강사 화면 기준)</div>
+        <ul class="q-list">
+          <li>notebooklm.google.com 열기 → 새 노트북 만들기 클릭</li>
+          <li>"소스 추가" → 유튜브 링크 붙여넣기 (의뢰인 꺼 없으면 백업 링크 사용)</li>
+          <li>PDF도 있으면 같이 드래그 업로드</li>
+          <li>오른쪽 패널 → "Study Guide" 클릭 → 생성되는 동안 설명</li>
+          <li>생성 완료 후 채팅창에 "한글 번역 버전도 만들어줘" 입력 → 결과 보여주기</li>
+        </ul>
+      </div>
+
+      <div class="say">
+        <div class="say-label">💬 Study Guide 생성 중 설명</div>
+        "지금 자동으로 요약이랑 Q&A를 뽑고 있어요. 예전에 하시던 Gemini 4단계가 여기서 다 이뤄지고 있는 거예요. 30초면 됩니다."
+      </div>
+
+      <div class="do-block">
+        <div class="do-label">🖥 의뢰인에게 직접 해보게 하기</div>
+        <ul class="q-list">
+          <li>의뢰인 노트북으로 본인 Google 계정으로 NotebookLM 접속</li>
+          <li>본인 영상 링크 직접 붙여넣기</li>
+          <li>Study Guide 직접 눌러보게</li>
+          <li>"채팅창에 뭐든 질문해보세요" → 자유롭게 써보게 유도</li>
+        </ul>
+      </div>
+
+      <div class="warn">
+        <div class="warn-label">⚠ 자주 생기는 문제</div>
+        유튜브 자막이 없는 영상은 NotebookLM이 처리 못함 → "자막(CC) 있는 영상인지 확인"하거나 백업 링크로 전환. / NotebookLM 서버 느릴 때는 기다리면서 다음 파트 설명 먼저.
+      </div>
+
+      <div class="tip"><strong>시간 체크</strong> — 20분 지나도 의뢰인이 아직 접속 중이면 "일단 제 화면으로 계속 볼게요" 하고 넘어갈 것</div>
+
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="time">30 – 55분</div>
+      <div class="phase-title">플래시카드 자동 생성 실습</div>
+      <div class="goal-tag">ChatGPT / Claude</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="say">
+        <div class="say-label">💬 도입 멘트</div>
+        "NotebookLM에서 뽑은 요약을 이제 플래시카드로 만들 거예요. 복붙 한 번이면 20개가 나와요."
+      </div>
+
+      <div class="do-block">
+        <div class="do-label">🖥 실습 순서</div>
+        <ul class="q-list">
+          <li>NotebookLM Study Guide 내용 전체 복사</li>
+          <li>ChatGPT 열기 → 프롬프트 파일에서 "프롬프트 A" 복붙 → 내용 붙여넣기 → 실행</li>
+          <li>결과 나오면 같이 읽어보면서 "이게 Anki 카드 형식이에요" 설명</li>
+          <li>시간 남으면 프롬프트 B(CSV 형식)도 바로 시연</li>
+        </ul>
+      </div>
+
+      <div class="say">
+        <div class="say-label">💬 중간 설명</div>
+        "이걸 한글로도 받고 싶으시면 프롬프트에 '한글 버전도 함께' 한 줄 추가하면 돼요. 오늘 드리는 프롬프트 파일에 전부 들어있어요."
+      </div>
+
+      <div class="tip"><strong>TIP</strong> — 의뢰인이 Anki를 모를 수 있음. "종이 플래시카드 디지털 버전이에요, 앱에서 넘기면서 공부해요"로 설명. 오늘 Anki 설치까지 할 필요 없음.</div>
+
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>강사용 스크립트 · 1회차 · 비공개</span>
+    <span>2 / 3</span>
+  </div>
+</div>
+
+
+<!-- PAGE 3 -->
+<div class="page">
+  <div class="doc-header">
+    <div>
+      <h1>강사용 진행 스크립트</h1>
+      <p>파트 3 (문제 추출) + 정리 + 비상 대응</p>
+    </div>
+    <div class="badge-instructor">강사 전용 — 비공개</div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="time">55 – 75분</div>
+      <div class="phase-title">시험 포맷 문제 추출 실습</div>
+      <div class="goal-tag">Claude / ChatGPT</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="say">
+        <div class="say-label">💬 도입 멘트</div>
+        "이제 제일 직접적인 거예요. 교재 내용 넣으면 시험 문제가 바로 나와요. 준비하시는 시험 스타일에 딱 맞게 조정도 가능해요."
+      </div>
+
+      <div class="do-block">
+        <div class="do-label">🖥 실습 순서</div>
+        <ul class="q-list">
+          <li>Claude.ai 열기 → 프롬프트 파일에서 "MCQ 프롬프트" 복붙</li>
+          <li>NotebookLM 요약 내용 or 교재 텍스트 붙여넣기 → 실행</li>
+          <li>결과 확인 → "이 중에 실제 시험에 나올 것 같은 거 있어요?" 의뢰인에게 물어보기</li>
+          <li>시간 되면 단답형 프롬프트도 바로 실행</li>
+        </ul>
+      </div>
+
+      <div class="say">
+        <div class="say-label">💬 Claude Project 설명 (시간 여유 있을 때)</div>
+        "이걸 매번 붙여넣기 귀찮으시면 Claude Project에 교재 PDF 한 번 넣어두면 학기 내내 '3장 문제 뽑아줘' 한 줄만 치면 돼요. 같이 만들어볼까요?"
+      </div>
+
+      <div class="tip"><strong>시간 부족 시</strong> — 문제 추출은 의뢰인이 집에서 혼자 해볼 수 있음. 프롬프트 파일 드리면 되니까 75분 내로 못 해도 OK. 대신 프롬프트 파일 꼭 전달할 것.</div>
+
+    </div>
+  </div>
+
+  <!-- PHASE 5 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="time">75 – 90분</div>
+      <div class="phase-title">정리 & 마무리</div>
+      <div class="goal-tag">숙제 확정</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="say">
+        <div class="say-label">💬 마무리 멘트</div>
+        "오늘 배운 흐름 정리해드릴게요. NotebookLM에 자료 넣고 → 요약/Q&A 뽑고 → ChatGPT로 플래시카드 만들고 → 문제 추출. 이 루틴 한 번만 익히시면 매 강의마다 30분씩 절약돼요."
+      </div>
+
+      <div class="do-block">
+        <div class="do-label">📋 마무리 체크</div>
+        <ul class="q-list">
+          <li>수강생용 핸드아웃(lesson1.html) 공유 or 출력본 전달</li>
+          <li>프롬프트 파일(lesson1_prompts.txt) 카톡으로 전달</li>
+          <li>숙제 확정: "이번 주 강의 1개로 직접 해보기"</li>
+          <li>"다음에 또 필요하시면 연락 주세요" — 추가 세션 자연스럽게 열어두기</li>
+        </ul>
+      </div>
+
+      <div class="say">
+        <div class="say-label">💬 클로징 멘트</div>
+        "오늘 한 번만 익혀두시면 이제 혼자서 다 되세요. 막히는 부분 있으시면 언제든 연락 주시고요. 화이팅 하세요!"
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 비상 대응 -->
+  <div class="section" style="margin-top:20px;">
+    <div class="section-title">비상 상황 대응 가이드</div>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead>
+        <tr style="background:var(--primary);color:#fff;">
+          <th style="padding:8px 12px;text-align:left;font-weight:700;">상황</th>
+          <th style="padding:8px 12px;text-align:left;font-weight:700;">대응</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:8px 12px;border-bottom:1px solid var(--gray2);color:var(--text-sub);">의뢰인이 유튜브 링크 안 가져옴</td>
+          <td style="padding:8px 12px;border-bottom:1px solid var(--gray2);">미리 준비한 백업 링크 사용. "샘플로 먼저 해보고 나중에 본인 꺼로 하세요"</td>
+        </tr>
+        <tr style="background:var(--gray1);">
+          <td style="padding:8px 12px;border-bottom:1px solid var(--gray2);color:var(--text-sub);">NotebookLM 접속 안 됨</td>
+          <td style="padding:8px 12px;border-bottom:1px solid var(--gray2);">ChatGPT/Claude로 먼저 플래시카드 파트 진행 후 나중에 NotebookLM 재시도</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;border-bottom:1px solid var(--gray2);color:var(--text-sub);">WiFi 느림</td>
+          <td style="padding:8px 12px;border-bottom:1px solid var(--gray2);">기다리는 동안 핸드아웃 함께 읽기. 강사 핫스팟 켜기 (미리 데이터 확인)</td>
+        </tr>
+        <tr style="background:var(--gray1);">
+          <td style="padding:8px 12px;border-bottom:1px solid var(--gray2);color:var(--text-sub);">의뢰인이 "이미 알아요"라고 함</td>
+          <td style="padding:8px 12px;border-bottom:1px solid var(--gray2);">심화 버전으로 전환: "그럼 복습 자동화 스케줄 세팅 같이 해볼게요"</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;color:var(--text-sub);">90분 초과할 것 같음</td>
+          <td style="padding:8px 12px;">75분에 자연스럽게 마무리 시그널. 남은 건 프롬프트 파일로 대체</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <span>강사용 스크립트 · 1회차 · 비공개</span>
+    <span>3 / 3</span>
+  </div>
+</div>
+
+</body>
+</html>
