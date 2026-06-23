@@ -1,5 +1,457 @@
-IMAT — Chemistry 기출문제 (2024–2025)
-==================================================
+IMAT — Chemistry (화학) 기출 통합본
+수록 연도: 2011–2025 (2023 제외) | 영역별 정렬
+============================================================
+총 105문제
+
+
+
+[2011년 — 2문제]
+
+Q28. 61 Which one of the following compounds can be made from ethanol using only a substitution reaction?
+
+Q30. 67 One group of elements in the Periodic Table contains, in descending order, boron, aluminium, gallium, indium and thallium. Which of the following are correct about these elements?
+
+[2012년 — 2문제]
+
+Q59. C6H12O2 B C5H10O2 C
+  A) C5H10O
+  B) D
+  C) C5H12O
+  D) E
+  E) C6H12O
+
+Q60. 1 only B 2 only C 2 and 3 only D none
+  A) E
+  B) 3 only
+  C) 61
+  D) A
+  E) C(s), Fe3+(aq), H+(aq)
+
+[2013년 — 12문제]
+
+Q45. Solid to liquid = Melting B Gas to solid = Freezing C
+  A) Solid to gas = Sublimation
+  B) D
+  C) Liquid to gas = Evaporation
+  D) E
+  E) Gas to liquid = Condensation
+
+Q46. 1=substitution; 2=addition; 3=reduction B 1=substitution; 2=addition; 3=hydrolysis C
+  A) 1=addition; 2=substitution; 3=reduction
+  B) D
+  C) 1=addition; 2=addition; 3=reduction
+  D) E
+  E) 1=addition; 2=substitution; 3=hydrolysis
+
+Q47. 1 and 2 only B 1, 2 and 3 C
+  A) 2 and 3 only
+  B) D
+  C) 1 only
+  D) E
+  E) 1 and 3 only
+
+Q48. 2 and 3 only B 1 and 3 only C
+  A) 1, 2 and 3
+  B) D
+  C) 1 and 2 only
+  D) E
+  E) 3 only
+
+Q49. GaCO3 B CsNO3 C
+  A) BeSO4
+  B) D
+  C) SnS2
+  D) E
+  E) Ba(HCO3)2
+
+Q50. 3, 4, 5, 6 B 2, 3, 4, 5 C
+  A) 2, 3, 4, 5, 6
+  B) D
+  C) 4, 5, 6
+  D) E
+  E) 3, 4, 5
+
+Q52. 3.6 × 1026 B 3.9 × 1026 C
+  A) 6.0 × 1025
+  B) D
+  C) 3.6 × 1023
+  D) E
+  E) 6.0 × 1022
+
+Q53. 1, 2 and 3 B 1 and 2 only C
+  A) 2 only
+  B) D
+  C) 3 only
+  D) E
+  E) 1 only
+
+Q54. 0.75m B 2.25m C
+  A) 1.25m
+  B) D
+  C) 1.875m
+  D) E
+  E) 0.125m
+
+Q55. 3 only B 1, 2 and 3 C
+  A) 1 and 2 only
+  B) D
+  C) 2 only
+  D) E
+  E) 1 and 3 only
+
+Q57. 1 and 2 only B 1 only C
+  A) 2 and 3 only
+  B) D
+  C) 1 and 3 only
+  D) E
+  E) 1, 2 and 3
+
+Q59. 1 ≤ x B 1 < x ≤ 2 C
+  A) 1 ≤ x < 2
+  B) D
+  C) 2 < x
+  D) E
+  E) ­1 ≤ x < 2
+
+[2014년 — 6문제]
+
+Q2. A computer game is on sale for €32.00. The price ticket shows that this cost is a reduction of 20% of the original price. What was the original price?
+  A) €25.60
+  B) €38.40
+  C) €33.60
+  D) €52.00
+  E) €40.00
+
+Q44. Excess lead (II) nitrate solution is added to 1.30 g of zinc powder and the mixture is stirred. When the reaction is finished the lead formed is filtered, dried and weighed. It has a mass of 3.31 g.
+
+Q45. A battery has lead plates dipped in sulfuric acid. When charged, the positive plate is covered with PbO2. After discharge both plates are covered with PbSO4.
+
+Q47. The following are some compounds that can be made from ethene, C2H4: C2H6,   C2H5Br,   C2H5OH,   CH2BrCH2Br,   ­(CH2CH2)n­ Which one of the compounds is made by oxidising ethene? ­(CH2CH2)n­ C2H5Br C2H5OH
+  A) CH2BrCH2Br
+  B) C2H6
+  C) A student carried out an experiment to find the rate of decomposition of hydrogen peroxide into
+  D) water and oxygen gas. The student used 100 cm3 of a 1M solution of hydrogen peroxide at 25°C
+  E) and 1 atm pressure.
+
+Q53. Physics and Mathematics A book of mass 0.40 kg rests on a horizontal surface with which it has a coefficient of dynamic friction of 0.50.
+
+Q55. An ornamental thermometer, commonly known as a Galileo thermometer, contains a number of spheres of hollow coloured glass, representing different temperatures, immersed in a column of ethanol.  A particular sphere (X) rises from the bottom to the top of the column of liquid when the temperature falls below the value it represents.
+
+[2015년 — 9문제]
+
+Q27. Evaluate:
+  A) (27² – 23²) + (14² – 6²)
+  B) 1680
+  C) 360
+  D) 80
+  E) 840
+
+Q45. Pure water self­ionises. This endothermic reaction is represented by the equation: Which of the following statements is true for pure water between the temperatures of 0 °C and 100 °C? The concentrations of H+(aq) and OH–(aq) are equal between 0 °C and 100 °C. 1. An increase in temperature causes the pH to fall. 2.
+  A) An increase in temperature causes the electrical conductivity to decrease.
+  B) 3.
+  C) 1 and 3 only
+  D) 3 only
+  E) 1 only
+
+Q48. 2,2 – dimethylpropane, C(CH3)4, is an isomer of pentane, CH3(CH2)3CH3. Pentane has a boiling point of 36 °C whilst the boiling point of 2,2 – dimethylpropane is 10 °C. Which statement below explains the difference in the boiling points for these two substances? 2,2 – dimethylpropane has stronger intermolecular forces. The molecules have different relative molecular masses. Isomers have different chemical properties. Pentane has permanent dipoles.
+  A) Longer chain, less branched molecules have stronger spontaneous/induced dipoles.
+  B) Assume that the oxidation numbers are as shown below:
+  C) N = –3        H = +1       Cr = +6         O = –2
+  D) Which compound formula given below is correct?
+  E) [ (NH4)2CrO4 ] +
+
+Q50. When propan­1­ol is burnt in excess oxygen the only products formed are carbon dioxide and water. In the balanced equation for this reaction what is the ratio of CO2 : H2O molecules formed? 4 : 7 3 : 8
+  A) 2 : 7
+  B) 3 : 4
+  C) 5 : 12
+  D) Potassium nitrate was found to have a solubility of 120 g in 100 g of water at 80 °C and 50 g in
+  E) 100 g of water at 25 °C.
+
+Q52. Which two of the following oxides would NOT give acidic solutions in water? CO, CO2, SO2, NO NO and SO2 NO and CO2 CO and SO2 CO and CO2 CO and NO
+  A) Which one of the following 0.01 M aqueous solutions has a pH > 7.0?
+  B) AlBr3
+  C) NaI
+  D) NH4Cl
+  E) Na2CO3
+
+Q54. Physics and Mathematics Given that 2 log10 (x) – 3 = log10 (y) Express y in terms of x.
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+Q56. The diagram shows a car of mass 1000 kg travelling at a constant speed of 30 m/s in the direction shown along a flat, level road which forms a circle of radius 50 m.
+
+Q59. An aluminium block of mass 2.5 kg is supplied with 9000 J of thermal energy. This causes its temperature to rise by 4 K. Which expression gives the specific heat capacity of this aluminium, from this data? [Assume that the block remains solid throughout, and that no additional energy is exchanged between the block and the surroundings.]
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+Q60. Two forces F of equal magnitude act on a beam. Which diagram shows a couple acting and states the magnitude of the torque (moment) of the couple about the pivot? [The pivot is at the centre of the beam]
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+[2016년 — 5문제]
+
+Q44. The formula of a molecule is CH2CHCH2CH2COCH2CHO. Which functional groups given below are present in the molecule?
+
+Q46. A mixture of methanol and ethanoic acid is left until equilibrium is reached. The equation for this reaction is given below.
+
+Q51. Identify the number of protons (p), neutrons (n) and electrons (e) present in the ion: p = 27      n = 25      e = 21 p = 24      n = 28      e = 24
+  A) p = 27      n = 25      e = 24
+  B) p = 24      n = 28      e = 21
+  C) p = 24      n = 24      e = 21
+  D) Which of the following molecules contain bond angles of 180° in their gaseous states?
+  E) (Atomic numbers: H = 1; Be = 4; C = 6;  Cl = 17)
+
+Q54. Physics and Mathematics A right­angled triangle has an area of 18 cm². One of the two shorter sides is twice the length of the other one. What is the length of the hypotenuse of the triangle?
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+Q58. A student has three 6.0 Ω resistors that can be connected together in any configuration. What are the maximum and minimum resistances that can be obtained by using one or more of these three resistors? [Assume the connections between the resistors have negligible resistance, the temperature of the resistors is constant, the resistors are used in a d.c. circuit and none of the resistors is short­circuited.] maximum resistance: 6.0 Ω; minimum resistance: 2.0 Ω
+  A) maximum resistance: 12 Ω; minimum resistance: 0.50 Ω
+  B) maximum resistance: 6.0 Ω; minimum resistance: 0.50 Ω
+  C) maximum resistance: 18 Ω; minimum resistance: 6.0 Ω
+  D) maximum resistance: 18.0 Ω; minimum resistance: 2.0 Ω
+  E) The diagram shows a uniform horizontal beam of negligible mass, 5.0 m long, placed on two
+
+[2017년 — 5문제]
+
+Q45. In which one of the following reactions is the underlined species acting as an oxidising agent? A solution of hydrochloric acid has a concentration of 1.0 mol / L. If 10 mL of this acid is added to water and made up to a total volume of 1.0 L, what is the pH of the resulting solution?
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+Q47. In an experiment involving the reaction shown below, 150 cm3 of F2 reacts with 100 cm3 of Cl 2. 3F2(g)  +  Cl 2(g)  →  2Cl F3(g) On completion of the reaction, what is the final gaseous volume at the same temperature and pressure? 250 cm3 100 cm3 350 cm3
+  A) 200 cm3
+  B) 150 cm3
+  C) Which one of the following molecules is a structural isomer of methylcyclopentane?
+  D) hexane
+  E) cyclohexene
+
+Q49. Consider the following list of particles: 1. molecules 2. ions 3. single atoms Which one of the following options correctly describes the particles that are present in an aqueous solution of sodium chloride? 1 and 2 only
+  A) 1, 2 and 3
+  B) 3 only
+  C) 1 only
+  D) 2 only
+  E) The solubility of potassium nitrate in water increases with temperature.
+
+Q51. Element X is a grey solid. It combines with chlorine to form a polar molecule with the formula XCl . In this compound, element X has an oxidation state of +1. In potassium iodide solution, it dissolves to form a coloured solution. At 500 °C, it becomes a coloured vapour. What is the identity of element X? manganese
+  A) fluorine
+  B) iodine
+  C) carbon
+  D) lithium
+  E) Which option correctly describes the following features of a silane (silicon tetrahydride)
+
+Q54. Physics and Mathematics A car starts at point X. It travels 3.0 km due east, then 4.0 km due south, then 6.0 km due west and finally 8.0 km due north. How far away is the car from point X when it has reached the end of this journey? [Assume that all distances moved are on a flat horizontal surface, and that point X is on the equator. You may ignore any curvature of the Earth.] 5.0 km
+  A) 21.0 km
+  B) 10.0 km
+  C) 7.0 km
+  D) 2.0 km
+  E) A resistor has a resistance of 5.0 Ω. There is a direct current of 10 A in the resistor.
+
+[2018년 — 5문제]
+
+Q46. Five atoms are shown below. The letters are NOT chemical symbols. Which one of the following atoms has the highest first ionisation energy? What is the correct IUPAC name of this compound?
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+Q48. Which row correctly shows the shape of each molecule and whether the molecule is polar (i.e. has a permanent dipole moment) or non-polar? [Atomic numbers: H = 1; B = 5; C = 6; N = 7; O = 8; F = 9; P = 15; Cl = 17] row 3 row 1 row 4 row 2
+  A) row 5
+  B) Consider a fixed volume and amount of an ideal gas at 10 °C.
+  C) What temperature would it have to be changed to in order for the pressure to be doubled?
+  D) 5°C
+  E) 20 °C
+
+Q50. Consider this ionic equation in aqueous solution: CH3O–  +  H2O  →  CH3OH  +  OH– Which statement about this reaction is correct? Water is acting as a Brønsted–Lowry base. The CH3O– ion is a Lewis acid. The final mixture of solutions would have a pH below 7. CH3OH is the conjugate acid of CH3O–.
+  A) The hydroxide ion is the conjugate acid of the water.
+  B) A sealed container contains 1.00 mol of hydrogen gas, which behaves as an ideal gas.
+  C) Which of the following changes increase(s) the total kinetic energy of the hydrogen gas
+  D) molecules initially within the container?
+  E) 1. Changing the amount of hydrogen from 1.0 mol to 1.2 mol whilst keeping the pressure
+
+Q52. When nitrogen and hydrogen are mixed under suitable conditions of temperature and pressure, and in the presence of a catalyst, an equilibrium state is attained: N2(g)  +  3H2(g)  ⇌  2NH3(g)          ΔH is negative Which of the following statements explain(s) why, when the pressure on a mixture of nitrogen and hydrogen is increased while the temperature remains constant, the time taken to attain equilibrium is decreased? 1. The molecules have a higher collision frequency.
+  A) 2. The yield of ammonia (NH3(g)) decreases.
+  B) 3. A greater proportion of molecules in the mixture have energy greater than the activation
+  C) energy.
+  D) 2 only
+  E) 3 only
+
+Q54. Physics and Mathematics The equation below has two roots.
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+[2019년 — 6문제]
+
+Q44. Consider the following reversible reaction at temperature T. A  +  2B  ⇌  2C  +  D
+  A) At equilibrium, there are 0.5 moles of A, 0.2 moles of B, 0.5 moles of C and 0.8 moles of D, all in
+  B) a vessel of volume V.
+  C) What is the value of the equilibrium constant, Kc
+  D) , at this temperature?
+  E) 0.1
+
+Q47. Why does hydrogen iodide (HI) have a higher boiling point than hydrogen bromide (HBr)? [Atomic numbers: bromine = 35; iodine = 53] The iodide ions in HI are larger than the bromide ions in HBr. The H – I covalent bond is stronger than the H – Br covalent bond. There are hydrogen bonds between HI molecules but not between HBr molecules. The permanent dipole-permanent dipole forces between HI molecules are stronger than those between HBr molecules.
+  A) The induced dipole-induced dipole (dispersion) forces between HI molecules are stronger
+  B) than those between HBr molecules.
+  C) Element Z reacts with water at room temperature and hydrogen gas is released.
+  D) The oxide of element Z is a solid at room temperature and does not conduct electricity. The
+  E) oxide reacts with acids and has the formula ZO.
+
+Q49. Which of the following molecules have an overall permanent dipole moment? 1   CO2 2   H2O 3   NH3 [C is in Group IV, N is in Group V, O is in Group VI ] none of them 1 and 2 only
+  A) 1, 2 and 3
+  B) 2 and 3 only
+  C) 1 and 3 only
+  D) A few drops of universal indicator solution were added to exactly 50 mL of sodium hydroxide
+  E) solution, NaOH, of concentration 1 mol / L. Exactly 50 mL of hydrochloric acid, HCl , of
+
+Q51. Hydrogen has a radioactive isotope called tritium. Tritium atoms have two neutrons. The most abundant naturally occurring isotope of hydrogen has a relative atomic mass of 1.0. What is the value for the relative atomic mass of a sample of hydrogen gas that has an equal amount of these two isotopes of hydrogen? 3.0 2.0 4.0
+  A) 1.5
+  B) 1.0
+  C) Which of the following pairs of structural formulae represent structural isomers?
+  D) 1   CH3CH2OH  and  CH3OCH3
+  E) 2   CH3CH(CH3)CH2CH2CH3  and  CH3CH2CH2CH(CH3)CH3
+
+Q52. What is the minimum mass of sulfur dioxide needed to make 500 mL of a solution of concentration 3.0 mol / L? [Ar  values: O = 16; S = 32]
+  A) 32 g
+  B) 48 g
+  C) 192 g
+  D) 384 g
+  E) 96 g
+
+Q54. Physics and Mathematics A car, which is initially stationary, accelerates for 5.0 seconds at 4.0 m / s2 along a straight road. It then continues in the same direction for 20 seconds at a constant speed. What is the maximum speed of the car, and what is the distance travelled by the car in the final 20 seconds of its motion? maximum speed = 24 m / s;  distance = 480 m maximum speed = 20 m / s;  distance = 400 m
+  A) maximum speed = 9.0 m / s;  distance = 200 m
+  B) ​maximum speed = 9.0 m / s;  distance = 180 m
+  C) maximum speed = 20 m / s;  distance = 80 m
+  D) The mean mass of three babies is 2.1 kg. The range of their masses is 0.7 kg. The lightest baby
+  E) has a mass of 1.8 kg.
+
+[2020년 — 6문제]
+
+Q45. Which of the following substances has the weakest overall intermolecular forces? [atomic numbers: H = 1; C = 6; N = 7; O = 8; F = 9] H2O CH4 HF NH3 CO2
+  A) Sucrose, C12H22O11, is added to water at 20 °C until no more sucrose will dissolve.
+  B) Four statements are made about sucrose and the solution that is produced:
+  C) 1  A saturated solution of sucrose is produced.
+  D) 2  The freezing point of the solution is 0 °C.
+  E) 3  Sucrose is a non-polar substance.
+
+Q47. Which of the following pairs of molecules are structural isomers? 1 and 3 only 2 and 3 only 1, 2 and 3 2 only 3 only P, Q and R represent substances involved in a gaseous reaction.
+  A) The equilibrium constant (Kc) and the sign of the enthalpy change for the reaction are:
+  B) Assuming that all other conditions remain constant, a change in which factor results in an
+  C) increase of the value of the equilibrium constant, K​c?
+  D) an increase in pressure
+  E) use of a suitable catalyst
+
+Q49. Which of the following molecules has a permanent overall dipole moment? [C is in Group IV; N and P are in Group V; O and S are in Group VI; F and Cl are in Group VII] NF3 PCl 5 SF6 CCl 4 CO2
+  A) Which of the following functional groups is present in cysteine?
+  B) thiol
+  C) ketone
+  D) ester
+  E) alcohol
+
+Q51. In which of the following pairs of species does the vanadium, V, have the same oxidation state? VO2  and  VO3 – VO2  and  V2O5 VCl 4  and  VO2+ VCl 4  and  VO3 –
+  A) V2O5  and  VO2+
+  B) X and Y are acidic solutions.
+  C) X has a pH of 2 and Y has a pH of 4
+  D) Which of the following statements about the hydrogen ion concentrations of X and Y is correct?
+  E) Y has a hydrogen ion concentration 2 times greater than X.
+
+Q52. 40 cm3 of a solution of sodium hydroxide is exactly neutralised by 25 cm3 of 0.40 mol L–1 sulfuric acid.
+
+Q53. Physics and Mathematics Which of the following is equal to
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+[2021년 — 8문제]
+
+Q43. Which of the following changes is/are correct? 1  The addition of 1ௗg of salt to 100ௗg water will increase the freezing point. 2  A change in temperature from 150ௗC to 120ௗC will increase the average kinetic energy of water molecules. 3  A change in the surrounding air pressure from 100ௗkPa to 120ௗkPa will increase the boiling point of water. 3 only
+  A) 2 only
+  B) 1 only
+  C) 1 and 3 only
+  D) 1, 2 and 3
+  E)  UCLES
+
+Q45. Which of the following hydrocarbons are structural isomers of hexane? 2 only 1 only 3 only 1 and 2 only 1 and 3 only Which of the following equations is associated with the first electron affinity of chlorine?
+  A) Cl௘(g)  +  e±  ĺ  Cl௘±(g)
+  B) Cl௘(g)  ĺ  Cl௘±(g)  +  e±
+  C) Cl௘2(g)  +  2e±  ĺ  2Cl௘±(g)
+  D) 2Cl௘±(g)  ±  2e±  ĺ  Cl௘2(g)
+  E) Cl௘±(g)  +  e±  ĺ  Cl௘(g)
+
+Q46. Vitamin B5 has the structure: Which of the following functional groups are contained in a molecule of vitamin B5? 1  alcohol 2  aldehyde 3  amide 4  amine 5  carboxylic acid
+  A) 6  ketone
+  B) 1, 3 and 5 only
+  C) 1, 2 and 4 only
+  D) 1, 3 and 6 only
+  E) 2, 4 and 6 only
+
+Q47. X is 50.0ௗmL of a 0.050ௗmol௘L±1 aqueous solution of nitric acid (HNO3). Y is 100ௗmL of a 0.050ௗmol L±1 aqueous solution of sulfuric acid (H2SO4). Which of the following statements about these solutions is/are correct? 1  The hydrogen ion concentration in Y is four times greater than the hydrogen ion concentration in X. 2  Only the acid in Y will be completely dissociated into ions. 3  Y has a pH value of less than 2 at 25௘C.
+  A) 3 only
+  B) none of them
+  C) 1 only
+  D) 1 and 3 only
+  E) 2 and 3 only
+
+Q49. Which row gives the correct shapes around the aluminium centres in Al௘Cl 3 and Al 2Cl 6 molecules? [atomic numbers: Al = 13; Cl = 17] row 4 row 2 row 3 row 1
+  A) row 5
+  B) At room temperature and pressure, which of the following substances has the strongest
+  C) hydrogen bonds between their molecules?
+  D) ethanoic acid, CH3COOH
+  E) propanal, CH3CH2CHO
+
+Q51. 100ௗmL of a solution contained 3.2ௗg of potassium nitrate. 25ௗmL of this solution was added to an empty 250ௗmL volumetric flask. Distilled water was added up to the 250ௗmL mark and the flask was shaken to ensure that mixing was complete. A pipette was used to transfer 25ௗmL of the resulting solution from the volumetric flask to an empty conical flask. What is the concentration of the potassium nitrate solution, in g L±1, in the conical flask? 3.20ௗg L±1
+  A) 0.80ௗg L±1
+  B) 0.32ௗg L±1
+  C) 8.00ௗg L±1
+  D) 0.08ௗg L±1
+  E) The general formula of an oxoacid is Hm XOn
+
+Q52. A sample of an oxide of iron contains 1.68ௗg of iron and 0.64ௗg of oxygen only. What is the formula of this oxide? [Ar values: Fe = 56; O = 16] Fe3O4
+  A) Fe4O3
+  B) Fe2O3
+  C) Fe3O2
+  D) FeO
+  E)  UCLES
+
+Q53. Physics and Mathematics Which one of the following is a simplification of ±=4  UCLES
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+[2022년 — 9문제]
+
+Q38. Equal volumes of liquids are mixed as the following pairs: 1  heptane and hexane 2  water and methanol 3  hexane and water Which of the pairs form(s) a homogenous mixture? 1 and 2 only 1 only
+  A) 3 only
+  B) 2 and 3 only
+  C) 1, 2 and 3
+  D) IMAT 2022
+  E) © Cambridge University Press & Assessment 2022
+
+Q39. Consider the following general equation that describes one way of synthesising a particular type of BIOFUEL, represented by Y. X represents a neutral (uncharged) organic molecule involved in the reaction. Which of the following statements about the reaction are correct? 1  Addition of an enzyme is an essential condition. 2  Y is an ester. 3  X contains an alcohol group.
+  A) 2 and 3 only
+  B) 1 and 2 only
+  C) 1 and 3 only
+  D) none of them
+  E) 1, 2 and 3
+
+Q41. Which of the following substances in pure liquid form has/have hydrogen bonds between their molecules? 1  H2O 2  HF 3  CH4 1 and 2 only 1 only
+  A) 2 only
+  B) 3 only
+  C) 2 and 3 only
+  D) In which of the following does the central atom share all of its outer shell electrons?
+  E) 1  BF3
+
+Q43. In which of the following reactions does HCl act as a reducing agent? MnO2  +  4HCl  →   MnCl 2  +  Cl 2  +  2H2O Zn   +  2HCl  →   H2  +  ZnCl 2 Mg(OH)2  +  2HCl  →   MgCl 2  +  2H2O NH3  +  HCl  →   NH4Cl Al 2O3  +  6HCl   →   2AlCl 3  +  3H2O Hydrogen sulfide gas was shaken with a solution of sodium hydroxide in a closed system. An
+  A) equilibrium was rapidly established.
+  B) H2S(g)  +  2OH–(aq)  ⇌  S2–(aq)  +  2H2O(l)
+  C) The experiment was repeated at the same temperature and pressure, but one additional
+  D) substance was added to the equilibrium mixture.
+  E) Adding which of these substances, on its own, will increase the number of molecules of H2S
+
+Q45. Barium sulfate is insoluble in water. Aqueous solutions of barium chloride and sodium sulfate are mixed. Which of the following equations is the SIMPLEST ionic equation for the reaction that occurs? Ba2+(aq)  +  SO4 2–(aq)  →  BaSO4(s) 2BaCl (aq)  +  Na2SO4(aq)  →  BaSO4(s)  +  2NaCl (aq) BaCl 2(aq)  +  Na2SO4(aq)  →  BaSO4(s)  +  2NaCl (aq)
+  A) 2Ba+(aq)  +  SO4
+  B) 2–(aq)  →  Ba2SO4(s)
+  C) Ba2+(aq)  +  2Cl –(aq)  +  2Na+(aq)  +  SO4
+  D) 2–(aq)  →  BaSO4(s)  +  2Na+(aq)  +  2Cl –(aq)
+  E) Which of the following separation techniques can be used to obtain liquid ethanal from an
+
+Q47. A metal oxide, MO, reacts with sulfuric acid according to the following equation: MO  +  H2SO4  →  MSO4  +  H2O 2.8 g of the metal oxide requires 25 mL of 2.0 mol L–1 sulfuric acid for complete reaction. What is the relative atomic mass (Ar) of the metal? [ Ar value: O = 16]
+
+Q49. Phosphorus is in Group V of the Periodic Table. What is the shape and the bond angle for the PH4 + ion?
+
+Q50. Which of the following lists the given elements in order of DECREASING first ionisation energies? [Atomic numbers: Li = 3; Be = 4; Na = 11] Be, Li, Na Li, Be, Na
+  A) Li, Na, Be
+  B) Be, Na, Li
+  C) Na, Be, Li
+  D) IMAT 2022
+  E) © Cambridge University Press & Assessment 2022
+
+Q52. Physics and Mathematics Evaluate
 
 [2024년 — 15문제]
 

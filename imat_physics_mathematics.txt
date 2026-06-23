@@ -1,5 +1,187 @@
-IMAT — Physics & Mathematics 기출문제 (2024–2025)
-==================================================
+IMAT — Physics & Mathematics (물리·수학) 기출 통합본
+수록 연도: 2011–2025 (2023 제외) | 영역별 정렬
+============================================================
+총 55문제
+
+
+
+[2011년 — 5문제]
+
+Q1. r m Gm F =
+
+Q2. and 7 is less than 1?
+
+Q33. 74 An object of mass 50 g just floats in a liquid of density 2.5 g/ml. When the object is placed in a liquid of density 2.0 g/ml, it sinks to the bottom of the container. What is the force that the object exerts on the bottom of the container?
+
+Q34. 76 David has two boxes containing shapes. In box A there are 4 stars and 2 hearts. In box B there are 2 stars and 1 heart. David takes, at random, a shape from box A and puts it into box B. He then takes a shape from box B.
+
+Q35. 79 The graph below shows the line joining A (2,1) and B (6,3), and its perpendicular bisector (shown dashed: ----------).
+
+[2017년 — 3문제]
+
+Q56. Which one of the following is an expression for the mean of , , and ?
+  A) What is the gradient of the straight line passing through the points with coordinates
+  B) (2, –3) and (–1, 6) ?
+  C) –1
+  D) – 9
+  E) – 3
+
+Q58. Given that log107 = x log102 = y log103 = z What is log10 expressed in terms of x, y, and z ? xy – z
+  A) x + y – z
+  B) xy + z
+  C) A solid wooden cube has sides of length a. The density of the wood is ρ.
+  D) The cube is completely immersed in a beaker of oil, which has a density σ. The top surface of
+  E) the cube is horizontal. The gravitational field strength is g.
+
+Q60. A fixed mass of an ideal gas undergoes a change in which it is supplied with 3500 J of thermal energy. At the same time this gas does 3500 J of work on its surroundings. Which type of change does the gas undergo during this time? adiabatic isothermal
+  A) isochoric
+  B) isomeric
+  C) isobaric
+  D) How many ways are there to order the letters ‘AABBC’? (For example, ‘ACABB’ and
+  E) ‘AABBC’ are two ways.)
+
+[2018년 — 3문제]
+
+Q57. An electric train is travelling on a straight, horizontal track. A constant resultant force (greater than zero) acts on the train in the direction of the train’s motion. What happens to the magnitude of the acceleration and to the magnitude of the velocity of the train while this force is acting? The acceleration increases and the velocity remains constant. The acceleration remains constant and the velocity increases. The acceleration decreases and the velocity increases.
+  A) The acceleration remains constant and the velocity remains constant.
+  B) The acceleration increases and the velocity increases.
+  C) Which one of the following is an equation of the line that passes through (4, 3) and is
+  D) perpendicular to the line y = 2x + 4?
+  E) 2x – y = 5
+
+Q59. A wire made of a metal of uniform resistivity 1.0 × 10–6 Ω m is 2.0 m long and has a diameter of 2.0 × 10–3 m. What is the electrical resistance of this length of the wire? The Earth’s atmosphere contains oxygen and nitrogen. The mass of an oxygen molecule is greater than the mass of a nitrogen molecule. The temperature of air in a room on a particular day is 300 K. Below are four statements about the motion of the two types of molecule in this room.
+  A) 1. They have an equal mean square velocity
+  B) .
+  C) 2. A nitrogen molecule has a greater mean square velocity
+  D) than an oxygen molecule.
+  E) 3. A nitrogen molecule has a greater mean kinetic energy than an oxygen molecule.
+
+Q60. Evaluate (3 × 103)3 × (2 × 10–5)
+  A) 5.4 × 10–1
+  B) 5.4 × 102
+  C) ​5.4 × 101
+  D) 5.4 × 105
+  E) 5.4 × 104
+
+[2019년 — 3문제]
+
+Q56. A stone of density 5.20 g / cm3 and volume 200 cm3 is completely submerged in a liquid of density 1.20 g / cm3. What is the magnitude of the upthrust acting on the stone? [gravitational field strength = 10.0 N / kg] 6.40 N 2.00 N 10.4 N
+  A) 8.00 N
+  B) 2.40 N
+  C) A fixed mass of an ideal gas is compressed at constant temperature. The pressure is recorded
+  D) continuously as the volume decreases. The pressure ( y-axis) and volume (x-axis) are plotted
+  E) on a linearly scaled graph.
+
+Q59. What is the highest common factor of 360, 500 and 700, given as the product of powers of its prime factors? 2 × 5 23 × 53 23 × 32 × 53 × 7 22 × 5 22 × 32 × 5 × 7
+  A) What is the sum of the solutions to the equation
+  B) , where x is a real number and
+  C) x ≠ 0 and x ≠ 2 ?
+  D) – 3
+  E) –7
+
+Q60. Two charged particles P and Q are 0.10 m apart. The charge on P is 1.50 × 10–7 C and the charge on Q is 1.50 × 10–7 C. Particle P experiences an electrostatic force of magnitude F because it is near to the charge on particle Q. The distance between the two particles is increased to 0.20 m. The charge on P is increased to
+  A) 4.50 × 10–7 C and the charge on Q is increased to 6.00 × 10–7 C.
+  B) What is the magnitude of the force that particle P experiences now?
+  C) 12F
+  D) 6F
+  E) 3F
+
+[2020년 — 4문제]
+
+Q55. A rocket is launched vertically from the surface of the Earth. As it leaves the launch pad, the
+  A) total mass of the rocket and its contents is m. The gravitational field strength at the Earth’s
+  B) surface is g. The rocket motor provides an upward vertical thrust T to the rocket.
+  C) What is the initial vertical acceleration of the rocket as it leaves the launch pad?
+  D) ​mg
+  E) T – mg
+
+Q58. A beaker contains 1000 g of a liquid that is stirred at its boiling point. A 100 W electric heater is completely immersed in the liquid. The heater provides the liquid with thermal energy, and 200 g of the liquid changes to vapour in 1600 s. What is the specific latent heat of evaporation of the liquid? [Assume that no thermal energy is transferred to or from the surroundings, and no vapour condenses.]
+  A) 12.5 J / g
+  B) 160 J / g
+  C) 3200 J / g
+  D) 800 J / g
+  E) 16 000 J / g
+
+Q59. The diagram represents a concave mirror, where F is the principal focus and f is the focal length. The mirror is used to produce an image of an object. Which of the following statements are correct? [Assume the mirror is parabolic.] 1  Incident rays travelling parallel to the principal axis always pass through F after reflection.
+  A) 2  Incident rays passing through F always travel parallel to the principal axis after
+  B) reflection.
+  C) 3  The image formed is always inverted.
+  D) 4  The image formed is always real.
+  E) 5  The image formed is always larger than the object.
+
+Q60. A boat crosses a river that has straight, parallel sides. In still water, the boat has a maximum speed of 4.0 m / s at maximum power. The boat is aimed at a point directly across the river from
+  A) its starting point. The river flows at a constant speed of 3.0 m / s parallel to its sides.
+  B) What is the speed of the boat as measured by a person stationary on the bank, and what is the
+  C) angle at which the boat travels, measured from a line at 90° to the bank?
+  D) [The boat travels at maximum power throughout its journey.]
+  E) speed of boat = 5.0 m / s ; angle = cos–1
+
+[2021년 — 6문제]
+
+Q54. Find the complete set of values of x which satisfy the inequality  UCLES
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+Q55. [diagram not to scale] PQR is a right-angled triangle with angle PRQ equal to 90. Point S is on the side PR . Point T is on the side RQ . The line ST is parallel to the line PQ .
+  A) RS = 2.5௘௘cm
+  B) PS = 1௘௘cm
+  C) RT = 5௘௘cm
+  D) What is the perimeter of the trapezium PQTS in cm?
+  E)  UCLES
+
+Q56. [diagram not to scale] PQR and PRS are right-angled triangles.
+  A) Angle PRS = Angle PQR = 90
+  B) RS = 5 ௘cm
+  C) The area of triangle PQR is 14௘ cm2 and tan PRQ =
+  D) What is the value of cos RPS ?
+  E)  UCLES
+
+Q57. At an athletics competition, a hammer thrower swings a hammer in a horizontal circle. Immediately before releasing the hammer, the ball at the end of the hammer is moving at a constant angular velocity of 10 rad / s in a horizontal circular path of radius 2.5 m. Which row in the table gives the speed and the magnitude of the acceleration of the ball just before release? row 1
+  A) row 2
+  B) row 3
+  C) row 4
+  D) row 5
+  E)  UCLES
+
+Q58. A hydraulic jack consists of a piston with a small cross-sectional area connected by a tube to a piston with a larger cross-sectional area. The cylinders of the pistons and the tube contain oil. A downward force F1 is applied to the smaller piston, which results in an upwards resultant force F2 being exerted on the larger piston. Points X and Y are in the oil, immediately underneath the pistons, which are at the same height. Which of the following statements about the pressure and forces in the hydraulic jack is/are correct?
+  A) 1  The pressure at Y is less than the pressure at X.
+  B) 2  The pressure at Y is equal to the pressure at X.
+  C) 3  F2 is greater than F1.
+  D) 4  F2 is less than F1.
+  E) 2 and 3 only
+
+Q60. A metal has a specific heat capacity of 500 J / (kg C). A block of this metal has a mass of 1.20 kg and is provided with thermal energy by a heater for 5.00 minutes. The temperature of the block increases from 40.0 C to 90.0 C without a phase change. What is the power of the heater? [Assume that no thermal energy is lost to or gained from the surroundings and that the metal is at a uniform temperature at all times.] 100 W
+  A) 6000 W
+  B) 180 W
+  C) 10 800 W
+  D) 80 W
+  E) Which of the following expressions gives a quantity that can be measured in joules (J)?
+
+[2022년 — 5문제]
+
+Q54. Find the area enclosed by the three lines y = 0 y = 2 x – 4 y = 11 – x
+
+Q56. Which of the following is a simplification of An 18 V battery and a 3.0 Ω resistor are connected in series with each other, and in series with a parallel arrangement of a 3.0 Ω resistor and a 6.0 Ω resistor. What is the current in the battery? [Assume that the battery has no internal resistance.] 3.6 A 3.0 A
+  A) 1.5 A
+  B) 5.1 A
+  C) 9.0 A
+  D) IMAT 2022
+  E) © Cambridge University Press & Assessment 2022
+
+Q58. The mean of five non-zero positive integers is 20. The median is 24. What is the maximum possible value for the largest number?
+
+Q59. [diagram not to scale] The diagram shows two concentric circles both with centre O. The angle of the shaded sector is θ  °.
+  A) The radius of the larger circle is 50% greater than the radius of the smaller circle.
+  B) The total area of the smaller circle is 36π cm2.
+  C) The area of the shaded sector is
+  D) cm2.
+  E) What is the value of θ ?
+
+Q60. The simple pendulum of a tall clock swings freely backwards and forwards so that it passes through the vertical position at 1.0 second intervals. Assuming that the motion of the pendulum is simple harmonic, what is the length of the pendulum? [Take the gravitational field strength to be 10 N kg–1, and take π2 to be 10.] 1.0 m 0.25 m
+  A) 1.7 m
+  B) 2.5 m
+  C) 3.3 m
+  D) IMAT 2022
+  E) © Cambridge University Press & Assessment 2022
 
 [2024년 — 13문제]
 

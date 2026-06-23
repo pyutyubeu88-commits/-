@@ -1,5 +1,849 @@
-IMAT — Biology 기출문제 (2024–2025)
-==================================================
+IMAT — Biology (생물학) 기출 통합본
+수록 연도: 2011–2025 (2023 제외) | 영역별 정렬
+============================================================
+총 174문제
+
+
+
+[2011년 — 3문제]
+
+Q23. 49 During vigorous exercise a variety of products will be generated in muscle cells. Which answer correctly lists some of the products?
+
+Q24. 51 Cross over values (COV’s) can be considered as the relative distance between genes and are used to help construct chromosome maps.  Four genes, called P, Q, R and S, are found on the same chromosome.  Use the following COV’s to work out the sequence of the four genes.
+
+Q27. 58 Which answer correctly identifies roles of the brain and the pancreas in the normal physiological regulation of the concentration of glucose in the blood?
+
+[2012년 — 16문제]
+
+Q41. i and iii B iii and v C
+  A) ii and iv
+  B) D
+  C) i and iv
+  D) E
+  E) ii and v
+
+Q43. amino acids B polysaccharide carbohydrates C
+  A) lipids
+  B) D
+  C) monosaccharide carbohydrates
+  D) E
+  E) water
+
+Q44. 2 and 3 only B 3 only C
+  A) 1 and 2 only
+  B) D
+  C) 2 only
+  D) E
+  E) 1 only
+
+Q45. P and Q B R and S C
+  A) Q and R
+  B) D
+  C) S and T
+  D) E
+  E) P and T
+
+Q46. low carbon dioxide low urea Row 1 renal vein pulmonary artery Row 2
+  A) pulmonary vein
+  B) renal vein
+  C) Row 3
+  D) renal artery
+  E) pulmonary vein
+
+Q47. transcription factors B DNA replication factors C
+  A) RNA polymerase
+  B) D
+  C) rough endoplasmic reticulum
+  D) E
+  E) the position of the genes on the alleles
+
+Q48. 1, 2, 3 and 4 B 1 and 2 only C
+  A) 3 and 4 only
+  B) D
+  C) 2 and 3 only
+  D) E
+  E) 1 only
+
+Q49. alleles B amount of nuclear DNA C
+  A) the total of adenine plus guanine
+  B) D
+  C) genes
+  D) E
+  E) chromosome number
+
+Q50. They contain regions called genes. B They are made of DNA and protein. C
+  A) They are sometimes not found in pairs
+  B) D
+  C) They can attach to the spindle at the centriole.
+  D) E
+  E) They are sometimes found in pairs.
+
+Q51. They are all released from glands and flow down ducts into the bloodstream. B A hormone may affect one or more structures in the body. C
+  A) They travel at the speed of blood flow.
+  B) D
+  C) They are all chemicals.
+  D) E
+  E) Some, such as testosterone and oestrogen, can be steroids.
+
+Q52. 1 and 2 only B 2 and 3 only C
+  A) 3 only
+  B) D
+  C) 1 only
+  D) E
+  E) 1 and 3 only
+
+Q53. i B iv C
+  A) v
+  B) D
+  C) ii
+  D) E
+  E) iii
+
+Q54. ggNN x GGNn B GGNn x GgNn C
+  A) ggNn x GGNN
+  B) D
+  C) GGNN x ggnn
+  D) E
+  E) GgNn x GgNn
+
+Q55. people becoming immune to them B people not finishing the full course C
+  A) new antibiotics being available
+  B) D
+  C) people becoming resistant to them
+  D) E
+  E) artificial selection
+
+Q57. 1 and 3 only B 1 only C
+  A) 2 and 3 only
+  B) D
+  C) 1 and 2 only
+  D) E
+  E) 1, 2 and 3
+
+Q58. 1 only B 2 and 4 only C
+  A) 1 and 3 only
+  B) D
+  C) 2 and 3 only
+  D) E
+  E) 1 and 4 only
+
+[2013년 — 17문제]
+
+Q26. 375 miles B 250 miles C
+  A) 300 miles
+  B) D
+  C) 225 miles
+  D) E
+  E) 450 miles
+
+Q27. Width  48cm Depth 44cm Height 52cm A 40cm x 40cm B 36cm x 36cm
+  A) C
+  B) 40cm x 32cm
+  C) D
+  D) 44cm x 40cm
+  E) E
+
+Q28. 9:20 B 3:20 C
+  A) 8:40
+  B) D
+  C) 3:40
+  D) E
+  E) 8:20
+
+Q29. Consumer price inflation % rate March February United States +0.4 +0.3 Japan
+  A) +0.2
+  B) +0.5
+  C) Germany
+  D) +0.1
+  E) +0.1
+
+Q30. The relief agencies were able to import trucks to Haiti but not helicopters. B The great nations of the world had helicopters at their disposal which could reach Haiti within a week. C There was enough food in Haiti to supply all the people in the weeks after the earthquake.
+  A) D
+  B) The images failed to prompt the great nations of the world into relief operations after the
+  C) earthquake.
+  D) E
+  E) The people of Haiti were able to clear their roads within a week of the earthquake.
+
+Q31. insulin. B monoclonal antibodies. C
+  A) mRNA.
+  B) D
+  C) the primary structure of a protein.
+  D) E
+  E) a replicate DNA molecule.
+
+Q32. Heart B Pulmonary vein C
+  A) Liver
+  B) D
+  C) Pulmonary artery
+  D) E
+  E) Alveoli
+
+Q33. Cell membranes B Amylose C
+  A) Viruses
+  B) D
+  C) Enzymes
+  D) E
+  E) Antibodies
+
+Q34. Ribosomes are involved in protein synthesis. B Ribosomes can be found in the cytoplasm. C
+  A) Ribosomes can be found on rough endoplasmic reticulum (RER).
+  B) D
+  C) Ribosomes can have RNA associated with them.
+  D) E
+  E) Ribsosomes can carry out transcription.
+
+Q36. 1 only B 2 and 3 only C
+  A) 3 only
+  B) D
+  C) 2 only
+  D) E
+  E) 1 and 2 only
+
+Q37. Sex­linked dominant condition B Sex­linked recessive condition C
+  A) Both parents are carriers
+  B) D
+  C) Autosomal recessive condition
+  D) E
+  E) Mutation
+
+Q38. Antibodies B T cell C
+  A) Beta cell
+  B) D
+  C) B cell
+  D) E
+  E) Phagocyte
+
+Q39. 3 only B 1 and 2 only C
+  A) 1 only
+  B) D
+  C) 2 and 3 only
+  D) E
+  E) 2 only
+
+Q41. Telophase B Interphase C
+  A) Prophase
+  B) D
+  C) Metaphase
+  D) E
+  E) Cytokinesis
+
+Q42. 3 only B 1 and 2 only C
+  A) 1, 2 and 3
+  B) D
+  C) 2 and 3 only
+  D) E
+  E) 1 only
+
+Q43. Glucose B Reduced NADP C
+  A) Carbon dioxide
+  B) D
+  C) ATP
+  D) E
+  E) Oxygen
+
+Q44. 1 only B 2 and 3 only C
+  A) 1 and 3 only
+  B) D
+  C) 1 and 2 only
+  D) E
+  E) 1, 2 and 3
+
+[2014년 — 5문제]
+
+Q34. Which of the following molecules are associated with the Human Immunodeficiency Virus (HIV)?
+
+Q39. One set of semi­lunar valves in the human heart closes when: the blood pressure in the aorta is greater than in the vena cava.
+  A) the oxygen level in blood decreases at the respiring tissues.
+  B) the blood pressure in the right ventricle is less than in the pulmonary artery.
+  C) the blood pressure is greater in the left ventricle than in the aorta.
+  D) another set of semi­lunar valves opens.
+  E) The diagram shows a section of rough endoplasmic reticulum (RER).
+
+Q40. Two disease­free cells, P and Q, were studied. Which option correctly identifies cell P as a typical plant cell and cell Q as a typical prokaryote?
+
+Q41. Which curves show the results of calculating the initial rate of reaction of an enzyme: when the substrate concentration is varied, under optimal conditions and without an
+  A) inhibitor;
+  B) 1.
+  C) when the substrate concentration is varied, under optimal conditions and fixed, low
+  D) concentration of a competitive inhibitor?
+  E) 2.
+
+Q42. The diagram shows the respiration process in the cytoplasm of a yeast cell or an animal cell when O2 is limiting:
+
+[2015년 — 9문제]
+
+Q26. The genotype QqRr produces a certain phenotype. If two individuals with a genotype of QqRr reproduce, how many different possible phenotypes could be created, assuming all allele combinations are equally viable and the phenotypes are the result of complete dominance?
+
+Q28. Which of the following are directly produced during photolysis of water? oxygen 1. carbon dioxide 2. protons 3.
+  A) 1 only
+  B) 2 and 3 only
+  C) 1 and 3 only
+  D) 1 and 2 only
+  E) 2 only
+
+Q30. The diagram shows a single sarcomere in a relaxed state. Which answer describes the changes when the sarcomere contracts? 1 gets smaller and 2 gets smaller. 1 gets smaller and 2 does not change. 1 gets longer and 2 gets smaller. 1 does not change and 2 gets wider. 1 gets longer and 2 gets wider.
+  A) The diagram below shows an amino acid.
+  B) Which option correctly identifies both the variable group (R group) and the acidic group?
+  C) variable group = 4; acidic group = 3
+  D) variable group = 3; acidic group = 1
+  E) variable group = 2; acidic group = 3
+
+Q32. Where in a shoulder joint are osteocytes found? muscle tissue ligament cartilage bone tissue skin The picture below shows a DNA microarray. Each spot (labelled 1–4) contains a different DNA
+  A) probe. A sample of fluorescently­labelled human DNA, with the sequence TGGTCAAGATTAT, is
+  B) washed over the array.
+  C) Which of the spots would show a positive signal because it fluoresces?
+  D) 1, 2, 3 and 4
+  E) 2 and 3 only
+
+Q33. The diagram shows how the pressure changes in the left atrium, left ventricle and the aorta during one heartbeat in a healthy human. Which row shows the correct events during time period X?
+  A) row 2
+  B) row 3
+  C) row 5
+  D) row 4
+  E) row 1
+
+Q35. The table shows some events of the normal eukaryotic cell cycle. Which row shows the correct sequence of events (left to right) as they occur during part of this cell cycle? row 5 row 2 row 1 row 4
+  A) row 3
+  B) Which one of the following is NOT a carbohydrate?
+  C) glucagon
+  D) amylose
+  E) ribose
+
+Q38. Some local anaesthetics affect nervous impulse transmission by making it more difficult for voltage­gated sodium channels to open. In a human patient treated with these anaesthetics which of the following statements would be true? The threshold potential required to generate an action potential would be lowered. The axon membrane would become more difficult to repolarise. It would become harder to depolarise the neuron. The membrane potential of the neuron at rest would decrease below –90 mV.
+  A) The sodium/potassium pump may need to work faster to maintain the resting potential.
+  B) Place the following structures in a human sperm cell in descending order of size (left to right):
+  C) mitochondria
+  D) 1.
+  E) nucleus
+
+Q40. A normal sequence of triplets in a section of DNA is given by: ATCGAACGG The same section of DNA has been changed by mutation, and is given by: ATCTTGCGG Some of the triplets below represent the tRNA triplets which code for amino acids. Key: Using the tRNA triplets, which amino acid sequence given below could be formed from the mutated DNA sequence? Which of the following could be the outcome of evolution?
+  A) speciation
+  B) 1.
+  C) a change in allele frequency
+  D) 2.
+  E) increased biodiversity
+
+Q42. Chemistry 0.75 g of a hydrocarbon compound contains 0.60 g of carbon. (Ar : C = 12.0; H = 1.0) Which one of the following could be the molecular formula of the hydrocarbon compound? C3H8 C2H4 C2H6
+  A) CH4
+  B) C2H3
+  C) In the reaction
+  D) C3H7Br  +  KOH   →    C3H7OH   +   KBr
+  E) 24.6 g of 1­bromopropane reacts with excess potassium hydroxide to produce 8.00 g
+
+[2016년 — 7문제]
+
+Q31. Which sequence shows cells of increasing size (from left to right)? E. coli → human red blood cell → onion epidermal cell human red blood cell → E.coli → onion epidermal cell E. coli → onion epidermal cell → human red blood cell onion epidermal cell → human red blood cell → E. coli onion epidermal cell → E. coli → human red blood cell Which option shows the structure in humans that produces bile and then the structure that
+  A) stores bile?
+  B) gall bladder produces and then liver stores
+  C) liver produces and then liver stores
+  D) gall bladder produces and then gall bladder stores
+  E) liver produces and then gall bladder stores
+
+Q33. Which labelled structure on the diagram of the brain plays the major role in regulating the nervous control of heart rate?
+
+Q35. Which of the following are respiratory enzymes? 1  acetyl coenzyme A 2  FAD 3  reduced NAD 1 and 2 only
+  A) 2 and 3 only
+  B) 1, 2 and 3
+  C) none of them
+  D) 1 and 3 only
+  E) In the testes of a healthy man there are diploid cells that undergo meiosis to produce gametes.
+
+Q37. The diagram shows the change in potential difference (pd) across the cell surface membrane of a sensory neurone. During which one of the phases (1–5) are the Na+ gates of the neurone open?
+
+Q39. Which option correctly identifies the site of the light­dependent reactions in photosynthesis (S), the hydrogen carrier (H) used and its end state (N)? S: stroma;  H: NAD;  N: reduced
+  A) S: granum;  H: NAD;  N: reduced
+  B) S: granum;  H: NADP;  N: reduced
+  C) S: stroma;  H: NADP; N: oxidised
+  D) S: stroma;  H: FAD;  N: oxidised
+  E) The following shows the phases in mitosis.
+
+Q40. In which of the following organelles do carbohydrates play a relevant role? 1  mitochondria 2  Golgi apparatus 3  chloroplasts 1 and 3 only
+  A) 2 only
+  B) 1 and 2 only
+  C) 2 and 3 only
+  D) 1, 2 and 3
+  E) 15ML62287
+
+Q42. Chemistry Which of the following substances will form an alkaline solution when dissolved in water? 1  Na2CO3 2  NaCl 3  NaHSO4 1, 2 and 3 1 only
+  A) 1 and 2 only
+  B) 2 and 3 only
+  C) 1 and 3 only
+  D) Lead(II) nitrate solution and potassium iodide solution react to form potassium nitrate in solution
+  E) and a bright yellow precipitate of lead(II) iodide.
+
+[2017년 — 9문제]
+
+Q26. The pathway shows some of the cells produced during oogenesis in the ovary of a healthy human female. Which of the following cells in the pathway are diploid? 1. germinal epithelial cells in the ovary ↓ 2.                       oogonia ↓
+  A) 3.                 primary oocyte
+  B) ↓
+  C) 4.                secondary oocyte
+  D) 1, 2 and 3 only
+  E) 1 only
+
+Q28. Which one of the following statements about unmutated nucleic acids is correct? rRNA has anticodons which bind to tRNA. Prokaryotic DNA is a single strand which forms a loop. tRNA is made up of one phosphate-sugar backbone and may have adenosine and thymine bases. mRNA is made up of a single nucleotide with a codon of uracil, cytosine and guanine bases.
+  A) Bases in DNA may form hydrogen bonds with uracil bases.
+  B) Which of the following statements is/are correct in a healthy human?
+  C) 1. During inspiration, the pressure within the chest cavity is lower than outside the body.
+  D) 2. During ventricular systole, the pressure in the atrium is lower than in the ventricles.
+  E) 3. During ventricular systole, the pressure in the aorta is lower than the pressure in the
+
+Q30. Which of the following could be a consequence of a reduction in pituitary function in an otherwise healthy human? 1. more urine produced in a male or female 2. infertility in a female 3. infertility in a male 1 and 2 only 2 and 3 only
+  A) 2 only
+  B) 1, 2 and 3
+  C) 1 and 3 only
+  D) The following structures are found in plant cells:
+  E) 1. cell wall
+
+Q32. Two adjacent healthy human cells, X and Y, contain the two molecules Q and R. The concentration of molecule Q in cell X is 4 arbitrary units (a.u.) and in cell Y it is 6 a.u. The concentration of molecule R in both cell X and cell Y is 7 a.u. Which of the following statements about the net movement of ONLY molecules Q and R between cells X and Y could be correct? 1. Molecules of Q move by facilitated diffusion from cell X. 2. Molecules of Q move by active transport into cell Y.
+  A) 3. Molecules of R move into and out of both cell X and cell Y.
+  B) 2 and 3 only
+  C) 2 only
+  D) 1 only
+  E) 1, 2 and 3
+
+Q34. Four students, 1, 2, 3 and 4, recorded different structures that they thought were found in a healthy animal kidney cell and a typical bacterial cell. Which students gave totally correct answers? students 2 and 3 only students 1 and 2 only students 1, 2, 3 and 4 students 2 and 4 only
+  A) students 1 and 4 only
+  B) A short section of the DNA strand that codes for a protein has the sequence:
+  C) CAT TGG GCA TCG
+  D) Which of the following statements about this section of the sequence is/are correct?
+  E) 1. There are a total of 29 hydrogen bonds between this section of DNA and its
+
+Q36. A mother and a father, neither of whom has cystic fibrosis, conceive a child who has the condition. What is the likelihood that the same parents will have another child who is a boy without cystic fibrosis? 1 in 4 3 in 4 1 in 2
+  A) 3 in 8
+  B) 1 in 8
+  C) Which of the following molecules is/are directly produced during BOTH glycolysis and pyruvate
+  D) decarboxylation in a healthy human cell?
+  E) 1. ATP
+
+Q38. Which one of the following most accurately describes the structure of a human haemoglobin molecule that can bind four oxygen molecules to form oxyhaemoglobin? It has a primary, tertiary and quaternary structure only. It has a primary, secondary and tertiary structure only. It has a primary and secondary structure only. It has a primary, secondary, tertiary and quaternary structure. It has a primary, secondary and quaternary structure only.
+  A) Which of the following processes take place during the establishment of a resting potential in
+  B) the axon of a healthy human neuron?
+  C) 1. active transport
+  D) 2. facilitated diffusion
+  E) 3. respiration
+
+Q40. Which one of the following is a correct outline of some main events in photosynthesis in a healthy wheat plant? Carbon dioxide combines with an acceptor compound which breaks into two and each is reduced by hydrogen split from water by light. Light splits water and the resulting hydroxyl group combines with a compound which has reacted with carbon dioxide. In the presence of light, oxygen reacts with a carbohydrate to produce water and carbon
+  A) dioxide.
+  B) Light splits carbon dioxide and the resulting carbon then combines with oxygen and
+  C) hydrogen obtained from water.
+  D) Light joins carbon dioxide to an acceptor compound which is then reduced by hydrogen
+  E) obtained from water.
+
+Q42. Chemistry Which one of the following statements correctly describes the type of mixture and the most appropriate method used to separate the specified component from the mixture? salt from salt solution – homogeneous; paper filtration water from salt solution – heterogeneous; simple distillation chlorophyll from a solution of different plant pigments – homogeneous; chromatography red blood cells from blood – homogeneous; centrifuge
+  A) gasoline/petrol from crude oil – heterogeneous; simple distillation
+  B) Which one of the following options gives the correct electron structure of the particle
+  C) ?
+  D) 1s22s22p63s23p4
+  E) 1s22s22p4
+
+[2018년 — 9문제]
+
+Q26. Which of the following could explain why the phenotype of a healthy female child may show differences from her healthy biological brother (apart from the gender)? 1. independent assortment after the formation of the female zygote 2. crossing over between a chromosome from the sperm and a chromosome from the egg 3. random alignment of homologous chromosomes at the equator of the cell during metaphase I 1 and 2 only
+  A) 1 only
+  B) 2 only
+  C) 2 and 3 only
+  D) 3 only
+  E) A eukaryotic cell undergoes division. At one point it has pairs of chromosomes being separated
+
+Q28. The genes P, Q, R and S occur on the same chromosome. The COV (crossover values) for the pairs of genes are: P and Q      35% P and R       5% R and Q      40% Q and S      10% R and S      30%
+  A) Which one of the following sequences of letters represents a correct order of genes on the
+  B) chromosome?
+  C) PQRS
+  D) RSQP
+  E) PRSQ
+
+Q30. Reverse transcriptase is mainly found in retroviruses such as HIV. Four nucleotides are needed for the reaction catalysed by this enzyme. A group of molecules may inhibit this enzyme. These molecules are structurally similar to the nucleotides but slightly altered so that bonds normally formed in the reaction cannot be made. Which of the following statements may be correct? 1. The four inhibitor molecules will resemble adenine, thymine, guanine and cytosine. 2. The inhibitor molecules can prevent the formation of phosphodiester bonds.
+  A) 3. The inhibitor molecules can result in a reduction in the number of new virus particles
+  B) produced.
+  C) 1 and 3 only
+  D) 1, 2 and 3
+  E) 3 only
+
+Q32. A condition caused by the dominant allele of a gene on the X chromosome is passed down through a family. Individual Z inherits the condition. For this family, which of the following statements must be correct, assuming no spontaneous mutations have occurred? 1. If Z is a boy, then he must have inherited the dominant allele from his father. 2. If Z is a boy, then one of his mother’s parents must have also had the condition. 3. If Z is a girl, then both of her parents must have had the allele.
+  A) 4. If Z is a boy, and has children, then all of his daughters will have the condition.
+  B) 2 and 4 only
+  C) 1 and 3 only
+  D) 1, 3 and 4 only
+  E) 1 and 4 only
+
+Q34. Mutations in the CFTR gene cause cystic fibrosis (CF). The non-mutated allele of the gene can be obtained and then introduced into the lung cells of a person with CF using liposomes as a vector. This treatment gives only short-term relief from the symptoms of CF. Which of the following statements would be a correct explanation of this treatment? 1. Genes are unstable and break down over time in the cell. 2. Lung cells are constantly being replaced and new cells will have the faulty allele. 3. The non-mutated allele is recessive.
+  A) 1 and 2 only
+  B) 1 only
+  C) 2 only
+  D) 1 and 3 only
+  E) 2 and 3 only
+
+Q36. An organism, in bright sunlight, has the following features: Consists of some cells with organelles which contain grana. All cells contain molecules of ATP, ADP and NAD. Some cells release carbon dioxide by diffusion all the time. Which one of the following statements about the organism is correct? It is made up of cells which all contain mitochondria and chloroplasts. It is photosynthetic but has some cells which only respire.
+  A) It is an anaerobic organism which only releases carbon dioxide.
+  B) It is eukaryotic and all cells carry out photosynthesis.
+  C) It is prokaryotic and only carries out respiration.
+  D) Which of the following contain peptide bonds?
+  E) 1. ribosomes in human liver cells
+
+Q38. B lymphocytes are involved in the human immune response to a bacterial infection. Which of the following processes would TYPICALLY be carried out by these lymphocytes in response to the infection? 1. cell division by mitosis 2. transcription producing mRNA 3. engulfing and digesting bacteria 1 and 2 only
+  A) 3 only
+  B) 1 and 3 only
+  C) 1 only
+  D) 2 and 3 only
+  E) A Petri dish contains populations of two different species of bacteria (V and W). Both are
+
+Q40. Part of a polypeptide sequence consists of four amino acids -1-2-3-4-. The tRNA anticodons for each amino acid are: Which one of the following is the correct sequence, in a 3′ to 5′ direction, for the bases on the template strand of the DNA? GCAACATTGGGT CGTTGTAAGCCA CGUUGUAAGCCA
+  A) GCAACAUUCCCU
+  B) ATGGTGCCTTTC
+  C) Which of the following statements about a neurone in a healthy human is/are correct?
+  D) 1. Transport across its cell membrane can occur by exocytosis.
+  E) 2. It contains the gene that codes for insulin.
+
+Q42. Chemistry Compounds of chlorine include: Cl2O    KCl    KClO    KClO3    KClO4    Cl2O7 Which one of the following options correctly lists the oxidation states of chlorine that are shown in these compounds? –1, +1, +5 and +7 only –1, 0 and +1 only
+  A) –1 only
+  B) –1, 0, +1, +5 and +7 only
+  C) –1, +1, +3, +5 and +7 only
+  D) Which one of the following substances has the highest solubility in the specified liquid at a
+  E) temperature of 298 K and 1 atm pressure?
+
+[2019년 — 12문제]
+
+Q10. 100 1024
+
+Q24. Which row is correct for the three given features of typical human B lymphocytes?
+  A) row 3
+  B) row 5
+  C) row 4
+  D) row 2
+  E) row 1
+
+Q25. Familial hypercholesterolaemia (FH) is an inherited disease caused by a dominant allele. People with FH have high concentrations of cholesterol in the blood, which can lead to an increased risk of coronary heart disease. The family tree shows the inheritance of this disease in one family. Which row shows the number of individuals in the family tree with each genotype?
+  A) row 2
+  B) row 1
+  C) row 3
+  D) row 4
+  E) row 5
+
+Q27. Which one of the following occurs during anaphase of mitosis in a healthy human liver cell? Chromatin condenses so that the chromosomes are visible under the microscope. Centrioles migrate to opposite poles of the cell and help to assemble the spindle fibres. DNA replicates so that each chromosome is made up of two sister chromatids.
+  A) Sister chromatids are pulled by the spindle fibres towards opposite poles of the cell.
+  B) Chromosomes move towards the equator of the cell and attach to the spindle fibres.
+  C) The diagrams show some pathways between the central nervous system and effector organs
+  D) in a healthy human.
+  E) Which pathway is a possible route for impulses passing along a parasympathetic neuron?
+
+Q29. Which row shows a correct component of each of the three structures listed? row 5 row 4 row 3 row 1 row 2 An animal has a coat that has some patches of white hair and some patches of black hair. Cells
+  A) that make up a hair follicle form a single hair, which is either white or black.
+  B) Assume that there are no mutations following formation of the zygote.
+  C) A student wrote the following statements:
+  D) 1   The cells in all the hair follicles contain the same genes.
+  E) 2   The alleles in a hair follicle forming a white hair are different from the alleles in the
+
+Q31. Which of the following is/are tissues? 1   cartilage 2   skin 3   endothelium 2 and 3 only 1 and 2 only 1 only
+  A) 1, 2 and 3
+  B) 1 and 3 only
+  C) The same section of an allele coding for five amino acids from two different individuals, P and
+  D) Q, is shown.
+  E) P                ATTCCGGGATTCCCT
+
+Q32. Beetroot is a root vegetable with cells that contain a red pigment. Normally the pigment cannot pass out of the cells because it cannot diffuse through their cell surface membranes. An investigation was carried out into the effect of various chemicals on the permeability of the cell surface membranes of beetroot cells. 1 cm3 samples were cut from the beetroot and washed in running water for 20 minutes to remove any pigment that was released from the damaged cells. Five experiments were carried out. In each experiment, one cube of beetroot was placed in
+  A) liquid P and one cube placed in liquid Q, and the results were observed.
+  B) Which row shows the correct results and conclusions?
+  C) row 2
+  D) row 5
+  E) row 1
+
+Q34. Which of the following rows are correct about these naturally occurring biological molecules? 1, 2 and 4 only 1, 2, 3 and 4 2, 3 and 4 only 1, 3 and 4 only 1, 2 and 3 only Which of the following regions within a sarcomere remain UNCHANGED in length when a
+  A) healthy human muscle cell contracts?
+  B) 1   A-band
+  C) 2   I-band
+  D) 3   H-zone / band
+  E) 2 only
+
+Q35. The diagram shows a nephron with collecting duct from a healthy human. Which of the regions (1- 4) contain a liquid with no urea?
+  A) 1 only
+  B) 1 and 2 only
+  C) 2 and 3 only
+  D) 2, 3 and 4 only
+  E) none of them
+
+Q38. Which of the following statements about the metabolism of plants is/are correct? 1   CO2 is produced during the day. 2   CO2 is produced at night. 3   The CO2 produced can be used by the plant. 1 and 2 only 1 only 2 and 3 only
+  A) 2 only
+  B) 1, 2 and 3
+  C) Which statement about an enzyme involved in genetic modification is correct?
+  D) A ligase causes H-bonds to form between sticky ends only.
+  E) A restriction enzyme causes only H-bonds to be broken.
+
+Q40. Which statement is correct in healthy humans? Increasing the partial pressure of oxygen makes it more likely that haemoglobin will release its oxygen. Blood leaving active muscles that are respiring aerobically will contain hydrogencarbonate ions and raised levels of lactic acid. In active tissues where the carbon dioxide concentration is high, haemoglobin has a low affinity for oxygen.
+  A) The majority of carbon dioxide transported in the blood is in the form of
+  B) carbaminohaemoglobin.
+  C) At a low partial pressure of oxygen, myoglobin is less saturated with oxygen than
+  D) haemoglobin.
+  E) Which of the following processes involve ions?
+
+Q42. Chemistry A student observed that when powdered sugar at  –1 °C was added to ice at  –1 °C all of the ice melted. Which of the following statements explain this observation? 1   Sugar has given the water molecules energy. 2   The melting point of the mixture is higher. 3   The melting point of the mixture is lower.
+  A) 1 only
+  B) 1 and 3 only
+  C) 3 only
+  D) 2 only
+  E) 1 and 2 only
+
+[2020년 — 15문제]
+
+Q22. Which one of the following pairs of archipelago/country is NOT correct? Hawaii – United States of America Azores – Portugal Cape Verde – Brazil Canary Islands – Spain Galapagos Islands – Ecuador Which of the following institutions of the Republic of Italy is democratically elected by direct
+  A) universal suffrage?
+  B) President of the Council of Ministers
+  C) High Council of the Judiciary
+  D) Government
+  E) Senate of the Republic
+
+Q23. Biology Which of the following healthy cells contain circular DNA? 1  Escherichia coli 2  Saccharomyces cerevisiae (yeast) 3  human liver cell
+  A) 1 and 2 only
+  B) 2 only
+  C) 2 and 3 only
+  D) 1, 2 and 3
+  E) 1 only
+
+Q24. The structure of the amino acid asparagine is shown. In each image (V-Z) a part of the structure is enclosed by a line.
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+Q26. The occurrence of which of the following could allow you to distinguish between the processes of DNA replication and transcription? 1  The breaking of hydrogen bonds. 2  The formation of hydrogen bonds. 3  The formation of phosphodiester bonds. 1 only 3 only
+  A) none of them
+  B) 2 only
+  C) 1 and 2 only
+  D) Which one of the following will be caused by an appropriate stimulus of a rod cell in the retina of
+  E) a healthy human eye?
+
+Q27. The diagram represents the fluid mosaic model of a cell membrane. Which one of the labels 1-5 shows a hydrophobic region of a molecule?
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+Q28. The diagrams show animal cells from organisms that sexually reproduce. Each diagram shows a single cell containing chromosomes during cell division. Which one of the following diagrams has a correct description for a cell from an organism with a haploid number of 4? [Assume that the sex of the organism is inherited in the same way as in humans.]
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+Q29. In 1981, an immature male finch (Geospiza conirostris) arrived on an island in the Galapagos. This male finch was similar to finches of the species (G. fortis) living on the island. However, G.conirostris was 70% larger than G. fortis and had a distinctly different song. The diagram shows how, after observing further generations, a new species has evolved. The success of the new species is due to its larger bill and body size and its unique song. Which of the following terms is/are illustrated by this information? 1  sympatric speciation
+  A) 2  reproductive isolation
+  B) 3  post-zygotic isolation
+  C) 3 only
+  D) 2 only
+  E) 1 and 2 only
+
+Q31. A single base mutation occurs in a gene. Which of the following is/are possible effects on the protein produced as a result of this mutation? 1    The protein has an altered tertiary structure. 2    The protein is shorter in length. 3    The protein is unchanged. 2 and 3 only
+  A) 1, 2 and 3
+  B) 1 and 2 only
+  C) 1 and 3 only
+  D) 1 only
+  E) Which one of the following is an example of catabolism in healthy human cells?
+
+Q32. The diagram shows how recombinant DNA can be used to make cotton plants produce an insect toxin. The insect toxin kills any insect that can damage the cotton crop. What are the TWO functions of the Agrobacterium tumefaciens bacteria in this process? 1  They stimulate cell division in cotton plant seeds. 2  They supply the plasmid vector. 3  They are the source of the gene for the production of the insect toxin. 4  They are the source of the gene for antibiotic resistance.
+  A) 1 and 3 only
+  B) 1 and 4 only
+  C) 2 and 3 only
+  D) 1 and 2 only
+  E) 2 and 4 only
+
+Q34. The heart of a developing human fetus normally has a hole in the septum. The septum separates the right atrium and the left atrium. Which one of the statements about the circulation in the developing fetus with a hole in the septum is correct? Blood entering the right atrium can bypass the lungs and go to the rest of the body. Blood in the right atrium may return directly to the vena cava. The atrioventricular node will not cause ventricular systole.
+  A) Blood in the pulmonary artery will go directly to the aorta.
+  B) The maximum pressure in the aorta is the same as the maximum pressure in the
+  C) contracting atrium.
+  D) Which of the following statements about bile in the digestive system are correct?
+  E) 1  It emulsifies fat globules.
+
+Q36. What is the correct order of the following events that occur immediately after acetylcholine binds to postsynaptic receptors of a muscle fibre, causing the muscle to contract? 1  Ca2+ ions diffuse into the sarcoplasm. 2  The muscle fibre membrane is depolarised. 3  The myosin binding site on the actin filament is uncovered. 2, 1, 3 2, 3, 1
+  A) 3, 2, 1
+  B) 1, 2, 3
+  C) 1, 3, 2
+  D) Which of the following is/are features of HIV?
+  E) 1  It has a capsid.
+
+Q38. Which one of the structures listed is NOT involved in the reabsorption of water in a healthy human? distal convoluted tubule collecting duct proximal convoluted tubule glomerulus loop of Henle
+  A) Which row shows three structures found in a healthy human male liver cell, in order of size
+  B) from largest to smallest?
+  C) [Assume that there are no mutations in the cell.]
+  D) row 1
+  E) row 4
+
+Q39. Which of the following statements about healthy living organisms are correct? 1  They are made up of one or more cells. 2  They have DNA as the genetic material. 3  They use energy to stay alive when their surroundings change. 4  They undergo phases of growth.
+  A) 1, 2 and 4 only
+  B) 1, 2, 3 and 4
+  C) 1, 2 and 3 only
+  D) 2, 3 and 4 only
+  E) 1, 3 and 4 only
+
+Q40. The diagrams show five different microscopic structures. The structures are not drawn to the same scale. Which of these structures is the smallest?
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+Q43. Chemistry What does the formula Br2 represent? a compound of the element bromine two separate atoms of the element bromine
+  A) a molecule of the element bromine
+  B) a molecule of the compound bromine
+  C) two bromide ions
+  D) An atom has atomic number x and a mass number of 2x + 6
+  E) How many neutrons are in the nucleus of this atom?
+
+[2021년 — 14문제]
+
+Q24. Which one of the diagrams (not drawn to scale) represents a structure that is formed by mitosis? A
+  A) B
+  B) C
+  C) D
+  D) E
+  E)  UCLES
+
+Q26. Three fatty acids with the formula C8H16O2 react with glycerol (C3H8O3) to form a triglyceride. Which of the following is the correct formula for the triglyceride? C27H50O6 C27H48O5 C27H48O6 C27H52O7 C27H56O9
+  A) Which of the following is correct for cholesterol in humans?
+  B) It maintains the fluidity of the cell membrane.
+  C) It is used to make all hormones.
+  D) It is a good source of energy because of the number of hydrogen atoms.
+  E) It forms hydrogen bonds with water which stabilises the cell membrane.
+
+Q27. The diagram represents an animal cell with five organelles labelled P, Q, R, S and T. Which row correctly matches the label with the name and function of the cell organelle? row 5
+  A) row 2
+  B) row 3
+  C) row 4
+  D) row 1
+  E)  UCLES
+
+Q29. Which of the following cell structures contain(s) biological catalysts? 1  cytoplasm 2  nucleus 3  mitochondria 1, 2 and 3 2 only 3 only
+  A) 2 and 3 only
+  B) 1 only
+  C) Which of the following reactions or biological processes involves a redox reaction?
+  D) NAD+  +  H2  䳋  NADH  +  H+
+  E) glucose  +  glucose  䳋  maltose  +  water
+
+Q30. The SRY gene is normally located on the human Y chromosome. This gene initiates the development of male characteristics. Using this information, which of the following statements about the SRY gene is/are correct? 1  Insertion of the SRY gene into an X chromosome of a female zygote could give it male characteristics. 2  A sperm cell arising from incorrect division, which has a functional SRY gene, could give rise to a female with a sex chromosome trisomy following fertilisation with a
+  A) normal ova.
+  B) 3  During meiosis, crossing over could result in the formation of µX¶ sperm with the SRY
+  C) gene, which could cause male characteristics after fertilisation.
+  D) 1 and 3 only
+  E) 2 only
+
+Q31. A cell containing four pairs of homologous chromosomes divides by meiosis. Which row shows the cells produced and the number of chromosomes that they contain? row 3
+  A) row 2
+  B) row 1
+  C) row 4
+  D) row 5
+  E)  UCLES
+
+Q32. The sequence of bases in part of a DNA strand is: TATGATCTTAGGCAACAT A strand of mRNA is transcribed using this sequence of bases. Which one of the following charts shows the correct proportions of the bases in the mRNA? A
+  A) B
+  B) C
+  C) D
+  D) E
+  E)  UCLES
+
+Q33. Polydactyly is a condition caused by a gene mutation. Animals affected by polydactyly have
+  A) extra digits on one or more limbs.
+  B) Five inheritance patterns of polydactyly in a species are shown in the diagrams.
+  C) Which inheritance pattern can ONLY occur when polydactyly is caused by an autosomal
+  D) dominant allele and NOT when it is caused by an autosomal recessive allele?
+  E) [Assume normal cell divisions in all individuals.]
+
+Q35. In which of the following places are proton pumps found? 1  the chloroplast stroma 2  the gap between the thylakoid membranes 3  the membrane of the granum 3 only 2 only 1 only
+  A) 1 and 2 only
+  B) 1 and 3 only
+  C) Which row could be correct for directional selection?
+  D) row 5
+  E) row 2
+
+Q36. Which one of the following statements is correct about the cardiac cycle of a healthy human? When the left ventricle relaxes, the aortic valve closes.
+  A) When the left atrium contracts, the aortic valve opens.
+  B) When the right atrio-ventricular valve closes, the left atrio-ventricular valve opens.
+  C) When the right atrium contracts, the left ventricle contracts.
+  D) When the right ventricle contracts, the right atrio-ventricular valve opens.
+  E)  UCLES
+
+Q37. The graph below shows the change in blood cell count of a human over time. Which of the following could explain the shape of the above graph? 1  a reduction in the concentration of oxygen in the atmosphere 2  a response to a bacterial infection 3  increased differentiation of bone marrow stem cells 1, 2 and 3
+  A) 1 and 2 only
+  B) 2 and 3 only
+  C) 1 only
+  D) 2 only
+  E)  UCLES
+
+Q39. The diagram shows a cross section through a human eye. Some parts of the eye are labelled 1 to 5 with notes. Which one of the following notes is correct? note 4 note 2 note 3 note 1
+  A) note 5
+  B) Organ or tissue transplants normally require that the donor¶s antigens must be closely matched
+  C) to those of the recipient.
+  D) Which one of the following types of transplant can typically be carried out WITHOUT the need
+  E) for a match between donor and recipient?
+
+Q40. The diagram shows the relationship between the features of two substances involved in digestion: bile and amylase. Which of the following rows is correct for X, Y and Z? row 5
+  A) row 2
+  B) row 3
+  C) row 4
+  D) row 1
+  E)  UCLES
+
+Q42. Chemistry As Group VII of the Periodic Table (F to I) is descended, which of the following properties of the elements DECREASE? 1  melting points 2  electronegativities 3  first ionisation energies 2 and 3 only
+  A) 2 only
+  B) 1 only
+  C) 1 and 3 only
+  D) 1, 2 and 3
+  E) An atom has a mass number of 18 and contains 10 neutrons.
+
+[2022년 — 12문제]
+
+Q5. IMAT 2022 © Cambridge University Press & Assessment 2022
+
+Q23. Which of the following could be found within a molecule that has just been made by transcription in a healthy human pancreatic cell? 1   adenine 2   peptide bonds 3   phosphodiester bonds 4   ribose 1, 3 and 4 only
+  A) 2 and 4 only
+  B) 1, 2 and 3 only
+  C) 2 and 3 only
+  D) 1, 2, 3 and 4
+  E) IMAT 2022
+
+Q25. The following diagram shows a U-tube at the start of an experiment. It contains two solutions, separated by a membrane. Both solutions contain sucrose, glucose and maltose in water. The membrane allows the passage of water and all three sugars. Which option correctly identifies what happens within the first few seconds? There will be net movement of maltose from side A to B. There will be net movement of sucrose from side A to B. There will be net movement of glucose from side B to A.
+  A) There will be no net movement of sugars.
+  B) Solution level will increase in side B and decrease in side A.
+  C) Glycoproteins are formed from amino acids and carbohydrates.
+  D) What is the order in which organelles are used to make membrane-associated glycoproteins?
+  E) rough endoplasmic reticulum  →  vesicles  →  Golgi apparatus
+
+Q27. Which row shows the site of alcohol fermentation in yeast and the site of lactic acid fermentation in human muscle cells? row 3 row 2 row 1 row 4 row 5
+  A) Which of the following statements about photosynthesis is/are correct?
+  B) 1   The site of the light-dependent reactions is the thylakoids and the products
+  C) of these reactions include ATP and oxygen.
+  D) 2   The site of the light-independent reactions is the stroma and the products of these
+  E) reactions include carbohydrates and carbon dioxide.
+
+Q28. The photomicrograph shows a section of a plant root tip with cells showing different stages of the cell cycle. Five of the cells have been labelled. Which cell (1-5) shows anaphase?
+
+Q29. A male child has haemophilia. Neither parent has the condition. The parents have a second child. Which of the following statements could be correct about this family? 1   There is a 25% chance that the second child is a boy with haemophilia. 2   There is a 75% chance that the second child does not show the condition. 3   There is a 50% chance that the mother is a carrier. [Assume no other mutations.]
+  A) 1 and 2 only
+  B) 2 only
+  C) 3 only
+  D) 1 only
+  E) 2 and 3 only
+
+Q30. There is an inherited condition in cats that leads to them having six toes rather than five toes on each paw. The allele that causes six toes is dominant. The pedigree diagram shows the inheritance of this condition in a family of cats. Three of the cats have been labelled. Which of the following statements about this inheritance is/are correct? 1   Cat P could be homozygous for the condition.
+  A) 2   Over two generations, 12 cats were produced in the cross-breeding.
+  B) 3   Breeding cat Q with cat R could produce 3 offspring, each with a different genotype.
+  C) 3 only
+  D) 2 only
+  E) 1 only
+
+Q31. The diagrams each show a section of the cell surface membrane to illustrate the fluid mosaic model. Which diagram is most accurate? A
+  * 보기 일부 이미지 포함 — 원본 PDF 참조
+
+Q32. Which of the following changes occur during contraction of the atria in a healthy human heart? row 5 row 2
+  A) row 3
+  B) row 4
+  C) row 1
+  D) IMAT 2022
+  E) © Cambridge University Press & Assessment 2022
+
+Q33. The diagram shows a glomerulus and part of a nephron in the kidney of a healthy human. Which of the following cause(s) water to move from the glomerulus into the tubule? 1   An increase in pressure caused by the left ventricle of the heart. 2   The effect of blood proteins on the direction of osmosis. 3   An increase in pressure of the liquid in the tubule. 1 only 2 only
+  A) 3 only
+  B) 1 and 2 only
+  C) 2 and 3 only
+  D) IMAT 2022
+  E) © Cambridge University Press & Assessment 2022
+
+Q35. Drug Q reduces the release of vasopressin (ADH) into the bloodstream of a healthy human. Which organ releases ADH into the blood, and what is the effect of drug Q on the concentration of urea in the urine? [Assume that the production of urea remains constant.] row 4 row 2 row 3
+  A) row 1
+  B) row 5
+  C) In the nervous system, which of the following pairs work in opposition to each other to control
+  D) their target organs?
+  E) sympathetic and parasympathetic nervous systems
+
+Q37. Chemistry Which of the following acids is/are weak? 1  H2CO3(aq) 2  HCOOH(aq) 3  HNO3(aq) 1 and 2 only 1 only
+  A) 2 only
+  B) 3 only
+  C) 2 and 3 only
+  D) Which of the following particles has the same number of neutrons as the
+  E) ion?
 
 [2024년 — 23문제]
 
