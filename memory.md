@@ -171,3 +171,10 @@
 - kmong-img/portfolio.html → portfolio.pdf (3p, A4): ①표지(WORK PORTFOLIO, 권용준 소개+태그) ②작업개요(3종세트+8개분야 범위)+샘플1(재방문문자) ③샘플2(네이버소식자동),3(나쁜리뷰답글)+CTA
 - 표지 full-bleed 위해 .cover height:297mm. 헤드리스 크로미움 렌더
 - 무료 미니북(minibook.pdf)도 추가 포트폴리오/샘플로 활용 가능
+
+### [2026-06-23] 컨설턴트 프로필 사진 추가
+- 사용자가 프로필 사진(스튜디오 정면, 흰 셔츠/네이비 슬랙스, 1024x1536 JPEG) 업로드
+- 파일 자동저장 안 됨 → 세션 transcript(.jsonl)의 base64 image 블록에서 추출(마지막 image/jpeg)해 profile.jpg로 저장(루트)
+- profile.html이 src="profile.jpg" 참조 → 이제 /consultant 에서 사진 표시됨. og:image도 해결
+- 부수: .img-ph 자리표시를 점선박스→그린 그라데이션+골드 아바타(권)로 개선(폴백용)
+- 추출법(재사용): jsonl walk로 type=image source.data base64 디코드, PIL로 크기확인
