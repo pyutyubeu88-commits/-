@@ -8,13 +8,10 @@
 <meta property="og:title" content="권용준 | 강남구 AI 컨설턴트">
 <meta property="og:description" content="소상공인 디지털 전환·AI 도입·SNS 마케팅. 강남구 공식 무료 컨설팅.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://pyutyubeu88-commits.github.io/-/">
-<meta property="og:image" content="https://pyutyubeu88-commits.github.io/-/profile.jpg">
+<meta property="og:image" content="profile.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="권용준 | 강남구 AI 컨설턴트">
 <meta name="twitter:description" content="소상공인 디지털 전환·AI 도입·SNS 마케팅. 강남구 공식 무료 컨설팅.">
-<link rel="canonical" href="https://pyutyubeu88-commits.github.io/-/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231B4332'/><text x='50' y='68' font-size='54' text-anchor='middle' font-family='sans-serif' fill='%2374C69D' font-weight='bold'>K</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -119,11 +116,18 @@ section{padding:88px 24px 80px}
 }
 .img-ph{
   width:100%;aspect-ratio:3/4;
-  background:var(--gl);border-radius:var(--r);
-  border:2px dashed var(--gb);
+  background:linear-gradient(160deg,var(--gd),var(--gm));
+  border-radius:var(--r);box-shadow:var(--sh);
   display:none;align-items:center;justify-content:center;
-  flex-direction:column;gap:8px;color:var(--ga);
+  flex-direction:column;gap:18px;color:#fff;text-align:center;padding:24px;
 }
+.img-ph .avatar{
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:2px solid rgba(255,183,3,.6);
+  display:flex;align-items:center;justify-content:center;
+  font-size:54px;font-weight:900;color:var(--acc);
+}
+.img-ph .ph-cap{font-size:13px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.78)}
 .profile-tag{
   background:var(--gl);border:1px solid var(--gb);
   border-radius:var(--r);padding:18px;margin-top:14px;text-align:center;
@@ -148,8 +152,8 @@ section{padding:88px 24px 80px}
   font-size:12px;font-weight:700;padding:5px 14px;border-radius:100px;
 }
 
-/* ── S4 VALUES ── */
-#values{background:var(--wh)}
+/* ── S4 STYLE ── */
+#style{background:var(--wh)}
 .style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .st-card{
   border:1px solid var(--bd);border-radius:var(--r);padding:32px 26px;
@@ -220,8 +224,6 @@ section{padding:88px 24px 80px}
   background:rgba(64,145,108,.28);color:#74C69D;border:1px solid rgba(64,145,108,.4);
 }
 .svc-desc{font-size:14px;color:rgba(255,255,255,.68);line-height:1.8}
-.svc-cta{display:inline-block;margin-top:18px;color:#74C69D;font-size:13px;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(116,198,157,.4);padding-bottom:2px;transition:color .2s,border-color .2s;}
-.svc-cta:hover{color:#fff;border-color:rgba(255,255,255,.6)}
 
 /* ── S8 CLOSING ── */
 #closing{background:var(--wh);text-align:center}
@@ -270,23 +272,8 @@ section{padding:88px 24px 80px}
 /* ── FOOTER ── */
 footer{
   background:var(--gd);color:rgba(255,255,255,.45);
-  text-align:center;padding:28px 24px;font-size:13px;
+  text-align:center;padding:22px 24px;font-size:13px;
 }
-.footer-sns{display:flex;gap:16px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
-.footer-sns a{color:rgba(255,255,255,.55);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s;}
-.footer-sns a:hover{color:#74C69D}
-
-/* ── SCROLL TOP ── */
-#scrollTop{
-  position:fixed;bottom:28px;right:24px;
-  width:44px;height:44px;background:var(--ga);color:#fff;
-  border:none;border-radius:50%;font-size:18px;cursor:pointer;
-  box-shadow:0 4px 16px rgba(27,67,50,.25);
-  opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s,background .2s;
-  z-index:900;
-}
-#scrollTop.show{opacity:1;visibility:visible}
-#scrollTop:hover{background:var(--gm)}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1023px){
@@ -345,10 +332,10 @@ footer{
     <h1>매출이 답입니다.<br><span>데이터로 길을 찾아드립니다.</span></h1>
     <p class="hero-sub">
       사업 기반은 잡혔는데 다음 단계가 막막하신 사장님께.<br>
-      AI 도구와 13년 영업 경험으로 실행 가능한 답을 드립니다.
+      AI 도구와 15년 영업 경험으로 실행 가능한 답을 드립니다.
     </p>
     <div class="hero-btns">
-      <a href="#closing" class="btn btn-pri">상담 신청하기</a>
+      <a href="mailto:yjkwon@gangnamconsulting.com" class="btn btn-pri">상담 신청하기</a>
       <a href="tel:010-6783-2588" class="btn btn-out">📞 전화 연결</a>
     </div>
   </div>
@@ -467,7 +454,7 @@ footer{
         <div class="exp-body">
           <h3>매출·고객 데이터 분석</h3>
           <p>매출 흐름과 고객 패턴을 숫자로 진단하고, 실행 가능한 개선 방향을 제시합니다.</p>
-          <span class="exp-src">13년 영업·데이터 분석 경험</span>
+          <span class="exp-src">15년 영업·데이터 분석 경험</span>
         </div>
       </div>
       <div class="exp-item">
@@ -528,7 +515,6 @@ footer{
           <span class="svc-tag">1회 / 60분</span>
         </div>
         <p class="svc-desc">현재 사업 상황을 데이터 기반으로 진단하고, 우선순위 높은 개선 포인트를 정리해 드립니다.</p>
-        <a href="#closing" class="svc-cta">상담 문의하기 →</a>
       </div>
       <div class="svc-card">
         <div class="svc-name">AI·디지털 전환 코칭</div>
@@ -537,7 +523,6 @@ footer{
           <span class="svc-tag">4주 / 주 1회</span>
         </div>
         <p class="svc-desc">AI 툴 선택부터 실전 세팅·활용까지. 실제 결과물이 나올 때까지 함께합니다.</p>
-        <a href="#closing" class="svc-cta">상담 문의하기 →</a>
       </div>
       <div class="svc-card">
         <div class="svc-name">SNS·콘텐츠 마케팅 코칭</div>
@@ -546,7 +531,6 @@ footer{
           <span class="svc-tag">월 단위 진행</span>
         </div>
         <p class="svc-desc">채널 기획, 콘텐츠 전략 수립, 운영 방법 코칭. 유튜브·인스타그램 중심으로 진행합니다.</p>
-        <a href="#closing" class="svc-cta">상담 문의하기 →</a>
       </div>
     </div>
   </div>
@@ -589,14 +573,8 @@ footer{
 </section>
 
 <footer>
-  <div class="footer-sns">
-    <a href="https://www.instagram.com/yjkwon_gangnamconsulting" target="_blank" rel="noopener">📸 인스타그램</a>
-    <a href="https://pf.kakao.com/" target="_blank" rel="noopener">💬 카카오채널</a>
-    <a href="https://blog.naver.com/" target="_blank" rel="noopener">📝 네이버블로그</a>
-  </div>
   <p>© 2026 권용준 강남구 AI 컨설턴트 &nbsp;·&nbsp; yjkwon@gangnamconsulting.com</p>
 </footer>
-<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="맨 위로">↑</button>
 
 <script>
 /* ── NAV TOGGLE ── */
@@ -632,12 +610,6 @@ function updateSpy(){
 }
 window.addEventListener('scroll',updateSpy,{passive:true});
 updateSpy();
-
-/* ── SCROLL TOP SHOW/HIDE ── */
-window.addEventListener('scroll',function(){
-  var btn=document.getElementById('scrollTop');
-  btn.classList.toggle('show',scrollY>400);
-},{passive:true});
 
 /* ── CONTACT FORM ── */
 function clearErr(){

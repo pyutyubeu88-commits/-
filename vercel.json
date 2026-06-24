@@ -1,6 +1,10 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/profile.html" }
+    { "source": "/consultant", "destination": "/profile.html" },
+    { "source": "/ebook", "destination": "/ebook.html" },
+    { "source": "/prompt", "destination": "/ebook.html" },
+    { "source": "/reply", "destination": "/reply.html" },
+    { "source": "/comment", "destination": "/reply.html" }
   ],
   "headers": [
     {

@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.env
+.openai_key
+out/
+out_gpt/
+prompts/
+customers.json
+send_log.json
+broadcast_log.json
+broadcast_cfg.json
