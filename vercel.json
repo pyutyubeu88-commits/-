@@ -4,7 +4,9 @@
     { "source": "/ebook", "destination": "/ebook.html" },
     { "source": "/prompt", "destination": "/ebook.html" },
     { "source": "/reply", "destination": "/reply.html" },
-    { "source": "/comment", "destination": "/reply.html" }
+    { "source": "/comment", "destination": "/reply.html" },
+    { "source": "/office", "destination": "/office.html" },
+    { "source": "/board", "destination": "/office.html" }
   ],
   "headers": [
     {

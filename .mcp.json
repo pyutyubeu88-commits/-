@@ -3,6 +3,10 @@
     "conway-memory": {
       "command": "python3",
       "args": ["./conway/mcp_server.py"]
+    },
+    "higgsfield": {
+      "type": "http",
+      "url": "https://mcp.higgsfield.ai/mcp"
     }
   }
 }

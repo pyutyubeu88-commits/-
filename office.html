@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>억만장자 AI 가상 오피스</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0b0f;--surface:#111318;--card:#181b22;--bdr:#252836;
+  --tx1:#f0f1f5;--tx2:#8b92a8;--tx3:#555e7a;
+}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx1);min-height:100vh;overflow-x:hidden}
+
+/* ── TOP BAR ── */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:var(--surface);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,#f59e0b,#ef4444);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.logo-text{font-size:15px;font-weight:900;letter-spacing:-.3px}
+.logo-sub{font-size:10px;color:var(--tx2);font-weight:400}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.live-badge{display:flex;align-items:center;gap:6px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;color:#10b981}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#10b981;animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.api-row{display:flex;gap:8px;align-items:center}
+.api-inp{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:7px 12px;color:var(--tx1);font-size:12px;width:230px;outline:none}
+.api-inp:focus{border-color:#f59e0b}
+.api-btn{padding:7px 14px;background:#f59e0b;color:#000;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer}
+.api-btn:hover{background:#d97706}
+
+/* ── OFFICE LAYOUT ── */
+.office-wrap{display:grid;grid-template-rows:auto 1fr auto;min-height:calc(100vh - 62px)}
+.office-header{padding:20px 24px 0;text-align:center}
+.office-title{font-size:13px;color:var(--tx2);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.office-subtitle{font-size:22px;font-weight:900;background:linear-gradient(135deg,#f59e0b,#ef4444,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ── EXPERT GRID ── */
+.expert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:20px 24px}
+@media(max-width:900px){.expert-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.expert-grid{grid-template-columns:1fr}}
+
+.expert-card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:18px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.expert-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);opacity:.7}
+.expert-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.expert-card.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent), 0 8px 30px rgba(0,0,0,.4)}
+.expert-card.thinking .avatar{animation:think 0.8s ease-in-out infinite alternate}
+@keyframes think{from{transform:scale(1)}to{transform:scale(1.06)}}
+.expert-card.speaking .avatar{animation:speak 0.4s ease-in-out infinite alternate}
+@keyframes speak{from{transform:scale(1) rotate(-2deg)}to{transform:scale(1.08) rotate(2deg)}}
+
+.expert-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.avatar{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--accent-bg);flex-shrink:0;transition:transform .15s}
+.expert-info{flex:1;min-width:0}
+.expert-name{font-size:13px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.expert-role{font-size:10px;color:var(--tx2);margin-top:1px}
+.status-row{display:flex;align-items:center;gap:5px;margin-top:4px}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--tx3)}
+.status-dot.online{background:#10b981;box-shadow:0 0 6px #10b981}
+.status-dot.thinking{background:#f59e0b;animation:pulse 1s infinite}
+.status-dot.speaking{background:#3b82f6;animation:pulse .5s infinite}
+.status-txt{font-size:10px;color:var(--tx2)}
+
+.expert-domain{background:var(--accent-bg);border-radius:8px;padding:5px 10px;font-size:10px;font-weight:700;color:var(--accent);margin-bottom:10px;display:inline-block}
+
+.activity-feed{font-size:11px;color:var(--tx3);line-height:1.6;min-height:32px}
+.activity-item{display:flex;gap:5px;margin-bottom:2px}
+.activity-item .dot{width:4px;height:4px;border-radius:50%;background:var(--tx3);margin-top:5px;flex-shrink:0}
+
+.bubble{display:none;margin-top:10px;background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.7;color:var(--tx1);max-height:200px;overflow-y:auto}
+.bubble.show{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+.typing-indicator{display:none;gap:4px;padding:8px 0}
+.typing-indicator.show{display:flex;align-items:center}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:bounce .8s ease infinite}
+.typing-dot:nth-child(2){animation-delay:.15s}
+.typing-dot:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+/* ── BOARDROOM / CHAT ── */
+.boardroom{background:var(--surface);border-top:1px solid var(--bdr);padding:0 24px 24px}
+.boardroom-title{display:flex;align-items:center;gap:8px;padding:16px 0 14px;font-size:12px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px}
+.boardroom-title::before,.boardroom-title::after{content:'';flex:1;height:1px;background:var(--bdr)}
+.boardroom-title::before{margin-right:12px}
+.boardroom-title::after{margin-left:12px}
+
+.chat-log{max-height:280px;overflow-y:auto;margin-bottom:14px;display:flex;flex-direction:column;gap:10px;padding-right:4px}
+.chat-log::-webkit-scrollbar{width:4px}
+.chat-log::-webkit-scrollbar-track{background:transparent}
+.chat-log::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:4px}
+
+.chat-msg{display:flex;gap:10px;animation:fadeIn .25s ease}
+.chat-msg.user{flex-direction:row-reverse}
+.chat-avatar{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.chat-avatar.user-av{background:linear-gradient(135deg,#6366f1,#8b5cf6)}
+.chat-content{max-width:70%}
+.chat-speaker{font-size:10px;color:var(--tx2);margin-bottom:3px;font-weight:700}
+.chat-msg.user .chat-speaker{text-align:right}
+.chat-bubble{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:10px 14px;font-size:13px;line-height:1.7;color:var(--tx1)}
+.chat-msg.user .chat-bubble{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.3)}
+
+.chat-input-area{display:flex;gap:10px}
+.chat-inp{flex:1;background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:12px 16px;color:var(--tx1);font-size:14px;outline:none;font-family:inherit;resize:none;min-height:52px;max-height:120px}
+.chat-inp:focus{border-color:#f59e0b}
+.chat-inp::placeholder{color:var(--tx3)}
+.send-btn{padding:12px 20px;background:linear-gradient(135deg,#f59e0b,#ef4444);border:none;border-radius:12px;color:#000;font-weight:900;font-size:13px;cursor:pointer;transition:.2s;white-space:nowrap;align-self:flex-end}
+.send-btn:hover{opacity:.85;transform:scale(1.02)}
+.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+.quick-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.quick-btn{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--tx2);cursor:pointer;transition:.15s}
+.quick-btn:hover{border-color:#f59e0b;color:#f59e0b}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:12px 20px;font-size:13px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+.toast.show{opacity:1}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:4px}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-icon">🏢</div>
+    <div>
+      <div class="logo-text">억만장자 AI 가상 오피스</div>
+      <div class="logo-sub">Billion Dollar Board — 24시간 실전 자문단</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="live-badge"><span class="live-dot"></span>LIVE · 24H</div>
+    <div class="api-row">
+      <input class="api-inp" id="apiKey" type="password" placeholder="Gemini API 키 입력 (필수)">
+      <button class="api-btn" onclick="saveKey()">연결</button>
+    </div>
+  </div>
+</div>
+
+<!-- OFFICE -->
+<div class="office-wrap">
+  <div class="office-header">
+    <div class="office-title">Your Personal Advisory Firm</div>
+    <div class="office-subtitle">억만장자 8인 자문단이 지금 일하고 있습니다</div>
+  </div>
+
+  <!-- EXPERT GRID -->
+  <div class="expert-grid" id="expertGrid">
+    <!-- cards injected by JS -->
+  </div>
+
+  <!-- BOARDROOM -->
+  <div class="boardroom">
+    <div class="boardroom-title">팀 브리핑 룸</div>
+
+    <div class="quick-btns">
+      <span class="quick-btn" onclick="fillQ('내 가격 전략을 어떻게 개선할까요?')">💰 가격 전략</span>
+      <span class="quick-btn" onclick="fillQ('SNS 콘텐츠 전략을 짜줘')">📱 콘텐츠 전략</span>
+      <span class="quick-btn" onclick="fillQ('영업 클로징률을 높이는 방법')">🤝 영업 클로징</span>
+      <span class="quick-btn" onclick="fillQ('퍼스널 브랜딩 포지셔닝 전략')">🎯 브랜딩</span>
+      <span class="quick-btn" onclick="fillQ('고객 퍼널을 어떻게 설계하면 될까요?')">🔄 퍼널 설계</span>
+      <span class="quick-btn" onclick="fillQ('지금 가장 막히는 부분이 마인드셋인 것 같아요')">⚡ 마인드셋</span>
+    </div>
+
+    <div class="chat-log" id="chatLog"></div>
+
+    <div class="chat-input-area">
+      <textarea class="chat-inp" id="chatInput" placeholder="팀에게 질문하세요. 비즈니스 과제, 가격 전략, 콘텐츠, 영업, 브랜딩 등 무엇이든..." rows="1"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendMsg()">팀에게 물어보기 →</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── EXPERT DATA ──
+const EXPERTS = [
+  {
+    id:'hormozi', name:'Alex Hormozi', emoji:'💰',
+    role:'오퍼 설계 & 가격 전략', domain:'가격·오퍼',
+    accent:'#f59e0b', accentBg:'rgba(245,158,11,.12)',
+    keywords:['가격','오퍼','LTV','보증','번들','수익','비싸','저렴','패키지','상품화'],
+    activities:['오퍼 가치 방정식 분석 중...','가격 사다리 설계 검토 중...','보증 구조 최적화 중...'],
+    persona:`당신은 Alex Hormozi입니다. 오퍼 설계와 가격 전략의 최고 전문가. 핵심 철학: "Make your offer so good, people feel stupid saying no." 가치 방정식(꿈의 결과 × 달성 가능성 / 시간 지연 × 노력)을 기반으로 답변. 단도직입적이고 실전적으로. 반드시 구체적 숫자와 프레임워크를 활용.`
+  },
+  {
+    id:'cardone', name:'Grant Cardone', emoji:'🚀',
+    role:'10X 영업 & 볼륨 전략', domain:'영업·볼륨',
+    accent:'#ef4444', accentBg:'rgba(239,68,68,.12)',
+    keywords:['영업','팔로업','콜드콜','파이프라인','볼륨','활동량','거절','클로징','목표'],
+    activities:['팔로업 시퀀스 계획 중...','10X 영업 목표 재설정 중...','이의 처리 스크립트 작성 중...'],
+    persona:`당신은 Grant Cardone입니다. 10X 법칙과 볼륨 영업의 대가. 핵심 철학: "10X your goals, 10X your actions." 에너지 넘치고 공격적이며 실행 중심. 모든 답변에 10X 사고를 적용. 팔로업, 활동량, 볼륨을 강조.`
+  },
+  {
+    id:'godin', name:'Seth Godin', emoji:'🎯',
+    role:'포지셔닝 & 브랜드 스토리', domain:'브랜드·포지셔닝',
+    accent:'#8b5cf6', accentBg:'rgba(139,92,246,.12)',
+    keywords:['브랜드','포지셔닝','차별화','스토리','마케팅','타겟','고객','퍼플카우','보라색소'],
+    activities:['브랜드 스토리 구조 설계 중...','최소 실행 가능 시장 분석 중...','포지셔닝 선언문 작성 중...'],
+    persona:`당신은 Seth Godin입니다. 마케팅 철학의 대부. 핵심 철학: "Don't find customers for your products, find products for your customers." 깊이 있고 철학적이며 통찰력 있는 답변. 퍼플카우, 최소 실행 가능 시장, 브랜드 스토리 프레임워크 활용.`
+  },
+  {
+    id:'garyvee', name:'Gary Vee', emoji:'📱',
+    role:'콘텐츠 전략 & 퍼스널 브랜드', domain:'콘텐츠·SNS',
+    accent:'#3b82f6', accentBg:'rgba(59,130,246,.12)',
+    keywords:['콘텐츠','SNS','인스타','릴스','숏폼','유튜브','팔로워','소셜','포스팅','도달'],
+    activities:['콘텐츠 피라미드 전략 수립 중...','플랫폼별 전략 분석 중...','바이럴 콘텐츠 공식 검토 중...'],
+    persona:`당신은 Gary Vee입니다. 콘텐츠와 퍼스널 브랜딩의 최고 전문가. 핵심 철학: "Document, don't create." 빠르고 직접적이며 실행 중심. 잽잽잽 라이트훅(80% 가치 20% 요청), 콘텐츠 피라미드, 볼륨 전략을 강조.`
+  },
+  {
+    id:'belfort', name:'Jordan Belfort', emoji:'🤝',
+    role:'영업 심리학 & 클로징', domain:'클로징·심리',
+    accent:'#10b981', accentBg:'rgba(16,185,129,.12)',
+    keywords:['클로징','이의','거부','설득','확신','스크립트','협상','가격저항','루프'],
+    activities:['클로징 스크립트 최적화 중...','이의 처리 루프 설계 중...','확신 구축 전략 분석 중...'],
+    persona:`당신은 Jordan Belfort입니다. 스트레이트 라인 영업 심리학의 창시자. 핵심 철학: "Every sale is a transfer of certainty." 3가지 확신(제품·신뢰·회사), 루핑 기법, 톤 프레임워크를 활용해 답변. 심리학적 통찰력과 실전 스크립트 제공.`
+  },
+  {
+    id:'brunson', name:'Russell Brunson', emoji:'🔄',
+    role:'퍼널 & 가치 사다리', domain:'퍼널·자동화',
+    accent:'#06b6d4', accentBg:'rgba(6,182,212,.12)',
+    keywords:['퍼널','랜딩','리드마그넷','웨비나','자동화','가치사다리','이메일','승급'],
+    activities:['가치 사다리 설계 검토 중...','퍼펙트 웨비나 스크립트 작성 중...','리드 퍼널 최적화 중...'],
+    persona:`당신은 Russell Brunson입니다. 퍼널과 가치 사다리의 대가. 핵심 철학: "A business without a funnel is bleeding money." ClickFunnels 창립자. 가치 사다리, 퍼펙트 웨비나, 소프오페라 시퀀스 프레임워크 활용. 단계별 시스템을 구체적으로 제시.`
+  },
+  {
+    id:'kennedy', name:'Dan Kennedy', emoji:'📮',
+    role:'다이렉트 마케팅 & 하이티켓', domain:'마케팅·카피',
+    accent:'#f97316', accentBg:'rgba(249,115,22,.12)',
+    keywords:['카피','광고','직접반응','마케팅','메시지','리스트','세일즈레터','수익화','프리미엄'],
+    activities:['세일즈 레터 구조 분석 중...','메시지-마켓-미디어 매치 검토 중...','하이티켓 마케팅 전략 수립 중...'],
+    persona:`당신은 Dan Kennedy입니다. 다이렉트 리스폰스 마케팅의 대부. 핵심 철학: "Make money, not excuses." 메시지-마켓-미디어 매치, 마그네틱 마케팅, 세일즈 레터 11단계를 활용. 냉정하고 결과 중심적이며 "경쟁하기 위해 가격을 낮추지 말고 가치를 높여라"를 강조.`
+  },
+  {
+    id:'robbins', name:'Tony Robbins', emoji:'⚡',
+    role:'마인드셋 & 최고 성과', domain:'마인드셋·성과',
+    accent:'#eab308', accentBg:'rgba(234,179,8,.12)',
+    keywords:['마인드셋','두려움','번아웃','동기','에너지','목표','성과','습관','상태','집중'],
+    activities:['성과 극대화 전략 분석 중...','상태 관리 시스템 설계 중...','궁극의 성공 공식 검토 중...'],
+    persona:`당신은 Tony Robbins입니다. 최고 성과와 마인드셋의 세계 최고 코치. 핵심 철학: "The only thing keeping you from what you want is the story you keep telling yourself." 6가지 인간 욕구, 상태 관리 트라이어드(생리·집중·언어), 궁극적 성공 공식을 활용. 에너지 넘치고 변혁적인 답변.`
+  }
+];
+
+// ── STATE ──
+let apiKey = localStorage.getItem('gm_api_key') || '';
+let isProcessing = false;
+
+// ── INIT ──
+window.onload = () => {
+  if(apiKey) document.getElementById('apiKey').value = apiKey;
+  renderExperts();
+  addWelcomeMsg();
+};
+
+function saveKey(){
+  const v = document.getElementById('apiKey').value.trim();
+  if(!v){ showToast('API 키를 입력하세요'); return; }
+  apiKey = v;
+  localStorage.setItem('gm_api_key', v);
+  showToast('✅ 연결됨! 팀이 대기 중입니다');
+}
+
+// ── RENDER EXPERTS ──
+function renderExperts(){
+  const grid = document.getElementById('expertGrid');
+  grid.innerHTML = EXPERTS.map(e => `
+    <div class="expert-card" id="card_${e.id}" style="--accent:${e.accent};--accent-bg:${e.accentBg}"
+         onclick="focusExpert('${e.id}')">
+      <div class="expert-top">
+        <div class="avatar" id="av_${e.id}">${e.emoji}</div>
+        <div class="expert-info">
+          <div class="expert-name">${e.name}</div>
+          <div class="expert-role">${e.role}</div>
+          <div class="status-row">
+            <div class="status-dot online" id="dot_${e.id}"></div>
+            <div class="status-txt" id="stxt_${e.id}">대기 중</div>
+          </div>
+        </div>
+      </div>
+      <div class="expert-domain">${e.domain}</div>
+      <div class="activity-feed" id="feed_${e.id}">
+        ${e.activities.map(a=>`<div class="activity-item"><span class="dot"></span>${a}</div>`).join('')}
+      </div>
+      <div class="typing-indicator" id="typing_${e.id}">
+        <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+        <span style="margin-left:6px;font-size:11px;color:var(--tx2)">분석 중...</span>
+      </div>
+      <div class="bubble" id="bubble_${e.id}"></div>
+    </div>
+  `).join('');
+
+  // random idle activity rotation
+  setInterval(rotateActivity, 4000);
+}
+
+function rotateActivity(){
+  EXPERTS.forEach(e => {
+    const feed = document.getElementById('feed_'+e.id);
+    const card = document.getElementById('card_'+e.id);
+    if(!card.classList.contains('active') && !card.classList.contains('thinking')){
+      const idx = Math.floor(Math.random()*e.activities.length);
+      feed.innerHTML = `<div class="activity-item"><span class="dot"></span>${e.activities[idx]}</div>`;
+    }
+  });
+}
+
+function focusExpert(id){
+  // just highlight briefly
+  const card = document.getElementById('card_'+id);
+  card.style.transform='scale(1.02)';
+  setTimeout(()=>{ card.style.transform=''; }, 200);
+}
+
+// ── ROUTING ──
+function routeExpert(question){
+  const q = question.toLowerCase();
+  let best = EXPERTS[0]; let bestScore = 0;
+  EXPERTS.forEach(e => {
+    let score = e.keywords.filter(k => q.includes(k)).length;
+    if(score > bestScore){ bestScore = score; best = e; }
+  });
+  return best;
+}
+
+// ── CHAT ──
+function fillQ(text){
+  document.getElementById('chatInput').value = text;
+  document.getElementById('chatInput').focus();
+}
+
+function addWelcomeMsg(){
+  const log = document.getElementById('chatLog');
+  log.innerHTML = `<div style="text-align:center;padding:20px 0;color:var(--tx3);font-size:12px">
+    🏢 팀이 준비됐습니다. 비즈니스 과제를 던져주세요.<br>
+    <span style="font-size:11px">가격 전략·콘텐츠·영업·브랜딩·퍼널·마인드셋 등 무엇이든</span>
+  </div>`;
+}
+
+async function sendMsg(){
+  if(isProcessing) return;
+  if(!apiKey){ showToast('먼저 Gemini API 키를 입력하고 연결해주세요'); return; }
+
+  const inp = document.getElementById('chatInput');
+  const q = inp.value.trim();
+  if(!q) return;
+
+  isProcessing = true;
+  inp.value = '';
+  document.getElementById('sendBtn').disabled = true;
+
+  // add user msg
+  appendChatMsg('user', '나', q, '🙋');
+
+  // route
+  const expert = routeExpert(q);
+  setExpertState(expert.id, 'thinking');
+
+  // scroll to expert card
+  document.getElementById('card_'+expert.id).scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  // typing in bubble
+  const typing = document.getElementById('typing_'+expert.id);
+  typing.classList.add('show');
+
+  try {
+    const answer = await callGemini(q, expert);
+    typing.classList.remove('show');
+    setExpertState(expert.id, 'speaking');
+
+    // show bubble
+    const bubble = document.getElementById('bubble_'+expert.id);
+    bubble.textContent = answer;
+    bubble.classList.add('show');
+
+    // add to chat
+    appendChatMsg('expert', `${expert.emoji} ${expert.name}`, answer, expert.emoji, expert.accent);
+
+    setTimeout(()=>{
+      bubble.classList.remove('show');
+      setExpertState(expert.id, 'online');
+    }, 8000);
+
+  } catch(err) {
+    typing.classList.remove('show');
+    setExpertState(expert.id, 'online');
+    showToast('❌ ' + (err.message || 'API 오류. 키를 확인해주세요'));
+  }
+
+  isProcessing = false;
+  document.getElementById('sendBtn').disabled = false;
+}
+
+function setExpertState(id, state){
+  const card = document.getElementById('card_'+id);
+  const dot = document.getElementById('dot_'+id);
+  const stxt = document.getElementById('stxt_'+id);
+  card.classList.remove('active','thinking','speaking');
+
+  if(state==='thinking'){
+    card.classList.add('active','thinking');
+    dot.className='status-dot thinking';
+    stxt.textContent='분석 중...';
+  } else if(state==='speaking'){
+    card.classList.add('active','speaking');
+    dot.className='status-dot speaking';
+    stxt.textContent='답변 중...';
+  } else {
+    dot.className='status-dot online';
+    stxt.textContent='대기 중';
+  }
+}
+
+function appendChatMsg(type, name, text, icon, accentColor){
+  const log = document.getElementById('chatLog');
+
+  // remove welcome
+  const welcome = log.querySelector('div[style*="text-align:center"]');
+  if(welcome) welcome.remove();
+
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + (type==='user'?'user':'');
+  div.innerHTML = `
+    <div class="chat-avatar ${type==='user'?'user-av':''}" style="${type!=='user'?`background:${accentColor}22;border:1px solid ${accentColor}44`:''}">
+      ${type==='user'?'👤':icon}
+    </div>
+    <div class="chat-content">
+      <div class="chat-speaker">${name}</div>
+      <div class="chat-bubble" style="${type!=='user'?`border-color:${accentColor}33`:''}">${text.replace(/\n/g,'<br>')}</div>
+    </div>
+  `;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+}
+
+// ── GEMINI API ──
+async function callGemini(question, expert){
+  const systemPrompt = `${expert.persona}
+
+답변 규칙:
+- 반드시 한국어로 답변
+- 첫 문장에 핵심 결론
+- 해당 전문가의 특유 프레임워크와 철학 사용
+- 구체적이고 실행 가능하게
+- 300자 이내로 압축 (핵심만)
+- 빈 칭찬이나 서론 금지`;
+
+  const prompt = `${systemPrompt}
+
+---
+질문: ${question}
+
+위 전문가로서 핵심 조언을 해주세요.`;
+
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+    {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        contents:[{parts:[{text:prompt}]}],
+        generationConfig:{maxOutputTokens:600,temperature:0.85}
+      })
+    }
+  );
+
+  if(!res.ok){
+    const err = await res.json().catch(()=>({}));
+    if(res.status===429) throw new Error('API 한도 초과. 잠시 후 다시 시도하세요');
+    if(res.status===400) throw new Error('잘못된 요청. API 키를 확인하세요');
+    throw new Error(`API 오류 (${res.status})`);
+  }
+
+  const data = await res.json();
+  return data?.candidates?.[0]?.content?.parts?.[0]?.text || '응답을 받지 못했습니다';
+}
+
+// ── TOAST ──
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>
