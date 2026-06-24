@@ -7,194 +7,642 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0d0e14;--surface:#12141c;--card:#181b26;--bdr:#252840;--tx1:#f0f1f7;--tx2:#8890b0;--tx3:#454d6e}
+:root{
+  --bg:#0a0b10;--surface:#10121a;--card:#161924;--bdr:#1e2235;
+  --tx1:#eef0fa;--tx2:#7880a0;--tx3:#3a4060;
+  --floor:#1a1c2a;--wall:#0f1018;--desk:#2a1f14;--desk-top:#3a2a18;
+}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx1);min-height:100vh;overflow-x:hidden}
 
-/* ── TOPBAR ── */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(18,20,28,.95);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
-.logo{display:flex;align-items:center;gap:8px}
-.logo-icon{font-size:22px}
-.logo-name{font-size:15px;font-weight:900}
+/* ──────── TOPBAR ──────── */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;
+  background:rgba(10,11,16,.97);border-bottom:1px solid var(--bdr);
+  position:sticky;top:0;z-index:200;backdrop-filter:blur(12px)}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{font-size:20px}
+.logo-name{font-size:14px;font-weight:900;letter-spacing:-.3px}
 .logo-sub{font-size:10px;color:var(--tx2)}
-.live{display:flex;align-items:center;gap:5px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);border-radius:20px;padding:4px 10px;font-size:10px;font-weight:700;color:#10b981}
+.live{display:flex;align-items:center;gap:5px;background:rgba(16,185,129,.1);
+  border:1px solid rgba(16,185,129,.25);border-radius:20px;padding:3px 10px;
+  font-size:10px;font-weight:700;color:#10b981}
 .live-dot{width:6px;height:6px;border-radius:50%;background:#10b981;animation:livepulse 1.5s ease infinite}
 @keyframes livepulse{0%,100%{opacity:1}50%{opacity:.3}}
 .api-wrap{display:flex;gap:6px}
-.api-inp{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:6px 10px;color:var(--tx1);font-size:11px;width:200px;outline:none}
+.api-inp{background:var(--card);border:1px solid var(--bdr);border-radius:8px;
+  padding:6px 10px;color:var(--tx1);font-size:11px;width:220px;outline:none}
 .api-inp:focus{border-color:#f59e0b}
-.api-btn{padding:6px 12px;background:#f59e0b;color:#000;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer}
+.api-btn{padding:6px 14px;background:#f59e0b;color:#000;border:none;border-radius:8px;
+  font-size:11px;font-weight:700;cursor:pointer;transition:.15s}
 .api-btn:hover{background:#d97706}
 
-/* ── HEADER ── */
-.hdr{text-align:center;padding:20px 20px 0}
-.hdr-title{font-size:11px;letter-spacing:2px;color:var(--tx3);text-transform:uppercase;margin-bottom:6px}
-.hdr-main{font-size:24px;font-weight:900;background:linear-gradient(135deg,#f59e0b 0%,#ef4444 50%,#8b5cf6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hdr-sub{font-size:12px;color:var(--tx2);margin-top:4px}
+/* ──────── OFFICE SCENE ──────── */
+.office-scene{
+  position:relative;width:100%;height:420px;overflow:hidden;
+  background:linear-gradient(180deg,#0c0e18 0%,#10121e 55%,#1a1c2e 55%,#1a1c2e 100%);
+}
 
-/* ── EXPERT GRID ── */
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 20px}
+/* Back wall details */
+.wall-decor{position:absolute;top:0;left:0;right:0;height:55%;pointer-events:none}
+.wall-window{
+  position:absolute;top:18px;width:90px;height:65px;
+  background:linear-gradient(180deg,#1a2a4a 0%,#0d1a33 100%);
+  border:3px solid #2a3050;border-radius:4px;
+}
+.wall-window::before{content:'';position:absolute;inset:4px;
+  background:linear-gradient(135deg,rgba(100,160,255,.15) 0%,transparent 60%)}
+.wall-window::after{content:'';position:absolute;left:50%;top:0;bottom:0;
+  width:2px;background:#2a3050;transform:translateX(-50%)}
+.ww-stars{position:absolute;inset:0;overflow:hidden}
+.ww-star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;
+  animation:twinkle 2s ease-in-out infinite alternate}
+@keyframes twinkle{0%{opacity:.2}100%{opacity:.9}}
+.wall-clock{
+  position:absolute;top:22px;left:50%;transform:translateX(-50%);
+  width:44px;height:44px;border-radius:50%;
+  background:#181c28;border:3px solid #2a2d42;
+}
+.clock-hand{position:absolute;bottom:50%;left:50%;transform-origin:bottom center;
+  background:#f59e0b;border-radius:2px}
+.ch-min{width:2px;height:14px;margin-left:-1px;animation:spin60 3600s linear infinite}
+.ch-hr{width:2px;height:10px;margin-left:-1px;animation:spin60 43200s linear infinite}
+@keyframes spin60{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.clock-dot{position:absolute;top:50%;left:50%;width:4px;height:4px;
+  border-radius:50%;background:#f59e0b;transform:translate(-50%,-50%)}
+.wall-sign{
+  position:absolute;top:14px;right:80px;
+  background:linear-gradient(135deg,#f59e0b22,#ef444422);
+  border:1px solid #f59e0b44;border-radius:6px;
+  padding:5px 12px;font-size:9px;font-weight:700;
+  color:#f59e0b;letter-spacing:1px;
+}
+.wall-plant{position:absolute;bottom:0;font-size:28px;filter:drop-shadow(0 2px 4px #000)}
+
+/* Floor */
+.office-floor{
+  position:absolute;bottom:0;left:0;right:0;height:45%;
+  background:repeating-linear-gradient(
+    90deg,
+    #16192a 0px, #16192a 59px,
+    #1a1d2e 60px, #1a1d2e 119px
+  );
+  border-top:2px solid #252840;
+}
+/* Floor shine */
+.office-floor::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:30px;
+  background:linear-gradient(180deg,rgba(255,255,255,.04) 0%,transparent 100%);
+}
+
+/* ──────── DESK SCENE ──────── */
+.desks-row{
+  position:absolute;bottom:0;left:0;right:0;height:100%;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  align-items:flex-end;padding:0 12px;gap:4px;
+}
+
+/* Individual desk station */
+.desk-station{
+  position:relative;display:flex;flex-direction:column;align-items:center;
+  height:100%;justify-content:flex-end;
+}
+
+/* Desk furniture */
+.desk-furniture{
+  position:relative;width:130px;margin-bottom:0;
+}
+.desk-surface{
+  width:130px;height:16px;
+  background:linear-gradient(180deg,#4a3520 0%,#3a2818 100%);
+  border-radius:4px 4px 0 0;border:1px solid #5a4030;
+  position:relative;z-index:3;
+}
+.desk-surface::before{content:'';position:absolute;top:0;left:5px;right:5px;height:4px;
+  background:rgba(255,255,255,.06);border-radius:2px}
+.desk-body{
+  width:116px;height:52px;
+  background:linear-gradient(180deg,#352515 0%,#2a1e10 100%);
+  border:1px solid #4a3520;border-radius:2px;
+  margin:0 auto;position:relative;z-index:2;
+}
+.desk-legs{display:flex;justify-content:space-between;padding:0 8px;position:relative;z-index:1}
+.desk-leg{width:8px;height:28px;background:#251a0a;border-radius:0 0 3px 3px}
+
+/* Items on desk */
+.desk-items{
+  position:absolute;top:-2px;left:0;right:0;
+  display:flex;align-items:flex-end;justify-content:space-around;padding:0 8px;z-index:5;
+}
+.desk-monitor{
+  width:48px;height:38px;
+  background:#0a0c14;border:2px solid #1e2235;border-radius:5px 5px 2px 2px;
+  position:relative;overflow:hidden;
+}
+.desk-monitor::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);
+  width:14px;height:8px;background:#1e2235;border-radius:0 0 3px 3px}
+.desk-monitor-screen{position:absolute;inset:3px;overflow:hidden;border-radius:2px}
+.desk-monitor-line{
+  height:3px;margin-bottom:2px;border-radius:1px;
+  background:rgba(111,222,154,.7);
+  animation:monscroll 2.5s linear infinite;
+  width:0;
+}
+@keyframes monscroll{0%{width:0}60%{width:100%}100%{width:100%}}
+.desk-monitor-line:nth-child(2){animation-delay:.8s;background:rgba(100,160,255,.6)}
+.desk-monitor-line:nth-child(3){animation-delay:1.6s;background:rgba(249,115,22,.5)}
+.desk-coffee{font-size:13px;line-height:1}
+.desk-paper{
+  width:22px;height:16px;
+  background:#f5f0e8;border-radius:1px;
+  transform:rotate(-8deg);position:relative;
+}
+.desk-paper::before,.desk-paper::after{
+  content:'';position:absolute;left:3px;right:3px;height:1.5px;
+  background:#ccc;border-radius:1px;
+}
+.desk-paper::before{top:4px}
+.desk-paper::after{top:8px}
+
+/* ──────── CHIBI CHARACTERS (精密버전) ──────── */
+.chibi-container{
+  position:absolute;z-index:10;
+  display:flex;flex-direction:column;align-items:center;
+}
+
+/* Sitting position - above desk */
+.chibi-container.sitting{
+  bottom:96px; /* sits above desk surface */
+}
+
+/* Chibi body system */
+.chibi-root{
+  position:relative;width:72px;height:108px;
+  transform-origin:bottom center;
+}
+
+/* ── ANIMATIONS ── */
+.chibi-root.idle{animation:idle-breathe 3s ease-in-out infinite}
+@keyframes idle-breathe{0%,100%{transform:translateY(0) scaleY(1)}50%{transform:translateY(-3px) scaleY(1.01)}}
+
+.chibi-root.thinking{animation:think-rock 1.2s ease-in-out infinite alternate}
+@keyframes think-rock{from{transform:rotate(-5deg) translateY(0)}to{transform:rotate(5deg) translateY(-4px)}}
+
+.chibi-root.working{animation:work-type .45s ease-in-out infinite alternate}
+@keyframes work-type{from{transform:translateY(0)}to{transform:translateY(-5px)}}
+
+.chibi-root.speaking{animation:speak-bounce .3s ease-in-out infinite alternate}
+@keyframes speak-bounce{from{transform:scaleY(1) translateY(0)}to{transform:scaleY(1.05) translateY(-3px)}}
+
+.chibi-root.walking{animation:walk-body .5s ease-in-out infinite alternate}
+@keyframes walk-body{from{transform:translateY(0) rotate(-1deg)}to{transform:translateY(-6px) rotate(1deg)}}
+
+/* SHADOW under chibi */
+.chibi-shadow{
+  width:50px;height:8px;
+  background:radial-gradient(ellipse,rgba(0,0,0,.5) 0%,transparent 70%);
+  margin-top:-2px;
+}
+
+/* HEAD — big chibi head */
+.ch2-head{
+  width:58px;height:60px;border-radius:50%;
+  background:var(--skin,#F5B98A);
+  position:absolute;top:0;left:7px;
+  box-shadow:inset -4px -3px 0 rgba(0,0,0,.12);
+}
+
+/* CHEEKS (blush) */
+.ch2-cheek{
+  position:absolute;width:12px;height:7px;
+  background:rgba(255,140,120,.35);border-radius:50%;
+  top:32px;
+}
+.ch2-cheek.l{left:5px}
+.ch2-cheek.r{right:5px}
+
+/* HAIR — various styles on top of head */
+.ch2-hair{position:absolute;top:0;left:7px;width:58px;pointer-events:none}
+.ch2-hair-base{
+  position:absolute;top:0;width:58px;height:0;
+  background:var(--hair,#1a1a1a);border-radius:50% 50% 0 0;
+}
+/* buzzcut */
+.hair-buzzcut .ch2-hair-base{height:20px}
+/* slick back */
+.hair-slick .ch2-hair-base{height:22px;border-radius:40% 40% 0 0}
+.hair-slick .ch2-hair-base::after{
+  content:'';position:absolute;right:-5px;top:10px;width:14px;height:10px;
+  background:var(--hair,#3d2b1a);border-radius:0 8px 8px 0;
+}
+/* bald */
+.hair-bald .ch2-hair-base{display:none}
+/* messy spiky */
+.hair-messy .ch2-hair-base{height:20px;border-radius:28px 28px 0 0}
+.hair-messy .ch2-hair-base::before{
+  content:'';position:absolute;top:-8px;left:6px;width:14px;height:14px;
+  background:var(--hair,#1a1a1a);border-radius:50%;transform:rotate(-15deg);
+}
+.hair-messy .ch2-hair-base::after{
+  content:'';position:absolute;top:-10px;right:8px;width:12px;height:15px;
+  background:var(--hair,#1a1a1a);border-radius:50%;transform:rotate(20deg);
+}
+/* styled side-part */
+.hair-styled .ch2-hair-base{height:24px;border-radius:32px 32px 0 0}
+.hair-styled .ch2-hair-base::before{
+  content:'';position:absolute;top:6px;left:-3px;width:10px;height:18px;
+  background:var(--hair,#3d2b1a);border-radius:8px 0 0 8px;
+}
+/* wavy */
+.hair-wavy .ch2-hair-base{height:20px;border-radius:28px 28px 0 0}
+.hair-wavy .ch2-hair-base::before{
+  content:'';position:absolute;bottom:-5px;left:0px;width:13px;height:9px;
+  background:var(--hair,#5a3e28);border-radius:0 0 8px 8px;
+}
+.hair-wavy .ch2-hair-base::after{
+  content:'';position:absolute;bottom:-5px;right:0px;width:13px;height:9px;
+  background:var(--hair,#5a3e28);border-radius:0 0 8px 8px;
+}
+/* silver / white */
+.hair-silver .ch2-hair-base{height:20px;background:#c8c8d8;border-radius:28px 28px 0 0}
+/* tall pompadour */
+.hair-tall .ch2-hair-base{height:28px;border-radius:28px 28px 2px 2px}
+.hair-tall .ch2-hair-base::before{
+  content:'';position:absolute;top:-6px;left:8px;right:8px;height:14px;
+  background:var(--hair,#1a1a1a);border-radius:20px 20px 4px 4px;
+}
+
+/* EYES — large chibi eyes */
+.ch2-eyes{position:absolute;top:21px;left:7px;width:58px;display:flex;justify-content:space-between;padding:0 8px}
+.ch2-eye{
+  width:16px;height:18px;background:#fff;border-radius:50%;
+  position:relative;overflow:visible;
+  animation:blink2 4s ease-in-out infinite;
+}
+@keyframes blink2{0%,88%,100%{transform:scaleY(1)}93%{transform:scaleY(.05)}}
+.ch2-eye.r{animation-delay:.12s}
+.ch2-pupil{
+  width:10px;height:12px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#5a3a8a,#1a0a30);
+  position:absolute;top:2px;left:3px;
+}
+.ch2-shine1{width:4px;height:4px;background:#fff;border-radius:50%;
+  position:absolute;top:2px;right:1px}
+.ch2-shine2{width:2px;height:2px;background:rgba(255,255,255,.7);border-radius:50%;
+  position:absolute;bottom:3px;left:2px}
+
+/* Wink eye override */
+.ch2-eye.wink{height:5px;background:#2d1b4e;border-radius:8px;overflow:hidden;top:28px}
+.ch2-eye.wink .ch2-pupil,.ch2-eye.wink .ch2-shine1,.ch2-eye.wink .ch2-shine2{display:none}
+
+/* EYEBROWS */
+.ch2-brows{position:absolute;top:14px;left:7px;width:58px;display:flex;justify-content:space-between;padding:0 9px}
+.ch2-brow{width:14px;height:4px;background:#3d2600;border-radius:3px}
+.ch2-brow.l{transform:rotate(-5deg)}
+.ch2-brow.r{transform:rotate(5deg)}
+/* intense angry */
+.ch2-brow.intense.l{transform:rotate(-12deg);background:#2a1800}
+.ch2-brow.intense.r{transform:rotate(12deg);background:#2a1800}
+/* raised surprised */
+.ch2-brow.raised{top:10px;height:3px}
+.ch2-brow.raised.l{transform:rotate(-8deg)}
+.ch2-brow.raised.r{transform:rotate(8deg)}
+/* worried */
+.ch2-brow.worried.l{transform:rotate(8deg);top:16px}
+.ch2-brow.worried.r{transform:rotate(-8deg);top:16px}
+
+/* NOSE */
+.ch2-nose{width:6px;height:4px;position:absolute;top:35px;left:50%;transform:translateX(-50%);
+  border-radius:0 0 50% 50%;background:rgba(0,0,0,.1)}
+
+/* MOUTH types */
+.ch2-mouth{position:absolute;bottom:11px;left:50%;transform:translateX(-50%)}
+.ch2-mouth.smile{width:20px;height:10px;border-radius:0 0 14px 14px;background:#d06040;border-top:none}
+.ch2-mouth.smile::before{content:'';position:absolute;top:0;left:2px;right:2px;height:2px;background:#f08060;border-radius:2px}
+.ch2-mouth.grin{width:24px;height:12px;border-radius:0 0 16px 16px;background:#d06040}
+.ch2-mouth.grin::after{content:'';position:absolute;top:2px;left:3px;right:3px;height:5px;
+  background:#fff;border-radius:0 0 6px 6px}
+.ch2-mouth.open{width:14px;height:14px;border-radius:50%;background:#c05030}
+.ch2-mouth.open::after{content:'';position:absolute;top:4px;left:3px;right:3px;height:5px;background:#fff;border-radius:50%}
+.ch2-mouth.smirk{width:16px;height:8px;border-radius:0 0 14px 6px;background:#c05030;transform:translateX(-45%) rotate(-6deg)}
+.ch2-mouth.neutral{width:16px;height:3px;border-radius:2px;background:#b05040;bottom:12px}
+
+/* GLASSES overlay */
+.ch2-glasses{
+  position:absolute;top:21px;left:7px;width:58px;height:18px;
+  pointer-events:none;
+}
+.ch2-glasses::before,.ch2-glasses::after{
+  content:'';position:absolute;width:20px;height:16px;
+  border:2.5px solid rgba(80,100,200,.9);border-radius:50%;
+  background:rgba(120,140,255,.07);
+  top:0;
+}
+.ch2-glasses::before{left:4px}
+.ch2-glasses::after{right:4px}
+.ch2-glasses-bridge{
+  position:absolute;top:6px;left:50%;transform:translateX(-50%);
+  width:8px;height:2.5px;background:rgba(80,100,200,.9);border-radius:1px;
+}
+
+/* EARS */
+.ch2-ear{
+  position:absolute;width:12px;height:14px;
+  background:var(--skin,#F5B98A);border-radius:50%;
+  top:20px;
+}
+.ch2-ear.l{left:2px;box-shadow:inset 2px 1px 0 rgba(0,0,0,.1)}
+.ch2-ear.r{right:2px;box-shadow:inset -2px 1px 0 rgba(0,0,0,.1)}
+
+/* BODY */
+.ch2-body{
+  width:52px;height:50px;
+  border-radius:14px 14px 10px 10px;
+  position:absolute;bottom:0;left:10px;
+  box-shadow:inset 0 3px 0 rgba(255,255,255,.07);
+}
+.ch2-collar{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:20px;height:10px;
+  background:rgba(255,255,255,.15);border-radius:0 0 8px 8px;
+}
+/* Shirt buttons */
+.ch2-btn-row{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;gap:5px;align-items:center;
+}
+.ch2-shbtn{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.3)}
+
+/* TIE */
+.ch2-tie{
+  position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  width:9px;height:22px;background:var(--acc,#f59e0b);
+  border-radius:2px 2px 5px 5px;z-index:4;
+}
+.ch2-tie::before{
+  content:'';position:absolute;top:-5px;left:-4px;width:17px;height:7px;
+  background:var(--acc,#f59e0b);border-radius:3px;
+}
+.ch2-tie::after{
+  content:'';position:absolute;top:2px;left:1px;right:1px;height:3px;
+  background:rgba(0,0,0,.2);border-radius:1px;
+}
+
+/* NECK */
+.ch2-neck{
+  width:14px;height:10px;
+  background:var(--skin,#F5B98A);
+  position:absolute;bottom:48px;left:29px;
+  box-shadow:inset 0 2px 0 rgba(0,0,0,.08);
+}
+
+/* ARMS */
+.ch2-arms{position:absolute;bottom:8px;left:10px;width:52px}
+.ch2-arm{
+  position:absolute;width:12px;height:30px;
+  background:var(--body,#1a1a1a);
+  border-radius:6px;
+}
+.ch2-arm.l{left:-8px;transform:rotate(15deg);transform-origin:top center}
+.ch2-arm.r{right:-8px;transform:rotate(-15deg);transform-origin:top center}
+/* Hands */
+.ch2-arm.l::after,.ch2-arm.r::after{
+  content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);
+  width:10px;height:10px;border-radius:50%;
+  background:var(--skin,#F5B98A);
+}
+/* Working arm animation */
+.chibi-root.working .ch2-arm.l{animation:arml2 .45s ease-in-out infinite alternate}
+.chibi-root.working .ch2-arm.r{animation:armr2 .45s ease-in-out infinite alternate}
+@keyframes arml2{from{transform:rotate(15deg)}to{transform:rotate(30deg)}}
+@keyframes armr2{from{transform:rotate(-15deg)}to{transform:rotate(-30deg)}}
+/* Walking arms */
+.chibi-root.walking .ch2-arm.l{animation:walk-arml .5s ease-in-out infinite alternate}
+.chibi-root.walking .ch2-arm.r{animation:walk-armr .5s ease-in-out infinite alternate}
+@keyframes walk-arml{from{transform:rotate(30deg)}to{transform:rotate(-20deg)}}
+@keyframes walk-armr{from{transform:rotate(-30deg)}to{transform:rotate(20deg)}}
+
+/* LEGS */
+.ch2-legs{position:absolute;bottom:-16px;left:16px;display:flex;gap:6px}
+.ch2-leg{
+  width:10px;height:16px;
+  background:var(--body,#1a1a1a);
+  border-radius:2px 2px 4px 4px;
+  position:relative;
+}
+.ch2-leg::after{
+  content:'';position:absolute;bottom:-5px;left:-2px;
+  width:14px;height:6px;
+  background:#2a2020;border-radius:0 0 4px 4px;
+}
+/* Walking legs */
+.chibi-root.walking .ch2-leg:nth-child(1){animation:walk-leg1 .5s ease-in-out infinite alternate}
+.chibi-root.walking .ch2-leg:nth-child(2){animation:walk-leg2 .5s ease-in-out infinite alternate}
+@keyframes walk-leg1{from{transform:rotate(-15deg)}to{transform:rotate(15deg)}}
+@keyframes walk-leg2{from{transform:rotate(15deg)}to{transform:rotate(-15deg)}}
+
+/* PROP / item */
+.ch2-prop{
+  position:absolute;font-size:16px;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));
+  animation:prop-idle 2s ease-in-out infinite;
+}
+@keyframes prop-idle{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+
+/* THOUGHT BUBBLE */
+.ch2-thought{
+  display:none;position:absolute;top:-42px;left:50%;transform:translateX(-50%);
+  background:#fff;color:#333;font-size:10px;font-weight:700;
+  border-radius:14px;padding:5px 10px;white-space:nowrap;z-index:20;
+  box-shadow:0 3px 12px rgba(0,0,0,.4);
+}
+.ch2-thought::before{content:'•';position:absolute;bottom:-10px;left:calc(50% - 3px);font-size:10px;color:#fff}
+.ch2-thought::after{content:'•';position:absolute;bottom:-16px;left:calc(50% - 2px);font-size:7px;color:#fff}
+.ch2-thought.show{display:block;animation:fadeup .3s ease}
+@keyframes fadeup{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* ──────── WALKER chibi floating between desks ──────── */
+.walker{
+  position:absolute;bottom:190px;z-index:15;
+  pointer-events:none;
+  animation:walk-across 12s linear infinite;
+}
+@keyframes walk-across{
+  0%{left:-90px;transform:scaleX(1)}
+  49%{transform:scaleX(1)}
+  50%{left:calc(100% + 10px);transform:scaleX(-1)}
+  99%{transform:scaleX(-1)}
+  100%{left:-90px;transform:scaleX(1)}
+}
+
+/* ──────── EXPERT PANELS (grid below scene) ──────── */
+.panels-section{padding:8px 14px 0}
+.grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+}
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:500px){.grid{grid-template-columns:1fr 1fr}}
 
-/* ── EXPERT CARD ── */
-.ecard{background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:14px 12px;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s;cursor:pointer}
+.ecard{
+  background:var(--card);border:1.5px solid var(--bdr);border-radius:14px;
+  padding:12px 10px;position:relative;overflow:hidden;
+  transition:border-color .3s,box-shadow .3s;cursor:pointer;
+}
 .ecard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--acc)}
-.ecard.active{border-color:var(--acc);box-shadow:0 0 20px rgba(var(--acc-rgb),.2)}
+.ecard.active{border-color:var(--acc);box-shadow:0 0 22px rgba(var(--acc-rgb),.25)}
 .ecard:hover{border-color:rgba(var(--acc-rgb),.5)}
 
-/* ── CHIBI CHARACTERS ── */
-.chibi-wrap{position:relative;height:110px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:8px}
-.chibi{position:relative;width:70px;height:100px;flex-shrink:0}
-/* Idle bounce */
-.chibi.idle{animation:bounce 2.4s ease-in-out infinite}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-/* Thinking tilt */
-.chibi.thinking{animation:tilt 1s ease-in-out infinite alternate}
-@keyframes tilt{from{transform:rotate(-4deg) translateY(0)}to{transform:rotate(4deg) translateY(-3px)}}
-/* Speaking bounce fast */
-.chibi.speaking{animation:spk .35s ease-in-out infinite alternate}
-@keyframes spk{from{transform:scaleY(1)}to{transform:scaleY(1.04)}}
-/* Working type */
-.chibi.working{animation:work .5s ease-in-out infinite alternate}
-@keyframes work{from{transform:translateY(0) rotate(-1deg)}to{transform:translateY(-4px) rotate(1deg)}}
+/* Mini chibi in card */
+.card-chibi-wrap{
+  height:90px;display:flex;align-items:flex-end;justify-content:center;
+  position:relative;margin-bottom:6px;
+}
+.card-chibi-root{
+  position:relative;width:60px;height:90px;
+  transform-origin:bottom center;
+}
+.card-chibi-root.idle{animation:idle-breathe 3s ease-in-out infinite}
+.card-chibi-root.thinking{animation:think-rock 1.2s ease-in-out infinite alternate}
+.card-chibi-root.working{animation:work-type .45s ease-in-out infinite alternate}
+.card-chibi-root.speaking{animation:speak-bounce .3s ease-in-out infinite alternate}
 
-/* HEAD */
-.ch-head{width:56px;height:58px;border-radius:50%;position:absolute;top:0;left:7px;background:var(--skin,#FBBF8E)}
-/* BIG eyes (chibi) */
-.ch-eye{width:13px;height:15px;background:#fff;border-radius:50%;position:absolute;top:20px}
-.ch-eye.l{left:10px}.ch-eye.r{right:10px}
-.ch-pupil{width:8px;height:10px;background:#2d1b4e;border-radius:50%;position:absolute;top:2px;left:2.5px}
-.ch-shine{width:3px;height:3px;background:#fff;border-radius:50%;position:absolute;top:2px;right:2px}
-.ch-eye.wink{background:#2d1b4e;border-radius:8px;height:4px;top:22px}
-/* MOUTH */
-.ch-mouth{width:18px;height:9px;position:absolute;bottom:10px;left:50%;transform:translateX(-50%)}
-.ch-mouth.smile{border-radius:0 0 10px 10px;background:#c87555;border-top:none}
-.ch-mouth.grin{border-radius:0 0 12px 12px;background:#c87555;width:22px}
-.ch-mouth.open{border-radius:50%;background:#c87555;height:12px;width:14px}
-.ch-mouth.smirk{border-radius:0 0 8px 12px;background:#c87555;width:14px;transform:translateX(-40%) rotate(-5deg)}
-/* BROWS */
-.ch-brow{width:12px;height:3px;background:#4a3000;border-radius:2px;position:absolute;top:14px}
-.ch-brow.l{left:8px}.ch-brow.r{right:8px}
-.ch-brow.intense{height:4px;transform:rotate(-8deg)}
-.ch-brow.intense.r{transform:rotate(8deg)}
-.ch-brow.raised{transform:rotate(-12deg);top:12px}
-.ch-brow.raised.r{transform:rotate(12deg)}
-/* BODY */
-.ch-body{width:50px;height:48px;border-radius:12px 12px 8px 8px;position:absolute;bottom:0;left:10px}
-/* HAIR types */
-.ch-hair{position:absolute;left:7px;width:56px}
-.ch-hair.buzzcut{height:18px;background:var(--hair,#1a1a1a);border-radius:28px 28px 0 0;top:0}
-.ch-hair.slick{height:20px;background:var(--hair,#3d2b1a);border-radius:28px 28px 4px 4px;top:0}
-.ch-hair.slick::after{content:'';position:absolute;right:-4px;top:14px;width:10px;height:8px;background:var(--hair,#3d2b1a);border-radius:0 8px 8px 0}
-.ch-hair.bald{display:none}
-.ch-hair.messy{height:22px;background:var(--hair,#1a1a1a);border-radius:26px 26px 0 0;top:-2px}
-.ch-hair.messy::before{content:'';position:absolute;top:-4px;left:8px;width:10px;height:10px;background:var(--hair,#1a1a1a);border-radius:50%;transform:rotate(-20deg)}
-.ch-hair.messy::after{content:'';position:absolute;top:-6px;right:10px;width:10px;height:12px;background:var(--hair,#1a1a1a);border-radius:50%;transform:rotate(15deg)}
-.ch-hair.styled{height:24px;background:var(--hair,#3d2b1a);border-radius:28px 28px 0 0;top:-2px}
-.ch-hair.styled::after{content:'';position:absolute;right:0;top:10px;width:8px;height:16px;background:var(--hair,#3d2b1a);border-radius:4px}
-.ch-hair.wavy{height:20px;background:var(--hair,#5a3e28);border-radius:28px 28px 0 0;top:0}
-.ch-hair.wavy::before{content:'';position:absolute;bottom:-4px;left:2px;width:10px;height:8px;background:var(--hair,#5a3e28);border-radius:0 0 6px 6px}
-.ch-hair.wavy::after{content:'';position:absolute;bottom:-4px;right:2px;width:10px;height:8px;background:var(--hair,#5a3e28);border-radius:0 0 6px 6px}
-.ch-hair.silver{height:20px;background:#c0c0c0;border-radius:28px 28px 0 0;top:0}
-.ch-hair.tall{height:26px;background:var(--hair,#1a1a1a);border-radius:28px 28px 2px 2px;top:-4px}
-/* GLASSES */
-.ch-glasses{position:absolute;top:19px;left:4px;width:50px;height:14px;pointer-events:none}
-.ch-glasses::before,.ch-glasses::after{content:'';position:absolute;width:18px;height:14px;border:2.5px solid rgba(100,100,180,.9);border-radius:50%;background:rgba(150,150,255,.08)}
-.ch-glasses::before{left:2px}.ch-glasses::after{right:2px}
-/* TIE */
-.ch-tie{position:absolute;top:2px;left:50%;transform:translateX(-50%);width:8px;height:18px;background:var(--acc);border-radius:2px 2px 4px 4px}
-.ch-tie::before{content:'';position:absolute;top:-4px;left:-2px;width:12px;height:6px;background:var(--acc);border-radius:2px}
-/* ARMS */
-.ch-arm{width:10px;height:24px;border-radius:5px;background:var(--skin,#FBBF8E);position:absolute;bottom:8px}
-.ch-arm.l{left:-2px;transform:rotate(10deg);transform-origin:top center}
-.ch-arm.r{right:-2px;transform:rotate(-10deg);transform-origin:top center}
-.chibi.working .ch-arm.l{animation:arml .5s ease-in-out infinite alternate}
-.chibi.working .ch-arm.r{animation:armr .5s ease-in-out infinite alternate}
-@keyframes arml{from{transform:rotate(10deg)}to{transform:rotate(25deg)}}
-@keyframes armr{from{transform:rotate(-10deg)}to{transform:rotate(-25deg)}}
-/* PROP (emoji) */
-.ch-prop{position:absolute;font-size:18px;animation:propbob 2s ease-in-out infinite}
-@keyframes propbob{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+/* Scale down for card — all ch2- elements scale via font-size trick */
+.card-chibi-root .ch2-head{width:48px;height:50px;left:6px}
+.card-chibi-root .ch2-ear.l{left:1px;width:10px;height:12px;top:16px}
+.card-chibi-root .ch2-ear.r{right:1px;width:10px;height:12px;top:16px}
+.card-chibi-root .ch2-hair{left:6px;width:48px}
+.card-chibi-root .ch2-hair-base{width:48px}
+.card-chibi-root .ch2-eyes{left:6px;width:48px;top:18px;padding:0 7px}
+.card-chibi-root .ch2-eye{width:13px;height:15px}
+.card-chibi-root .ch2-pupil{width:8px;height:10px;top:1.5px;left:2px}
+.card-chibi-root .ch2-brows{left:6px;width:48px;top:12px;padding:0 8px}
+.card-chibi-root .ch2-brow{width:11px;height:3px}
+.card-chibi-root .ch2-glasses{left:6px;width:48px;top:17px}
+.card-chibi-root .ch2-glasses::before,.card-chibi-root .ch2-glasses::after{width:16px;height:13px}
+.card-chibi-root .ch2-glasses::before{left:3px}
+.card-chibi-root .ch2-glasses::after{right:3px}
+.card-chibi-root .ch2-cheek.l{left:4px;top:27px}
+.card-chibi-root .ch2-cheek.r{right:4px;top:27px}
+.card-chibi-root .ch2-mouth{bottom:9px}
+.card-chibi-root .ch2-mouth.smile{width:16px;height:8px}
+.card-chibi-root .ch2-mouth.grin{width:20px;height:10px}
+.card-chibi-root .ch2-mouth.open{width:11px;height:11px}
+.card-chibi-root .ch2-mouth.smirk{width:13px;height:7px}
+.card-chibi-root .ch2-neck{width:11px;height:8px;left:24px;bottom:40px}
+.card-chibi-root .ch2-body{width:42px;height:42px;left:9px;border-radius:11px 11px 8px 8px}
+.card-chibi-root .ch2-collar{width:16px}
+.card-chibi-root .ch2-tie{width:7px;height:18px;top:8px}
+.card-chibi-root .ch2-tie::before{width:13px;height:5px;top:-4px;left:-3px}
+.card-chibi-root .ch2-arms{left:9px;width:42px;bottom:6px}
+.card-chibi-root .ch2-arm{width:10px;height:24px}
+.card-chibi-root .ch2-arm.l{left:-6px}
+.card-chibi-root .ch2-arm.r{right:-6px}
+.card-chibi-root .ch2-legs{left:13px;gap:4px;bottom:-13px}
+.card-chibi-root .ch2-leg{width:8px;height:13px}
+.card-chibi-root .ch2-thought{top:-36px;font-size:9px;padding:4px 8px}
 
-/* THOUGHT / SPEECH BUBBLES */
-.thought-bubble{display:none;position:absolute;top:-36px;left:50%;transform:translateX(-50%);background:#fff;color:#333;font-size:11px;font-weight:700;border-radius:12px;padding:5px 10px;white-space:nowrap;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.thought-bubble::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:#fff;border-radius:50%}
-.thought-bubble.show{display:block;animation:fadeup .3s ease}
-@keyframes fadeup{from{opacity:0;transform:translateX(-50%) translateY(6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-
-/* MONITOR */
-.monitor-wrap{position:relative;width:100%;margin-bottom:8px}
-.monitor{background:#0a0c14;border:1px solid #2a2d42;border-radius:8px;padding:8px 10px;min-height:52px;overflow:hidden;position:relative}
-.monitor-dot-row{display:flex;gap:4px;margin-bottom:6px}
-.mdt{width:6px;height:6px;border-radius:50%}
-.monitor-content{font-size:9.5px;color:#6fde9a;font-family:monospace;line-height:1.6;overflow:hidden}
-.monitor-line{white-space:nowrap;overflow:hidden;animation:typeout 2.5s linear infinite}
+/* MINI MONITOR on card */
+.card-monitor{
+  background:#08090f;border:1px solid #1e2235;border-radius:6px;
+  padding:6px 8px;min-height:44px;margin-bottom:6px;overflow:hidden;
+}
+.card-mdt-row{display:flex;gap:3px;margin-bottom:4px}
+.card-mdt{width:5px;height:5px;border-radius:50%}
+.card-mline{
+  font-size:8.5px;color:#6fde9a;font-family:monospace;
+  line-height:1.6;white-space:nowrap;overflow:hidden;
+  animation:typeout 2.5s linear infinite;
+}
 @keyframes typeout{0%{max-width:0}60%,100%{max-width:100%}}
-.monitor-line:nth-child(2){animation-delay:.8s}
-.monitor-line:nth-child(3){animation-delay:1.6s}
-.monitor-standbar{width:30px;height:6px;background:#2a2d42;margin:4px auto 0;border-radius:2px}
+.card-mline:nth-child(2){animation-delay:.8s}
+.card-mline:nth-child(3){animation-delay:1.6s}
 
-/* CARD INFO */
-.card-name{font-size:12px;font-weight:900;text-align:center;margin-bottom:2px}
-.card-role{font-size:9px;color:var(--tx2);text-align:center;margin-bottom:6px}
-.status-row{display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:8px}
-.sdot{width:7px;height:7px;border-radius:50%;background:var(--tx3);flex-shrink:0}
-.sdot.on{background:#10b981;box-shadow:0 0 6px #10b981}
+.card-name{font-size:11px;font-weight:900;text-align:center;margin-bottom:1px}
+.card-role{font-size:8.5px;color:var(--tx2);text-align:center;margin-bottom:5px}
+.status-row{display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:5px}
+.sdot{width:6px;height:6px;border-radius:50%;background:var(--tx3);flex-shrink:0}
+.sdot.on{background:#10b981;box-shadow:0 0 5px #10b981}
 .sdot.thinking{background:#f59e0b;animation:livepulse .8s infinite}
 .sdot.speaking{background:#3b82f6;animation:livepulse .4s infinite}
-.stxt{font-size:9px;color:var(--tx2)}
-.activity{font-size:9px;color:var(--tx3);text-align:center;min-height:28px;line-height:1.6;padding:0 4px}
+.stxt{font-size:8.5px;color:var(--tx2)}
+.activity{font-size:8.5px;color:var(--tx3);text-align:center;min-height:24px;line-height:1.5;padding:0 2px}
 
-/* RESPONSE BUBBLE */
-.resp-bubble{display:none;margin-top:8px;background:rgba(var(--acc-rgb),.08);border:1px solid rgba(var(--acc-rgb),.3);border-radius:10px;padding:8px 10px;font-size:10.5px;line-height:1.7;color:var(--tx1);max-height:120px;overflow-y:auto}
+/* RESPONSE bubble on card */
+.resp-bubble{
+  display:none;margin-top:6px;
+  background:rgba(var(--acc-rgb),.08);border:1px solid rgba(var(--acc-rgb),.3);
+  border-radius:9px;padding:7px 9px;
+  font-size:10px;line-height:1.7;color:var(--tx1);max-height:110px;overflow-y:auto;
+}
 .resp-bubble.show{display:block;animation:fadeup .3s ease}
-.typing-dots{display:none;gap:4px;justify-content:center;padding:8px 0}
+.typing-dots{display:none;gap:4px;justify-content:center;padding:6px 0}
 .typing-dots.show{display:flex}
-.tdot{width:7px;height:7px;border-radius:50%;background:var(--acc);animation:tbounce .7s ease infinite}
+.tdot{width:6px;height:6px;border-radius:50%;background:var(--acc);animation:tbounce .7s ease infinite}
 .tdot:nth-child(2){animation-delay:.15s}
 .tdot:nth-child(3){animation-delay:.3s}
-@keyframes tbounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes tbounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 
-/* ── BOARDROOM ── */
-.boardroom{background:var(--surface);border-top:1px solid var(--bdr);padding:0 20px 24px}
-.broom-title{display:flex;align-items:center;gap:10px;padding:14px 0 12px;font-size:10px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:1px}
+/* ──────── BOARDROOM ──────── */
+.boardroom{
+  background:var(--surface);border-top:1px solid var(--bdr);
+  padding:0 16px 24px;
+}
+.broom-title{
+  display:flex;align-items:center;gap:8px;
+  padding:12px 0 10px;font-size:9px;font-weight:700;
+  color:var(--tx3);text-transform:uppercase;letter-spacing:1.5px;
+}
 .broom-title::before,.broom-title::after{content:'';flex:1;height:1px;background:var(--bdr)}
-.chatlog{max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;margin-bottom:12px;padding-right:4px}
-.chatlog::-webkit-scrollbar{width:3px}
+.chatlog{
+  max-height:250px;overflow-y:auto;display:flex;flex-direction:column;
+  gap:7px;margin-bottom:10px;padding-right:3px;
+}
+.chatlog::-webkit-scrollbar{width:2px}
 .chatlog::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px}
 .cmsg{display:flex;gap:8px;animation:fadeup .25s ease}
 .cmsg.user{flex-direction:row-reverse}
-.cav{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.cav{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
 .cav.me{background:linear-gradient(135deg,#6366f1,#8b5cf6)}
 .cbody{max-width:72%}
-.cwho{font-size:9px;color:var(--tx2);font-weight:700;margin-bottom:2px}
+.cwho{font-size:8.5px;color:var(--tx2);font-weight:700;margin-bottom:2px}
 .cmsg.user .cwho{text-align:right}
-.cbubble{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:8px 12px;font-size:12px;line-height:1.7}
+.cbubble{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:8px 11px;font-size:11.5px;line-height:1.7}
 .cmsg.user .cbubble{background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.3)}
-.quickbtns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.qbtn{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:5px 12px;font-size:10px;color:var(--tx2);cursor:pointer;transition:.15s;white-space:nowrap}
+.quickbtns{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px}
+.qbtn{
+  background:var(--card);border:1px solid var(--bdr);border-radius:20px;
+  padding:4px 11px;font-size:9.5px;color:var(--tx2);cursor:pointer;
+  transition:.15s;white-space:nowrap;
+}
 .qbtn:hover{border-color:#f59e0b;color:#f59e0b}
-.input-row{display:flex;gap:8px}
-.chat-inp{flex:1;background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:11px 14px;color:var(--tx1);font-size:13px;outline:none;font-family:inherit;resize:none;min-height:48px;max-height:110px}
+.input-row{display:flex;gap:7px}
+.chat-inp{
+  flex:1;background:var(--card);border:1px solid var(--bdr);border-radius:12px;
+  padding:10px 13px;color:var(--tx1);font-size:12.5px;outline:none;
+  font-family:inherit;resize:none;min-height:46px;max-height:100px;
+}
 .chat-inp:focus{border-color:#f59e0b}
 .chat-inp::placeholder{color:var(--tx3)}
-.sendbtn{padding:11px 18px;background:linear-gradient(135deg,#f59e0b,#ef4444);border:none;border-radius:12px;color:#000;font-weight:900;font-size:13px;cursor:pointer;white-space:nowrap;align-self:flex-end;transition:.2s}
+.sendbtn{
+  padding:10px 16px;
+  background:linear-gradient(135deg,#f59e0b,#ef4444);
+  border:none;border-radius:12px;color:#000;font-weight:900;font-size:12px;
+  cursor:pointer;white-space:nowrap;align-self:flex-end;transition:.2s;
+}
 .sendbtn:hover{opacity:.85;transform:scale(1.02)}
 .sendbtn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 
-/* ── ROUTER INDICATOR ── */
-.router{display:none;text-align:center;font-size:11px;color:var(--tx2);padding:8px;animation:fadeup .3s ease}
+/* ROUTER */
+.router{display:none;text-align:center;font-size:10px;color:var(--tx2);padding:7px;animation:fadeup .3s ease}
 .router.show{display:block}
 .router span{font-weight:700;color:#f59e0b}
 
-/* ── TOAST ── */
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:10px 18px;font-size:12px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+/* TOAST */
+.toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:var(--card);border:1px solid var(--bdr);border-radius:10px;
+  padding:9px 16px;font-size:11.5px;z-index:999;opacity:0;transition:opacity .3s;
+  pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.6);
+}
 .toast.show{opacity:1}
-
-/* ── BLINKING EYES ── */
-@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.05)}}
-.ch-eye{animation:blink 3.5s ease-in-out infinite}
-.ch-eye.r{animation-delay:.1s}
 </style>
 </head>
 <body>
@@ -217,15 +665,54 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx1)
   </div>
 </div>
 
-<!-- HEADER -->
-<div class="hdr">
-  <div class="hdr-title">Your Personal Advisory Board</div>
-  <div class="hdr-main">억만장자 8인이 지금 일하고 있습니다</div>
-  <div class="hdr-sub">질문을 던지면 최적의 전문가가 직접 답변합니다</div>
+<!-- OFFICE SCENE -->
+<div class="office-scene" id="officeScene">
+  <!-- Wall decoration layer -->
+  <div class="wall-decor">
+    <!-- Windows -->
+    <div class="wall-window" style="left:40px;top:20px">
+      <div class="ww-stars">
+        <div class="ww-star" style="left:15%;top:20%;animation-delay:.3s"></div>
+        <div class="ww-star" style="left:55%;top:35%;animation-delay:1.1s"></div>
+        <div class="ww-star" style="left:80%;top:15%;animation-delay:.7s"></div>
+        <div class="ww-star" style="left:30%;top:65%;animation-delay:1.8s"></div>
+        <div class="ww-star" style="left:70%;top:55%;animation-delay:.5s"></div>
+      </div>
+    </div>
+    <div class="wall-window" style="right:40px;top:20px">
+      <div class="ww-stars">
+        <div class="ww-star" style="left:20%;top:30%;animation-delay:.9s"></div>
+        <div class="ww-star" style="left:65%;top:20%;animation-delay:.2s"></div>
+        <div class="ww-star" style="left:45%;top:70%;animation-delay:1.5s"></div>
+      </div>
+    </div>
+    <!-- Clock -->
+    <div class="wall-clock" id="wallClock">
+      <div class="clock-hand ch-hr" id="hrHand"></div>
+      <div class="clock-hand ch-min" id="minHand"></div>
+      <div class="clock-dot"></div>
+    </div>
+    <!-- Sign -->
+    <div class="wall-sign">⚡ BILLION DOLLAR BOARD</div>
+    <!-- Plants -->
+    <div class="wall-plant" style="left:8px;bottom:0">🌿</div>
+    <div class="wall-plant" style="right:10px;bottom:0">🪴</div>
+  </div>
+
+  <!-- Floor -->
+  <div class="office-floor"></div>
+
+  <!-- Desks row -->
+  <div class="desks-row" id="desksRow"></div>
+
+  <!-- Walker character -->
+  <div class="walker" id="walker"></div>
 </div>
 
-<!-- EXPERT GRID -->
-<div class="grid" id="grid"></div>
+<!-- EXPERT PANELS -->
+<div class="panels-section">
+  <div class="grid" id="grid"></div>
+</div>
 
 <!-- BOARDROOM -->
 <div class="boardroom">
@@ -240,7 +727,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx1)
     <span class="qbtn" onclick="fill('광고 카피 5개 만들어줘')">📮 카피</span>
   </div>
   <div class="chatlog" id="chatlog">
-    <div style="text-align:center;padding:30px 0;color:var(--tx3);font-size:12px">
+    <div style="text-align:center;padding:28px 0;color:var(--tx3);font-size:12px">
       🏢 팀이 대기 중입니다. 비즈니스 고민을 말씀해주세요.
     </div>
   </div>
@@ -260,11 +747,11 @@ const EXPERTS = [
   {
     id:'hormozi', name:'Alex Hormozi', role:'오퍼 & 가격 전략',
     emoji:'💰', acc:'#f59e0b', accRgb:'245,158,11',
-    skin:'#F5B98A', hair:'#1a1200', hairStyle:'buzzcut', bodyColor:'#1a1a1a',
-    prop:{emoji:'💪', x:48, y:55},
-    tie:false, glasses:false,
-    eyes:{type:'normal'}, brows:{type:'intense'}, mouth:'grin',
-    monitor:{color:'#f59e0b', lines:['> 가치 방정식 분석 중...','> LTV 최적화 계산...','> 오퍼 재설계 v3.2']},
+    skin:'#F5B98A', hair:'#1a1200', hairStyle:'buzzcut', body:'#1a1a1a',
+    tie:false, glasses:false, wink:false,
+    brows:'intense', mouth:'grin',
+    prop:{emoji:'💪', x:46, y:52},
+    monitor:{color:'#f59e0b', lines:['> 가치방정식 분석 중...','> LTV 최적화 계산...','> OFFER v3.2']},
     activities:['오퍼 가치 방정식 분석 중','가격 사다리 3단계 설계 중','보증 구조 최적화 중','그랜드슬램 오퍼 작성 중'],
     persona:`당신은 Alex Hormozi입니다. 오퍼 설계와 가격 전략의 세계 최고 전문가. "$100M Offers" 저자. 핵심 철학: "Make your offer so good, people feel stupid saying no." 가치 방정식(꿈의 결과 × 달성 가능성 / 시간 지연 × 노력)을 기반으로 답변합니다. 단도직입적이고 실전적으로. 구체적 숫자와 프레임워크를 반드시 제시하세요. 한국어로 300자 이내 핵심 답변.`,
     keywords:['가격','오퍼','비싸','수익','패키지','보증','LTV','상품','번들','할인','전환']
@@ -272,11 +759,11 @@ const EXPERTS = [
   {
     id:'cardone', name:'Grant Cardone', role:'10X 영업 & 볼륨',
     emoji:'🚀', acc:'#ef4444', accRgb:'239,68,68',
-    skin:'#F0A87A', hair:'#3d2000', hairStyle:'slick', bodyColor:'#cc2222',
-    prop:{emoji:'📱', x:46, y:55},
-    tie:true, glasses:false,
-    eyes:{type:'normal'}, brows:{type:'normal'}, mouth:'grin',
-    monitor:{color:'#ef4444', lines:['> CALLS TODAY: 0/100','> FOLLOW-UP: 43 PENDING','> PIPELINE: $2.4M']},
+    skin:'#F0A87A', hair:'#3d2000', hairStyle:'slick', body:'#cc2222',
+    tie:true, glasses:false, wink:false,
+    brows:'normal', mouth:'grin',
+    prop:{emoji:'📱', x:44, y:52},
+    monitor:{color:'#ef4444', lines:['> CALLS: 0/100 TODAY','> FOLLOW-UP: 43 WAIT','> PIPELINE: $2.4M']},
     activities:['팔로업 시퀀스 최적화 중','10X 영업 목표 재설정 중','이의처리 스크립트 작성 중','파이프라인 볼륨 분석 중'],
     persona:`당신은 Grant Cardone입니다. 10X 법칙과 대규모 영업 볼륨의 대가. "Sell or Be Sold" 저자. 핵심 철학: "10X your goals, 10X your actions." 에너지 넘치고 직접적이며 실행 중심. 팔로업, 볼륨, 활동량을 강조하세요. 한국어로 300자 이내 핵심 답변.`,
     keywords:['영업','팔로업','콜드','파이프라인','볼륨','활동량','거절','클로징','목표','전화']
@@ -284,11 +771,11 @@ const EXPERTS = [
   {
     id:'godin', name:'Seth Godin', role:'포지셔닝 & 브랜드',
     emoji:'🎯', acc:'#8b5cf6', accRgb:'139,92,246',
-    skin:'#EDA882', hair:'', hairStyle:'bald', bodyColor:'#5b3db5',
-    prop:{emoji:'📚', x:46, y:57},
-    tie:false, glasses:true,
-    eyes:{type:'normal'}, brows:{type:'raised'}, mouth:'smile',
-    monitor:{color:'#8b5cf6', lines:['> 퍼플카우 분석 중...','> SVM 타겟 좁히기...','> 포지셔닝 선언문 v2']},
+    skin:'#EDA882', hair:'', hairStyle:'bald', body:'#5b3db5',
+    tie:false, glasses:true, wink:false,
+    brows:'raised', mouth:'smile',
+    prop:{emoji:'📚', x:44, y:54},
+    monitor:{color:'#8b5cf6', lines:['> 퍼플카우 분석 중...','> SVM 타겟 좁히기...','> 포지셔닝 선언 v2']},
     activities:['최소 실행 가능 시장 분석 중','퍼플카우 포지셔닝 설계 중','브랜드 스토리 5요소 작성 중','포지셔닝 선언문 다듬는 중'],
     persona:`당신은 Seth Godin입니다. 마케팅 철학의 대부이자 베스트셀러 작가. "Purple Cow", "This Is Marketing" 저자. 핵심 철학: "Find the smallest viable market. Be remarkable." 깊이 있고 철학적이며 통찰력 있는 답변. 퍼플카우, 최소 실행 가능 시장, 브랜드 스토리를 활용하세요. 한국어로 300자 이내 핵심 답변.`,
     keywords:['브랜드','포지셔닝','차별화','스토리','마케팅','타겟','고객','퍼플','퍼플카우','독특']
@@ -296,11 +783,11 @@ const EXPERTS = [
   {
     id:'garyvee', name:'Gary Vee', role:'콘텐츠 & 소셜미디어',
     emoji:'📱', acc:'#3b82f6', accRgb:'59,130,246',
-    skin:'#F5B98A', hair:'#1a0a00', hairStyle:'messy', bodyColor:'#1e3a5f',
-    prop:{emoji:'📷', x:44, y:56},
-    tie:false, glasses:false,
-    eyes:{type:'normal'}, brows:{type:'normal'}, mouth:'grin',
-    monitor:{color:'#3b82f6', lines:['> INSTAGRAM +340 reach','> REEL views: 12.4K','> POSTING NOW... ']},
+    skin:'#F5B98A', hair:'#1a0a00', hairStyle:'messy', body:'#1e3a5f',
+    tie:false, glasses:false, wink:false,
+    brows:'normal', mouth:'grin',
+    prop:{emoji:'📷', x:42, y:53},
+    monitor:{color:'#3b82f6', lines:['> INSTA +340 reach','> REEL: 12.4K views','> POSTING NOW...']},
     activities:['콘텐츠 피라미드 전략 수립 중','플랫폼별 알고리즘 분석 중','바이럴 후킹 공식 설계 중','잽잽잽 라이트훅 전략 작성 중'],
     persona:`당신은 Gary Vee입니다. 콘텐츠와 퍼스널 브랜딩의 세계 최고 전문가. VaynerMedia CEO. 핵심 철학: "Document, don't create. Volume wins." 빠르고 직접적이며 실행 중심. 잽잽잽 라이트훅(80% 가치 20% 요청), 콘텐츠 피라미드, 볼륨 전략을 강조하세요. 한국어로 300자 이내 핵심 답변.`,
     keywords:['콘텐츠','SNS','인스타','릴스','숏폼','유튜브','팔로워','소셜','포스팅','도달','알고리즘']
@@ -308,11 +795,11 @@ const EXPERTS = [
   {
     id:'belfort', name:'Jordan Belfort', role:'영업심리 & 클로징',
     emoji:'🤝', acc:'#10b981', accRgb:'16,185,129',
-    skin:'#F0A87A', hair:'#3d2b1a', hairStyle:'styled', bodyColor:'#0d3d2e',
-    prop:{emoji:'📊', x:44, y:56},
-    tie:true, glasses:false,
-    eyes:{type:'normal'}, brows:{type:'normal'}, mouth:'smirk',
-    monitor:{color:'#10b981', lines:['> CONFIDENCE: 10/10','> LOOP #3 IN PROGRESS','> CLOSE RATE: 74%']},
+    skin:'#F0A87A', hair:'#3d2b1a', hairStyle:'styled', body:'#0d3d2e',
+    tie:true, glasses:false, wink:true,
+    brows:'normal', mouth:'smirk',
+    prop:{emoji:'📊', x:42, y:53},
+    monitor:{color:'#10b981', lines:['> CONFIDENCE: 10/10','> LOOP #3 ACTIVE','> CLOSE RATE: 74%']},
     activities:['클로징 스크립트 최적화 중','이의처리 루프 3단계 설계 중','스트레이트라인 훈련 중','3가지 확신 구축 전략 작성 중'],
     persona:`당신은 Jordan Belfort입니다. 스트레이트 라인 영업 심리학의 창시자. "Wolf of Wall Street" 실제 주인공. 핵심 철학: "Every sale is a transfer of certainty from you to your prospect." 3가지 확신(제품·신뢰·회사), 루핑 기법, 톤 프레임워크를 활용하세요. 한국어로 300자 이내 핵심 답변.`,
     keywords:['클로징','이의','거부','설득','확신','스크립트','협상','가격저항','루프','계약']
@@ -320,11 +807,11 @@ const EXPERTS = [
   {
     id:'brunson', name:'Russell Brunson', role:'퍼널 & 가치 사다리',
     emoji:'🔄', acc:'#06b6d4', accRgb:'6,182,212',
-    skin:'#F5B070', hair:'#5a3e28', hairStyle:'wavy', bodyColor:'#0a3d4a',
-    prop:{emoji:'💻', x:42, y:57},
-    tie:false, glasses:false,
-    eyes:{type:'normal'}, brows:{type:'normal'}, mouth:'smile',
-    monitor:{color:'#06b6d4', lines:['> FUNNEL: 4 STEPS SET','> EMAIL SEQ: 5/5 LIVE','> WEBINAR: 340 REG']},
+    skin:'#F5B070', hair:'#5a3e28', hairStyle:'wavy', body:'#0a3d4a',
+    tie:false, glasses:false, wink:false,
+    brows:'normal', mouth:'smile',
+    prop:{emoji:'💻', x:40, y:54},
+    monitor:{color:'#06b6d4', lines:['> FUNNEL: 4 STEPS','> EMAIL SEQ: 5/5','> WEBINAR: 340 REG']},
     activities:['가치 사다리 4단계 설계 중','퍼펙트 웨비나 스크립트 작성 중','리드 퍼널 전환율 분석 중','소프오페라 이메일 시퀀스 작성 중'],
     persona:`당신은 Russell Brunson입니다. 퍼널과 가치 사다리의 세계 최고 전문가. ClickFunnels 창립자. "DotCom Secrets" 저자. 핵심 철학: "A business without a funnel is bleeding money." 가치 사다리, 퍼펙트 웨비나, 소프오페라 시퀀스를 활용하세요. 한국어로 300자 이내 핵심 답변.`,
     keywords:['퍼널','랜딩','리드마그넷','웨비나','자동화','가치사다리','이메일','승급','온보딩']
@@ -332,11 +819,11 @@ const EXPERTS = [
   {
     id:'kennedy', name:'Dan Kennedy', role:'다이렉트 마케팅',
     emoji:'📮', acc:'#f97316', accRgb:'249,115,22',
-    skin:'#E8A876', hair:'#b0b0b0', hairStyle:'silver', bodyColor:'#2d1a0a',
-    prop:{emoji:'✉️', x:44, y:56},
-    tie:true, glasses:true,
-    eyes:{type:'normal'}, brows:{type:'normal'}, mouth:'smile',
-    monitor:{color:'#f97316', lines:['> RESPONSE RATE: 8.3%','> MSG-MKT MATCH: ✓','> COPY A/B: A WINS']},
+    skin:'#E8A876', hair:'#b0b0b0', hairStyle:'silver', body:'#2d1a0a',
+    tie:true, glasses:true, wink:false,
+    brows:'normal', mouth:'neutral',
+    prop:{emoji:'✉️', x:42, y:53},
+    monitor:{color:'#f97316', lines:['> RESPONSE: 8.3%','> MSG-MKT: ✓ MATCH','> COPY A/B: A WINS']},
     activities:['메시지-마켓-미디어 매치 분석 중','세일즈 레터 11단계 작성 중','하이티켓 마케팅 전략 수립 중','프리미엄 포지셔닝 설계 중'],
     persona:`당신은 Dan Kennedy입니다. 다이렉트 리스폰스 마케팅의 대부. "No B.S." 시리즈 저자. 핵심 철학: "Make money, not excuses." 냉정하고 결과 중심적. 메시지-마켓-미디어 매치, 마그네틱 마케팅, 세일즈 레터를 활용하세요. 한국어로 300자 이내 핵심 답변.`,
     keywords:['카피','광고','마케팅','메시지','리스트','세일즈레터','수익화','프리미엄','이메일']
@@ -344,11 +831,11 @@ const EXPERTS = [
   {
     id:'robbins', name:'Tony Robbins', role:'마인드셋 & 최고성과',
     emoji:'⚡', acc:'#eab308', accRgb:'234,179,8',
-    skin:'#F0A878', hair:'#1a1a1a', hairStyle:'tall', bodyColor:'#1a2d4a',
-    prop:{emoji:'🔥', x:46, y:54},
-    tie:true, glasses:false,
-    eyes:{type:'normal'}, brows:{type:'raised'}, mouth:'grin',
-    monitor:{color:'#eab308', lines:['> STATE: PEAK 🔥','> HUMAN NEEDS: ✓ ALL','> GOAL: 10X ACHIEVED']},
+    skin:'#F0A878', hair:'#1a1a1a', hairStyle:'tall', body:'#1a2d4a',
+    tie:true, glasses:false, wink:false,
+    brows:'raised', mouth:'grin',
+    prop:{emoji:'🔥', x:44, y:51},
+    monitor:{color:'#eab308', lines:['> STATE: PEAK 🔥','> HUMAN NEEDS: ✓','> GOAL: 10X DONE']},
     activities:['상태 관리 트라이어드 분석 중','6가지 인간 욕구 매핑 중','궁극의 성공 공식 작성 중','피크 퍼포먼스 전략 수립 중'],
     persona:`당신은 Tony Robbins입니다. 세계 최고의 성과 코치이자 동기부여 전문가. 핵심 철학: "The only thing keeping you from what you want is the story you keep telling yourself." 에너지 넘치고 변혁적. 6가지 인간 욕구, 상태 관리 트라이어드(생리·집중·언어), 궁극적 성공 공식을 활용하세요. 한국어로 300자 이내 핵심 답변.`,
     keywords:['마인드셋','두려움','번아웃','동기','에너지','목표','성과','습관','상태','자신감','의욕']
@@ -362,38 +849,167 @@ let busy = false;
 /* ── INIT ── */
 window.onload = () => {
   if(apiKey) document.getElementById('apiKey').value = apiKey;
-  render();
+  initClock();
+  renderDesks();
+  renderCards();
+  renderWalker();
   startIdleRotation();
 };
 
-/* ── RENDER ── */
-function render() {
+/* ── CLOCK ── */
+function initClock() {
+  function tick() {
+    const now = new Date();
+    const hrs = now.getHours() % 12;
+    const min = now.getMinutes();
+    const sec = now.getSeconds();
+    const hDeg = (hrs * 30) + (min * 0.5);
+    const mDeg = (min * 6) + (sec * 0.1);
+    const hr = document.getElementById('hrHand');
+    const mn = document.getElementById('minHand');
+    if(hr) hr.style.transform = `rotate(${hDeg}deg)`;
+    if(mn) mn.style.transform = `rotate(${mDeg}deg)`;
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+/* ── BUILD CHIBI HTML ── */
+function buildChibi(e, cls='chibi-root', scale=1) {
+  const browClass = e.brows === 'intense' ? 'intense' : e.brows === 'raised' ? 'raised' : e.brows === 'worried' ? 'worried' : '';
+  const eyeR = e.wink ? 'ch2-eye r wink' : 'ch2-eye r';
+  return `
+  <div class="${cls} idle" id="${cls}_${e.id}"
+       style="--acc:${e.acc}">
+    <!-- SHADOW -->
+    <!-- HEAD -->
+    <div class="ch2-head" style="background:${e.skin}">
+      <div class="ch2-ear l" style="background:${e.skin}"></div>
+      <div class="ch2-ear r" style="background:${e.skin}"></div>
+      <!-- HAIR -->
+      <div class="ch2-hair hair-${e.hairStyle}" style="--hair:${e.hair}">
+        <div class="ch2-hair-base" style="background:${e.hair||'transparent'}"></div>
+      </div>
+      <!-- GLASSES -->
+      ${e.glasses ? `<div class="ch2-glasses"><div class="ch2-glasses-bridge"></div></div>` : ''}
+      <!-- BROWS -->
+      <div class="ch2-brows">
+        <div class="ch2-brow l ${browClass}"></div>
+        <div class="ch2-brow r ${browClass}"></div>
+      </div>
+      <!-- EYES -->
+      <div class="ch2-eyes">
+        <div class="ch2-eye l">
+          <div class="ch2-pupil"><div class="ch2-shine1"></div><div class="ch2-shine2"></div></div>
+        </div>
+        <div class="${eyeR}">
+          <div class="ch2-pupil"><div class="ch2-shine1"></div><div class="ch2-shine2"></div></div>
+        </div>
+      </div>
+      <!-- CHEEKS -->
+      <div class="ch2-cheek l"></div>
+      <div class="ch2-cheek r"></div>
+      <!-- NOSE -->
+      <div class="ch2-nose"></div>
+      <!-- MOUTH -->
+      <div class="ch2-mouth ${e.mouth}"></div>
+    </div>
+    <!-- NECK -->
+    <div class="ch2-neck" style="background:${e.skin}"></div>
+    <!-- BODY -->
+    <div class="ch2-body" style="background:${e.body}">
+      <div class="ch2-collar"></div>
+      ${e.tie ? `<div class="ch2-tie" style="--acc:${e.acc}"></div>` : `<div class="ch2-btn-row"><div class="ch2-shbtn"></div><div class="ch2-shbtn"></div></div>`}
+    </div>
+    <!-- ARMS -->
+    <div class="ch2-arms">
+      <div class="ch2-arm l" style="background:${e.body};--skin:${e.skin}"></div>
+      <div class="ch2-arm r" style="background:${e.body};--skin:${e.skin}"></div>
+    </div>
+    <!-- LEGS -->
+    <div class="ch2-legs">
+      <div class="ch2-leg" style="background:${e.body}"></div>
+      <div class="ch2-leg" style="background:${e.body}"></div>
+    </div>
+    <!-- PROP -->
+    <div class="ch2-prop" style="position:absolute;bottom:${e.prop.y}px;left:${e.prop.x}px">${e.prop.emoji}</div>
+    <!-- THOUGHT -->
+    <div class="ch2-thought" id="thought_${cls}_${e.id}">💭 분석 중...</div>
+  </div>`;
+}
+
+/* ── RENDER DESKS (office scene, 4 visible) ── */
+function renderDesks() {
+  const row = document.getElementById('desksRow');
+  // Show 4 desks in scene (top row experts by index 0-3, 4-7 on back row)
+  const frontRow = EXPERTS.slice(0, 4);
+  row.innerHTML = frontRow.map(e => {
+    const monLines = e.monitor.lines.map((l,i) =>
+      `<div style="height:3px;margin-bottom:${i<2?'3px':'0'};border-radius:1px;background:${e.monitor.color};opacity:.8;animation:monscroll 2.5s linear infinite;animation-delay:${i*.8}s;width:0"></div>`
+    ).join('');
+    return `
+    <div class="desk-station">
+      <!-- SITTING CHIBI above desk -->
+      <div class="chibi-container sitting" id="scene_chibi_${e.id}">
+        ${buildChibi(e,'chibi-root')}
+      </div>
+      <!-- DESK FURNITURE -->
+      <div class="desk-furniture">
+        <div class="desk-surface">
+          <!-- Items on desk -->
+          <div class="desk-items">
+            <div class="desk-monitor">
+              <div class="desk-monitor-screen">
+                ${monLines}
+              </div>
+            </div>
+            <span class="desk-coffee">☕</span>
+            <div class="desk-paper"></div>
+          </div>
+        </div>
+        <div class="desk-body"></div>
+        <div class="desk-legs">
+          <div class="desk-leg"></div>
+          <div class="desk-leg"></div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ── WALKER chibi (Gary Vee walks across) ── */
+function renderWalker() {
+  const e = EXPERTS[3]; // Gary Vee as the walker
+  const walkerEl = document.getElementById('walker');
+  walkerEl.innerHTML = buildChibi(e,'chibi-root');
+  // Set to walking state
+  const root = walkerEl.querySelector('.chibi-root');
+  if(root){root.className='chibi-root walking'}
+}
+
+/* ── RENDER CARDS ── */
+function renderCards() {
   document.getElementById('grid').innerHTML = EXPERTS.map(e => buildCard(e)).join('');
 }
 
 function buildCard(e) {
-  const monLines = e.monitor.lines.map(l =>
-    `<div class="monitor-line" style="color:${e.monitor.color}">${l}</div>`
+  const monLines = e.monitor.lines.map((l,i) =>
+    `<div class="card-mline" style="color:${e.monitor.color};animation-delay:${i*.8}s">${l}</div>`
   ).join('');
   return `
   <div class="ecard" id="card_${e.id}" style="--acc:${e.acc};--acc-rgb:${e.accRgb}"
        onclick="spotlight('${e.id}')">
-    <div class="chibi-wrap">
-      <div class="thought-bubble" id="thought_${e.id}">💭 분석 중...</div>
-      <div class="chibi idle" id="chibi_${e.id}">
-        ${buildChar(e)}
-      </div>
+    <div class="card-chibi-wrap">
+      <div class="ch2-thought" id="thought_card-chibi-root_${e.id}" style="font-size:9px;padding:4px 8px;top:-36px">💭 분석 중...</div>
+      ${buildChibi(e,'card-chibi-root')}
     </div>
-    <div class="monitor-wrap">
-      <div class="monitor">
-        <div class="monitor-dot-row">
-          <div class="mdt" style="background:#ef4444"></div>
-          <div class="mdt" style="background:#f59e0b"></div>
-          <div class="mdt" style="background:#10b981"></div>
-        </div>
-        <div class="monitor-content" id="mon_${e.id}">${monLines}</div>
+    <div class="card-monitor">
+      <div class="card-mdt-row">
+        <div class="card-mdt" style="background:#ef4444"></div>
+        <div class="card-mdt" style="background:#f59e0b"></div>
+        <div class="card-mdt" style="background:#10b981"></div>
       </div>
-      <div class="monitor-standbar"></div>
+      ${monLines}
     </div>
     <div class="card-name">${e.name}</div>
     <div class="card-role">${e.role}</div>
@@ -411,96 +1027,81 @@ function buildCard(e) {
   </div>`;
 }
 
-function buildChar(e) {
-  const skin = e.skin;
-  const hair = e.hair;
-  const body = e.bodyColor;
-  return `
-  <div style="position:relative;width:70px;height:100px">
-    <!-- BODY -->
-    <div style="position:absolute;bottom:0;left:10px;width:50px;height:46px;background:${body};border-radius:12px 12px 8px 8px"></div>
-    <!-- NECK -->
-    <div style="position:absolute;bottom:42px;left:29px;width:12px;height:10px;background:${skin}"></div>
-    <!-- TIE -->
-    ${e.tie ? `<div style="position:absolute;bottom:10px;left:31px;width:8px;height:20px;background:${e.acc};border-radius:2px 2px 4px 4px;z-index:2">
-      <div style="position:absolute;top:-4px;left:-3px;width:14px;height:6px;background:${e.acc};border-radius:2px"></div></div>` : ''}
-    <!-- HEAD -->
-    <div class="ch-head" style="background:${skin}">
-      <!-- HAIR -->
-      <div class="ch-hair ${e.hairStyle}" style="--hair:${hair}"></div>
-      <!-- GLASSES -->
-      ${e.glasses ? `<div class="ch-glasses"></div>` : ''}
-      <!-- BROWS -->
-      <div class="ch-brow l ${e.brows.type === 'intense' ? 'intense' : e.brows.type === 'raised' ? 'raised' : ''}"></div>
-      <div class="ch-brow r ${e.brows.type === 'intense' ? 'intense' : e.brows.type === 'raised' ? 'raised' : ''}"></div>
-      <!-- EYES -->
-      <div class="ch-eye l"><div class="ch-pupil"><div class="ch-shine"></div></div></div>
-      <div class="ch-eye r"><div class="ch-pupil"><div class="ch-shine"></div></div></div>
-      <!-- MOUTH -->
-      <div class="ch-mouth ${e.mouth}"></div>
-    </div>
-    <!-- ARMS -->
-    <div class="ch-arm l" style="background:${skin}"></div>
-    <div class="ch-arm r" style="background:${skin}"></div>
-    <!-- PROP -->
-    <div class="ch-prop" style="position:absolute;bottom:${e.prop.y}px;left:${e.prop.x}px;font-size:16px">${e.prop.emoji}</div>
-  </div>`;
-}
-
-/* ── IDLE ACTIVITY ROTATION ── */
+/* ── IDLE ROTATION ── */
 function startIdleRotation() {
   setInterval(() => {
     EXPERTS.forEach(e => {
       const card = document.getElementById('card_' + e.id);
-      if (!card.classList.contains('active')) {
+      if (card && !card.classList.contains('active')) {
         const idx = Math.floor(Math.random() * e.activities.length);
         const act = document.getElementById('act_' + e.id);
         if(act) act.textContent = e.activities[idx];
       }
     });
   }, 3500);
+
+  // Randomly wake one character briefly
+  setInterval(() => {
+    const e = EXPERTS[Math.floor(Math.random() * EXPERTS.length)];
+    const sceneRoot = document.querySelector(`#scene_chibi_${e.id} .chibi-root`);
+    if(sceneRoot && sceneRoot.className.includes('idle')) {
+      sceneRoot.className = 'chibi-root working';
+      setTimeout(() => { sceneRoot.className = 'chibi-root idle'; }, 2000);
+    }
+  }, 4000);
 }
 
 function spotlight(id) {
-  const chibi = document.getElementById('chibi_' + id);
-  chibi.style.transform = 'scale(1.15)';
-  setTimeout(() => { chibi.style.transform = ''; }, 300);
+  const sceneEl = document.querySelector(`#scene_chibi_${id} .chibi-root`);
+  if(sceneEl){ sceneEl.style.transform='scale(1.2)'; setTimeout(()=>{sceneEl.style.transform=''},400); }
 }
 
 /* ── STATE MANAGEMENT ── */
 function setState(id, state) {
   const card  = document.getElementById('card_' + id);
-  const chibi = document.getElementById('chibi_' + id);
   const dot   = document.getElementById('dot_' + id);
   const stxt  = document.getElementById('stxt_' + id);
-  const thought = document.getElementById('thought_' + id);
   const typing  = document.getElementById('typing_' + id);
 
+  // Card chibi
+  const cardRoot = document.getElementById('card-chibi-root_' + id);
+  const cardThought = document.getElementById('thought_card-chibi-root_' + id);
+  // Scene chibi
+  const sceneRoot = document.querySelector(`#scene_chibi_${id} .chibi-root`);
+  const sceneThought = document.querySelector(`#scene_chibi_${id} .ch2-thought`);
+
   card.classList.remove('active');
-  chibi.className = 'chibi';
+  if(cardRoot) cardRoot.className = 'card-chibi-root';
+  if(cardThought) cardThought.classList.remove('show');
+  if(sceneRoot) sceneRoot.className = 'chibi-root';
+  if(sceneThought) sceneThought.classList.remove('show');
   dot.className = 'sdot';
-  thought.classList.remove('show');
   typing.classList.remove('show');
 
   if (state === 'thinking') {
     card.classList.add('active');
-    chibi.classList.add('thinking');
+    if(cardRoot) cardRoot.className = 'card-chibi-root thinking';
+    if(cardThought) cardThought.classList.add('show');
+    if(sceneRoot) sceneRoot.className = 'chibi-root thinking';
+    if(sceneThought) sceneThought.classList.add('show');
     dot.classList.add('thinking');
     stxt.textContent = '분석 중...';
-    thought.classList.add('show');
   } else if (state === 'working') {
     card.classList.add('active');
-    chibi.classList.add('working');
+    if(cardRoot) cardRoot.className = 'card-chibi-root working';
+    if(sceneRoot) sceneRoot.className = 'chibi-root working';
     dot.classList.add('thinking');
     stxt.textContent = '작성 중...';
     typing.classList.add('show');
   } else if (state === 'speaking') {
     card.classList.add('active');
-    chibi.classList.add('speaking');
+    if(cardRoot) cardRoot.className = 'card-chibi-root speaking';
+    if(sceneRoot) sceneRoot.className = 'chibi-root speaking';
     dot.classList.add('speaking');
     stxt.textContent = '답변 중...';
   } else {
-    chibi.classList.add('idle');
+    if(cardRoot) cardRoot.className = 'card-chibi-root idle';
+    if(sceneRoot) sceneRoot.className = 'chibi-root idle';
     dot.classList.add('on');
     stxt.textContent = '대기 중';
   }
@@ -537,8 +1138,6 @@ async function send() {
   addMsg('user', '나', q, '🙋', '#6366f1', false);
 
   const expert = route(q);
-
-  // show router
   const router = document.getElementById('router');
   document.getElementById('routerName').textContent = expert.name;
   router.classList.add('show');
@@ -559,7 +1158,6 @@ async function send() {
 
   setState(expert.id, 'speaking');
 
-  // show resp bubble on card with typewriter
   const resp = document.getElementById('resp_' + expert.id);
   resp.textContent = '';
   resp.classList.add('show');
@@ -583,14 +1181,14 @@ function addMsg(type, name, text, icon, color, isExpert) {
   const d = document.createElement('div');
   d.className = 'cmsg ' + (type === 'user' ? 'user' : '');
   d.innerHTML = `
-    <div class="cav ${type === 'user' ? 'me' : ''}"
-         style="${isExpert ? `background:${color}22;border:1px solid ${color}44;font-size:16px` : ''}">
+    <div class="cav ${type==='user'?'me':''}"
+         style="${isExpert?`background:${color}22;border:1px solid ${color}44;font-size:15px`:''}">
       ${icon}
     </div>
     <div class="cbody">
       <div class="cwho">${name}</div>
-      <div class="cbubble" style="${isExpert ? `border-color:${color}33` : ''}">
-        ${text.replace(/\n/g, '<br>')}
+      <div class="cbubble" style="${isExpert?`border-color:${color}33`:''}">
+        ${text.replace(/\n/g,'<br>')}
       </div>
     </div>`;
   log.appendChild(d);
