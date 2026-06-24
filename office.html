@@ -98,13 +98,13 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx1)
   height:16px;
   background:linear-gradient(180deg,#5c4222 0%,#3e2c14 100%);
   border-radius:3px 3px 0 0;border:1px solid #6e5030;border-bottom:none;
-  position:relative;z-index:14;
+  position:relative;z-index:4;
   box-shadow:0 -3px 12px rgba(0,0,0,.5),inset 0 2px 3px rgba(255,255,255,.06)}
 .desk-front{
   height:52px;
   background:linear-gradient(180deg,#2e1e0a 0%,#221608 100%);
   border:1px solid #3a2810;border-top:none;border-radius:0 0 3px 3px;
-  position:relative;z-index:13;
+  position:relative;z-index:3;
   box-shadow:0 8px 24px rgba(0,0,0,.7)}
 .desk-front-shine{position:absolute;top:0;left:10%;right:10%;height:2px;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),transparent)}
@@ -117,7 +117,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx1)
 
 /* items on desk */
 .desk-items{
-  position:absolute;top:-58px;left:0;right:0;z-index:16;
+  position:absolute;top:-58px;left:0;right:0;z-index:8;
   display:flex;align-items:flex-end;justify-content:space-around;padding:0 6px}
 .d-monitor{
   width:50px;height:42px;
@@ -182,7 +182,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx1)
 .ecard.active{border-color:var(--acc);box-shadow:0 0 24px rgba(var(--acc-rgb),.22)}
 .ecard:hover{border-color:rgba(var(--acc-rgb),.5)}
 
-.card-char{display:flex;justify-content:center;margin-bottom:7px;height:88px;align-items:flex-end}
+.card-char{display:flex;justify-content:center;margin-bottom:7px;height:96px;align-items:center;overflow:visible}
 .card-char svg{display:block;overflow:visible}
 
 .card-mon{background:#080910;border:1px solid #181c2e;border-radius:6px;
@@ -483,7 +483,7 @@ function buildSVG(e, viewH=140, suf=''){
   const blinkDur1 = (3+Math.random()*2.5).toFixed(1);
   const blinkDur2 = (3.2+Math.random()*2.5).toFixed(1);
   const blinkDel2 = (Math.random()*.4).toFixed(2);
-  return `<svg viewBox="0 0 100 ${viewH}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+  return `<svg viewBox="0 0 100 ${viewH}" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible">
 <defs>
   <radialGradient id="sk${uid}" cx="40%" cy="32%" r="68%">
     <stop offset="0%" stop-color="${shade(e.skin,22)}"/>
@@ -711,13 +711,13 @@ function buildScene(){
   row.innerHTML = EX.slice(0,4).map(e=>{
     const lines=e.mon.map((l,i)=>`<div class="d-line" style="background:${e.monC};animation-delay:${i*.8}s"></div>`).join('');
     return `<div class="ds" style="--acc:${e.acc};--acc-rgb:${e.rgb}">
-      <div style="position:relative;z-index:5">
+      <div style="position:relative">
         <div class="thought" id="sthought_${e.id}">💭 분석 중...</div>
         <div class="char-anim idle" id="schar_${e.id}">
-          ${buildSVG(e,105,'_s')}
+          ${buildSVG(e,88,'_s')}
         </div>
       </div>
-      <div class="desk-blk" style="position:relative;z-index:12;margin-top:-32px">
+      <div class="desk-blk">
         <div class="desk-items">
           <div class="d-monitor" style="--acc-rgb:${e.rgb}">
             <div class="d-screen">${lines}</div>
@@ -758,7 +758,7 @@ function buildCards(){
     return `<div class="ecard" id="card_${e.id}" style="--acc:${e.acc};--acc-rgb:${e.rgb}" onclick="spotlight('${e.id}')">
       <div class="card-char">
         <div class="char-anim idle" id="cchar_${e.id}">
-          ${buildSVG(e,105,'_c')}
+          ${buildSVG(e,96,'_c')}
         </div>
       </div>
       <div class="card-mon">
