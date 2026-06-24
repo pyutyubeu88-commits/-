@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&H듀얼왁싱 — 1회차 런시트</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans KR',sans-serif;background:#f4f6f9;color:#1a1a2e;font-size:13px;line-height:1.6}
+  .cover{background:linear-gradient(135deg,#1a237e 0%,#283593 100%);color:#fff;padding:28px 40px}
+  .cover .badge{display:inline-block;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.35);border-radius:20px;padding:4px 14px;font-size:11px;letter-spacing:1px;margin-bottom:10px}
+  .cover h1{font-size:22px;font-weight:700;margin-bottom:4px}
+  .cover .sub{font-size:13px;opacity:0.85}
+  .cover .date-row{display:flex;align-items:center;gap:20px;margin-top:14px;font-size:13px}
+  .date-fill{border:none;border-bottom:1px solid rgba(255,255,255,0.5);background:transparent;color:#fff;font-size:13px;width:120px;outline:none;font-family:'Noto Sans KR',sans-serif}
+  .container{max-width:860px;margin:0 auto;padding:20px 24px 60px}
+  .prep-section{background:#fff;border-radius:10px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.06);overflow:hidden}
+  .prep-header{padding:12px 20px;background:#e8eaf6;border-bottom:2px solid #c5cae9;font-size:14px;font-weight:700;color:#1a237e;display:flex;align-items:center;gap:8px}
+  .prep-body{padding:16px 20px}
+  .prep-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .prep-item{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#f8f9ff;border-radius:6px;border:1px solid #e8eaf6}
+  .prep-item input[type=checkbox]{width:15px;height:15px;cursor:pointer;flex-shrink:0;margin-top:2px;accent-color:#1a237e}
+  .prep-text{font-size:12px;color:#333}
+  .timeline{background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.06);overflow:hidden;margin-bottom:16px}
+  .tl-header{padding:14px 20px;background:#e3f2fd;border-bottom:2px solid #90caf9;font-size:14px;font-weight:700;color:#0d47a1}
+  .tl-row{display:flex;align-items:flex-start;border-bottom:1px solid #f0f4ff;transition:background 0.1s}
+  .tl-row:last-child{border-bottom:none}
+  .tl-row:hover{background:#f8f9ff}
+  .tl-time{width:90px;padding:12px 14px;font-size:13px;font-weight:700;color:#1a237e;flex-shrink:0;border-right:2px solid #e8eaf6;background:#f8f9ff}
+  .tl-time input{border:none;font-size:12px;font-family:'Noto Sans KR',sans-serif;color:#1a237e;background:transparent;outline:none;width:70px}
+  .tl-content{flex:1;padding:12px 16px}
+  .tl-title{font-size:13px;font-weight:700;color:#222;margin-bottom:4px}
+  .tl-detail{font-size:12px;color:#555}
+  .tl-check{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .tl-chip{display:flex;align-items:center;gap:4px;padding:3px 10px;background:#f0f4ff;border-radius:12px;font-size:11px;color:#3949ab;cursor:pointer}
+  .tl-chip input[type=checkbox]{width:12px;height:12px;accent-color:#1a237e;cursor:pointer}
+  .tl-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px}
+  .b-must{background:#fde8e8;color:#c62828}
+  .b-exec{background:#e8f5e9;color:#2e7d32}
+  .b-note{background:#fff3e0;color:#e65100}
+  .b-done{background:#e3f2fd;color:#1565c0}
+  .tl-note{width:200px;padding:12px 14px;border-left:1px solid #f0f4ff;font-size:12px;color:#777;flex-shrink:0}
+  .tl-note textarea{width:100%;border:none;font-size:11px;font-family:'Noto Sans KR',sans-serif;resize:none;outline:none;background:transparent;color:#555;min-height:50px}
+  .result-section{background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.06);overflow:hidden;margin-bottom:16px}
+  .result-header{padding:14px 20px;background:#e8f5e9;border-bottom:2px solid #a5d6a7;font-size:14px;font-weight:700;color:#1b5e20}
+  .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .result-cell{padding:16px 20px;border-right:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0}
+  .result-cell:nth-child(even){border-right:none}
+  .result-cell:nth-last-child(-n+2){border-bottom:none}
+  .result-label{font-size:11px;font-weight:700;color:#555;margin-bottom:6px}
+  .result-area{border:1.5px solid #e0e0e0;border-radius:6px;padding:8px 10px;font-size:12px;font-family:'Noto Sans KR',sans-serif;resize:vertical;min-height:60px;width:100%;outline:none;background:#fafafa}
+  .result-area:focus{border-color:#1a237e;background:#fff}
+  .confirm-row{display:flex;align-items:center;gap:8px;padding:8px 0}
+  .confirm-label{font-size:13px;font-weight:600;color:#222;flex:1}
+  .confirm-check{display:flex;gap:10px}
+  .confirm-btn{padding:4px 14px;border:1.5px solid #ccc;border-radius:12px;font-size:12px;cursor:pointer;background:#fafafa}
+  .confirm-btn.ok{border-color:#2e7d32;color:#2e7d32}
+  .confirm-btn.pending{border-color:#f57f17;color:#f57f17}
+  .sign-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;padding:16px 20px}
+  .sign-box{text-align:center;border-top:2px solid #333;padding-top:8px;font-size:12px;color:#555}
+  .footer{text-align:center;font-size:11px;color:#888;padding:16px;background:#f8f9fa;border-radius:0 0 10px 10px}
+  @media print{body{background:#fff}*{-webkit-print-color-adjust:exact}.prep-section,.timeline,.result-section{box-shadow:none;border:1px solid #ddd;break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="badge">1회차 런시트 · 현장 운영용</div>
+  <h1>S&H듀얼왁싱 · 1회차 컨설팅 런시트</h1>
+  <div class="sub">서울 강남구 신사동 압구정로46길 5-6 A동 4층 · 원장: 세아 · 📞 010-8187-6455</div>
+  <div class="date-row">
+    <span>방문일: <input class="date-fill" placeholder="2026.__.___"></span>
+    <span>담당: 권용준 · 손미현 (공동)</span>
+    <span>총 소요: 약 2시간~2시간 30분</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- 미팅 전 준비사항 -->
+<div class="prep-section">
+  <div class="prep-header">📦 미팅 전 준비사항 (출발 전 완료)</div>
+  <div class="prep-body">
+    <div class="prep-grid">
+      <div class="prep-item"><input type="checkbox"><div class="prep-text"><strong>사전 서식 패키지 인쇄</strong><br>01 질문지 / 03 관찰체크 / 04 채널기준표 / 05 경쟁사표 각 2부</div></div>
+      <div class="prep-item"><input type="checkbox"><div class="prep-text"><strong>사전조사 분석보고서 인쇄</strong><br>02 분석보고서 (컨설턴트 참고용 1부)</div></div>
+      <div class="prep-item"><input type="checkbox"><div class="prep-text"><strong>스마트폰 충전 100%</strong><br>현장 촬영 + 구글 등록용 충분한 배터리</div></div>
+      <div class="prep-item"><input type="checkbox"><div class="prep-text"><strong>원장님 사전 질문지 응답 확인</strong><br>배포 후 회수됐는지 확인, 미회수 시 현장 작성</div></div>
+      <div class="prep-item"><input type="checkbox"><div class="prep-text"><strong>네이버 플레이스 관리자 접근 준비</strong><br>원장님 네이버 계정 확인 요청 (전화로 미리)</div></div>
+      <div class="prep-item"><input type="checkbox"><div class="prep-text"><strong>구글 계정 준비</strong><br>구글 비즈니스 당일 등록용 원장님 계정 확인</div></div>
+      <div class="prep-item"><input type="checkbox"><div class="prep-text"><strong>방문 전 플레이스 재확인</strong><br>리뷰 수·사진·영업시간 스크린샷 저장</div></div>
+      <div class="prep-item"><input type="checkbox"><div class="prep-text"><strong>경쟁사 데이터 최종 확인</strong><br>퀸슈가링 구글·플레이스 현황 스크린샷</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 타임라인 -->
+<div class="timeline">
+  <div class="tl-header">⏱️ 미팅 타임라인</div>
+
+  <div class="tl-row">
+    <div class="tl-time">
+      <input placeholder="____:____">
+      <div style="font-size:10px;color:#999;margin-top:2px">도착</div>
+    </div>
+    <div class="tl-content">
+      <div class="tl-title">🚶 도착 · 외부 환경 관찰 <span class="tl-badge b-note">10분</span></div>
+      <div class="tl-detail">건물 진입 동선·간판 사진 촬영 / 주변 상권 체크 / 엘리베이터·계단 안내 확인</div>
+      <div class="tl-check">
+        <label class="tl-chip"><input type="checkbox"> 외부 간판 사진</label>
+        <label class="tl-chip"><input type="checkbox"> 진입 동선 확인</label>
+        <label class="tl-chip"><input type="checkbox"> 주차 환경</label>
+      </div>
+    </div>
+    <div class="tl-note"><textarea placeholder="메모"></textarea></div>
+  </div>
+
+  <div class="tl-row">
+    <div class="tl-time">
+      <input placeholder="____:____">
+      <div style="font-size:10px;color:#999;margin-top:2px">~15분</div>
+    </div>
+    <div class="tl-content">
+      <div class="tl-title">👋 인사 · 아이스브레이킹 <span class="tl-badge b-note">15분</span></div>
+      <div class="tl-detail">오늘 미팅 목적·진행 방식 안내 / 원장님 최근 상황·고민 자유롭게 청취</div>
+      <div class="tl-check">
+        <label class="tl-chip"><input type="checkbox"> 미팅 목적 설명</label>
+        <label class="tl-chip"><input type="checkbox"> 오늘 기대 확인</label>
+        <label class="tl-chip"><input type="checkbox"> 긴장 풀기</label>
+      </div>
+    </div>
+    <div class="tl-note"><textarea placeholder="원장 첫 인상·분위기 메모"></textarea></div>
+  </div>
+
+  <div class="tl-row">
+    <div class="tl-time">
+      <input placeholder="____:____">
+      <div style="font-size:10px;color:#999;margin-top:2px">~30분</div>
+    </div>
+    <div class="tl-content">
+      <div class="tl-title">📋 사전조사 결과 공유 <span class="tl-badge b-note">30분</span></div>
+      <div class="tl-detail">
+        분석보고서 핵심 내용 원장님과 함께 리뷰<br>
+        <span style="color:#c62828;font-weight:600">반드시 확인: </span>영업시간 정확값 / '듀얼'의 의미 / 주 유입 경로 / 원장님이 생각하는 강점
+      </div>
+      <div class="tl-check">
+        <label class="tl-chip"><input type="checkbox"> 리뷰 623건 공유</label>
+        <label class="tl-chip"><input type="checkbox"> 키워드 현황 설명</label>
+        <label class="tl-chip"><input type="checkbox"> 구글 미등록 이슈</label>
+        <label class="tl-chip"><input type="checkbox"> 경쟁사 현황</label>
+        <label class="tl-chip"><input type="checkbox"> 영업시간 정확값 확인</label>
+      </div>
+    </div>
+    <div class="tl-note"><textarea placeholder="원장 반응 · 수정 정보"></textarea></div>
+  </div>
+
+  <div class="tl-row">
+    <div class="tl-time">
+      <input placeholder="____:____">
+      <div style="font-size:10px;color:#999;margin-top:2px">~20분</div>
+    </div>
+    <div class="tl-content">
+      <div class="tl-title">🏠 내부 공간 투어 · 관찰 <span class="tl-badge b-note">20분</span></div>
+      <div class="tl-detail">현장관찰 체크리스트(03) 작성 병행 / 촬영 포인트 탐색 / 메뉴판·서비스 안내물 확인</div>
+      <div class="tl-check">
+        <label class="tl-chip"><input type="checkbox"> 내부 사진 5장+</label>
+        <label class="tl-chip"><input type="checkbox"> 촬영 스팟 확정</label>
+        <label class="tl-chip"><input type="checkbox"> 체크리스트 작성</label>
+        <label class="tl-chip"><input type="checkbox"> 인터뷰자료 위치</label>
+      </div>
+    </div>
+    <div class="tl-note"><textarea placeholder="공간 특이사항 · 포인트"></textarea></div>
+  </div>
+
+  <div class="tl-row">
+    <div class="tl-time">
+      <input placeholder="____:____">
+      <div style="font-size:10px;color:#999;margin-top:2px">~40분</div>
+    </div>
+    <div class="tl-content">
+      <div class="tl-title">⚡ 채널 즉시 정비 실행 <span class="tl-badge b-exec">실행구간</span> <span class="tl-badge b-must">핵심</span></div>
+      <div class="tl-detail">채널정비 기준표(04) 기준으로 P1 항목 즉시 실행</div>
+      <div class="tl-check">
+        <label class="tl-chip"><input type="checkbox"> 플레이스 영업시간 수정</label>
+        <label class="tl-chip"><input type="checkbox"> 플레이스 소개글 정비</label>
+        <label class="tl-chip"><input type="checkbox"> 인스타 바이오 정비</label>
+        <label class="tl-chip"><input type="checkbox"> 구글 비즈니스 기본 등록</label>
+        <label class="tl-chip"><input type="checkbox"> 카카오채널 확인/개설</label>
+      </div>
+    </div>
+    <div class="tl-note"><textarea placeholder="실행 완료 항목 / 보류 이유"></textarea></div>
+  </div>
+
+  <div class="tl-row">
+    <div class="tl-time">
+      <input placeholder="____:____">
+      <div style="font-size:10px;color:#999;margin-top:2px">~20분</div>
+    </div>
+    <div class="tl-content">
+      <div class="tl-title">🎯 포지셔닝 확정 <span class="tl-badge b-must">필수</span></div>
+      <div class="tl-detail">
+        경쟁사 비교표(05) 기반으로 "S&H듀얼왁싱이 선택되는 이유" 한 문장 확정<br>
+        <span style="color:#1a237e;font-weight:600">목표 문장:</span> 원장님이 직접 고객에게 말할 수 있는 문장이어야 함
+      </div>
+      <div class="tl-check">
+        <label class="tl-chip"><input type="checkbox"> 강점 리스트 도출</label>
+        <label class="tl-chip"><input type="checkbox"> 포지셔닝 문장 초안 3개</label>
+        <label class="tl-chip"><input type="checkbox"> 원장 최종 선택</label>
+        <label class="tl-chip"><input type="checkbox"> 활용처 설명</label>
+      </div>
+    </div>
+    <div class="tl-note"><textarea placeholder="확정 포지셔닝 문장 기록"></textarea></div>
+  </div>
+
+  <div class="tl-row">
+    <div class="tl-time">
+      <input placeholder="____:____">
+      <div style="font-size:10px;color:#999;margin-top:2px">~20분</div>
+    </div>
+    <div class="tl-content">
+      <div class="tl-title">📸 현장 촬영 <span class="tl-badge b-exec">실행</span></div>
+      <div class="tl-detail">플레이스·인스타·구글 교체용 사진 촬영 / 원장님 동의 하에 진행</div>
+      <div class="tl-check">
+        <label class="tl-chip"><input type="checkbox"> 외관/입구</label>
+        <label class="tl-chip"><input type="checkbox"> 대기 공간</label>
+        <label class="tl-chip"><input type="checkbox"> 시술실</label>
+        <label class="tl-chip"><input type="checkbox"> 제품/도구</label>
+        <label class="tl-chip"><input type="checkbox"> 원장님 (동의시)</label>
+      </div>
+    </div>
+    <div class="tl-note"><textarea placeholder="촬영 매수 · 특이사항"></textarea></div>
+  </div>
+
+  <div class="tl-row">
+    <div class="tl-time">
+      <input placeholder="____:____">
+      <div style="font-size:10px;color:#999;margin-top:2px">~20분</div>
+    </div>
+    <div class="tl-content">
+      <div class="tl-title">📝 숙제 전달 · 마무리 <span class="tl-badge b-must">필수</span></div>
+      <div class="tl-detail">원장님 숙제 목록 인쇄본 전달 / 다음 미팅 날짜 확정 / 연락처 확인</div>
+      <div class="tl-check">
+        <label class="tl-chip"><input type="checkbox"> 숙제 목록 전달</label>
+        <label class="tl-chip"><input type="checkbox"> 다음 일정 확정</label>
+        <label class="tl-chip"><input type="checkbox"> 카카오 친구추가</label>
+        <label class="tl-chip"><input type="checkbox"> 오늘 성과 요약</label>
+      </div>
+    </div>
+    <div class="tl-note"><textarea placeholder="다음 미팅 날짜 · 숙제 항목"></textarea></div>
+  </div>
+
+</div>
+
+<!-- 당일 확정 결과 -->
+<div class="result-section">
+  <div class="result-header">✅ 1회차 확정 결과 (미팅 종료 전 반드시 작성)</div>
+  <div class="result-grid">
+    <div class="result-cell">
+      <div class="result-label">확정 포지셔닝 문장</div>
+      <textarea class="result-area" placeholder="원장님이 직접 고른 한 문장을 기록하세요."></textarea>
+    </div>
+    <div class="result-cell">
+      <div class="result-label">오늘 바꾼 것 (즉시 실행 완료 목록)</div>
+      <textarea class="result-area" placeholder="실제로 수정·등록 완료된 항목을 기록하세요."></textarea>
+    </div>
+    <div class="result-cell">
+      <div class="result-label">원장님 숙제 (2주 내)</div>
+      <textarea class="result-area" placeholder="원장님이 직접 해야 할 항목만 기록하세요."></textarea>
+    </div>
+    <div class="result-cell">
+      <div class="result-label">컨설턴트 후속 과제</div>
+      <textarea class="result-area" placeholder="손미현·권용준이 다음 회차 전 준비할 것을 기록하세요."></textarea>
+    </div>
+  </div>
+
+  <div style="padding:16px 20px;border-top:1px solid #f0f0f0">
+    <div style="font-size:12px;font-weight:700;color:#555;margin-bottom:12px">당일 실행 완료 체크</div>
+    <div class="confirm-row">
+      <span class="confirm-label">영업시간 플레이스 수정</span>
+      <div class="confirm-check">
+        <span class="confirm-btn ok">완료</span>
+        <span class="confirm-btn pending">보류</span>
+      </div>
+    </div>
+    <div class="confirm-row">
+      <span class="confirm-label">구글 비즈니스 등록</span>
+      <div class="confirm-check">
+        <span class="confirm-btn ok">완료</span>
+        <span class="confirm-btn pending">보류</span>
+      </div>
+    </div>
+    <div class="confirm-row">
+      <span class="confirm-label">인스타그램 바이오 정비</span>
+      <div class="confirm-check">
+        <span class="confirm-btn ok">완료</span>
+        <span class="confirm-btn pending">보류</span>
+      </div>
+    </div>
+    <div class="confirm-row">
+      <span class="confirm-label">포지셔닝 문장 확정 + 원장 구두 OK</span>
+      <div class="confirm-check">
+        <span class="confirm-btn ok">완료</span>
+        <span class="confirm-btn pending">미결</span>
+      </div>
+    </div>
+    <div class="confirm-row">
+      <span class="confirm-label">다음 회차 일정 확정</span>
+      <div class="confirm-check">
+        <span class="confirm-btn ok">완료</span>
+        <span class="confirm-btn pending">미정</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:16px 20px;background:#f8f9fa;border-top:1px solid #f0f0f0">
+    <div style="font-size:12px;font-weight:700;color:#555;margin-bottom:4px">다음 회차 날짜</div>
+    <input style="border:none;border-bottom:1.5px solid #1a237e;font-size:14px;font-weight:700;outline:none;width:200px;padding:4px 0" placeholder="____년 __월 __일 ____:____">
+    <div style="font-size:12px;font-weight:700;color:#555;margin-top:14px;margin-bottom:4px">오늘 미팅 종합 메모</div>
+    <textarea class="result-area" style="min-height:80px" placeholder="오늘 미팅에서 가장 중요한 발견 / 예상 못한 정보 / 다음을 위한 핵심 인사이트를 자유롭게 기록하세요."></textarea>
+  </div>
+
+  <div style="padding:16px 20px;border-top:1px solid #f0f0f0">
+    <div class="sign-row">
+      <div class="sign-box">권용준 (컨설턴트)</div>
+      <div class="sign-box">손미현 (컨설턴트)</div>
+      <div class="sign-box">세아 원장 (확인)</div>
+    </div>
+  </div>
+  <div class="footer">강남AI컨설팅 · 권용준 · 손미현 · S&H듀얼왁싱 1회차 런시트</div>
+</div>
+
+</div>
+</body>
+</html>

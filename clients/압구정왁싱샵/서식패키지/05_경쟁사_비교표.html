@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&H듀얼왁싱 — 경쟁사 비교표</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans KR',sans-serif;background:#f4f6f9;color:#1a1a2e;font-size:13px;line-height:1.6}
+  .cover{background:linear-gradient(135deg,#b71c1c 0%,#c62828 100%);color:#fff;padding:32px 40px}
+  .cover .badge{display:inline-block;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.35);border-radius:20px;padding:4px 14px;font-size:11px;letter-spacing:1px;margin-bottom:10px}
+  .cover h1{font-size:22px;font-weight:700;margin-bottom:4px}
+  .cover .sub{font-size:13px;opacity:0.85}
+  .cover .notice{margin-top:14px;font-size:12px;opacity:0.75;background:rgba(255,255,255,0.1);padding:8px 14px;border-radius:6px;display:inline-block}
+  .container{max-width:980px;margin:0 auto;padding:24px 24px 60px}
+  .section{background:#fff;border-radius:12px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.07);overflow:hidden}
+  .sec-header{padding:16px 24px;background:#fafafa;border-bottom:2px solid #f0f0f0;font-size:15px;font-weight:700;color:#b71c1c}
+  .comp-table{width:100%;border-collapse:collapse;font-size:12px}
+  .comp-table th{padding:10px 14px;text-align:center;font-weight:700;font-size:11px;border-bottom:2px solid #eee}
+  .comp-table td{padding:10px 14px;border-bottom:1px solid #f5f5f5;vertical-align:top;text-align:center}
+  .comp-table tr:last-child td{border-bottom:none}
+  .comp-table td:first-child{text-align:left;font-weight:600;color:#444;background:#fafafa}
+  .col-us{background:#fff8f8 !important;font-weight:600;color:#b71c1c !important;text-align:center}
+  .col-us-th{background:#b71c1c;color:#fff;text-align:center}
+  .col-comp{background:#fff;color:#333;text-align:center}
+  .col-comp-th{background:#555;color:#fff;text-align:center}
+  .win{color:#2e7d32;font-weight:700}
+  .lose{color:#c62828}
+  .draw{color:#f57f17}
+  .badge-win{display:inline-block;background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}
+  .badge-lose{display:inline-block;background:#fce4ec;color:#c62828;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}
+  .badge-draw{display:inline-block;background:#fff8e1;color:#f57f17;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}
+  .badge-na{display:inline-block;background:#f5f5f5;color:#999;padding:2px 8px;border-radius:10px;font-size:10px}
+  .swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .swot-cell{padding:20px 24px;border:1px solid #f0f0f0}
+  .swot-cell:nth-child(1){background:#e8f5e9;border-color:#c8e6c9}
+  .swot-cell:nth-child(2){background:#fce4ec;border-color:#f8bbd0}
+  .swot-cell:nth-child(3){background:#e3f2fd;border-color:#bbdefb}
+  .swot-cell:nth-child(4){background:#fff8e1;border-color:#ffe082}
+  .swot-label{font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px}
+  .swot-label.s{color:#2e7d32}
+  .swot-label.w{color:#c62828}
+  .swot-label.o{color:#1565c0}
+  .swot-label.t{color:#f57f17}
+  .swot-list{list-style:none;font-size:13px}
+  .swot-list li{padding:4px 0;border-bottom:1px solid rgba(0,0,0,0.06)}
+  .swot-list li:last-child{border-bottom:none}
+  .swot-list li::before{content:"→ ";font-weight:700}
+  .pos-section{padding:24px;background:#fff7f7;border-top:2px solid #fce4ec}
+  .pos-title{font-size:14px;font-weight:700;color:#b71c1c;margin-bottom:12px}
+  .pos-box{background:#fff;border:2px solid #b71c1c;border-radius:8px;padding:16px 20px;font-size:15px;font-weight:700;color:#b71c1c;text-align:center;margin-bottom:12px}
+  .pos-keywords{display:flex;flex-wrap:wrap;gap:6px}
+  .pk{padding:4px 12px;border:1.5px solid #c62828;border-radius:20px;font-size:12px;color:#b71c1c;background:#fff}
+  .action-box{background:#f8f9fa;padding:16px 24px;border-top:1px solid #e0e0e0}
+  .action-title{font-size:12px;font-weight:700;color:#555;margin-bottom:8px}
+  .action-list{list-style:none;font-size:12px}
+  .action-list li{padding:4px 0;color:#333}
+  .action-list li::before{content:"✔ ";color:#b71c1c;font-weight:700}
+  .note-bar{background:#fff3e0;border-left:4px solid #ff9800;padding:10px 16px;margin:16px 24px;border-radius:4px;font-size:12px;color:#555}
+  .footer-bar{text-align:center;font-size:11px;color:#888;padding:20px}
+  @media print{body{background:#fff}.section{box-shadow:none;border:1px solid #ddd;break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="badge">경쟁사 비교표 · 1회차</div>
+  <h1>S&H듀얼왁싱 · 경쟁사 비교 분석</h1>
+  <div class="sub">서울 강남구 신사동 압구정로46길 5-6 A동 4층 · 원장: 세아</div>
+  <div class="notice">이 문서의 경쟁사 데이터는 공개 정보(네이버 플레이스·구글·인스타그램) 기반 추정값입니다. 현장에서 원장님 의견으로 보완해 주세요.</div>
+</div>
+
+<div class="container">
+
+<div class="note-bar">
+  <strong>현장 작성 안내</strong> — 빈 경쟁사 칸(C·D)은 원장님이 실제 의식하는 경쟁 매장으로 현장에서 채워 주세요.
+  "같은 건물 퀸슈가링"은 직접 경쟁자이므로 반드시 포함합니다.
+</div>
+
+<!-- 기본 정보 비교 -->
+<div class="section">
+  <div class="sec-header">📊 기본 현황 비교 (공개 데이터 기준)</div>
+  <div style="overflow-x:auto">
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th style="width:15%;text-align:left;background:#fafafa">항목</th>
+        <th class="col-us-th">S&H듀얼왁싱<br><small>(우리)</small></th>
+        <th class="col-comp-th">퀸슈가링<br><small>(같은 건물)</small></th>
+        <th class="col-comp-th">경쟁사 C<br><small>(원장님 기재)</small></th>
+        <th class="col-comp-th">경쟁사 D<br><small>(원장님 기재)</small></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>상호명</td>
+        <td class="col-us">S&H듀얼왁싱</td>
+        <td class="col-comp">퀸슈가링</td>
+        <td class="col-comp" style="color:#999;font-style:italic">기재 필요</td>
+        <td class="col-comp" style="color:#999;font-style:italic">기재 필요</td>
+      </tr>
+      <tr>
+        <td>위치</td>
+        <td class="col-us">압구정로46길 5-6<br>A동 4층</td>
+        <td class="col-comp">압구정로46길 5-6<br>(같은 건물)</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>운영 기간</td>
+        <td class="col-us">약 14개월<br>(2025.04~)</td>
+        <td class="col-comp">미확인</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>네이버 플레이스<br>리뷰 수</td>
+        <td class="col-us win">623건 ✓</td>
+        <td class="col-comp">미확인</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>인스타그램<br>팔로워</td>
+        <td class="col-us win">3,089명 ✓</td>
+        <td class="col-comp">미확인</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>구글 비즈니스</td>
+        <td class="col-us lose">미등록 ✗</td>
+        <td class="col-comp win">등록 완료 ✓</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>브라질리언<br>기본가 (여성)</td>
+        <td class="col-us">하드 49,000<br>슈가링 60,000</td>
+        <td class="col-comp">미확인</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>남성 왁싱</td>
+        <td class="col-us win">하드 71,000<br>슈가링 83,000</td>
+        <td class="col-comp">미확인</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>'압구정슈가링'<br>검색 순위</td>
+        <td class="col-us draw">3위</td>
+        <td class="col-comp">미확인</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>언론 인터뷰</td>
+        <td class="col-us win">더모스트타임즈<br>(2025.08) ✓</td>
+        <td class="col-comp">미확인</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- 서비스 특징 비교 -->
+<div class="section">
+  <div class="sec-header">🔍 서비스 특징 비교 (현장 기재용)</div>
+  <div style="overflow-x:auto">
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th style="width:18%;text-align:left;background:#fafafa">비교 항목</th>
+        <th class="col-us-th">S&H듀얼왁싱</th>
+        <th class="col-comp-th">퀸슈가링</th>
+        <th class="col-comp-th">경쟁사 C</th>
+        <th class="col-comp-th">경쟁사 D</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>주력 방식</td>
+        <td class="col-us">왁싱 + 슈가링 듀얼</td>
+        <td class="col-comp">슈가링 특화</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>남성 서비스</td>
+        <td class="col-us win">있음 (명시적)</td>
+        <td class="col-comp">미확인</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>예약 방식</td>
+        <td class="col-us">현장 확인 필요</td>
+        <td class="col-comp">미확인</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>내부 공간</td>
+        <td class="col-us">현장 확인</td>
+        <td class="col-comp">미확인</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>차별화 포인트</td>
+        <td class="col-us">'듀얼'의 의미<br>(현장 확인 필요)</td>
+        <td class="col-comp">미확인</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+      <tr>
+        <td>고객 반응<br>(리뷰 키워드)</td>
+        <td class="col-us">꼼꼼함·통증없음<br>친절함 (추정)</td>
+        <td class="col-comp">미확인</td>
+        <td class="col-comp"></td>
+        <td class="col-comp"></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- 온라인 채널 비교 -->
+<div class="section">
+  <div class="sec-header">📱 온라인 채널 경쟁력 비교</div>
+  <div style="overflow-x:auto">
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th style="width:18%;text-align:left;background:#fafafa">채널</th>
+        <th class="col-us-th">S&H듀얼왁싱</th>
+        <th class="col-comp-th">퀸슈가링</th>
+        <th class="col-comp-th">경쟁사 C</th>
+        <th class="col-comp-th">경쟁사 D</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>네이버 플레이스</td>
+        <td class="col-us"><span class="badge-win">리뷰 623</span></td>
+        <td><span class="badge-na">미확인</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>구글 비즈니스</td>
+        <td class="col-us"><span class="badge-lose">미등록</span></td>
+        <td><span class="badge-win">등록 완료</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>인스타그램</td>
+        <td class="col-us"><span class="badge-win">3,089명</span></td>
+        <td><span class="badge-na">미확인</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>네이버 블로그</td>
+        <td class="col-us"><span class="badge-win">33개 포스팅</span></td>
+        <td><span class="badge-na">미확인</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>카카오채널</td>
+        <td class="col-us"><span class="badge-na">현장확인</span></td>
+        <td><span class="badge-na">미확인</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>언론 노출</td>
+        <td class="col-us"><span class="badge-win">더모스트타임즈</span></td>
+        <td><span class="badge-na">미확인</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- 포지셔닝 결론 -->
+<div class="section">
+  <div class="sec-header">🎯 경쟁 포지셔닝 분석 · 결론</div>
+  <div class="swot-grid">
+    <div class="swot-cell">
+      <div class="swot-label s">STRENGTH — 우리의 강점</div>
+      <ul class="swot-list">
+        <li>14개월 만에 리뷰 623건 — 빠른 신뢰 축적</li>
+        <li>왁싱+슈가링 듀얼 제공 — 선택 폭 넓음</li>
+        <li>남성 왁싱 서비스 명시 — 블루오션 수요</li>
+        <li>인스타 팔로워 3천+ — 충성 팬층 보유</li>
+        <li>더모스트타임즈 인터뷰 — 신뢰 자산</li>
+      </ul>
+    </div>
+    <div class="swot-cell">
+      <div class="swot-label w">WEAKNESS — 보완 필요</div>
+      <ul class="swot-list">
+        <li>구글 비즈니스 미등록 (옆 가게는 등록 완료)</li>
+        <li>'압구정슈가링' 1개 키워드만 상위 노출</li>
+        <li>영업시간 채널 불일치 — 고객 혼선 위험</li>
+        <li>'듀얼'의 차별성이 온라인에서 미표현</li>
+        <li>콘텐츠 일관성·릴스 비중 점검 필요</li>
+      </ul>
+    </div>
+    <div class="swot-cell">
+      <div class="swot-label o">OPPORTUNITY — 기회</div>
+      <ul class="swot-list">
+        <li>구글 등록 즉시 → 외국인·구글 유저 유입</li>
+        <li>남성 왁싱 콘텐츠 강화 → 차별화 선점</li>
+        <li>인터뷰 콘텐츠 재활용 → 브랜드 스토리 구축</li>
+        <li>키워드 확장 → '브라질리언' '신사동' 노출</li>
+        <li>압구정 상권 왁싱샵 중 SNS 가장 활성화 가능</li>
+      </ul>
+    </div>
+    <div class="swot-cell">
+      <div class="swot-label t">THREAT — 위협</div>
+      <ul class="swot-list">
+        <li>퀸슈가링 (동일 건물) 구글 선점으로 검색 분산</li>
+        <li>핵심 키워드 미노출 지속 → 신규 유입 한계</li>
+        <li>인접 왁싱샵 가격 경쟁 가능성</li>
+        <li>플랫폼 알고리즘 변화 (네이버 플레이스 기준)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pos-section">
+    <div class="pos-title">🏷️ 제안 포지셔닝 문장 (현장에서 원장님과 확정)</div>
+    <div class="pos-box">
+      "압구정에서 왁싱과 슈가링, 두 가지 방식으로 선택하는 브라질리언 전문샵"
+    </div>
+    <div style="font-size:12px;color:#666;margin-bottom:10px">↑ 현장에서 원장님 언어로 다듬어 최종 확정</div>
+    <div class="pos-keywords">
+      <span class="pk">듀얼 방식 선택 가능</span>
+      <span class="pk">꼼꼼한 시술</span>
+      <span class="pk">통증 최소화</span>
+      <span class="pk">남성도 환영</span>
+      <span class="pk">14개월 623리뷰</span>
+      <span class="pk">압구정 · 신사동</span>
+    </div>
+  </div>
+  <div class="action-box">
+    <div class="action-title">경쟁 우위 확보를 위한 즉시 실행 3가지</div>
+    <ul class="action-list">
+      <li>구글 비즈니스 오늘 등록 → 퀸슈가링 검색 우위 역전</li>
+      <li>플레이스 소개글에 '듀얼왁싱' 차별성 명확히 기재</li>
+      <li>인스타·블로그에 남성 왁싱 콘텐츠 집중 → 블루오션 선점</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer-bar">
+  강남AI컨설팅 · 권용준 · 손미현<br>
+  S&H듀얼왁싱 경쟁사 비교표 · 작성일: 2026.06 · 경쟁사 데이터는 공개 정보 기반 추정값
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>다물도 신사점 — 1회차 컨설팅 결과보고서</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+    background: #f7f7f5;
+    color: #1a1a1a;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    background: #fff;
+    min-height: 100vh;
+  }
+
+  /* COVER — 다물도: 딥 네이비 + 바다 톤 */
+  .cover {
+    background: linear-gradient(140deg, #0d3b4f 0%, #1a5c72 60%, #0f4a5c 100%);
+    color: #fff;
+    padding: 64px 56px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: 40%;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .cover-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.8);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+  }
+  .cover h1 { font-size: 30px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
+  .cover h2 { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.65); margin-bottom: 48px; }
+  .cover-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 40px; font-size: 12.5px; }
+  .cover-meta-item label { color: rgba(255,255,255,0.45); display: block; font-size: 10.5px; letter-spacing: 0.5px; margin-bottom: 2px; }
+  .cover-meta-item span { color: rgba(255,255,255,0.9); font-weight: 500; }
+
+  .body { padding: 0 56px 72px; }
+
+  .summary-box {
+    margin: 40px 0 0;
+    background: #f0fbff;
+    border-left: 4px solid #0891b2;
+    border-radius: 0 8px 8px 0;
+    padding: 24px 28px;
+  }
+  .summary-box p { font-size: 14px; color: #1e4057; line-height: 1.8; margin-bottom: 6px; }
+  .summary-box p:last-child { margin-bottom: 0; }
+  .summary-label { font-size: 10.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #0891b2; margin-bottom: 10px; }
+  .summary-highlight { font-size: 15px; font-weight: 600; color: #0d3b4f; line-height: 1.6; margin: 16px 0 0; }
+
+  .section { margin-top: 48px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #f0f0f0; }
+  .section-num { width: 28px; height: 28px; background: #0d3b4f; color: #fff; border-radius: 50%; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .section-title { font-size: 17px; font-weight: 700; color: #0d3b4f; }
+  .section-sub { font-size: 13px; font-weight: 700; color: #2d3748; margin: 20px 0 10px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  th { background: #f5f5f5; font-weight: 600; padding: 9px 12px; text-align: left; color: #444; border-bottom: 1px solid #e0e0e0; font-size: 12px; }
+  td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; color: #333; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafafa; }
+
+  .tag-warn { display: inline-block; background: #fff3cd; color: #856404; padding: 1px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .tag-ok { display: inline-block; background: #d4edda; color: #155724; padding: 1px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .tag-pri { display: inline-block; background: #f8d7da; color: #721c24; padding: 1px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+
+  .strength-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 12px 0; }
+  .strength-card { border: 1px solid #e8e8e8; border-radius: 8px; padding: 18px; background: #fff; }
+  .strength-card-num { font-size: 22px; font-weight: 800; color: #e0f4f9; line-height: 1; margin-bottom: 6px; }
+  .strength-card-title { font-size: 13px; font-weight: 700; color: #0d3b4f; margin-bottom: 6px; }
+  .strength-card-desc { font-size: 12.5px; color: #555; line-height: 1.6; }
+
+  .flow-box { background: #0d3b4f; border-radius: 10px; padding: 24px 28px; margin: 12px 0; color: #fff; font-size: 13px; line-height: 1.5; }
+  .flow-step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+  .flow-step:last-child { margin-bottom: 0; }
+  .flow-arrow { color: rgba(255,255,255,0.3); font-size: 18px; line-height: 1.5; flex-shrink: 0; margin-left: 10px; }
+  .flow-text { flex: 1; }
+  .flow-text strong { color: #7dd3fc; }
+
+  .callout { border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-size: 13px; line-height: 1.7; }
+  .callout-blue { background: #eff6ff; border-left: 3px solid #3b82f6; color: #1e3a5f; }
+  .callout-red  { background: #fef2f2; border-left: 3px solid #ef4444; color: #7f1d1d; }
+  .callout-green{ background: #f0fdf4; border-left: 3px solid #22c55e; color: #14532d; }
+  .callout-amber{ background: #fffbeb; border-left: 3px solid #f59e0b; color: #78350f; }
+  .callout-teal { background: #f0fdfa; border-left: 3px solid #0d9488; color: #134e4a; }
+
+  .action-num { width: 24px; height: 24px; background: #0d3b4f; color: #fff; border-radius: 50%; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+
+  .ready-box {
+    background: #0d3b4f;
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 12px 0;
+    color: #fff;
+    font-size: 13px;
+  }
+  .ready-box-title { font-weight: 700; color: #7dd3fc; margin-bottom: 12px; font-size: 13.5px; }
+  .ready-item { display: flex; gap: 10px; margin-bottom: 8px; color: rgba(255,255,255,0.85); }
+  .ready-item:last-child { margin-bottom: 0; }
+  .ready-item::before { content: '├──'; color: rgba(255,255,255,0.3); flex-shrink: 0; font-family: monospace; }
+  .ready-item:last-child::before { content: '└──'; color: rgba(255,255,255,0.3); }
+
+  .positioning-box { background: linear-gradient(135deg, #0d3b4f 0%, #1a5c72 100%); border-radius: 12px; padding: 32px; color: #fff; margin: 12px 0; }
+  .positioning-quote { font-size: 20px; font-weight: 700; line-height: 1.4; margin-bottom: 20px; color: #a5f3fc; }
+  .positioning-items { display: flex; flex-direction: column; gap: 8px; }
+  .positioning-item { display: flex; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.8); }
+  .positioning-item::before { content: '→'; color: #67e8f9; flex-shrink: 0; font-weight: 700; }
+
+  .persona-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 12px 0; }
+  .persona-card { border: 1px solid #e0f4f9; border-radius: 8px; padding: 16px; background: #f8feff; }
+  .persona-title { font-size: 13px; font-weight: 700; color: #0d3b4f; margin-bottom: 6px; }
+  .persona-who { font-size: 11.5px; color: #0891b2; font-weight: 600; margin-bottom: 6px; }
+  .persona-how { font-size: 12px; color: #555; line-height: 1.5; }
+
+  .season-table table { margin: 12px 0; }
+
+  .roadmap { display: flex; flex-direction: column; gap: 0; margin: 12px 0; }
+  .roadmap-item { display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
+  .roadmap-item:last-child { border-bottom: none; }
+  .roadmap-badge { flex-shrink: 0; width: 72px; text-align: center; padding-top: 2px; }
+  .roadmap-badge span { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .badge-done { background: #dcfce7; color: #15803d; }
+  .badge-next { background: #dbeafe; color: #1d4ed8; }
+  .badge-plan { background: #f3f4f6; color: #374151; }
+  .roadmap-content { flex: 1; }
+  .roadmap-title { font-weight: 700; font-size: 13.5px; color: #0d3b4f; margin-bottom: 4px; }
+  .roadmap-desc { font-size: 12.5px; color: #666; line-height: 1.6; }
+
+  .closing { margin-top: 48px; background: #f0fdfa; border-radius: 12px; padding: 32px; }
+  .closing p { font-size: 13.5px; line-height: 1.9; color: #1a3a3a; margin-bottom: 14px; }
+  .closing p:last-child { margin-bottom: 0; }
+  .closing strong { color: #0d3b4f; }
+  .closing-sign { margin-top: 24px; padding-top: 20px; border-top: 1px solid #b2e0e8; font-size: 12.5px; color: #555; }
+  .closing-sign strong { color: #0d3b4f; font-size: 13px; }
+
+  p { font-size: 13.5px; line-height: 1.8; color: #333; margin-bottom: 10px; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: #0d3b4f; }
+
+  @media print { body { background: #fff; } .page { max-width: 100%; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-badge">Consulting Report · 1st Meeting</div>
+    <h1>다물도 신사점</h1>
+    <h2>1회차 컨설팅 결과보고서</h2>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <label>보고서 일자</label>
+        <span>2026년 6월 12일</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>컨설팅 일시</label>
+        <span>2026년 6월 12일 (1회차 현장 미팅)</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>대상 점포</label>
+        <span>서울 강남구 신사동 가로수길</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>담당</label>
+        <span>권용준 / 손미현</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- SUMMARY -->
+    <div class="summary-box">
+      <div class="summary-label">한눈에 보기</div>
+      <p>다물도는 강남에서 유일한 흑산도 향토 해산물 종합 식당입니다.</p>
+      <p>맛과 신선도는 이미 증명되어 있습니다.</p>
+      <p>지금 부족한 것은 단 하나, <strong>온라인에서 보이는 것</strong>입니다.</p>
+      <div class="summary-highlight">
+        소송과 이전의 혼란 속에서 온라인 채널이 비어 있어,<br>
+        "이미 맛으로 소문난 집"이 새 손님을 받지 못하고 있습니다.
+      </div>
+    </div>
+
+    <!-- 1. 현황 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">매장 현황 진단</div>
+      </div>
+
+      <div class="section-sub">기본 정보</div>
+      <table>
+        <tr><th width="120">항목</th><th>내용</th></tr>
+        <tr><td>위치</td><td>서울 강남구 신사동 가로수길 (2025년 6월 이전)</td></tr>
+        <tr><td>업종</td><td>흑산도 향토 해산물 종합 식당</td></tr>
+        <tr><td>영업시간</td><td>변경 예정: 11:30 ~ 새벽 2:00 (다음 주부터)</td></tr>
+        <tr><td>브레이크타임</td><td>오후 3시 ~ 5시</td></tr>
+        <tr><td>휴무</td><td>주 6일 → 안정화 후 연중무휴</td></tr>
+        <tr><td>좌석</td><td>현재 38~42석 / 최대 60석 가능</td></tr>
+        <tr><td>현재 영업 상태</td><td>점심 영업 중 <span class="tag-warn">소송 진행 중</span></td></tr>
+      </table>
+
+      <div class="section-sub" style="margin-top:24px;">채널 현황</div>
+      <table>
+        <tr><th>채널</th><th>상태</th><th>비고</th></tr>
+        <tr><td>네이버 플레이스</td><td>운영 중</td><td>대행 맡겼으나 실행 미비</td></tr>
+        <tr><td>구글맵</td><td><span class="tag-warn">⚠ 주소 미완료</span></td><td>즉시 완료 필요</td></tr>
+        <tr><td>카카오맵</td><td><span class="tag-warn">⚠ 주소 미완료</span></td><td>즉시 완료 필요</td></tr>
+        <tr><td>티맵</td><td><span class="tag-ok">✓ 변경 완료</span></td><td></td></tr>
+        <tr><td>인스타그램</td><td><strong>없음</strong></td><td>브랜드 계정 개설 예정</td></tr>
+        <tr><td>홈페이지</td><td><strong>없음</strong></td><td>대행사 제작 예정</td></tr>
+        <tr><td>배달앱</td><td>없음</td><td>해산물 특성상 미운영 (유지)</td></tr>
+      </table>
+    </div>
+
+    <!-- 2. 강점 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">강점 발견 — 다물도가 가진 것</div>
+      </div>
+      <div class="strength-grid">
+        <div class="strength-card">
+          <div class="strength-card-num">01</div>
+          <div class="strength-card-title">강남 유일 흑산도 종합 해산물</div>
+          <div class="strength-card-desc">강남 일대 흑산도 키워드 식당은 홍어·장어 단일 메뉴 위주. 종합 해산물 식당으로서 다물도는 <strong>독보적 카테고리</strong>.</div>
+        </div>
+        <div class="strength-card">
+          <div class="strength-card-num">02</div>
+          <div class="strength-card-title">산지 직배송 — 오늘 바다에서</div>
+          <div class="strength-card-desc">흑산도→목포→서울 당일 배송 구조 구축. 낙지·홍어·반건조 생선·해녀 채취 홍합. <strong>신선도 스토리 = 마케팅 자산.</strong></div>
+        </div>
+        <div class="strength-card">
+          <div class="strength-card-num">03</div>
+          <div class="strength-card-title">검증된 맛 — 리뷰가 증명</div>
+          <div class="strength-card-desc">"밥도둑", "미친다", "죽인다", "재료가 살아있다", "대표 아저씨 친절하다". 맛과 서비스 만족도 높음.</div>
+        </div>
+        <div class="strength-card">
+          <div class="strength-card-num">04</div>
+          <div class="strength-card-title">상호명에 담긴 브랜드 스토리</div>
+          <div class="strength-card-desc">통일신라 왕족 유배 자손의 고향 섬, 흑산도 최고 부자 마을. <strong>진정성 있는 스토리는 최고의 마케팅 자산.</strong></div>
+        </div>
+      </div>
+      <div class="strength-grid" style="margin-top:0;">
+        <div class="strength-card">
+          <div class="strength-card-num">05</div>
+          <div class="strength-card-title">자체 브랜드 자산 보유</div>
+          <div class="strength-card-desc"><strong>물고기 캐릭터</strong>(우럭·장어·불볼락·갑오징어·병어) 직접 제작, 지재권 보유. <strong>LED 전광판</strong> 2층 외벽 소유, 즉시 활용 가능.</div>
+        </div>
+        <div class="strength-card">
+          <div class="strength-card-num">06</div>
+          <div class="strength-card-title">단골 38명 DM 시스템</div>
+          <div class="strength-card-desc">매일 점심 메뉴 DM 발송 + Gemini AI 문구 생성 활용 중. 이미 직접 소통 채널 운영 중 — 확장이 다음 단계.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 핵심 문제 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">핵심 문제 진단</div>
+      </div>
+
+      <div class="flow-box">
+        <div class="flow-step"><div class="flow-text">2025년 6월 — 건물주 분쟁으로 지하에서 강제 이전</div></div>
+        <div class="flow-step"><div class="flow-arrow">↓</div><div class="flow-text">이전 과정에서 <strong>온라인 채널 정비 미완료</strong></div></div>
+        <div class="flow-step"><div class="flow-arrow">↓</div><div class="flow-text">주소 오류 → <strong>방문 시도 고객 이탈</strong></div></div>
+        <div class="flow-step"><div class="flow-arrow">↓</div><div class="flow-text">광고 없이 영업 → <strong>신규 고객 유입 차단</strong></div></div>
+        <div class="flow-step"><div class="flow-arrow">↓</div><div class="flow-text" style="color:#fca5a5;">"맛집으로 소문은 났는데, 아는 사람만 아는 집"</div></div>
+      </div>
+
+      <div class="section-sub" style="margin-top:20px;">온라인 채널 공백 3가지</div>
+      <div class="callout callout-red">
+        <strong>① 주소가 틀려있다</strong> — 구글·카카오가 아직 지하 주소를 가리키고 있습니다. 찾아왔다가 헛걸음하는 손님이 발생하고 있습니다.
+      </div>
+      <div class="callout callout-red">
+        <strong>② 인스타그램이 없다</strong> — 가로수길은 인스타그램 유동 인구가 가장 많은 상권 중 하나입니다. SNS가 없다는 건 간판 없이 장사하는 것과 같습니다.
+      </div>
+      <div class="callout callout-red">
+        <strong>③ 마케팅 대행사가 일을 안 하고 있다</strong> — 1년 270만원을 지불했지만 아직 아무것도 실행되지 않았습니다.
+      </div>
+
+      <div class="section-sub" style="margin-top:20px;">마케팅 대행 계약 검토 필요 ⚠️</div>
+      <table>
+        <tr><th>항목</th><th>내용</th></tr>
+        <tr><td>계약 금액</td><td>1년 270만원 (원가 500만원대 할인 조건)</td></tr>
+        <tr><td>계약 항목</td><td>체험단, 파워블로거, 플레이스 정비, 블로그, 홈페이지 제작·관리, 쇼츠 광고</td></tr>
+        <tr><td>현재 실행</td><td><span class="tag-pri">없음</span></td></tr>
+        <tr><td>문제점</td><td>이 금액으로 이 서비스를 제대로 실행하는 것은 시장 기준상 불가능한 가격</td></tr>
+        <tr><td>즉시 액션</td><td>계약서 세부 내용 확인 → 실행 일정 서면 요구 → 미이행 시 계약 재협의</td></tr>
+      </table>
+    </div>
+
+    <!-- 4. 소송 전략 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div class="section-title">소송 상황과 컨설팅 전략</div>
+      </div>
+      <div class="callout callout-teal">
+        소송은 당장 끝낼 수 없습니다. 하지만 <strong>소송 중에도 지금 할 수 있는 것들이 있습니다.</strong> 오프라인이 잠시 조용할 때 온라인을 준비해 터뜨리는 전략입니다.
+      </div>
+
+      <div class="section-sub">소송 진행 중 지금 할 수 있는 것</div>
+      <table>
+        <tr><th>항목</th><th>이유</th></tr>
+        <tr><td>구글·카카오 주소 변경 완료</td><td>현재 위치로 손님 유도 — 하루라도 빨리</td></tr>
+        <tr><td>전화번호 통일 (02-548-4515)</td><td>플랫폼마다 번호가 달라 신뢰 하락</td></tr>
+        <tr><td>플레이스 주차 정보 수정 ("업장 문의")</td><td>방문 전 혼선 제거</td></tr>
+        <tr><td>인스타그램 계정 개설 (비공개)</td><td>계정명 선점 + 콘텐츠 준비</td></tr>
+        <tr><td>DM 발송 명단 확대 안내문 제작</td><td>매장 내 부착 → 단골 추가 확보</td></tr>
+        <tr><td>대행사 계약서 검토</td><td>실행 촉구 또는 재협의 준비</td></tr>
+        <tr><td>다국어 메뉴판 초안 작성</td><td>메뉴 확정 전이라도 구조 먼저 설계</td></tr>
+      </table>
+
+      <div class="section-sub" style="margin-top:20px;">영업 정상화 시 Day 1 실행 계획</div>
+      <div class="ready-box">
+        <div class="ready-box-title">영업 재개 Day 1</div>
+        <div class="ready-item">인스타그램 공개 전환 + 첫 콘텐츠 발행</div>
+        <div class="ready-item">체험단 실행 즉시 개시 (대행사 압박)</div>
+        <div class="ready-item">구글·카카오 정비 완료 상태로 노출 시작</div>
+        <div class="ready-item">단골 38명 "영업 재개 안내" DM 발송</div>
+      </div>
+    </div>
+
+    <!-- 5. 즉시 실행 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div class="section-title">즉시 실행 과제</div>
+      </div>
+
+      <div class="section-sub">이번 주 내 — 대표님</div>
+      <table>
+        <tr><th width="36">번호</th><th>항목</th><th width="140">기한</th></tr>
+        <tr><td><div class="action-num">1</div></td><td>구글맵 주소 변경 완료</td><td>이번 주 금요일</td></tr>
+        <tr><td><div class="action-num">2</div></td><td>카카오맵 주소 변경 완료</td><td>이번 주 금요일</td></tr>
+        <tr><td><div class="action-num">3</div></td><td>전화번호 02-548-4515 플랫폼 통일 확인</td><td>이번 주 금요일</td></tr>
+        <tr><td><div class="action-num">4</div></td><td>마케팅 대행 계약서 단톡방에 공유</td><td>이번 주</td></tr>
+        <tr><td><div class="action-num">5</div></td><td>대행사에 댓글(영수증 리뷰) 관리 포함 여부 확인</td><td>이번 주</td></tr>
+        <tr><td><div class="action-num">6</div></td><td>메뉴판 시안 확정 후 단톡방 공유</td><td>월요일 (예상)</td></tr>
+      </table>
+
+      <div class="section-sub">이번 주 내 — 컨설턴트</div>
+      <table>
+        <tr><th width="36">번호</th><th>항목</th></tr>
+        <tr><td><div class="action-num">1</div></td><td>플레이스 주차 아이콘 "업장 문의" 수정</td></tr>
+        <tr><td><div class="action-num">2</div></td><td>대행사 계약서 검토 및 체크리스트 작성</td></tr>
+        <tr><td><div class="action-num">3</div></td><td>인스타그램 다물도 계정 개설 가이드 제공</td></tr>
+        <tr><td><div class="action-num">4</div></td><td>다국어 메뉴판 기본 구조 초안 준비</td></tr>
+        <tr><td><div class="action-num">5</div></td><td>신사 가로수길 상권 경쟁 분석 보완</td></tr>
+      </table>
+    </div>
+
+    <!-- 6. 로드맵 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <div class="section-title">컨설팅 3회차 로드맵</div>
+      </div>
+      <div class="roadmap">
+        <div class="roadmap-item">
+          <div class="roadmap-badge"><span class="badge-done">완료</span></div>
+          <div class="roadmap-content">
+            <div class="roadmap-title">1회차</div>
+            <div class="roadmap-desc">현황 파악 / 강점 발견 / 즉시 과제 도출</div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-badge"><span class="badge-next">2회차</span></div>
+          <div class="roadmap-content">
+            <div class="roadmap-title">메뉴 정보 온라인 일치화 + 플레이스 일괄 정비</div>
+            <div class="roadmap-desc">메뉴 정보 온라인 일치화 / 플레이스 일괄 정비 / 인스타 첫 콘텐츠 방향 / 대행사 실행 현황 점검 — <strong>선행 조건: 메뉴판 확정</strong></div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-badge"><span class="badge-plan">3회차</span></div>
+          <div class="roadmap-content">
+            <div class="roadmap-title">홍보 전략 실행 + 자립 운영 구조</div>
+            <div class="roadmap-desc">외국인 고객 대응 전략 / 점심·저녁 채널 차별화 / 직접 운영 가능한 자립 시스템 구축 / 매출 목표 설계</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-teal">2회차 일정: 메뉴판 확정 이후 단톡방에서 협의</div>
+    </div>
+
+    <!-- 7. 포지셔닝 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <div class="section-title">포지셔닝 전략 방향 (1회차 초안)</div>
+      </div>
+      <div class="positioning-box">
+        <div class="positioning-quote">"강남에서 흑산도를 — 오늘 바다에서 온 향토 해산물"</div>
+        <div class="positioning-items">
+          <div class="positioning-item">강남 유일 흑산도 종합 해산물 — 경쟁 없는 카테고리</div>
+          <div class="positioning-item">산지 직배송 신선도 — "오늘 아침 목포에서 온" 스토리</div>
+          <div class="positioning-item">점심: 가성비 있는 정직한 한 끼 / 저녁: 프리미엄이지만 후회 없다</div>
+        </div>
+      </div>
+
+      <div class="section-sub">3대 타겟 퍼소나</div>
+      <div class="persona-grid">
+        <div class="persona-card">
+          <div class="persona-title">점심러</div>
+          <div class="persona-who">가로수길 직장인·상인</div>
+          <div class="persona-how">매일 바뀌는 점심 메뉴 SNS 노출, DM 명단 확대</div>
+        </div>
+        <div class="persona-card">
+          <div class="persona-title">회식기획자</div>
+          <div class="persona-who">강남 회사 총무·팀장</div>
+          <div class="persona-how">단체 수용 가능, 저녁 시그니처 메뉴 전면 노출</div>
+        </div>
+        <div class="persona-card">
+          <div class="persona-title">향토음식 탐방가</div>
+          <div class="persona-who">미식가, 흑산도 팬</div>
+          <div class="persona-how">"강남에서 흑산도" 키워드, 식재료 스토리</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. 계절 메뉴 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">8</div>
+        <div class="section-title">계절 메뉴 활용 콘텐츠 달력 (초안)</div>
+      </div>
+      <table>
+        <tr><th>시기</th><th>계절 메뉴</th><th>콘텐츠 방향</th></tr>
+        <tr><td>봄 (3~4월)</td><td>도다리</td><td>"봄의 시작, 도다리 맑은 탕"</td></tr>
+        <tr><td>봄~초여름 (4~6월)</td><td>황석어</td><td>"제철 황석어, 딱 지금입니다"</td></tr>
+        <tr style="background:#f0fdfa;"><td><strong>현재 (6~7월)</strong></td><td><strong>흑산도 홍합(담치)</strong></td><td>"지금만 먹을 수 있는 흑산도 홍합 — 해녀가 직접 채취합니다"</td></tr>
+        <tr><td>여름 (7~8월)</td><td>생새우 (활어)</td><td>"살아있는 새우, 오늘 흑산도에서 왔습니다"</td></tr>
+        <tr><td>가을 (9~10월)</td><td>전어</td><td>"가을 전어, 집 나간 며느리도 돌아온다"</td></tr>
+        <tr><td>겨울 (11월~)</td><td>홍어 (성수기)</td><td>"제대로 된 흑산도 홍어, 강남에서"</td></tr>
+        <tr><td>연중</td><td>홍어 (기본)</td><td>고정 시그니처 — 다물도의 정체성</td></tr>
+      </table>
+    </div>
+
+    <!-- CLOSING -->
+    <div class="closing">
+      <p>오늘 미팅에서 대표님이 들려주신 다물도의 이야기가 인상 깊었습니다.</p>
+      <p>흑산도 왕족 집안의 자손이 고향 섬의 이름을 가게에 붙이고, 그 섬에서 나는 재료를 당일 서울로 가져와 손님에게 낸다. 이것만으로도 강력한 브랜드 스토리입니다.</p>
+      <p>소송 상황이 힘드시다는 것 알고 있습니다. 그러나 <strong>지금 이 시기를 온라인 정비와 콘텐츠 준비에 쓰면, 영업 정상화 시점에 폭발적으로 노출될 수 있습니다.</strong> 오프라인이 잠시 조용할 때 온라인을 터뜨리는 전략입니다.</p>
+      <p>맛은 이미 증명되었습니다. 이제 그 맛을 아는 사람을 늘리는 일만 남았습니다.</p>
+      <p><strong>메뉴판이 확정되는 시점에 맞춰 2회차 미팅 일정을 잡겠습니다. 이번 주 안에 구글·카카오 주소 변경과 계약서 공유를 꼭 부탁드립니다.</strong></p>
+      <div class="closing-sign">
+        <strong>강남구 AI 마케팅 컨설팅</strong><br>
+        권용준 / 손미현
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

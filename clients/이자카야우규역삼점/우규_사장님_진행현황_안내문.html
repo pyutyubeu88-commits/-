@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이자카야 우규 역삼점 — 진행 현황 안내</title>
+<style>
+@page { size: A4; margin: 15mm 15mm 16mm 15mm; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-size: 10pt; color: #2a2a2a; background: #fff; line-height: 1.7;
+}
+
+/* 커버 */
+.cover { background: #1a1a2e; color: #fff; padding: 26px 28px 22px; border-radius: 0; }
+.cover-tag { font-size: 8.5pt; letter-spacing: 0.15em; color: #8aaad8; margin-bottom: 10px; }
+.cover-title { font-size: 22pt; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+.cover-sub { font-size: 11pt; color: #b8c6e0; font-weight: 500; }
+.cover-line { border-top: 1px solid rgba(255,255,255,0.18); margin-top: 16px; padding-top: 13px; display: flex; gap: 30px; flex-wrap: wrap; }
+.cover-line div { font-size: 8.8pt; color: #aabbdd; }
+.cover-line strong { color: #fff; display: block; font-size: 8pt; letter-spacing: 0.05em; margin-bottom: 2px; }
+
+/* 인사말 */
+.greeting { padding: 20px 28px 6px; font-size: 10pt; color: #3a3a3a; }
+.greeting strong { color: #1a1a2e; }
+
+/* 섹션 */
+.sec { padding: 14px 28px 4px; }
+.sec-h { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
+.sec-bar { width: 4px; height: 19px; background: #2e4a7a; border-radius: 2px; }
+.sec-t { font-size: 13pt; font-weight: 800; color: #1a1a2e; }
+
+/* 목표 박스 */
+.goal { background: #f4f7fc; border: 1px solid #d5dee9; border-radius: 8px; padding: 16px 20px; }
+.goal-main { font-size: 11.5pt; font-weight: 700; color: #1a1a2e; text-align: center; line-height: 1.5; }
+.goal-main span { color: #2e6fb0; }
+.goal-sub { font-size: 9pt; color: #667; text-align: center; margin-top: 6px; }
+
+/* 현황 카드 */
+.status-list { display: flex; flex-direction: column; gap: 9px; }
+.st-row { display: flex; align-items: flex-start; gap: 12px; border: 1px solid #e2e6ee; border-radius: 7px; padding: 12px 16px; }
+.st-icon { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 11pt; font-weight: 800; color: #fff; }
+.ic-done { background: #27ae60; }
+.ic-wait { background: #e6a817; }
+.ic-soon { background: #8a9bb5; }
+.st-body { flex: 1; }
+.st-title { font-weight: 700; color: #1a1a2e; font-size: 10pt; }
+.st-title .badge { font-size: 7.5pt; font-weight: 700; padding: 1px 8px; border-radius: 10px; margin-left: 7px; vertical-align: middle; }
+.b-done { background: #e6f4ec; color: #1a7a45; }
+.b-wait { background: #fdf2d6; color: #9a6a00; }
+.b-soon { background: #eef1f6; color: #5a6478; }
+.st-desc { font-size: 9pt; color: #666; margin-top: 2px; }
+
+/* 준비 요청 */
+.prep { background: #fff9ec; border-left: 4px solid #e6a817; border-radius: 0 7px 7px 0; padding: 14px 18px; }
+.prep ul { list-style: none; }
+.prep li { padding: 3px 0 3px 20px; position: relative; font-size: 9.3pt; color: #4a4a3a; }
+.prep li::before { content: "✔"; position: absolute; left: 0; color: #d18700; font-weight: 800; font-size: 8.5pt; }
+.prep li strong { color: #1a1a2e; }
+
+/* 4주 흐름 */
+.weeks { display: flex; gap: 8px; }
+.wk { flex: 1; border: 1px solid #d5dee9; border-radius: 7px; padding: 11px 10px; text-align: center; background: #fafbfd; }
+.wk-n { font-size: 8pt; font-weight: 800; color: #2e6fb0; letter-spacing: 0.05em; margin-bottom: 5px; }
+.wk-d { font-size: 8.6pt; color: #555; line-height: 1.45; }
+
+/* 마무리 */
+.closing { background: #f4f7fc; border-radius: 8px; padding: 16px 22px; margin: 14px 28px 0; font-size: 9.6pt; color: #3a3a3a; text-align: center; line-height: 1.7; }
+.closing strong { color: #1a1a2e; }
+
+/* 푸터 */
+.footer { margin-top: 18px; border-top: 2px solid #1a1a2e; padding: 11px 28px 0; font-size: 8pt; color: #777; display: flex; justify-content: space-between; }
+.footer strong { color: #1a1a2e; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-tag">이자카야 우규 역삼점 · 2차 미팅 이후 진행 안내</div>
+  <div class="cover-title">사장님, 지금까지<br>이렇게 진행되고 있습니다</div>
+  <div class="cover-sub">함께 정한 방향과 현재 상황, 그리고 다음 단계 안내</div>
+  <div class="cover-line">
+    <div><strong>매장</strong>이자카야 우규 역삼점</div>
+    <div><strong>주소</strong>서울 강남구 테헤란로19길 19</div>
+    <div><strong>안내일</strong>2026. 06. 19</div>
+  </div>
+</div>
+
+<div class="greeting">
+  사장님, 안녕하세요. 지난 <strong>2차 미팅</strong>에서 함께 정한 방향을 바탕으로 매장 온라인 정비가 차근차근 진행되고 있습니다.
+  지금 어디까지 왔고, 무엇을 기다리는 중이며, 앞으로 어떻게 이어지는지 한눈에 보실 수 있도록 정리했습니다.
+</div>
+
+<!-- 1. 함께 정한 방향 -->
+<div class="sec">
+  <div class="sec-h"><span class="sec-bar"></span><span class="sec-t">함께 정한 방향</span></div>
+  <div class="goal">
+    <div class="goal-main">우규 역삼점을 <span>30~40대 직장인</span>과 <span>외국인 손님</span>이<br>더 쉽게 찾고, 더 편하게 이용하는 매장으로</div>
+    <div class="goal-sub">단순히 손님 수를 늘리는 것이 아니라, 매장에 잘 맞는 손님이 다시 찾고 객단가가 오르는 구조를 만듭니다</div>
+  </div>
+</div>
+
+<!-- 2. 현재 진행 상황 -->
+<div class="sec">
+  <div class="sec-h"><span class="sec-bar"></span><span class="sec-t">현재 진행 상황</span></div>
+  <div class="status-list">
+    <div class="st-row">
+      <span class="st-icon ic-done">✓</span>
+      <div class="st-body">
+        <div class="st-title">구글지도 영상 인증 완료 <span class="badge b-done">완료</span></div>
+        <div class="st-desc">매장 소유 확인(영상 인증)을 마쳤습니다. 현재 구글의 등록 승인을 기다리는 단계입니다.</div>
+      </div>
+    </div>
+    <div class="st-row">
+      <span class="st-icon ic-wait">⋯</span>
+      <div class="st-body">
+        <div class="st-title">네이버 정보 정비 <span class="badge b-wait">본사 처리 중</span></div>
+        <div class="st-desc">메뉴·사진·소개문 등은 본사를 통해 반영됩니다. 요청을 넣어둔 상태이며, 반영되면 화면에서 함께 확인합니다.</div>
+      </div>
+    </div>
+    <div class="st-row">
+      <span class="st-icon ic-wait">⋯</span>
+      <div class="st-body">
+        <div class="st-title">다국어 메뉴(영·일·중) <span class="badge b-wait">본사 처리 중</span></div>
+        <div class="st-desc">외국인 손님을 위한 다국어 메뉴도 본사에서 작업 예정입니다. 한글 메뉴 확정 기준으로 진행됩니다.</div>
+      </div>
+    </div>
+    <div class="st-row">
+      <span class="st-icon ic-wait">⋯</span>
+      <div class="st-body">
+        <div class="st-title">매장 사진 <span class="badge b-wait">본사에서 수령 예정</span></div>
+        <div class="st-desc">구글지도·네이버에 올릴 매장 사진은 본사를 통해 받을 예정입니다. 도착하면 바로 등록합니다.</div>
+      </div>
+    </div>
+    <div class="st-row">
+      <span class="st-icon ic-soon">○</span>
+      <div class="st-body">
+        <div class="st-title">카카오맵·티맵 / 운영 정비 <span class="badge b-soon">곧 진행</span></div>
+        <div class="st-desc">본사 작업과 별개로 매장에서 바로 진행할 수 있는 부분입니다. 순차적으로 함께 정비합니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. 사장님께서 준비해주시면 좋은 것 -->
+<div class="sec">
+  <div class="sec-h"><span class="sec-bar"></span><span class="sec-t">사장님께서 준비해주시면 좋은 것</span></div>
+  <div class="prep">
+    <ul>
+      <li><strong>대표 메뉴 정보</strong> — 메뉴명, 가격, 한 줄 설명, 주요 재료</li>
+      <li><strong>판매 현황</strong> — 요즘 가장 많이 나가는 메뉴 5개 / 꼭 밀고 싶은 메뉴 5개</li>
+      <li><strong>운영 정보</strong> — 영업시간·휴무일, 예약/포장 여부, 단체석 가능 여부</li>
+      <li><strong>본사 비용 확인</strong> — 300만 원으로 본사가 어디까지 처리하는지(네이버·다국어 메뉴 포함 여부) 서면으로 받아두기</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 4. 앞으로의 진행 -->
+<div class="sec">
+  <div class="sec-h"><span class="sec-bar"></span><span class="sec-t">앞으로의 진행 (약 4주)</span></div>
+  <div class="weeks">
+    <div class="wk"><div class="wk-n">1주차</div><div class="wk-d">매장 자료 정리<br>본사 요청 확인</div></div>
+    <div class="wk"><div class="wk-n">2주차</div><div class="wk-d">구글지도 등록<br>지도 채널 정비</div></div>
+    <div class="wk"><div class="wk-n">3주차</div><div class="wk-d">다국어 메뉴<br>외국인 안내 정리</div></div>
+    <div class="wk"><div class="wk-n">4주차</div><div class="wk-d">메뉴판·홍보물<br>운영 정비 마무리</div></div>
+  </div>
+</div>
+
+<div class="closing">
+  지금은 <strong>본사 작업과 구글 승인을 기다리는 단계</strong>로, 사장님께서 따로 하실 일은 많지 않습니다.<br>
+  기다리는 동안 위의 <strong>메뉴·운영 자료</strong>만 정리해 주시면, 결과가 도착하는 대로 바로 매장에 반영하겠습니다.<br>
+  <strong>좋은 가게가 온라인 때문에 손해 보지 않도록</strong>, 끝까지 함께 챙기겠습니다.
+</div>
+
+<div class="footer">
+  <div>강남AI컨설팅 · <strong>권용준 · 손미현</strong></div>
+  <div>이자카야 우규 역삼점 · 진행 현황 안내 · 2026.06.19</div>
+</div>
+
+</body>
+</html>

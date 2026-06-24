@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>구글 비즈니스 프로필 등록 가이드북 — S&H듀얼왁싱 압구정점</title>
+<style>
+@page {
+  size: A4;
+  margin: 16mm 15mm 18mm 15mm;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-size: 9.5pt;
+  color: #1a1a1a;
+  background: #fff;
+  line-height: 1.6;
+}
+
+:root {
+  --navy: #1a1a2e;
+  --navy2: #2e4a7a;
+  --blue: #4a6fa5;
+  --gblue: #1a73e8;
+  --gblue2: #e8f0fe;
+  --light: #f4f6fa;
+  --lgray: #e0e0ee;
+  --gray: #888;
+  --green: #27ae60;
+  --amber: #e6a817;
+  --red: #c0392b;
+  --white: #fff;
+  --rose: #8b2252;
+  --rose2: #f8eef3;
+}
+
+/* ══ 커버 ══ */
+.cover {
+  min-height: 260mm;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  page-break-after: always;
+}
+.cover-top {
+  background: var(--gblue);
+  padding: 10px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cover-top-logo {
+  font-size: 11pt;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.06em;
+}
+.cover-top-badge {
+  font-size: 8pt;
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.18);
+  border-radius: 3px;
+  padding: 3px 10px;
+}
+.cover-body {
+  flex: 1;
+  padding: 36px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cover-g-icon {
+  font-size: 48pt;
+  font-weight: 900;
+  color: var(--gblue);
+  letter-spacing: -2px;
+  margin-bottom: 6px;
+  font-style: italic;
+}
+.cover-eyebrow {
+  font-size: 9.5pt;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.cover-title {
+  font-size: 26pt;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.22;
+  margin-bottom: 10px;
+}
+.cover-sub {
+  font-size: 12pt;
+  color: rgba(255,255,255,0.75);
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+.cover-highlight {
+  background: var(--gblue);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 28px;
+}
+.cover-highlight-label {
+  font-size: 8pt;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.cover-highlight-val {
+  font-size: 13pt;
+  font-weight: 700;
+  color: #fff;
+}
+.cover-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.cover-info-cell {
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+.cic-label {
+  font-size: 7.5pt;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.06em;
+  margin-bottom: 3px;
+}
+.cic-val {
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: #fff;
+}
+.cover-footer {
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.cover-footer-brand {
+  font-size: 8.5pt;
+  color: rgba(255,255,255,0.6);
+}
+.cover-footer-brand strong {
+  color: rgba(255,255,255,0.9);
+}
+.cover-toc {
+  font-size: 7.5pt;
+  color: rgba(255,255,255,0.45);
+  text-align: right;
+  line-height: 1.6;
+}
+
+/* ══ 챕터 페이지 ══ */
+.chapter {
+  page-break-before: always;
+  page-break-after: avoid;
+  background: var(--gblue);
+  color: #fff;
+  padding: 18px 22px 16px;
+  border-radius: 0;
+  margin-bottom: 18px;
+}
+.chapter-num {
+  font-size: 8.5pt;
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 0.12em;
+  margin-bottom: 4px;
+}
+.chapter-title {
+  font-size: 16pt;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.chapter-sub {
+  font-size: 9pt;
+  color: rgba(255,255,255,0.8);
+  margin-top: 5px;
+}
+
+/* ══ 섹션 헤더 ══ */
+.sec-h {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 18px 0 10px;
+}
+.sec-bar {
+  width: 4px;
+  height: 18px;
+  background: var(--gblue);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.sec-t {
+  font-size: 11pt;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+/* ══ 기본 카드 ══ */
+.card {
+  border: 1px solid var(--lgray);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  background: var(--white);
+}
+.card-blue {
+  border-color: var(--gblue);
+  border-left-width: 4px;
+}
+.card-amber {
+  border-left: 4px solid var(--amber);
+}
+.card-green {
+  border-left: 4px solid var(--green);
+}
+.card-red {
+  border-left: 4px solid var(--red);
+  background: #fff8f6;
+}
+.card-rose {
+  border-left: 4px solid var(--rose);
+  background: var(--rose2);
+}
+
+/* ══ 정보 그리드 ══ */
+.info-grid {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 0;
+  border: 1px solid var(--lgray);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.info-row {
+  display: contents;
+}
+.info-row > div {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--lgray);
+  font-size: 9pt;
+}
+.info-row:last-child > div {
+  border-bottom: none;
+}
+.info-label {
+  background: var(--light);
+  font-weight: 700;
+  color: var(--navy2);
+  white-space: nowrap;
+}
+.info-val {
+  color: #1a1a1a;
+}
+.info-val .required {
+  color: var(--red);
+  font-weight: 700;
+}
+.info-val .caution {
+  color: var(--amber);
+  font-weight: 700;
+}
+.info-val .eng {
+  color: var(--gblue);
+  font-weight: 700;
+}
+
+/* ══ 스텝 ══ */
+.steps { counter-reset: step; }
+.step-item {
+  counter-increment: step;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  align-items: flex-start;
+}
+.step-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--gblue);
+  color: #fff;
+  font-size: 10pt;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.step-num::before {
+  content: counter(step);
+}
+.step-body {
+  flex: 1;
+  padding-top: 3px;
+}
+.step-title {
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 9.5pt;
+}
+.step-desc {
+  font-size: 8.8pt;
+  color: #555;
+  margin-top: 2px;
+  line-height: 1.55;
+}
+.step-tip {
+  display: inline-block;
+  background: var(--gblue2);
+  border: 1px solid #c0d8fc;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 8pt;
+  color: var(--navy2);
+  margin-top: 4px;
+}
+.step-warn {
+  display: inline-block;
+  background: #fff8e6;
+  border: 1px solid #f0c040;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 8pt;
+  color: #6a4a00;
+  margin-top: 4px;
+}
+
+/* ══ 체크리스트 ══ */
+.checklist { list-style: none; }
+.checklist li {
+  padding: 5px 0 5px 22px;
+  position: relative;
+  border-bottom: 1px dotted var(--lgray);
+  font-size: 9pt;
+  line-height: 1.5;
+}
+.checklist li:last-child { border-bottom: none; }
+.checklist li::before {
+  content: "☐";
+  position: absolute;
+  left: 0;
+  color: var(--gblue);
+  font-size: 11pt;
+}
+.checklist li.done::before { content: "✓"; color: var(--green); }
+
+/* ══ 강조 배너 ══ */
+.banner {
+  background: var(--gblue2);
+  border: 1px solid #c0d8fc;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  font-size: 9pt;
+  color: var(--navy);
+}
+.banner strong { color: var(--gblue); }
+.banner-amber {
+  background: #fff8e6;
+  border-color: #f0c040;
+  color: #6a4a00;
+}
+.banner-amber strong { color: #b07a00; }
+.banner-red {
+  background: #fff1f0;
+  border-color: #f5a0a0;
+  color: #7a1a1a;
+}
+.banner-red strong { color: var(--red); }
+.banner-green {
+  background: #edfaf3;
+  border-color: #8adbb6;
+  color: #1a5432;
+}
+.banner-green strong { color: var(--green); }
+
+/* ══ 경고 아이콘 라인 ══ */
+.alert-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 9pt;
+}
+.alert-icon {
+  flex-shrink: 0;
+  font-size: 11pt;
+}
+
+/* ══ 2열 그리드 ══ */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+/* ══ 태그 ══ */
+.tag {
+  display: inline-block;
+  font-size: 7.8pt;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 10px;
+  margin: 2px 2px;
+}
+.tag-blue { background: var(--gblue2); color: var(--navy2); border: 1px solid #c0d8fc; }
+.tag-amber { background: #fff3e0; color: #9a5800; border: 1px solid #f0c040; }
+.tag-green { background: #edfaf3; color: #1a5432; border: 1px solid #8adbb6; }
+.tag-red { background: #fff1f0; color: #7a1a1a; border: 1px solid #f5a0a0; }
+.tag-rose { background: var(--rose2); color: var(--rose); border: 1px solid #e0a0c0; }
+
+/* ══ 영문 소개문 ══ */
+.eng-block {
+  background: #f0f4ff;
+  border: 1px solid #c4d0f0;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+}
+.eng-block pre {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 8.3pt;
+  color: #1a1a3e;
+  white-space: pre-wrap;
+  line-height: 1.65;
+}
+.eng-label {
+  font-size: 7.8pt;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.08em;
+  margin-bottom: 7px;
+}
+
+/* ══ 비교 표 ══ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+  font-size: 8.8pt;
+}
+th {
+  background: var(--navy);
+  color: #fff;
+  padding: 6px 10px;
+  font-weight: 700;
+  text-align: left;
+}
+td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--lgray);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: var(--light); }
+.td-center { text-align: center; }
+
+/* ══ 수평 타임라인 ══ */
+.timeline {
+  display: flex;
+  gap: 0;
+  margin-bottom: 12px;
+}
+.tl-item {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+.tl-item:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -8px;
+  top: 12px;
+  font-size: 14pt;
+  color: var(--gblue);
+}
+.tl-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--gblue);
+  color: #fff;
+  font-size: 9pt;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 6px;
+}
+.tl-label {
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--navy);
+}
+.tl-desc {
+  font-size: 7.3pt;
+  color: var(--gray);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* ══ 푸터 ══ */
+.page-footer {
+  margin-top: 22px;
+  border-top: 1.5px solid var(--navy);
+  padding-top: 7px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 7.5pt;
+  color: var(--gray);
+}
+.page-footer strong { color: var(--navy); }
+
+/* ══ 최종 체크리스트 박스 ══ */
+.final-box {
+  border: 2px solid var(--gblue);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.final-box-title {
+  font-size: 10pt;
+  font-weight: 800;
+  color: var(--gblue);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     커버
+════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <span class="cover-top-logo">Google Business Profile</span>
+    <span class="cover-top-badge">구글 비즈니스 등록 가이드북</span>
+  </div>
+  <div class="cover-body">
+    <div>
+      <div class="cover-g-icon">G</div>
+      <div class="cover-eyebrow">Google Business Profile · Registration Guide</div>
+      <div class="cover-title">S&amp;H듀얼왁싱<br>구글 비즈니스 등록<br>실전 가이드북</div>
+      <div class="cover-sub">현재 구글 미등록 → 외국인 유입 0% 상태 해소를 위한<br>단계별 현장 실행 가이드 (원장님 + 컨설턴트 공용)</div>
+    </div>
+
+    <div>
+      <div class="cover-highlight">
+        <div class="cover-highlight-label">⚠ 지금 등록이 시급한 이유</div>
+        <div class="cover-highlight-val">같은 건물 4층에 퀸슈가링·서영언니 네일앤뷰티크 구글 선점 완료<br>→ "waxing apgujeong" 검색 시 S&amp;H 완전 미노출</div>
+      </div>
+
+      <div class="cover-info-grid">
+        <div class="cover-info-cell">
+          <div class="cic-label">매장명</div>
+          <div class="cic-val">S&amp;H듀얼왁싱</div>
+        </div>
+        <div class="cover-info-cell">
+          <div class="cic-label">주소</div>
+          <div class="cic-val">압구정로46길 5-6 A동 4층</div>
+        </div>
+        <div class="cover-info-cell">
+          <div class="cic-label">전화</div>
+          <div class="cic-val">010-8187-6455</div>
+        </div>
+        <div class="cover-info-cell">
+          <div class="cic-label">원장</div>
+          <div class="cic-val">세아 원장</div>
+        </div>
+      </div>
+
+      <div class="cover-footer">
+        <div class="cover-footer-brand">
+          강남AI컨설팅 · <strong>권용준 · 손미현</strong><br>
+          S&amp;H듀얼왁싱 압구정점 · 구글 비즈니스 등록 가이드 · 2026.06.20
+        </div>
+        <div class="cover-toc">
+          CH.1 왜 지금 등록해야 하는가<br>
+          CH.2 등록 전 준비사항<br>
+          CH.3 단계별 등록 절차<br>
+          CH.4 기본 정보 입력 가이드<br>
+          CH.5 사진 업로드 가이드<br>
+          CH.6 영문 소개문 작성<br>
+          CH.7 인증 방법 선택<br>
+          CH.8 등록 후 즉시 해야 할 것<br>
+          CH.9 리뷰 관리 및 지속 운영
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     CH.1 왜 지금 등록해야 하는가
+════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-num">CHAPTER 1</div>
+  <div class="chapter-title">왜 지금 등록해야 하는가</div>
+  <div class="chapter-sub">S&amp;H듀얼왁싱의 구글 미등록이 가져오는 실제 손실</div>
+</div>
+
+<div class="banner banner-red">
+  <strong>현황</strong> — "waxing apgujeong", "압구정 waxing", "waxing salon gangnam" 등 외국인 검색 시 S&amp;H듀얼왁싱 <strong>완전 미노출</strong>. 같은 건물(압구정로46길 5-6) 내 <strong>퀸슈가링</strong>과 <strong>서영언니 네일앤뷰티크</strong>는 이미 구글 등록 완료.
+</div>
+
+<div class="two-col">
+  <div class="card card-red">
+    <div style="font-weight:800;color:var(--red);margin-bottom:8px;">❌ 지금 이 순간 놓치는 것</div>
+    <ul class="checklist">
+      <li style="border:none;padding-bottom:3px;">외국인 관광객·비즈니스 방문객 검색 유입 0%</li>
+      <li style="border:none;padding-bottom:3px;">압구정로데오 상권 외국인 고객 진입 불가</li>
+      <li style="border:none;padding-bottom:3px;">경쟁사 구글맵 선점 → 고객 이탈</li>
+      <li style="border:none;padding-bottom:3px;">구글 리뷰(별점) 수집 불가 → 신뢰도 미형성</li>
+      <li style="border:none;">네이버 미노출 손실 + 구글 미등록 이중 손실</li>
+    </ul>
+  </div>
+  <div class="card card-green">
+    <div style="font-weight:800;color:var(--green);margin-bottom:8px;">✅ 등록 후 달라지는 것</div>
+    <ul class="checklist">
+      <li style="border:none;padding-bottom:3px;">"waxing apgujeong" 검색 결과 노출 시작</li>
+      <li style="border:none;padding-bottom:3px;">구글맵 위치 핀 + 별점·리뷰 표시</li>
+      <li style="border:none;padding-bottom:3px;">영문 소개·메뉴·사진 즉시 외국인 전달</li>
+      <li style="border:none;padding-bottom:3px;">구글 리뷰 수집 → 네이버 리뷰 623건 자산 연계</li>
+      <li style="border:none;">전화·예약 버튼 직접 연결 (카카오채널)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <div style="font-weight:800;color:var(--navy);margin-bottom:8px;">압구정·강남 외국인 유입 흐름 (등록 효과 근거)</div>
+  <table>
+    <tr>
+      <th>검색 패턴</th>
+      <th>검색 플랫폼</th>
+      <th>현재 결과</th>
+      <th>등록 후 결과</th>
+    </tr>
+    <tr>
+      <td>waxing apgujeong / 압구정 waxing</td>
+      <td>Google Maps</td>
+      <td><span class="tag tag-red">미노출</span></td>
+      <td><span class="tag tag-green">노출 가능</span></td>
+    </tr>
+    <tr>
+      <td>brazilian wax seoul / gangnam waxing</td>
+      <td>Google Search</td>
+      <td><span class="tag tag-red">미노출</span></td>
+      <td><span class="tag tag-green">노출 가능</span></td>
+    </tr>
+    <tr>
+      <td>압구정 왁싱 가게 (한국인)</td>
+      <td>Google Maps</td>
+      <td><span class="tag tag-red">미노출</span></td>
+      <td><span class="tag tag-green">노출 가능</span></td>
+    </tr>
+    <tr>
+      <td>S&amp;H듀얼왁싱 (상호 직접 검색)</td>
+      <td>Google</td>
+      <td><span class="tag tag-red">정보 패널 없음</span></td>
+      <td><span class="tag tag-green">우측 패널 노출</span></td>
+    </tr>
+  </table>
+</div>
+
+<div class="banner banner-amber">
+  <strong>긴급도</strong> — 퀸슈가링은 같은 건물(압구정로46길 5-6)에서 이미 구글 등록·리뷰 축적 중. 등록이 늦어질수록 격차가 벌어집니다. <strong>현장에서 30분이면 등록 완료 가능합니다.</strong>
+</div>
+
+<!-- ════════════════════════════════
+     CH.2 등록 전 준비사항
+════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-num">CHAPTER 2</div>
+  <div class="chapter-title">등록 전 준비사항</div>
+  <div class="chapter-sub">현장 방문 전에 원장님이 확인해두셔야 할 것들</div>
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">필수 준비물</span></div>
+
+<div class="card card-blue">
+  <ul class="checklist">
+    <li><strong>구글 계정</strong> — 비즈니스용으로 별도 계정 있으면 사용 (없으면 현장에서 생성). 개인 Gmail도 가능.</li>
+    <li><strong>스마트폰</strong> — 원장님 폰으로 직접 진행 (본인 인증 필요)</li>
+    <li><strong>사업자등록증</strong> — 주소 확인용 (사진 촬영 후 보관)</li>
+    <li><strong>매장 사진 3~5장</strong> — 스마트폰 카메라로 현장 촬영 가능 (내부·외부·간판)</li>
+    <li><strong>정확한 영업시간</strong> — 마감 시간 현장에서 최종 확인 필요 (현재 기록: 오픈 10:30, 마감 미확정)</li>
+  </ul>
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">등록 전 최종 확인값 (현장에서 확정)</span></div>
+
+<div class="info-grid">
+  <div class="info-row">
+    <div class="info-label">상호명</div>
+    <div class="info-val">S&amp;H듀얼왁싱 <span style="color:var(--gray);font-size:8pt;">(영문: S&amp;H Dual Waxing)</span></div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">주소</div>
+    <div class="info-val">서울특별시 강남구 신사동 압구정로46길 5-6 A동 4층</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">전화</div>
+    <div class="info-val">010-8187-6455 <span class="required">← 이 번호로 구글 전화 인증 가능한지 확인</span></div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">업종 카테고리</div>
+    <div class="info-val"><span class="eng">Waxing hair removal service</span> (1순위) / Hair removal service (2순위)</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">영업시간</div>
+    <div class="info-val">오픈 10:30 / 마감 <span class="caution">현장 확정 필요</span> / 정기 휴무일 <span class="caution">현장 확정 필요</span></div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">웹사이트</div>
+    <div class="info-val">인스타그램 @shdual_waxing <span style="color:var(--gray);font-size:8pt;">(공식 웹사이트 없으면 인스타 URL 입력)</span></div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">예약 링크</div>
+    <div class="info-val">카카오채널 pf.kakao.com/_TsIAE</div>
+  </div>
+</div>
+
+<div class="banner banner-amber">
+  ⚠ <strong>영업시간 불일치</strong> — 네이버 플레이스 10:30 시작 / 당근 기록 ~21:30 마감. 구글 등록 전 원장님께 정확한 영업시간(마감·휴무) 확정 요청 필수.
+</div>
+
+<!-- ════════════════════════════════
+     CH.3 단계별 등록 절차
+════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-num">CHAPTER 3</div>
+  <div class="chapter-title">단계별 등록 절차</div>
+  <div class="chapter-sub">Google Business Profile 등록 전체 흐름 (약 20~30분)</div>
+</div>
+
+<div class="timeline">
+  <div class="tl-item">
+    <div class="tl-circle">1</div>
+    <div class="tl-label">구글 계정<br>로그인</div>
+    <div class="tl-desc">비즈니스용<br>구글 계정</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-circle">2</div>
+    <div class="tl-label">비즈니스<br>검색</div>
+    <div class="tl-desc">중복 등록<br>여부 확인</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-circle">3</div>
+    <div class="tl-label">기본 정보<br>입력</div>
+    <div class="tl-desc">상호·주소·<br>업종·전화</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-circle">4</div>
+    <div class="tl-label">사진·소개<br>등록</div>
+    <div class="tl-desc">외관·내부·<br>시술 사진</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-circle">5</div>
+    <div class="tl-label">인증</div>
+    <div class="tl-desc">전화·영상·<br>엽서 선택</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-circle">6</div>
+    <div class="tl-label">노출 확인</div>
+    <div class="tl-desc">승인 후<br>검색 테스트</div>
+  </div>
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">상세 등록 절차</span></div>
+
+<div class="steps">
+  <div class="step-item">
+    <div class="step-num"></div>
+    <div class="step-body">
+      <div class="step-title">Google Business Profile 접속</div>
+      <div class="step-desc">스마트폰 크롬 브라우저 → <strong>business.google.com</strong> 접속 또는 구글 검색창에 "구글 비즈니스 프로필" 검색 후 접속.</div>
+      <div class="step-tip">💡 앱보다 모바일 웹 브라우저 사용 권장</div>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num"></div>
+    <div class="step-body">
+      <div class="step-title">구글 계정 로그인</div>
+      <div class="step-desc">원장님 구글 계정으로 로그인. 계정이 없으면 이 단계에서 새로 생성. (Gmail 주소 = 구글 계정)</div>
+      <div class="step-warn">⚠ 이미 다른 사람이 등록했는지 먼저 확인 — "S&H듀얼왁싱" 검색 후 기존 프로필 있으면 '소유권 주장' 진행</div>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num"></div>
+    <div class="step-body">
+      <div class="step-title">"지금 시작하기" 클릭 → 비즈니스 이름 입력</div>
+      <div class="step-desc">비즈니스 이름: <strong>S&amp;H듀얼왁싱</strong> 입력 (특수문자 &amp; 그대로 사용). 이미 등록된 비즈니스가 있으면 목록에 뜸 → 없으면 "다음"으로 진행.</div>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num"></div>
+    <div class="step-body">
+      <div class="step-title">비즈니스 유형 선택</div>
+      <div class="step-desc"><strong>"오프라인 매장"</strong> 선택 (고객이 직접 방문하는 유형). "서비스 지역 비즈니스" 아님.</div>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num"></div>
+    <div class="step-body">
+      <div class="step-title">카테고리(업종) 입력</div>
+      <div class="step-desc">"Waxing hair removal service" 또는 "왁싱" 검색 → <strong>"왁싱 살롱"</strong> 또는 <strong>"Hair removal service"</strong> 선택. 추가 카테고리로 "Beauty salon" 추가 권장.</div>
+      <div class="step-tip">💡 카테고리는 검색 노출에 가장 큰 영향 — 정확히 선택 필수</div>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num"></div>
+    <div class="step-body">
+      <div class="step-title">주소 입력</div>
+      <div class="step-desc"><strong>서울특별시 강남구 신사동 압구정로46길 5-6</strong> 입력 후 "A동 4층" 상세 주소란에 추가. 지도에서 핀 위치 확인 필수.</div>
+      <div class="step-warn">⚠ 건물 내 같은 주소에 다른 업체(퀸슈가링)가 있어도 정확히 입력 — 상세주소(동·층)로 구분됨</div>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num"></div>
+    <div class="step-body">
+      <div class="step-title">전화번호 입력</div>
+      <div class="step-desc"><strong>010-8187-6455</strong> 입력. 구글 전화 인증에 사용될 수 있으므로 수신 가능한 번호인지 확인.</div>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num"></div>
+    <div class="step-body">
+      <div class="step-title">웹사이트 URL 입력</div>
+      <div class="step-desc">공식 웹사이트 없으면 인스타그램 URL 입력: <strong>https://www.instagram.com/shdual_waxing</strong></div>
+      <div class="step-tip">💡 추후 카카오 채널 등 예약 링크로 업데이트 가능</div>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num"></div>
+    <div class="step-body">
+      <div class="step-title">인증 방법 선택</div>
+      <div class="step-desc">전화 인증(즉시) / 영상 인증(3~7일) / 엽서 인증(2주) 중 선택. 상세 내용은 CH.7 참조.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     CH.4 기본 정보 입력 가이드
+════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-num">CHAPTER 4</div>
+  <div class="chapter-title">기본 정보 입력 가이드</div>
+  <div class="chapter-sub">등록 즉시 채워넣어야 할 정보 — S&amp;H듀얼왁싱 기준값 사전 입력</div>
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">필수 정보 (등록 즉시 입력)</span></div>
+
+<div class="info-grid">
+  <div class="info-row">
+    <div class="info-label">상호명(한글)</div>
+    <div class="info-val">S&amp;H듀얼왁싱</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">상호명(영문)</div>
+    <div class="info-val"><span class="eng">S&amp;H Dual Waxing</span></div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">주소(한글)</div>
+    <div class="info-val">서울특별시 강남구 신사동 압구정로46길 5-6</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">상세주소</div>
+    <div class="info-val">A동 4층 (건물 1층: black rumor, 안쪽 엘리베이터 이용)</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">전화번호</div>
+    <div class="info-val">010-8187-6455</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">주 카테고리</div>
+    <div class="info-val"><span class="eng">Waxing hair removal service</span> (왁싱 살롱)</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">추가 카테고리</div>
+    <div class="info-val"><span class="eng">Hair removal service / Beauty salon</span></div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">웹사이트</div>
+    <div class="info-val">https://www.instagram.com/shdual_waxing</div>
+  </div>
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">영업시간 입력 (현장 확정 후 입력)</span></div>
+
+<div class="info-grid">
+  <div class="info-row">
+    <div class="info-label">월~금</div>
+    <div class="info-val">10:30 ~ <span class="caution">□□:□□ (현장 확정 후 입력)</span></div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">토~일</div>
+    <div class="info-val">10:30 ~ <span class="caution">□□:□□ (현장 확정 후 입력)</span></div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">정기 휴무</div>
+    <div class="info-val"><span class="caution">현장 확정 필요</span> (매주 □요일 휴무 / 비정기 휴무 여부)</div>
+  </div>
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">편의시설 및 속성 (등록 후 추가)</span></div>
+
+<div class="card card-blue">
+  <div style="margin-bottom:8px;font-size:8.5pt;color:var(--gray);">구글 비즈니스 속성 탭에서 선택 — 해당 항목 체크</div>
+  <div>
+    <span class="tag tag-green">✓ 예약 가능</span>
+    <span class="tag tag-green">✓ 무선 인터넷(Wi-Fi)</span>
+    <span class="tag tag-green">✓ 주차 (건물 지하 1시간 무료)</span>
+    <span class="tag tag-blue">여성 고객 환영</span>
+    <span class="tag tag-blue">남성 고객 가능</span>
+    <span class="tag tag-blue">카드 결제</span>
+    <span class="tag tag-blue">카카오페이</span>
+    <span class="tag tag-amber">? 현금 결제 여부 확인</span>
+    <span class="tag tag-amber">? 계단 없는 입구 여부 확인</span>
+  </div>
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">서비스 메뉴 등록 (구글 서비스 탭)</span></div>
+
+<table>
+  <tr>
+    <th>서비스명 (한글)</th>
+    <th>서비스명 (영문 입력)</th>
+    <th>가격</th>
+  </tr>
+  <tr>
+    <td>브라질리언 하드왁싱 — 여성 첫방문</td>
+    <td><span class="eng">Brazilian Hard Waxing (Women, First Visit)</span></td>
+    <td>49,000원</td>
+  </tr>
+  <tr>
+    <td>브라질리언 슈가링왁싱 — 여성 첫방문</td>
+    <td><span class="eng">Brazilian Sugaring Waxing (Women, First Visit)</span></td>
+    <td>60,000원</td>
+  </tr>
+  <tr>
+    <td>브라질리언 하드왁싱 — 남성 첫방문</td>
+    <td><span class="eng">Brazilian Hard Waxing (Men, First Visit)</span></td>
+    <td>71,000원</td>
+  </tr>
+  <tr>
+    <td>눈썹 왁싱</td>
+    <td><span class="eng">Eyebrow Waxing</span></td>
+    <td>25,000원</td>
+  </tr>
+  <tr>
+    <td>전신왁싱 (여성)</td>
+    <td><span class="eng">Full Body Waxing (Women)</span></td>
+    <td>180,000원~</td>
+  </tr>
+  <tr>
+    <td>멜라닌케어 + LED재생</td>
+    <td><span class="eng">Melanin Care + LED Skin Treatment</span></td>
+    <td>상담 후 결정</td>
+  </tr>
+</table>
+
+<!-- ════════════════════════════════
+     CH.5 사진 업로드 가이드
+════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-num">CHAPTER 5</div>
+  <div class="chapter-title">사진 업로드 가이드</div>
+  <div class="chapter-sub">구글 비즈니스 노출 품질을 결정하는 핵심 — 최소 5장 이상</div>
+</div>
+
+<div class="banner">
+  <strong>왜 사진이 중요한가</strong> — 구글 비즈니스 프로필에서 사진이 있는 매장은 없는 매장 대비 <strong>클릭율 35% 이상 높음</strong> (구글 공식 통계). 외국인은 사진으로 매장을 먼저 판단합니다.
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">필수 업로드 사진 (우선순위 순)</span></div>
+
+<table>
+  <tr>
+    <th>우선순위</th>
+    <th>사진 유형</th>
+    <th>촬영 포인트</th>
+    <th>장수</th>
+  </tr>
+  <tr>
+    <td class="td-center"><span class="tag tag-red">P1</span></td>
+    <td><strong>대표 이미지 (커버 사진)</strong></td>
+    <td>매장 내부 가장 깔끔한 공간 or 간판 / 밝고 선명하게</td>
+    <td>1장</td>
+  </tr>
+  <tr>
+    <td class="td-center"><span class="tag tag-red">P1</span></td>
+    <td><strong>외관 (건물 정면)</strong></td>
+    <td>건물 입구 + 4층 간판 방향 / 낮 시간 자연광</td>
+    <td>2~3장</td>
+  </tr>
+  <tr>
+    <td class="td-center"><span class="tag tag-amber">P2</span></td>
+    <td><strong>매장 내부</strong></td>
+    <td>리셉션·대기 공간·시술룸 외부 / 청결감 강조</td>
+    <td>3~5장</td>
+  </tr>
+  <tr>
+    <td class="td-center"><span class="tag tag-amber">P2</span></td>
+    <td><strong>시술 공간</strong></td>
+    <td>침대·조명·소품 (고객 없는 상태)</td>
+    <td>2~3장</td>
+  </tr>
+  <tr>
+    <td class="td-center"><span class="tag tag-blue">P3</span></td>
+    <td><strong>시술 결과물 (비포/애프터)</strong></td>
+    <td>눈썹·바프 결과 (기존 인스타 콘텐츠 재활용 가능)</td>
+    <td>3~5장</td>
+  </tr>
+  <tr>
+    <td class="td-center"><span class="tag tag-blue">P3</span></td>
+    <td><strong>팀/원장 소개</strong></td>
+    <td>세아 원장 프로필 사진 (전문가 이미지)</td>
+    <td>1~2장</td>
+  </tr>
+</table>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">사진 촬영 팁 (현장에서 바로)</span></div>
+
+<div class="two-col">
+  <div class="card card-green">
+    <div style="font-weight:800;color:var(--green);margin-bottom:6px;">✅ 이렇게 찍으세요</div>
+    <ul class="checklist">
+      <li style="border:none;padding-bottom:2px;">가로 방향(landscape) 위주로 촬영</li>
+      <li style="border:none;padding-bottom:2px;">자연광 많은 낮 시간 활용</li>
+      <li style="border:none;padding-bottom:2px;">조명은 최대한 밝게 켜고 촬영</li>
+      <li style="border:none;padding-bottom:2px;">최소 1,000×750px 이상 해상도</li>
+      <li style="border:none;">정리된 상태에서 촬영 (물건 치우기)</li>
+    </ul>
+  </div>
+  <div class="card card-red">
+    <div style="font-weight:800;color:var(--red);margin-bottom:6px;">❌ 피해야 할 것</div>
+    <ul class="checklist">
+      <li style="border:none;padding-bottom:2px;">글자/로고 텍스트 과도하게 삽입된 사진</li>
+      <li style="border:none;padding-bottom:2px;">어둡거나 흔들린 사진</li>
+      <li style="border:none;padding-bottom:2px;">필터 과다 적용 (자연스러운 색감 유지)</li>
+      <li style="border:none;padding-bottom:2px;">고객 신체 노출 (왁싱 특성상 주의)</li>
+      <li style="border:none;">경쟁사나 타 매장 사진 도용</li>
+    </ul>
+  </div>
+</div>
+
+<div class="banner banner-amber">
+  ⚠ <strong>왁싱샵 사진 특이사항</strong> — 시술 부위 사진(음부·신체 민감 부위)은 구글 정책상 <strong>업로드 불가</strong>. 시술 결과물은 눈썹·팔·다리·복부 등 노출이 일반적인 부위만 사용. 기존 인스타그램(@shdual_waxing) 게시물에서 적합한 사진 선별하여 재활용 권장.
+</div>
+
+<!-- ════════════════════════════════
+     CH.6 영문 소개문 작성
+════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-num">CHAPTER 6</div>
+  <div class="chapter-title">영문 소개문 작성</div>
+  <div class="chapter-sub">외국인 고객이 처음 보는 매장 설명 — 복사해서 그대로 사용 가능</div>
+</div>
+
+<div class="banner">
+  <strong>소개문의 역할</strong> — 구글 비즈니스 프로필의 소개문은 외국인 고객이 "여기 갈까 말까"를 결정하는 첫 번째 텍스트. 영문으로 작성해야 구글 검색에서 외국어 키워드 노출에도 유리합니다.
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">영문 소개문 (복사 사용 — 750자 이내)</span></div>
+
+<div class="eng-block">
+  <div class="eng-label">▶ GOOGLE BUSINESS 영문 소개문 (복사하여 그대로 입력)</div>
+  <pre>S&H Dual Waxing — Apgujeong's Premium Waxing Salon
+
+Specializing in both hard wax and sugaring, S&H Dual Waxing offers a personalized waxing experience tailored to your skin type. Our expert esthetician 'Sea' provides precise, gentle, and fast service — as verified by 600+ customer reviews on Naver.
+
+✦ Why choose S&H Dual Waxing?
+• Dual method: choose hard wax OR sugaring based on your skin sensitivity
+• Fast & thorough — "Quick hands" rated #3 by customers
+• Brazilian, full-body, eyebrow, hairline, and melanin care available
+• Clean, private treatment rooms
+• Free underground parking (1 hour)
+
+✦ First-visit special pricing available
+✦ Reservations via KakaoTalk Channel (English inquiries welcome)
+
+📍 4F, Building A, 5-6 Apgujeong-ro 46-gil, Gangnam-gu, Seoul
+🚇 5-min walk from Apgujeong Rodeo Station Exit 6 (Bundang Line)
+📞 010-8187-6455</pre>
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">한글 소개문 (구글에 한글 소개도 추가 가능)</span></div>
+
+<div class="eng-block" style="background:#f6f8ff;border-color:#d0d8f0;">
+  <div class="eng-label" style="color:var(--navy2);">▶ 한글 소개문 (한국어 사용자용)</div>
+  <pre>압구정 듀얼왁싱 전문점 S&H듀얼왁싱입니다.
+
+하드왁싱과 슈가링왁싱을 모두 제공하는 1:1 맞춤 왁싱 전문샵으로,
+고객님의 피부 타입에 맞는 시술 방식을 직접 선택하실 수 있습니다.
+
+✦ S&H듀얼왁싱의 강점
+• 하드왁스 / 슈가링 듀얼 선택 — 피부에 맞게 고르는 왁싱
+• 빠르고 꼼꼼한 시술 (네이버 리뷰 600건+ 검증)
+• 브라질리언·전신·눈썹·헤어라인·멜라닌케어
+• 첫방문 특가 이벤트 운영 중
+
+📍 서울 강남구 압구정로46길 5-6 A동 4층
+   (1층 black rumor 건물, 안쪽 엘리베이터 이용)
+🚇 압구정로데오역 6번 출구 도보 5분
+🅿 건물 지하주차장 1시간 무료
+📞 010-8187-6455 / 카카오채널: S&H듀얼왁싱</pre>
+</div>
+
+<!-- ════════════════════════════════
+     CH.7 인증 방법 선택
+════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-num">CHAPTER 7</div>
+  <div class="chapter-title">인증 방법 선택</div>
+  <div class="chapter-sub">등록 후 구글이 매장 존재를 확인하는 과정 — 반드시 완료해야 노출됨</div>
+</div>
+
+<table>
+  <tr>
+    <th>인증 방법</th>
+    <th>소요 시간</th>
+    <th>방법</th>
+    <th>권장도</th>
+  </tr>
+  <tr>
+    <td><strong>전화 인증</strong></td>
+    <td>즉시 (5분)</td>
+    <td>등록한 전화번호(010-8187-6455)로 자동 음성 전화 수신 → 인증번호 입력</td>
+    <td><span class="tag tag-green">✓ 1순위 권장</span></td>
+  </tr>
+  <tr>
+    <td><strong>문자 인증</strong></td>
+    <td>즉시 (5분)</td>
+    <td>등록 전화번호로 SMS 수신 → 인증번호 입력</td>
+    <td><span class="tag tag-green">✓ 1순위 권장</span></td>
+  </tr>
+  <tr>
+    <td><strong>영상 인증</strong></td>
+    <td>3~7일</td>
+    <td>구글 측 검토 영상 촬영 제출 (간판·주소·매장 내부 촬영)</td>
+    <td><span class="tag tag-amber">2순위</span></td>
+  </tr>
+  <tr>
+    <td><strong>엽서 인증</strong></td>
+    <td>2~4주</td>
+    <td>등록 주소로 구글 엽서 우편 발송 → 코드 입력</td>
+    <td><span class="tag tag-blue">3순위 (대안)</span></td>
+  </tr>
+</table>
+
+<div class="banner banner-green">
+  <strong>권장 경로</strong> — 전화 또는 문자 인증 시도 → 안 되면 영상 인증 선택. S&amp;H듀얼왁싱은 이미 실존 매장 검증이 가능하므로 <strong>전화 인증이 가장 빠름</strong>. 등록 번호 010-8187-6455로 음성 전화 또는 SMS가 오면 즉시 수신.
+</div>
+
+<div class="card card-amber">
+  <div style="font-weight:800;color:#b07a00;margin-bottom:8px;">영상 인증 선택 시 촬영 항목 (구글 가이드 준수)</div>
+  <ul class="checklist">
+    <li><strong>건물 외관</strong> — 건물 정면에서 A동 입구 방향까지 연속 촬영</li>
+    <li><strong>간판</strong> — "S&H듀얼왁싱" 간판이 보이도록 (4층 창문 또는 엘리베이터 안내판)</li>
+    <li><strong>주소 확인 자료</strong> — 건물 주소판 또는 우편물(사업자등록증) 카메라로 보여주기</li>
+    <li><strong>매장 내부</strong> — 입장 후 내부 공간 이동하며 촬영 (단절 없이 연속)</li>
+    <li><strong>본인 확인</strong> — 원장님 얼굴이 잠깐 나와야 할 수 있음</li>
+  </ul>
+</div>
+
+<!-- ════════════════════════════════
+     CH.8 등록 후 즉시 해야 할 것
+════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-num">CHAPTER 8</div>
+  <div class="chapter-title">등록 후 즉시 해야 할 것</div>
+  <div class="chapter-sub">등록 직후 30분 내 완료하면 노출 속도가 빨라집니다</div>
+</div>
+
+<div class="final-box">
+  <div class="final-box-title">🚀 등록 직후 체크리스트</div>
+  <ul class="checklist">
+    <li class="done">구글 비즈니스 프로필 등록 완료</li>
+    <li><strong>소개문 입력</strong> — CH.6 영문/한글 소개문 복사하여 붙여넣기</li>
+    <li><strong>사진 최소 5장 업로드</strong> — 외관 2장 + 내부 2장 + 시술공간 1장</li>
+    <li><strong>서비스 메뉴 등록</strong> — CH.4 서비스 표 기준 주요 6~8개 입력</li>
+    <li><strong>편의시설 속성 선택</strong> — 예약·주차·Wi-Fi 체크</li>
+    <li><strong>영업시간 확정 입력</strong> — 마감시간·휴무일 확인 후 즉시 입력</li>
+    <li><strong>예약 버튼 연결</strong> — 카카오채널 URL (pf.kakao.com/_TsIAE) 입력</li>
+    <li><strong>Q&amp;A 섹션 등록</strong> — 자주 묻는 질문 2~3개 직접 작성 (CH.9 참조)</li>
+  </ul>
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">노출 확인 방법 (승인 후)</span></div>
+
+<div class="steps">
+  <div class="step-item">
+    <div class="step-num"></div>
+    <div class="step-body">
+      <div class="step-title">구글 검색 확인</div>
+      <div class="step-desc">구글 검색창에 <strong>"S&amp;H듀얼왁싱"</strong> 검색 → 우측 정보 패널(Knowledge Panel) 나타나면 등록 성공.</div>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num"></div>
+    <div class="step-body">
+      <div class="step-title">구글 지도 확인</div>
+      <div class="step-desc">구글 지도에서 <strong>"압구정 왁싱"</strong> 또는 <strong>"waxing apgujeong"</strong> 검색 → 지도에 S&amp;H 핀이 표시되면 완료.</div>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num"></div>
+    <div class="step-body">
+      <div class="step-title">영문 검색 확인</div>
+      <div class="step-desc">구글에서 <strong>"S&H Dual Waxing"</strong> 영문으로 검색 → 정보 패널 노출 여부 확인. 외국인 검색과 동일한 환경.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     CH.9 리뷰 관리 및 지속 운영
+════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-num">CHAPTER 9</div>
+  <div class="chapter-title">리뷰 관리 및 지속 운영</div>
+  <div class="chapter-sub">등록 이후 구글 리뷰 10건 목표 — 3개월 KPI 기준</div>
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">구글 리뷰 요청 문구 (고객 안내용)</span></div>
+
+<div class="eng-block">
+  <div class="eng-label">▶ 한국인 고객 안내 문구 (시술 후 구두 또는 카카오 발송)</div>
+  <pre>시술 잘 받고 가셨나요? 😊
+구글에서 "S&H듀얼왁싱" 검색 후 별점 리뷰 남겨주시면
+다음 방문 시 쿠폰 드려요! 🎁
+(구글 리뷰는 네이버 리뷰와 별도 — 5분이면 완료됩니다)</pre>
+</div>
+
+<div class="eng-block">
+  <div class="eng-label">▶ 외국인 고객 안내 문구 (영문, 카운터 QR 코드와 함께 비치)</div>
+  <pre>Thank you for visiting S&H Dual Waxing! 🙏
+If you enjoyed your experience, please leave us a review on Google!
+It only takes 2 minutes and means the world to us.
+
+Search "S&H Dual Waxing" on Google Maps → Leave a review ⭐⭐⭐⭐⭐
+
+As a thank-you, show us your review on your next visit for a special discount!</pre>
+</div>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">Q&amp;A 섹션 — 직접 등록 권장 질문·답변</span></div>
+
+<table>
+  <tr>
+    <th>질문 (영문)</th>
+    <th>답변 (영문 입력)</th>
+  </tr>
+  <tr>
+    <td>Do you offer Brazilian waxing?</td>
+    <td>Yes! We specialize in Brazilian waxing with both hard wax and sugaring options. First-visit pricing starts from ₩49,000 (women).</td>
+  </tr>
+  <tr>
+    <td>Is English available?</td>
+    <td>Basic English communication is available. For detailed inquiries, please contact us via KakaoTalk (S&amp;H듀얼왁싱).</td>
+  </tr>
+  <tr>
+    <td>How do I book an appointment?</td>
+    <td>Reservations via KakaoTalk Channel (S&amp;H듀얼왁싱) or Naver. Walk-ins welcome subject to availability.</td>
+  </tr>
+  <tr>
+    <td>Is parking available?</td>
+    <td>Yes, free underground parking for 1 hour is available in the building (압구정로46길 5-6).</td>
+  </tr>
+</table>
+
+<div class="sec-h"><span class="sec-bar"></span><span class="sec-t">월 1회 자가 점검 체크리스트 (지속 관리)</span></div>
+
+<div class="card card-blue">
+  <ul class="checklist">
+    <li><strong>"waxing apgujeong"</strong> 구글 검색 → 내 매장 노출 순위 기록</li>
+    <li><strong>"S&H듀얼왁싱"</strong> 직접 검색 → 정보 패널 정상 표시 여부</li>
+    <li>구글 리뷰 수 확인 (목표: 3개월 내 10건)</li>
+    <li>신규 리뷰에 답글 달기 (한/영 혼용 OK)</li>
+    <li>사진 업데이트 (계절별 이벤트·신규 서비스 추가 시)</li>
+    <li>영업시간 변경 사항 즉시 반영 (공휴일·특별 휴무)</li>
+    <li>서비스 메뉴 가격 변경 시 즉시 수정</li>
+  </ul>
+</div>
+
+<div class="banner banner-green">
+  <strong>3개월 KPI 목표</strong> — 구글 비즈니스 등록 + 리뷰 10건 달성 시, "waxing apgujeong" 구글 지도 검색 결과 상위 3개 내 진입 가능 (현재 같은 건물 퀸슈가링 대비 역전 목표).
+</div>
+
+<div class="page-footer">
+  <div>강남AI컨설팅 · <strong>권용준 · 손미현</strong></div>
+  <div>S&amp;H듀얼왁싱 압구정점 · 구글 비즈니스 등록 가이드북 · 2026.06.20</div>
+</div>
+
+</body>
+</html>

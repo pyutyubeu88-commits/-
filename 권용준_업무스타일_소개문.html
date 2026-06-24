@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>권용준 업무 스타일 소개문 — 3버전</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans KR', sans-serif; background:#f2f1ed; color:#1a1a1a; font-size:14px; line-height:1.7; }
+
+  .cover {
+    background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 60%, #2a5580 100%);
+    color:white; padding:52px 48px 44px; position:relative; overflow:hidden;
+  }
+  .cover::before { content:''; position:absolute; top:-60px; right:-60px; width:260px; height:260px; background:rgba(255,255,255,0.03); border-radius:50%; }
+  .cover-label { display:inline-block; background:rgba(255,200,0,0.18); border:1px solid rgba(255,200,0,0.4); color:#ffd700; font-size:11px; font-weight:700; letter-spacing:0.12em; padding:4px 14px; border-radius:20px; margin-bottom:16px; }
+  .cover h1 { font-size:28px; font-weight:900; margin-bottom:6px; }
+  .cover p { font-size:14px; color:rgba(255,255,255,0.65); margin-top:8px; max-width:520px; line-height:1.7; }
+  .cover-meta { margin-top:22px; display:flex; gap:24px; flex-wrap:wrap; }
+  .meta-item strong { display:block; font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:2px; }
+  .meta-item span { font-size:12px; font-weight:600; color:rgba(255,255,255,0.88); }
+
+  .toc { max-width:860px; margin:0 auto; padding:24px 24px 0; display:flex; gap:12px; flex-wrap:wrap; }
+  .toc a { background:white; border:1px solid #d8e8f5; border-radius:20px; padding:6px 16px; font-size:13px; color:#1a3a5c; font-weight:600; text-decoration:none; }
+  .toc a:hover { background:#1a3a5c; color:white; }
+
+  .content { max-width:860px; margin:0 auto; padding:24px 24px 80px; }
+
+  /* 버전 카드 */
+  .version-card { background:white; border-radius:14px; padding:30px 32px; margin-bottom:28px; box-shadow:0 2px 6px rgba(0,0,0,0.06); }
+  .version-header { display:flex; align-items:flex-start; gap:18px; margin-bottom:22px; padding-bottom:18px; border-bottom:2px solid #e5eef8; }
+  .version-badge { width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:900; letter-spacing:0.04em; flex-shrink:0; }
+  .v1 .version-badge { background:#0a1628; color:#ffd700; }
+  .v2 .version-badge { background:#1a5c3a; color:#a8f0c8; }
+  .v3 .version-badge { background:#4a1a8c; color:#d4b8f8; }
+  .version-meta h2 { font-size:18px; font-weight:900; color:#0a1628; margin-bottom:4px; }
+  .version-meta p { font-size:12px; color:#666; line-height:1.6; }
+  .version-tag { display:inline-block; font-size:10px; font-weight:700; padding:3px 10px; border-radius:10px; margin-top:6px; }
+  .v1 .version-tag { background:#e5eef8; color:#1a3a5c; }
+  .v2 .version-tag { background:#e5f5ec; color:#1a5c3a; }
+  .v3 .version-tag { background:#ede5f8; color:#4a1a8c; }
+
+  /* 소개문 본문 */
+  .copy-box { background:#f8fafd; border:1px solid #dde8f5; border-radius:10px; padding:22px 24px; margin-bottom:16px; position:relative; }
+  .copy-box.v2-bg { background:#f5faf7; border-color:#c8e8d8; }
+  .copy-box.v3-bg { background:#f8f5fd; border-color:#d8c8f0; }
+  .copy-box p { font-size:14px; line-height:1.9; color:#222; }
+  .copy-box p + p { margin-top:12px; }
+  .copy-label { font-size:10px; font-weight:900; letter-spacing:0.08em; margin-bottom:10px; }
+  .v1 .copy-label { color:#1a3a5c; }
+  .v2 .copy-label { color:#1a5c3a; }
+  .v3 .copy-label { color:#4a1a8c; }
+  .copy-note { font-size:12px; color:#888; background:#f0f0f0; border-radius:6px; padding:8px 12px; margin-top:10px; line-height:1.6; }
+
+  /* 키워드 행 */
+  .kw-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .kw { padding:5px 14px; border-radius:20px; font-size:12px; font-weight:700; }
+  .v1 .kw { background:#e5eef8; color:#1a3a5c; }
+  .v2 .kw { background:#e5f5ec; color:#1a5c3a; }
+  .v3 .kw { background:#ede5f8; color:#4a1a8c; }
+
+  /* 사용 가이드 */
+  .guide { font-size:12px; color:#555; line-height:1.7; }
+  .guide li { padding:3px 0 3px 14px; position:relative; }
+  .guide li::before { content:'→'; position:absolute; left:0; color:#aaa; }
+
+  /* 구분선 */
+  .divider { border:none; border-top:1px dashed #ddd; margin:12px 0; }
+
+  /* 비교표 */
+  .compare { background:white; border-radius:14px; padding:26px 28px; box-shadow:0 2px 6px rgba(0,0,0,0.06); }
+  .compare h3 { font-size:15px; font-weight:700; color:#0a1628; margin-bottom:16px; }
+  table { width:100%; border-collapse:collapse; }
+  th { background:#edf3fb; color:#1a3a5c; font-size:12px; font-weight:700; padding:9px 12px; text-align:left; border:1px solid #d5e5f0; }
+  td { padding:9px 12px; border:1px solid #e5eef5; font-size:13px; vertical-align:top; }
+  tr:nth-child(even) td { background:#fafcff; }
+
+  .footer { max-width:860px; margin:0 auto; padding:0 24px 60px; }
+  .footer-inner { border-top:1px solid #ddd; padding-top:18px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+  .footer-inner p { font-size:12px; color:#999; }
+
+  @media print {
+    body { background:white; }
+    .cover { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .version-card { break-inside:avoid; box-shadow:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 커버 -->
+<div class="cover">
+  <div class="cover-label">Work Style Document · 3 Versions</div>
+  <h1>권용준 업무 스타일 소개문</h1>
+  <p>대외용(클라이언트·파트너) / 내부용(팀원·협업자) / AI 전달용(AI 도구 지시 프롬프트) — 3버전</p>
+  <div class="cover-meta">
+    <div class="meta-item"><strong>작성일</strong><span>2026년 6월 12일</span></div>
+    <div class="meta-item"><strong>대상</strong><span>권용준 (강남구 AI 마케팅 컨설팅)</span></div>
+    <div class="meta-item"><strong>용도</strong><span>소개·협업·AI 시스템 지시</span></div>
+  </div>
+</div>
+
+<!-- 목차 -->
+<div class="toc">
+  <a href="#v1">대외용</a>
+  <a href="#v2">내부·협업용</a>
+  <a href="#v3">AI 전달용</a>
+  <a href="#compare">3버전 비교표</a>
+</div>
+
+<div class="content">
+
+  <!-- ══ 버전 1: 대외용 ══ -->
+  <div class="version-card v1" id="v1">
+    <div class="version-header">
+      <div class="version-badge">대외<br>용</div>
+      <div class="version-meta">
+        <h2>버전 1 — 대외용</h2>
+        <p>클라이언트 첫 미팅 · 파트너 소개 · SNS 프로필 · 제안서 표지에 쓰는 버전.<br>신뢰와 전문성을 전달하되, 일하는 방식이 어떻게 다른지를 느낄 수 있어야 한다.</p>
+        <div class="version-tag">클라이언트 · 파트너 · SNS · 제안서</div>
+      </div>
+    </div>
+
+    <div class="copy-label">/ 소개문 본문 /</div>
+    <div class="copy-box">
+      <p>저는 <strong>정확한 현장 데이터를 바탕으로, 바로 실행 가능한 결과물을 만드는 마케팅 컨설턴트</strong>입니다.</p>
+      <p>컨설팅을 시작하기 전, 가장 먼저 하는 일은 <strong>기준을 잠그는 것</strong>입니다. 정확한 매장 주소, 실제 운영자와 결정권자의 구분, 변경 가능한 것과 불가능한 것의 경계 — 이 전제조건이 확정되지 않으면 전략을 시작하지 않습니다.</p>
+      <p>보고서는 예쁜 것보다 <strong>출력해서 현장에 들고 갈 수 있는가</strong>를 기준으로 만듭니다. 미팅 당일 원장님과 함께 채널을 수정하고, 숙제는 혼자서도 할 수 있는 크기로 잘라드립니다. 컨설팅이 끝난 뒤에도 <strong>스스로 운영할 수 있는 구조</strong>를 남기는 것이 목표입니다.</p>
+      <p>강남구 소상공인이 온라인 노출 때문에 손해 보는 일이 없도록, AI와 현장을 연결하는 방식으로 일합니다.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="copy-label">/ 한 줄 버전 (SNS 바이오·명함 하단용) /</div>
+    <div class="copy-box">
+      <p style="font-size:15px; font-weight:700; color:#0a1628;">정확한 기준 → 현장 실행 → 점주 자립. 강남구 소상공인 AI 마케팅 컨설턴트, 권용준.</p>
+    </div>
+    <div class="copy-note">사용 팁: SNS 바이오는 한 줄 버전으로, 제안서 표지나 미팅 자료 첫 장에는 단락 버전을 사용하세요.</div>
+
+    <div class="kw-row">
+      <span class="kw">#현장형컨설팅</span>
+      <span class="kw">#자립구조설계</span>
+      <span class="kw">#AI마케팅</span>
+      <span class="kw">#기준설정</span>
+      <span class="kw">#강남구소상공인</span>
+    </div>
+  </div>
+
+  <!-- ══ 버전 2: 내부용 ══ -->
+  <div class="version-card v2" id="v2">
+    <div class="version-header">
+      <div class="version-badge">내부<br>용</div>
+      <div class="version-meta">
+        <h2>버전 2 — 내부·협업용</h2>
+        <p>손미현 프로님 등 팀원 · 프리랜서 협업자 · 인턴 온보딩 자료에 쓰는 버전.<br>"이 사람과 어떻게 일해야 하는가"를 처음 함께 일하는 사람이 빠르게 파악할 수 있어야 한다.</p>
+        <div class="version-tag" style="background:#e5f5ec; color:#1a5c3a;">팀원 · 협업자 · 온보딩</div>
+      </div>
+    </div>
+
+    <div class="copy-label" style="color:#1a5c3a;">/ 협업자가 알아야 할 권용준의 일하는 방식 /</div>
+    <div class="copy-box v2-bg">
+      <p><strong>기준이 흔들리면 프로젝트가 흔들린다</strong>는 걸 가장 중요하게 생각합니다. 작업을 시작하기 전에 반드시 확인해주세요 — 정확한 매장명·주소·담당자 역할이 확정됐는지. 추정값은 항상 "(추정)" 또는 "현장 확인 필요"로 표기해주세요.</p>
+      <p>결과물은 <strong>"초안"이 아닌 "완성본"을 기본값으로</strong> 해주세요. Executive Summary, SWOT, 실행 로드맵까지 포함된 완성 문서를 기대합니다. 반쪽짜리 결과물을 가져오면 다시 돌아갑니다.</p>
+      <p>문서의 기준은 딱 하나입니다 — <strong>점주가 출력해서 현장에서 쓸 수 있는가.</strong> 예쁜 디자인보다 현장 적용성을 먼저 생각해주세요.</p>
+      <p>권용준은 <strong>단계별로 확정하고 다음 단계로 넘어가는 방식</strong>을 선호합니다. 앞 단계가 흔들리면 뒤 단계를 진행하지 않습니다. "일단 대충 해보고 나중에 고치자"는 방식이 맞지 않는 스타일입니다.</p>
+    </div>
+
+    <div class="copy-label" style="color:#1a5c3a;">/ 같이 일할 때 이것만 지키면 된다 (5가지) /</div>
+    <div class="copy-box v2-bg">
+      <ul class="guide" style="list-style:none;">
+        <li>정확한 기준값(매장명·주소·담당자)이 없는 상태에서 전략 제안 금지</li>
+        <li>추정값은 반드시 출처와 함께 "(추정)" 명기</li>
+        <li>결과물은 현장에서 바로 쓸 수 있는 형태 (PDF·체크리스트·문구 템플릿)</li>
+        <li>보고는 "했습니다" 한 줄이 아니라 "무엇을, 어떻게, 결과가 어떻게 됐는지" 포함</li>
+        <li>한 번 확정된 사항은 재논의 없이 유지 — 변경이 필요하면 먼저 통보 후 진행</li>
+      </ul>
+    </div>
+    <div class="copy-note" style="background:#e5f5ec; color:#1a5c3a;">이 문서는 팀 합류 시 공유하거나, 프리랜서 온보딩 자료에 첨부해서 쓸 수 있습니다.</div>
+
+    <div class="kw-row">
+      <span class="kw">#10레벨완성도</span>
+      <span class="kw">#기준확정후실행</span>
+      <span class="kw">#현장적용성기준</span>
+      <span class="kw">#추정값명기</span>
+      <span class="kw">#단계별확정</span>
+    </div>
+  </div>
+
+  <!-- ══ 버전 3: AI 전달용 ══ -->
+  <div class="version-card v3" id="v3">
+    <div class="version-header">
+      <div class="version-badge">AI<br>용</div>
+      <div class="version-meta">
+        <h2>버전 3 — AI 전달용</h2>
+        <p>Claude · GPT · Gemini 등 AI 도구에 세션 시작 시 붙여넣는 지시문 버전.<br>AI가 이 사람의 기준에 맞게 행동하도록 역할과 규칙을 명확하게 정의한다.</p>
+        <div class="version-tag" style="background:#ede5f8; color:#4a1a8c;">Claude · GPT · Gemini · AI 도구 System Prompt</div>
+      </div>
+    </div>
+
+    <div class="copy-label" style="color:#4a1a8c;">/ AI 시스템 프롬프트 (바로 붙여넣기 가능) /</div>
+    <div class="copy-box v3-bg">
+      <p style="font-family:monospace; font-size:13px; color:#2a1a4a; line-height:2;">
+        당신은 권용준(강남구 AI 마케팅 컨설팅)의 전담 AI 보조 시스템입니다.<br><br>
+        <strong>[절대 규칙 — 반드시 준수]</strong><br>
+        1. 주소·매장명·담당자 이름 등 기준 정보는 100% 정확하게 사용한다. 불확실하면 "현장 확인 필요"로 명기한다.<br>
+        2. 추정값은 항상 "(추정)" 또는 출처를 함께 표기한다. 확정값처럼 쓰지 않는다.<br>
+        3. 모든 결과물은 현장에서 바로 쓸 수 있는 수준(10레벨 완성도)으로 제출한다. 초안은 없다.<br>
+        4. 설명만 길게 하지 않는다. 문서·PDF·체크리스트·문구 템플릿 형태의 산출물을 우선 제공한다.<br>
+        5. 기준값 확정 → 관계자 구조 확정 → 문서화 → 실행 순서를 지킨다. 앞 단계가 불확실하면 다음 단계로 가지 않는다.<br>
+        6. 신청자와 실운영자가 다른 경우 반드시 분리해서 표기한다.<br>
+        7. 체인점·가맹점의 경우 "무엇을 바꿀 수 있는가"를 먼저 확인한다. 권한 밖의 변경을 전략으로 제안하지 않는다.<br>
+        8. 한 번 확정된 사항은 재논의 없이 유지한다. 변경이 필요한 경우에만 명시적으로 제안한다.<br><br>
+        <strong>[결과물 기준]</strong><br>
+        보고서: Executive Summary → 현황 → 핵심 진단 → 경쟁사 → KPI → 실행 로드맵 구조 유지.<br>
+        문서: 출력해서 현장에서 쓸 수 있는가를 최우선 기준으로 한다.<br>
+        HTML/PDF: 항상 함께 제공한다. 웹폰트(Noto Sans KR), 반응형, 인쇄 최적화 필수.<br><br>
+        <strong>[이 사람이 운영하는 컨설팅 정체성]</strong><br>
+        "오프라인 매장의 강점을 온라인 성과로 전환하는 현장형 AI 마케팅 자립 컨설팅"<br>
+        핵심 원칙: 설명보다 실행 / 대행보다 자립 / 추상보다 현장 / AI 기반 표준화
+      </p>
+    </div>
+    <div class="copy-note" style="background:#ede5f8; color:#4a1a8c;">사용 방법: AI 도구의 System Prompt 또는 첫 메시지 앞에 이 텍스트를 붙여넣으세요. Claude Code의 경우 CLAUDE.md에 추가하면 세션마다 자동 적용됩니다.</div>
+
+    <div class="kw-row">
+      <span class="kw">#SystemPrompt</span>
+      <span class="kw">#AI지시문</span>
+      <span class="kw">#역할정의</span>
+      <span class="kw">#행동규칙8개</span>
+      <span class="kw">#자동적용</span>
+    </div>
+  </div>
+
+  <!-- ══ 비교표 ══ -->
+  <div class="compare" id="compare">
+    <h3>3버전 한눈에 비교</h3>
+    <table>
+      <tr><th width="15%">버전</th><th width="25%">주 사용처</th><th width="25%">핵심 메시지</th><th width="35%">어조 / 특징</th></tr>
+      <tr>
+        <td><strong>대외용</strong></td>
+        <td>클라이언트 미팅<br>파트너 소개<br>SNS 프로필·명함</td>
+        <td>"기준을 잠그고, 현장에서 실행하고, 자립 구조를 남긴다"</td>
+        <td>신뢰·전문성 중심. "나는 다르게 일한다"는 차별점을 자연스럽게 전달.</td>
+      </tr>
+      <tr>
+        <td><strong>내부용</strong></td>
+        <td>팀원 온보딩<br>프리랜서 협업<br>업무 가이드</td>
+        <td>"이렇게 해야 같이 일할 수 있다 — 5가지 규칙"</td>
+        <td>직접적·실용적. "왜 이렇게 해야 하는가"보다 "무엇을 해야 하는가"에 집중.</td>
+      </tr>
+      <tr>
+        <td><strong>AI 전달용</strong></td>
+        <td>Claude / GPT<br>Gemini System Prompt<br>CLAUDE.md</td>
+        <td>8가지 절대 규칙 + 결과물 기준 + 컨설팅 정체성 정의</td>
+        <td>명령형·구체적. AI가 오해 없이 따를 수 있도록 번호·조건·형식 명기.</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-inner">
+    <p>권용준 업무 스타일 소개문 · 3버전 · 2026-06-12</p>
+    <p>강남구 AI 마케팅 컨설팅 · 권용준 / 손미현</p>
+  </div>
+</div>
+
+</body>
+</html>

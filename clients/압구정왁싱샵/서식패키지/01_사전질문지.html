@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&H듀얼왁싱 — 사전 질문지</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans KR',sans-serif;background:#f4f6f9;color:#1a1a2e;font-size:14px;line-height:1.6}
+  .cover{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;padding:40px;text-align:center}
+  .cover .badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:6px 18px;font-size:12px;margin-bottom:16px;letter-spacing:1px}
+  .cover h1{font-size:26px;font-weight:700;margin-bottom:8px}
+  .cover .sub{font-size:14px;opacity:0.8;margin-bottom:20px}
+  .cover .meta{display:flex;justify-content:center;gap:24px;font-size:13px;opacity:0.75}
+  .notice{background:#fff3cd;border-left:4px solid #ffc107;padding:14px 20px;margin:24px 40px;border-radius:6px;font-size:13px}
+  .notice strong{color:#856404}
+  .container{max-width:860px;margin:0 auto;padding:20px 24px 60px}
+  .section{background:#fff;border-radius:12px;padding:28px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+  .section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f0f2f5}
+  .section-num{background:#0f3460;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+  .section-title{font-size:17px;font-weight:700;color:#1a1a2e}
+  .section-desc{font-size:12px;color:#888;margin-top:2px}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:13px;font-weight:600;color:#333;margin-bottom:6px}
+  .field .hint{font-size:11px;color:#888;margin-bottom:6px}
+  .field input[type=text],.field textarea,.field select{width:100%;padding:10px 14px;border:1.5px solid #e0e3e8;border-radius:8px;font-size:13px;font-family:'Noto Sans KR',sans-serif;background:#fafafa;color:#333;outline:none;transition:border-color 0.2s}
+  .field input[type=text]:focus,.field textarea:focus,.field select:focus{border-color:#0f3460;background:#fff}
+  .field textarea{resize:vertical;min-height:80px}
+  .prefilled{background:#e8f4fd !important;border-color:#90caf9 !important;color:#1565c0 !important}
+  .prefilled-note{font-size:11px;color:#1976d2;margin-top:4px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .radio-group,.check-group{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .radio-group label,.check-group label{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;cursor:pointer;padding:6px 12px;border:1.5px solid #e0e3e8;border-radius:20px;background:#fafafa}
+  .radio-group input,.check-group input{cursor:pointer}
+  .star-row{display:flex;align-items:center;gap:8px;font-size:13px}
+  .priority-tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;margin-left:6px}
+  .p1{background:#fff0f0;color:#c62828}
+  .p2{background:#fff8e1;color:#e65100}
+  .p3{background:#e8f5e9;color:#2e7d32}
+  table.score-table{width:100%;border-collapse:collapse;font-size:13px}
+  table.score-table th{background:#f0f2f5;padding:8px 12px;text-align:left;font-weight:600}
+  table.score-table td{padding:8px 12px;border-bottom:1px solid #f0f2f5;vertical-align:middle}
+  table.score-table td input[type=radio]{cursor:pointer}
+  .footer-note{background:#f8f9fa;border-radius:8px;padding:16px 20px;text-align:center;font-size:12px;color:#666;margin-top:24px}
+  @media print{body{background:#fff}.section{box-shadow:none;border:1px solid #eee}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="badge">GANGNAM AI CONSULTING · 사전 질문지 v2.0</div>
+  <h1>S&H듀얼왁싱 · 초회 컨설팅 사전 질문지</h1>
+  <div class="sub">컨설팅 담당: 권용준 · 손미현 · 배포일: 2026.06 · 회수 기한: 미팅 2일 전</div>
+  <div class="meta">
+    <span>📍 서울 강남구 신사동 압구정로46길 5-6 A동 4층</span>
+    <span>📞 010-8187-6455</span>
+    <span>👤 원장: 세아</span>
+  </div>
+</div>
+
+<div class="notice">
+  <strong>작성 안내</strong> — 아는 범위에서만 작성하셔도 됩니다. 모르거나 해당 없으면 빈칸으로 두세요.
+  파란색 항목은 이미 수집된 정보이며, 추가 확인·정정이 필요한 경우 수정해 주세요.
+</div>
+
+<div class="container">
+
+<!-- SECTION 1 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div>
+      <div class="section-title">기본 정보 확인</div>
+      <div class="section-desc">파란색 항목은 사전 수집값 — 틀리면 수정해 주세요</div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="field">
+      <label>상호명</label>
+      <input type="text" class="prefilled" value="S&H듀얼왁싱">
+      <div class="prefilled-note">사전 수집값</div>
+    </div>
+    <div class="field">
+      <label>원장 성함</label>
+      <input type="text" class="prefilled" value="세아 원장님">
+      <div class="prefilled-note">인스타그램 바이오 기준</div>
+    </div>
+    <div class="field">
+      <label>주소</label>
+      <input type="text" class="prefilled" value="서울 강남구 신사동 압구정로46길 5-6 A동 4층">
+      <div class="prefilled-note">사전 수집값</div>
+    </div>
+    <div class="field">
+      <label>대표 전화</label>
+      <input type="text" class="prefilled" value="010-8187-6455">
+      <div class="prefilled-note">사전 수집값</div>
+    </div>
+    <div class="field">
+      <label>오픈일</label>
+      <input type="text" class="prefilled" value="2025년 4월 14일">
+      <div class="prefilled-note">사전 수집값 (약 14개월 운영)</div>
+    </div>
+    <div class="field">
+      <label>영업 시간 <span class="priority-tag p1">확인필요</span></label>
+      <input type="text" value="10:30~ (마감 시간 ?  /  정기 휴무 ?)">
+      <div class="hint">플레이스와 당근 정보가 불일치합니다. 정확한 시간을 기재해 주세요.</div>
+    </div>
+  </div>
+  <div class="field">
+    <label>사업자 형태</label>
+    <div class="radio-group">
+      <label><input type="radio" name="biz_type"> 개인사업자</label>
+      <label><input type="radio" name="biz_type"> 법인</label>
+      <label><input type="radio" name="biz_type"> 프리랜서 (미등록)</label>
+    </div>
+  </div>
+  <div class="field">
+    <label>직원 구성</label>
+    <input type="text" placeholder="예) 원장 1인 / 원장 + 직원 2명 / 프리랜서 협업 등">
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div>
+      <div class="section-title">서비스 & 가격</div>
+      <div class="section-desc">주력 서비스와 가격 구조 파악</div>
+    </div>
+  </div>
+  <div class="field">
+    <label>주력 서비스 (중요도 순으로 기재)</label>
+    <div class="hint">사전 수집된 정보: 브라질리언 여성 하드 49,000 / 슈가링 60,000 / 남성 하드 71,000 / 슈가링 83,000</div>
+    <textarea placeholder="서비스명, 가격, 소요시간 순으로 기재해 주세요. 예) 브라질리언 슈가링 60,000원 / 40분"></textarea>
+  </div>
+  <div class="field">
+    <label>'듀얼'의 의미 <span class="priority-tag p1">핵심 포지셔닝 단서</span></label>
+    <div class="hint">상호명 'S&H 듀얼왁싱'에서 '듀얼'이 무엇을 뜻하는지 간단히 설명해 주세요.</div>
+    <textarea placeholder="예) 왁싱 + 슈가링 두 가지 방식을 모두 제공 / 두 명의 테라피스트 등"></textarea>
+  </div>
+  <div class="field">
+    <label>경쟁 대비 차별 서비스 (있다면)</label>
+    <textarea placeholder="이 집에서만 받을 수 있는 것, 타 샵과 다른 점을 자유롭게 기재해 주세요."></textarea>
+  </div>
+  <div class="grid2">
+    <div class="field">
+      <label>예약 방법 <span class="priority-tag p2">확인</span></label>
+      <div class="check-group">
+        <label><input type="checkbox"> 전화</label>
+        <label><input type="checkbox"> 카카오채널</label>
+        <label><input type="checkbox"> 네이버 예약</label>
+        <label><input type="checkbox"> DM(인스타)</label>
+        <label><input type="checkbox"> 기타</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>주 예약 채널 (1개만 선택)</label>
+      <div class="radio-group">
+        <label><input type="radio" name="main_book"> 전화</label>
+        <label><input type="radio" name="main_book"> 카카오채널</label>
+        <label><input type="radio" name="main_book"> 네이버 예약</label>
+        <label><input type="radio" name="main_book"> DM</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div>
+      <div class="section-title">고객 현황</div>
+      <div class="section-desc">누가 오는지, 어디서 오는지</div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="field">
+      <label>주 고객층 (해당하는 것 모두)</label>
+      <div class="check-group">
+        <label><input type="checkbox"> 20대 여성</label>
+        <label><input type="checkbox"> 30대 여성</label>
+        <label><input type="checkbox"> 40대 여성</label>
+        <label><input type="checkbox"> 남성</label>
+        <label><input type="checkbox"> 외국인</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>방문 목적 (주요 2가지)</label>
+      <div class="check-group">
+        <label><input type="checkbox"> 정기 관리</label>
+        <label><input type="checkbox"> 특별 이벤트 전</label>
+        <label><input type="checkbox"> 신규 체험</label>
+        <label><input type="checkbox"> 리뷰/추천</label>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label>유입 경로 (어디서 알고 오는지 — 느낌으로라도)</label>
+    <div class="hint">사전 조사: "압구정슈가링" 키워드 3위 노출, 나머지 핵심 키워드 미노출 상태</div>
+    <div class="radio-group">
+      <label><input type="radio" name="inflow"> 네이버 검색이 대부분</label>
+      <label><input type="radio" name="inflow"> 인스타그램이 대부분</label>
+      <label><input type="radio" name="inflow"> 지인 소개가 대부분</label>
+      <label><input type="radio" name="inflow"> 비슷하게 섞임</label>
+    </div>
+  </div>
+  <div class="field">
+    <label>재방문율 체감 (원장님 느낌)</label>
+    <div class="radio-group">
+      <label><input type="radio" name="revisit"> 매우 높음 (80%+)</label>
+      <label><input type="radio" name="revisit"> 높음 (60~80%)</label>
+      <label><input type="radio" name="revisit"> 보통 (40~60%)</label>
+      <label><input type="radio" name="revisit"> 낮음 (40% 미만)</label>
+    </div>
+  </div>
+  <div class="field">
+    <label>고객이 가장 많이 하는 칭찬 (리뷰나 말로)</label>
+    <textarea placeholder="예) '아프지 않아요', '꼼꼼해요', '친절해요', '깔끔해요' 등 자주 듣는 말"></textarea>
+  </div>
+  <div class="field">
+    <label>자주 받는 불만이나 아쉬운 점 (솔직하게)</label>
+    <textarea placeholder="예) '가격이 좀 높아요', '예약이 힘들어요', '주차가 불편해요' 등"></textarea>
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div>
+      <div class="section-title">온라인 채널 현황</div>
+      <div class="section-desc">각 채널 계정 정보 + 운영 빈도</div>
+    </div>
+  </div>
+  <div class="field">
+    <label>네이버 플레이스</label>
+    <div class="hint">사전 수집: 리뷰 623건, 사진 다수, 방문자 키워드 확인됨</div>
+    <div class="grid2">
+      <div>
+        <input type="text" class="prefilled" value="리뷰 623건 확인 완료">
+        <div class="prefilled-note">플레이스 직접 수정 권한 있으신가요?</div>
+      </div>
+      <div>
+        <div class="radio-group">
+          <label><input type="radio" name="place_edit"> 수정 가능</label>
+          <label><input type="radio" name="place_edit"> 모름/불가</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label>인스타그램 (@shdual_waxing)</label>
+    <div class="hint">사전 수집: 팔로워 3,089명 / 운영 중 확인</div>
+    <div class="grid2">
+      <div>
+        <input type="text" placeholder="게시물 수 (약)" value="">
+      </div>
+      <div>
+        <div class="radio-group">
+          <label><input type="radio" name="insta_freq"> 주 3회+</label>
+          <label><input type="radio" name="insta_freq"> 주 1~2회</label>
+          <label><input type="radio" name="insta_freq"> 월 1~3회</label>
+          <label><input type="radio" name="insta_freq"> 불규칙</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label>네이버 블로그 (shdual_waxing)</label>
+    <div class="hint">사전 수집: 33개 포스팅 확인</div>
+    <div class="radio-group">
+      <label><input type="radio" name="blog_freq"> 주 1회+</label>
+      <label><input type="radio" name="blog_freq"> 월 2~3회</label>
+      <label><input type="radio" name="blog_freq"> 월 1회 미만</label>
+      <label><input type="radio" name="blog_freq"> 방치</label>
+    </div>
+  </div>
+  <div class="field">
+    <label>카카오채널 / 카카오톡 채널</label>
+    <div class="radio-group">
+      <label><input type="radio" name="kakao"> 있음 (URL: )</label>
+      <label><input type="radio" name="kakao"> 없음</label>
+      <label><input type="radio" name="kakao"> 모름</label>
+    </div>
+  </div>
+  <div class="field">
+    <label>구글 비즈니스 프로필 <span class="priority-tag p1">미등록 확인</span></label>
+    <div class="hint">사전 조사에서 구글 비즈니스 미등록 확인됨. 당일 등록 진행 예정입니다.</div>
+    <div class="radio-group">
+      <label><input type="radio" name="google"> 아직 없음 (당일 등록 진행)</label>
+      <label><input type="radio" name="google"> 이미 있음 (주소: )</label>
+    </div>
+  </div>
+  <div class="field">
+    <label>지금 가장 힘든 온라인 작업 (있다면)</label>
+    <textarea placeholder="예) '콘텐츠 아이디어가 떨어짐', '사진 촬영이 어려움', '리뷰 답글을 잘 못 씀' 등"></textarea>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div>
+      <div class="section-title">사진 · 콘텐츠 자산</div>
+      <div class="section-desc">현재 보유 중인 자료 파악</div>
+    </div>
+  </div>
+  <div class="field">
+    <label>전문가 촬영 사진이 있나요?</label>
+    <div class="radio-group">
+      <label><input type="radio" name="photo_pro"> 있음 (최근 6개월 내)</label>
+      <label><input type="radio" name="photo_pro"> 있음 (오래됨)</label>
+      <label><input type="radio" name="photo_pro"> 없음 (직접 촬영)</label>
+    </div>
+  </div>
+  <div class="field">
+    <label>인터뷰·언론 자료 <span class="priority-tag p2">확인필요</span></label>
+    <div class="hint">사전 수집: 더모스트타임즈 인터뷰 (2025.08) 확인됨</div>
+    <div class="check-group">
+      <label><input type="checkbox"> 더모스트타임즈 인터뷰 (2025.08) ✓</label>
+      <label><input type="checkbox"> 기타 언론/블로그 소개</label>
+      <label><input type="checkbox"> SNS 바이럴 콘텐츠</label>
+    </div>
+  </div>
+  <div class="field">
+    <label>내부 공간 중 가장 잘 나오는 곳 (원장님 생각)</label>
+    <textarea placeholder="예) '입구 조명이 예뻐요', '시술 베드 뷰가 괜찮아요', '대기 공간 인테리어가 깔끔해요' 등"></textarea>
+  </div>
+  <div class="field">
+    <label>지금 온라인에 없는데 올리고 싶은 것</label>
+    <textarea placeholder="사진, 영상, 글 등 형식 무관"></textarea>
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <div>
+      <div class="section-title">지금 가장 급한 문제</div>
+      <div class="section-desc">컨설팅에서 반드시 다뤄야 할 1순위 이슈</div>
+    </div>
+  </div>
+  <div class="field">
+    <label>현재 가장 큰 고민 (1가지만)</label>
+    <textarea style="min-height:60px" placeholder="매출, 예약, 인지도, 콘텐츠, 직원, 기타 — 솔직하게 적어 주세요"></textarea>
+  </div>
+  <div class="field">
+    <label>컨설팅 후 3개월 안에 바라는 변화 (구체적으로)</label>
+    <textarea placeholder="예) '네이버에서 내 이름이 검색되면 좋겠다', '인스타 팔로워 5천 넘으면 좋겠다', '재방문율 높이고 싶다' 등"></textarea>
+  </div>
+  <div class="field">
+    <label>지금까지 해봤던 마케팅 중 효과 있었던 것 (있다면)</label>
+    <textarea placeholder="예) '블로그 포스팅 직접 쓸 때 예약이 늘었다', '인스타 릴스 올렸더니 반응이 왔다' 등"></textarea>
+  </div>
+</div>
+
+<!-- SECTION 7 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <div>
+      <div class="section-title">경쟁 매장 인식</div>
+      <div class="section-desc">원장님이 의식하는 경쟁자</div>
+    </div>
+  </div>
+  <div class="field">
+    <label>신경 쓰이는 경쟁 매장 (이름이나 지역으로)</label>
+    <textarea placeholder="예) '○○왁싱', '압구정역 근처 ○○샵' 등 — 2~3곳 정도"></textarea>
+  </div>
+  <div class="field">
+    <label>그 매장과 비교했을 때 우리가 더 나은 점</label>
+    <textarea placeholder="원장님이 느끼는 강점"></textarea>
+  </div>
+  <div class="field">
+    <label>그 매장에서 배우고 싶은 것</label>
+    <textarea placeholder="원장님이 부러운 점"></textarea>
+  </div>
+</div>
+
+<!-- SECTION 8 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <div>
+      <div class="section-title">운영 가용 자원</div>
+      <div class="section-desc">실행 가능한 범위를 파악합니다</div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="field">
+      <label>SNS 직접 운영 가능 시간 (하루 기준)</label>
+      <div class="radio-group">
+        <label><input type="radio" name="sns_time"> 30분 이하</label>
+        <label><input type="radio" name="sns_time"> 30분~1시간</label>
+        <label><input type="radio" name="sns_time"> 1~2시간</label>
+        <label><input type="radio" name="sns_time"> 2시간+</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>월 마케팅 예산 (광고비 포함)</label>
+      <div class="radio-group">
+        <label><input type="radio" name="budget"> 없음 (0원)</label>
+        <label><input type="radio" name="budget"> ~10만원</label>
+        <label><input type="radio" name="budget"> 10~30만원</label>
+        <label><input type="radio" name="budget"> 30만원+</label>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label>스마트폰 촬영 가능한 공간·시간</label>
+    <div class="radio-group">
+      <label><input type="radio" name="shoot"> 매일 가능</label>
+      <label><input type="radio" name="shoot"> 주 2~3회 가능</label>
+      <label><input type="radio" name="shoot"> 주 1회 정도</label>
+      <label><input type="radio" name="shoot"> 거의 못 함</label>
+    </div>
+  </div>
+  <div class="field">
+    <label>AI 도구 사용 경험 (ChatGPT, 클로바X 등)</label>
+    <div class="radio-group">
+      <label><input type="radio" name="ai_exp"> 자주 사용</label>
+      <label><input type="radio" name="ai_exp"> 가끔 사용</label>
+      <label><input type="radio" name="ai_exp"> 써본 적 없음</label>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 9 : 자유 기술 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <div>
+      <div class="section-title">자유 기재</div>
+      <div class="section-desc">위 질문 외에 전달하고 싶은 것</div>
+    </div>
+  </div>
+  <div class="field">
+    <label>컨설턴트에게 미리 알려주고 싶은 사항</label>
+    <textarea style="min-height:100px" placeholder="형식 없이 자유롭게 적어 주세요."></textarea>
+  </div>
+</div>
+
+<div class="footer-note">
+  이 질문지는 S&H듀얼왁싱 초회 컨설팅을 위해 강남AI컨설팅이 작성한 내부 자료입니다.<br>
+  담당 컨설턴트: 권용준 · 손미현
+</div>
+
+</div>
+</body>
+</html>

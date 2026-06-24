@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사전 질문지 — 강남구 AI 마케팅 컨설팅</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #f5f4f0;
+    color: #1a1a1a;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* 커버 */
+  .cover {
+    background: linear-gradient(135deg, #2d1b4e 0%, #4a2c7a 50%, #6b3fa0 100%);
+    color: white;
+    padding: 60px 48px 52px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 240px; height: 240px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 50%;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.9);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .cover h1 {
+    font-size: 34px;
+    font-weight: 900;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+  .cover h1 span {
+    display: block;
+    font-size: 18px;
+    font-weight: 400;
+    opacity: 0.75;
+    margin-top: 6px;
+  }
+  .cover-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 16px;
+    max-width: 460px;
+    line-height: 1.7;
+  }
+  .cover-meta {
+    margin-top: 28px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .cover-meta-item {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+  }
+  .cover-meta-item strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 2px;
+  }
+
+  /* 콘텐츠 */
+  .content {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  /* 섹션 */
+  .section {
+    background: white;
+    border-radius: 12px;
+    padding: 28px 28px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2d1b4e;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0eaf8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: #2d1b4e;
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* 테이블 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th {
+    background: #f5f0fc;
+    color: #4a2c7a;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 9px 12px;
+    text-align: left;
+    border: 1px solid #ede4f7;
+  }
+  td {
+    padding: 10px 12px;
+    border: 1px solid #ede4f7;
+    font-size: 13px;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #fdf9ff; }
+
+  .answer-cell {
+    min-height: 28px;
+    background: #fffef8;
+    border-bottom: 1px dashed #d0c0e8 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+
+  /* 답변 행 (key-value) */
+  .kv-table td:first-child {
+    width: 200px;
+    color: #555;
+    font-weight: 500;
+    background: #fafafa;
+  }
+  .kv-table td:last-child {
+    background: #fffef8;
+  }
+
+  /* 서브섹션 */
+  .sub-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #4a2c7a;
+    margin: 18px 0 10px;
+  }
+  .sub-title:first-of-type { margin-top: 0; }
+
+  /* 체크박스 리스트 */
+  .checklist {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .checklist li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #333;
+    padding: 8px 12px;
+    background: #fdf9ff;
+    border: 1px solid #ede4f7;
+    border-radius: 6px;
+  }
+  .checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #a07ad0;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* 텍스트 입력 영역 */
+  .text-area {
+    width: 100%;
+    background: #fffef8;
+    border: none;
+    border-bottom: 1.5px dashed #c0a8e0;
+    padding: 10px 4px;
+    font-size: 13px;
+    color: #333;
+    font-family: inherit;
+    line-height: 1.7;
+    resize: none;
+    min-height: 72px;
+  }
+  .text-area:focus {
+    outline: none;
+    border-bottom-color: #4a2c7a;
+  }
+  .text-area::placeholder { color: #bbb; }
+
+  /* 노트 */
+  .note {
+    background: #f5f0fc;
+    border-left: 3px solid #6b3fa0;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 12px;
+    color: #5a3a8a;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  /* 채널 테이블 */
+  .channel-table th:nth-child(3) { width: 160px; }
+  .channel-table th:nth-child(4) { width: 100px; }
+
+  /* 인기 메뉴 */
+  .rank-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .rank-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #fdf9ff;
+    border: 1px solid #ede4f7;
+    border-radius: 8px;
+  }
+  .rank-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .rank-num.r1 { background: #2d1b4e; color: white; }
+  .rank-num.r2 { background: #6b3fa0; color: white; }
+  .rank-num.r3 { background: #a07ad0; color: white; }
+  .rank-answer {
+    flex: 1;
+    border-bottom: 1px dashed #c0a8e0;
+    padding-bottom: 4px;
+    font-size: 13px;
+    color: #555;
+  }
+
+  /* 비율 입력 */
+  .ratio-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 13px;
+    color: #444;
+    border-bottom: 1px solid #f0e8fa;
+  }
+  .ratio-row:last-child { border-bottom: none; }
+  .ratio-label { width: 180px; color: #555; font-weight: 500; }
+  .ratio-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+  .ratio-field {
+    width: 48px;
+    text-align: center;
+    border: none;
+    border-bottom: 1.5px dashed #c0a8e0;
+    background: transparent;
+    font-size: 13px;
+    font-family: inherit;
+    padding: 2px 4px;
+  }
+  .ratio-field:focus { outline: none; border-bottom-color: #4a2c7a; }
+  .ratio-sep { color: #999; font-size: 12px; }
+
+  /* 푸터 */
+  .footer {
+    background: #2d1b4e;
+    color: rgba(255,255,255,0.65);
+    padding: 24px 48px;
+    font-size: 12px;
+    line-height: 1.7;
+    text-align: center;
+  }
+  .footer strong {
+    display: block;
+    color: white;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  @media print {
+    body { background: white; }
+    .content { padding: 20px 0; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+    .text-area { border-bottom: 1px solid #ccc; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 커버 -->
+<div class="cover">
+  <div class="cover-badge">Pre-Consulting Questionnaire</div>
+  <h1>사전 질문지
+    <span>강남구 AI 마케팅 컨설팅</span>
+  </h1>
+  <p class="cover-desc">
+    본격적인 컨설팅 시작 전 매장 현황을 파악하기 위한 질문지입니다.<br>
+    아는 만큼만 편하게 작성해 주세요. 작성 후 카카오톡으로 보내주시면 됩니다.
+  </p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><strong>컨설턴트</strong>권용준 · 손미현</div>
+    <div class="cover-meta-item"><strong>대상 업종</strong>왁싱샵</div>
+    <div class="cover-meta-item"><strong>대상 지역</strong>압구정</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- 1. 기본 정보 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">1</span>
+      기본 정보
+    </div>
+    <table class="kv-table">
+      <tr><td>상호명</td><td class="answer-cell"></td></tr>
+      <tr><td>정확한 주소</td><td class="answer-cell"></td></tr>
+      <tr><td>오픈일</td><td class="answer-cell"></td></tr>
+      <tr><td>영업시간</td><td class="answer-cell">예) 오전 10시 ~ 오후 9시</td></tr>
+      <tr><td>휴무일</td><td class="answer-cell">예) 매주 일요일 / 없음</td></tr>
+      <tr><td>대표 연락처</td><td class="answer-cell"></td></tr>
+      <tr><td>시술실 개수</td><td class="answer-cell">개</td></tr>
+      <tr><td>원장 포함 총 직원 수</td><td class="answer-cell">명 (원장 포함)</td></tr>
+    </table>
+  </div>
+
+  <!-- 2. 서비스 구성 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">2</span>
+      서비스 구성
+    </div>
+
+    <div class="sub-title">주요 메뉴 및 가격</div>
+    <table>
+      <thead>
+        <tr><th style="width:40%">메뉴명</th><th style="width:30%">가격</th><th style="width:30%">소요 시간</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="answer-cell"></td><td class="answer-cell"></td><td class="answer-cell"></td></tr>
+        <tr><td class="answer-cell"></td><td class="answer-cell"></td><td class="answer-cell"></td></tr>
+        <tr><td class="answer-cell"></td><td class="answer-cell"></td><td class="answer-cell"></td></tr>
+        <tr><td class="answer-cell"></td><td class="answer-cell"></td><td class="answer-cell"></td></tr>
+        <tr><td class="answer-cell"></td><td class="answer-cell"></td><td class="answer-cell"></td></tr>
+        <tr><td class="answer-cell"></td><td class="answer-cell"></td><td class="answer-cell"></td></tr>
+      </tbody>
+    </table>
+
+    <div class="sub-title" style="margin-top:20px">기타 서비스 여부</div>
+    <ul class="checklist">
+      <li><span class="checkbox"></span>남성 고객 시술 가능</li>
+      <li><span class="checkbox"></span>외국인 응대 가능 (영어 등)</li>
+      <li><span class="checkbox"></span>속눈썹 / 눈썹 서비스</li>
+      <li><span class="checkbox"></span>피부 관리 병행</li>
+    </ul>
+    <div style="margin-top:10px; display:flex; align-items:center; gap:8px; font-size:13px; color:#555;">
+      기타: <span style="flex:1; border-bottom:1px dashed #c0a8e0; min-height:20px; display:inline-block;"></span>
+    </div>
+
+    <div class="sub-title" style="margin-top:20px">인기 메뉴 TOP 3</div>
+    <div class="rank-list">
+      <div class="rank-item"><span class="rank-num r1">1</span><span class="rank-answer"></span></div>
+      <div class="rank-item"><span class="rank-num r2">2</span><span class="rank-answer"></span></div>
+      <div class="rank-item"><span class="rank-num r3">3</span><span class="rank-answer"></span></div>
+    </div>
+  </div>
+
+  <!-- 3. 고객 현황 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">3</span>
+      고객 현황
+    </div>
+    <table class="kv-table">
+      <tr><td>주요 고객 연령대</td><td class="answer-cell">예) 20~30대 여성</td></tr>
+      <tr><td>주요 고객 성별</td><td class="answer-cell">여성 ___% / 남성 ___%</td></tr>
+      <tr><td>하루 평균 고객 수 (평일)</td><td class="answer-cell">약 ___ 명</td></tr>
+      <tr><td>하루 평균 고객 수 (주말)</td><td class="answer-cell">약 ___ 명</td></tr>
+    </table>
+
+    <div style="margin-top:16px">
+      <div class="ratio-row">
+        <span class="ratio-label">예약 vs 워크인</span>
+        <div class="ratio-input">
+          예약 <input class="ratio-field" type="text" placeholder="70">%&nbsp;&nbsp;/&nbsp;&nbsp;
+          워크인 <input class="ratio-field" type="text" placeholder="30">%
+        </div>
+      </div>
+      <div class="ratio-row">
+        <span class="ratio-label">신규 vs 재방문</span>
+        <div class="ratio-input">
+          신규 <input class="ratio-field" type="text" placeholder="40">%&nbsp;&nbsp;/&nbsp;&nbsp;
+          재방문 <input class="ratio-field" type="text" placeholder="60">%
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 예약 및 운영 시스템 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">4</span>
+      예약 및 운영 시스템
+    </div>
+    <div class="sub-title">현재 예약 방식 (해당되는 것 모두 체크)</div>
+    <ul class="checklist">
+      <li><span class="checkbox"></span>전화</li>
+      <li><span class="checkbox"></span>카카오채널</li>
+      <li><span class="checkbox"></span>네이버 예약</li>
+      <li><span class="checkbox"></span>카카오 예약</li>
+      <li><span class="checkbox"></span>인스타그램 DM</li>
+      <li><span class="checkbox"></span>기타</li>
+    </ul>
+
+    <div style="margin-top:16px">
+      <table class="kv-table">
+        <tr><td>포스 / 예약 관리 프로그램</td><td class="answer-cell">사용 중 / 미사용 — 프로그램명:</td></tr>
+        <tr><td>월 평균 매출 (대략)</td><td class="answer-cell">작성 어려우시면 생략 가능</td></tr>
+        <tr><td>현금·카드 결제 비율</td><td class="answer-cell">현금 ___% / 카드 ___%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 온라인 채널 현황 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">5</span>
+      온라인 채널 현황
+    </div>
+    <table class="channel-table">
+      <thead>
+        <tr>
+          <th style="width:150px">채널</th>
+          <th style="width:100px">운영 여부</th>
+          <th>계정명 / URL</th>
+          <th style="width:100px">팔로워 수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>네이버 플레이스</td><td class="answer-cell"></td><td class="answer-cell"></td><td class="answer-cell">—</td></tr>
+        <tr><td>인스타그램</td><td class="answer-cell"></td><td class="answer-cell">@</td><td class="answer-cell"></td></tr>
+        <tr><td>카카오 채널</td><td class="answer-cell"></td><td class="answer-cell"></td><td class="answer-cell">—</td></tr>
+        <tr><td>구글 비즈니스</td><td class="answer-cell"></td><td class="answer-cell"></td><td class="answer-cell">—</td></tr>
+        <tr><td>네이버 블로그</td><td class="answer-cell"></td><td class="answer-cell"></td><td class="answer-cell"></td></tr>
+        <tr><td>유튜브 / 틱톡</td><td class="answer-cell"></td><td class="answer-cell"></td><td class="answer-cell"></td></tr>
+        <tr><td>기타</td><td class="answer-cell"></td><td class="answer-cell"></td><td class="answer-cell"></td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px; font-size:13px; color:#555; display:flex; align-items:center; gap:8px;">
+      <strong>월 마케팅 비용 (광고비·대행비 합산):</strong>
+      약 <span style="display:inline-block; width:80px; border-bottom:1px dashed #c0a8e0;"></span> 만원
+    </div>
+  </div>
+
+  <!-- 6. 사진·콘텐츠 자산 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">6</span>
+      사진·콘텐츠 자산
+    </div>
+    <ul class="checklist">
+      <li><span class="checkbox"></span>매장 내부 사진 보유</li>
+      <li><span class="checkbox"></span>시술 전/후 사진 보유</li>
+      <li><span class="checkbox"></span>직원 프로필 사진 보유</li>
+      <li><span class="checkbox"></span>영상 콘텐츠 보유</li>
+      <li><span class="checkbox"></span>브랜드 로고 보유</li>
+      <li><span class="checkbox"></span>SNS 게시물 있음</li>
+    </ul>
+    <div style="margin-top:12px; font-size:13px; color:#555; display:flex; align-items:center; gap:8px;">
+      현재 인스타그램 게시물 수: 약 <span style="display:inline-block; width:60px; border-bottom:1px dashed #c0a8e0;"></span> 개
+    </div>
+  </div>
+
+  <!-- 7. 지금 가장 급한 문제 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">7</span>
+      지금 가장 급한 문제
+    </div>
+    <p style="font-size:12px; color:#888; margin-bottom:12px;">편하게 서술해 주세요. 길게 쓰지 않아도 됩니다.</p>
+    <textarea class="text-area" placeholder="예) 신규 고객이 거의 없고 단골 위주로만 돌아가고 있습니다&#10;예) 인스타그램을 운영하고 싶은데 어떻게 해야 할지 모르겠습니다&#10;예) 주변에 왁싱샵이 늘어나면서 매출이 줄었습니다"></textarea>
+  </div>
+
+  <!-- 8. 컨설팅에서 원하는 것 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">8</span>
+      컨설팅에서 가장 원하는 것
+    </div>
+    <ul class="checklist" style="margin-bottom:14px">
+      <li><span class="checkbox"></span>신규 고객 유입 늘리기</li>
+      <li><span class="checkbox"></span>재방문율 높이기</li>
+      <li><span class="checkbox"></span>SNS 직접 운영 방법</li>
+      <li><span class="checkbox"></span>온라인 노출 개선</li>
+      <li><span class="checkbox"></span>리뷰 관리 방법</li>
+      <li><span class="checkbox"></span>매장 분위기·이미지 개선</li>
+    </ul>
+    <textarea class="text-area" style="min-height:52px" placeholder="추가로 원하시는 것이 있다면 자유롭게 적어주세요"></textarea>
+  </div>
+
+  <!-- 9. 경쟁 매장 참고 사항 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">9</span>
+      경쟁 및 차별점
+    </div>
+    <table class="kv-table">
+      <tr><td>신경 쓰이는 경쟁 매장</td><td class="answer-cell">예) OO왁싱 청담점</td></tr>
+      <tr><td>참고하고 싶은 잘하는 매장</td><td class="answer-cell">압구정·청담 외 지역도 가능</td></tr>
+      <tr><td>우리 매장만의 차별점</td><td class="answer-cell">본인 생각으로 자유롭게</td></tr>
+    </table>
+  </div>
+
+  <!-- 10. 기타 특이 사항 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">10</span>
+      기타 — 미리 알려주고 싶은 것
+    </div>
+    <p style="font-size:12px; color:#888; margin-bottom:12px;">계약 관련 이슈, 건물 상황, 본사·가맹 여부 등 컨설턴트가 미리 알면 좋을 사항을 자유롭게 적어주세요.</p>
+    <textarea class="text-area" placeholder="없으면 생략하셔도 됩니다"></textarea>
+  </div>
+
+</div>
+
+<!-- 푸터 -->
+<div class="footer">
+  <strong>강남구 AI 마케팅 컨설팅</strong>
+  이 질문지는 컨설팅 준비를 위한 내부 자료로만 활용됩니다. 작성 후 카카오톡으로 보내주시면 됩니다.<br>
+  권용준 · 손미현
+</div>
+
+</body>
+</html>

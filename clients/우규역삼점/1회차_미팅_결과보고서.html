@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이자카야 우규 역삼점 — 1회차 컨설팅 결과보고서</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+    background: #f7f7f5;
+    color: #1a1a1a;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    background: #fff;
+    min-height: 100vh;
+  }
+
+  /* COVER */
+  .cover {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 64px 56px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .cover-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.8);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+  }
+  .cover h1 {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .cover h2 {
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 48px;
+  }
+  .cover-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 40px;
+    font-size: 12.5px;
+  }
+  .cover-meta-item label {
+    color: rgba(255,255,255,0.45);
+    display: block;
+    font-size: 10.5px;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+  .cover-meta-item span {
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+  }
+
+  /* BODY */
+  .body { padding: 0 56px 72px; }
+
+  /* SUMMARY BOX */
+  .summary-box {
+    margin: 40px 0 0;
+    background: #f0f4ff;
+    border-left: 4px solid #3b5bdb;
+    border-radius: 0 8px 8px 0;
+    padding: 24px 28px;
+  }
+  .summary-box p {
+    font-size: 14px;
+    color: #2d3748;
+    line-height: 1.8;
+    margin-bottom: 6px;
+  }
+  .summary-box p:last-child { margin-bottom: 0; }
+  .summary-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #3b5bdb;
+    margin-bottom: 10px;
+  }
+  .summary-highlight {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a2e;
+    line-height: 1.6;
+    margin: 16px 0 0;
+  }
+
+  /* SECTION */
+  .section { margin-top: 48px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  .section-num {
+    width: 28px; height: 28px;
+    background: #1a1a2e;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .section-sub {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 20px 0 10px;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 12px 0;
+  }
+  th {
+    background: #f5f5f5;
+    font-weight: 600;
+    padding: 9px 12px;
+    text-align: left;
+    color: #444;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 12px;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafafa; }
+  .tag-warn {
+    display: inline-block;
+    background: #fff3cd;
+    color: #856404;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .tag-ok {
+    display: inline-block;
+    background: #d4edda;
+    color: #155724;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .tag-pri {
+    display: inline-block;
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* STRENGTH CARDS */
+  .strength-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 12px 0;
+  }
+  .strength-card {
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 18px;
+    background: #fff;
+  }
+  .strength-card-num {
+    font-size: 22px;
+    font-weight: 800;
+    color: #e8eaf0;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .strength-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 6px;
+  }
+  .strength-card-desc {
+    font-size: 12.5px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  /* FLOW */
+  .flow-box {
+    background: #1a1a2e;
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 12px 0;
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .flow-step:last-child { margin-bottom: 0; }
+  .flow-arrow {
+    color: rgba(255,255,255,0.3);
+    font-size: 18px;
+    line-height: 1.5;
+    flex-shrink: 0;
+    margin-left: 10px;
+  }
+  .flow-text { flex: 1; }
+  .flow-text strong { color: #a5b4fc; }
+
+  /* CALLOUT */
+  .callout {
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .callout-blue { background: #eff6ff; border-left: 3px solid #3b82f6; color: #1e3a5f; }
+  .callout-red  { background: #fef2f2; border-left: 3px solid #ef4444; color: #7f1d1d; }
+  .callout-green{ background: #f0fdf4; border-left: 3px solid #22c55e; color: #14532d; }
+  .callout-amber{ background: #fffbeb; border-left: 3px solid #f59e0b; color: #78350f; }
+
+  /* ACTION TABLE */
+  .action-num {
+    width: 24px; height: 24px;
+    background: #1a1a2e;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+
+  /* POSITIONING */
+  .positioning-box {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d3561 100%);
+    border-radius: 12px;
+    padding: 32px;
+    color: #fff;
+    margin: 12px 0;
+  }
+  .positioning-quote {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    color: #c7d2fe;
+  }
+  .positioning-items { display: flex; flex-direction: column; gap: 8px; }
+  .positioning-item {
+    display: flex; gap: 10px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+  }
+  .positioning-item::before {
+    content: '→';
+    color: #818cf8;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  /* ROADMAP */
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 12px 0;
+  }
+  .roadmap-item {
+    display: flex;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .roadmap-item:last-child { border-bottom: none; }
+  .roadmap-badge {
+    flex-shrink: 0;
+    width: 72px;
+    text-align: center;
+    padding-top: 2px;
+  }
+  .roadmap-badge span {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .badge-done { background: #dcfce7; color: #15803d; }
+  .badge-next { background: #dbeafe; color: #1d4ed8; }
+  .badge-plan { background: #f3f4f6; color: #374151; }
+  .roadmap-content { flex: 1; }
+  .roadmap-title { font-weight: 700; font-size: 13.5px; color: #1a1a2e; margin-bottom: 4px; }
+  .roadmap-desc { font-size: 12.5px; color: #666; line-height: 1.6; }
+
+  /* CLOSING */
+  .closing {
+    margin-top: 48px;
+    background: #f9f9f7;
+    border-radius: 12px;
+    padding: 32px;
+  }
+  .closing p { font-size: 13.5px; line-height: 1.9; color: #333; margin-bottom: 14px; }
+  .closing p:last-child { margin-bottom: 0; }
+  .closing strong { color: #1a1a2e; }
+  .closing-sign {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e8e8e8;
+    font-size: 12.5px;
+    color: #666;
+  }
+  .closing-sign strong { color: #1a1a2e; font-size: 13px; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #f0f0f0;
+    margin: 12px 0;
+  }
+
+  p { font-size: 13.5px; line-height: 1.8; color: #333; margin-bottom: 10px; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: #1a1a2e; }
+
+  @media print {
+    body { background: #fff; }
+    .page { max-width: 100%; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-badge">Consulting Report · 1st Meeting</div>
+    <h1>이자카야 우규 역삼점</h1>
+    <h2>1회차 컨설팅 결과보고서</h2>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <label>보고서 일자</label>
+        <span>2026년 6월 12일</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>컨설팅 일시</label>
+        <span>2026년 6월 12일 (1회차 현장 미팅)</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>대상 점포</label>
+        <span>서울 강남구 테헤란로19길 19</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>참석자</label>
+        <span>임채성 대표님, 실장님 / 권용준·손미현</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- SUMMARY -->
+    <div class="summary-box">
+      <div class="summary-label">한눈에 보기</div>
+      <p>역삼점이 가진 강점은 분명합니다.</p>
+      <p>다만 그 강점이 지금 온라인에서 전혀 보이지 않고 있습니다.</p>
+      <p>보이게 만드는 것이 이 컨설팅의 전부입니다.</p>
+      <div class="summary-highlight">
+        인형 이벤트로 형성된 "20대 가성비 이자카야" 이미지가,<br>
+        역삼점 본래의 핵심 고객인 30~40대 오피스 직장인을 밀어내고 있습니다.
+      </div>
+    </div>
+
+    <!-- 1. 현황 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">매장 현황 진단</div>
+      </div>
+
+      <div class="section-sub">기본 정보</div>
+      <table>
+        <tr><th width="120">항목</th><th>내용</th></tr>
+        <tr><td>오픈</td><td>2024년 11월 (약 7개월)</td></tr>
+        <tr><td>위치</td><td>역삼역 도보권, 테헤란로 오피스 밀집 상권</td></tr>
+        <tr><td>영업</td><td>오후 5시 ~ 새벽 2시 / 브레이크 없음 / 연중무휴</td></tr>
+        <tr><td>좌석</td><td>12테이블 약 48석 / 룸 없음 / 주차 불가</td></tr>
+        <tr><td>직원</td><td>임채성 대표 + 실장 (풀타임 2) + 파트 2 + 알바 2 = 총 6명</td></tr>
+      </table>
+
+      <div class="section-sub" style="margin-top:24px;">채널 현황</div>
+      <table>
+        <tr><th>채널</th><th>운영 주체</th><th>현황</th></tr>
+        <tr><td>네이버 플레이스</td><td>본사</td><td>운영 중 <span class="tag-warn">A/B/C 세트 미등록</span></td></tr>
+        <tr><td>네이버 블로그</td><td>본사</td><td>운영 중</td></tr>
+        <tr><td>인스타그램</td><td>본사 + 업터치</td><td>운영 중</td></tr>
+        <tr><td>리뷰·댓글 관리</td><td>본사</td><td>운영 중</td></tr>
+        <tr><td>네이버 예약 + 캐치테이블</td><td>패키지</td><td>운영 중</td></tr>
+        <tr><td>쿠팡이츠 + 요기요</td><td>본사</td><td>운영 중 (직접 배달 불가)</td></tr>
+        <tr><td>구글 비즈니스</td><td>미관리</td><td><span class="tag-warn">⚠ 확인 필요</span></td></tr>
+        <tr><td>카카오맵</td><td>미관리</td><td><span class="tag-warn">⚠ 확인 필요</span></td></tr>
+        <tr><td>티맵</td><td>미관리</td><td><span class="tag-warn">⚠ 확인 필요</span></td></tr>
+      </table>
+      <div class="callout callout-blue" style="margin-top:12px;">
+        월 총 마케팅 비용 약 <strong>300만원</strong> (본사 150 + 업체 150). 이 예산이 제대로 된 방향으로 쓰이고 있는지 이번 컨설팅에서 점검합니다.
+      </div>
+    </div>
+
+    <!-- 2. 강점 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">강점 발견 — 온라인에 아직 보이지 않는 것들</div>
+      </div>
+      <div class="strength-grid">
+        <div class="strength-card">
+          <div class="strength-card-num">01</div>
+          <div class="strength-card-title">역삼 오피스 상권의 핵심 위치</div>
+          <div class="strength-card-desc">테헤란로 직장인들이 퇴근 후 걸어서 올 수 있는 거리. 역삼역 주변 이자카야 중 접근성이 가장 뛰어난 위치 조건.</div>
+        </div>
+        <div class="strength-card">
+          <div class="strength-card-num">02</div>
+          <div class="strength-card-title">연어 중심의 강한 비주얼 메뉴</div>
+          <div class="strength-card-desc">연어육회, 연어육사시미는 사진 한 장으로 식욕을 자극하는 강력한 비주얼 자산. 온라인에 제대로 노출되지 않고 있음.</div>
+        </div>
+        <div class="strength-card">
+          <div class="strength-card-num">03</div>
+          <div class="strength-card-title">새벽 2시 연중무휴 영업</div>
+          <div class="strength-card-desc">2차 술자리 수요를 흡수할 수 있는 경쟁 우위. 인스타·플레이스 어디에도 충분히 강조되어 있지 않음.</div>
+        </div>
+        <div class="strength-card">
+          <div class="strength-card-num">04</div>
+          <div class="strength-card-title">외국인 접근 가능성</div>
+          <div class="strength-card-desc">인근 호텔 투숙객 + 위층 전통 바 방문 후 이동 패턴 존재. 구글·카카오·티맵 미관리로 이 흐름이 차단 중.</div>
+        </div>
+      </div>
+      <div class="strength-card" style="margin-top:0;">
+        <div class="strength-card-num">05</div>
+        <div class="strength-card-title">정부 지원 조건 충족</div>
+        <div class="strength-card-desc">풀타임 5인 이하 조건 충족 → 하반기 시설개선자금 300만원 신청 가능. (7월 공고 발표 → 9월 집행 예정)</div>
+      </div>
+    </div>
+
+    <!-- 3. 핵심 문제 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">핵심 문제 진단</div>
+      </div>
+
+      <div class="flow-box">
+        <div class="flow-step"><div class="flow-text">인형 이벤트 (다이소 1,000원) 시행</div></div>
+        <div class="flow-step"><div class="flow-arrow">↓</div><div class="flow-text">SNS 바이럴 확산 → <strong>20대 고객 급증</strong></div></div>
+        <div class="flow-step"><div class="flow-arrow">↓</div><div class="flow-text">소음 증가 → <strong>30~40대 오피스 직장인 이탈</strong></div></div>
+        <div class="flow-step"><div class="flow-arrow">↓</div><div class="flow-text"><strong style="color:#fca5a5;">매출 30% 하락 (현재 진행형)</strong></div></div>
+      </div>
+
+      <div class="section-sub" style="margin-top:20px;">고객층 충돌 분석</div>
+      <table>
+        <tr><th>구분</th><th>20대</th><th>30~40대 오피스</th></tr>
+        <tr><td>객단가</td><td>낮음</td><td><strong>높음</strong></td></tr>
+        <tr><td>방문 목적</td><td>인증샷·가성비 경험</td><td>조용한 술자리·접대·자기보상</td></tr>
+        <tr><td>소음 수준</td><td>높음</td><td>낮음 (조용한 환경 필수)</td></tr>
+        <tr><td>재방문율</td><td>낮음 (이벤트성)</td><td><strong>높음 (단골화 가능)</strong></td></tr>
+        <tr><td>매출 기여도</td><td>낮음</td><td><strong>높음</strong></td></tr>
+      </table>
+
+      <div class="callout callout-red" style="margin-top:16px;">
+        인형 이벤트는 <strong>잘못된 타겟에게 잘못된 신호를 보낸 캠페인</strong>이었습니다. 지금 당장 광고를 더 하거나 이벤트를 추가하는 것은 해결책이 아닙니다. <strong>채널의 분위기·이미지·문구를 원래 고객층 중심으로 되돌리는 것이 먼저</strong>입니다.
+      </div>
+    </div>
+
+    <!-- 4. 체인점 전략 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div class="section-title">체인점 운영 제약과 우리의 전략</div>
+      </div>
+      <p>우규는 체인점입니다. 본사가 대부분의 채널을 통제하고 있어 점주가 임의로 바꿀 수 없는 영역이 많습니다. 이 현실을 전제로 전략을 세웠습니다.</p>
+
+      <div class="section-sub">본사 허가 없이 즉시 할 수 있는 것</div>
+      <table>
+        <tr><th>항목</th><th>내용</th></tr>
+        <tr><td>구글 비즈니스</td><td>역삼점 개별 관리 여부 확인 후 즉시 정비 가능</td></tr>
+        <tr><td>카카오맵</td><td>동일</td></tr>
+        <tr><td>티맵</td><td>동일</td></tr>
+        <tr><td>포스 데이터 분석</td><td>시간대별·요일별·메뉴별 매출 구조 파악</td></tr>
+        <tr><td>공간 개선 아이디어</td><td>VIP석·인스타 스팟·조명 → 본사와 협의 병행</td></tr>
+      </table>
+
+      <div class="section-sub">본사에 즉시 요청해야 할 것</div>
+      <table>
+        <tr><th>항목</th><th>우선순위</th></tr>
+        <tr><td>A/B/C 세트 네이버 플레이스 등록</td><td><span class="tag-pri">★★★ 즉시</span></td></tr>
+        <tr><td>구글·카카오·티맵 역삼점 개별 관리 허가</td><td><span class="tag-pri">★★★ 즉시</span></td></tr>
+        <tr><td>채널 분위기·이미지 방향 협의</td><td>★★ 다음 회차</td></tr>
+      </table>
+    </div>
+
+    <!-- 5. 즉시 실행 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div class="section-title">즉시 실행 과제</div>
+      </div>
+
+      <div class="section-sub">이번 주 내 — 임채성 대표님</div>
+      <table>
+        <tr><th width="36">번호</th><th>항목</th><th width="120">담당</th><th width="140">기한</th></tr>
+        <tr><td><div class="action-num">1</div></td><td>구글·카카오·티맵 역삼점 개별 관리 허가 본사 확인</td><td>동생 (마케팅 담당)</td><td>이번 주 금요일</td></tr>
+        <tr><td><div class="action-num">2</div></td><td>A/B/C 세트 네이버 플레이스 등록 본사 요청</td><td>동생 (마케팅 담당)</td><td>이번 주 금요일</td></tr>
+        <tr><td><div class="action-num">3</div></td><td>포스 데이터 추출 (일별·시간대별·메뉴별)</td><td>임채성 대표님</td><td>다음 주 초</td></tr>
+        <tr><td><div class="action-num">4</div></td><td>단톡방 생성 (동생 포함)</td><td>권용준 컨설턴트</td><td>6월 12일 (컨설팅 당일)</td></tr>
+      </table>
+
+      <div class="section-sub">이번 주 내 — 컨설턴트</div>
+      <table>
+        <tr><th width="36">번호</th><th>항목</th></tr>
+        <tr><td><div class="action-num">1</div></td><td>현재 네이버 플레이스·인스타 채널 분위기 분석</td></tr>
+        <tr><td><div class="action-num">2</div></td><td>역삼 상권 경쟁 이자카야 채널 현황 비교 분석</td></tr>
+        <tr><td><div class="action-num">3</div></td><td>A/B/C 세트 노출 방향 초안</td></tr>
+        <tr><td><div class="action-num">4</div></td><td>구글·카카오·티맵 정비 가이드 준비</td></tr>
+      </table>
+    </div>
+
+    <!-- 6. 시급 과제 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <div class="section-title">시급 과제 3가지 — 대표님 직접 언급</div>
+      </div>
+
+      <div class="callout callout-amber">
+        <strong>① 20대 비중 줄이기 / 30~40대 재유입</strong><br>
+        인형 이벤트 이후 바뀐 고객층 구성을 원래대로 돌려야 합니다. 단기적으로는 인형 이벤트의 자연 소멸을 지켜보면서, 온라인 채널 분위기를 오피스 직장인 중심으로 조정하는 것이 핵심입니다.
+      </div>
+      <div class="callout callout-amber">
+        <strong>② 인원 배치 효율화</strong><br>
+        포스 데이터를 받아 시간대별·요일별 매출 패턴을 분석한 후, 파트타임·알바 배치를 피크 타임에 집중하는 구조로 재설계합니다.
+      </div>
+      <div class="callout callout-amber">
+        <strong>③ 주말 매출 상승</strong><br>
+        토요일(데이트 커플)·일요일(피로연 2차)의 특성에 맞는 메뉴 노출과 예약 유도 전략을 다음 회차에서 함께 설계합니다.
+      </div>
+    </div>
+
+    <!-- 7. 공간 아이디어 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <div class="section-title">공간 개선 아이디어 현황</div>
+      </div>
+      <table>
+        <tr><th>아이디어</th><th>실행 가능성</th><th>예상 효과</th></tr>
+        <tr><td>주황색 의자 + 조명 = 인스타 스팟</td><td><span class="tag-ok">즉시 가능 (저비용)</span></td><td>SNS 자발 바이럴 포인트</td></tr>
+        <tr><td>웨이팅 의자 설치</td><td><span class="tag-ok">즉시 가능</span></td><td>대기 고객 경험 개선</td></tr>
+        <tr><td>야외 테이블 확장</td><td>조건부 (인허가 검토)</td><td>좌석 수 증가, 인증샷 포인트</td></tr>
+        <tr><td>VIP석 + 사케 코너</td><td>본사 협의 필요</td><td>객단가 향상</td></tr>
+        <tr><td>입구 공간 테이블 추가</td><td><span class="tag-ok">즉시 가능</span></td><td>최대 좌석 수 확대</td></tr>
+        <tr><td>조명·벽면 인테리어</td><td>300만원 내 (정부지원 활용)</td><td>공간 분위기 전환</td></tr>
+      </table>
+      <div class="callout callout-blue" style="margin-top:12px;">
+        AI 렌더링 활용 제안: 임채성 대표님이 이미 유사 매장 레퍼런스를 보유하고 있어, 다음 회차 전에 역삼점 공간 AI 렌더링 자료를 컨설턴트가 준비해 드리겠습니다.
+      </div>
+    </div>
+
+    <!-- 8. 로드맵 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">8</div>
+        <div class="section-title">2회차·3회차 진행 계획</div>
+      </div>
+      <div class="roadmap">
+        <div class="roadmap-item">
+          <div class="roadmap-badge"><span class="badge-done">완료</span></div>
+          <div class="roadmap-content">
+            <div class="roadmap-title">1회차</div>
+            <div class="roadmap-desc">현황 진단 / 강점 발견 / 핵심 문제 도출 / 즉시 과제 설계</div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-badge"><span class="badge-next">2회차</span></div>
+          <div class="roadmap-content">
+            <div class="roadmap-title">포스 데이터 분석 + 채널 정비 실행</div>
+            <div class="roadmap-desc">포스 데이터 분석 결과 공유 / 본사 확인 결과 수령 / 구글·카카오·티맵 개별 정비 실행 / 인원 배치 재설계 초안</div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-badge"><span class="badge-plan">3회차</span></div>
+          <div class="roadmap-content">
+            <div class="roadmap-title">포지셔닝 확정 + 자립 운영 구조</div>
+            <div class="roadmap-desc">포지셔닝 문구 확정 / 채널별 콘텐츠 방향 설계 / 공간 개선 실행 계획 / 점주 자립 운영 체크리스트 완성</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. 포지셔닝 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">9</div>
+        <div class="section-title">역삼점 포지셔닝 방향 (초안)</div>
+      </div>
+      <div class="positioning-box">
+        <div class="positioning-quote">"역삼에서 퇴근하고 제대로 마시는 이자카야"</div>
+        <div class="positioning-items">
+          <div class="positioning-item">타겟: 30~40대 오피스 직장인, 역삼 상권 회식·접대·자기보상</div>
+          <div class="positioning-item">핵심 메시지: 조용하고 퀄리티 있는 술자리, 연어 중심 정통 이자카야</div>
+          <div class="positioning-item">채널 분위기: 가성비·인증샷이 아닌 "잘 마시고 잘 먹는 공간"</div>
+          <div class="positioning-item">키워드: 역삼 이자카야 / 연어육회 / 퇴근 후 / 회식</div>
+        </div>
+      </div>
+      <div class="callout callout-blue">이 방향은 다음 회차에서 포스 데이터와 리뷰 분석을 반영하여 최종 확정합니다.</div>
+    </div>
+
+    <!-- CLOSING -->
+    <div class="closing">
+      <p>오늘 미팅에서 임채성 대표님과 실장님이 보여주신 문제의식과 개선 의지가 인상적이었습니다.</p>
+      <p>역삼점이 가진 강점은 분명합니다. <strong>역삼 오피스 상권의 최적 위치, 연어 중심의 강한 비주얼 메뉴, 새벽 2시까지 연중무휴 영업.</strong> 이 조건만으로도 충분히 경쟁력 있는 이자카야입니다.</p>
+      <p>지금은 인형 이벤트의 여파로 채널 이미지가 흔들린 상태이지만, 온라인에서 제대로 된 신호를 보내기 시작하면 원래 고객층은 반드시 돌아옵니다.</p>
+      <p><strong>이 주에 포스 데이터와 본사 확인 결과만 확보해 주시면, 다음 회차에서 구체적인 실행 방안을 함께 설계하겠습니다.</strong></p>
+      <div class="closing-sign">
+        <strong>강남구 AI 마케팅 컨설팅</strong><br>
+        권용준 / 손미현
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

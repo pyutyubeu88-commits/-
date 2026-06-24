@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>구글 비즈니스 프로필 등록 가이드북 — 이자카야 우규 역삼점</title>
+<style>
+@page {
+  size: A4;
+  margin: 16mm 15mm 18mm 15mm;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-size: 9.5pt;
+  color: #1a1a1a;
+  background: #fff;
+  line-height: 1.6;
+}
+
+/* ══ 공통 컬러 ══ */
+:root {
+  --navy: #1a1a2e;
+  --navy2: #2e4a7a;
+  --blue: #4a6fa5;
+  --gblue: #1a73e8;   /* 구글 블루 */
+  --gblue2: #e8f0fe;
+  --light: #f4f6fa;
+  --lgray: #e0e0ee;
+  --gray: #888;
+  --green: #27ae60;
+  --amber: #e6a817;
+  --red: #c0392b;
+  --white: #fff;
+}
+
+/* ══ 커버 ══ */
+.cover {
+  min-height: 260mm;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  page-break-after: always;
+}
+.cover-top {
+  background: var(--gblue);
+  padding: 10px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cover-top-logo {
+  font-size: 11pt;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.06em;
+}
+.cover-top-badge {
+  font-size: 8pt;
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.18);
+  border-radius: 3px;
+  padding: 3px 10px;
+}
+.cover-body {
+  flex: 1;
+  padding: 36px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cover-g-icon {
+  font-size: 48pt;
+  font-weight: 900;
+  color: var(--gblue);
+  letter-spacing: -2px;
+  margin-bottom: 6px;
+  font-style: italic;
+}
+.cover-tag {
+  display: inline-block;
+  background: var(--gblue);
+  color: #fff;
+  font-size: 9pt;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  letter-spacing: 0.08em;
+}
+.cover-title {
+  font-size: 30pt;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.cover-sub {
+  font-size: 13pt;
+  color: #8aaad8;
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+.cover-info-block {
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  border-left: 4px solid var(--gblue);
+}
+.cover-info-row {
+  display: flex;
+  gap: 10px;
+  padding: 5px 0;
+  font-size: 10pt;
+  color: #ccd;
+}
+.cover-info-row strong { color: #fff; min-width: 90px; }
+.cover-why-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.cover-why-item {
+  background: rgba(255,255,255,0.07);
+  border-radius: 7px;
+  padding: 14px 14px;
+  text-align: center;
+}
+.cover-why-icon { font-size: 20pt; margin-bottom: 6px; display: block; }
+.cover-why-title { font-size: 11pt; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.cover-why-desc { font-size: 8.5pt; color: #aabbdd; line-height: 1.55; }
+.cover-footer-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top: 14px;
+}
+.cover-footer-left { font-size: 9pt; color: #8aaad8; line-height: 1.7; }
+.cover-footer-right {
+  font-size: 9pt;
+  color: #fff;
+  font-weight: 700;
+  text-align: right;
+  line-height: 1.7;
+}
+
+/* ══ 페이지 공통 ══ */
+.page { page-break-before: always; padding-top: 2mm; }
+
+/* ══ 섹션 헤더 ══ */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px 9px;
+  background: var(--navy);
+  color: #fff;
+  margin-bottom: 0;
+  page-break-after: avoid;
+}
+.sh-step {
+  background: var(--gblue);
+  color: #fff;
+  font-size: 9pt;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 3px;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.sh-title { font-size: 14pt; font-weight: 800; flex: 1; }
+.sh-sub { font-size: 9pt; color: #8aaad8; }
+
+/* ══ 본문 공통 ══ */
+.content-pad { padding: 12px 18px; }
+
+/* ══ 스텝 카드 ══ */
+.step-flow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  background: var(--light);
+  border: 1px solid var(--lgray);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 10px 18px;
+}
+.step-flow-item {
+  padding: 10px 8px;
+  text-align: center;
+  position: relative;
+}
+.step-flow-item:not(:last-child)::after {
+  content: '›';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16pt;
+  color: var(--blue);
+  z-index: 1;
+}
+.sf-num {
+  background: var(--gblue);
+  color: #fff;
+  font-size: 8pt;
+  font-weight: 700;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 5px;
+}
+.sf-title { font-size: 8.5pt; font-weight: 700; color: var(--navy); }
+.sf-sub { font-size: 7.5pt; color: var(--gray); margin-top: 2px; }
+
+/* ══ 단계별 지침 카드 ══ */
+.guide-step {
+  border: 1.5px solid var(--lgray);
+  border-radius: 8px;
+  margin: 10px 18px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.guide-step-header {
+  background: var(--light);
+  padding: 9px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--lgray);
+}
+.gs-num {
+  background: var(--gblue);
+  color: #fff;
+  font-size: 9pt;
+  font-weight: 800;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.gs-title { font-size: 11pt; font-weight: 800; color: var(--navy); flex: 1; }
+.gs-time {
+  font-size: 8pt;
+  color: var(--gray);
+  background: #fff;
+  border: 1px solid var(--lgray);
+  border-radius: 10px;
+  padding: 2px 9px;
+}
+.guide-step-body { padding: 12px 14px; }
+
+/* ══ 액션 리스트 ══ */
+.action-list { list-style: none; }
+.action-list li {
+  display: flex;
+  gap: 9px;
+  padding: 5px 0;
+  border-bottom: 1px dotted #e0e0ee;
+  font-size: 9.5pt;
+  align-items: flex-start;
+}
+.action-list li:last-child { border-bottom: none; }
+.action-list li::before {
+  content: '';
+  width: 7px; height: 7px;
+  background: var(--gblue);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.action-list li strong { color: var(--navy); }
+.action-list li .note { font-size: 8.5pt; color: var(--gray); margin-top: 1px; display: block; }
+
+/* ══ 팁/주의 박스 ══ */
+.tip-box {
+  background: #e8f0fe;
+  border-left: 4px solid var(--gblue);
+  border-radius: 0 5px 5px 0;
+  padding: 8px 12px;
+  font-size: 9pt;
+  color: #1a2a5a;
+  line-height: 1.65;
+  margin: 8px 0;
+}
+.tip-box::before { content: '💡 Tip: '; font-weight: 700; }
+.warn-box {
+  background: #fff3cd;
+  border-left: 4px solid var(--amber);
+  border-radius: 0 5px 5px 0;
+  padding: 8px 12px;
+  font-size: 9pt;
+  color: #6b4c00;
+  line-height: 1.65;
+  margin: 8px 0;
+}
+.warn-box::before { content: '⚠ 주의: '; font-weight: 700; }
+.danger-box {
+  background: #fde8e8;
+  border-left: 4px solid var(--red);
+  border-radius: 0 5px 5px 0;
+  padding: 8px 12px;
+  font-size: 9pt;
+  color: #6a1a1a;
+  line-height: 1.65;
+  margin: 8px 0;
+}
+.danger-box::before { content: '⛔ 금지: '; font-weight: 700; }
+.ok-box {
+  background: #e8f5e9;
+  border-left: 4px solid var(--green);
+  border-radius: 0 5px 5px 0;
+  padding: 8px 12px;
+  font-size: 9pt;
+  color: #1a5a2a;
+  line-height: 1.65;
+  margin: 8px 0;
+}
+.ok-box::before { content: '✓ 확인: '; font-weight: 700; }
+
+/* ══ 텍스트 예시 박스 ══ */
+.example-box {
+  background: #f7f7fa;
+  border: 1.5px dashed #b0b8d0;
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-size: 9.5pt;
+  color: #333;
+  line-height: 1.7;
+  margin: 8px 0;
+}
+.example-box .ex-label {
+  font-size: 8pt;
+  font-weight: 800;
+  color: var(--gblue);
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+  display: block;
+}
+.example-box .ex-fill {
+  border-bottom: 1px solid #ccd;
+  min-width: 200px;
+  display: inline-block;
+  padding-bottom: 1px;
+}
+
+/* ══ 정보 테이블 ══ */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+}
+.info-table th {
+  background: var(--navy);
+  color: #fff;
+  padding: 7px 10px;
+  text-align: left;
+  font-size: 9pt;
+}
+.info-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--lgray);
+  vertical-align: top;
+}
+.info-table tr:nth-child(even) td { background: var(--light); }
+.info-table .td-key {
+  font-weight: 700;
+  color: var(--navy);
+  white-space: nowrap;
+  width: 130px;
+}
+.info-table .td-val { color: #1a1a2e; }
+.info-table .td-val .filled { color: var(--gblue); font-weight: 600; }
+.info-table .td-note { font-size: 8.5pt; color: var(--gray); padding-top: 3px; display: block; }
+
+/* ══ 2단 레이아웃 ══ */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0; }
+.three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 8px 0; }
+
+/* ══ 카드 ══ */
+.card {
+  border: 1.5px solid var(--lgray);
+  border-radius: 7px;
+  padding: 12px 14px;
+  background: #fff;
+}
+.card-title {
+  font-size: 10pt;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--lgray);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.card-title .ct-icon {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--gblue);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9pt;
+  flex-shrink: 0;
+}
+.card-body { font-size: 9pt; color: #333; line-height: 1.65; }
+
+/* ══ 사진 가이드 그리드 ══ */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 8px 0;
+}
+.photo-card {
+  border: 1.5px solid var(--lgray);
+  border-radius: 7px;
+  overflow: hidden;
+}
+.photo-card-top {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20pt;
+}
+.pc-food    { background: #fff3e0; }
+.pc-store   { background: #e8f4e8; }
+.pc-team    { background: #e8eef8; }
+.pc-review  { background: #f3e8f8; }
+.pc-event   { background: #fde8e8; }
+.pc-menu    { background: #e8faf0; }
+.photo-card-body { padding: 7px 9px; }
+.photo-card-title { font-size: 9pt; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.photo-card-list { list-style: none; }
+.photo-card-list li {
+  font-size: 8pt;
+  color: #555;
+  padding: 1px 0;
+  padding-left: 10px;
+  position: relative;
+}
+.photo-card-list li::before {
+  content: '·';
+  position: absolute;
+  left: 2px;
+  color: var(--gblue);
+  font-weight: 700;
+}
+.photo-priority {
+  display: inline-block;
+  font-size: 7pt;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 8px;
+  margin-left: 4px;
+}
+.pp-must { background: var(--red); color: #fff; }
+.pp-high { background: var(--amber); color: #fff; }
+.pp-mid  { background: var(--blue); color: #fff; }
+
+/* ══ 리뷰 응답 템플릿 ══ */
+.review-template {
+  background: #f7f7fa;
+  border: 1.5px solid var(--lgray);
+  border-radius: 7px;
+  margin: 8px 0;
+  overflow: hidden;
+}
+.rt-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--lgray);
+  background: var(--light);
+}
+.rt-type {
+  font-size: 8pt;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.rt-positive { background: #e8f5e9; color: #1a5a2a; }
+.rt-negative { background: #fde8e8; color: #6a1a1a; }
+.rt-neutral  { background: #e8eef8; color: #1a3a7a; }
+.rt-stars { color: #f9a825; font-size: 10pt; }
+.rt-scenario { font-size: 8.5pt; color: var(--gray); }
+.rt-body { padding: 10px 12px; }
+.rt-template-text {
+  font-size: 9pt;
+  color: #222;
+  line-height: 1.75;
+  background: #fff;
+  border: 1px solid #e0e0ee;
+  border-radius: 5px;
+  padding: 8px 10px;
+}
+.rt-fill { color: var(--gblue); border-bottom: 1px solid var(--blue); font-weight: 600; }
+
+/* ══ 점검 체크리스트 (월별) ══ */
+.monthly-check {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 8px 0;
+}
+.mc-card {
+  border: 1.5px solid var(--lgray);
+  border-radius: 7px;
+  overflow: hidden;
+}
+.mc-header {
+  padding: 7px 12px;
+  font-size: 10pt;
+  font-weight: 700;
+  color: #fff;
+}
+.mc-weekly  { background: var(--gblue); }
+.mc-monthly { background: var(--navy2); }
+.mc-body { padding: 8px 12px; }
+.mc-item {
+  display: flex;
+  gap: 7px;
+  padding: 4px 0;
+  border-bottom: 1px dotted #dde;
+  font-size: 9pt;
+}
+.mc-item:last-child { border-bottom: none; }
+.mc-cb {
+  width: 13px; height: 13px;
+  border: 1.5px solid var(--navy);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ══ FAQ ══ */
+.faq-item {
+  border: 1px solid var(--lgray);
+  border-radius: 7px;
+  margin: 8px 0;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.faq-q {
+  background: var(--gblue2);
+  padding: 8px 14px;
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: #0d47a1;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.faq-q::before { content: 'Q'; font-size: 11pt; font-weight: 900; color: var(--gblue); }
+.faq-a {
+  padding: 8px 14px 8px 14px;
+  font-size: 9.5pt;
+  color: #333;
+  line-height: 1.65;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.faq-a::before { content: 'A'; font-size: 11pt; font-weight: 900; color: var(--green); }
+
+/* ══ 섹션 구분선 ══ */
+.sec-divider {
+  height: 6px;
+  background: var(--light);
+  border-top: 1px solid #dde;
+  border-bottom: 1px solid #dde;
+  margin: 0;
+}
+
+/* ══ 번호 배지 ══ */
+.num-badge {
+  background: var(--gblue);
+  color: #fff;
+  font-size: 8.5pt;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+/* ══ 상태 칩 ══ */
+.chip-ok   { background: #e8f5e9; color: #1a5a2a; border: 1px solid #90d4a0; font-size: 8pt; font-weight: 700; padding: 1px 7px; border-radius: 8px; display: inline-block; }
+.chip-need { background: #fff3cd; color: #8a5e00; border: 1px solid #f9c74f; font-size: 8pt; font-weight: 700; padding: 1px 7px; border-radius: 8px; display: inline-block; }
+
+/* ══ 페이지 푸터 ══ */
+.page-footer {
+  border-top: 1px solid var(--lgray);
+  padding: 6px 18px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 7.5pt;
+  color: #aaa;
+  margin-top: 10px;
+}
+
+/* ══ 최종 완료 배너 ══ */
+.complete-banner {
+  background: var(--navy);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 8px;
+  margin: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cb-icon { font-size: 24pt; }
+.cb-title { font-size: 13pt; font-weight: 800; margin-bottom: 4px; }
+.cb-desc { font-size: 9.5pt; color: #8aaad8; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ 커버 ══════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-top-logo">강남AI컨설팅</div>
+    <div class="cover-top-badge">점주 가이드북 · 구글 비즈니스 프로필</div>
+  </div>
+  <div class="cover-body">
+    <div>
+      <div class="cover-g-icon">Google</div>
+      <div class="cover-tag">GOOGLE BUSINESS PROFILE 등록 가이드</div>
+      <div class="cover-title">구글 비즈니스<br>등록 완전 가이드북</div>
+      <div class="cover-sub">이자카야 우규 역삼점 맞춤 실전 버전</div>
+
+      <div class="cover-info-block">
+        <div class="cover-info-row"><strong>업체명</strong>이자카야 우규 역삼점</div>
+        <div class="cover-info-row"><strong>주소</strong>서울 강남구 테헤란로19길 19</div>
+        <div class="cover-info-row"><strong>등록 목표</strong>구글 검색·지도에서 우규 역삼점을 찾는 고객이 정확한 정보를 보도록</div>
+        <div class="cover-info-row"><strong>예상 소요</strong>최초 등록 45~60분 / 소유권 인증 1~7일 / 최적화 추가 30분</div>
+      </div>
+
+      <div class="cover-why-row">
+        <div class="cover-why-item">
+          <span class="cover-why-icon">🗺️</span>
+          <div class="cover-why-title">구글 지도 노출</div>
+          <div class="cover-why-desc">"강남 이자카야" 검색 시<br>지도에 바로 표시됨</div>
+        </div>
+        <div class="cover-why-item">
+          <span class="cover-why-icon">🔍</span>
+          <div class="cover-why-title">검색 패널 노출</div>
+          <div class="cover-why-desc">업체명 검색 시 우측에<br>정보 패널로 표시됨</div>
+        </div>
+        <div class="cover-why-item">
+          <span class="cover-why-icon">⭐</span>
+          <div class="cover-why-title">리뷰 관리</div>
+          <div class="cover-why-desc">구글 리뷰를 직접 확인하고<br>답변 가능</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-footer-bar">
+      <div class="cover-footer-left">
+        제작: 강남AI컨설팅<br>
+        컨설턴트: 권용준 · 손미현<br>
+        작성일: 2026-06-18
+      </div>
+      <div class="cover-footer-right">
+        총 8챕터<br>
+        단계별 실전 가이드<br>
+        맞춤형 예시 포함
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE 2: 등록 전 준비 ══════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="sh-step">CHAPTER 01</div>
+    <div class="sh-title">등록 전 준비물 확인</div>
+    <div class="sh-sub">시작 전 이것만 준비하면 됩니다</div>
+  </div>
+
+  <div class="content-pad">
+    <div class="warn-box">구글 비즈니스 등록은 한 번 잘못 입력하면 수정이 번거롭습니다. 아래 정보를 미리 정확하게 준비한 뒤 시작하세요.</div>
+
+    <table class="info-table" style="margin-top:10px;">
+      <tr>
+        <th style="width:130px;">준비 항목</th>
+        <th style="width:200px;">우규 역삼점 기준값</th>
+        <th>확인 방법 / 주의사항</th>
+      </tr>
+      <tr>
+        <td class="td-key">구글 계정</td>
+        <td class="td-val"><span class="chip-need">사전 생성 필요</span></td>
+        <td>매장 전용 구글 계정 사용 권장 (개인 계정 혼용 비추천)<br><span class="td-note">→ gmail.com 계정 새로 만들거나 기존 업무용 계정 사용</span></td>
+      </tr>
+      <tr>
+        <td class="td-key">업체명</td>
+        <td class="td-val"><span class="filled">이자카야 우규 역삼점</span></td>
+        <td>사업자등록증·네이버 플레이스와 정확히 일치시킬 것<br><span class="td-note">→ "우규" "역삼우규" 등 임의 변형 금지</span></td>
+      </tr>
+      <tr>
+        <td class="td-key">주소</td>
+        <td class="td-val"><span class="filled">서울 강남구 테헤란로19길 19</span></td>
+        <td>도로명 주소 기준으로 입력<br><span class="td-note">→ 층수/호수 있으면 상세 주소란에 추가 입력</span></td>
+      </tr>
+      <tr>
+        <td class="td-key">전화번호</td>
+        <td class="td-val"><span class="chip-need">현장 확인 필요</span></td>
+        <td>고객 안내용 대표 번호 (예약 문의 받는 번호)<br><span class="td-note">→ 개인 휴대폰 번호 노출 시 주의</span></td>
+      </tr>
+      <tr>
+        <td class="td-key">영업시간</td>
+        <td class="td-val"><span class="chip-need">현장 확인 필요</span></td>
+        <td>요일별 오픈/마감 시간 / 정기 휴무일 / 브레이크타임 포함<br><span class="td-note">→ 네이버 플레이스 영업시간과 일치시킬 것</span></td>
+      </tr>
+      <tr>
+        <td class="td-key">웹사이트</td>
+        <td class="td-val"><span class="chip-need">있으면 입력</span></td>
+        <td>없으면 공란 OK. 인스타그램 링크로 대체 가능<br><span class="td-note">→ @우규역삼 인스타 계정 링크 사용 가능</span></td>
+      </tr>
+      <tr>
+        <td class="td-key">업종 카테고리</td>
+        <td class="td-val"><span class="filled">이자카야 (일식당)</span></td>
+        <td>기본 카테고리: <strong>이자카야</strong> → 추가 카테고리: 일식당, 술집 추가 권장<br><span class="td-note">→ "이자카야" 검색 시 노출 최적화</span></td>
+      </tr>
+      <tr>
+        <td class="td-key">대표 사진</td>
+        <td class="td-val"><span class="chip-need">사전 준비 필요</span></td>
+        <td>연어·육회·한우 모츠나베 음식 사진 / 매장 외관·내관 사진<br><span class="td-note">→ 720px 이상 고화질 가로 사진 권장</span></td>
+      </tr>
+      <tr>
+        <td class="td-key">소유권 인증 수단</td>
+        <td class="td-val"><span class="chip-need">전화 인증 권장</span></td>
+        <td>전화 인증(즉시) / 엽서 인증(5~14일) 중 선택<br><span class="td-note">→ 대표 전화로 즉시 인증 권장</span></td>
+      </tr>
+    </table>
+
+    <div class="ok-box" style="margin-top:10px;">준비물을 모두 확인했다면 다음 챕터로 넘어가세요. 구글 계정 로그인 상태에서 시작합니다.</div>
+  </div>
+
+  <div class="page-footer">
+    <span>강남AI컨설팅 · 권용준 · 손미현</span>
+    <span>이자카야 우규 역삼점 구글 비즈니스 등록 가이드북</span>
+    <span>CHAPTER 01</span>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE 3: 단계별 등록 ══════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="sh-step">CHAPTER 02</div>
+    <div class="sh-title">단계별 등록 가이드</div>
+    <div class="sh-sub">접속 → 업체 정보 입력 → 소유권 인증까지 순서대로 따라하세요</div>
+  </div>
+
+  <!-- 전체 흐름 -->
+  <div class="step-flow">
+    <div class="step-flow-item"><div class="sf-num">1</div><div class="sf-title">사이트 접속</div><div class="sf-sub">business.google.com</div></div>
+    <div class="step-flow-item"><div class="sf-num">2</div><div class="sf-title">업체명 검색</div><div class="sf-sub">기존 등록 확인</div></div>
+    <div class="step-flow-item"><div class="sf-num">3</div><div class="sf-title">정보 입력</div><div class="sf-sub">주소·전화·시간</div></div>
+    <div class="step-flow-item"><div class="sf-num">4</div><div class="sf-title">소유권 인증</div><div class="sf-sub">전화 or 엽서</div></div>
+    <div class="step-flow-item"><div class="sf-num">5</div><div class="sf-title">최적화</div><div class="sf-sub">사진·설명 보강</div></div>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="guide-step">
+    <div class="guide-step-header">
+      <div class="gs-num">1</div>
+      <div class="gs-title">구글 비즈니스 프로필 사이트 접속</div>
+      <div class="gs-time">약 2분</div>
+    </div>
+    <div class="guide-step-body">
+      <ul class="action-list">
+        <li><strong>크롬 브라우저</strong>를 열고 주소창에 <strong>business.google.com</strong> 입력 후 엔터<span class="note">→ 구글 계정 로그인 상태 확인 (우측 상단 프로필 사진 확인)</span></li>
+        <li>로그인 안 된 경우: 우측 상단 <strong>로그인</strong> 클릭 → 매장 전용 구글 계정으로 로그인</li>
+        <li>메인 화면에서 <strong>"지금 시작하기"</strong> 또는 <strong>"내 프로필 관리"</strong> 버튼 클릭</li>
+      </ul>
+      <div class="tip-box">PC(컴퓨터)로 진행하는 것을 강력 권장합니다. 모바일로도 가능하지만 입력 실수가 줄어듭니다.</div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="guide-step">
+    <div class="guide-step-header">
+      <div class="gs-num">2</div>
+      <div class="gs-title">업체명 검색 — 이미 등록된 업체가 있는지 먼저 확인</div>
+      <div class="gs-time">약 3분</div>
+    </div>
+    <div class="guide-step-body">
+      <ul class="action-list">
+        <li>검색창에 <strong>이자카야 우규 역삼점</strong> 입력 → 검색 결과 확인</li>
+        <li><strong>검색 결과에 업체가 이미 있는 경우:</strong> 타인이 먼저 등록한 것일 수 있음<span class="note">→ "이 업체의 소유자이신가요?" 클릭 후 소유권 청구 진행 (CHAPTER 08 참고)</span></li>
+        <li><strong>검색 결과에 없는 경우:</strong> <strong>"이 업체를 추가하세요"</strong> 또는 <strong>"내 업체 추가"</strong> 클릭</li>
+      </ul>
+      <div class="warn-box">검색 결과에 이미 "이자카야 우규 역삼점"이 있다면 새로 등록하지 말고 소유권 청구를 진행하세요. 중복 등록 시 관리가 복잡해집니다.</div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="guide-step">
+    <div class="guide-step-header">
+      <div class="gs-num">3</div>
+      <div class="gs-title">업체 기본 정보 입력</div>
+      <div class="gs-time">약 10분</div>
+    </div>
+    <div class="guide-step-body">
+      <table class="info-table">
+        <tr>
+          <th style="width:130px;">입력 항목</th>
+          <th>입력할 내용</th>
+        </tr>
+        <tr>
+          <td class="td-key">업체명</td>
+          <td class="td-val"><span class="filled">이자카야 우규 역삼점</span><span class="td-note">정확히 이 글자로 입력. "우규" "이자카야우규" 등 변형 금지</span></td>
+        </tr>
+        <tr>
+          <td class="td-key">기본 카테고리</td>
+          <td class="td-val"><span class="filled">이자카야</span> 검색 후 선택<span class="td-note">→ 없으면 "일식 레스토랑" 선택 후 추가 카테고리에서 보완</span></td>
+        </tr>
+        <tr>
+          <td class="td-key">위치 추가 여부</td>
+          <td class="td-val"><span class="filled">예 — 고객이 방문하는 매장입니다</span> 선택<span class="td-note">→ "배달만 하나요?" 화면 나오면 "아니요" 선택</span></td>
+        </tr>
+        <tr>
+          <td class="td-key">주소</td>
+          <td class="td-val"><span class="filled">서울 강남구 테헤란로19길 19</span><span class="td-note">지번·도로명 주소 중 도로명 주소 권장. 층수는 상세 주소란에 입력</span></td>
+        </tr>
+        <tr>
+          <td class="td-key">서비스 지역</td>
+          <td class="td-val">매장 방문 음식점이므로 <span class="filled">서비스 지역 추가 안 함</span><span class="td-note">→ 배달·출장 서비스 없으면 건너뛰기</span></td>
+        </tr>
+        <tr>
+          <td class="td-key">전화번호</td>
+          <td class="td-val">대표 예약 전화번호 입력<span class="td-note">→ 국번 포함 입력 (예: 02-XXXX-XXXX 또는 010-XXXX-XXXX)</span></td>
+        </tr>
+        <tr>
+          <td class="td-key">웹사이트</td>
+          <td class="td-val">인스타그램 주소 또는 공식 홈페이지 URL<span class="td-note">→ 없으면 공란으로 두거나 네이버 플레이스 링크 입력</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>강남AI컨설팅 · 권용준 · 손미현</span>
+    <span>이자카야 우규 역삼점 구글 비즈니스 등록 가이드북</span>
+    <span>CHAPTER 02</span>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE 4: 소유권 인증 ══════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="sh-step">CHAPTER 03</div>
+    <div class="sh-title">소유권 인증 — 가장 중요한 단계</div>
+    <div class="sh-sub">인증을 완료해야 정보를 수정하고 관리할 수 있습니다</div>
+  </div>
+
+  <div class="content-pad">
+    <div class="two-col">
+      <!-- 전화 인증 -->
+      <div class="card" style="border-top:4px solid var(--green);">
+        <div class="card-title"><div class="ct-icon">📞</div>방법 1: 전화 인증 <span style="color:var(--green);font-size:9pt;font-weight:700;">★ 권장</span></div>
+        <div class="card-body">
+          <ul class="action-list">
+            <li><strong>인증 방법 선택</strong> 화면에서 <strong>"전화"</strong> 선택</li>
+            <li>대표 전화번호로 <strong>자동 음성 통화</strong> 또는 <strong>문자</strong>가 옴</li>
+            <li>안내 받은 <strong>6자리 코드</strong>를 입력란에 입력</li>
+            <li><strong>즉시 인증 완료</strong> — 정보 수정 가능 상태로 전환</li>
+          </ul>
+          <div class="ok-box" style="margin-top:6px;">전화 인증이 가장 빠릅니다. 대표 전화기를 옆에 두고 진행하세요.</div>
+        </div>
+      </div>
+      <!-- 엽서 인증 -->
+      <div class="card" style="border-top:4px solid var(--amber);">
+        <div class="card-title"><div class="ct-icon">✉️</div>방법 2: 엽서(우편) 인증</div>
+        <div class="card-body">
+          <ul class="action-list">
+            <li><strong>인증 방법 선택</strong> 화면에서 <strong>"엽서"</strong> 선택</li>
+            <li>입력한 주소 <span style="color:var(--navy);font-weight:700;">서울 강남구 테헤란로19길 19</span>로 구글이 엽서 발송</li>
+            <li>수령 후 엽서에 적힌 <strong>5자리 코드</strong>를 구글에 입력</li>
+            <li>소요 기간: <strong>5~14 영업일</strong></li>
+          </ul>
+          <div class="warn-box" style="margin-top:6px;">전화 인증이 불가능한 경우에만 선택. 엽서 분실 시 재발송 요청 필요.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="danger-box">인증 코드를 받았을 때 화면을 닫거나 새로고침하지 마세요. 코드는 30분 이내에 입력해야 합니다.</div>
+
+    <!-- 인증 후 즉시 할 일 -->
+    <div style="margin-top:12px;">
+      <div style="font-size:11pt;font-weight:800;color:var(--navy);margin-bottom:8px;">✅ 인증 완료 직후 바로 해야 할 일</div>
+      <table class="info-table">
+        <tr>
+          <th style="width:30px;text-align:center;">#</th>
+          <th style="width:200px;">할 일</th>
+          <th>중요 이유</th>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-weight:700;color:var(--gblue);">1</td>
+          <td class="td-val"><strong>영업시간 입력</strong></td>
+          <td>고객이 방문 전 확인하는 1순위 정보</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-weight:700;color:var(--gblue);">2</td>
+          <td class="td-val"><strong>업체 설명 작성</strong></td>
+          <td>검색 결과에서 차별화되는 핵심 문구</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-weight:700;color:var(--gblue);">3</td>
+          <td class="td-val"><strong>사진 최소 5장 업로드</strong></td>
+          <td>사진 없는 업체는 클릭률이 현저히 낮음</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-weight:700;color:var(--gblue);">4</td>
+          <td class="td-val"><strong>추가 카테고리 설정</strong></td>
+          <td>이자카야 + 일식당 + 술집 → 검색 노출 범위 확대</td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-weight:700;color:var(--gblue);">5</td>
+          <td class="td-val"><strong>네이버 플레이스 정보와 일치 확인</strong></td>
+          <td>상호·주소·전화·시간이 채널 간 일치해야 신뢰도 상승</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>강남AI컨설팅 · 권용준 · 손미현</span>
+    <span>이자카야 우규 역삼점 구글 비즈니스 등록 가이드북</span>
+    <span>CHAPTER 03</span>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE 5: 업체 정보 최적화 ══════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="sh-step">CHAPTER 04</div>
+    <div class="sh-title">업체 정보 최적화 — 검색에 잘 잡히게</div>
+    <div class="sh-sub">등록만 하는 것과 최적화는 다릅니다. 이 단계가 실제 노출을 결정합니다</div>
+  </div>
+
+  <div class="content-pad">
+
+    <!-- 업체 설명 -->
+    <div style="font-size:11pt;font-weight:800;color:var(--navy);margin-bottom:6px;">① 업체 설명 작성 (750자 이내)</div>
+    <div class="example-box">
+      <span class="ex-label">✏ 우규 역삼점 업체 설명 예시 문장 (수정 후 사용)</span>
+      역삼역 도보 5분 거리에 위치한 이자카야 우규 역삼점입니다.<br><br>
+      신선한 연어·육회·한우 모츠나베와 엄선된 하이볼·사케를 합리적인 가격으로 즐길 수 있습니다.<br><br>
+      아늑한 분위기로 데이트·소규모 모임·직장인 회식에 어울리며, 강남 역삼동 맛집으로 많은 고객들이 재방문하고 있습니다.<br><br>
+      예약 문의는 전화 또는 인스타그램 DM으로 주세요.
+      <div style="margin-top:8px;font-size:8.5pt;color:var(--gray);">※ 실제 전화번호·인스타 계정명 등을 넣어 완성하세요. URL·특수기호 과도 사용은 스팸으로 처리될 수 있습니다.</div>
+    </div>
+    <div class="tip-box">업체 설명에 키워드를 자연스럽게 넣으세요: 이자카야, 역삼, 연어, 육회, 모츠나베, 하이볼, 데이트, 강남, 역삼역</div>
+
+    <!-- 카테고리 설정 -->
+    <div style="font-size:11pt;font-weight:800;color:var(--navy);margin:12px 0 6px;">② 카테고리 설정</div>
+    <div class="three-col">
+      <div class="card" style="border-left:4px solid var(--gblue);">
+        <div class="card-title" style="font-size:9pt;">기본 카테고리 (1개)</div>
+        <div class="card-body">
+          <strong style="font-size:11pt;color:var(--gblue);">이자카야</strong><br>
+          <span style="font-size:8.5pt;color:var(--gray);">"이자카야" 검색 시<br>최우선 노출</span>
+        </div>
+      </div>
+      <div class="card" style="border-left:4px solid var(--navy2);">
+        <div class="card-title" style="font-size:9pt;">추가 카테고리</div>
+        <div class="card-body">
+          <strong>일식 레스토랑</strong><br>
+          <strong>술집</strong><br>
+          <strong>일본 요리</strong><br>
+          <span style="font-size:8.5pt;color:var(--gray);">검색 노출 범위 확대</span>
+        </div>
+      </div>
+      <div class="card" style="border-left:4px solid var(--green);">
+        <div class="card-title" style="font-size:9pt;">속성 설정 (체크)</div>
+        <div class="card-body">
+          <span>✓ 테이블 서비스</span><br>
+          <span>✓ 알코올 제공</span><br>
+          <span>✓ 예약 가능</span><br>
+          <span>✓ 신용카드 결제</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 영업시간 -->
+    <div style="font-size:11pt;font-weight:800;color:var(--navy);margin:12px 0 6px;">③ 영업시간 입력</div>
+    <div class="example-box">
+      <span class="ex-label">📅 영업시간 입력 예시 (실제 정보로 수정)</span>
+      <table style="width:100%;border-collapse:collapse;font-size:9.5pt;">
+        <tr style="border-bottom:1px solid #dde;">
+          <td style="padding:4px 8px;font-weight:700;color:var(--navy);width:80px;">월요일</td>
+          <td style="padding:4px 8px;" class="ex-fill">__:__ ~ __:__</td>
+          <td style="padding:4px 8px;width:80px;font-weight:700;color:var(--navy);">화요일</td>
+          <td style="padding:4px 8px;" class="ex-fill">__:__ ~ __:__</td>
+        </tr>
+        <tr style="border-bottom:1px solid #dde;">
+          <td style="padding:4px 8px;font-weight:700;color:var(--navy);">수요일</td>
+          <td style="padding:4px 8px;" class="ex-fill">__:__ ~ __:__</td>
+          <td style="padding:4px 8px;font-weight:700;color:var(--navy);">목요일</td>
+          <td style="padding:4px 8px;" class="ex-fill">__:__ ~ __:__</td>
+        </tr>
+        <tr style="border-bottom:1px solid #dde;">
+          <td style="padding:4px 8px;font-weight:700;color:var(--navy);">금요일</td>
+          <td style="padding:4px 8px;" class="ex-fill">__:__ ~ __:__</td>
+          <td style="padding:4px 8px;font-weight:700;color:var(--navy);">토요일</td>
+          <td style="padding:4px 8px;" class="ex-fill">__:__ ~ __:__</td>
+        </tr>
+        <tr>
+          <td style="padding:4px 8px;font-weight:700;color:var(--navy);">일요일</td>
+          <td style="padding:4px 8px;" class="ex-fill">__:__ ~ __:__ &nbsp;(또는 휴무)</td>
+          <td style="padding:4px 8px;font-weight:700;color:var(--red);">정기 휴무</td>
+          <td style="padding:4px 8px;" class="ex-fill">매주 ____요일</td>
+        </tr>
+      </table>
+      <div style="margin-top:6px;font-size:8.5pt;color:var(--gray);">브레이크타임 있을 경우: "특별 영업시간 추가" 기능으로 별도 입력 가능</div>
+    </div>
+    <div class="warn-box">구글 영업시간은 네이버 플레이스, 카카오맵과 반드시 일치시키세요. 채널 간 정보 불일치는 고객 혼란을 유발합니다.</div>
+
+    <!-- 추가 정보 -->
+    <div style="font-size:11pt;font-weight:800;color:var(--navy);margin:12px 0 6px;">④ 추가 입력 권장 항목</div>
+    <div class="two-col">
+      <ul class="action-list">
+        <li><strong>메뉴 등록</strong>: 대표 메뉴 5~10개 이름·가격·사진 추가<span class="note">→ 연어회, 육회, 한우 모츠나베, 하이볼, 사케 우선</span></li>
+        <li><strong>주차 정보</strong>: 주차 가능 여부를 속성에서 선택<span class="note">→ 주차 불가 시 "인근 공영주차장" 안내 문구 설명에 추가</span></li>
+      </ul>
+      <ul class="action-list">
+        <li><strong>Q&A 사전 등록</strong>: 자주 묻는 질문을 직접 등록<span class="note">→ "주차 가능한가요?" "예약 필수인가요?" 등</span></li>
+        <li><strong>게시물(포스트)</strong>: 주간 이벤트·신메뉴 홍보 게시 가능<span class="note">→ 인스타와 동일 콘텐츠 활용 가능</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>강남AI컨설팅 · 권용준 · 손미현</span>
+    <span>이자카야 우규 역삼점 구글 비즈니스 등록 가이드북</span>
+    <span>CHAPTER 04</span>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE 6: 사진 등록 가이드 ══════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="sh-step">CHAPTER 05</div>
+    <div class="sh-title">사진 등록 가이드 — 첫인상이 예약을 결정합니다</div>
+    <div class="sh-sub">사진이 없는 업체는 클릭률이 50% 이상 감소합니다. 최소 10장 이상 등록하세요</div>
+  </div>
+
+  <div class="content-pad">
+
+    <div class="warn-box">구글 지도 검색 결과에서 사진은 업체명보다 먼저 눈에 들어옵니다. <strong>첫 번째 사진이 대표 이미지</strong>가 됩니다.</div>
+
+    <!-- 사진 카드 그리드 -->
+    <div style="font-size:11pt;font-weight:800;color:var(--navy);margin:10px 0 8px;">우규 역삼점 업로드 사진 목록 (우선순위 순)</div>
+    <div class="photo-grid">
+      <div class="photo-card">
+        <div class="photo-card-top pc-food">🍣</div>
+        <div class="photo-card-body">
+          <div class="photo-card-title">음식 사진 <span class="photo-priority pp-must">필수</span></div>
+          <ul class="photo-card-list">
+            <li>연어회 — 신선함 강조</li>
+            <li>육회 — 비주얼 강조</li>
+            <li>한우 모츠나베 — 차별화</li>
+            <li>하이볼 / 사케 잔</li>
+            <li>기타 인기 메뉴 2~3종</li>
+          </ul>
+        </div>
+      </div>
+      <div class="photo-card">
+        <div class="photo-card-top pc-store">🏮</div>
+        <div class="photo-card-body">
+          <div class="photo-card-title">매장 외관 <span class="photo-priority pp-must">필수</span></div>
+          <ul class="photo-card-list">
+            <li>간판 전경 (주간/야간)</li>
+            <li>입구 전경 (찾기 쉽게)</li>
+            <li>건물 외부 전체 샷</li>
+            <li>간판 클로즈업</li>
+          </ul>
+        </div>
+      </div>
+      <div class="photo-card">
+        <div class="photo-card-top pc-team">🪑</div>
+        <div class="photo-card-body">
+          <div class="photo-card-title">매장 내관 <span class="photo-priority pp-must">필수</span></div>
+          <ul class="photo-card-list">
+            <li>홀 전체 분위기</li>
+            <li>데이트용 좌석</li>
+            <li>단체석 / 모임 공간</li>
+            <li>카운터·바 공간</li>
+          </ul>
+        </div>
+      </div>
+      <div class="photo-card">
+        <div class="photo-card-top pc-menu">📋</div>
+        <div class="photo-card-body">
+          <div class="photo-card-title">메뉴판 <span class="photo-priority pp-high">권장</span></div>
+          <ul class="photo-card-list">
+            <li>메뉴판 전체 (글자 읽히게)</li>
+            <li>주류 메뉴판</li>
+            <li>오늘의 메뉴/추천 메뉴</li>
+          </ul>
+        </div>
+      </div>
+      <div class="photo-card">
+        <div class="photo-card-top pc-review">✨</div>
+        <div class="photo-card-body">
+          <div class="photo-card-title">분위기 사진 <span class="photo-priority pp-high">권장</span></div>
+          <ul class="photo-card-list">
+            <li>야간 조명 분위기</li>
+            <li>손님 테이블 세팅</li>
+            <li>음식+술 조합 컷</li>
+          </ul>
+        </div>
+      </div>
+      <div class="photo-card">
+        <div class="photo-card-top pc-event">🎉</div>
+        <div class="photo-card-body">
+          <div class="photo-card-title">기타 <span class="photo-priority pp-mid">선택</span></div>
+          <ul class="photo-card-list">
+            <li>모임/회식 테이블</li>
+            <li>직원 서빙 장면</li>
+            <li>리뷰 이벤트 안내판</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 사진 업로드 기준 -->
+    <div style="font-size:11pt;font-weight:800;color:var(--navy);margin:12px 0 6px;">사진 업로드 기준</div>
+    <div class="two-col">
+      <div class="card" style="border-top:3px solid var(--green);">
+        <div class="card-title" style="font-size:9.5pt;">✅ 이렇게 찍으세요</div>
+        <div class="card-body">
+          <ul class="action-list">
+            <li>해상도 <strong>720px × 720px 이상</strong> (가로 사진 권장)</li>
+            <li>밝고 선명하게 — 자연광 또는 조명 아래</li>
+            <li>음식은 <strong>손대기 직전</strong> 상태로 촬영</li>
+            <li>배경 정리 후 촬영 (그릇 주변 정돈)</li>
+            <li>가로 비율 4:3 또는 16:9 권장</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--red);">
+        <div class="card-title" style="font-size:9.5pt;">⛔ 이것은 피하세요</div>
+        <div class="card-body">
+          <ul class="action-list">
+            <li>어둡고 흔들린 사진</li>
+            <li>로고·워터마크·텍스트 덮힌 사진</li>
+            <li>음식 다 먹은 후 사진</li>
+            <li>과도하게 편집된 필터 사진</li>
+            <li>50KB 미만 저화질 사진</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 대표 이미지 설정 -->
+    <div style="font-size:11pt;font-weight:800;color:var(--navy);margin:12px 0 4px;">대표 이미지 설정 방법</div>
+    <ul class="action-list">
+      <li>구글 비즈니스 관리자 페이지 → <strong>사진</strong> 메뉴 → <strong>로고</strong> 및 <strong>표지 사진</strong> 별도 업로드</li>
+      <li><strong>표지 사진:</strong> 매장의 가장 매력적인 음식 or 분위기 사진 1장 — 이것이 검색 결과 메인 이미지</li>
+      <li><strong>로고:</strong> 우규 역삼점 로고 이미지 (없으면 간판 클로즈업 사진으로 대체)</li>
+    </ul>
+    <div class="tip-box">사진은 처음에 10장 이상 올리고, 이후 한 달에 1~2장씩 꾸준히 추가하면 구글 알고리즘 신선도 점수가 올라갑니다.</div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>강남AI컨설팅 · 권용준 · 손미현</span>
+    <span>이자카야 우규 역삼점 구글 비즈니스 등록 가이드북</span>
+    <span>CHAPTER 05</span>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE 7: 리뷰 관리 ══════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="sh-step">CHAPTER 06</div>
+    <div class="sh-title">리뷰 관리 — 답변이 다음 고객을 만듭니다</div>
+    <div class="sh-sub">리뷰 답변은 리뷰 작성자만이 아니라 그것을 보는 모든 예비 고객에게 보내는 메시지입니다</div>
+  </div>
+
+  <div class="content-pad">
+
+    <div class="two-col" style="margin-bottom:10px;">
+      <div class="card" style="border-left:4px solid var(--gblue);">
+        <div class="card-title" style="font-size:9.5pt;">리뷰 확인 방법</div>
+        <div class="card-body">
+          <ul class="action-list">
+            <li>구글 비즈니스 관리자 → <strong>리뷰</strong> 메뉴</li>
+            <li>또는 구글 지도에서 업체 검색 → 리뷰 탭</li>
+            <li>새 리뷰 알림: 관리자 페이지에서 이메일 알림 설정 권장</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="border-left:4px solid var(--amber);">
+        <div class="card-title" style="font-size:9.5pt;">리뷰 답변 원칙</div>
+        <div class="card-body">
+          <ul class="action-list">
+            <li>24시간 이내 답변 권장 (72시간 이내 필수)</li>
+            <li>모든 리뷰에 답변 — 별점과 무관하게</li>
+            <li>고객 이름 또는 "고객님"으로 시작</li>
+            <li>방어적·감정적 표현 절대 금지</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 리뷰 템플릿 -->
+    <div style="font-size:11pt;font-weight:800;color:var(--navy);margin-bottom:8px;">리뷰 응답 템플릿 — 우규 역삼점 맞춤</div>
+
+    <div class="review-template">
+      <div class="rt-header">
+        <div class="rt-type rt-positive">긍정 리뷰</div>
+        <div class="rt-stars">★★★★★</div>
+        <div class="rt-scenario">음식 맛·분위기·친절 칭찬 리뷰</div>
+      </div>
+      <div class="rt-body">
+        <div class="rt-template-text">
+          안녕하세요, <span class="rt-fill">[고객님 이름 or 닉네임]</span> 님!<br>
+          이자카야 우규 역삼점을 찾아주시고 소중한 리뷰까지 남겨 주셔서 진심으로 감사합니다. 🙏<br><br>
+          <span class="rt-fill">[연어/육회/모츠나베 등 언급된 메뉴]</span>를 맛있게 즐기셨다니 저희도 기쁩니다.<br>
+          신선한 재료와 정성을 담은 메뉴로 다시 찾아주시고 싶은 곳이 되도록 계속 노력하겠습니다.<br><br>
+          다음 방문 때도 좋은 시간 보내시길 바랍니다. 감사합니다! 😊
+        </div>
+      </div>
+    </div>
+
+    <div class="review-template">
+      <div class="rt-header">
+        <div class="rt-type rt-negative">부정 리뷰</div>
+        <div class="rt-stars">★★☆☆☆</div>
+        <div class="rt-scenario">불만족 경험 (양·가격·서비스) 관련</div>
+      </div>
+      <div class="rt-body">
+        <div class="rt-template-text">
+          안녕하세요, <span class="rt-fill">[고객님 이름 or 닉네임]</span> 님.<br>
+          불편한 경험을 하셨음에도 소중한 의견을 남겨 주셔서 감사합니다.<br><br>
+          <span class="rt-fill">[해당 불편 사항]</span>에 대해 진심으로 사과드립니다.<br>
+          말씀해 주신 내용을 바탕으로 즉시 개선될 수 있도록 내부적으로 검토하겠습니다.<br><br>
+          다시 방문해 주신다면 더 나은 서비스로 보답드리겠습니다. 감사합니다.
+        </div>
+        <div class="danger-box" style="margin-top:8px;">절대 금지: 변명, 반박, 감정적 표현. "그렇게 드시는 법을 모르시는 것 같아요" 같은 표현은 이미지에 치명적입니다.</div>
+      </div>
+    </div>
+
+    <div class="review-template">
+      <div class="rt-header">
+        <div class="rt-type rt-neutral">중립 리뷰</div>
+        <div class="rt-stars">★★★☆☆</div>
+        <div class="rt-scenario">양 또는 가격 아쉬움, 보통 평가</div>
+      </div>
+      <div class="rt-body">
+        <div class="rt-template-text">
+          안녕하세요, <span class="rt-fill">[고객님 이름 or 닉네임]</span> 님.<br>
+          방문해 주시고 솔직한 의견 남겨 주셔서 감사합니다.<br><br>
+          메뉴 구성이나 양에 대해 기대에 미치지 못한 부분이 있었군요.<br>
+          저희는 신선한 식재료를 매일 공수하여 준비하고 있으며,<br>
+          다음 방문 시에는 직원에게 편하게 말씀해 주시면 정성껏 도와드리겠습니다.<br><br>
+          다시 찾아주셨으면 하는 마음으로 더욱 노력하겠습니다. 감사합니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- 리뷰 요청 방법 -->
+    <div style="font-size:11pt;font-weight:800;color:var(--navy);margin:10px 0 6px;">리뷰 요청 링크 만들기</div>
+    <ul class="action-list">
+      <li>구글 비즈니스 관리자 → <strong>홈</strong> → <strong>"리뷰 더 받기"</strong> → 단축 링크 생성</li>
+      <li>생성된 링크를 카카오채널·인스타 DM·테이블 QR 코드에 활용</li>
+      <li><span style="font-weight:700;">QR 코드 제작:</span> qr.io 또는 네이버 QR코드 생성기에 링크 붙여넣기 → 무료 QR 출력</li>
+    </ul>
+    <div class="tip-box">계산 후 "구글에서 한 줄만 남겨 주시면 감사합니다 😊" QR 코드 카드를 테이블에 비치하면 자연스럽게 리뷰가 쌓입니다.</div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>강남AI컨설팅 · 권용준 · 손미현</span>
+    <span>이자카야 우규 역삼점 구글 비즈니스 등록 가이드북</span>
+    <span>CHAPTER 06</span>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE 8: 정기 유지 관리 + FAQ ══════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="sh-step">CHAPTER 07</div>
+    <div class="sh-title">정기 유지 관리 체크리스트</div>
+    <div class="sh-sub">등록 후 방치하면 효과가 없습니다. 주간·월간 루틴을 만드세요</div>
+  </div>
+
+  <div class="content-pad">
+    <div class="monthly-check">
+      <div class="mc-card">
+        <div class="mc-header mc-weekly">📅 주간 루틴 (매주 1회, 5~10분)</div>
+        <div class="mc-body">
+          <div class="mc-item"><div class="mc-cb"></div>새로운 구글 리뷰 확인 → 24시간 내 답변</div>
+          <div class="mc-item"><div class="mc-cb"></div>Q&A 새 질문 확인 → 답변 등록</div>
+          <div class="mc-item"><div class="mc-cb"></div>채널 정보 변경 여부 확인 (영업시간 등)</div>
+          <div class="mc-item"><div class="mc-cb"></div>이번 주 인기 메뉴 사진 1장 업로드 (선택)</div>
+          <div class="mc-item"><div class="mc-cb"></div>구글 포스트 작성 (주간 메뉴·행사 홍보)</div>
+        </div>
+      </div>
+      <div class="mc-card">
+        <div class="mc-header mc-monthly">📊 월간 루틴 (매월 1회, 15~20분)</div>
+        <div class="mc-body">
+          <div class="mc-item"><div class="mc-cb"></div>구글 비즈니스 통계 확인 (검색 수·조회 수)</div>
+          <div class="mc-item"><div class="mc-cb"></div>사진 2~3장 추가 업로드</div>
+          <div class="mc-item"><div class="mc-cb"></div>영업시간·메뉴·가격 최신 업데이트</div>
+          <div class="mc-item"><div class="mc-cb"></div>네이버 플레이스와 정보 일치 여부 대조</div>
+          <div class="mc-item"><div class="mc-cb"></div>리뷰 키워드 분석 — 많이 나오는 표현 파악</div>
+          <div class="mc-item"><div class="mc-cb"></div>업체 설명 문구 필요 시 업데이트</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 통계 보는 법 -->
+    <div style="font-size:11pt;font-weight:800;color:var(--navy);margin:12px 0 6px;">구글 비즈니스 통계 보는 법</div>
+    <div class="three-col">
+      <div class="card">
+        <div class="card-title" style="font-size:9pt;">검색 노출 수</div>
+        <div class="card-body" style="font-size:8.5pt;">얼마나 많은 사람이 구글에서 우규 역삼점을 봤는지. 월 100회 이상이 되도록 사진·정보를 꾸준히 관리</div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="font-size:9pt;">조회 수</div>
+        <div class="card-body" style="font-size:8.5pt;">업체 프로필을 클릭해서 상세 정보를 본 횟수. 사진 품질과 리뷰 수가 클릭률을 결정</div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="font-size:9pt;">전화·경로·웹사이트</div>
+        <div class="card-body" style="font-size:8.5pt;">고객이 실제로 전화 또는 길 찾기를 한 횟수. 이것이 실제 방문으로 이어지는 핵심 지표</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <div class="section-header" style="margin-top:0;">
+    <div class="sh-step">CHAPTER 08</div>
+    <div class="sh-title">자주 묻는 질문 (FAQ)</div>
+    <div class="sh-sub">등록 과정에서 자주 막히는 상황과 해결 방법</div>
+  </div>
+
+  <div class="content-pad">
+    <div class="faq-item">
+      <div class="faq-q">구글 검색에서 이미 우규 역삼점이 등록되어 있어요. 어떻게 해야 하나요?</div>
+      <div class="faq-a">"이 업체의 소유자이신가요?" 버튼을 클릭해 소유권 청구 진행. 현재 관리자가 없는 경우 전화 인증으로 즉시 소유권 획득 가능. 관리자가 있을 경우 기존 관리자에게 소유권 이전 요청 필요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">인증이 완료됐는데 구글 지도에 아직 안 나와요.</div>
+      <div class="faq-a">등록 후 실제 지도 반영까지 최대 7일이 소요될 수 있습니다. 그 사이 사진·설명·영업시간 등 최적화 작업을 진행하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">구글 리뷰를 삭제할 수 있나요?</div>
+      <div class="faq-a">업체 측에서 직접 삭제는 불가능합니다. 욕설·허위 사실·광고성 등 구글 정책 위반인 경우 신고 기능으로 삭제 요청 가능. 부당 리뷰는 "부적절한 리뷰 신고" 클릭 → 사유 선택 → 제출.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">구글 비즈니스 프로필 관리를 여러 명이 할 수 있나요?</div>
+      <div class="faq-a">가능합니다. 관리자 페이지 → 설정 → 사용자 관리 → 이메일 주소 초대. 직원이나 컨설턴트를 "관리자" 또는 "소통 담당자" 권한으로 추가 가능.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">임시 휴업이나 특별 영업시간 변경은 어떻게 하나요?</div>
+      <div class="faq-a">관리자 페이지 → 정보 → 특별 영업시간 → 날짜와 시간 추가. 명절·연말연시 등 특별 기간 전에 미리 업데이트 권장. 임시 휴업은 "임시 휴업으로 표시" 기능 사용.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>강남AI컨설팅 · 권용준 · 손미현</span>
+    <span>이자카야 우규 역삼점 구글 비즈니스 등록 가이드북</span>
+    <span>CHAPTER 07 · 08</span>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE 9: 최종 체크리스트 + 완료 ══════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="sh-step">CHAPTER 09</div>
+    <div class="sh-title">등록 완료 최종 체크리스트</div>
+    <div class="sh-sub">모든 항목에 체크가 되면 기본 최적화 완료입니다</div>
+  </div>
+
+  <div class="content-pad">
+    <div class="two-col">
+      <!-- 등록 완료 체크 -->
+      <div>
+        <div style="font-size:11pt;font-weight:800;color:var(--navy);margin-bottom:8px;">① 필수 등록 완료</div>
+        <table class="info-table">
+          <tr>
+            <th style="width:24px;text-align:center;"></th>
+            <th>항목</th>
+            <th style="width:80px;text-align:center;">확인</th>
+          </tr>
+          <tr><td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td><td>구글 계정 생성 (매장 전용)</td><td style="text-align:center;"><span class="chip-need">□</span></td></tr>
+          <tr><td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td><td>업체명: 이자카야 우규 역삼점</td><td style="text-align:center;"><span class="chip-need">□</span></td></tr>
+          <tr><td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td><td>주소: 서울 강남구 테헤란로19길 19</td><td style="text-align:center;"><span class="chip-need">□</span></td></tr>
+          <tr><td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td><td>대표 전화번호 입력</td><td style="text-align:center;"><span class="chip-need">□</span></td></tr>
+          <tr><td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td><td>기본 카테고리: 이자카야</td><td style="text-align:center;"><span class="chip-need">□</span></td></tr>
+          <tr><td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td><td>소유권 인증 완료</td><td style="text-align:center;"><span class="chip-need">□</span></td></tr>
+        </table>
+      </div>
+      <!-- 최적화 완료 체크 -->
+      <div>
+        <div style="font-size:11pt;font-weight:800;color:var(--navy);margin-bottom:8px;">② 최적화 완료</div>
+        <table class="info-table">
+          <tr>
+            <th style="width:24px;text-align:center;"></th>
+            <th>항목</th>
+            <th style="width:80px;text-align:center;">확인</th>
+          </tr>
+          <tr><td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td><td>영업시간 입력 완료</td><td style="text-align:center;"><span class="chip-need">□</span></td></tr>
+          <tr><td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td><td>업체 설명 작성 (750자 이내)</td><td style="text-align:center;"><span class="chip-need">□</span></td></tr>
+          <tr><td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td><td>추가 카테고리: 일식당, 술집</td><td style="text-align:center;"><span class="chip-need">□</span></td></tr>
+          <tr><td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td><td>음식·외관·내관 사진 10장 이상</td><td style="text-align:center;"><span class="chip-need">□</span></td></tr>
+          <tr><td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td><td>표지 사진 설정 완료</td><td style="text-align:center;"><span class="chip-need">□</span></td></tr>
+          <tr><td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td><td>네이버 플레이스 정보와 일치 확인</td><td style="text-align:center;"><span class="chip-need">□</span></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- 다음 단계 -->
+    <div style="font-size:11pt;font-weight:800;color:var(--navy);margin:14px 0 8px;">등록 완료 후 다음 단계</div>
+    <div class="three-col">
+      <div class="card" style="border-top:3px solid var(--gblue); text-align:center;">
+        <div style="font-size:16pt;margin-bottom:6px;">🔗</div>
+        <div class="card-title" style="font-size:9.5pt;justify-content:center;">리뷰 링크 생성</div>
+        <div class="card-body" style="font-size:8.5pt;">구글 리뷰 링크 만들어<br>QR 코드 제작 후<br>테이블에 비치</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--navy2); text-align:center;">
+        <div style="font-size:16pt;margin-bottom:6px;">🗺️</div>
+        <div class="card-title" style="font-size:9.5pt;justify-content:center;">지도 노출 확인</div>
+        <div class="card-body" style="font-size:8.5pt;">구글 지도에서<br>"이자카야 역삼" 검색 →<br>우규 역삼점 노출 확인</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--green); text-align:center;">
+        <div style="font-size:16pt;margin-bottom:6px;">📊</div>
+        <div class="card-title" style="font-size:9.5pt;justify-content:center;">통계 모니터링</div>
+        <div class="card-body" style="font-size:8.5pt;">1개월 후 통계 확인<br>검색 수·조회 수·<br>전화 클릭 수 체크</div>
+      </div>
+    </div>
+
+    <!-- 완료 배너 -->
+    <div class="complete-banner">
+      <div class="cb-icon">🎉</div>
+      <div>
+        <div class="cb-title">구글 비즈니스 등록 완료!</div>
+        <div class="cb-desc">
+          이자카야 우규 역삼점이 구글 검색·지도에서 노출됩니다.<br>
+          꾸준한 정보 업데이트와 리뷰 답변으로 노출 품질을 유지하세요.<br>
+          궁금한 사항은 강남AI컨설팅 컨설턴트 권용준·손미현에게 문의하세요.
+        </div>
+      </div>
+    </div>
+
+    <!-- 채널 정보 동기화 최종 확인 -->
+    <div style="font-size:10pt;font-weight:800;color:var(--navy);margin:12px 0 6px;">3대 채널 정보 동기화 최종 확인</div>
+    <table class="info-table">
+      <tr>
+        <th style="width:130px;">항목</th>
+        <th style="text-align:center;width:130px;">네이버 플레이스</th>
+        <th style="text-align:center;width:130px;">구글 비즈니스</th>
+        <th style="text-align:center;width:130px;">카카오맵</th>
+      </tr>
+      <tr>
+        <td class="td-key">업체명</td>
+        <td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td>
+        <td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td>
+        <td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td>
+      </tr>
+      <tr>
+        <td class="td-key">주소</td>
+        <td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td>
+        <td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td>
+        <td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td>
+      </tr>
+      <tr>
+        <td class="td-key">전화번호</td>
+        <td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td>
+        <td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td>
+        <td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td>
+      </tr>
+      <tr>
+        <td class="td-key">영업시간</td>
+        <td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td>
+        <td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td>
+        <td style="text-align:center;"><div style="width:13px;height:13px;border:1.5px solid #1a1a2e;border-radius:2px;margin:auto;"></div></td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div class="page-footer">
+    <span>강남AI컨설팅 · 권용준 · 손미현</span>
+    <span>이자카야 우규 역삼점 구글 비즈니스 등록 가이드북 · 2026-06-18</span>
+    <span>CHAPTER 09 (완료)</span>
+  </div>
+</div>
+
+</body>
+</html>
