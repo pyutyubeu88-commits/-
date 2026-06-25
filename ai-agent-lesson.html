@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 에이전트 노코드 비서 만들기 — 2일 수업자료</title>
+<style>
+  :root {
+    --primary: #6C47FF;
+    --accent: #FF6B35;
+    --bg: #0F0F13;
+    --surface: #1A1A24;
+    --surface2: #24243A;
+    --text: #F0F0F8;
+    --muted: #888899;
+    --green: #2ECC71;
+    --yellow: #F1C40F;
+    --red: #E74C3C;
+    --border: rgba(108,71,255,0.2);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── 사이드바 ── */
+  .sidebar {
+    position: fixed; top: 0; left: 0;
+    width: 240px; height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto; padding: 24px 16px;
+    z-index: 100;
+  }
+  .sidebar-logo {
+    font-size: 13px; font-weight: 700; color: var(--primary);
+    letter-spacing: 1px; margin-bottom: 24px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--border);
+  }
+  .nav-day {
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    margin: 20px 0 8px;
+  }
+  .nav-item {
+    display: block; padding: 8px 12px; border-radius: 8px;
+    color: var(--muted); text-decoration: none; font-size: 13px;
+    transition: all .2s; margin-bottom: 2px;
+  }
+  .nav-item:hover, .nav-item.active {
+    background: rgba(108,71,255,0.15); color: var(--text);
+  }
+  .nav-item .num {
+    display: inline-block; width: 20px; height: 20px;
+    background: var(--primary); border-radius: 50%;
+    font-size: 10px; font-weight: 700; text-align: center;
+    line-height: 20px; color: #fff; margin-right: 8px;
+  }
+
+  /* ── 메인 콘텐츠 ── */
+  .main { margin-left: 240px; padding: 40px 48px; max-width: 900px; }
+
+  /* ── 섹션 헤더 ── */
+  .day-header {
+    background: linear-gradient(135deg, var(--primary), #9B59B6);
+    border-radius: 16px; padding: 32px 36px; margin-bottom: 40px;
+    position: relative; overflow: hidden;
+  }
+  .day-header::after {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .day-badge {
+    display: inline-block; background: rgba(255,255,255,0.2);
+    border-radius: 20px; padding: 4px 16px; font-size: 12px;
+    font-weight: 700; letter-spacing: 1px; margin-bottom: 12px;
+  }
+  .day-header h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+  .day-header p { opacity: 0.85; font-size: 15px; }
+
+  /* ── 카드 ── */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px; margin-bottom: 24px;
+  }
+  .card-title {
+    font-size: 18px; font-weight: 700; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card-title .icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: rgba(108,71,255,0.2); display: flex;
+    align-items: center; justify-content: center; font-size: 18px;
+  }
+
+  /* ── 스텝 ── */
+  .step-list { list-style: none; }
+  .step-item {
+    display: flex; gap: 16px; margin-bottom: 20px;
+    padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .step-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .step-num {
+    flex-shrink: 0; width: 32px; height: 32px;
+    background: var(--primary); border-radius: 50%;
+    font-size: 14px; font-weight: 800; text-align: center;
+    line-height: 32px; color: #fff;
+  }
+  .step-content h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .step-content p { color: var(--muted); font-size: 14px; }
+  .step-content .tip {
+    background: rgba(108,71,255,0.1); border-left: 3px solid var(--primary);
+    padding: 10px 14px; border-radius: 0 8px 8px 0;
+    font-size: 13px; color: var(--text); margin-top: 8px;
+  }
+
+  /* ── 프롬프트 박스 ── */
+  .prompt-box {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 24px; margin: 16px 0;
+    font-family: monospace; font-size: 13px; line-height: 1.8;
+    color: #C8D8FF; white-space: pre-wrap; position: relative;
+  }
+  .prompt-label {
+    font-size: 11px; font-weight: 700; color: var(--primary);
+    letter-spacing: 1px; margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .copy-btn {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--primary); color: #fff; border: none;
+    border-radius: 6px; padding: 4px 12px; font-size: 12px;
+    cursor: pointer; font-weight: 600;
+  }
+  .copy-btn:hover { opacity: 0.85; }
+
+  /* ── 그리드 ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .mini-card {
+    background: var(--surface2); border-radius: 12px; padding: 20px;
+    border: 1px solid var(--border);
+  }
+  .mini-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .mini-card p { font-size: 13px; color: var(--muted); }
+
+  /* ── 배지 ── */
+  .badge {
+    display: inline-block; border-radius: 20px; padding: 3px 12px;
+    font-size: 12px; font-weight: 700; margin-right: 6px; margin-bottom: 6px;
+  }
+  .badge-purple { background: rgba(108,71,255,0.2); color: #A88AFF; }
+  .badge-orange { background: rgba(255,107,53,0.2); color: #FF9B6A; }
+  .badge-green  { background: rgba(46,204,113,0.2); color: #5EDB8E; }
+  .badge-yellow { background: rgba(241,196,15,0.2); color: #F5D840; }
+
+  /* ── 체크리스트 ── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 14px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist .check {
+    width: 20px; height: 20px; border: 2px solid var(--primary);
+    border-radius: 5px; flex-shrink: 0; margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all .2s;
+  }
+  .checklist .check.done { background: var(--primary); border-color: var(--primary); }
+  .checklist .check.done::after { content: '✓'; color: #fff; font-size: 12px; font-weight: 700; }
+
+  /* ── 타임라인 ── */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .tl-item { position: relative; margin-bottom: 20px; }
+  .tl-dot {
+    position: absolute; left: -20px; top: 4px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--primary); border: 2px solid var(--bg);
+  }
+  .tl-time { font-size: 12px; color: var(--primary); font-weight: 700; margin-bottom: 4px; }
+  .tl-title { font-size: 14px; font-weight: 600; }
+  .tl-desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+  /* ── 구분선 ── */
+  .section-gap { margin: 48px 0 32px; }
+  .section-title {
+    font-size: 20px; font-weight: 800; margin-bottom: 24px;
+    padding-bottom: 12px; border-bottom: 2px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  /* ── 하이라이트 박스 ── */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(108,71,255,0.1), rgba(155,89,182,0.1));
+    border: 1px solid rgba(108,71,255,0.3);
+    border-radius: 12px; padding: 20px 24px; margin: 16px 0;
+  }
+  .highlight-box strong { color: var(--primary); }
+
+  /* ── 결과물 카드 ── */
+  .result-card {
+    background: linear-gradient(135deg, rgba(46,204,113,0.1), rgba(39,174,96,0.05));
+    border: 1px solid rgba(46,204,113,0.3);
+    border-radius: 14px; padding: 24px; margin-bottom: 16px;
+  }
+  .result-card .result-title {
+    font-size: 16px; font-weight: 700; color: var(--green); margin-bottom: 8px;
+  }
+
+  /* ── 모바일 ── */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 24px 20px; }
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* ── 스크롤 애니메이션 ── */
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: all .5s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- 사이드바 -->
+<nav class="sidebar">
+  <div class="sidebar-logo">🤖 AI 비서 만들기</div>
+
+  <div class="nav-day">사전 준비</div>
+  <a href="#prep" class="nav-item"><span class="num">0</span>준비물 & 세팅</a>
+
+  <div class="nav-day">Day 1 · 6월 27일</div>
+  <a href="#d1-concept" class="nav-item"><span class="num">1</span>AI가 뭔지 5분 정리</a>
+  <a href="#d1-chatgpt" class="nav-item"><span class="num">2</span>ChatGPT 기본 세팅</a>
+  <a href="#d1-custgpt" class="nav-item"><span class="num">3</span>Custom GPT 만들기</a>
+  <a href="#d1-prompt" class="nav-item"><span class="num">4</span>프롬프트 핵심 공식</a>
+  <a href="#d1-result" class="nav-item"><span class="num">5</span>1일차 완성물</a>
+
+  <div class="nav-day">Day 2 · 6월 28일</div>
+  <a href="#d2-agent" class="nav-item"><span class="num">6</span>AI 에이전트란?</a>
+  <a href="#d2-make" class="nav-item"><span class="num">7</span>Make.com 자동화</a>
+  <a href="#d2-build" class="nav-item"><span class="num">8</span>비서 에이전트 완성</a>
+  <a href="#d2-result" class="nav-item"><span class="num">9</span>최종 결과물</a>
+
+  <div class="nav-day">부록</div>
+  <a href="#prompts" class="nav-item"><span class="num">+</span>프롬프트 모음집</a>
+</nav>
+
+<!-- 메인 -->
+<main class="main">
+
+  <!-- ═══ 사전 준비 ═══ -->
+  <section id="prep" class="reveal">
+    <div class="day-header" style="background: linear-gradient(135deg, #2C3E50, #3498DB);">
+      <div class="day-badge">BEFORE WE START</div>
+      <h1>수업 전 준비 체크리스트</h1>
+      <p>수업 시작 전 아래를 완료해 오시면 시간을 아낄 수 있어요</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">📋</div> 필수 계정 & 앱</div>
+      <ul class="checklist" id="prep-check">
+        <li><div class="check" onclick="toggleCheck(this)"></div><span><strong>ChatGPT</strong> 계정 가입 — chat.openai.com (무료 가능, Plus면 더 좋음)</span></li>
+        <li><div class="check" onclick="toggleCheck(this)"></div><span><strong>Make.com</strong> 계정 가입 — make.com (무료 플랜)</span></li>
+        <li><div class="check" onclick="toggleCheck(this)"></div><span><strong>Google 계정</strong> — Gmail, Google Sheets 연동용</span></li>
+        <li><div class="check" onclick="toggleCheck(this)"></div><span><strong>노트북 or 태블릿</strong> 지참 (스마트폰만으론 실습 어려움)</span></li>
+        <li><div class="check" onclick="toggleCheck(this)"></div><span>크롬 브라우저 설치</span></li>
+      </ul>
+    </div>
+
+    <div class="grid-2">
+      <div class="mini-card">
+        <h4>📅 수업 일정</h4>
+        <p>6월 27일(토) Day 1<br>6월 28일(일) Day 2<br>각 2~3시간, 장소 협의</p>
+      </div>
+      <div class="mini-card">
+        <h4>🎯 수업 목표</h4>
+        <p>수업 끝나면<br>실제 동작하는 AI 비서 1개<br>손에 쥐고 가기</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ DAY 1 ═══ -->
+  <div class="section-gap"></div>
+  <section id="d1-concept" class="reveal">
+    <div class="day-header">
+      <div class="day-badge">DAY 1 · 6월 27일</div>
+      <h1>AI 기초 + 나만의 Custom GPT 만들기</h1>
+      <p>코드 없이, ChatGPT를 내 비서처럼 커스터마이징하는 날</p>
+    </div>
+
+    <div class="section-title">
+      <span>🧠</span> AI가 뭔지 — 딱 5분만
+    </div>
+    <div class="card">
+      <div class="highlight-box">
+        <strong>핵심 한 줄:</strong> AI는 "엄청 똑똑한 자동완성"이다.<br>
+        인터넷의 모든 글을 읽고, 다음에 올 말을 예측하는 기계.
+      </div>
+
+      <div class="grid-2" style="margin-top: 20px;">
+        <div class="mini-card">
+          <h4>❌ 흔한 오해</h4>
+          <p style="font-size:13px; color: var(--muted);">
+            "AI가 생각을 한다"<br>
+            "AI가 인터넷을 본다"<br>
+            "AI는 항상 정확하다"
+          </p>
+        </div>
+        <div class="mini-card">
+          <h4>✅ 실제 작동 방식</h4>
+          <p style="font-size:13px; color: var(--muted);">
+            패턴 학습 → 예측 출력<br>
+            학습 데이터 기준 (컷오프 있음)<br>
+            틀릴 수 있음 — 검증 필요
+          </p>
+        </div>
+      </div>
+
+      <div class="highlight-box" style="margin-top: 16px;">
+        <strong>그래서 우리가 할 일:</strong> AI한테 "어떻게 대답해라"를 미리 알려주면 → 내 상황에 맞는 맞춤 비서가 된다.
+        이게 오늘 만들 <strong>Custom GPT</strong>의 핵심.
+      </div>
+    </div>
+  </section>
+
+  <section id="d1-chatgpt" class="reveal">
+    <div class="section-title"><span>⚙️</span> ChatGPT 기본 세팅 & 사용법</div>
+    <div class="card">
+      <ul class="step-list">
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>chat.openai.com 접속 → 로그인</h3>
+            <p>무료 계정은 GPT-3.5, 유료(Plus $20/월)는 GPT-4o 사용 가능</p>
+            <div class="tip">💡 무료로도 Custom GPT 만들기 가능. 오늘 실습엔 충분해요.</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>기본 대화 연습 — 좋은 질문 vs 나쁜 질문</h3>
+            <p>AI 답변 품질은 질문 방식에 달려있음</p>
+            <div class="grid-2" style="margin-top: 12px;">
+              <div class="mini-card" style="border-color: rgba(231,76,60,0.3);">
+                <h4 style="color: var(--red);">❌ 나쁜 질문</h4>
+                <p>"마케팅 잘하는 법 알려줘"</p>
+              </div>
+              <div class="mini-card" style="border-color: rgba(46,204,113,0.3);">
+                <h4 style="color: var(--green);">✅ 좋은 질문</h4>
+                <p>"인스타그램 운영하는 강남 카페 사장님을 위한 이번 주 게시글 아이디어 3가지 줘"</p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>프롬프트 3요소 기억하기</h3>
+            <p>역할(Role) + 상황(Context) + 요청(Task)</p>
+            <div class="tip">
+              역할: "너는 SNS 마케터야"<br>
+              상황: "내 고객은 30~40대 여성, 강남 피부과"<br>
+              요청: "인스타 캡션 3개 작성해줘"
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="d1-custgpt" class="reveal">
+    <div class="section-title"><span>🤖</span> Custom GPT 만들기 — 핵심 실습</div>
+    <div class="card">
+      <p style="color: var(--muted); margin-bottom: 20px; font-size: 14px;">
+        Custom GPT = 내가 원하는 성격·역할·지식을 미리 입력해둔 나만의 AI 비서.<br>
+        한 번 만들면 매번 긴 설명 없이 바로 쓸 수 있음.
+      </p>
+
+      <ul class="step-list">
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>좌측 메뉴 → "Explore GPTs" → "+ Create" 클릭</h3>
+            <p>ChatGPT Plus 필요. 무료 계정은 "My GPTs" 메뉴에서 접근</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>"Configure" 탭 선택</h3>
+            <p>Name, Description, Instructions 입력</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Instructions에 아래 템플릿 붙여넣기</h3>
+          </div>
+        </li>
+      </ul>
+
+      <div class="prompt-label">📝 Custom GPT Instructions 템플릿 — "일정 & 메모 비서"</div>
+      <div class="prompt-box" id="prompt-custgpt">
+너는 나의 개인 비서야. 이름은 "아리"고, 항상 친근하고 간결하게 답해.
+
+[역할]
+- 일정 정리 및 요약
+- 할 일 목록 작성
+- 메모 구조화
+- 중요한 내용 핵심만 정리
+
+[말투]
+- 반말 금지, 존댓말 사용
+- 답변은 최대한 짧고 명확하게
+- 리스트 형식 선호
+
+[내 정보]
+- 이름: [본인 이름 입력]
+- 직업: [본인 직업 입력]
+- 주요 관심사: [관심사 입력]
+
+[행동 규칙]
+1. 답변 시작 전 "✅ 정리했어요!" 붙이기
+2. 애매한 내용은 바로 질문하기
+3. 중요한 날짜/숫자는 굵게 강조
+
+<button class="copy-btn" onclick="copyPrompt('prompt-custgpt')">복사</button>
+      </div>
+
+      <ul class="step-list" style="margin-top: 20px;">
+        <li class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>오른쪽 Preview에서 테스트</h3>
+            <p>"이번 주 할 일: 병원 예약, 친구 생일, 보고서 제출"이라고 입력해보기</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h3>"Save" → "Only me" 선택 후 저장</h3>
+            <p>이제 좌측 메뉴에서 언제든 이 비서 불러올 수 있음</p>
+            <div class="tip">🎉 첫 번째 AI 비서 완성!</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="d1-prompt" class="reveal">
+    <div class="section-title"><span>✍️</span> 프롬프트 핵심 공식</div>
+    <div class="card">
+      <div class="grid-2">
+        <div class="mini-card">
+          <h4>🔑 공식 1 — 역할 부여</h4>
+          <p style="font-size:13px; color: var(--muted); margin-top: 8px;">
+            "너는 [전문가]야. [상황]에서 [대상]을 위해 [결과물]을 만들어줘."
+          </p>
+        </div>
+        <div class="mini-card">
+          <h4>🔑 공식 2 — 제약 조건</h4>
+          <p style="font-size:13px; color: var(--muted); margin-top: 8px;">
+            "~하지 마, ~글자 이내로, ~형식으로"<br>
+            제약이 있어야 원하는 답이 나옴
+          </p>
+        </div>
+        <div class="mini-card">
+          <h4>🔑 공식 3 — 예시 제공</h4>
+          <p style="font-size:13px; color: var(--muted); margin-top: 8px;">
+            "이런 느낌으로: [예시]"<br>
+            예시 1개가 설명 100줄보다 낫다
+          </p>
+        </div>
+        <div class="mini-card">
+          <h4>🔑 공식 4 — 출력 형식 지정</h4>
+          <p style="font-size:13px; color: var(--muted); margin-top: 8px;">
+            "표로 정리해, 번호 리스트로, 한 줄 요약 먼저"<br>
+            형식을 정하면 쓰기 편해짐
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="d1-result" class="reveal">
+    <div class="section-title"><span>🏆</span> 1일차 완성물 확인</div>
+    <div class="result-card">
+      <div class="result-title">✅ 오늘 만든 것</div>
+      <ul style="list-style:none; font-size: 14px;">
+        <li>🤖 나만의 Custom GPT 비서 "아리" — ChatGPT에서 언제든 사용 가능</li>
+        <li style="margin-top: 8px;">📝 프롬프트 4가지 공식 습득</li>
+        <li style="margin-top: 8px;">⚡ 좋은 질문 vs 나쁜 질문 구분 가능</li>
+      </ul>
+    </div>
+    <div class="highlight-box">
+      <strong>내일(Day 2) 예고:</strong> 오늘 만든 GPT를 <strong>자동화</strong>에 연결.<br>
+      "누군가 이메일 보내면 → AI가 요약 → 구글 시트에 자동 저장" 이런 것 만들 거예요.
+    </div>
+  </section>
+
+  <!-- ═══ DAY 2 ═══ -->
+  <div class="section-gap"></div>
+  <section id="d2-agent" class="reveal">
+    <div class="day-header" style="background: linear-gradient(135deg, #E74C3C, #FF6B35);">
+      <div class="day-badge">DAY 2 · 6월 28일</div>
+      <h1>AI 에이전트 + Make.com으로 자동화 비서 완성</h1>
+      <p>AI가 스스로 판단하고 행동하게 만드는 날</p>
+    </div>
+
+    <div class="section-title"><span>🧩</span> AI 에이전트란 뭔가?</div>
+    <div class="card">
+      <div class="highlight-box">
+        <strong>에이전트 = AI + 행동력</strong><br>
+        단순 답변(ChatGPT) → 실제로 뭔가를 하는(Agent) 것의 차이
+      </div>
+
+      <div class="grid-2" style="margin-top: 20px;">
+        <div class="mini-card">
+          <h4>📱 일반 ChatGPT</h4>
+          <p style="font-size:13px; color: var(--muted); margin-top: 8px;">
+            질문 → 대답<br>
+            내가 직접 복붙해야 함<br>
+            매번 수동 실행
+          </p>
+        </div>
+        <div class="mini-card">
+          <h4>⚡ AI 에이전트</h4>
+          <p style="font-size:13px; color: var(--muted); margin-top: 8px;">
+            이벤트 발생 → AI가 판단 → 자동 실행<br>
+            내가 없어도 돌아감<br>
+            여러 앱 연결 가능
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <p style="font-size: 14px; margin-bottom: 12px; font-weight: 700;">실생활 예시:</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-time">이벤트 발생</div>
+            <div class="tl-title">고객이 인스타 DM을 보냄</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background: var(--accent);"></div>
+            <div class="tl-time">AI 판단</div>
+            <div class="tl-title">메시지 내용 분석 → 문의 유형 분류</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background: var(--green);"></div>
+            <div class="tl-time">자동 실행</div>
+            <div class="tl-title">맞춤 답장 초안 작성 → 내 폰에 알림</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="d2-make" class="reveal">
+    <div class="section-title"><span>⚙️</span> Make.com — 노코드 자동화 핵심 툴</div>
+    <div class="card">
+      <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px;">
+        Make.com = 앱과 앱을 연결하는 "파이프라인" 도구.<br>
+        드래그&드롭으로 자동화 흐름 만들기. 월 1,000번 실행 무료.
+      </p>
+
+      <ul class="step-list">
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>make.com 접속 → 로그인 → "Create a new scenario"</h3>
+            <p>시나리오 = 하나의 자동화 흐름</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>첫 번째 모듈(트리거) 선택</h3>
+            <p>오늘 실습: <strong>Google Sheets</strong> → 새 행 추가될 때 시작</p>
+            <div class="tip">트리거 = "언제 시작할건가"를 정하는 것</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>+ 버튼 → OpenAI(ChatGPT) 모듈 추가</h3>
+            <p>시트의 내용을 AI에게 넘겨서 처리하게 함</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>AI 결과물을 다시 시트에 저장</h3>
+            <p>Google Sheets "Update a Row" 모듈 추가</p>
+            <div class="tip">입력 → AI 처리 → 출력. 이 3단계가 자동화의 전부.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="d2-build" class="reveal">
+    <div class="section-title"><span>🔨</span> 실습: AI 비서 에이전트 완성</div>
+    <div class="card">
+      <p style="font-size: 15px; font-weight: 700; margin-bottom: 16px;">
+        오늘 만들 것: <span style="color: var(--accent);">"할 일 입력 → AI가 우선순위 정리 → 시트에 자동 저장"</span>
+      </p>
+
+      <div class="prompt-label">📋 Make.com OpenAI 모듈 System Prompt</div>
+      <div class="prompt-box" id="prompt-make">
+너는 일정 관리 전문 비서야.
+입력된 할 일 목록을 받아서 아래 형식으로 정리해줘:
+
+출력 형식:
+1. [긴급+중요] 할 일 이름 — 이유 한 줄
+2. [중요] 할 일 이름 — 이유 한 줄
+3. [나중에] 할 일 이름 — 이유 한 줄
+
+규칙:
+- 반드시 이 3가지 카테고리로만 분류
+- 각 항목은 한 줄씩
+- 설명 없이 바로 리스트 출력
+- 한국어로 답변
+<button class="copy-btn" onclick="copyPrompt('prompt-make')">복사</button>
+      </div>
+
+      <div class="prompt-label" style="margin-top: 24px;">📊 Google Sheets 구조</div>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px;">
+          <thead>
+            <tr style="background: var(--surface2);">
+              <th style="padding: 10px 14px; text-align:left; border: 1px solid var(--border); color: var(--primary);">A열</th>
+              <th style="padding: 10px 14px; text-align:left; border: 1px solid var(--border); color: var(--primary);">B열</th>
+              <th style="padding: 10px 14px; text-align:left; border: 1px solid var(--border); color: var(--primary);">C열</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 10px 14px; border: 1px solid var(--border);">입력 날짜</td>
+              <td style="padding: 10px 14px; border: 1px solid var(--border);">할 일 목록 (내가 입력)</td>
+              <td style="padding: 10px 14px; border: 1px solid var(--border);">AI 정리 결과 (자동 채워짐)</td>
+            </tr>
+            <tr style="background: rgba(255,255,255,0.02);">
+              <td style="padding: 10px 14px; border: 1px solid var(--border); color: var(--muted);">2026-06-28</td>
+              <td style="padding: 10px 14px; border: 1px solid var(--border); color: var(--muted);">병원예약, 보고서제출, 친구연락, 운동</td>
+              <td style="padding: 10px 14px; border: 1px solid var(--border); color: var(--green);">1.[긴급] 보고서제출...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul class="step-list" style="margin-top: 24px;">
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Google Sheets 새 파일 만들기</h3>
+            <p>위 표 구조로 헤더 행 만들기 (A1: 날짜, B1: 할 일, C1: AI정리)</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Make.com 시나리오 완성</h3>
+            <p>Google Sheets → OpenAI → Google Sheets 3단계 연결</p>
+            <div class="tip">OpenAI API Key 필요. make.com의 Connections에서 설정. (OpenAI 계정에서 발급 가능)</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>"Scheduling" 켜기 → 매 15분마다 실행</h3>
+            <p>이제 시트에 내용만 입력하면 AI가 자동으로 정리해줌</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>테스트 — B열에 오늘 할 일 입력 후 "Run once" 클릭</h3>
+            <p>C열에 AI 정리 결과 자동 입력 확인</p>
+            <div class="tip">🎉 AI 에이전트 비서 완성!</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="d2-result" class="reveal">
+    <div class="section-title"><span>🏆</span> 최종 완성물 & 다음 단계</div>
+
+    <div class="result-card">
+      <div class="result-title">✅ 2일 수업 최종 결과물</div>
+      <ul style="list-style:none; font-size: 14px; line-height: 2;">
+        <li>🤖 <strong>Custom GPT 비서</strong> — ChatGPT에서 바로 사용</li>
+        <li>⚡ <strong>Make.com 자동화 시나리오</strong> — 구글 시트 + AI 연동</li>
+        <li>📝 <strong>프롬프트 작성 능력</strong> — 어떤 AI든 응용 가능</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">🚀</div> 여기서 더 발전시키면...</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <h4>레벨 업 1</h4>
+          <span class="badge badge-purple">Make.com</span>
+          <p style="font-size:13px; margin-top: 8px; color: var(--muted);">이메일 자동 분류 + AI 요약 → Notion에 저장</p>
+        </div>
+        <div class="mini-card">
+          <h4>레벨 업 2</h4>
+          <span class="badge badge-orange">ChatGPT</span>
+          <p style="font-size:13px; margin-top: 8px; color: var(--muted);">업무별 전문 Custom GPT 여러 개 운용</p>
+        </div>
+        <div class="mini-card">
+          <h4>레벨 업 3</h4>
+          <span class="badge badge-green">Dify.ai</span>
+          <p style="font-size:13px; margin-top: 8px; color: var(--muted);">내 문서 학습시킨 RAG 비서 만들기</p>
+        </div>
+        <div class="mini-card">
+          <h4>레벨 업 4</h4>
+          <span class="badge badge-yellow">n8n</span>
+          <p style="font-size:13px; margin-top: 8px; color: var(--muted);">카카오톡 메시지 → AI 처리 → 자동 답장</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 프롬프트 모음집 ═══ -->
+  <div class="section-gap"></div>
+  <section id="prompts" class="reveal">
+    <div class="day-header" style="background: linear-gradient(135deg, #27AE60, #2ECC71);">
+      <div class="day-badge">BONUS</div>
+      <h1>바로 쓰는 프롬프트 모음집</h1>
+      <p>복붙해서 바로 사용하세요</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">📧</div> 이메일 답장 초안</div>
+      <div class="prompt-box" id="p1">
+아래 이메일에 정중하고 간결하게 답장을 써줘.
+- 3~5문장 이내
+- 첫 줄에 감사 인사
+- 마지막에 다음 단계 제안
+
+[이메일 내용을 여기에 붙여넣기]
+<button class="copy-btn" onclick="copyPrompt('p1')">복사</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">📊</div> 회의 메모 요약</div>
+      <div class="prompt-box" id="p2">
+아래 회의 내용을 정리해줘.
+
+출력 형식:
+**핵심 결정 사항** (3가지 이내)
+**나의 액션 아이템** (담당자+기한 포함)
+**다음 미팅 안건**
+
+[회의 메모 붙여넣기]
+<button class="copy-btn" onclick="copyPrompt('p2')">복사</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">📱</div> SNS 게시글 작성</div>
+      <div class="prompt-box" id="p3">
+아래 정보로 인스타그램 게시글을 작성해줘.
+
+업종: [업종 입력]
+내용: [전달할 내용 입력]
+분위기: 친근함/전문성/긴급함 중 선택
+
+조건:
+- 첫 줄은 눈길 끄는 문장
+- 이모지 3~5개
+- 해시태그 5개 포함
+- 저장 유도 CTA로 마무리
+<button class="copy-btn" onclick="copyPrompt('p3')">복사</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">📝</div> 긴 글 3줄 요약</div>
+      <div class="prompt-box" id="p4">
+아래 글을 3줄로 요약해줘.
+- 각 줄은 핵심 포인트 하나
+- 숫자/데이터 있으면 포함
+- 쉬운 말로
+
+[긴 글 붙여넣기]
+<button class="copy-btn" onclick="copyPrompt('p4')">복사</button>
+      </div>
+    </div>
+  </section>
+
+  <div style="height: 80px;"></div>
+
+</main>
+
+<script>
+  // 스크롤 리빌
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // 체크박스
+  function toggleCheck(el) {
+    el.classList.toggle('done');
+  }
+
+  // 복사
+  function copyPrompt(id) {
+    const box = document.getElementById(id);
+    const btn = box.querySelector('.copy-btn');
+    const text = box.innerText.replace('복사', '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ 복사됨';
+      setTimeout(() => btn.textContent = '복사', 1500);
+    });
+  }
+
+  // 사이드바 활성화
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-item');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>
