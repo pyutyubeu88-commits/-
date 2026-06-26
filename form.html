@@ -803,9 +803,9 @@ async function runAll() {
     setStepActive('detail');
     const detailRes = await generateDetail(allTexts || allContent, bizName);
     if (detailRes) {
-      if (detailRes.company_status) sv('f-company', detailRes.company_status);
-      if (detailRes.problem_diagnosis) sv('f-problem', detailRes.problem_diagnosis);
-      if (detailRes.work_content) sv('f-workContent', detailRes.work_content);
+      if (detailRes.company_status)    sv('f-company',     toStr(detailRes.company_status));
+      if (detailRes.problem_diagnosis) sv('f-problem',     toStr(detailRes.problem_diagnosis));
+      if (detailRes.work_content)      sv('f-workContent', toStr(detailRes.work_content));
     }
     markFormFilled(4);
     setStepDone('detail'); setProgress(6/8);
@@ -856,7 +856,23 @@ async function callGemini(prompt) {
 function parseJSON(text) {
   const m = text.match(/```(?:json)?\s*([\s\S]*?)```/);
   if (m) text = m[1];
-  try { return JSON.parse(text.trim()); } catch { return null; }
+  try { return JSON.parse(text.trim()); } catch {}
+  // Gemini sometimes wraps JSON in prose — extract the first {...} block
+  const obj = text.match(/\{[\s\S]*\}/);
+  if (obj) try { return JSON.parse(obj[0]); } catch {}
+  return null;
+}
+
+// Safely stringify any value Gemini might return for a text field
+function toStr(val) {
+  if (val == null) return '';
+  if (typeof val === 'string') return val;
+  if (Array.isArray(val)) return val.map(item =>
+    typeof item === 'string' ? item
+    : typeof item === 'object' ? Object.values(item).join(' ') : String(item)
+  ).join('\n');
+  if (typeof val === 'object') return Object.values(val).join('\n');
+  return String(val);
 }
 
 async function analyzeSession(n, text, bizName) {
@@ -960,25 +976,35 @@ async function extractBasicInfo(text) {
 문서:
 ${text.slice(0, 8000)}
 
-JSON 형식으로만 출력:
+반드시 아래 JSON만 출력 (다른 텍스트 없이):
 {
   "bizName": "업체명 (상호명)",
   "bizContact": "업체 담당자명 또는 대표자명",
   "bizField": "업종/분야 (예: 음식점, 태권도장, 미용실 등)",
   "consultantName": "컨설턴트 이름 (문서에 등장하는 컨설턴트/멘토 이름)"
 }`);
-    return parseJSON(raw) || {};
+    const parsed = parseJSON(raw) || {};
+    // Regex fallback for bizName if Gemini didn't return it
+    if (!parsed.bizName) {
+      const m = text.match(/업체명[:\s：]+([^\n\r\t,()（）]{2,20})/);
+      if (m) parsed.bizName = m[1].trim();
+    }
+    if (!parsed.bizName) {
+      const m = text.match(/상호[명]?[:\s：]+([^\n\r\t,()（）]{2,20})/);
+      if (m) parsed.bizName = m[1].trim();
+    }
+    return parsed;
   } catch { return {}; }
 }
 
 function fillSession(n, data) {
   if (!data) return;
-  if (data.date)          sv(`f-s${n}-date`,    data.date);
-  if (data.attendees)     sv(`f-s${n}-att`,      data.attendees);
-  if (data.total_time)    sv(`f-s${n}-tt`,       data.total_time);
-  if (data.field_time)    sv(`f-s${n}-ft`,       data.field_time);
-  if (data.content)       sv(`f-s${n}-content`,  data.content);
-  if (data.special_notes) sv(`f-s${n}-special`,  data.special_notes);
+  if (data.date)          sv(`f-s${n}-date`,    toStr(data.date));
+  if (data.attendees)     sv(`f-s${n}-att`,      toStr(data.attendees));
+  if (data.total_time)    sv(`f-s${n}-tt`,       toStr(data.total_time));
+  if (data.field_time)    sv(`f-s${n}-ft`,       toStr(data.field_time));
+  if (data.content)       sv(`f-s${n}-content`,  toStr(data.content));
+  if (data.special_notes) sv(`f-s${n}-special`,  toStr(data.special_notes));
   updateCardStatus(n, 'done');
 }
 
