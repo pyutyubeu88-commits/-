@@ -62,6 +62,36 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--ink);background:#EEF3F0;m
 .s-title{font-size:17px;font-weight:700;color:var(--g8)}
 .s-sub{font-size:13px;color:var(--ink3);margin-left:auto}
 
+/* ─── HOW TO USE ─── */
+.how-to{
+  background:var(--g8);color:#fff;
+  padding:14px 28px;
+  display:flex;align-items:center;gap:0;
+  overflow:hidden;
+}
+.ht-steps{display:flex;align-items:center;gap:0;flex:1;justify-content:center}
+.ht-step{display:flex;align-items:center;gap:10px;padding:0 20px}
+.ht-num{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--g5);color:#fff;
+  font-size:12px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ht-text{line-height:1.35}
+.ht-title{font-size:13px;font-weight:700}
+.ht-sub{font-size:11px;opacity:.65;margin-top:1px}
+.ht-arrow{font-size:16px;opacity:.4;flex-shrink:0}
+.ht-tip{
+  font-size:11px;opacity:.5;white-space:nowrap;padding-left:20px;border-left:1px solid rgba(255,255,255,.15);margin-left:8px;
+}
+@media(max-width:700px){
+  .how-to{flex-direction:column;gap:10px;padding:12px 16px}
+  .ht-tip{border-left:none;border-top:1px solid rgba(255,255,255,.15);padding:10px 0 0;margin:0;width:100%;text-align:center}
+  .ht-steps{gap:0;flex-wrap:wrap;justify-content:flex-start}
+  .ht-step{padding:4px 10px}
+  .ht-arrow{display:none}
+}
+
 /* ─── UNIFIED DROP ZONE ─── */
 .unified-dz{
   border:2.5px dashed var(--bd);border-radius:var(--r);
@@ -341,6 +371,36 @@ input[type=file]{display:none}
     </div>
   </div>
 </header>
+
+<!-- HOW TO USE -->
+<div class="how-to">
+  <div class="ht-steps">
+    <div class="ht-step">
+      <div class="ht-num">1</div>
+      <div class="ht-text">
+        <div class="ht-title">파일 전부 드래그</div>
+        <div class="ht-sub">회의록·보고서·사진 한 번에</div>
+      </div>
+    </div>
+    <div class="ht-arrow">›</div>
+    <div class="ht-step">
+      <div class="ht-num">2</div>
+      <div class="ht-text">
+        <div class="ht-title">AI 자동 분석</div>
+        <div class="ht-sub">날짜순 회차 배정 + 내용 추출</div>
+      </div>
+    </div>
+    <div class="ht-arrow">›</div>
+    <div class="ht-step">
+      <div class="ht-num">3</div>
+      <div class="ht-text">
+        <div class="ht-title">DOCX 자동 다운로드</div>
+        <div class="ht-sub">구청 제출용 서식 완성</div>
+      </div>
+    </div>
+  </div>
+  <div class="ht-tip">API Key는 우상단 입력 · 한글에서 열어 .hwp 저장</div>
+</div>
 
 <main class="page">
 
