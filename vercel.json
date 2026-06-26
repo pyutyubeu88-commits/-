@@ -6,7 +6,8 @@
     { "source": "/reply", "destination": "/reply.html" },
     { "source": "/comment", "destination": "/reply.html" },
     { "source": "/office", "destination": "/office.html" },
-    { "source": "/board", "destination": "/office.html" }
+    { "source": "/board", "destination": "/office.html" },
+    { "source": "/form", "destination": "/form.html" }
   ],
   "headers": [
     {
