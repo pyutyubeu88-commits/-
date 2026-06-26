@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>구청 서식 자동완성기 | 강남구 AI 컨설팅</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gd:#0B3D2E;--gm:#1B5E43;--ga:#2E8B62;--gh:#3FA877;
+  --gl:#F1FAF5;--gb:#BBE6CE;--mint:#74C69D;
+  --wh:#fff;--t1:#0F172A;--t2:#374151;--t3:#6B7280;--bd:#E5E7EB;
+  --r:12px;--sh:0 4px 20px rgba(11,61,46,.07);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--t1);background:#F0F5F2;min-height:100vh}
+
+.header{
+  background:var(--gd);color:#fff;padding:0 24px;height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.18);
+}
+.h-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.h-badge{background:var(--mint);color:var(--gd);font-size:10px;font-weight:900;padding:2px 8px;border-radius:4px;letter-spacing:.01em}
+.h-key{display:flex;align-items:center;gap:8px}
+.h-key label{font-size:11px;color:rgba(255,255,255,.65)}
+.h-key input{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
+  color:#fff;padding:6px 11px;border-radius:6px;font-size:12px;width:220px;
+  font-family:inherit;
+}
+.h-key input::placeholder{color:rgba(255,255,255,.4)}
+.h-key input:focus{outline:none;background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4)}
+
+.main{max-width:920px;margin:0 auto;padding:20px 18px 88px}
+
+.tabs{
+  display:flex;gap:3px;background:#fff;border:1px solid var(--bd);
+  border-radius:10px;padding:4px;margin-bottom:20px;overflow-x:auto;
+}
+.tab-btn{
+  flex:0 0 auto;padding:8px 16px;border:none;background:none;cursor:pointer;
+  font-family:inherit;font-size:13px;font-weight:500;color:var(--t3);
+  border-radius:7px;transition:all .14s;white-space:nowrap;
+}
+.tab-btn.active{background:var(--gm);color:#fff;font-weight:700}
+.tab-btn:hover:not(.active){background:var(--gl);color:var(--gm)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+.card{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:22px;margin-bottom:18px;box-shadow:var(--sh)}
+.card-title{
+  font-size:15px;font-weight:700;color:var(--gd);margin-bottom:16px;
+  padding-bottom:11px;border-bottom:2px solid var(--gl);
+  display:flex;align-items:center;gap:8px;
+}
+.card-num{
+  background:var(--ga);color:#fff;width:24px;height:24px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;flex-shrink:0;
+}
+
+.form-group{margin-bottom:14px}
+.form-row{display:grid;gap:14px;margin-bottom:14px}
+.col2{grid-template-columns:1fr 1fr}
+.col3{grid-template-columns:1fr 1fr 1fr}
+.col4{grid-template-columns:1fr 1fr 1fr 1fr}
+label{display:block;font-size:11.5px;font-weight:600;color:var(--t2);margin-bottom:5px}
+.req{color:#ef4444;margin-left:2px}
+input[type=text],textarea,select{
+  width:100%;padding:9px 13px;border:1.5px solid var(--bd);border-radius:8px;
+  font-family:inherit;font-size:13px;color:var(--t1);background:#fff;
+  transition:border-color .14s;resize:vertical;
+}
+input[type=text]:focus,textarea:focus{outline:none;border-color:var(--ga);box-shadow:0 0 0 3px rgba(46,139,98,.09)}
+textarea{min-height:88px;line-height:1.7}
+.ta-tall{min-height:140px}
+.ta-xl{min-height:200px}
+
+.sess-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  background:var(--gl);padding:14px;border-radius:9px;margin-bottom:14px;
+}
+
+.autofill{
+  background:var(--gl);border:1.5px dashed var(--gb);
+  border-radius:9px;padding:14px;margin-bottom:14px;
+}
+.autofill-label{font-size:11.5px;font-weight:600;color:var(--gm);margin-bottom:8px}
+.btn-ai{
+  margin-top:8px;padding:8px 16px;
+  background:linear-gradient(135deg,var(--gm),var(--ga));
+  color:#fff;border:none;border-radius:7px;cursor:pointer;font-family:inherit;
+  font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;
+  transition:opacity .14s;
+}
+.btn-ai:hover{opacity:.86}
+.btn-ai:disabled{opacity:.45;cursor:not-allowed}
+.btn-ai-sm{margin-top:0;padding:7px 14px;font-size:12px}
+
+.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+.photo-slot{
+  aspect-ratio:4/3;border:2px dashed var(--bd);border-radius:8px;
+  cursor:pointer;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:#F9FAFB;transition:border-color .14s;
+}
+.photo-slot:hover{border-color:var(--ga);background:var(--gl)}
+.photo-slot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.photo-ph{font-size:22px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.photo-ph span{font-size:10.5px;color:var(--t3)}
+.photo-rm{
+  position:absolute;top:4px;right:4px;background:rgba(0,0,0,.5);color:#fff;
+  border:none;border-radius:4px;cursor:pointer;font-size:10px;padding:2px 5px;
+  display:none;z-index:2;
+}
+.photo-slot:hover .photo-rm{display:block}
+.photo-caps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}
+.cap-input{
+  padding:5px 8px;border:1px solid var(--bd);border-radius:5px;
+  font-size:10.5px;width:100%;background:#fff;font-family:inherit;color:var(--t1);
+}
+.cap-input:focus{outline:none;border-color:var(--ga)}
+input[type=file]{display:none}
+
+.res-table{width:100%;border-collapse:collapse;margin-top:10px}
+.res-table th{background:var(--gm);color:#fff;padding:9px 10px;font-size:12.5px;font-weight:600;border:1px solid var(--gm)}
+.res-table td{padding:7px 10px;border:1px solid var(--bd);font-size:12.5px;vertical-align:middle}
+.res-table tbody tr:nth-child(even){background:var(--gl)}
+.res-table td input{border:none;background:transparent;padding:0;font-size:12.5px;font-family:inherit;width:100%}
+.res-table td input:focus{outline:none;background:#fff;padding:2px 4px;border-radius:3px}
+.btn-add{
+  margin-top:8px;padding:6px 13px;background:var(--gl);color:var(--gm);
+  border:1.5px solid var(--gb);border-radius:6px;cursor:pointer;font-size:12px;
+  font-weight:600;font-family:inherit;display:inline-flex;align-items:center;gap:5px;
+}
+.btn-add:hover{background:var(--gb)}
+.btn-rm-row{background:none;border:none;cursor:pointer;color:#ef4444;font-size:13px;padding:0 3px}
+
+.dl-bar{
+  position:fixed;bottom:0;left:0;right:0;background:#fff;
+  border-top:1px solid var(--bd);padding:11px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+  z-index:50;box-shadow:0 -3px 14px rgba(0,0,0,.05);
+}
+.save-st{font-size:11.5px;color:var(--t3)}
+.dl-btns{display:flex;gap:9px}
+.btn-dl{
+  padding:9px 20px;background:var(--gd);color:#fff;border:none;border-radius:7px;
+  cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:700;
+  display:inline-flex;align-items:center;gap:6px;transition:background .14s;
+}
+.btn-dl:hover{background:var(--gm)}
+.btn-dl.sec{background:var(--gl);color:var(--gd);border:1.5px solid var(--gb)}
+.btn-dl.sec:hover{background:var(--gb)}
+
+.overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.42);
+  z-index:200;flex-direction:column;align-items:center;justify-content:center;
+}
+.overlay.show{display:flex}
+.ov-box{background:#fff;border-radius:12px;padding:28px 36px;text-align:center;min-width:200px}
+.spinner{width:34px;height:34px;border:3px solid var(--gb);border-top-color:var(--ga);border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 11px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ov-msg{font-size:14px;font-weight:600;color:var(--t1)}
+.ov-sub{font-size:12px;color:var(--t3);margin-top:4px}
+
+.toast{
+  position:fixed;bottom:68px;right:18px;background:var(--gd);color:#fff;
+  padding:9px 16px;border-radius:8px;font-size:13px;font-weight:600;
+  z-index:300;transform:translateY(16px);opacity:0;transition:all .22s;pointer-events:none;
+}
+.toast.show{transform:translateY(0);opacity:1}
+
+.note{font-size:11px;color:var(--t3);margin-top:4px;line-height:1.5}
+
+@media(max-width:640px){
+  .col4,.col3{grid-template-columns:1fr 1fr}
+  .col2{grid-template-columns:1fr}
+  .photo-grid,.photo-caps{grid-template-columns:repeat(2,1fr)}
+  .h-key input{width:140px}
+  .sess-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay">
+  <div class="ov-box">
+    <div class="spinner"></div>
+    <div class="ov-msg" id="ov-msg">Gemini 분석 중</div>
+    <div class="ov-sub" id="ov-sub">잠시만 기다려주세요...</div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<header class="header">
+  <div class="h-title"><span class="h-badge">강남구</span>구청 서식 자동완성기</div>
+  <div class="h-key">
+    <label>Gemini API Key</label>
+    <input type="password" id="apiKey" placeholder="AIza..." autocomplete="off">
+  </div>
+</header>
+
+<main class="main">
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="basic">기본정보</button>
+    <button class="tab-btn" data-tab="s1">1회차</button>
+    <button class="tab-btn" data-tab="s2">2회차</button>
+    <button class="tab-btn" data-tab="s3">3회차</button>
+    <button class="tab-btn" data-tab="detail">상세수행내용</button>
+    <button class="tab-btn" data-tab="result">성과비교</button>
+    <button class="tab-btn" data-tab="suggest">향후제언</button>
+  </div>
+
+  <!-- 기본정보 -->
+  <div class="tab-panel active" id="tab-basic">
+    <div class="card">
+      <div class="card-title"><span class="card-num">1</span>컨설팅 개요</div>
+      <div class="form-row col2">
+        <div><label>업체명<span class="req">*</span></label><input type="text" id="bizName" placeholder="예: 이자카야 우규 역삼점"></div>
+        <div><label>업체 담당자명<span class="req">*</span></label><input type="text" id="bizContact" placeholder="예: 임채성대표 / 이명순"></div>
+      </div>
+      <div class="form-row col3">
+        <div><label>컨설턴트 이름<span class="req">*</span></label><input type="text" id="consultantName" placeholder="손미현, 권용준" value="손미현, 권용준"></div>
+        <div><label>분야<span class="req">*</span></label><input type="text" id="bizField" placeholder="예: 음식점"></div>
+        <div><label>총 수행일수</label><input type="text" id="totalDays" placeholder="3" value="3"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="card-num">2</span>업체개요</div>
+      <div class="autofill">
+        <div class="autofill-label">✨ 업체 정보 붙여넣기 → Gemini가 업체개요 자동 작성</div>
+        <textarea id="biz-raw" placeholder="업체 소개, 메뉴, 특징 등 자유롭게 붙여넣기"></textarea>
+        <button class="btn-ai" onclick="autoFillBizOverview()">✨ 업체개요 자동완성</button>
+      </div>
+      <div class="form-group">
+        <label>업체개요 내용<span class="req">*</span></label>
+        <textarea class="ta-xl" id="bizOverview" placeholder="▶업종: 이자카야&#10;▶오픈: 2024년 11월&#10;▶영업: 오후 5시 ~ 새벽 2시&#10;▶핵심 차별점: 역삼역 도보권 오피스 상권, 연어·육회 시그니처 메뉴&#10;▶매장 규모: 12테이블 약 48석"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1회차 -->
+  <div class="tab-panel" id="tab-s1">
+    <div class="card">
+      <div class="card-title"><span class="card-num">1</span>1회차 컨설팅</div>
+      <div class="autofill">
+        <div class="autofill-label">✨ 1회차 회의록/결과보고서 붙여넣기 → 자동 구조화</div>
+        <textarea id="s1-raw" class="ta-tall" placeholder="1회차 회의록이나 결과보고서 전체를 붙여넣으세요..."></textarea>
+        <button class="btn-ai" onclick="autoFillSession(1)">✨ 1회차 자동완성</button>
+      </div>
+      <div class="sess-grid">
+        <div><label>수행일자<span class="req">*</span></label><input type="text" id="s1-date" placeholder="2026.06.12.(금)"></div>
+        <div><label>업체담당자</label><input type="text" id="s1-att" placeholder="임채성대표/이명순"></div>
+        <div><label>수행시간</label><input type="text" id="s1-tt" placeholder="13:50-17:50"></div>
+        <div><label>현장수행시간</label><input type="text" id="s1-ft" placeholder="14:00-15:00"></div>
+      </div>
+      <div class="form-group">
+        <label>수행내역<span class="req">*</span></label>
+        <textarea class="ta-xl" id="s1-content" placeholder="▶ 매장 기본 운영 현황 점검&#10; - 오픈 시기, 영업시간, 좌석 수 등&#10;▶ 상권 및 입지 진단..."></textarea>
+      </div>
+      <div class="form-group"><label>특이사항</label><textarea id="s1-special" placeholder="특이사항..."></textarea></div>
+      <div class="form-group">
+        <label>사진 첨부 (최대 4장)</label>
+        <div class="photo-grid" id="pg-s1"></div>
+        <div class="photo-caps" id="pc-s1"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2회차 -->
+  <div class="tab-panel" id="tab-s2">
+    <div class="card">
+      <div class="card-title"><span class="card-num">2</span>2회차 컨설팅</div>
+      <div class="autofill">
+        <div class="autofill-label">✨ 2회차 회의록/결과보고서 붙여넣기 → 자동 구조화</div>
+        <textarea id="s2-raw" class="ta-tall" placeholder="2회차 회의록이나 결과보고서 전체를 붙여넣으세요..."></textarea>
+        <button class="btn-ai" onclick="autoFillSession(2)">✨ 2회차 자동완성</button>
+      </div>
+      <div class="sess-grid">
+        <div><label>수행일자<span class="req">*</span></label><input type="text" id="s2-date" placeholder="2026.06.18.(목)"></div>
+        <div><label>업체담당자</label><input type="text" id="s2-att" placeholder="임채성대표/이명순"></div>
+        <div><label>수행시간</label><input type="text" id="s2-tt" placeholder="12:00-16:00"></div>
+        <div><label>현장수행시간</label><input type="text" id="s2-ft" placeholder="14:00-15:40"></div>
+      </div>
+      <div class="form-group"><label>수행내역<span class="req">*</span></label><textarea class="ta-xl" id="s2-content" placeholder="▶ ..."></textarea></div>
+      <div class="form-group"><label>특이사항</label><textarea id="s2-special" placeholder="특이사항..."></textarea></div>
+      <div class="form-group">
+        <label>사진 첨부 (최대 4장)</label>
+        <div class="photo-grid" id="pg-s2"></div>
+        <div class="photo-caps" id="pc-s2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3회차 -->
+  <div class="tab-panel" id="tab-s3">
+    <div class="card">
+      <div class="card-title"><span class="card-num">3</span>3회차 컨설팅</div>
+      <div class="autofill">
+        <div class="autofill-label">✨ 3회차 회의록/결과보고서 붙여넣기 → 자동 구조화</div>
+        <textarea id="s3-raw" class="ta-tall" placeholder="3회차 회의록이나 결과보고서 전체를 붙여넣으세요..."></textarea>
+        <button class="btn-ai" onclick="autoFillSession(3)">✨ 3회차 자동완성</button>
+      </div>
+      <div class="sess-grid">
+        <div><label>수행일자<span class="req">*</span></label><input type="text" id="s3-date" placeholder="2026.06.25.(목)"></div>
+        <div><label>업체담당자</label><input type="text" id="s3-att" placeholder="임채성대표/이명순"></div>
+        <div><label>수행시간</label><input type="text" id="s3-tt" placeholder="12:00-16:00"></div>
+        <div><label>현장수행시간</label><input type="text" id="s3-ft" placeholder="14:00-15:30"></div>
+      </div>
+      <div class="form-group"><label>수행내역<span class="req">*</span></label><textarea class="ta-xl" id="s3-content" placeholder="▶ ..."></textarea></div>
+      <div class="form-group"><label>특이사항</label><textarea id="s3-special" placeholder="특이사항..."></textarea></div>
+      <div class="form-group">
+        <label>사진 첨부 (최대 4장)</label>
+        <div class="photo-grid" id="pg-s3"></div>
+        <div class="photo-caps" id="pc-s3"></div>
+      </div>
+      <div style="background:var(--gl);padding:13px;border-radius:8px;margin-top:6px">
+        <div class="form-row col2">
+          <div><label>총 수행시간 합계</label><input type="text" id="total-wt" placeholder="예: 12시간"></div>
+          <div><label>총 현장수행시간 합계</label><input type="text" id="total-ft" placeholder="예: 4시간 10분"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 상세수행내용 -->
+  <div class="tab-panel" id="tab-detail">
+    <div class="card">
+      <div class="card-title"><span class="card-num">4</span>컨설팅 수행 내용 (상세입력)</div>
+      <div class="autofill">
+        <div class="autofill-label">✨ 1~3회차 내용 기반으로 기업현황·문제진단·수행내용 자동 작성</div>
+        <button class="btn-ai btn-ai-sm" onclick="autoFillDetails()">✨ 상세내용 자동완성</button>
+      </div>
+      <div class="form-group"><label>기업현황<span class="req">*</span></label><textarea class="ta-xl" id="det-company" placeholder="Ÿ 역삼역 도보권 중심 오피스 상권 입지로...&#10;Ÿ 연어 및 육회 중심의 독창적이고 차별화된..."></textarea></div>
+      <div class="form-group"><label>문제진단<span class="req">*</span></label><textarea class="ta-xl" id="det-problem" placeholder="1) 외국인 고객 유치 희망&#10;[표면적 증상] ...&#10;[근본 원인] ...&#10;&#10;2) 3040 고객유치 확대 희망..."></textarea></div>
+      <div class="form-group"><label>수행내용<span class="req">*</span></label><textarea class="ta-xl" id="det-work" placeholder="1) 외국인 고객 유치를 위한 인스타그램 젬스 제공&#10; : 사장님 스스로 다국어 포스팅 가능&#10;&#10;2) 사케페어링 메뉴 개발 및 인쇄물 제공..."></textarea></div>
+    </div>
+  </div>
+
+  <!-- 성과비교 -->
+  <div class="tab-panel" id="tab-result">
+    <div class="card">
+      <div class="card-title"><span class="card-num">5</span>컨설팅 결과 및 성과 (전후 비교)</div>
+      <div class="autofill">
+        <div class="autofill-label">✨ 컨설팅 내용을 분석해 전후 성과표 자동 작성</div>
+        <button class="btn-ai btn-ai-sm" onclick="autoFillResults()">✨ 성과비교 자동완성</button>
+      </div>
+      <table class="res-table">
+        <thead>
+          <tr>
+            <th style="width:7%">순번</th>
+            <th style="width:29%">컨설팅 전</th>
+            <th style="width:33%">컨설팅 후</th>
+            <th style="width:27%">산출물 (필수)</th>
+            <th style="width:4%"></th>
+          </tr>
+        </thead>
+        <tbody id="res-tbody"></tbody>
+      </table>
+      <button class="btn-add" onclick="addResultRow()">+ 행 추가</button>
+    </div>
+  </div>
+
+  <!-- 향후제언 -->
+  <div class="tab-panel" id="tab-suggest">
+    <div class="card">
+      <div class="card-title"><span class="card-num">6</span>향후 제언</div>
+      <div class="autofill">
+        <div class="autofill-label">✨ 전체 컨설팅 내용 기반으로 향후 제언 자동 작성</div>
+        <button class="btn-ai btn-ai-sm" onclick="autoFillSuggestion()">✨ 향후제언 자동완성</button>
+      </div>
+      <div class="form-group"><label>향후 제언<span class="req">*</span></label><textarea class="ta-xl" id="suggestion" placeholder="컨설팅 성과 및 향후 지속 추진 사항을 입력하세요..."></textarea></div>
+    </div>
+  </div>
+</main>
+
+<div class="dl-bar">
+  <div class="save-st" id="save-st">변경사항 자동 저장</div>
+  <div class="dl-btns">
+    <button class="btn-dl sec" onclick="clearAll()">초기화</button>
+    <button class="btn-dl" onclick="generateAndDownload()">📄 DOCX 다운로드</button>
+  </div>
+</div>
+
+<script>
+// ── State ──
+const photos = {};
+const GEMINI_MODEL = 'gemini-2.5-flash';
+let saveTimer;
+
+const FIELDS = [
+  'bizName','bizContact','consultantName','bizField','totalDays',
+  'bizOverview','biz-raw',
+  's1-date','s1-att','s1-tt','s1-ft','s1-content','s1-special','s1-raw',
+  's2-date','s2-att','s2-tt','s2-ft','s2-content','s2-special','s2-raw',
+  's3-date','s3-att','s3-tt','s3-ft','s3-content','s3-special','s3-raw',
+  'total-wt','total-ft',
+  'det-company','det-problem','det-work','suggestion'
+];
+
+// ── Init ──
+window.addEventListener('DOMContentLoaded', () => {
+  setupTabs();
+  initPhotoGrids();
+  initResultTable();
+  loadData();
+  FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', scheduleSave);
+  });
+  const key = sessionStorage.getItem('gmKey');
+  if (key) document.getElementById('apiKey').value = key;
+  document.getElementById('apiKey').addEventListener('input', e => {
+    sessionStorage.setItem('gmKey', e.target.value);
+  });
+});
+
+// ── Tabs ──
+function setupTabs() {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+}
+
+// ── Photo grids ──
+function initPhotoGrids() {
+  [1, 2, 3].forEach(s => {
+    const grid = document.getElementById(`pg-s${s}`);
+    for (let i = 0; i < 4; i++) {
+      const slot = document.createElement('div');
+      slot.className = 'photo-slot';
+      slot.id = `ps-s${s}-${i}`;
+      slot.innerHTML = `<div class="photo-ph">📷<span>사진 추가</span></div><button class="photo-rm" onclick="removePhoto(event,${s},${i})">✕</button>`;
+      slot.addEventListener('click', () => triggerUpload(s, i));
+      grid.appendChild(slot);
+
+      const fi = document.createElement('input');
+      fi.type = 'file'; fi.accept = 'image/*'; fi.id = `fi-s${s}-${i}`;
+      fi.addEventListener('change', e => handleFile(e, s, i));
+      document.body.appendChild(fi);
+    }
+  });
+}
+
+function triggerUpload(s, i) {
+  document.getElementById(`fi-s${s}-${i}`)?.click();
+}
+
+function handleFile(e, s, i) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const dataUrl = ev.target.result;
+    const type = file.type.includes('png') ? 'png' : 'jpg';
+    photos[`s${s}-${i}`] = { dataUrl, type, caption: '' };
+    renderPhotoSlot(s, i);
+    renderCaption(s, i);
+    scheduleSave();
+  };
+  reader.readAsDataURL(file);
+}
+
+function renderPhotoSlot(s, i) {
+  const slot = document.getElementById(`ps-s${s}-${i}`);
+  if (!slot) return;
+  const key = `s${s}-${i}`;
+  const ph = slot.querySelector('.photo-ph');
+  let img = slot.querySelector('img');
+  if (photos[key]) {
+    if (!img) { img = document.createElement('img'); slot.insertBefore(img, slot.querySelector('.photo-rm')); }
+    img.src = photos[key].dataUrl;
+    if (ph) ph.style.display = 'none';
+  } else {
+    if (img) img.remove();
+    if (ph) ph.style.display = '';
+  }
+}
+
+function renderCaption(s, i) {
+  const container = document.getElementById(`pc-s${s}`);
+  const key = `s${s}-${i}`;
+  const existId = `cap-${key}`;
+  if (photos[key] && !document.getElementById(existId)) {
+    const input = document.createElement('input');
+    input.type = 'text'; input.className = 'cap-input'; input.id = existId;
+    input.placeholder = `사진 ${i+1} 캡션`; input.value = photos[key].caption || '';
+    input.dataset.key = key;
+    input.addEventListener('input', e => { if (photos[key]) photos[key].caption = e.target.value; scheduleSave(); });
+    container.appendChild(input);
+  }
+}
+
+function removePhoto(e, s, i) {
+  e.stopPropagation();
+  const key = `s${s}-${i}`;
+  delete photos[key];
+  renderPhotoSlot(s, i);
+  const capEl = document.getElementById(`cap-${key}`);
+  if (capEl) capEl.remove();
+  const fi = document.getElementById(`fi-s${s}-${i}`);
+  if (fi) fi.value = '';
+  scheduleSave();
+}
+
+// ── Results table ──
+function initResultTable() {
+  addResultRow();
+}
+
+function addResultRow() {
+  const tbody = document.getElementById('res-tbody');
+  const n = tbody.rows.length + 1;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td style="text-align:center">${n}</td><td><input type="text" placeholder="컨설팅 전 상황"></td><td><input type="text" placeholder="컨설팅 후 변화"></td><td><input type="text" placeholder="산출물 명칭"></td><td><button class="btn-rm-row" onclick="removeRow(this)">✕</button></td>`;
+  tr.querySelectorAll('input').forEach(el => el.addEventListener('input', scheduleSave));
+  tbody.appendChild(tr);
+}
+
+function removeRow(btn) {
+  const tbody = document.getElementById('res-tbody');
+  if (tbody.rows.length > 1) { btn.closest('tr').remove(); renum(); scheduleSave(); }
+}
+
+function renum() {
+  document.querySelectorAll('#res-tbody tr').forEach((tr, i) => tr.cells[0].textContent = i + 1);
+}
+
+function getResults() {
+  return Array.from(document.querySelectorAll('#res-tbody tr')).map(tr => {
+    const inp = tr.querySelectorAll('input');
+    return { before: inp[0]?.value || '', after: inp[1]?.value || '', output: inp[2]?.value || '' };
+  });
+}
+
+function setResults(rows) {
+  const tbody = document.getElementById('res-tbody');
+  tbody.innerHTML = '';
+  rows.forEach((r, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td style="text-align:center">${i+1}</td><td><input type="text" value="${esc(r.before)}"></td><td><input type="text" value="${esc(r.after)}"></td><td><input type="text" value="${esc(r.output)}"></td><td><button class="btn-rm-row" onclick="removeRow(this)">✕</button></td>`;
+    tr.querySelectorAll('input').forEach(el => el.addEventListener('input', scheduleSave));
+    tbody.appendChild(tr);
+  });
+  if (rows.length === 0) addResultRow();
+}
+
+// ── Persistence ──
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveData, 900);
+  document.getElementById('save-st').textContent = '저장 중...';
+}
+
+function saveData() {
+  const d = {};
+  FIELDS.forEach(id => { const el = document.getElementById(id); if (el) d[id] = el.value; });
+  d._res = getResults();
+  try {
+    localStorage.setItem('cf-v1', JSON.stringify(d));
+    document.getElementById('save-st').textContent = '자동 저장됨 ✓';
+  } catch(e) { document.getElementById('save-st').textContent = '저장 실패 (용량 초과)'; }
+}
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem('cf-v1');
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    FIELDS.forEach(id => { const el = document.getElementById(id); if (el && d[id] !== undefined) el.value = d[id]; });
+    if (d._res?.length) setResults(d._res);
+    document.getElementById('save-st').textContent = '저장된 데이터 불러옴 ✓';
+  } catch(e) {}
+}
+
+function clearAll() {
+  if (!confirm('모든 입력 내용을 초기화할까요? 되돌릴 수 없습니다.')) return;
+  localStorage.removeItem('cf-v1');
+  FIELDS.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  document.getElementById('consultantName').value = '손미현, 권용준';
+  document.getElementById('totalDays').value = '3';
+  Object.keys(photos).forEach(k => delete photos[k]);
+  [1,2,3].forEach(s => { for(let i=0;i<4;i++) { renderPhotoSlot(s,i); const c=document.getElementById(`cap-s${s}-${i}`); if(c)c.remove(); } });
+  const tbody = document.getElementById('res-tbody');
+  tbody.innerHTML = '';
+  addResultRow();
+  showToast('초기화 완료');
+}
+
+// ── Gemini ──
+async function callGemini(prompt) {
+  const apiKey = document.getElementById('apiKey').value.trim();
+  if (!apiKey) { showToast('Gemini API Key를 입력해주세요'); throw new Error('no key'); }
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: { temperature: 0.25, maxOutputTokens: 3000 }
+    })
+  });
+  if (!res.ok) { const err = await res.json(); throw new Error(err.error?.message || `HTTP ${res.status}`); }
+  const data = await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
+
+function parseJSON(text) {
+  const m = text.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if (m) text = m[1];
+  try { return JSON.parse(text.trim()); } catch(e) { return null; }
+}
+
+function g(id) { return document.getElementById(id)?.value || ''; }
+
+async function autoFillBizOverview() {
+  const raw = g('biz-raw');
+  if (!raw.trim()) { showToast('업체 정보를 먼저 붙여넣어 주세요'); return; }
+  showLoading('업체개요 작성 중...');
+  try {
+    const res = await callGemini(`다음 업체 정보를 컨설팅 보고서용 업체개요로 정리해 주세요.
+형식 (이 형식 그대로 작성):
+▶업종: [업종]
+▶오픈: [오픈시기]
+▶영업: [영업시간]
+▶핵심 차별점: [1~2줄]
+▶매장 규모: [규모]
+▶운영 인력: [인력 구성]
+
+업체 정보:
+${raw}
+
+JSON 없이 위 형식의 텍스트만 출력.`);
+    document.getElementById('bizOverview').value = res.trim();
+    scheduleSave(); showToast('업체개요 자동완성 ✓');
+  } catch(e) { showToast('오류: ' + e.message); } finally { hideLoading(); }
+}
+
+async function autoFillSession(n) {
+  const raw = g(`s${n}-raw`);
+  if (!raw.trim()) { showToast(`${n}회차 회의록을 먼저 입력해주세요`); return; }
+  showLoading(`${n}회차 자동완성 중...`);
+  try {
+    const res = await callGemini(`다음 컨설팅 회의록을 분석해서 JSON으로 정리해 주세요.
+
+JSON 형식:
+{
+  "date": "날짜 예: 2026.06.12.(금)",
+  "attendees": "업체 담당자 이름",
+  "total_time": "수행시간 예: 13:50-17:50",
+  "field_time": "현장수행시간 예: 14:00-15:00",
+  "content": "수행내역 전체 (▶ 항목으로 구분, 세부는 - 들여쓰기, 원문에서 상세히 추출)",
+  "special_notes": "특이사항 (없으면 빈 문자열)"
+}
+
+회의록:
+${raw}
+
+JSON만 출력.`);
+    const p = parseJSON(res);
+    if (p) {
+      if (p.date) document.getElementById(`s${n}-date`).value = p.date;
+      if (p.attendees) document.getElementById(`s${n}-att`).value = p.attendees;
+      if (p.total_time) document.getElementById(`s${n}-tt`).value = p.total_time;
+      if (p.field_time) document.getElementById(`s${n}-ft`).value = p.field_time;
+      if (p.content) document.getElementById(`s${n}-content`).value = p.content;
+      if (p.special_notes) document.getElementById(`s${n}-special`).value = p.special_notes;
+      scheduleSave(); showToast(`${n}회차 자동완성 ✓`);
+    } else { showToast('파싱 실패, 다시 시도해주세요'); }
+  } catch(e) { showToast('오류: ' + e.message); } finally { hideLoading(); }
+}
+
+async function autoFillDetails() {
+  const cs = [g('s1-content'),g('s2-content'),g('s3-content')].filter(Boolean);
+  if (!cs.length) { showToast('1~3회차 수행내역을 먼저 입력해주세요'); return; }
+  showLoading('상세 수행내용 작성 중...');
+  try {
+    const full = cs.map((c,i) => `[${i+1}회차]\n${c}`).join('\n\n');
+    const res = await callGemini(`소상공인 컨설팅 3회차 수행내역을 분석해 보고서 상세 섹션을 작성해 주세요.
+업체명: ${g('bizName')}
+
+3회차 수행내역:
+${full}
+
+JSON 형식:
+{
+  "company_status": "기업현황 (Ÿ 불릿 포인트 3~5줄, 업체의 강점·약점·운영현황)",
+  "problem_diagnosis": "문제진단 (1)~3) 형식, 각 항목마다 [표면적 증상]과 [근본 원인] 포함)",
+  "work_content": "수행내용 (1)~5) 번호, 각 항목 실제 수행한 것 간결하게)"
+}
+JSON만 출력.`);
+    const p = parseJSON(res);
+    if (p) {
+      if (p.company_status) document.getElementById('det-company').value = p.company_status;
+      if (p.problem_diagnosis) document.getElementById('det-problem').value = p.problem_diagnosis;
+      if (p.work_content) document.getElementById('det-work').value = p.work_content;
+      scheduleSave(); showToast('상세 수행내용 자동완성 ✓');
+    } else { showToast('파싱 실패, 다시 시도해주세요'); }
+  } catch(e) { showToast('오류: ' + e.message); } finally { hideLoading(); }
+}
+
+async function autoFillResults() {
+  const cs = [g('s1-content'),g('s2-content'),g('s3-content'),g('det-work')].filter(Boolean);
+  if (!cs.length) { showToast('수행내역을 먼저 입력해주세요'); return; }
+  showLoading('성과비교 작성 중...');
+  try {
+    const res = await callGemini(`다음 컨설팅 내용을 분석해 전후 성과표를 작성해 주세요.
+${cs.join('\n\n')}
+
+JSON 형식 (3~5개 항목):
+{
+  "results": [
+    { "before": "컨설팅 전 문제/상황 (간결히)", "after": "컨설팅 후 개선 (구체적으로)", "output": "산출물 이름" }
+  ]
+}
+JSON만 출력.`);
+    const p = parseJSON(res);
+    if (p?.results) { setResults(p.results); scheduleSave(); showToast('성과비교 자동완성 ✓'); }
+    else { showToast('파싱 실패, 다시 시도해주세요'); }
+  } catch(e) { showToast('오류: ' + e.message); } finally { hideLoading(); }
+}
+
+async function autoFillSuggestion() {
+  const cs = [g('s3-content'),g('s3-special'),g('det-work')].filter(Boolean);
+  if (!cs.length) { showToast('3회차 내용을 먼저 입력해주세요'); return; }
+  showLoading('향후제언 작성 중...');
+  try {
+    const res = await callGemini(`다음 소상공인 컨설팅 결과를 바탕으로 '향후 제언'을 작성해 주세요.
+업체명: ${g('bizName')}
+
+컨설팅 내용:
+${cs.join('\n\n')}
+
+2~3문단으로 작성:
+1) 컨설팅 주요 성과 언급
+2) 향후 지속 추진사항
+3) 컨설턴트 사후 지원 계획
+
+JSON 없이 자연스러운 한국어로만 작성.`);
+    document.getElementById('suggestion').value = res.trim();
+    scheduleSave(); showToast('향후제언 자동완성 ✓');
+  } catch(e) { showToast('오류: ' + e.message); } finally { hideLoading(); }
+}
+
+// ── DOCX Generation ──
+async function generateAndDownload() {
+  if (typeof docx === 'undefined') { showToast('라이브러리 로딩 중... 잠시 후 다시 시도'); return; }
+  showLoading('DOCX 생성 중...', '서식에 맞게 문서 작성 중입니다');
+  try {
+    const blob = await buildDocx();
+    const name = document.getElementById('bizName').value || '컨설팅';
+    const date = new Date().toISOString().slice(0, 10);
+    const fn = `[서식1]소상공인컨설팅활동기록지_${name}_${date}.docx`;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = fn; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 3000);
+    showToast('다운로드 완료 ✓  아래아 한글에서 열기 후 .hwp로 저장하세요');
+  } catch(e) { console.error(e); showToast('DOCX 오류: ' + e.message); }
+  finally { hideLoading(); }
+}
+
+async function buildDocx() {
+  const {
+    Document, Paragraph, Table, TableRow, TableCell, TextRun,
+    WidthType, AlignmentType, BorderStyle, VerticalAlign, ImageRun,
+    HeadingLevel, Packer
+  } = docx;
+
+  const mmTw = mm => Math.round(mm * 56.692913);
+
+  const BD = { style: BorderStyle.SINGLE, size: 6, color: '000000' };
+  const borders = { top: BD, bottom: BD, left: BD, right: BD };
+  const HSHADE = { fill: 'D5EAD8' };
+  const MARGINS = { top: 60, bottom: 60, left: 100, right: 100 };
+
+  const txt = (text, opts = {}) => new TextRun({ text: String(text || ''), size: opts.size || 20, bold: !!opts.bold, font: 'Malgun Gothic', color: opts.color });
+
+  const para = (text, opts = {}) => new Paragraph({
+    children: typeof text === 'string' ? [txt(text, opts)] : text,
+    alignment: opts.align || AlignmentType.LEFT,
+    spacing: { before: opts.before || 40, after: opts.after || 40 },
+    indent: opts.indent ? { left: opts.indent } : undefined
+  });
+
+  const hpara = (label, num) => new Paragraph({
+    children: [txt(`${num}. ${label}`, { size: 24, bold: true })],
+    spacing: { before: 300, after: 120 }
+  });
+
+  const mkCell = (content, opts = {}) => {
+    let children;
+    if (typeof content === 'string') {
+      children = content.split('\n').map((line, i) => new Paragraph({
+        children: [txt(line, { bold: opts.bold })],
+        alignment: opts.align || AlignmentType.LEFT,
+        spacing: { before: i === 0 ? 40 : 20, after: 20 }
+      }));
+    } else {
+      children = Array.isArray(content) ? content : [content];
+    }
+    return new TableCell({
+      children,
+      columnSpan: opts.cs || 1,
+      rowSpan: opts.rs || 1,
+      shading: opts.header ? HSHADE : undefined,
+      verticalAlign: VerticalAlign.TOP,
+      margins: MARGINS,
+      borders
+    });
+  };
+
+  const hcell = (text, cs = 1) => mkCell(text, { header: true, bold: true, cs, align: AlignmentType.CENTER });
+
+  const children = [];
+
+  // Title
+  children.push(new Paragraph({
+    children: [txt('[서식 1] 소상공인 컨설팅 활동기록지', { size: 30, bold: true })],
+    alignment: AlignmentType.CENTER,
+    spacing: { before: 0, after: 300 }
+  }));
+
+  // ── Section 1: 컨설팅 개요 ──
+  children.push(hpara('컨설팅 개요', 1));
+  children.push(new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    rows: [
+      new TableRow({ children: [
+        hcell('업체명'), mkCell(g('bizName'), { cs: 2 }),
+        hcell('업체 담당자명'), mkCell(g('bizContact'), { cs: 2 })
+      ]}),
+      new TableRow({ children: [
+        hcell('이름'), mkCell(g('consultantName'), { cs: 2 }),
+        hcell('분야'), mkCell(g('bizField')),
+        mkCell(`총 수행일수: ${g('totalDays')}일`)
+      ]})
+    ]
+  }));
+
+  // ── Section 2: 업체개요 ──
+  children.push(hpara('업체개요', 2));
+  const bzLines = g('bizOverview').split('\n');
+  bzLines.forEach(line => children.push(para(line, { indent: 200 })));
+
+  // ── Section 3: 컨설팅 일정 ──
+  children.push(hpara('컨설팅 일정별 수행 내역 및 특이사항', 3));
+
+  const sessRows = [];
+  sessRows.push(new TableRow({ tableHeader: true, children: [
+    hcell('번호', 1), hcell('수행내역', 5)
+  ]}));
+
+  for (let s = 1; s <= 3; s++) {
+    const date = g(`s${s}-date`), att = g(`s${s}-att`);
+    const tt = g(`s${s}-tt`), ft = g(`s${s}-ft`);
+    const content = g(`s${s}-content`), special = g(`s${s}-special`);
+
+    // Gather photos
+    const sphotos = [];
+    for (let i = 0; i < 4; i++) {
+      const k = `s${s}-${i}`;
+      if (photos[k]) sphotos.push(photos[k]);
+    }
+
+    // Build content cell children
+    const contentParas = [];
+
+    // Date/time header
+    contentParas.push(new Paragraph({ children: [
+      txt(`수행일자 ${date}`, { bold: true }),
+      txt(`    업체담당자 ${att}`)
+    ], spacing: { before: 40, after: 20 } }));
+    contentParas.push(new Paragraph({ children: [
+      txt(`수행시간 ${tt}`),
+      txt(`    현장수행시간 ${ft}`)
+    ], spacing: { before: 10, after: 20 } }));
+
+    // Content lines
+    const clines = content.split('\n').filter(l => l.trim());
+    clines.forEach(line => contentParas.push(new Paragraph({
+      children: [txt(line)], spacing: { before: 10, after: 10 }, indent: { left: 100 }
+    })));
+
+    // Special notes
+    if (special.trim()) {
+      contentParas.push(new Paragraph({ children: [txt('[특이사항]', { bold: true })], spacing: { before: 80, after: 20 } }));
+      special.split('\n').filter(l => l.trim()).forEach(line => contentParas.push(new Paragraph({
+        children: [txt(line)], spacing: { before: 10, after: 10 }, indent: { left: 100 }
+      })));
+    }
+
+    // Photos
+    if (sphotos.length > 0) {
+      contentParas.push(new Paragraph({ children: [txt('사진첨부', { bold: true })], spacing: { before: 80, after: 20 } }));
+      for (const ph of sphotos) {
+        try {
+          const b64 = ph.dataUrl.split(',')[1];
+          const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+          contentParas.push(new Paragraph({
+            children: [new ImageRun({ data: bytes, transformation: { width: 180, height: 128 }, type: ph.type || 'jpg' })],
+            spacing: { before: 10, after: 5 }
+          }));
+          if (ph.caption) contentParas.push(para(ph.caption, { align: AlignmentType.CENTER, color: '666666' }));
+        } catch(_) {
+          contentParas.push(para(`[사진: ${ph.caption || ''}]`));
+        }
+      }
+    }
+
+    sessRows.push(new TableRow({ children: [
+      new TableCell({
+        children: [new Paragraph({ children: [txt(String(s), { bold: true })], alignment: AlignmentType.CENTER })],
+        verticalAlign: VerticalAlign.TOP, margins: MARGINS, borders
+      }),
+      new TableCell({ children: contentParas, columnSpan: 5, verticalAlign: VerticalAlign.TOP, margins: MARGINS, borders })
+    ]}));
+  }
+
+  // Total row
+  sessRows.push(new TableRow({ children: [
+    mkCell(`총 수행시간: ${g('total-wt')}`, { cs: 3, bold: true, header: true }),
+    mkCell(`현장 수행시간: ${g('total-ft')}`, { cs: 3, bold: true, header: true })
+  ]}));
+
+  children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: sessRows }));
+
+  // ── Section 4: 상세 수행내용 ──
+  children.push(hpara('컨설팅 수행 내용(상세입력)', 4));
+  children.push(new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    rows: [
+      new TableRow({ tableHeader: true, children: [hcell('구분'), hcell('수행내용', 5)] }),
+      new TableRow({ children: [mkCell('기업\n현황', { header: true, bold: true }), mkCell(g('det-company'), { cs: 5 })] }),
+      new TableRow({ children: [mkCell('문제\n진단', { header: true, bold: true }), mkCell(g('det-problem'), { cs: 5 })] }),
+      new TableRow({ children: [mkCell('수행\n내용', { header: true, bold: true }), mkCell(g('det-work'), { cs: 5 })] })
+    ]
+  }));
+
+  // ── Section 5: 결과 및 성과 ──
+  children.push(hpara('컨설팅 결과 및 성과(전후 비교)', 5));
+  const resRows = [
+    new TableRow({ tableHeader: true, children: [hcell('순번'), hcell('컨설팅 전', 2), hcell('컨설팅 후', 2), hcell('산출물 (필수)')]})
+  ];
+  getResults().forEach((r, i) => resRows.push(new TableRow({ children: [
+    mkCell(String(i+1), { align: AlignmentType.CENTER }),
+    mkCell(r.before, { cs: 2 }),
+    mkCell(r.after, { cs: 2 }),
+    mkCell(r.output)
+  ]})));
+  children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: resRows }));
+
+  // ── Section 6: 향후 제언 ──
+  children.push(hpara('향후 제언', 6));
+  g('suggestion').split('\n').forEach(line => children.push(para(line, { indent: 200 })));
+
+  const doc = new Document({
+    creator: g('consultantName') || '권용준',
+    title: '[서식 1] 소상공인 컨설팅 활동기록지',
+    sections: [{
+      properties: {
+        page: {
+          size: { width: mmTw(210), height: mmTw(297) },
+          margin: { top: mmTw(25), right: mmTw(22), bottom: mmTw(25), left: mmTw(22) }
+        }
+      },
+      children
+    }]
+  });
+
+  return await Packer.toBlob(doc);
+}
+
+// ── UI helpers ──
+function showLoading(msg = '처리 중...', sub = '잠시만 기다려주세요...') {
+  document.getElementById('ov-msg').textContent = msg;
+  document.getElementById('ov-sub').textContent = sub;
+  document.getElementById('overlay').classList.add('show');
+}
+function hideLoading() { document.getElementById('overlay').classList.remove('show'); }
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+function esc(t) { return String(t || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+</script>
+</body>
+</html>
