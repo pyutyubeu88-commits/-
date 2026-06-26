@@ -3,611 +3,871 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>구청 서식 자동완성기 | 강남구 AI 컨설팅</title>
+<title>AI 컨설팅 서식 자동완성 | 강남구</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="/docx.iife.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" onerror="window._pdfJsFailed=true"></script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --gd:#0B3D2E;--gm:#1B5E43;--ga:#2E8B62;--gh:#3FA877;
-  --gl:#F1FAF5;--gb:#BBE6CE;--mint:#74C69D;
-  --wh:#fff;--t1:#0F172A;--t2:#374151;--t3:#6B7280;--bd:#E5E7EB;
-  --r:12px;--sh:0 4px 20px rgba(11,61,46,.07);
+  --g9:#071F17;--g8:#0B3D2E;--g7:#0F5239;--g6:#1B6B4A;--g5:#2E8B62;--g4:#3FA877;
+  --g3:#74C69D;--g2:#BBE6CE;--g1:#E8F7EF;--g0:#F4FBF7;
+  --ink:#0F172A;--ink2:#374151;--ink3:#6B7280;--ink4:#9CA3AF;
+  --bd:#E5E7EB;--bd2:#F3F4F6;--wh:#fff;
+  --r:14px;--r2:10px;--r3:8px;
+  --sh:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(11,61,46,.07);
+  --sh2:0 2px 8px rgba(0,0,0,.05),0 8px 32px rgba(11,61,46,.1);
 }
-html{scroll-behavior:smooth}
-body{font-family:'Noto Sans KR',sans-serif;color:var(--t1);background:#F0F5F2;min-height:100vh}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--ink);background:#EEF3F0;min-height:100vh;-webkit-font-smoothing:antialiased}
 
+/* ─── HEADER ─── */
 .header{
-  background:var(--gd);color:#fff;padding:0 24px;height:58px;
+  background:var(--g8);color:#fff;height:60px;
   display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.18);
+  padding:0 28px;position:sticky;top:0;z-index:200;
+  box-shadow:0 2px 12px rgba(0,0,0,.2);
 }
-.h-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
-.h-badge{background:var(--mint);color:var(--gd);font-size:10px;font-weight:900;padding:2px 8px;border-radius:4px;letter-spacing:.01em}
-.h-key{display:flex;align-items:center;gap:8px}
-.h-key label{font-size:11px;color:rgba(255,255,255,.65)}
-.h-key input{
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
-  color:#fff;padding:6px 11px;border-radius:6px;font-size:12px;width:220px;
-  font-family:inherit;
+.h-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.h-chip{background:var(--g3);color:var(--g8);font-size:10px;font-weight:900;padding:2px 9px;border-radius:20px;letter-spacing:.02em}
+.h-name{color:#fff;font-size:15px;font-weight:700}
+.h-right{display:flex;align-items:center;gap:12px}
+.h-key-wrap{display:flex;align-items:center;gap:6px}
+.h-key-label{font-size:11px;color:rgba(255,255,255,.55)}
+.h-key{
+  width:210px;padding:6px 12px;border-radius:7px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+  color:#fff;font-size:12px;font-family:inherit;
+  transition:background .15s;
 }
-.h-key input::placeholder{color:rgba(255,255,255,.4)}
-.h-key input:focus{outline:none;background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4)}
+.h-key::placeholder{color:rgba(255,255,255,.35)}
+.h-key:focus{outline:none;background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.35)}
+.h-btn-help{
+  padding:5px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);
+  font-family:inherit;font-size:12px;cursor:pointer;transition:.15s;
+}
+.h-btn-help:hover{background:rgba(255,255,255,.15)}
 
-.main{max-width:920px;margin:0 auto;padding:20px 18px 88px}
+/* ─── LAYOUT ─── */
+.page{max-width:1080px;margin:0 auto;padding:28px 20px 100px}
 
-.tabs{
-  display:flex;gap:3px;background:#fff;border:1px solid var(--bd);
-  border-radius:10px;padding:4px;margin-bottom:20px;overflow-x:auto;
+/* ─── SECTION HEADER ─── */
+.s-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.s-step{
+  background:var(--g5);color:#fff;font-size:10px;font-weight:800;
+  padding:3px 9px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;
 }
-.tab-btn{
-  flex:0 0 auto;padding:8px 16px;border:none;background:none;cursor:pointer;
-  font-family:inherit;font-size:13px;font-weight:500;color:var(--t3);
-  border-radius:7px;transition:all .14s;white-space:nowrap;
-}
-.tab-btn.active{background:var(--gm);color:#fff;font-weight:700}
-.tab-btn:hover:not(.active){background:var(--gl);color:var(--gm)}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
+.s-title{font-size:17px;font-weight:700;color:var(--g8)}
+.s-sub{font-size:13px;color:var(--ink3);margin-left:auto}
 
-.card{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:22px;margin-bottom:18px;box-shadow:var(--sh)}
-.card-title{
-  font-size:15px;font-weight:700;color:var(--gd);margin-bottom:16px;
-  padding-bottom:11px;border-bottom:2px solid var(--gl);
-  display:flex;align-items:center;gap:8px;
+/* ─── BASIC INFO BAR ─── */
+.info-bar{
+  background:#fff;border:1px solid var(--bd);border-radius:var(--r);
+  padding:16px 20px;margin-bottom:24px;
+  display:grid;grid-template-columns:2fr 2fr 2fr 1fr;gap:14px;
+  box-shadow:var(--sh);
 }
-.card-num{
-  background:var(--ga);color:#fff;width:24px;height:24px;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:700;flex-shrink:0;
+.ib-field label{font-size:11px;font-weight:600;color:var(--ink3);margin-bottom:4px;display:block}
+.ib-field input{
+  width:100%;padding:8px 12px;border:1.5px solid var(--bd);border-radius:7px;
+  font-size:13px;font-family:inherit;color:var(--ink);background:#fff;
+  transition:border-color .14s;
 }
+.ib-field input:focus{outline:none;border-color:var(--g5);box-shadow:0 0 0 3px rgba(46,139,98,.08)}
 
-.form-group{margin-bottom:14px}
-.form-row{display:grid;gap:14px;margin-bottom:14px}
-.col2{grid-template-columns:1fr 1fr}
-.col3{grid-template-columns:1fr 1fr 1fr}
-.col4{grid-template-columns:1fr 1fr 1fr 1fr}
-label{display:block;font-size:11.5px;font-weight:600;color:var(--t2);margin-bottom:5px}
-.req{color:#ef4444;margin-left:2px}
-input[type=text],textarea,select{
-  width:100%;padding:9px 13px;border:1.5px solid var(--bd);border-radius:8px;
-  font-family:inherit;font-size:13px;color:var(--t1);background:#fff;
-  transition:border-color .14s;resize:vertical;
+/* ─── SESSION CARDS ─── */
+.sess-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.sess-card{
+  background:#fff;border:2px solid var(--bd);border-radius:var(--r);
+  box-shadow:var(--sh);overflow:hidden;transition:border-color .2s,box-shadow .2s;
 }
-input[type=text]:focus,textarea:focus{outline:none;border-color:var(--ga);box-shadow:0 0 0 3px rgba(46,139,98,.09)}
-textarea{min-height:88px;line-height:1.7}
-.ta-tall{min-height:140px}
-.ta-xl{min-height:200px}
+.sess-card.has-file{border-color:var(--g3)}
+.sess-card.drag-over{border-color:var(--g5);background:var(--g0);box-shadow:0 0 0 4px rgba(46,139,98,.12)}
+.sess-card.done .sc-status{background:var(--g2);color:var(--g7)}
+.sc-header{
+  background:var(--g8);color:#fff;padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.sc-num{font-size:11px;font-weight:800;letter-spacing:.06em;opacity:.7}
+.sc-title{font-size:14px;font-weight:700}
+.sc-status{
+  font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;
+  background:rgba(255,255,255,.15);
+}
+.sc-body{padding:14px 16px}
 
-.sess-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
-  background:var(--gl);padding:14px;border-radius:9px;margin-bottom:14px;
+/* File drop zone */
+.drop-zone{
+  border:2px dashed var(--bd);border-radius:9px;
+  padding:18px;text-align:center;cursor:pointer;
+  transition:all .16s;margin-bottom:12px;
+  background:var(--g0);
 }
+.drop-zone:hover,.drop-zone.over{border-color:var(--g5);background:var(--g1)}
+.drop-zone.filled{border-color:var(--g3);border-style:solid;background:#F0FBF5}
+.dz-icon{font-size:26px;margin-bottom:6px}
+.dz-text{font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:3px}
+.dz-sub{font-size:11px;color:var(--ink4)}
+.dz-file{font-size:12px;font-weight:600;color:var(--g6);margin-top:4px;word-break:break-all}
 
-.autofill{
-  background:var(--gl);border:1.5px dashed var(--gb);
-  border-radius:9px;padding:14px;margin-bottom:14px;
+/* Photo upload */
+.sc-photo-label{font-size:11px;font-weight:600;color:var(--ink3);margin-bottom:6px}
+.photo-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.photo-thumb{
+  aspect-ratio:1;border:1.5px dashed var(--bd);border-radius:6px;
+  cursor:pointer;overflow:hidden;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  background:#F9FAFB;transition:.14s;
 }
-.autofill-label{font-size:11.5px;font-weight:600;color:var(--gm);margin-bottom:8px}
-.btn-ai{
-  margin-top:8px;padding:8px 16px;
-  background:linear-gradient(135deg,var(--gm),var(--ga));
-  color:#fff;border:none;border-radius:7px;cursor:pointer;font-family:inherit;
-  font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;
-  transition:opacity .14s;
-}
-.btn-ai:hover{opacity:.86}
-.btn-ai:disabled{opacity:.45;cursor:not-allowed}
-.btn-ai-sm{margin-top:0;padding:7px 14px;font-size:12px}
-
-.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
-.photo-slot{
-  aspect-ratio:4/3;border:2px dashed var(--bd);border-radius:8px;
-  cursor:pointer;position:relative;overflow:hidden;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:#F9FAFB;transition:border-color .14s;
-}
-.photo-slot:hover{border-color:var(--ga);background:var(--gl)}
-.photo-slot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.photo-ph{font-size:22px;display:flex;flex-direction:column;align-items:center;gap:4px}
-.photo-ph span{font-size:10.5px;color:var(--t3)}
+.photo-thumb:hover{border-color:var(--g5);background:var(--g0)}
+.photo-thumb.filled{border-style:solid;border-color:var(--g3)}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.photo-thumb .ph-icon{font-size:16px;color:var(--bd);position:relative;z-index:1}
 .photo-rm{
-  position:absolute;top:4px;right:4px;background:rgba(0,0,0,.5);color:#fff;
-  border:none;border-radius:4px;cursor:pointer;font-size:10px;padding:2px 5px;
-  display:none;z-index:2;
+  position:absolute;top:2px;right:2px;width:16px;height:16px;
+  background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:3px;
+  cursor:pointer;font-size:10px;display:none;align-items:center;justify-content:center;z-index:2;
 }
-.photo-slot:hover .photo-rm{display:block}
-.photo-caps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}
-.cap-input{
-  padding:5px 8px;border:1px solid var(--bd);border-radius:5px;
-  font-size:10.5px;width:100%;background:#fff;font-family:inherit;color:var(--t1);
+.photo-thumb.filled:hover .photo-rm{display:flex}
+.photo-caps{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:6px}
+.cap-in{
+  padding:4px 6px;font-size:10px;border:1px solid var(--bd);
+  border-radius:5px;width:100%;font-family:inherit;color:var(--ink);background:#fff;
 }
-.cap-input:focus{outline:none;border-color:var(--ga)}
-input[type=file]{display:none}
+.cap-in:focus{outline:none;border-color:var(--g5)}
 
-.res-table{width:100%;border-collapse:collapse;margin-top:10px}
-.res-table th{background:var(--gm);color:#fff;padding:9px 10px;font-size:12.5px;font-weight:600;border:1px solid var(--gm)}
-.res-table td{padding:7px 10px;border:1px solid var(--bd);font-size:12.5px;vertical-align:middle}
-.res-table tbody tr:nth-child(even){background:var(--gl)}
-.res-table td input{border:none;background:transparent;padding:0;font-size:12.5px;font-family:inherit;width:100%}
-.res-table td input:focus{outline:none;background:#fff;padding:2px 4px;border-radius:3px}
-.btn-add{
-  margin-top:8px;padding:6px 13px;background:var(--gl);color:var(--gm);
-  border:1.5px solid var(--gb);border-radius:6px;cursor:pointer;font-size:12px;
-  font-weight:600;font-family:inherit;display:inline-flex;align-items:center;gap:5px;
+/* ─── MASTER BUTTON ─── */
+.master-wrap{text-align:center;margin:8px 0 28px;position:relative}
+.master-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 40px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--g7) 0%,var(--g5) 60%,var(--g4) 100%);
+  color:#fff;border-radius:50px;font-family:inherit;font-size:17px;font-weight:800;
+  letter-spacing:-.01em;
+  box-shadow:0 4px 20px rgba(11,61,46,.3),0 1px 3px rgba(0,0,0,.15);
+  transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden;
 }
-.btn-add:hover{background:var(--gb)}
-.btn-rm-row{background:none;border:none;cursor:pointer;color:#ef4444;font-size:13px;padding:0 3px}
+.master-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);
+  border-radius:50px;
+}
+.master-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 28px rgba(11,61,46,.38),0 2px 6px rgba(0,0,0,.2)}
+.master-btn:active:not(:disabled){transform:translateY(0)}
+.master-btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.master-btn .ai-icon{font-size:22px}
+.master-btn-sub{font-size:12px;color:var(--ink4);margin-top:8px}
 
-.dl-bar{
-  position:fixed;bottom:0;left:0;right:0;background:#fff;
-  border-top:1px solid var(--bd);padding:11px 22px;
-  display:flex;align-items:center;justify-content:space-between;
-  z-index:50;box-shadow:0 -3px 14px rgba(0,0,0,.05);
+/* ─── PROGRESS ─── */
+.progress-section{
+  background:#fff;border:1px solid var(--bd);border-radius:var(--r);
+  padding:20px 24px;margin-bottom:24px;box-shadow:var(--sh);
+  display:none;
 }
-.save-st{font-size:11.5px;color:var(--t3)}
-.dl-btns{display:flex;gap:9px}
-.btn-dl{
-  padding:9px 20px;background:var(--gd);color:#fff;border:none;border-radius:7px;
-  cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:700;
-  display:inline-flex;align-items:center;gap:6px;transition:background .14s;
+.progress-section.visible{display:block}
+.prog-title{font-size:13px;font-weight:700;color:var(--ink2);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.prog-bar-wrap{height:6px;background:var(--g1);border-radius:10px;margin-bottom:16px;overflow:hidden}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--g5),var(--g3));border-radius:10px;transition:width .4s ease;width:0%}
+.prog-steps{display:flex;flex-direction:column;gap:7px}
+.prog-step{
+  display:flex;align-items:center;gap:10px;
+  font-size:12.5px;color:var(--ink4);transition:color .2s;
 }
-.btn-dl:hover{background:var(--gm)}
-.btn-dl.sec{background:var(--gl);color:var(--gd);border:1.5px solid var(--gb)}
-.btn-dl.sec:hover{background:var(--gb)}
-
-.overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,.42);
-  z-index:200;flex-direction:column;align-items:center;justify-content:center;
+.prog-step.active{color:var(--ink2);font-weight:600}
+.prog-step.done{color:var(--g6)}
+.prog-step.error{color:#ef4444}
+.prog-icon{width:20px;text-align:center;flex-shrink:0;font-size:14px}
+.prog-spin{
+  width:14px;height:14px;border:2px solid var(--g2);border-top-color:var(--g5);
+  border-radius:50%;animation:spin .6s linear infinite;display:inline-block;
 }
-.overlay.show{display:flex}
-.ov-box{background:#fff;border-radius:12px;padding:28px 36px;text-align:center;min-width:200px}
-.spinner{width:34px;height:34px;border:3px solid var(--gb);border-top-color:var(--ga);border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 11px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.ov-msg{font-size:14px;font-weight:600;color:var(--t1)}
-.ov-sub{font-size:12px;color:var(--t3);margin-top:4px}
 
+/* ─── FORM SECTIONS ─── */
+.form-sections{display:flex;flex-direction:column;gap:14px}
+.form-sec{
+  background:#fff;border:1px solid var(--bd);border-radius:var(--r);
+  box-shadow:var(--sh);overflow:hidden;
+}
+.form-sec.filled{border-color:var(--g2)}
+.fs-header{
+  padding:14px 20px;cursor:pointer;
+  display:flex;align-items:center;gap:12px;user-select:none;
+  transition:background .14s;
+}
+.fs-header:hover{background:var(--g0)}
+.fs-num{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--bd2);color:var(--ink3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;flex-shrink:0;transition:.2s;
+}
+.form-sec.filled .fs-num{background:var(--g5);color:#fff}
+.fs-title{font-size:14px;font-weight:700;color:var(--ink2);flex:1}
+.form-sec.filled .fs-title{color:var(--g8)}
+.fs-badge{font-size:11px;padding:2px 9px;border-radius:10px;background:var(--bd2);color:var(--ink4);font-weight:600}
+.form-sec.filled .fs-badge{background:var(--g1);color:var(--g6)}
+.fs-chevron{color:var(--ink4);font-size:13px;transition:transform .2s;flex-shrink:0}
+.fs-header.open .fs-chevron{transform:rotate(180deg)}
+.fs-body{
+  padding:0 20px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;
+}
+.fs-body.open{max-height:2000px;padding:4px 20px 20px}
+.field{margin-bottom:14px}
+.field label{font-size:11.5px;font-weight:600;color:var(--ink2);display:block;margin-bottom:5px}
+.req{color:#ef4444;margin-left:2px}
+.field input,.field textarea,.field select{
+  width:100%;padding:9px 13px;border:1.5px solid var(--bd);border-radius:8px;
+  font-family:inherit;font-size:13px;color:var(--ink);background:#fff;
+  transition:border-color .14s;resize:vertical;line-height:1.7;
+}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--g5);box-shadow:0 0 0 3px rgba(46,139,98,.08)}
+.field textarea{min-height:100px}
+.field .ta-lg{min-height:150px}
+.field .ta-xl{min-height:210px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.sess-meta-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  background:var(--g0);padding:12px;border-radius:8px;margin-bottom:12px;
+}
+
+/* Results table */
+.rt{width:100%;border-collapse:collapse;margin-bottom:8px}
+.rt th{background:var(--g8);color:#fff;padding:9px 10px;font-size:12px;font-weight:600;border:1px solid var(--g7)}
+.rt td{padding:7px 9px;border:1px solid var(--bd);font-size:12.5px;vertical-align:middle}
+.rt tbody tr:nth-child(even){background:var(--g0)}
+.rt td input{border:none;background:transparent;width:100%;font-family:inherit;font-size:12.5px;padding:0}
+.rt td input:focus{outline:none;background:#fff;padding:2px 4px;border-radius:3px}
+.btn-sm{
+  padding:6px 12px;border-radius:6px;font-family:inherit;font-size:12px;font-weight:600;
+  cursor:pointer;border:none;display:inline-flex;align-items:center;gap:5px;transition:.14s;
+}
+.btn-outline{background:var(--g0);color:var(--g6);border:1.5px solid var(--g2)}
+.btn-outline:hover{background:var(--g1)}
+.btn-danger{background:#FEF2F2;color:#ef4444;border:1px solid #FECACA}
+.btn-danger:hover{background:#fee2e2}
+
+/* ─── BOTTOM BAR ─── */
+.btm-bar{
+  position:fixed;bottom:0;left:0;right:0;height:62px;
+  background:#fff;border-top:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;z-index:150;box-shadow:0 -4px 20px rgba(0,0,0,.07);
+}
+.btm-left{display:flex;align-items:center;gap:16px}
+.save-dot{width:8px;height:8px;border-radius:50%;background:var(--g3);flex-shrink:0}
+.save-dot.saving{background:#fbbf24;animation:pulse .8s infinite}
+@keyframes pulse{50%{opacity:.4}}
+.save-label{font-size:12px;color:var(--ink4)}
+.btm-right{display:flex;gap:10px}
+.btn-dl{
+  padding:9px 22px;border:none;border-radius:8px;cursor:pointer;
+  font-family:inherit;font-size:13.5px;font-weight:700;
+  display:inline-flex;align-items:center;gap:7px;transition:.15s;
+}
+.btn-dl-primary{background:var(--g8);color:#fff}
+.btn-dl-primary:hover{background:var(--g7)}
+.btn-dl-sec{background:var(--g0);color:var(--g7);border:1.5px solid var(--g2)}
+.btn-dl-sec:hover{background:var(--g1)}
+
+/* ─── TOAST ─── */
 .toast{
-  position:fixed;bottom:68px;right:18px;background:var(--gd);color:#fff;
-  padding:9px 16px;border-radius:8px;font-size:13px;font-weight:600;
-  z-index:300;transform:translateY(16px);opacity:0;transition:all .22s;pointer-events:none;
+  position:fixed;bottom:76px;right:20px;
+  background:var(--g8);color:#fff;padding:10px 18px;border-radius:9px;
+  font-size:13px;font-weight:600;z-index:500;
+  transform:translateY(14px);opacity:0;transition:.22s;pointer-events:none;
+  max-width:320px;box-shadow:0 4px 20px rgba(0,0,0,.18);
 }
 .toast.show{transform:translateY(0);opacity:1}
+.toast.error{background:#DC2626}
 
-.note{font-size:11px;color:var(--t3);margin-top:4px;line-height:1.5}
-
-@media(max-width:640px){
-  .col4,.col3{grid-template-columns:1fr 1fr}
-  .col2{grid-template-columns:1fr}
-  .photo-grid,.photo-caps{grid-template-columns:repeat(2,1fr)}
-  .h-key input{width:140px}
-  .sess-grid{grid-template-columns:1fr 1fr}
+/* ─── SESSION REVIEW in form ─── */
+.sess-review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.srv-card{
+  background:var(--g0);border:1px solid var(--g2);border-radius:9px;padding:12px;
 }
+.srv-label{font-size:10.5px;font-weight:700;color:var(--g6);margin-bottom:6px;letter-spacing:.04em}
+.srv-val{font-size:12px;color:var(--ink2)}
+
+/* ─── EMPTY STATE ─── */
+.empty-notice{
+  text-align:center;padding:32px;color:var(--ink4);font-size:13px;
+}
+.empty-notice .ei{font-size:32px;margin-bottom:8px}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:760px){
+  .sess-cards{grid-template-columns:1fr}
+  .info-bar{grid-template-columns:1fr 1fr}
+  .sess-review-grid{grid-template-columns:1fr}
+  .grid4,.sess-meta-grid{grid-template-columns:1fr 1fr}
+  .grid3{grid-template-columns:1fr}
+  .h-key{width:150px}
+  .btm-bar{padding:0 14px}
+  .btn-dl span{display:none}
+}
+
+/* File input hidden */
+input[type=file]{display:none}
 </style>
 </head>
 <body>
 
-<div class="overlay" id="overlay">
-  <div class="ov-box">
-    <div class="spinner"></div>
-    <div class="ov-msg" id="ov-msg">Gemini 분석 중</div>
-    <div class="ov-sub" id="ov-sub">잠시만 기다려주세요...</div>
-  </div>
-</div>
 <div class="toast" id="toast"></div>
 
+<!-- HEADER -->
 <header class="header">
-  <div class="h-title"><span class="h-badge">강남구</span>구청 서식 자동완성기</div>
-  <div class="h-key">
-    <label>Gemini API Key</label>
-    <input type="password" id="apiKey" placeholder="AIza..." autocomplete="off">
+  <a href="/" class="h-logo">
+    <span class="h-chip">강남구</span>
+    <span class="h-name">AI 컨설팅 서식 자동완성</span>
+  </a>
+  <div class="h-right">
+    <div class="h-key-wrap">
+      <span class="h-key-label">Gemini API Key</span>
+      <input type="password" class="h-key" id="apiKey" placeholder="AIza..." autocomplete="off">
+    </div>
   </div>
 </header>
 
-<main class="main">
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="basic">기본정보</button>
-    <button class="tab-btn" data-tab="s1">1회차</button>
-    <button class="tab-btn" data-tab="s2">2회차</button>
-    <button class="tab-btn" data-tab="s3">3회차</button>
-    <button class="tab-btn" data-tab="detail">상세수행내용</button>
-    <button class="tab-btn" data-tab="result">성과비교</button>
-    <button class="tab-btn" data-tab="suggest">향후제언</button>
-  </div>
+<main class="page">
 
-  <!-- 기본정보 -->
-  <div class="tab-panel active" id="tab-basic">
-    <div class="card">
-      <div class="card-title"><span class="card-num">1</span>컨설팅 개요</div>
-      <div class="form-row col2">
-        <div><label>업체명<span class="req">*</span></label><input type="text" id="bizName" placeholder="예: 이자카야 우규 역삼점"></div>
-        <div><label>업체 담당자명<span class="req">*</span></label><input type="text" id="bizContact" placeholder="예: 임채성대표 / 이명순"></div>
-      </div>
-      <div class="form-row col3">
-        <div><label>컨설턴트 이름<span class="req">*</span></label><input type="text" id="consultantName" placeholder="손미현, 권용준" value="손미현, 권용준"></div>
-        <div><label>분야<span class="req">*</span></label><input type="text" id="bizField" placeholder="예: 음식점"></div>
-        <div><label>총 수행일수</label><input type="text" id="totalDays" placeholder="3" value="3"></div>
-      </div>
+  <!-- STEP 1: 기본 정보 -->
+  <div class="s-head">
+    <span class="s-step">Step 1</span>
+    <span class="s-title">업체 기본 정보</span>
+  </div>
+  <div class="info-bar">
+    <div class="ib-field">
+      <label>업체명</label>
+      <input type="text" id="bizName" placeholder="예: 이자카야 우규 역삼점">
     </div>
-    <div class="card">
-      <div class="card-title"><span class="card-num">2</span>업체개요</div>
-      <div class="autofill">
-        <div class="autofill-label">✨ 업체 정보 붙여넣기 → Gemini가 업체개요 자동 작성</div>
-        <textarea id="biz-raw" placeholder="업체 소개, 메뉴, 특징 등 자유롭게 붙여넣기"></textarea>
-        <button class="btn-ai" onclick="autoFillBizOverview()">✨ 업체개요 자동완성</button>
-      </div>
-      <div class="form-group">
-        <label>업체개요 내용<span class="req">*</span></label>
-        <textarea class="ta-xl" id="bizOverview" placeholder="▶업종: 이자카야&#10;▶오픈: 2024년 11월&#10;▶영업: 오후 5시 ~ 새벽 2시&#10;▶핵심 차별점: 역삼역 도보권 오피스 상권, 연어·육회 시그니처 메뉴&#10;▶매장 규모: 12테이블 약 48석"></textarea>
-      </div>
+    <div class="ib-field">
+      <label>업체 담당자명</label>
+      <input type="text" id="bizContact" placeholder="예: 임채성대표 / 이명순">
+    </div>
+    <div class="ib-field">
+      <label>컨설턴트 이름</label>
+      <input type="text" id="consultantName" value="손미현, 권용준">
+    </div>
+    <div class="ib-field">
+      <label>분야</label>
+      <input type="text" id="bizField" placeholder="음식점">
     </div>
   </div>
 
-  <!-- 1회차 -->
-  <div class="tab-panel" id="tab-s1">
-    <div class="card">
-      <div class="card-title"><span class="card-num">1</span>1회차 컨설팅</div>
-      <div class="autofill">
-        <div class="autofill-label">✨ 1회차 회의록/결과보고서 붙여넣기 → 자동 구조화</div>
-        <textarea id="s1-raw" class="ta-tall" placeholder="1회차 회의록이나 결과보고서 전체를 붙여넣으세요..."></textarea>
-        <button class="btn-ai" onclick="autoFillSession(1)">✨ 1회차 자동완성</button>
-      </div>
-      <div class="sess-grid">
-        <div><label>수행일자<span class="req">*</span></label><input type="text" id="s1-date" placeholder="2026.06.12.(금)"></div>
-        <div><label>업체담당자</label><input type="text" id="s1-att" placeholder="임채성대표/이명순"></div>
-        <div><label>수행시간</label><input type="text" id="s1-tt" placeholder="13:50-17:50"></div>
-        <div><label>현장수행시간</label><input type="text" id="s1-ft" placeholder="14:00-15:00"></div>
-      </div>
-      <div class="form-group">
-        <label>수행내역<span class="req">*</span></label>
-        <textarea class="ta-xl" id="s1-content" placeholder="▶ 매장 기본 운영 현황 점검&#10; - 오픈 시기, 영업시간, 좌석 수 등&#10;▶ 상권 및 입지 진단..."></textarea>
-      </div>
-      <div class="form-group"><label>특이사항</label><textarea id="s1-special" placeholder="특이사항..."></textarea></div>
-      <div class="form-group">
-        <label>사진 첨부 (최대 4장)</label>
-        <div class="photo-grid" id="pg-s1"></div>
-        <div class="photo-caps" id="pc-s1"></div>
-      </div>
-    </div>
+  <!-- STEP 2: 파일 업로드 -->
+  <div class="s-head">
+    <span class="s-step">Step 2</span>
+    <span class="s-title">컨설팅 자료 첨부</span>
+    <span class="s-sub">HTML·TXT·PDF·회의록 파일 + 사진</span>
+  </div>
+  <div class="sess-cards" id="sessCards">
+    <!-- JS로 생성 -->
   </div>
 
-  <!-- 2회차 -->
-  <div class="tab-panel" id="tab-s2">
-    <div class="card">
-      <div class="card-title"><span class="card-num">2</span>2회차 컨설팅</div>
-      <div class="autofill">
-        <div class="autofill-label">✨ 2회차 회의록/결과보고서 붙여넣기 → 자동 구조화</div>
-        <textarea id="s2-raw" class="ta-tall" placeholder="2회차 회의록이나 결과보고서 전체를 붙여넣으세요..."></textarea>
-        <button class="btn-ai" onclick="autoFillSession(2)">✨ 2회차 자동완성</button>
-      </div>
-      <div class="sess-grid">
-        <div><label>수행일자<span class="req">*</span></label><input type="text" id="s2-date" placeholder="2026.06.18.(목)"></div>
-        <div><label>업체담당자</label><input type="text" id="s2-att" placeholder="임채성대표/이명순"></div>
-        <div><label>수행시간</label><input type="text" id="s2-tt" placeholder="12:00-16:00"></div>
-        <div><label>현장수행시간</label><input type="text" id="s2-ft" placeholder="14:00-15:40"></div>
-      </div>
-      <div class="form-group"><label>수행내역<span class="req">*</span></label><textarea class="ta-xl" id="s2-content" placeholder="▶ ..."></textarea></div>
-      <div class="form-group"><label>특이사항</label><textarea id="s2-special" placeholder="특이사항..."></textarea></div>
-      <div class="form-group">
-        <label>사진 첨부 (최대 4장)</label>
-        <div class="photo-grid" id="pg-s2"></div>
-        <div class="photo-caps" id="pc-s2"></div>
-      </div>
-    </div>
+  <!-- MASTER BUTTON -->
+  <div class="master-wrap">
+    <button class="master-btn" id="masterBtn" onclick="runAll()">
+      <span class="ai-icon">✨</span>
+      전체 서식 자동완성
+    </button>
+    <div class="master-btn-sub">파일 첨부 후 클릭 한 번으로 구청 제출 서식이 완성됩니다</div>
   </div>
 
-  <!-- 3회차 -->
-  <div class="tab-panel" id="tab-s3">
-    <div class="card">
-      <div class="card-title"><span class="card-num">3</span>3회차 컨설팅</div>
-      <div class="autofill">
-        <div class="autofill-label">✨ 3회차 회의록/결과보고서 붙여넣기 → 자동 구조화</div>
-        <textarea id="s3-raw" class="ta-tall" placeholder="3회차 회의록이나 결과보고서 전체를 붙여넣으세요..."></textarea>
-        <button class="btn-ai" onclick="autoFillSession(3)">✨ 3회차 자동완성</button>
-      </div>
-      <div class="sess-grid">
-        <div><label>수행일자<span class="req">*</span></label><input type="text" id="s3-date" placeholder="2026.06.25.(목)"></div>
-        <div><label>업체담당자</label><input type="text" id="s3-att" placeholder="임채성대표/이명순"></div>
-        <div><label>수행시간</label><input type="text" id="s3-tt" placeholder="12:00-16:00"></div>
-        <div><label>현장수행시간</label><input type="text" id="s3-ft" placeholder="14:00-15:30"></div>
-      </div>
-      <div class="form-group"><label>수행내역<span class="req">*</span></label><textarea class="ta-xl" id="s3-content" placeholder="▶ ..."></textarea></div>
-      <div class="form-group"><label>특이사항</label><textarea id="s3-special" placeholder="특이사항..."></textarea></div>
-      <div class="form-group">
-        <label>사진 첨부 (최대 4장)</label>
-        <div class="photo-grid" id="pg-s3"></div>
-        <div class="photo-caps" id="pc-s3"></div>
-      </div>
-      <div style="background:var(--gl);padding:13px;border-radius:8px;margin-top:6px">
-        <div class="form-row col2">
-          <div><label>총 수행시간 합계</label><input type="text" id="total-wt" placeholder="예: 12시간"></div>
-          <div><label>총 현장수행시간 합계</label><input type="text" id="total-ft" placeholder="예: 4시간 10분"></div>
-        </div>
-      </div>
+  <!-- PROGRESS -->
+  <div class="progress-section" id="progressSection">
+    <div class="prog-title">
+      <span id="progTitle">처리 중...</span>
     </div>
+    <div class="prog-bar-wrap"><div class="prog-bar" id="progBar"></div></div>
+    <div class="prog-steps" id="progSteps"></div>
   </div>
 
-  <!-- 상세수행내용 -->
-  <div class="tab-panel" id="tab-detail">
-    <div class="card">
-      <div class="card-title"><span class="card-num">4</span>컨설팅 수행 내용 (상세입력)</div>
-      <div class="autofill">
-        <div class="autofill-label">✨ 1~3회차 내용 기반으로 기업현황·문제진단·수행내용 자동 작성</div>
-        <button class="btn-ai btn-ai-sm" onclick="autoFillDetails()">✨ 상세내용 자동완성</button>
-      </div>
-      <div class="form-group"><label>기업현황<span class="req">*</span></label><textarea class="ta-xl" id="det-company" placeholder="Ÿ 역삼역 도보권 중심 오피스 상권 입지로...&#10;Ÿ 연어 및 육회 중심의 독창적이고 차별화된..."></textarea></div>
-      <div class="form-group"><label>문제진단<span class="req">*</span></label><textarea class="ta-xl" id="det-problem" placeholder="1) 외국인 고객 유치 희망&#10;[표면적 증상] ...&#10;[근본 원인] ...&#10;&#10;2) 3040 고객유치 확대 희망..."></textarea></div>
-      <div class="form-group"><label>수행내용<span class="req">*</span></label><textarea class="ta-xl" id="det-work" placeholder="1) 외국인 고객 유치를 위한 인스타그램 젬스 제공&#10; : 사장님 스스로 다국어 포스팅 가능&#10;&#10;2) 사케페어링 메뉴 개발 및 인쇄물 제공..."></textarea></div>
-    </div>
+  <!-- STEP 3: 서식 검토 -->
+  <div class="s-head" id="formSectionHead" style="display:none">
+    <span class="s-step">Step 3</span>
+    <span class="s-title">서식 검토 및 편집</span>
+    <span class="s-sub">AI 자동완성 결과를 확인하고 수정하세요</span>
+  </div>
+  <div class="form-sections" id="formSections">
+    <!-- JS로 생성 -->
   </div>
 
-  <!-- 성과비교 -->
-  <div class="tab-panel" id="tab-result">
-    <div class="card">
-      <div class="card-title"><span class="card-num">5</span>컨설팅 결과 및 성과 (전후 비교)</div>
-      <div class="autofill">
-        <div class="autofill-label">✨ 컨설팅 내용을 분석해 전후 성과표 자동 작성</div>
-        <button class="btn-ai btn-ai-sm" onclick="autoFillResults()">✨ 성과비교 자동완성</button>
-      </div>
-      <table class="res-table">
-        <thead>
-          <tr>
-            <th style="width:7%">순번</th>
-            <th style="width:29%">컨설팅 전</th>
-            <th style="width:33%">컨설팅 후</th>
-            <th style="width:27%">산출물 (필수)</th>
-            <th style="width:4%"></th>
-          </tr>
-        </thead>
-        <tbody id="res-tbody"></tbody>
-      </table>
-      <button class="btn-add" onclick="addResultRow()">+ 행 추가</button>
-    </div>
-  </div>
-
-  <!-- 향후제언 -->
-  <div class="tab-panel" id="tab-suggest">
-    <div class="card">
-      <div class="card-title"><span class="card-num">6</span>향후 제언</div>
-      <div class="autofill">
-        <div class="autofill-label">✨ 전체 컨설팅 내용 기반으로 향후 제언 자동 작성</div>
-        <button class="btn-ai btn-ai-sm" onclick="autoFillSuggestion()">✨ 향후제언 자동완성</button>
-      </div>
-      <div class="form-group"><label>향후 제언<span class="req">*</span></label><textarea class="ta-xl" id="suggestion" placeholder="컨설팅 성과 및 향후 지속 추진 사항을 입력하세요..."></textarea></div>
-    </div>
-  </div>
 </main>
 
-<div class="dl-bar">
-  <div class="save-st" id="save-st">변경사항 자동 저장</div>
-  <div class="dl-btns">
-    <button class="btn-dl sec" onclick="clearAll()">초기화</button>
-    <button class="btn-dl" onclick="generateAndDownload()">📄 DOCX 다운로드</button>
+<!-- BOTTOM BAR -->
+<div class="btm-bar">
+  <div class="btm-left">
+    <div class="save-dot" id="saveDot"></div>
+    <span class="save-label" id="saveLabel">변경사항 자동 저장</span>
+  </div>
+  <div class="btm-right">
+    <button class="btn-dl btn-dl-sec" onclick="clearAll()"><span>초기화</span></button>
+    <button class="btn-dl btn-dl-primary" onclick="generateAndDownload()">
+      📄 <span>DOCX 다운로드</span>
+    </button>
   </div>
 </div>
 
+<!-- Hidden file inputs -->
+<div id="fileInputs"></div>
+
 <script>
-// ── State ──
-const photos = {};
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+const photos = {};   // key: "s1-0" → {dataUrl, type, caption}
+const files  = {};   // key: "s1" → {name, text}
 const GEMINI_MODEL = 'gemini-2.5-flash';
 let saveTimer;
+let isRunning = false;
 
-const FIELDS = [
-  'bizName','bizContact','consultantName','bizField','totalDays',
-  'bizOverview','biz-raw',
-  's1-date','s1-att','s1-tt','s1-ft','s1-content','s1-special','s1-raw',
-  's2-date','s2-att','s2-tt','s2-ft','s2-content','s2-special','s2-raw',
-  's3-date','s3-att','s3-tt','s3-ft','s3-content','s3-special','s3-raw',
-  'total-wt','total-ft',
-  'det-company','det-problem','det-work','suggestion'
+const PROG_STEPS = [
+  { id:'extract',  label:'파일 텍스트 추출'   },
+  { id:'sess1',    label:'1회차 데이터 분석'   },
+  { id:'sess2',    label:'2회차 데이터 분석'   },
+  { id:'sess3',    label:'3회차 데이터 분석'   },
+  { id:'overview', label:'업체개요 작성'        },
+  { id:'detail',   label:'수행내용 상세 작성'  },
+  { id:'result',   label:'성과 비교표 작성'    },
+  { id:'suggest',  label:'향후 제언 작성'      },
 ];
 
-// ── Init ──
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
 window.addEventListener('DOMContentLoaded', () => {
-  setupTabs();
-  initPhotoGrids();
-  initResultTable();
+  initSessCards();
+  initFormSections();
+  initFileInputs();
   loadData();
-  FIELDS.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('input', scheduleSave);
-  });
+
   const key = sessionStorage.getItem('gmKey');
   if (key) document.getElementById('apiKey').value = key;
   document.getElementById('apiKey').addEventListener('input', e => {
     sessionStorage.setItem('gmKey', e.target.value);
   });
+
+  // Auto-save on any input
+  document.addEventListener('input', e => {
+    if (e.target.matches('input,textarea')) scheduleSave();
+  });
+
+  if (typeof pdfjsLib !== 'undefined') {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
 });
 
-// ── Tabs ──
-function setupTabs() {
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-    });
+// ═══════════════════════════════════════════
+// SESSION CARDS
+// ═══════════════════════════════════════════
+function initSessCards() {
+  const container = document.getElementById('sessCards');
+  container.innerHTML = '';
+  [1,2,3].forEach(n => {
+    container.insertAdjacentHTML('beforeend', `
+      <div class="sess-card" id="sc-s${n}">
+        <div class="sc-header">
+          <span class="sc-num">${n}회차</span>
+          <span class="sc-title">${n === 1 ? '1차 컨설팅' : n === 2 ? '2차 컨설팅' : '3차 컨설팅'}</span>
+          <span class="sc-status" id="sc-st-s${n}">대기</span>
+        </div>
+        <div class="sc-body">
+          <div class="drop-zone" id="dz-s${n}"
+            ondragover="dzOver(event,${n})" ondragleave="dzLeave(${n})" ondrop="dzDrop(event,${n})"
+            onclick="triggerFile(${n})">
+            <div class="dz-icon">📄</div>
+            <div class="dz-text">파일을 드래그하거나 클릭해서 첨부</div>
+            <div class="dz-sub">HTML·TXT·PDF 지원</div>
+            <div class="dz-file" id="dz-fn-s${n}" style="display:none"></div>
+          </div>
+          <div class="sc-photo-label">사진 첨부 (최대 4장)</div>
+          <div class="photo-row" id="pr-s${n}"></div>
+          <div class="photo-caps" id="pc-s${n}"></div>
+        </div>
+      </div>
+    `);
+    initPhotoRow(n);
   });
 }
 
-// ── Photo grids ──
-function initPhotoGrids() {
-  [1, 2, 3].forEach(s => {
-    const grid = document.getElementById(`pg-s${s}`);
-    for (let i = 0; i < 4; i++) {
-      const slot = document.createElement('div');
-      slot.className = 'photo-slot';
-      slot.id = `ps-s${s}-${i}`;
-      slot.innerHTML = `<div class="photo-ph">📷<span>사진 추가</span></div><button class="photo-rm" onclick="removePhoto(event,${s},${i})">✕</button>`;
-      slot.addEventListener('click', () => triggerUpload(s, i));
-      grid.appendChild(slot);
+function dzOver(e, n)   { e.preventDefault(); document.getElementById(`dz-s${n}`).classList.add('over'); }
+function dzLeave(n)     { document.getElementById(`dz-s${n}`).classList.remove('over'); }
+function dzDrop(e, n)   { e.preventDefault(); dzLeave(n); const f = e.dataTransfer.files[0]; if (f) loadDocFile(f, n); }
+function triggerFile(n) { document.getElementById(`fi-doc-s${n}`)?.click(); }
 
-      const fi = document.createElement('input');
-      fi.type = 'file'; fi.accept = 'image/*'; fi.id = `fi-s${s}-${i}`;
-      fi.addEventListener('change', e => handleFile(e, s, i));
-      document.body.appendChild(fi);
+function initFileInputs() {
+  const wrap = document.getElementById('fileInputs');
+  [1,2,3].forEach(n => {
+    // Document file input
+    const fi = document.createElement('input');
+    fi.type = 'file'; fi.accept = '.html,.htm,.txt,.md,.pdf,.docx'; fi.id = `fi-doc-s${n}`;
+    fi.addEventListener('change', e => { const f = e.target.files[0]; if (f) loadDocFile(f, n); });
+    wrap.appendChild(fi);
+    // Photo file inputs
+    for (let i = 0; i < 4; i++) {
+      const fp = document.createElement('input');
+      fp.type = 'file'; fp.accept = 'image/*'; fp.id = `fi-ph-s${n}-${i}`;
+      fp.addEventListener('change', e => { const f = e.target.files[0]; if (f) loadPhoto(f, n, i); });
+      wrap.appendChild(fp);
     }
   });
 }
 
-function triggerUpload(s, i) {
-  document.getElementById(`fi-s${s}-${i}`)?.click();
+// ─── File loading ───
+async function loadDocFile(file, n) {
+  const dz = document.getElementById(`dz-s${n}`);
+  const fn = document.getElementById(`dz-fn-s${n}`);
+  dz.classList.add('filled');
+  fn.style.display = 'block';
+  fn.textContent = '⏳ 추출 중...';
+
+  try {
+    const text = await extractText(file);
+    files[`s${n}`] = { name: file.name, text };
+    fn.textContent = `✅ ${file.name}`;
+    document.getElementById(`sc-s${n}`).classList.add('has-file');
+    document.getElementById(`sc-st-s${n}`).textContent = '첨부됨';
+    updateCardStatus(n, 'ready');
+    scheduleSave();
+  } catch(e) {
+    fn.textContent = `❌ 오류: ${e.message}`;
+    dz.classList.remove('filled');
+  }
 }
 
-function handleFile(e, s, i) {
-  const file = e.target.files[0];
-  if (!file) return;
+async function extractText(file) {
+  const name = file.name.toLowerCase();
+  if (name.endsWith('.pdf')) return extractPdf(file);
+  if (name.endsWith('.html') || name.endsWith('.htm')) {
+    const text = await file.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, 'text/html');
+    doc.querySelectorAll('script,style,nav,header,footer').forEach(el => el.remove());
+    return (doc.body?.innerText || doc.body?.textContent || text).trim();
+  }
+  return await file.text();
+}
+
+async function extractPdf(file) {
+  if (typeof pdfjsLib === 'undefined') throw new Error('PDF 라이브러리를 불러올 수 없습니다. HTML 또는 TXT 파일로 변환 후 업로드해 주세요.');
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+  let txt = '';
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    txt += content.items.map(it => it.str).join(' ') + '\n';
+  }
+  return txt.trim();
+}
+
+function updateCardStatus(n, status) {
+  const el = document.getElementById(`sc-st-s${n}`);
+  const card = document.getElementById(`sc-s${n}`);
+  if (status === 'ready') { el.textContent = '첨부됨'; }
+  if (status === 'done')  { el.textContent = '분석완료'; card.classList.add('done'); }
+}
+
+// ─── Photo loading ───
+function initPhotoRow(n) {
+  const row = document.getElementById(`pr-s${n}`);
+  row.innerHTML = '';
+  for (let i = 0; i < 4; i++) {
+    const thumb = document.createElement('div');
+    thumb.className = 'photo-thumb';
+    thumb.id = `pt-s${n}-${i}`;
+    thumb.innerHTML = `<span class="ph-icon">📷</span><button class="photo-rm" onclick="removePhoto(event,${n},${i})">✕</button>`;
+    thumb.addEventListener('click', () => document.getElementById(`fi-ph-s${n}-${i}`)?.click());
+    row.appendChild(thumb);
+  }
+}
+
+function loadPhoto(file, n, i) {
   const reader = new FileReader();
-  reader.onload = ev => {
-    const dataUrl = ev.target.result;
+  reader.onload = e => {
+    const dataUrl = e.target.result;
     const type = file.type.includes('png') ? 'png' : 'jpg';
-    photos[`s${s}-${i}`] = { dataUrl, type, caption: '' };
-    renderPhotoSlot(s, i);
-    renderCaption(s, i);
+    photos[`s${n}-${i}`] = { dataUrl, type, caption: '' };
+    renderThumb(n, i);
+    renderCap(n, i);
     scheduleSave();
   };
   reader.readAsDataURL(file);
 }
 
-function renderPhotoSlot(s, i) {
-  const slot = document.getElementById(`ps-s${s}-${i}`);
-  if (!slot) return;
-  const key = `s${s}-${i}`;
-  const ph = slot.querySelector('.photo-ph');
-  let img = slot.querySelector('img');
+function renderThumb(n, i) {
+  const thumb = document.getElementById(`pt-s${n}-${i}`);
+  if (!thumb) return;
+  const key = `s${n}-${i}`;
+  let img = thumb.querySelector('img');
   if (photos[key]) {
-    if (!img) { img = document.createElement('img'); slot.insertBefore(img, slot.querySelector('.photo-rm')); }
+    if (!img) { img = document.createElement('img'); thumb.insertBefore(img, thumb.querySelector('.photo-rm')); }
     img.src = photos[key].dataUrl;
-    if (ph) ph.style.display = 'none';
+    thumb.classList.add('filled');
   } else {
     if (img) img.remove();
-    if (ph) ph.style.display = '';
+    thumb.classList.remove('filled');
   }
 }
 
-function renderCaption(s, i) {
-  const container = document.getElementById(`pc-s${s}`);
-  const key = `s${s}-${i}`;
-  const existId = `cap-${key}`;
-  if (photos[key] && !document.getElementById(existId)) {
-    const input = document.createElement('input');
-    input.type = 'text'; input.className = 'cap-input'; input.id = existId;
-    input.placeholder = `사진 ${i+1} 캡션`; input.value = photos[key].caption || '';
-    input.dataset.key = key;
-    input.addEventListener('input', e => { if (photos[key]) photos[key].caption = e.target.value; scheduleSave(); });
-    container.appendChild(input);
+function renderCap(n, i) {
+  const caps = document.getElementById(`pc-s${n}`);
+  const key = `s${n}-${i}`; const id = `cap-${key}`;
+  if (photos[key] && !document.getElementById(id)) {
+    const inp = document.createElement('input');
+    inp.type = 'text'; inp.className = 'cap-in'; inp.id = id;
+    inp.placeholder = `사진${i+1} 캡션`; inp.value = photos[key].caption || '';
+    inp.dataset.key = key;
+    inp.addEventListener('input', e => { if (photos[key]) photos[key].caption = e.target.value; scheduleSave(); });
+    caps.appendChild(inp);
   }
 }
 
-function removePhoto(e, s, i) {
+function removePhoto(e, n, i) {
   e.stopPropagation();
-  const key = `s${s}-${i}`;
+  const key = `s${n}-${i}`;
   delete photos[key];
-  renderPhotoSlot(s, i);
-  const capEl = document.getElementById(`cap-${key}`);
-  if (capEl) capEl.remove();
-  const fi = document.getElementById(`fi-s${s}-${i}`);
-  if (fi) fi.value = '';
+  renderThumb(n, i);
+  document.getElementById(`cap-${key}`)?.remove();
+  document.getElementById(`fi-ph-s${n}-${i}`).value = '';
   scheduleSave();
 }
 
-// ── Results table ──
-function initResultTable() {
-  addResultRow();
+// ═══════════════════════════════════════════
+// FORM SECTIONS INIT
+// ═══════════════════════════════════════════
+function initFormSections() {
+  const container = document.getElementById('formSections');
+  container.innerHTML = `
+    ${formSec(1,'컨설팅 개요','업체명·담당자·분야',`
+      <div class="grid2">
+        <div class="field"><label>업체명<span class="req">*</span></label><input id="f-bizName"></div>
+        <div class="field"><label>업체 담당자명</label><input id="f-bizContact"></div>
+      </div>
+      <div class="grid3">
+        <div class="field"><label>컨설턴트 이름</label><input id="f-consultant" value="손미현, 권용준"></div>
+        <div class="field"><label>분야</label><input id="f-field"></div>
+        <div class="field"><label>총 수행일수</label><input id="f-days" value="3"></div>
+      </div>
+    `)}
+    ${formSec(2,'업체개요','업종·영업·강점',`
+      <div class="field"><label>업체개요<span class="req">*</span></label><textarea id="f-bizOverview" class="ta-xl" placeholder="▶업종:\n▶오픈:\n▶영업:\n▶핵심 차별점:\n▶매장 규모:\n▶운영 인력:"></textarea></div>
+    `)}
+    ${formSec(3,'컨설팅 일정별 수행내역','3회차 수행내용·특이사항',`
+      ${[1,2,3].map(n => `
+        <div style="border:1px solid var(--g2);border-radius:9px;padding:14px;margin-bottom:12px">
+          <div style="font-size:13px;font-weight:700;color:var(--g7);margin-bottom:10px">${n}회차</div>
+          <div class="sess-meta-grid">
+            <div class="field" style="margin:0"><label>수행일자</label><input id="f-s${n}-date" placeholder="2026.06.12.(금)"></div>
+            <div class="field" style="margin:0"><label>업체담당자</label><input id="f-s${n}-att" placeholder="임채성대표/이명순"></div>
+            <div class="field" style="margin:0"><label>수행시간</label><input id="f-s${n}-tt" placeholder="13:50-17:50"></div>
+            <div class="field" style="margin:0"><label>현장수행시간</label><input id="f-s${n}-ft" placeholder="14:00-15:00"></div>
+          </div>
+          <div class="field"><label>수행내역</label><textarea id="f-s${n}-content" class="ta-lg"></textarea></div>
+          <div class="field"><label>특이사항</label><textarea id="f-s${n}-special"></textarea></div>
+        </div>
+      `).join('')}
+      <div class="grid2">
+        <div class="field"><label>총 수행시간 합계</label><input id="f-totalWt" placeholder="12시간"></div>
+        <div class="field"><label>총 현장수행시간 합계</label><input id="f-totalFt" placeholder="4시간 10분"></div>
+      </div>
+    `)}
+    ${formSec(4,'컨설팅 수행 내용 상세','기업현황·문제진단·수행내용',`
+      <div class="field"><label>기업현황<span class="req">*</span></label><textarea id="f-company" class="ta-xl"></textarea></div>
+      <div class="field"><label>문제진단<span class="req">*</span></label><textarea id="f-problem" class="ta-xl"></textarea></div>
+      <div class="field"><label>수행내용<span class="req">*</span></label><textarea id="f-workContent" class="ta-xl"></textarea></div>
+    `)}
+    ${formSec(5,'컨설팅 결과 및 성과','전후 비교',`
+      <table class="rt">
+        <thead><tr><th style="width:7%">순번</th><th style="width:29%">컨설팅 전</th><th style="width:34%">컨설팅 후</th><th style="width:26%">산출물(필수)</th><th style="width:4%"></th></tr></thead>
+        <tbody id="res-tbody"></tbody>
+      </table>
+      <button class="btn-sm btn-outline" onclick="addResRow()" style="margin-top:6px">+ 행 추가</button>
+    `)}
+    ${formSec(6,'향후 제언','사후 관리 계획',`
+      <div class="field"><label>향후 제언<span class="req">*</span></label><textarea id="f-suggestion" class="ta-xl"></textarea></div>
+    `)}
+  `;
+
+  // Accordion
+  container.querySelectorAll('.fs-header').forEach(h => {
+    h.addEventListener('click', () => {
+      h.classList.toggle('open');
+      h.nextElementSibling.classList.toggle('open');
+    });
+  });
+
+  // Init results table
+  addResRow();
 }
 
-function addResultRow() {
+function formSec(num, title, badge, content) {
+  return `
+    <div class="form-sec" id="fs-${num}">
+      <div class="fs-header">
+        <div class="fs-num">${num}</div>
+        <div class="fs-title">${title}</div>
+        <div class="fs-badge">${badge}</div>
+        <span class="fs-chevron">▼</span>
+      </div>
+      <div class="fs-body">${content}</div>
+    </div>
+  `;
+}
+
+// ─── Results table ───
+function addResRow() {
   const tbody = document.getElementById('res-tbody');
   const n = tbody.rows.length + 1;
   const tr = document.createElement('tr');
-  tr.innerHTML = `<td style="text-align:center">${n}</td><td><input type="text" placeholder="컨설팅 전 상황"></td><td><input type="text" placeholder="컨설팅 후 변화"></td><td><input type="text" placeholder="산출물 명칭"></td><td><button class="btn-rm-row" onclick="removeRow(this)">✕</button></td>`;
+  tr.innerHTML = `<td style="text-align:center">${n}</td><td><input type="text" placeholder="컨설팅 전"></td><td><input type="text" placeholder="컨설팅 후"></td><td><input type="text" placeholder="산출물"></td><td><button class="btn-sm btn-danger" style="padding:3px 7px" onclick="rmResRow(this)">✕</button></td>`;
   tr.querySelectorAll('input').forEach(el => el.addEventListener('input', scheduleSave));
   tbody.appendChild(tr);
 }
 
-function removeRow(btn) {
+function rmResRow(btn) {
   const tbody = document.getElementById('res-tbody');
-  if (tbody.rows.length > 1) { btn.closest('tr').remove(); renum(); scheduleSave(); }
+  if (tbody.rows.length > 1) { btn.closest('tr').remove(); renumRes(); scheduleSave(); }
 }
 
-function renum() {
+function renumRes() {
   document.querySelectorAll('#res-tbody tr').forEach((tr, i) => tr.cells[0].textContent = i + 1);
 }
 
-function getResults() {
+function getResRows() {
   return Array.from(document.querySelectorAll('#res-tbody tr')).map(tr => {
     const inp = tr.querySelectorAll('input');
     return { before: inp[0]?.value || '', after: inp[1]?.value || '', output: inp[2]?.value || '' };
   });
 }
 
-function setResults(rows) {
+function setResRows(rows) {
   const tbody = document.getElementById('res-tbody');
   tbody.innerHTML = '';
   rows.forEach((r, i) => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td style="text-align:center">${i+1}</td><td><input type="text" value="${esc(r.before)}"></td><td><input type="text" value="${esc(r.after)}"></td><td><input type="text" value="${esc(r.output)}"></td><td><button class="btn-rm-row" onclick="removeRow(this)">✕</button></td>`;
+    tr.innerHTML = `<td style="text-align:center">${i+1}</td><td><input type="text" value="${esc(r.before)}"></td><td><input type="text" value="${esc(r.after)}"></td><td><input type="text" value="${esc(r.output)}"></td><td><button class="btn-sm btn-danger" style="padding:3px 7px" onclick="rmResRow(this)">✕</button></td>`;
     tr.querySelectorAll('input').forEach(el => el.addEventListener('input', scheduleSave));
     tbody.appendChild(tr);
   });
-  if (rows.length === 0) addResultRow();
+  if (!rows.length) addResRow();
 }
 
-// ── Persistence ──
-function scheduleSave() {
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(saveData, 900);
-  document.getElementById('save-st').textContent = '저장 중...';
-}
+// ═══════════════════════════════════════════
+// FULL AUTO RUN
+// ═══════════════════════════════════════════
+async function runAll() {
+  if (isRunning) return;
+  const apiKey = document.getElementById('apiKey').value.trim();
+  if (!apiKey) { showToast('Gemini API Key를 먼저 입력해주세요', 'error'); return; }
 
-function saveData() {
-  const d = {};
-  FIELDS.forEach(id => { const el = document.getElementById(id); if (el) d[id] = el.value; });
-  d._res = getResults();
+  const hasAnyFile = files.s1 || files.s2 || files.s3;
+  if (!hasAnyFile) { showToast('최소 1개 이상 파일을 첨부해주세요', 'error'); return; }
+
+  isRunning = true;
+  document.getElementById('masterBtn').disabled = true;
+
+  // Show progress
+  showProgressSection();
+  document.getElementById('formSectionHead').style.display = '';
+  document.getElementById('formSections').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
   try {
-    localStorage.setItem('cf-v1', JSON.stringify(d));
-    document.getElementById('save-st').textContent = '자동 저장됨 ✓';
-  } catch(e) { document.getElementById('save-st').textContent = '저장 실패 (용량 초과)'; }
+    // Open form sections
+    document.querySelectorAll('.fs-header').forEach(h => {
+      h.classList.add('open');
+      h.nextElementSibling.classList.add('open');
+    });
+
+    // Phase 1: extract (already done when files loaded)
+    setStepDone('extract');
+    setProgress(1/8);
+
+    // Sync basic info to form
+    syncBasicInfo();
+
+    // Phase 2: Analyze sessions in parallel
+    const [bizName] = [g('bizName')];
+    const [r1, r2, r3] = await Promise.all([
+      analyzeSession(1, files.s1?.text || '', bizName),
+      analyzeSession(2, files.s2?.text || '', bizName),
+      analyzeSession(3, files.s3?.text || '', bizName),
+    ]);
+
+    // Fill session data
+    fillSession(1, r1); setStepDone('sess1'); setProgress(2/8);
+    fillSession(2, r2); setStepDone('sess2'); setProgress(3/8);
+    fillSession(3, r3); setStepDone('sess3'); setProgress(4/8);
+    markFormFilled(3);
+
+    // Combine all texts for overview + details
+    const allTexts = [files.s1?.text, files.s2?.text, files.s3?.text].filter(Boolean).join('\n\n===다음 회차===\n\n');
+    const sess1Content = v('f-s1-content'), sess2Content = v('f-s2-content'), sess3Content = v('f-s3-content');
+    const allContent = [sess1Content, sess2Content, sess3Content].filter(Boolean).join('\n\n');
+
+    // Phase 3: Overview
+    setStepActive('overview');
+    const overviewRes = await generateOverview(allTexts || allContent, bizName);
+    sv('f-bizOverview', overviewRes);
+    sv('f-bizName', g('bizName'));
+    sv('f-bizContact', g('bizContact'));
+    sv('f-consultant', g('consultantName'));
+    sv('f-field', g('bizField'));
+    markFormFilled(1); markFormFilled(2);
+    setStepDone('overview'); setProgress(5/8);
+
+    // Phase 4: Detail
+    setStepActive('detail');
+    const detailRes = await generateDetail(allTexts || allContent, bizName);
+    if (detailRes) {
+      if (detailRes.company_status) sv('f-company', detailRes.company_status);
+      if (detailRes.problem_diagnosis) sv('f-problem', detailRes.problem_diagnosis);
+      if (detailRes.work_content) sv('f-workContent', detailRes.work_content);
+    }
+    markFormFilled(4);
+    setStepDone('detail'); setProgress(6/8);
+
+    // Phase 5: Results + Suggestion in parallel
+    setStepActive('result'); setStepActive('suggest');
+    const [resRows, suggText] = await Promise.all([
+      generateResults(allTexts || allContent),
+      generateSuggestion(allTexts || allContent, bizName),
+    ]);
+    if (resRows?.length) setResRows(resRows);
+    if (suggText) sv('f-suggestion', suggText);
+    markFormFilled(5); markFormFilled(6);
+    setStepDone('result'); setStepDone('suggest'); setProgress(8/8);
+
+    document.getElementById('progTitle').textContent = '✅ 자동완성 완료! 서식을 검토해주세요';
+    showToast('서식 자동완성 완료 ✓');
+    scheduleSave();
+
+  } catch(e) {
+    console.error(e);
+    showToast('오류: ' + e.message, 'error');
+  } finally {
+    isRunning = false;
+    document.getElementById('masterBtn').disabled = false;
+  }
 }
 
-function loadData() {
-  try {
-    const raw = localStorage.getItem('cf-v1');
-    if (!raw) return;
-    const d = JSON.parse(raw);
-    FIELDS.forEach(id => { const el = document.getElementById(id); if (el && d[id] !== undefined) el.value = d[id]; });
-    if (d._res?.length) setResults(d._res);
-    document.getElementById('save-st').textContent = '저장된 데이터 불러옴 ✓';
-  } catch(e) {}
-}
-
-function clearAll() {
-  if (!confirm('모든 입력 내용을 초기화할까요? 되돌릴 수 없습니다.')) return;
-  localStorage.removeItem('cf-v1');
-  FIELDS.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-  document.getElementById('consultantName').value = '손미현, 권용준';
-  document.getElementById('totalDays').value = '3';
-  Object.keys(photos).forEach(k => delete photos[k]);
-  [1,2,3].forEach(s => { for(let i=0;i<4;i++) { renderPhotoSlot(s,i); const c=document.getElementById(`cap-s${s}-${i}`); if(c)c.remove(); } });
-  const tbody = document.getElementById('res-tbody');
-  tbody.innerHTML = '';
-  addResultRow();
-  showToast('초기화 완료');
-}
-
-// ── Gemini ──
+// ═══════════════════════════════════════════
+// GEMINI CALLS
+// ═══════════════════════════════════════════
 async function callGemini(prompt) {
   const apiKey = document.getElementById('apiKey').value.trim();
-  if (!apiKey) { showToast('Gemini API Key를 입력해주세요'); throw new Error('no key'); }
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
   const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       contents: [{ role: 'user', parts: [{ text: prompt }] }],
-      generationConfig: { temperature: 0.25, maxOutputTokens: 3000 }
+      generationConfig: { temperature: 0.2, maxOutputTokens: 4096 }
     })
   });
   if (!res.ok) { const err = await res.json(); throw new Error(err.error?.message || `HTTP ${res.status}`); }
@@ -618,382 +878,438 @@ async function callGemini(prompt) {
 function parseJSON(text) {
   const m = text.match(/```(?:json)?\s*([\s\S]*?)```/);
   if (m) text = m[1];
-  try { return JSON.parse(text.trim()); } catch(e) { return null; }
+  try { return JSON.parse(text.trim()); } catch { return null; }
 }
 
-function g(id) { return document.getElementById(id)?.value || ''; }
+async function analyzeSession(n, text, bizName) {
+  setStepActive(`sess${n}`);
+  if (!text?.trim()) return null;
+  const raw = await callGemini(`소상공인 컨설팅 회의록을 분석하여 JSON으로 정리해 주세요.
 
-async function autoFillBizOverview() {
-  const raw = g('biz-raw');
-  if (!raw.trim()) { showToast('업체 정보를 먼저 붙여넣어 주세요'); return; }
-  showLoading('업체개요 작성 중...');
-  try {
-    const res = await callGemini(`다음 업체 정보를 컨설팅 보고서용 업체개요로 정리해 주세요.
-형식 (이 형식 그대로 작성):
-▶업종: [업종]
-▶오픈: [오픈시기]
-▶영업: [영업시간]
-▶핵심 차별점: [1~2줄]
-▶매장 규모: [규모]
-▶운영 인력: [인력 구성]
+업체명: ${bizName}
+회차: ${n}회차
 
-업체 정보:
-${raw}
-
-JSON 없이 위 형식의 텍스트만 출력.`);
-    document.getElementById('bizOverview').value = res.trim();
-    scheduleSave(); showToast('업체개요 자동완성 ✓');
-  } catch(e) { showToast('오류: ' + e.message); } finally { hideLoading(); }
-}
-
-async function autoFillSession(n) {
-  const raw = g(`s${n}-raw`);
-  if (!raw.trim()) { showToast(`${n}회차 회의록을 먼저 입력해주세요`); return; }
-  showLoading(`${n}회차 자동완성 중...`);
-  try {
-    const res = await callGemini(`다음 컨설팅 회의록을 분석해서 JSON으로 정리해 주세요.
+회의록:
+${text.slice(0, 6000)}
 
 JSON 형식:
 {
-  "date": "날짜 예: 2026.06.12.(금)",
+  "date": "수행일자 예: 2026.06.12.(금)",
   "attendees": "업체 담당자 이름",
   "total_time": "수행시간 예: 13:50-17:50",
   "field_time": "현장수행시간 예: 14:00-15:00",
-  "content": "수행내역 전체 (▶ 항목으로 구분, 세부는 - 들여쓰기, 원문에서 상세히 추출)",
+  "content": "수행내역 전체 (▶ 대항목, - 세부항목 형식으로 상세히 추출, 원문 내용 최대한 보존)",
   "special_notes": "특이사항 (없으면 빈 문자열)"
 }
 
-회의록:
-${raw}
-
 JSON만 출력.`);
-    const p = parseJSON(res);
-    if (p) {
-      if (p.date) document.getElementById(`s${n}-date`).value = p.date;
-      if (p.attendees) document.getElementById(`s${n}-att`).value = p.attendees;
-      if (p.total_time) document.getElementById(`s${n}-tt`).value = p.total_time;
-      if (p.field_time) document.getElementById(`s${n}-ft`).value = p.field_time;
-      if (p.content) document.getElementById(`s${n}-content`).value = p.content;
-      if (p.special_notes) document.getElementById(`s${n}-special`).value = p.special_notes;
-      scheduleSave(); showToast(`${n}회차 자동완성 ✓`);
-    } else { showToast('파싱 실패, 다시 시도해주세요'); }
-  } catch(e) { showToast('오류: ' + e.message); } finally { hideLoading(); }
+  return parseJSON(raw);
 }
 
-async function autoFillDetails() {
-  const cs = [g('s1-content'),g('s2-content'),g('s3-content')].filter(Boolean);
-  if (!cs.length) { showToast('1~3회차 수행내역을 먼저 입력해주세요'); return; }
-  showLoading('상세 수행내용 작성 중...');
-  try {
-    const full = cs.map((c,i) => `[${i+1}회차]\n${c}`).join('\n\n');
-    const res = await callGemini(`소상공인 컨설팅 3회차 수행내역을 분석해 보고서 상세 섹션을 작성해 주세요.
-업체명: ${g('bizName')}
+async function generateOverview(text, bizName) {
+  const raw = await callGemini(`다음 컨설팅 자료를 분석하여 업체개요를 작성해 주세요.
+업체명: ${bizName}
 
-3회차 수행내역:
-${full}
+컨설팅 자료:
+${text.slice(0, 5000)}
+
+아래 형식 그대로 작성 (JSON 없이 텍스트만):
+▶업종: [업종]
+▶오픈: [오픈 시기]
+▶영업: [영업시간]
+▶핵심 차별점: [1~2줄]
+▶매장 규모: [규모·좌석수]
+▶운영 인력: [운영 구성]`);
+  return raw.trim();
+}
+
+async function generateDetail(text, bizName) {
+  const raw = await callGemini(`소상공인 컨설팅 3회차 수행내역을 분석하여 보고서 상세 섹션을 작성해 주세요.
+업체명: ${bizName}
+
+수행내역:
+${text.slice(0, 6000)}
 
 JSON 형식:
 {
-  "company_status": "기업현황 (Ÿ 불릿 포인트 3~5줄, 업체의 강점·약점·운영현황)",
-  "problem_diagnosis": "문제진단 (1)~3) 형식, 각 항목마다 [표면적 증상]과 [근본 원인] 포함)",
-  "work_content": "수행내용 (1)~5) 번호, 각 항목 실제 수행한 것 간결하게)"
+  "company_status": "기업현황 (Ÿ 불릿 3~5개, 업체 현황·강점·약점)",
+  "problem_diagnosis": "문제진단 (1)~3) 형식, 각 항목마다 [표면적 증상]과 [근본 원인] 포함, 실제 문제만)",
+  "work_content": "수행내용 (1)~5) 번호, 각 항목 : 설명 형식으로)"
 }
 JSON만 출력.`);
-    const p = parseJSON(res);
-    if (p) {
-      if (p.company_status) document.getElementById('det-company').value = p.company_status;
-      if (p.problem_diagnosis) document.getElementById('det-problem').value = p.problem_diagnosis;
-      if (p.work_content) document.getElementById('det-work').value = p.work_content;
-      scheduleSave(); showToast('상세 수행내용 자동완성 ✓');
-    } else { showToast('파싱 실패, 다시 시도해주세요'); }
-  } catch(e) { showToast('오류: ' + e.message); } finally { hideLoading(); }
+  return parseJSON(raw);
 }
 
-async function autoFillResults() {
-  const cs = [g('s1-content'),g('s2-content'),g('s3-content'),g('det-work')].filter(Boolean);
-  if (!cs.length) { showToast('수행내역을 먼저 입력해주세요'); return; }
-  showLoading('성과비교 작성 중...');
-  try {
-    const res = await callGemini(`다음 컨설팅 내용을 분석해 전후 성과표를 작성해 주세요.
-${cs.join('\n\n')}
+async function generateResults(text) {
+  const raw = await callGemini(`다음 컨설팅 내용을 분석하여 전후 성과표를 작성해 주세요.
+
+${text.slice(0, 5000)}
 
 JSON 형식 (3~5개 항목):
 {
   "results": [
-    { "before": "컨설팅 전 문제/상황 (간결히)", "after": "컨설팅 후 개선 (구체적으로)", "output": "산출물 이름" }
+    { "before": "컨설팅 전 문제·상황 (간결히)", "after": "컨설팅 후 변화·개선 (구체적으로)", "output": "실제 산출물 이름" }
   ]
 }
 JSON만 출력.`);
-    const p = parseJSON(res);
-    if (p?.results) { setResults(p.results); scheduleSave(); showToast('성과비교 자동완성 ✓'); }
-    else { showToast('파싱 실패, 다시 시도해주세요'); }
-  } catch(e) { showToast('오류: ' + e.message); } finally { hideLoading(); }
+  const p = parseJSON(raw);
+  return p?.results || null;
 }
 
-async function autoFillSuggestion() {
-  const cs = [g('s3-content'),g('s3-special'),g('det-work')].filter(Boolean);
-  if (!cs.length) { showToast('3회차 내용을 먼저 입력해주세요'); return; }
-  showLoading('향후제언 작성 중...');
-  try {
-    const res = await callGemini(`다음 소상공인 컨설팅 결과를 바탕으로 '향후 제언'을 작성해 주세요.
-업체명: ${g('bizName')}
+async function generateSuggestion(text, bizName) {
+  const raw = await callGemini(`소상공인 컨설팅 결과를 바탕으로 향후 제언을 작성해 주세요.
+업체명: ${bizName}
 
 컨설팅 내용:
-${cs.join('\n\n')}
+${text.slice(0, 4000)}
 
-2~3문단으로 작성:
-1) 컨설팅 주요 성과 언급
-2) 향후 지속 추진사항
+2~3문단으로:
+1) 컨설팅 주요 성과 및 효과
+2) 향후 지속 추진 필요 사항
 3) 컨설턴트 사후 지원 계획
 
-JSON 없이 자연스러운 한국어로만 작성.`);
-    document.getElementById('suggestion').value = res.trim();
-    scheduleSave(); showToast('향후제언 자동완성 ✓');
-  } catch(e) { showToast('오류: ' + e.message); } finally { hideLoading(); }
+JSON 없이 자연스러운 한국어 텍스트만 출력.`);
+  return raw.trim();
 }
 
-// ── DOCX Generation ──
+// ═══════════════════════════════════════════
+// FILL FORM
+// ═══════════════════════════════════════════
+function syncBasicInfo() {
+  sv('f-bizName',   g('bizName'));
+  sv('f-bizContact', g('bizContact'));
+  sv('f-consultant', g('consultantName'));
+  sv('f-field',     g('bizField'));
+}
+
+function fillSession(n, data) {
+  if (!data) return;
+  if (data.date)          sv(`f-s${n}-date`,    data.date);
+  if (data.attendees)     sv(`f-s${n}-att`,      data.attendees);
+  if (data.total_time)    sv(`f-s${n}-tt`,       data.total_time);
+  if (data.field_time)    sv(`f-s${n}-ft`,       data.field_time);
+  if (data.content)       sv(`f-s${n}-content`,  data.content);
+  if (data.special_notes) sv(`f-s${n}-special`,  data.special_notes);
+  updateCardStatus(n, 'done');
+}
+
+function markFormFilled(n) {
+  const sec = document.getElementById(`fs-${n}`);
+  if (sec) sec.classList.add('filled');
+}
+
+// ═══════════════════════════════════════════
+// PROGRESS UI
+// ═══════════════════════════════════════════
+function showProgressSection() {
+  const sec = document.getElementById('progressSection');
+  sec.classList.add('visible');
+
+  const container = document.getElementById('progSteps');
+  container.innerHTML = '';
+  PROG_STEPS.forEach(step => {
+    const el = document.createElement('div');
+    el.className = 'prog-step';
+    el.id = `ps-${step.id}`;
+    el.innerHTML = `<span class="prog-icon">⏸</span><span>${step.label}</span>`;
+    container.appendChild(el);
+  });
+}
+
+function setStepActive(id) {
+  const el = document.getElementById(`ps-${id}`);
+  if (!el) return;
+  el.classList.add('active');
+  el.querySelector('.prog-icon').innerHTML = '<span class="prog-spin"></span>';
+}
+
+function setStepDone(id) {
+  const el = document.getElementById(`ps-${id}`);
+  if (!el) return;
+  el.classList.remove('active');
+  el.classList.add('done');
+  el.querySelector('.prog-icon').textContent = '✅';
+}
+
+function setProgress(ratio) {
+  document.getElementById('progBar').style.width = `${Math.round(ratio * 100)}%`;
+}
+
+// ═══════════════════════════════════════════
+// DOCX GENERATION
+// ═══════════════════════════════════════════
 async function generateAndDownload() {
-  if (typeof docx === 'undefined') { showToast('라이브러리 로딩 중... 잠시 후 다시 시도'); return; }
-  showLoading('DOCX 생성 중...', '서식에 맞게 문서 작성 중입니다');
+  if (typeof docx === 'undefined') { showToast('라이브러리 로딩 중... 잠시 후 다시 시도', 'error'); return; }
+  showToast('DOCX 생성 중...');
   try {
     const blob = await buildDocx();
-    const name = document.getElementById('bizName').value || '컨설팅';
+    const biz  = v('f-bizName') || g('bizName') || '컨설팅';
     const date = new Date().toISOString().slice(0, 10);
-    const fn = `[서식1]소상공인컨설팅활동기록지_${name}_${date}.docx`;
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const fn   = `[서식1]소상공인컨설팅활동기록지_${biz}_${date}.docx`;
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
     a.href = url; a.download = fn; a.click();
     setTimeout(() => URL.revokeObjectURL(url), 3000);
-    showToast('다운로드 완료 ✓  아래아 한글에서 열기 후 .hwp로 저장하세요');
-  } catch(e) { console.error(e); showToast('DOCX 오류: ' + e.message); }
-  finally { hideLoading(); }
+    showToast('다운로드 완료 ✓  한글에서 열어 .hwp로 저장하세요');
+  } catch(e) { console.error(e); showToast('DOCX 오류: ' + e.message, 'error'); }
 }
 
 async function buildDocx() {
   const {
-    Document, Paragraph, Table, TableRow, TableCell, TextRun,
-    WidthType, AlignmentType, BorderStyle, VerticalAlign, ImageRun,
-    HeadingLevel, Packer
+    Document, Paragraph, Table, TableRow, TableCell,
+    TextRun, WidthType, AlignmentType, BorderStyle,
+    VerticalAlign, ImageRun, Packer
   } = docx;
 
   const mmTw = mm => Math.round(mm * 56.692913);
-
   const BD = { style: BorderStyle.SINGLE, size: 6, color: '000000' };
-  const borders = { top: BD, bottom: BD, left: BD, right: BD };
-  const HSHADE = { fill: 'D5EAD8' };
-  const MARGINS = { top: 60, bottom: 60, left: 100, right: 100 };
+  const brd = { top: BD, bottom: BD, left: BD, right: BD };
+  const HSHD = { fill: 'D5EAD8' };
+  const MRG  = { top: 60, bottom: 60, left: 120, right: 120 };
 
-  const txt = (text, opts = {}) => new TextRun({ text: String(text || ''), size: opts.size || 20, bold: !!opts.bold, font: 'Malgun Gothic', color: opts.color });
-
-  const para = (text, opts = {}) => new Paragraph({
-    children: typeof text === 'string' ? [txt(text, opts)] : text,
-    alignment: opts.align || AlignmentType.LEFT,
-    spacing: { before: opts.before || 40, after: opts.after || 40 },
-    indent: opts.indent ? { left: opts.indent } : undefined
+  const tx  = (t, opts={}) => new TextRun({ text: String(t??''), size: opts.sz||20, bold:!!opts.b, font:'Malgun Gothic', color:opts.c });
+  const par = (t, opts={}) => new Paragraph({
+    children: typeof t === 'string' ? [tx(t, opts)] : t,
+    alignment: opts.al || AlignmentType.LEFT,
+    spacing: { before: opts.bf||40, after: opts.af||40 },
+    indent: opts.in ? { left: opts.in } : undefined
   });
-
-  const hpara = (label, num) => new Paragraph({
-    children: [txt(`${num}. ${label}`, { size: 24, bold: true })],
-    spacing: { before: 300, after: 120 }
+  const hpar = (text, n) => new Paragraph({
+    children: [tx(`${n}. ${text}`, {sz:24,b:true})],
+    spacing:{before:300,after:120}
   });
-
-  const mkCell = (content, opts = {}) => {
-    let children;
-    if (typeof content === 'string') {
-      children = content.split('\n').map((line, i) => new Paragraph({
-        children: [txt(line, { bold: opts.bold })],
-        alignment: opts.align || AlignmentType.LEFT,
-        spacing: { before: i === 0 ? 40 : 20, after: 20 }
-      }));
-    } else {
-      children = Array.isArray(content) ? content : [content];
-    }
-    return new TableCell({
-      children,
-      columnSpan: opts.cs || 1,
-      rowSpan: opts.rs || 1,
-      shading: opts.header ? HSHADE : undefined,
-      verticalAlign: VerticalAlign.TOP,
-      margins: MARGINS,
-      borders
-    });
+  const mkCell = (content, opts={}) => {
+    const lines = typeof content === 'string' ? content.split('\n') : null;
+    const children = lines
+      ? lines.map((l,i) => new Paragraph({ children:[tx(l,{b:opts.b})], alignment:opts.al||AlignmentType.LEFT, spacing:{before:i?20:40,after:20} }))
+      : (Array.isArray(content) ? content : [content]);
+    return new TableCell({ children, columnSpan:opts.cs||1, rowSpan:opts.rs||1, shading:opts.hd?HSHD:undefined, verticalAlign:VerticalAlign.TOP, margins:MRG, borders:brd });
   };
-
-  const hcell = (text, cs = 1) => mkCell(text, { header: true, bold: true, cs, align: AlignmentType.CENTER });
+  const hcell = (t, cs=1) => mkCell(t, {hd:true,b:true,cs,al:AlignmentType.CENTER});
 
   const children = [];
 
   // Title
   children.push(new Paragraph({
-    children: [txt('[서식 1] 소상공인 컨설팅 활동기록지', { size: 30, bold: true })],
-    alignment: AlignmentType.CENTER,
-    spacing: { before: 0, after: 300 }
+    children:[tx('[서식 1] 소상공인 컨설팅 활동기록지',{sz:30,b:true})],
+    alignment:AlignmentType.CENTER, spacing:{before:0,after:320}
   }));
 
-  // ── Section 1: 컨설팅 개요 ──
-  children.push(hpara('컨설팅 개요', 1));
-  children.push(new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: [
-      new TableRow({ children: [
-        hcell('업체명'), mkCell(g('bizName'), { cs: 2 }),
-        hcell('업체 담당자명'), mkCell(g('bizContact'), { cs: 2 })
-      ]}),
-      new TableRow({ children: [
-        hcell('이름'), mkCell(g('consultantName'), { cs: 2 }),
-        hcell('분야'), mkCell(g('bizField')),
-        mkCell(`총 수행일수: ${g('totalDays')}일`)
-      ]})
-    ]
-  }));
-
-  // ── Section 2: 업체개요 ──
-  children.push(hpara('업체개요', 2));
-  const bzLines = g('bizOverview').split('\n');
-  bzLines.forEach(line => children.push(para(line, { indent: 200 })));
-
-  // ── Section 3: 컨설팅 일정 ──
-  children.push(hpara('컨설팅 일정별 수행 내역 및 특이사항', 3));
-
-  const sessRows = [];
-  sessRows.push(new TableRow({ tableHeader: true, children: [
-    hcell('번호', 1), hcell('수행내역', 5)
+  // § 1. 컨설팅 개요
+  children.push(hpar('컨설팅 개요', 1));
+  children.push(new Table({ width:{size:100,type:WidthType.PERCENTAGE}, rows:[
+    new TableRow({ children:[
+      hcell('업체명'),        mkCell(v('f-bizName'),    {cs:2}),
+      hcell('업체 담당자명'), mkCell(v('f-bizContact'), {cs:2})
+    ]}),
+    new TableRow({ children:[
+      hcell('이름'),          mkCell(v('f-consultant'), {cs:2}),
+      hcell('분야'),          mkCell(v('f-field')),
+      mkCell(`총 수행일수: ${v('f-days')}일`)
+    ]})
   ]}));
 
-  for (let s = 1; s <= 3; s++) {
-    const date = g(`s${s}-date`), att = g(`s${s}-att`);
-    const tt = g(`s${s}-tt`), ft = g(`s${s}-ft`);
-    const content = g(`s${s}-content`), special = g(`s${s}-special`);
+  // § 2. 업체개요
+  children.push(hpar('업체개요', 2));
+  v('f-bizOverview').split('\n').forEach(l => children.push(par(l,{in:200})));
 
-    // Gather photos
-    const sphotos = [];
-    for (let i = 0; i < 4; i++) {
-      const k = `s${s}-${i}`;
-      if (photos[k]) sphotos.push(photos[k]);
-    }
+  // § 3. 일정별 수행내역
+  children.push(hpar('컨설팅 일정별 수행 내역 및 특이사항', 3));
 
-    // Build content cell children
+  const sRows = [];
+  sRows.push(new TableRow({ tableHeader:true, children:[hcell('번호',1), hcell('수행내역',5)] }));
+
+  for (let n = 1; n <= 3; n++) {
+    const date = v(`f-s${n}-date`), att  = v(`f-s${n}-att`);
+    const tt   = v(`f-s${n}-tt`),   ft   = v(`f-s${n}-ft`);
+    const cont = v(`f-s${n}-content`), spc = v(`f-s${n}-special`);
+    const sphotos = [0,1,2,3].map(i => photos[`s${n}-${i}`]).filter(Boolean);
+
     const contentParas = [];
+    // 날짜·시간 헤더
+    contentParas.push(par([tx(`수행일자 ${date}`,{b:true}), tx(`   업체담당자 ${att}`)], {bf:40,af:20}));
+    contentParas.push(par([tx(`수행시간 ${tt}`), tx(`   현장수행시간 ${ft}`)], {bf:10,af:20}));
 
-    // Date/time header
-    contentParas.push(new Paragraph({ children: [
-      txt(`수행일자 ${date}`, { bold: true }),
-      txt(`    업체담당자 ${att}`)
-    ], spacing: { before: 40, after: 20 } }));
-    contentParas.push(new Paragraph({ children: [
-      txt(`수행시간 ${tt}`),
-      txt(`    현장수행시간 ${ft}`)
-    ], spacing: { before: 10, after: 20 } }));
+    // 수행내역 본문
+    cont.split('\n').filter(l=>l.trim()).forEach(l => contentParas.push(par(l,{bf:8,af:8,in:100})));
 
-    // Content lines
-    const clines = content.split('\n').filter(l => l.trim());
-    clines.forEach(line => contentParas.push(new Paragraph({
-      children: [txt(line)], spacing: { before: 10, after: 10 }, indent: { left: 100 }
-    })));
-
-    // Special notes
-    if (special.trim()) {
-      contentParas.push(new Paragraph({ children: [txt('[특이사항]', { bold: true })], spacing: { before: 80, after: 20 } }));
-      special.split('\n').filter(l => l.trim()).forEach(line => contentParas.push(new Paragraph({
-        children: [txt(line)], spacing: { before: 10, after: 10 }, indent: { left: 100 }
-      })));
+    // 특이사항
+    if (spc.trim()) {
+      contentParas.push(par('[특이사항]',{b:true,bf:80,af:20}));
+      spc.split('\n').filter(l=>l.trim()).forEach(l => contentParas.push(par(l,{bf:8,af:8,in:100})));
     }
 
-    // Photos
-    if (sphotos.length > 0) {
-      contentParas.push(new Paragraph({ children: [txt('사진첨부', { bold: true })], spacing: { before: 80, after: 20 } }));
+    // 사진
+    if (sphotos.length) {
+      contentParas.push(par('사진첨부',{b:true,bf:80,af:16}));
       for (const ph of sphotos) {
         try {
-          const b64 = ph.dataUrl.split(',')[1];
+          const b64   = ph.dataUrl.split(',')[1];
           const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
-          contentParas.push(new Paragraph({
-            children: [new ImageRun({ data: bytes, transformation: { width: 180, height: 128 }, type: ph.type || 'jpg' })],
-            spacing: { before: 10, after: 5 }
-          }));
-          if (ph.caption) contentParas.push(para(ph.caption, { align: AlignmentType.CENTER, color: '666666' }));
-        } catch(_) {
-          contentParas.push(para(`[사진: ${ph.caption || ''}]`));
-        }
+          contentParas.push(new Paragraph({ children:[new ImageRun({data:bytes, transformation:{width:185,height:130}, type:ph.type||'jpg'})], spacing:{before:10,after:6} }));
+          if (ph.caption) contentParas.push(par(ph.caption,{al:AlignmentType.CENTER,c:'666666',bf:0,af:14}));
+        } catch { contentParas.push(par(`[사진: ${ph.caption||''}]`)); }
       }
     }
 
-    sessRows.push(new TableRow({ children: [
-      new TableCell({
-        children: [new Paragraph({ children: [txt(String(s), { bold: true })], alignment: AlignmentType.CENTER })],
-        verticalAlign: VerticalAlign.TOP, margins: MARGINS, borders
-      }),
-      new TableCell({ children: contentParas, columnSpan: 5, verticalAlign: VerticalAlign.TOP, margins: MARGINS, borders })
+    sRows.push(new TableRow({ children:[
+      new TableCell({ children:[par(String(n),{al:AlignmentType.CENTER,b:true})], verticalAlign:VerticalAlign.TOP, margins:MRG, borders:brd }),
+      new TableCell({ children:contentParas, columnSpan:5, verticalAlign:VerticalAlign.TOP, margins:MRG, borders:brd })
     ]}));
   }
 
-  // Total row
-  sessRows.push(new TableRow({ children: [
-    mkCell(`총 수행시간: ${g('total-wt')}`, { cs: 3, bold: true, header: true }),
-    mkCell(`현장 수행시간: ${g('total-ft')}`, { cs: 3, bold: true, header: true })
+  // 총 수행시간
+  sRows.push(new TableRow({ children:[
+    mkCell(`총 수행시간: ${v('f-totalWt')}`, {cs:3,b:true,hd:true}),
+    mkCell(`현장 수행시간: ${v('f-totalFt')}`, {cs:3,b:true,hd:true})
+  ]}));
+  children.push(new Table({ width:{size:100,type:WidthType.PERCENTAGE}, rows:sRows }));
+
+  // § 4. 수행내용 상세
+  children.push(hpar('컨설팅 수행 내용(상세입력)', 4));
+  children.push(new Table({ width:{size:100,type:WidthType.PERCENTAGE}, rows:[
+    new TableRow({ tableHeader:true, children:[hcell('구분'), hcell('수행내용',5)] }),
+    new TableRow({ children:[mkCell('기업\n현황',{hd:true,b:true}), mkCell(v('f-company'),{cs:5})] }),
+    new TableRow({ children:[mkCell('문제\n진단',{hd:true,b:true}), mkCell(v('f-problem'),{cs:5})] }),
+    new TableRow({ children:[mkCell('수행\n내용',{hd:true,b:true}), mkCell(v('f-workContent'),{cs:5})] })
   ]}));
 
-  children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: sessRows }));
-
-  // ── Section 4: 상세 수행내용 ──
-  children.push(hpara('컨설팅 수행 내용(상세입력)', 4));
-  children.push(new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: [
-      new TableRow({ tableHeader: true, children: [hcell('구분'), hcell('수행내용', 5)] }),
-      new TableRow({ children: [mkCell('기업\n현황', { header: true, bold: true }), mkCell(g('det-company'), { cs: 5 })] }),
-      new TableRow({ children: [mkCell('문제\n진단', { header: true, bold: true }), mkCell(g('det-problem'), { cs: 5 })] }),
-      new TableRow({ children: [mkCell('수행\n내용', { header: true, bold: true }), mkCell(g('det-work'), { cs: 5 })] })
-    ]
-  }));
-
-  // ── Section 5: 결과 및 성과 ──
-  children.push(hpara('컨설팅 결과 및 성과(전후 비교)', 5));
-  const resRows = [
-    new TableRow({ tableHeader: true, children: [hcell('순번'), hcell('컨설팅 전', 2), hcell('컨설팅 후', 2), hcell('산출물 (필수)')]})
-  ];
-  getResults().forEach((r, i) => resRows.push(new TableRow({ children: [
-    mkCell(String(i+1), { align: AlignmentType.CENTER }),
-    mkCell(r.before, { cs: 2 }),
-    mkCell(r.after, { cs: 2 }),
-    mkCell(r.output)
+  // § 5. 결과 및 성과
+  children.push(hpar('컨설팅 결과 및 성과(전후 비교)', 5));
+  const rRows = [new TableRow({ tableHeader:true, children:[hcell('순번'), hcell('컨설팅 전',2), hcell('컨설팅 후',2), hcell('산출물 (필수)')] })];
+  getResRows().forEach((r,i) => rRows.push(new TableRow({ children:[
+    mkCell(String(i+1),{al:AlignmentType.CENTER}),
+    mkCell(r.before,{cs:2}), mkCell(r.after,{cs:2}), mkCell(r.output)
   ]})));
-  children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: resRows }));
+  children.push(new Table({ width:{size:100,type:WidthType.PERCENTAGE}, rows:rRows }));
 
-  // ── Section 6: 향후 제언 ──
-  children.push(hpara('향후 제언', 6));
-  g('suggestion').split('\n').forEach(line => children.push(para(line, { indent: 200 })));
+  // § 6. 향후 제언
+  children.push(hpar('향후 제언', 6));
+  v('f-suggestion').split('\n').forEach(l => children.push(par(l,{in:200})));
 
-  const doc = new Document({
-    creator: g('consultantName') || '권용준',
+  return await Packer.toBlob(new Document({
+    creator: v('f-consultant') || '권용준',
     title: '[서식 1] 소상공인 컨설팅 활동기록지',
     sections: [{
       properties: {
         page: {
-          size: { width: mmTw(210), height: mmTw(297) },
+          size:   { width: mmTw(210), height: mmTw(297) },
           margin: { top: mmTw(25), right: mmTw(22), bottom: mmTw(25), left: mmTw(22) }
         }
       },
       children
     }]
+  }));
+}
+
+// ═══════════════════════════════════════════
+// DATA PERSISTENCE
+// ═══════════════════════════════════════════
+const SAVE_IDS = [
+  'bizName','bizContact','consultantName','bizField',
+  'f-bizName','f-bizContact','f-consultant','f-field','f-days',
+  'f-bizOverview',
+  'f-s1-date','f-s1-att','f-s1-tt','f-s1-ft','f-s1-content','f-s1-special',
+  'f-s2-date','f-s2-att','f-s2-tt','f-s2-ft','f-s2-content','f-s2-special',
+  'f-s3-date','f-s3-att','f-s3-tt','f-s3-ft','f-s3-content','f-s3-special',
+  'f-totalWt','f-totalFt',
+  'f-company','f-problem','f-workContent','f-suggestion'
+];
+
+function scheduleSave() {
+  const dot = document.getElementById('saveDot');
+  dot.classList.add('saving');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    saveData();
+    dot.classList.remove('saving');
+    document.getElementById('saveLabel').textContent = '저장됨 ✓';
+    setTimeout(() => { document.getElementById('saveLabel').textContent = '변경사항 자동 저장'; }, 2000);
+  }, 1000);
+}
+
+function saveData() {
+  const d = {};
+  SAVE_IDS.forEach(id => { const el = document.getElementById(id); if (el) d[id] = el.value; });
+  d._res  = getResRows();
+  d._files = {};
+  ['s1','s2','s3'].forEach(k => { if (files[k]) d._files[k] = { name: files[k].name }; });
+  try { localStorage.setItem('cf2-v1', JSON.stringify(d)); } catch {}
+}
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem('cf2-v1');
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    SAVE_IDS.forEach(id => { const el = document.getElementById(id); if (el && d[id] !== undefined) el.value = d[id]; });
+    if (d._res?.length) setResRows(d._res);
+
+    // Restore file name hints
+    if (d._files) {
+      ['s1','s2','s3'].forEach(k => {
+        if (d._files[k]) {
+          const fn = document.getElementById(`dz-fn-${k}`);
+          if (fn) { fn.style.display='block'; fn.textContent = `📂 ${d._files[k].name} (텍스트 저장됨, 재첨부 불필요)`; }
+          document.getElementById(`sc-${k}`)?.classList.add('has-file');
+        }
+      });
+    }
+
+    // Sync filled state
+    const filledSecs = [1,2,3,4,5,6].filter(n => {
+      const el = document.getElementById(`fs-${n}`);
+      return el && el.querySelector('textarea,input')?.value;
+    });
+    filledSecs.forEach(n => markFormFilled(n));
+
+    if (filledSecs.length) {
+      document.getElementById('formSectionHead').style.display = '';
+    }
+    document.getElementById('saveLabel').textContent = '저장된 데이터 불러옴 ✓';
+  } catch {}
+}
+
+function clearAll() {
+  if (!confirm('모든 입력 내용과 저장 데이터를 초기화할까요?')) return;
+  localStorage.removeItem('cf2-v1');
+  SAVE_IDS.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  document.getElementById('consultantName').value = '손미현, 권용준';
+  document.getElementById('f-consultant').value = '손미현, 권용준';
+  document.getElementById('f-days').value = '3';
+
+  Object.keys(photos).forEach(k => delete photos[k]);
+  Object.keys(files).forEach(k => delete files[k]);
+  [1,2,3].forEach(n => {
+    for (let i=0;i<4;i++) { renderThumb(n,i); document.getElementById(`cap-s${n}-${i}`)?.remove(); }
+    document.getElementById(`dz-fn-s${n}`).style.display='none';
+    document.getElementById(`sc-s${n}`)?.classList.remove('has-file','done');
+    document.getElementById(`sc-st-s${n}`).textContent='대기';
   });
 
-  return await Packer.toBlob(doc);
+  document.getElementById('res-tbody').innerHTML = '';
+  addResRow();
+  document.querySelectorAll('.form-sec').forEach(el => el.classList.remove('filled'));
+  document.getElementById('progressSection').classList.remove('visible');
+  document.getElementById('formSectionHead').style.display = 'none';
+  showToast('초기화 완료');
 }
 
-// ── UI helpers ──
-function showLoading(msg = '처리 중...', sub = '잠시만 기다려주세요...') {
-  document.getElementById('ov-msg').textContent = msg;
-  document.getElementById('ov-sub').textContent = sub;
-  document.getElementById('overlay').classList.add('show');
-}
-function hideLoading() { document.getElementById('overlay').classList.remove('show'); }
-function showToast(msg) {
+// ═══════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════
+function g(id)    { return document.getElementById(id)?.value || ''; }
+function v(id)    { return document.getElementById(id)?.value || ''; }
+function sv(id,t) { const el = document.getElementById(id); if (el) el.value = t; }
+function esc(t)   { return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function showToast(msg, type = '') {
   const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3500);
+  t.textContent = msg;
+  t.className = 'toast show' + (type === 'error' ? ' error' : '');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 4000);
 }
-function esc(t) { return String(t || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 </script>
 </body>
 </html>
