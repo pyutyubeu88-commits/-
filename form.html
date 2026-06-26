@@ -327,10 +327,6 @@ input[type=file]{display:none}
   </a>
   <div class="h-right">
     <div class="h-key-wrap">
-      <span class="h-key-label">컨설턴트</span>
-      <input type="text" class="h-key" id="consultantName" value="손미현, 권용준" style="width:140px">
-    </div>
-    <div class="h-key-wrap">
       <span class="h-key-label">Gemini API Key</span>
       <input type="password" class="h-key" id="apiKey" placeholder="AIza..." autocomplete="off">
     </div>
@@ -769,10 +765,10 @@ async function runAll() {
     const allTextsPreview = [files.s1?.text, files.s2?.text, files.s3?.text]
       .filter(Boolean).map(t => t.slice(0, 3000)).join('\n\n===다음 회차===\n\n');
     const basicInfo = await extractBasicInfo(allTextsPreview);
-    if (basicInfo.bizName)    { sv('f-bizName',    basicInfo.bizName);    }
-    if (basicInfo.bizContact) { sv('f-bizContact', basicInfo.bizContact); }
-    if (basicInfo.bizField)   { sv('f-field',      basicInfo.bizField);   }
-    sv('f-consultant', g('consultantName'));
+    if (basicInfo.bizName)       { sv('f-bizName',    basicInfo.bizName);       }
+    if (basicInfo.bizContact)    { sv('f-bizContact', basicInfo.bizContact);    }
+    if (basicInfo.bizField)      { sv('f-field',      basicInfo.bizField);      }
+    if (basicInfo.consultantName){ sv('f-consultant', basicInfo.consultantName); }
     markFormFilled(1); markFormFilled(2);
     setStepDone('extract');
     setProgress(1/8);
@@ -968,7 +964,8 @@ JSON 형식으로만 출력:
 {
   "bizName": "업체명 (상호명)",
   "bizContact": "업체 담당자명 또는 대표자명",
-  "bizField": "업종/분야 (예: 음식점, 태권도장, 미용실 등)"
+  "bizField": "업종/분야 (예: 음식점, 태권도장, 미용실 등)",
+  "consultantName": "컨설턴트 이름 (문서에 등장하는 컨설턴트/멘토 이름)"
 }`);
     return parseJSON(raw) || {};
   } catch { return {}; }
@@ -1198,7 +1195,6 @@ async function buildDocx() {
 // DATA PERSISTENCE
 // ═══════════════════════════════════════════
 const SAVE_IDS = [
-  'consultantName',
   'f-bizName','f-bizContact','f-consultant','f-field','f-days',
   'f-bizOverview',
   'f-s1-date','f-s1-att','f-s1-tt','f-s1-ft','f-s1-content','f-s1-special',
@@ -1266,8 +1262,6 @@ function clearAll() {
   if (!confirm('모든 입력 내용과 저장 데이터를 초기화할까요?')) return;
   localStorage.removeItem('cf2-v1');
   SAVE_IDS.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-  document.getElementById('consultantName').value = '손미현, 권용준';
-  document.getElementById('f-consultant').value  = '손미현, 권용준';
   document.getElementById('f-days').value = '3';
 
   Object.keys(photos).forEach(k => delete photos[k]);
