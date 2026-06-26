@@ -327,6 +327,10 @@ input[type=file]{display:none}
   </a>
   <div class="h-right">
     <div class="h-key-wrap">
+      <span class="h-key-label">컨설턴트</span>
+      <input type="text" class="h-key" id="consultantName" value="손미현, 권용준" style="width:140px">
+    </div>
+    <div class="h-key-wrap">
       <span class="h-key-label">Gemini API Key</span>
       <input type="password" class="h-key" id="apiKey" placeholder="AIza..." autocomplete="off">
     </div>
@@ -335,33 +339,9 @@ input[type=file]{display:none}
 
 <main class="page">
 
-  <!-- STEP 1: 기본 정보 -->
+  <!-- STEP 1: 파일 업로드 -->
   <div class="s-head">
     <span class="s-step">Step 1</span>
-    <span class="s-title">업체 기본 정보</span>
-  </div>
-  <div class="info-bar">
-    <div class="ib-field">
-      <label>업체명</label>
-      <input type="text" id="bizName" placeholder="예: 이자카야 우규 역삼점">
-    </div>
-    <div class="ib-field">
-      <label>업체 담당자명</label>
-      <input type="text" id="bizContact" placeholder="예: 임채성대표 / 이명순">
-    </div>
-    <div class="ib-field">
-      <label>컨설턴트 이름</label>
-      <input type="text" id="consultantName" value="손미현, 권용준">
-    </div>
-    <div class="ib-field">
-      <label>분야</label>
-      <input type="text" id="bizField" placeholder="음식점">
-    </div>
-  </div>
-
-  <!-- STEP 2: 파일 업로드 -->
-  <div class="s-head">
-    <span class="s-step">Step 2</span>
     <span class="s-title">컨설팅 자료 첨부</span>
     <span class="s-sub">HTML·TXT·PDF·회의록 파일 + 사진</span>
   </div>
@@ -784,15 +764,21 @@ async function runAll() {
       h.nextElementSibling.classList.add('open');
     });
 
-    // Phase 1: extract (already done when files loaded)
+    // Phase 1: Extract basic info from uploaded files
+    setStepActive('extract');
+    const allTextsPreview = [files.s1?.text, files.s2?.text, files.s3?.text]
+      .filter(Boolean).map(t => t.slice(0, 3000)).join('\n\n===다음 회차===\n\n');
+    const basicInfo = await extractBasicInfo(allTextsPreview);
+    if (basicInfo.bizName)    { sv('f-bizName',    basicInfo.bizName);    }
+    if (basicInfo.bizContact) { sv('f-bizContact', basicInfo.bizContact); }
+    if (basicInfo.bizField)   { sv('f-field',      basicInfo.bizField);   }
+    sv('f-consultant', g('consultantName'));
+    markFormFilled(1); markFormFilled(2);
     setStepDone('extract');
     setProgress(1/8);
 
-    // Sync basic info to form
-    syncBasicInfo();
-
     // Phase 2: Analyze sessions in parallel
-    const [bizName] = [g('bizName')];
+    const bizName = v('f-bizName') || basicInfo.bizName || '';
     const [r1, r2, r3] = await Promise.all([
       analyzeSession(1, files.s1?.text || '', bizName),
       analyzeSession(2, files.s2?.text || '', bizName),
@@ -814,10 +800,6 @@ async function runAll() {
     setStepActive('overview');
     const overviewRes = await generateOverview(allTexts || allContent, bizName);
     sv('f-bizOverview', overviewRes);
-    sv('f-bizName', g('bizName'));
-    sv('f-bizContact', g('bizContact'));
-    sv('f-consultant', g('consultantName'));
-    sv('f-field', g('bizField'));
     markFormFilled(1); markFormFilled(2);
     setStepDone('overview'); setProgress(5/8);
 
@@ -975,11 +957,21 @@ JSON 없이 자연스러운 한국어 텍스트만 출력.`);
 // ═══════════════════════════════════════════
 // FILL FORM
 // ═══════════════════════════════════════════
-function syncBasicInfo() {
-  sv('f-bizName',   g('bizName'));
-  sv('f-bizContact', g('bizContact'));
-  sv('f-consultant', g('consultantName'));
-  sv('f-field',     g('bizField'));
+async function extractBasicInfo(text) {
+  try {
+    const raw = await callGemini(`다음 컨설팅 문서에서 업체 기본정보를 추출해 주세요.
+
+문서:
+${text.slice(0, 8000)}
+
+JSON 형식으로만 출력:
+{
+  "bizName": "업체명 (상호명)",
+  "bizContact": "업체 담당자명 또는 대표자명",
+  "bizField": "업종/분야 (예: 음식점, 태권도장, 미용실 등)"
+}`);
+    return parseJSON(raw) || {};
+  } catch { return {}; }
 }
 
 function fillSession(n, data) {
@@ -1206,7 +1198,7 @@ async function buildDocx() {
 // DATA PERSISTENCE
 // ═══════════════════════════════════════════
 const SAVE_IDS = [
-  'bizName','bizContact','consultantName','bizField',
+  'consultantName',
   'f-bizName','f-bizContact','f-consultant','f-field','f-days',
   'f-bizOverview',
   'f-s1-date','f-s1-att','f-s1-tt','f-s1-ft','f-s1-content','f-s1-special',
@@ -1275,7 +1267,7 @@ function clearAll() {
   localStorage.removeItem('cf2-v1');
   SAVE_IDS.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
   document.getElementById('consultantName').value = '손미현, 권용준';
-  document.getElementById('f-consultant').value = '손미현, 권용준';
+  document.getElementById('f-consultant').value  = '손미현, 권용준';
   document.getElementById('f-days').value = '3';
 
   Object.keys(photos).forEach(k => delete photos[k]);
