@@ -714,16 +714,43 @@ async function extractText(file) {
 }
 
 async function extractPdf(file) {
-  if (typeof pdfjsLib === 'undefined') throw new Error('PDF 라이브러리를 불러올 수 없습니다. HTML 또는 TXT 파일로 변환 후 업로드해 주세요.');
-  const buf = await file.arrayBuffer();
-  const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
-  let txt = '';
-  for (let i = 1; i <= pdf.numPages; i++) {
-    const page = await pdf.getPage(i);
-    const content = await page.getTextContent();
-    txt += content.items.map(it => it.str).join(' ') + '\n';
+  // 1차: PDF.js로 텍스트 레이어 추출
+  if (typeof pdfjsLib !== 'undefined') {
+    try {
+      const buf = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+      let txt = '';
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        txt += content.items.map(it => it.str).join(' ') + '\n';
+      }
+      if (txt.trim().length > 50) return txt.trim(); // 텍스트 레이어 있음
+    } catch {}
   }
-  return txt.trim();
+  // 2차: 스캔 PDF → Gemini에 직접 전송 (OCR)
+  const apiKey = document.getElementById('apiKey').value.trim();
+  if (!apiKey) throw new Error('스캔 PDF 처리에 Gemini API Key가 필요합니다. 우상단에 입력해주세요.');
+  const base64 = await new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = e => res(e.target.result.split(',')[1]);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+  const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ parts: [
+        { inline_data: { mime_type: 'application/pdf', data: base64 } },
+        { text: '이 PDF의 모든 텍스트 내용을 빠짐없이 그대로 추출해주세요. 표, 날짜, 이름, 수치 포함. 원문 그대로.' }
+      ]}],
+      generationConfig: { temperature: 0, maxOutputTokens: 8192 }
+    })
+  });
+  if (!resp.ok) { const e = await resp.json(); throw new Error(e.error?.message || 'PDF 추출 실패'); }
+  const data = await resp.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
 }
 
 function updateCardStatus() {} // no-op (session cards removed)
