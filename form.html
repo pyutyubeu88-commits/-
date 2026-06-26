@@ -62,20 +62,29 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--ink);background:#EEF3F0;m
 .s-title{font-size:17px;font-weight:700;color:var(--g8)}
 .s-sub{font-size:13px;color:var(--ink3);margin-left:auto}
 
-/* ─── BASIC INFO BAR ─── */
-.info-bar{
-  background:#fff;border:1px solid var(--bd);border-radius:var(--r);
-  padding:16px 20px;margin-bottom:24px;
-  display:grid;grid-template-columns:2fr 2fr 2fr 1fr;gap:14px;
-  box-shadow:var(--sh);
+/* ─── UNIFIED DROP ZONE ─── */
+.unified-dz{
+  border:2.5px dashed var(--bd);border-radius:var(--r);
+  padding:52px 24px;text-align:center;cursor:pointer;
+  transition:all .18s;background:var(--g0);margin-bottom:16px;
 }
-.ib-field label{font-size:11px;font-weight:600;color:var(--ink3);margin-bottom:4px;display:block}
-.ib-field input{
-  width:100%;padding:8px 12px;border:1.5px solid var(--bd);border-radius:7px;
-  font-size:13px;font-family:inherit;color:var(--ink);background:#fff;
-  transition:border-color .14s;
-}
-.ib-field input:focus{outline:none;border-color:var(--g5);box-shadow:0 0 0 3px rgba(46,139,98,.08)}
+.unified-dz:hover,.unified-dz.over{border-color:var(--g5);background:var(--g1)}
+.unified-dz.has-files{border-color:var(--g3);border-style:solid;background:#F0FBF5}
+.udz-icon{font-size:42px;margin-bottom:10px}
+.udz-main{font-size:16px;font-weight:700;color:var(--ink2);margin-bottom:6px}
+.udz-sub{font-size:13px;color:var(--ink4)}
+
+/* ─── FILE DETECT ─── */
+.fd-wrap{background:#fff;border:1px solid var(--g2);border-radius:var(--r);padding:16px 20px;margin-bottom:16px;box-shadow:var(--sh)}
+.fd-title{font-size:13px;font-weight:700;color:var(--g7);margin-bottom:12px}
+.fd-sessions{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.fd-sess{border:1px solid var(--bd);border-radius:9px;padding:10px 12px}
+.fd-sess-title{font-size:11px;font-weight:800;color:var(--g6);margin-bottom:6px}
+.fd-sess-doc{font-size:12px;color:var(--ink2);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fd-photo-row{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.fd-photo-thumb{width:38px;height:38px;border-radius:4px;object-fit:cover;border:1px solid var(--bd)}
+.fd-none{font-size:11px;color:var(--ink4);font-style:italic}
+@media(max-width:600px){.fd-sessions{grid-template-columns:1fr}}
 
 /* ─── SESSION CARDS ─── */
 .sess-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
@@ -339,19 +348,29 @@ input[type=file]{display:none}
   <div class="s-head">
     <span class="s-step">Step 1</span>
     <span class="s-title">컨설팅 자료 첨부</span>
-    <span class="s-sub">HTML·TXT·PDF·회의록 파일 + 사진</span>
-  </div>
-  <div class="sess-cards" id="sessCards">
-    <!-- JS로 생성 -->
+    <span class="s-sub">회의록·보고서·사진 전부 한 번에</span>
   </div>
 
-  <!-- MASTER BUTTON -->
-  <div class="master-wrap">
+  <div class="unified-dz" id="unifiedDz"
+    ondragover="udzOver(event)" ondragleave="udzLeave()" ondrop="udzDrop(event)"
+    onclick="document.getElementById('fi-all').click()">
+    <div class="udz-icon">📁</div>
+    <div class="udz-main">파일을 모두 여기에 드래그하세요</div>
+    <div class="udz-sub">회의록·보고서 (HTML·TXT·PDF) + 현장사진 (JPG·PNG) — 전부 한 번에</div>
+  </div>
+  <input type="file" id="fi-all" multiple
+    accept=".html,.htm,.txt,.md,.pdf,.jpg,.jpeg,.png,.webp"
+    style="display:none" onchange="handleAllFiles(this.files)">
+
+  <!-- 파일 분류 결과 -->
+  <div id="fileDetect" style="display:none"></div>
+
+  <!-- MASTER BUTTON (수동 재실행용) -->
+  <div class="master-wrap" id="masterWrap" style="display:none">
     <button class="master-btn" id="masterBtn" onclick="runAll()">
       <span class="ai-icon">✨</span>
       전체 서식 자동완성
     </button>
-    <div class="master-btn-sub">파일 첨부 후 클릭 한 번으로 구청 제출 서식이 완성됩니다</div>
   </div>
 
   <!-- PROGRESS -->
@@ -383,6 +402,7 @@ input[type=file]{display:none}
   </div>
   <div class="btm-right">
     <button class="btn-dl btn-dl-sec" onclick="clearAll()"><span>초기화</span></button>
+    <button class="btn-dl btn-dl-sec" onclick="runAll()" id="rerunBtn" style="display:none"><span>✨ 재실행</span></button>
     <button class="btn-dl btn-dl-primary" onclick="generateAndDownload()">
       📄 <span>DOCX 다운로드</span>
     </button>
@@ -417,9 +437,7 @@ const PROG_STEPS = [
 // INIT
 // ═══════════════════════════════════════════
 window.addEventListener('DOMContentLoaded', () => {
-  initSessCards();
   initFormSections();
-  initFileInputs();
   loadData();
 
   const key = sessionStorage.getItem('gmKey');
@@ -439,83 +457,189 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // ═══════════════════════════════════════════
-// SESSION CARDS
+// UNIFIED FILE UPLOAD
 // ═══════════════════════════════════════════
-function initSessCards() {
-  const container = document.getElementById('sessCards');
-  container.innerHTML = '';
-  [1,2,3].forEach(n => {
-    container.insertAdjacentHTML('beforeend', `
-      <div class="sess-card" id="sc-s${n}">
-        <div class="sc-header">
-          <span class="sc-num">${n}회차</span>
-          <span class="sc-title">${n === 1 ? '1차 컨설팅' : n === 2 ? '2차 컨설팅' : '3차 컨설팅'}</span>
-          <span class="sc-status" id="sc-st-s${n}">대기</span>
-        </div>
-        <div class="sc-body">
-          <div class="drop-zone" id="dz-s${n}"
-            ondragover="dzOver(event,${n})" ondragleave="dzLeave(${n})" ondrop="dzDrop(event,${n})"
-            onclick="triggerFile(${n})">
-            <div class="dz-icon">📄</div>
-            <div class="dz-text">파일을 드래그하거나 클릭해서 첨부</div>
-            <div class="dz-sub">HTML·TXT·PDF 지원</div>
-            <div class="dz-file" id="dz-fn-s${n}" style="display:none"></div>
-          </div>
-          <div class="sc-photo-label">사진 첨부 (최대 4장)</div>
-          <div class="photo-row" id="pr-s${n}"></div>
-          <div class="photo-caps" id="pc-s${n}"></div>
-        </div>
-      </div>
-    `);
-    initPhotoRow(n);
-  });
-}
+function udzOver(e)  { e.preventDefault(); document.getElementById('unifiedDz').classList.add('over'); }
+function udzLeave()  { document.getElementById('unifiedDz').classList.remove('over'); }
+function udzDrop(e)  { e.preventDefault(); udzLeave(); handleAllFiles(e.dataTransfer.files); }
 
-function dzOver(e, n)   { e.preventDefault(); document.getElementById(`dz-s${n}`).classList.add('over'); }
-function dzLeave(n)     { document.getElementById(`dz-s${n}`).classList.remove('over'); }
-function dzDrop(e, n)   { e.preventDefault(); dzLeave(n); const f = e.dataTransfer.files[0]; if (f) loadDocFile(f, n); }
-function triggerFile(n) { document.getElementById(`fi-doc-s${n}`)?.click(); }
-
-function initFileInputs() {
-  const wrap = document.getElementById('fileInputs');
-  [1,2,3].forEach(n => {
-    // Document file input
-    const fi = document.createElement('input');
-    fi.type = 'file'; fi.accept = '.html,.htm,.txt,.md,.pdf,.docx'; fi.id = `fi-doc-s${n}`;
-    fi.addEventListener('change', e => { const f = e.target.files[0]; if (f) loadDocFile(f, n); });
-    wrap.appendChild(fi);
-    // Photo file inputs
-    for (let i = 0; i < 4; i++) {
-      const fp = document.createElement('input');
-      fp.type = 'file'; fp.accept = 'image/*'; fp.id = `fi-ph-s${n}-${i}`;
-      fp.addEventListener('change', e => { const f = e.target.files[0]; if (f) loadPhoto(f, n, i); });
-      wrap.appendChild(fp);
-    }
-  });
-}
-
-// ─── File loading ───
-async function loadDocFile(file, n) {
-  const dz = document.getElementById(`dz-s${n}`);
-  const fn = document.getElementById(`dz-fn-s${n}`);
-  dz.classList.add('filled');
-  fn.style.display = 'block';
-  fn.textContent = '⏳ 추출 중...';
+async function handleAllFiles(fileList) {
+  if (!fileList?.length) return;
+  const dz = document.getElementById('unifiedDz');
+  dz.classList.remove('over');
+  dz.innerHTML = `<div class="udz-icon">⏳</div><div class="udz-main">파일 분류 중...</div><div class="udz-sub">텍스트 추출 및 날짜 분석 중</div>`;
 
   try {
-    const text = await extractText(file);
-    files[`s${n}`] = { name: file.name, text };
-    fn.textContent = `✅ ${file.name}`;
-    document.getElementById(`sc-s${n}`).classList.add('has-file');
-    document.getElementById(`sc-st-s${n}`).textContent = '첨부됨';
-    updateCardStatus(n, 'ready');
+    const result = await classifyAndAssignFiles(Array.from(fileList));
+    dz.classList.add('has-files');
+    const docN = result.docCount, photoN = result.photoCount;
+    dz.innerHTML = `<div class="udz-icon">✅</div><div class="udz-main">분류 완료 — 문서 ${docN}개 · 사진 ${photoN}장</div><div class="udz-sub">클릭하면 파일 추가</div>`;
+    showFileDetect(result);
     scheduleSave();
-  } catch(e) {
-    fn.textContent = `❌ 오류: ${e.message}`;
-    dz.classList.remove('filled');
+    // 자동 시작
+    setTimeout(() => runAll(), 600);
+  } catch(err) {
+    dz.innerHTML = `<div class="udz-icon">❌</div><div class="udz-main">오류: ${err.message}</div><div class="udz-sub">다시 시도해 주세요</div>`;
+    dz.classList.remove('has-files');
   }
 }
 
+function showFileDetect(result) {
+  const { sessions, photoAssignments, docCount, photoCount } = result;
+  const el = document.getElementById('fileDetect');
+  const sessHtml = sessions.map((s, i) => {
+    const n = i + 1;
+    const docHtml = s
+      ? `<div class="fd-sess-doc">📄 ${s.file.name}</div>`
+      : `<div class="fd-none">문서 없음</div>`;
+    const thumbs = (photoAssignments[i] || [])
+      .map(u => `<img class="fd-photo-thumb" src="${u}">`)
+      .join('');
+    const photoHtml = thumbs
+      ? `<div class="fd-photo-row">${thumbs}</div>`
+      : `<div class="fd-none">사진 없음</div>`;
+    return `<div class="fd-sess"><div class="fd-sess-title">${n}회차</div>${docHtml}${photoHtml}</div>`;
+  }).join('');
+  el.innerHTML = `<div class="fd-wrap"><div class="fd-title">📋 파일 분류 결과 — 분석이 자동으로 시작됩니다</div><div class="fd-sessions">${sessHtml}</div></div>`;
+  el.style.display = '';
+  document.getElementById('masterWrap').style.display = 'none';
+  document.getElementById('rerunBtn').style.display = '';
+}
+
+// ─── File classification ───
+async function classifyAndAssignFiles(allFiles) {
+  const isImage = f => f.type.startsWith('image/') || /\.(jpe?g|png|webp|gif)$/i.test(f.name);
+  const docFiles   = allFiles.filter(f => !isImage(f));
+  const photoFiles = allFiles.filter(f =>  isImage(f));
+
+  // Extract text + date from each doc
+  const docData = await Promise.all(docFiles.map(async f => {
+    try {
+      const text = await extractText(f);
+      return { file: f, text, date: extractDateFromText(text) || new Date(f.lastModified) };
+    } catch {
+      return { file: f, text: '', date: new Date(f.lastModified) };
+    }
+  }));
+  docData.sort((a, b) => a.date - b.date);
+
+  // Assign docs to 3 sessions (merge extras into nearest slot)
+  const slots = docData.slice(0, 3).map(d => ({ ...d }));
+  docData.slice(3).forEach(d => {
+    let best = 0, minDiff = Infinity;
+    slots.forEach((s, i) => { const diff = Math.abs(d.date - s.date); if (diff < minDiff) { minDiff = diff; best = i; } });
+    slots[best].text += '\n\n' + d.text;
+  });
+  while (slots.length < 3) slots.push(null);
+
+  slots.forEach((s, i) => {
+    files[`s${i+1}`] = s ? { name: s.file.name, text: s.text } : null;
+  });
+
+  // Session dates for photo matching
+  const sessionDates = slots.map(s => s?.date || null);
+
+  // Read EXIF from photos + sort by date
+  const photosWithDates = await Promise.all(photoFiles.map(async f => ({
+    file: f,
+    date: await readExifDate(f),
+    dataUrl: await readAsDataUrl(f),
+    type: /png/i.test(f.type + f.name) ? 'png' : 'jpg',
+  })));
+  photosWithDates.sort((a, b) => a.date - b.date);
+
+  // Assign photos to nearest session (max 4 per session)
+  const counts = [0, 0, 0];
+  const photoAssignments = [[], [], []];
+
+  for (const photo of photosWithDates) {
+    let best = -1, minDiff = Infinity;
+    sessionDates.forEach((sd, i) => {
+      if (!sd || counts[i] >= 4) return;
+      const diff = Math.abs(photo.date - sd);
+      if (diff < minDiff) { minDiff = diff; best = i; }
+    });
+    // fallback: first non-full slot
+    if (best === -1) { best = counts.findIndex(c => c < 4); }
+    if (best >= 0) {
+      const n = best + 1, idx = counts[best];
+      photos[`s${n}-${idx}`] = { dataUrl: photo.dataUrl, type: photo.type, caption: '' };
+      photoAssignments[best].push(photo.dataUrl);
+      counts[best]++;
+    }
+  }
+
+  return { sessions: slots, photoAssignments, docCount: docFiles.length, photoCount: photoFiles.length };
+}
+
+// ─── EXIF date reader ───
+async function readExifDate(file) {
+  if (!/\.jpe?g$/i.test(file.name) && !file.type.includes('jpeg')) return new Date(file.lastModified);
+  try {
+    const buf = await file.slice(0, 65536).arrayBuffer();
+    const dv = new DataView(buf);
+    if (dv.getUint16(0) !== 0xFFD8) return new Date(file.lastModified);
+    let off = 2;
+    while (off < buf.byteLength - 4) {
+      const marker = dv.getUint16(off); off += 2;
+      if (marker === 0xFFE1) {
+        const hdr = String.fromCharCode(dv.getUint8(off+2),dv.getUint8(off+3),dv.getUint8(off+4),dv.getUint8(off+5));
+        if (hdr === 'Exif') {
+          const ts = off + 8;
+          const le = dv.getUint16(ts) === 0x4949;
+          const g16 = o => dv.getUint16(ts+o, le);
+          const g32 = o => dv.getUint32(ts+o, le);
+          const ifd0 = g32(4), n0 = g16(ifd0);
+          let exifPtr = null;
+          for (let i = 0; i < n0; i++) {
+            const eo = ifd0+2+i*12;
+            if (g16(eo) === 0x8769) { exifPtr = g32(eo+8); break; }
+          }
+          if (exifPtr) {
+            const ne = g16(exifPtr);
+            for (let i = 0; i < ne; i++) {
+              const eo = exifPtr+2+i*12;
+              if (g16(eo) === 0x9003) {
+                const vo = g32(eo+8);
+                let s = '';
+                for (let j = 0; j < 19; j++) s += String.fromCharCode(dv.getUint8(ts+vo+j));
+                const m = s.match(/(\d{4}):(\d{2}):(\d{2})/);
+                if (m) return new Date(+m[1], +m[2]-1, +m[3]);
+              }
+            }
+          }
+        }
+        break;
+      }
+      if ((marker & 0xFF00) !== 0xFF00) break;
+      off += dv.getUint16(off);
+    }
+  } catch {}
+  return new Date(file.lastModified);
+}
+
+function extractDateFromText(text) {
+  const p = [
+    /(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일/,
+    /(\d{4})\.(\d{1,2})\.(\d{1,2})/,
+    /(\d{4})-(\d{1,2})-(\d{1,2})/,
+  ];
+  for (const r of p) {
+    const m = text.match(r);
+    if (m) return new Date(+m[1], +m[2]-1, +m[3]);
+  }
+  return null;
+}
+
+function readAsDataUrl(file) {
+  return new Promise(resolve => {
+    const r = new FileReader();
+    r.onload = e => resolve(e.target.result);
+    r.readAsDataURL(file);
+  });
+}
+
+// ─── Text extraction ───
 async function extractText(file) {
   const name = file.name.toLowerCase();
   if (name.endsWith('.pdf')) return extractPdf(file);
@@ -542,77 +666,16 @@ async function extractPdf(file) {
   return txt.trim();
 }
 
-function updateCardStatus(n, status) {
-  const el = document.getElementById(`sc-st-s${n}`);
-  const card = document.getElementById(`sc-s${n}`);
-  if (status === 'ready') { el.textContent = '첨부됨'; }
-  if (status === 'done')  { el.textContent = '분석완료'; card.classList.add('done'); }
-}
-
-// ─── Photo loading ───
-function initPhotoRow(n) {
-  const row = document.getElementById(`pr-s${n}`);
-  row.innerHTML = '';
-  for (let i = 0; i < 4; i++) {
-    const thumb = document.createElement('div');
-    thumb.className = 'photo-thumb';
-    thumb.id = `pt-s${n}-${i}`;
-    thumb.innerHTML = `<span class="ph-icon">📷</span><button class="photo-rm" onclick="removePhoto(event,${n},${i})">✕</button>`;
-    thumb.addEventListener('click', () => document.getElementById(`fi-ph-s${n}-${i}`)?.click());
-    row.appendChild(thumb);
-  }
-}
-
-function loadPhoto(file, n, i) {
-  const reader = new FileReader();
-  reader.onload = e => {
-    const dataUrl = e.target.result;
-    const type = file.type.includes('png') ? 'png' : 'jpg';
-    photos[`s${n}-${i}`] = { dataUrl, type, caption: '' };
-    renderThumb(n, i);
-    renderCap(n, i);
-    scheduleSave();
-  };
-  reader.readAsDataURL(file);
-}
-
-function renderThumb(n, i) {
-  const thumb = document.getElementById(`pt-s${n}-${i}`);
-  if (!thumb) return;
-  const key = `s${n}-${i}`;
-  let img = thumb.querySelector('img');
-  if (photos[key]) {
-    if (!img) { img = document.createElement('img'); thumb.insertBefore(img, thumb.querySelector('.photo-rm')); }
-    img.src = photos[key].dataUrl;
-    thumb.classList.add('filled');
-  } else {
-    if (img) img.remove();
-    thumb.classList.remove('filled');
-  }
-}
-
-function renderCap(n, i) {
-  const caps = document.getElementById(`pc-s${n}`);
-  const key = `s${n}-${i}`; const id = `cap-${key}`;
-  if (photos[key] && !document.getElementById(id)) {
-    const inp = document.createElement('input');
-    inp.type = 'text'; inp.className = 'cap-in'; inp.id = id;
-    inp.placeholder = `사진${i+1} 캡션`; inp.value = photos[key].caption || '';
-    inp.dataset.key = key;
-    inp.addEventListener('input', e => { if (photos[key]) photos[key].caption = e.target.value; scheduleSave(); });
-    caps.appendChild(inp);
-  }
-}
+function updateCardStatus() {} // no-op (session cards removed)
 
 function removePhoto(e, n, i) {
   e.stopPropagation();
-  const key = `s${n}-${i}`;
-  delete photos[key];
-  renderThumb(n, i);
-  document.getElementById(`cap-${key}`)?.remove();
-  document.getElementById(`fi-ph-s${n}-${i}`).value = '';
+  delete photos[`s${n}-${i}`];
   scheduleSave();
 }
+
+function renderThumb() {}
+function renderCap()   {}
 
 // ═══════════════════════════════════════════
 // FORM SECTIONS INIT
@@ -821,9 +884,9 @@ async function runAll() {
     markFormFilled(5); markFormFilled(6);
     setStepDone('result'); setStepDone('suggest'); setProgress(8/8);
 
-    document.getElementById('progTitle').textContent = '✅ 자동완성 완료! 서식을 검토해주세요';
-    showToast('서식 자동완성 완료 ✓');
+    document.getElementById('progTitle').textContent = '✅ 자동완성 완료! DOCX 다운로드 중...';
     scheduleSave();
+    await generateAndDownload();
 
   } catch(e) {
     console.error(e);
@@ -1233,15 +1296,15 @@ function loadData() {
     SAVE_IDS.forEach(id => { const el = document.getElementById(id); if (el && d[id] !== undefined) el.value = d[id]; });
     if (d._res?.length) setResRows(d._res);
 
-    // Restore file name hints
+    // Restore file hints in unified dz
     if (d._files) {
-      ['s1','s2','s3'].forEach(k => {
-        if (d._files[k]) {
-          const fn = document.getElementById(`dz-fn-${k}`);
-          if (fn) { fn.style.display='block'; fn.textContent = `📂 ${d._files[k].name} (텍스트 저장됨, 재첨부 불필요)`; }
-          document.getElementById(`sc-${k}`)?.classList.add('has-file');
-        }
-      });
+      const names = ['s1','s2','s3'].filter(k => d._files[k]).map(k => d._files[k].name);
+      if (names.length) {
+        const dz = document.getElementById('unifiedDz');
+        dz.classList.add('has-files');
+        dz.innerHTML = `<div class="udz-icon">📂</div><div class="udz-main">이전 데이터 복원됨 (${names.length}개 파일)</div><div class="udz-sub">${names.join(' · ')}</div>`;
+        document.getElementById('rerunBtn').style.display = '';
+      }
     }
 
     // Sync filled state
@@ -1266,12 +1329,14 @@ function clearAll() {
 
   Object.keys(photos).forEach(k => delete photos[k]);
   Object.keys(files).forEach(k => delete files[k]);
-  [1,2,3].forEach(n => {
-    for (let i=0;i<4;i++) { renderThumb(n,i); document.getElementById(`cap-s${n}-${i}`)?.remove(); }
-    document.getElementById(`dz-fn-s${n}`).style.display='none';
-    document.getElementById(`sc-s${n}`)?.classList.remove('has-file','done');
-    document.getElementById(`sc-st-s${n}`).textContent='대기';
-  });
+
+  // Reset unified drop zone
+  const dz = document.getElementById('unifiedDz');
+  dz.classList.remove('has-files');
+  dz.innerHTML = `<div class="udz-icon">📁</div><div class="udz-main">파일을 모두 여기에 드래그하세요</div><div class="udz-sub">회의록·보고서 (HTML·TXT·PDF) + 현장사진 (JPG·PNG) — 전부 한 번에</div>`;
+  document.getElementById('fileDetect').style.display = 'none';
+  document.getElementById('fi-all').value = '';
+  document.getElementById('rerunBtn').style.display = 'none';
 
   document.getElementById('res-tbody').innerHTML = '';
   addResRow();
