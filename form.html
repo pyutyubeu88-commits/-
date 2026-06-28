@@ -536,8 +536,6 @@ async function handleAllFiles(fileList) {
     dz.innerHTML = `<div class="udz-icon">✅</div><div class="udz-main">분류 완료 — 문서 ${docN}개 · 사진 ${photoN}장</div><div class="udz-sub">클릭하면 파일 추가</div>`;
     showFileDetect(result);
     scheduleSave();
-    // 자동 시작
-    setTimeout(() => runAll(), 600);
   } catch(err) {
     dz.innerHTML = `<div class="udz-icon">❌</div><div class="udz-main">오류: ${err.message}</div><div class="udz-sub">다시 시도해 주세요</div>`;
     dz.classList.remove('has-files');
@@ -560,10 +558,18 @@ function showFileDetect(result) {
       : `<div class="fd-none">사진 없음</div>`;
     return `<div class="fd-sess"><div class="fd-sess-title">${n}회차</div>${docHtml}${photoHtml}</div>`;
   }).join('');
-  el.innerHTML = `<div class="fd-wrap"><div class="fd-title">📋 파일 분류 결과 — 분석이 자동으로 시작됩니다</div><div class="fd-sessions">${sessHtml}</div></div>`;
+  el.innerHTML = `<div class="fd-wrap">
+    <div class="fd-title">📋 파일 분류 결과 — 회차·사진 배정을 확인하고 아래 버튼을 눌러주세요</div>
+    <div class="fd-sessions">${sessHtml}</div>
+    <div style="text-align:center;margin-top:18px">
+      <button class="master-btn" onclick="runAll()" style="font-size:15px;padding:14px 36px">
+        <span class="ai-icon">✨</span> AI 자동완성 시작
+      </button>
+      <div style="font-size:12px;color:var(--ink4);margin-top:8px">분류가 잘못됐다면 파일을 다시 드래그하세요</div>
+    </div>
+  </div>`;
   el.style.display = '';
   document.getElementById('masterWrap').style.display = 'none';
-  document.getElementById('rerunBtn').style.display = '';
 }
 
 // ─── File classification ───
@@ -1417,6 +1423,7 @@ function loadData() {
         dz.classList.add('has-files');
         dz.innerHTML = `<div class="udz-icon">📂</div><div class="udz-main">이전 데이터 복원됨 (${names.length}개 파일)</div><div class="udz-sub">${names.join(' · ')}</div>`;
         document.getElementById('rerunBtn').style.display = '';
+        document.getElementById('masterWrap').style.display = '';
       }
     }
 
