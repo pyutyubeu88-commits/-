@@ -297,6 +297,13 @@
 - 파일: 스크래치패드에 저장 후 SendUserFile로 전달(레포에는 커밋 안 함 — 개인 메시지 초안이라 프로젝트 산출물 아님)
 - 사용자 할일: 초안 검토 후 직접 전프로님께 발송(발송 여부/시점은 사용자 판단)
 
+### [2026-07-01] ★저장소 노출 문제 발견 → private 전환 요청, PSST HTML은 비커밋 전달★
+- Claude가 자체 점검(10/10 재검토 문화 적용) 중 발견: 이 저장소(pyutyubeu88-commits/-)가 **퍼블릭**인데 psst-business-plan.md(실명 고객사·매출·법인폐업 등 민감정보 포함)가 그대로 커밋·푸시되어 PR #20에 노출된 상태
+- 사용자 결정: 저장소를 private로 전환하기로 함. **단, Claude는 저장소 visibility 변경 권한/도구가 없음** → 사용자가 직접 처리해야 함: github.com/pyutyubeu88-commits/-/settings → Danger Zone → Change repository visibility → Private
+- ★TODO(사용자, 미완료)★: 위 설정 변경 실제로 진행했는지 다음 세션에서 확인 필요
+- 이후 PSST HTML 버전 제작 시에도 동일 원칙 적용: **레포에 커밋하지 않고** 스크래치패드에서 만들어 SendUserFile로만 전달(psst-business-plan.html, profile.html/ebook.html 그린테마 계승 + 부록A/B는 골드톤 구분). 헤드리스 크로미움 스크린샷으로 렌더링 검증 완료
+- 향후 이 사업(재창업 PSST) 관련 민감 콘텐츠는 저장소가 private로 전환되기 전까지 계속 비커밋 원칙 유지할 것
+
 ### [2026-06-23] 컨설턴트 프로필 사진 추가
 - 사용자가 프로필 사진(스튜디오 정면, 흰 셔츠/네이비 슬랙스, 1024x1536 JPEG) 업로드
 - 파일 자동저장 안 됨 → 세션 transcript(.jsonl)의 base64 image 블록에서 추출(마지막 image/jpeg)해 profile.jpg로 저장(루트)
