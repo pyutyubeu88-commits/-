@@ -178,3 +178,10 @@
 - profile.html이 src="profile.jpg" 참조 → 이제 /consultant 에서 사진 표시됨. og:image도 해결
 - 부수: .img-ph 자리표시를 점선박스→그린 그라데이션+골드 아바타(권)로 개선(폴백용)
 - 추출법(재사용): jsonl walk로 type=image source.data base64 디코드, PIL로 크기확인
+
+### [2026-07-02] Fable 5 멀티에이전트 오케스트레이션 워크플로 세팅
+- 설계 철학: 제일 비싼 모델(Fable 5)에게 코드를 못 짜게 한다 → 계획·배분·종합(판단)에만 토큰 사용
+- .claude/agents/deep-reasoner.md 신규: Opus 고정, 아키텍처·복잡한 디버깅·알고리즘 등 무거운 추론 전담
+- .claude/agents/fast-worker.md 신규: Sonnet 고정, 보일러플레이트·테스트·포매팅 등 기계적 실행 전담
+- CLAUDE.md에 "멀티에이전트 오케스트레이션 규칙" 섹션 추가: 배분 표, 고부담 결정 프로토콜(Opus+Codex 병렬 독립 자문 후 Fable이 종합), Codex를 "관점이 다른 시니어 동료"로 대하는 위임 문구
+- Codex 플러그인은 로컬 1회 설치 필요(저장소에는 가이드만): /plugin marketplace add openai/codex-plugin-cc → /plugin install codex@openai-codex → /codex:setup
