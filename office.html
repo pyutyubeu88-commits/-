@@ -7,53 +7,41 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#f2f3f5;color:#1a1a2e;min-height:100vh}
-
 .hdr{background:#fff;border-bottom:1px solid #e0e0e0;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .hdr-left .badge{font-size:10px;font-weight:700;color:#7c3aed;letter-spacing:1.5px;margin-bottom:4px}
 .hdr-title{font-size:20px;font-weight:900;color:#1a1a2e}
 .hdr-desc{font-size:12px;color:#777;margin-top:3px}
 .hdr-btns{display:flex;gap:8px}
 .btn{padding:8px 15px;border-radius:7px;border:none;cursor:pointer;font-size:12px;font-weight:700;font-family:inherit;transition:.2s}
-.btn-pause{background:#1a1a2e;color:#fff}
-.btn-pause:hover{background:#2d2d4e}
-.btn-event{background:#7c3aed;color:#fff}
-.btn-event:hover{background:#6d28d9}
-.btn-reset{background:#f0f0f0;color:#555}
-.btn-reset:hover{background:#e0e0e0}
-
+.btn-pause{background:#1a1a2e;color:#fff}.btn-pause:hover{background:#2d2d4e}
+.btn-event{background:#7c3aed;color:#fff}.btn-event:hover{background:#6d28d9}
+.btn-reset{background:#f0f0f0;color:#555}.btn-reset:hover{background:#e0e0e0}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-bottom:1px solid #e0e0e0;background:#fff}
-.stat-card{padding:14px 22px;border-right:1px solid #e8e8e8}
-.stat-card:last-child{border-right:none}
+.stat-card{padding:14px 22px;border-right:1px solid #e8e8e8}.stat-card:last-child{border-right:none}
 .stat-label{font-size:11px;color:#999;margin-bottom:5px;letter-spacing:.5px}
 .stat-val{font-size:30px;font-weight:900;color:#1a1a2e;line-height:1}
-
 .main{display:grid;grid-template-columns:260px 1fr 210px;gap:14px;padding:14px 20px}
-
 .panel{background:#fff;border-radius:10px;border:1px solid #e8e8e8}
 .panel-hdr{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f0f0f0}
 .panel-title{font-size:12px;font-weight:700;color:#1a1a2e}
 .panel-badge{font-size:9px;font-weight:700;color:#7c3aed;background:#f0ebff;padding:2px 7px;border-radius:4px;letter-spacing:.5px}
-
 .cmd-body{padding:12px}
 .cmd-textarea{width:100%;height:90px;border:1px solid #e0e0e0;border-radius:7px;padding:9px;font-size:12px;font-family:inherit;resize:none;background:#fafafa;outline:none;color:#333}
 .cmd-textarea:focus{border-color:#7c3aed}
 .cmd-btn{width:100%;padding:9px;background:#7c3aed;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px;font-family:inherit;transition:.2s}
-.cmd-btn:hover{background:#6d28d9}
-.cmd-btn:disabled{background:#b0b0c8;cursor:not-allowed}
+.cmd-btn:hover{background:#6d28d9}.cmd-btn:disabled{background:#b0b0c8;cursor:not-allowed}
 .speed-row{display:flex;gap:6px;margin-top:10px}
 .sp-btn{flex:1;padding:6px;border:1px solid #e0e0e0;border-radius:5px;background:#fff;font-size:12px;font-weight:600;cursor:pointer;color:#555;font-family:inherit;transition:.15s}
 .sp-btn.on{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
 .live-box{margin-top:12px}
 .live-lbl{font-size:10px;font-weight:700;color:#aaa;letter-spacing:.5px;margin-bottom:6px}
 .live-txt{font-size:11px;color:#444;line-height:1.7;background:#f8f8f8;border-radius:7px;padding:9px;min-height:60px}
-
 .cvs-panel{background:#fff;border-radius:10px;border:1px solid #e8e8e8;overflow:hidden;display:flex;flex-direction:column}
 .cvs-hdr-row{padding:11px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f0f0f0;flex-shrink:0}
 .live-badge{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:#ef4444}
 .live-dot{width:6px;height:6px;border-radius:50%;background:#ef4444;animation:blink 1.4s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 canvas{display:block;width:100%;flex:1}
-
 .status-body{padding:10px 12px}
 .char-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid #f5f5f5}
 .char-row:last-child{border-bottom:none}
@@ -62,29 +50,20 @@ canvas{display:block;width:100%;flex:1}
 .c-name{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .c-task{font-size:10px;color:#999;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .c-st{font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;white-space:nowrap}
-.st-idle{color:#6366f1;background:#eef2ff}
-.st-walk{color:#f59e0b;background:#fef3c7}
-.st-work{color:#10b981;background:#d1fae5}
-
+.st-idle{color:#6366f1;background:#eef2ff}.st-walk{color:#f59e0b;background:#fef3c7}.st-work{color:#10b981;background:#d1fae5}
 .log-wrap{padding:0 20px 20px}
 .log-row-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.log-title{font-size:12px;font-weight:700}
-.log-sub{font-size:10px;color:#aaa;cursor:pointer}
+.log-title{font-size:12px;font-weight:700}.log-sub{font-size:10px;color:#aaa;cursor:pointer}
 .log-list{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto}
-.log-list::-webkit-scrollbar{width:4px}
-.log-list::-webkit-scrollbar-thumb{background:#e0e0e0;border-radius:2px}
+.log-list::-webkit-scrollbar{width:4px}.log-list::-webkit-scrollbar-thumb{background:#e0e0e0;border-radius:2px}
 .log-item{background:#fff;border-radius:7px;padding:10px 14px;border:1px solid #e8e8e8;display:flex;gap:14px;align-items:flex-start}
 .log-id{font-size:11px;font-weight:700;color:#7c3aed;white-space:nowrap;font-family:monospace}
-.log-right{flex:1}
-.log-text{font-size:12px;color:#333;font-weight:500}
-.log-meta{font-size:10px;color:#aaa;margin-top:2px}
-
+.log-right{flex:1}.log-text{font-size:12px;color:#333;font-weight:500}.log-meta{font-size:10px;color:#aaa;margin-top:2px}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(16px);background:#1a1a2e;color:#fff;padding:9px 18px;border-radius:7px;font-size:12px;font-weight:600;opacity:0;transition:.25s;z-index:9999;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
-
 <header class="hdr">
   <div class="hdr-left">
     <div class="badge">AI-ONLY STAFF OFFICE</div>
@@ -97,22 +76,15 @@ canvas{display:block;width:100%;flex:1}
     <button class="btn btn-reset" onclick="resetAll()">초기화</button>
   </div>
 </header>
-
 <div class="stats">
   <div class="stat-card"><div class="stat-label">완료 업무</div><div class="stat-val" id="stQuest">0</div></div>
   <div class="stat-card"><div class="stat-label">성과 코인</div><div class="stat-val" id="stCoin">0</div></div>
   <div class="stat-card"><div class="stat-label">API 토큰</div><div class="stat-val" id="stToken">0</div></div>
   <div class="stat-card"><div class="stat-label">희귀 이벤트</div><div class="stat-val" id="stRare">0</div></div>
 </div>
-
 <div class="main">
-
-  <!-- LEFT: 업무 지시 -->
   <div class="panel">
-    <div class="panel-hdr">
-      <span class="panel-title">업무 지시</span>
-      <span class="panel-badge">AI Command</span>
-    </div>
+    <div class="panel-hdr"><span class="panel-title">업무 지시</span><span class="panel-badge">AI Command</span></div>
     <div class="cmd-body">
       <textarea class="cmd-textarea" id="cmdInput" placeholder="AI 드림팀에게 업무를 지시하세요&#10;&#10;예) SNS 마케팅 전략을 세워줘"></textarea>
       <button class="cmd-btn" id="cmdBtn" onclick="sendCommand()">드림팀에게 지시</button>
@@ -127,105 +99,42 @@ canvas{display:block;width:100%;flex:1}
       </div>
     </div>
   </div>
-
-  <!-- CENTER: 캔버스 오피스 -->
   <div class="cvs-panel">
-    <div class="cvs-hdr-row">
-      <span class="panel-title">4층 AI 오피스</span>
-      <div class="live-badge"><div class="live-dot"></div>Live Simulation</div>
-    </div>
+    <div class="cvs-hdr-row"><span class="panel-title">4층 AI 오피스</span><div class="live-badge"><div class="live-dot"></div>Live Simulation</div></div>
     <canvas id="cvs"></canvas>
   </div>
-
-  <!-- RIGHT: 직원 상태 -->
   <div class="panel">
-    <div class="panel-hdr">
-      <span class="panel-title">직원 상태</span>
-      <span class="panel-badge">Readable</span>
-    </div>
+    <div class="panel-hdr"><span class="panel-title">직원 상태</span><span class="panel-badge">Readable</span></div>
     <div class="status-body" id="charList"></div>
   </div>
-
 </div>
-
-<!-- LOG -->
 <div class="log-wrap">
-  <div class="log-row-hdr">
-    <div class="log-title">업무 큐 · AI 이벤트 로그</div>
-    <div class="log-sub">실시간 업데이트</div>
-  </div>
+  <div class="log-row-hdr"><div class="log-title">업무 큐 · AI 이벤트 로그</div><div class="log-sub">실시간 업데이트</div></div>
   <div class="log-list" id="logList"></div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
-const _a='c2stYW50LWFwaTAzLUlfaUtWYThPSk91QlEtUFd0WUFKeTJo';
-const _b='WUtjMGdTYlpRVHhVcGp0Z0w0Yy11NVJXbDN5dFNQb283RFZk';
-const _c='MFBfUlFicGQwZFc5bV9PVzBlT0EwSEFmXy1nLVllVVp5UUFB';
-const K=atob(_a+_b+_c);
-const AU='https://api.anthropic.com/v1/messages';
-
-const cvs=document.getElementById('cvs');
-const ctx=cvs.getContext('2d');
-const LW=480,LH=400;
-cvs.width=LW*2;cvs.height=LH*2;
-cvs.style.width=LW+'px';cvs.style.height=LH+'px';
-ctx.scale(2,2);
-
-const FL=[
-  {label:'4F',name:'전략 회의층',y:0,h:100,bg:'#1c1008',line:'#5d3a1a'},
-  {label:'3F',name:'콘텐츠 제작층',y:100,h:100,bg:'#08140a',line:'#1a4a20'},
-  {label:'2F',name:'세일즈 카피층',y:200,h:100,bg:'#08080f',line:'#1a1a4a'},
-  {label:'1F',name:'운영 자동화층',y:300,h:100,bg:'#120808',line:'#4a1a1a'},
-];
-
-const CHARS=[
-  {name:'Hormozi',role:'오퍼 설계',fi:0,col:'#e74c3c',x:90,y:45,tx:90,ty:45,st:'idle',wt:0},
-  {name:'Godin',role:'포지셔닝',fi:0,col:'#9b59b6',x:330,y:55,tx:330,ty:55,st:'idle',wt:0},
-  {name:'Gary Vee',role:'콘텐츠',fi:1,col:'#e67e22',x:90,y:145,tx:90,ty:145,st:'idle',wt:0},
-  {name:'Brunson',role:'퍼널 설계',fi:1,col:'#3498db',x:350,y:155,tx:350,ty:155,st:'idle',wt:0},
-  {name:'Belfort',role:'세일즈',fi:2,col:'#27ae60',x:90,y:245,tx:90,ty:245,st:'idle',wt:0},
-  {name:'Kennedy',role:'카피라이팅',fi:2,col:'#795548',x:340,y:255,tx:340,ty:255,st:'idle',wt:0},
-  {name:'Cardone',role:'10X 운영',fi:3,col:'#00bcd4',x:90,y:345,tx:90,ty:345,st:'idle',wt:0},
-  {name:'Robbins',role:'에너지',fi:3,col:'#f39c12',x:340,y:355,tx:340,ty:355,st:'idle',wt:0},
-];
-
-const TASKS=[
-  ['오퍼 분석 중','전략 회의 중','시장 조사 중','포지셔닝 검토','경쟁사 분석'],
-  ['카드뉴스 제작','영상 스크립트','SNS 기획 중','콘텐츠 기획','릴스 제작'],
-  ['세일즈 스크립트','카피라이팅 중','고객 분석 중','클로징 전략','이메일 작성'],
-  ['자동화 설정 중','시스템 최적화','성과 측정 중','스케줄 관리','업무 배분'],
-];
-
-const WP=[
-  [{x:55,y:40},{x:120,y:50},{x:190,y:42},{x:240,y:55},{x:310,y:45},{x:385,y:50},{x:435,y:42}],
-  [{x:55,y:140},{x:110,y:150},{x:185,y:145},{x:250,y:155},{x:315,y:148},{x:385,y:150},{x:435,y:142}],
-  [{x:55,y:240},{x:110,y:250},{x:190,y:244},{x:260,y:255},{x:320,y:248},{x:385,y:250},{x:435,y:242}],
-  [{x:55,y:340},{x:115,y:350},{x:185,y:344},{x:260,y:355},{x:320,y:348},{x:385,y:350},{x:435,y:342}],
-];
-
-let quest=0,coins=0,tokens=0,rare=0;
-let paused=false,spd=1,tick=0,logIdx=1,lastTs=0;
-
+const cvs=document.getElementById('cvs'),ctx=cvs.getContext('2d'),LW=480,LH=400;
+cvs.width=LW*2;cvs.height=LH*2;cvs.style.width=LW+'px';cvs.style.height=LH+'px';ctx.scale(2,2);
+const FL=[{label:'4F',name:'전략 회의층',y:0,h:100,bg:'#1c1008',line:'#5d3a1a'},{label:'3F',name:'콘텐츠 제작층',y:100,h:100,bg:'#08140a',line:'#1a4a20'},{label:'2F',name:'세일즈 카피층',y:200,h:100,bg:'#08080f',line:'#1a1a4a'},{label:'1F',name:'운영 자동화층',y:300,h:100,bg:'#120808',line:'#4a1a1a'}];
+const CHARS=[{name:'Hormozi',role:'오퍼 설계',fi:0,col:'#e74c3c',x:90,y:45,tx:90,ty:45,st:'idle',wt:0},{name:'Godin',role:'포지셔닝',fi:0,col:'#9b59b6',x:330,y:55,tx:330,ty:55,st:'idle',wt:0},{name:'Gary Vee',role:'콘텐츠',fi:1,col:'#e67e22',x:90,y:145,tx:90,ty:145,st:'idle',wt:0},{name:'Brunson',role:'퍼널 설계',fi:1,col:'#3498db',x:350,y:155,tx:350,ty:155,st:'idle',wt:0},{name:'Belfort',role:'세일즈',fi:2,col:'#27ae60',x:90,y:245,tx:90,ty:245,st:'idle',wt:0},{name:'Kennedy',role:'카피라이팅',fi:2,col:'#795548',x:340,y:255,tx:340,ty:255,st:'idle',wt:0},{name:'Cardone',role:'10X 운영',fi:3,col:'#00bcd4',x:90,y:345,tx:90,ty:345,st:'idle',wt:0},{name:'Robbins',role:'에너지',fi:3,col:'#f39c12',x:340,y:355,tx:340,ty:355,st:'idle',wt:0}];
+const TASKS=[['오퍼 분석 중','전략 회의 중','시장 조사 중','포지셔닝 검토','경쟁사 분석'],['카드뉴스 제작','영상 스크립트','SNS 기획 중','콘텐츠 기획','릴스 제작'],['세일즈 스크립트','카피라이팅 중','고객 분석 중','클로징 전략','이메일 작성'],['자동화 설정 중','시스템 최적화','성과 측정 중','스케줄 관리','업무 배분']];
+const WP=[[{x:55,y:40},{x:120,y:50},{x:190,y:42},{x:240,y:55},{x:310,y:45},{x:385,y:50},{x:435,y:42}],[{x:55,y:140},{x:110,y:150},{x:185,y:145},{x:250,y:155},{x:315,y:148},{x:385,y:150},{x:435,y:142}],[{x:55,y:240},{x:110,y:250},{x:190,y:244},{x:260,y:255},{x:320,y:248},{x:385,y:250},{x:435,y:242}],[{x:55,y:340},{x:115,y:350},{x:185,y:344},{x:260,y:355},{x:320,y:348},{x:385,y:350},{x:435,y:342}]];
+let quest=0,coins=0,tokens=0,rare=0,paused=false,spd=1,tick=0,logIdx=1,lastTs=0;
 function r(x,y,w,h,c){ctx.fillStyle=c;ctx.fillRect(x,y,w,h);}
 function ci(x,y,rd,c){ctx.fillStyle=c;ctx.beginPath();ctx.arc(x,y,rd,0,Math.PI*2);ctx.fill();}
-
 function drawFurniture(){
   r(55,18,160,38,'#5c3317');r(57,20,156,34,'#8b5e2e');r(57,20,156,5,'#a0712e');
   for(let i=0;i<4;i++){r(65+i*38,10,18,10,'#3a3a3a');r(67+i*38,8,14,6,'#555');}
   for(let i=0;i<4;i++){r(65+i*38,58,18,8,'#3a3a3a');}
   r(5,8,28,72,'#c8c8c8');r(7,10,24,68,'#f0f0f0');r(7,10,24,3,'#d0d0d0');
   for(let i=0;i<5;i++){r(10,18+i*11,18,2,'#b0b0b0');}
-  r(290,22,90,32,'#6d4c41');r(290,17,90,9,'#5d3c35');
-  r(295,24,38,24,'#8d6b5a');r(337,24,38,24,'#8d6b5a');
-  r(305,56,60,14,'#a07840');
-  ci(445,18,10,'#2d7a4a');ci(445,18,6,'#1a5a32');r(442,26,6,10,'#6b4423');
+  r(290,22,90,32,'#6d4c41');r(290,17,90,9,'#5d3c35');r(295,24,38,24,'#8d6b5a');r(337,24,38,24,'#8d6b5a');
+  r(305,56,60,14,'#a07840');ci(445,18,10,'#2d7a4a');ci(445,18,6,'#1a5a32');r(442,26,6,10,'#6b4423');
   ctx.fillStyle='#c8a060';ctx.font='bold 9px monospace';ctx.textAlign='right';ctx.fillText('4F',474,52);
-
   const y3=100;
-  r(5,y3+18,110,45,'#1a2030');r(7,y3+20,50,32,'#111');r(9,y3+22,46,28,'#0a2a50');
-  r(9,y3+22,46,6,'#1560a8');for(let i=0;i<3;i++){r(11,y3+31+i*6,20+i*5,3,'#2a8af0');}
+  r(5,y3+18,110,45,'#1a2030');r(7,y3+20,50,32,'#0a2a50');r(9,y3+22,46,6,'#1560a8');
+  for(let i=0;i<3;i++){r(11,y3+31+i*6,20+i*5,3,'#2a8af0');}
   r(68,y3+22,16,20,'#2a2a2a');r(64,y3+18,24,8,'#3a3a3a');r(74,y3+42,4,22,'#333');r(64,y3+62,24,4,'#333');
   r(175,y3+25,120,42,'#181828');r(178,y3+28,52,30,'#0a1840');r(232,y3+28,52,30,'#200a40');
   for(let i=0;i<4;i++){r(180,y3+30+i*6,48,4,'rgba(80,120,255,0.3)');}
@@ -235,23 +144,19 @@ function drawFurniture(){
   for(let i=0;i<4;i++){r(335,y3+30+i*11,Math.min(80+i*5,110),4,'#bbb');}
   r(335,y3+76,50,12,'#fb8c00');r(390,y3+76,52,12,'#1e88e5');
   ctx.fillStyle='#4a9060';ctx.font='bold 9px monospace';ctx.textAlign='right';ctx.fillText('3F',474,152);
-
   const y2=200;
   r(5,y2+14,95,42,'#20302a');r(8,y2+17,38,28,'#0a1a10');r(49,y2+17,38,28,'#1a0a10');
   for(let i=0;i<3;i++){r(10,y2+22+i*7,20+i*4,3,'#00cc66');r(51,y2+22+i*7,20+i*4,3,'#cc0044');}
   r(110,y2+14,100,42,'#20302a');r(113,y2+17,90,28,'#0a1528');
   for(let i=0;i<4;i++){r(116,y2+20+i*6,Math.min(60+i*5,85),3,'#4fc3f7');}
-  r(5,y2+65,32,28,'#546e7a');
-  for(let i=0;i<3;i++){r(7,y2+67+i*9,28,7,'#78909c');r(17,y2+70+i*9,5,2,'#37474f');}
+  r(5,y2+65,32,28,'#546e7a');for(let i=0;i<3;i++){r(7,y2+67+i*9,28,7,'#78909c');r(17,y2+70+i*9,5,2,'#37474f');}
   r(250,y2+18,72,38,'#1a1a1a');for(let row=0;row<4;row++){for(let col=0;col<9;col++){r(254+col*7,y2+22+row*8,6,6,'#2a2a2a');}}
   r(340,y2+18,72,38,'#1a1a1a');for(let row=0;row<4;row++){for(let col=0;col<9;col++){r(344+col*7,y2+22+row*8,6,6,'#2a2a2a');}}
   r(420,y2+4,50,88,'#4e342e');
   const bk=['#e53935','#1e88e5','#43a047','#fb8c00','#8e24aa','#00897b','#f06292','#fdd835'];
   for(let s=0;s<3;s++){let bx=422;for(let b=0;b<10;b++){const bw=4+(b*s)%3;r(bx,y2+7+s*28,bw,20,bk[(s*10+b)%bk.length]);bx+=bw+1;if(bx>468)break;}r(420,y2+27+s*28,50,3,'#6d4c41');}
   ctx.fillStyle='#5858a0';ctx.font='bold 9px monospace';ctx.textAlign='right';ctx.fillText('2F',474,252);
-
-  const y1=300;
-  const lg=['#00ff41','#0af','#ff3','#f0a','#0f8','#f50','#fff'];
+  const y1=300,lg=['#00ff41','#0af','#ff3','#f0a','#0f8','#f50','#fff'];
   for(let rack=0;rack<2;rack++){const rx=5+rack*42;r(rx,y1+4,36,88,'#111');r(rx+2,y1+6,32,84,'#191919');for(let i=0;i<7;i++){r(rx+4,y1+8+i*12,28,10,'#222');ctx.fillStyle=lg[i];ctx.beginPath();ctx.arc(rx+9,y1+13+i*12,3,0,Math.PI*2);ctx.fill();r(rx+15,y1+10+i*12,16,6,'#333');}}
   r(100,y1+22,185,55,'#0d1520');r(102,y1+24,181,51,'#0a1018');
   const cp=['#00ff41','#0af','#ff3','#f0a','#0f8','#f50'];
@@ -267,120 +172,25 @@ function drawFurniture(){
   for(let i=0;i<5;i++){r(424,y1+12+i*15,42,11,ab[i]);r(426,y1+14+i*15,20,7,'rgba(255,255,255,.4)');}
   ctx.fillStyle='#a04040';ctx.font='bold 9px monospace';ctx.textAlign='right';ctx.fillText('1F',474,352);
 }
-
-function drawChar(c){
-  const {x,y,col,name,st}=c;
-  ctx.fillStyle='rgba(0,0,0,0.25)';ctx.beginPath();ctx.ellipse(x,y+14,7,3,0,0,Math.PI*2);ctx.fill();
-  const lw=st==='walk'?Math.sin(tick*0.15)*3:0;
-  r(x-5,y+8,5,10+lw,'#2a2a2a');r(x+1,y+8,5,10-lw,'#333');
-  r(x-6,y-4,12,13,col);
-  ctx.fillStyle='#e8a87c';ctx.beginPath();ctx.arc(x,y-9,7,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,y-12,7,Math.PI,0);ctx.fill();
-  r(x-7,y-16,14,6,col);
-  r(x-4,y-11,3,3,'#fff');r(x+1,y-11,3,3,'#fff');
-  r(x-3,y-10,2,2,'#1a1a1a');r(x+2,y-10,2,2,'#1a1a1a');
-  ctx.font='bold 7px monospace';
-  const tw=ctx.measureText(name).width;
-  ctx.fillStyle='rgba(0,0,0,.75)';ctx.fillRect(x-tw/2-3,y-28,tw+6,11);
-  ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(name,x,y-20);
-}
-
-function draw(){
-  FL.forEach(f=>{
-    r(0,f.y,LW,f.h,f.bg);
-    ctx.strokeStyle=f.line;ctx.lineWidth=.5;
-    ctx.beginPath();ctx.moveTo(0,f.y);ctx.lineTo(LW,f.y);ctx.stroke();
-    ctx.strokeStyle='rgba(255,255,255,0.03)';ctx.lineWidth=1;
-    for(let gx=0;gx<LW;gx+=20){ctx.beginPath();ctx.moveTo(gx,f.y);ctx.lineTo(gx,f.y+f.h);ctx.stroke();}
-  });
-  FL.forEach(f=>{const sy=f.y+f.h;if(sy>=LH)return;for(let i=0;i<6;i++){r(0,sy-3+i*.5,LW,1,`rgba(${i<3?'100,60,20':'60,40,20'},${.8-i*.15})`);}}); 
-  r(0,LH-20,LW,20,'#0a0a0a');
-  ctx.fillStyle='#00ff41';ctx.font='bold 10px monospace';ctx.textAlign='left';ctx.fillText('QUEST '+quest,12,LH-7);
-  ctx.fillStyle='#ffd700';ctx.textAlign='center';ctx.fillText('COIN '+coins,LW/2,LH-7);
-  ctx.fillStyle='#0af';ctx.textAlign='right';ctx.fillText('TOKEN '+tokens,LW-12,LH-7);
-  drawFurniture();
-  CHARS.forEach(drawChar);
-}
-
+function drawChar(c){const{x,y,col,name,st}=c;ctx.fillStyle='rgba(0,0,0,0.25)';ctx.beginPath();ctx.ellipse(x,y+14,7,3,0,0,Math.PI*2);ctx.fill();const lw=st==='walk'?Math.sin(tick*0.15)*3:0;r(x-5,y+8,5,10+lw,'#2a2a2a');r(x+1,y+8,5,10-lw,'#333');r(x-6,y-4,12,13,col);ctx.fillStyle='#e8a87c';ctx.beginPath();ctx.arc(x,y-9,7,0,Math.PI*2);ctx.fill();ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,y-12,7,Math.PI,0);ctx.fill();r(x-7,y-16,14,6,col);r(x-4,y-11,3,3,'#fff');r(x+1,y-11,3,3,'#fff');r(x-3,y-10,2,2,'#1a1a1a');r(x+2,y-10,2,2,'#1a1a1a');ctx.font='bold 7px monospace';const tw=ctx.measureText(name).width;ctx.fillStyle='rgba(0,0,0,.75)';ctx.fillRect(x-tw/2-3,y-28,tw+6,11);ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(name,x,y-20);}
+function draw(){FL.forEach(f=>{r(0,f.y,LW,f.h,f.bg);ctx.strokeStyle=f.line;ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(0,f.y);ctx.lineTo(LW,f.y);ctx.stroke();ctx.strokeStyle='rgba(255,255,255,0.03)';ctx.lineWidth=1;for(let gx=0;gx<LW;gx+=20){ctx.beginPath();ctx.moveTo(gx,f.y);ctx.lineTo(gx,f.y+f.h);ctx.stroke();}});FL.forEach(f=>{const sy=f.y+f.h;if(sy>=LH)return;for(let i=0;i<6;i++){r(0,sy-3+i*.5,LW,1,`rgba(${i<3?'100,60,20':'60,40,20'},${.8-i*.15})`);}}); r(0,LH-20,LW,20,'#0a0a0a');ctx.fillStyle='#00ff41';ctx.font='bold 10px monospace';ctx.textAlign='left';ctx.fillText('QUEST '+quest,12,LH-7);ctx.fillStyle='#ffd700';ctx.textAlign='center';ctx.fillText('COIN '+coins,LW/2,LH-7);ctx.fillStyle='#0af';ctx.textAlign='right';ctx.fillText('TOKEN '+tokens,LW-12,LH-7);drawFurniture();CHARS.forEach(drawChar);}
 function pickTarget(c){const p=WP[c.fi][Math.floor(Math.random()*WP[c.fi].length)];c.tx=p.x;c.ty=p.y;c.st='walk';}
-
-function update(dt){
-  tick++;
-  CHARS.forEach(c=>{
-    if(paused)return;
-    if(c.st==='idle'){c.wt-=dt*spd;if(c.wt<=0)pickTarget(c);}
-    else if(c.st==='walk'){
-      const dx=c.tx-c.x,dy=c.ty-c.y,dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<2){c.x=c.tx;c.y=c.ty;c.st='work';c.wt=2000+Math.random()*4000;
-        quest++;coins+=15+Math.floor(Math.random()*20);tokens+=Math.floor(Math.random()*80+20);
-        addLog(c.name,TASKS[c.fi][Math.floor(Math.random()*TASKS[c.fi].length)],c.col);
-        updateStats();updateStatus();
-      }else{const mv=Math.min(60*spd*dt/1000,dist);c.x+=dx/dist*mv;c.y+=dy/dist*mv;}
-    }else if(c.st==='work'){c.wt-=dt*spd;if(c.wt<=0){c.st='idle';c.wt=800+Math.random()*1200;}}
-  });
-}
-
-function updateStats(){
-  document.getElementById('stQuest').textContent=quest;
-  document.getElementById('stCoin').textContent=coins;
-  document.getElementById('stToken').textContent=tokens;
-  document.getElementById('stRare').textContent=rare;
-}
-
-function updateStatus(){
-  const stM={idle:'대기',walk:'이동',work:'작업'},clM={idle:'st-idle',walk:'st-walk',work:'st-work'};
-  document.getElementById('charList').innerHTML=CHARS.map(c=>`<div class="char-row"><div class="c-dot" style="background:${c.col}"></div><div class="c-info"><div class="c-name">${c.name}·${c.role}</div><div class="c-task">${FL[c.fi].name}</div></div><span class="c-st ${clM[c.st]}">${stM[c.st]}</span></div>`).join('');
-}
-
-function addLog(name,task,col){
-  const id='CX-'+String(logIdx++).padStart(4,'0');
-  const n=new Date(),h=n.getHours(),m=n.getMinutes(),s=n.getSeconds();
-  const time=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  const list=document.getElementById('logList');
-  const item=document.createElement('div');item.className='log-item';
-  item.innerHTML=`<div class="log-id">${id}</div><div class="log-right"><div class="log-text"><span style="color:${col};font-weight:700">${name}</span> → ${task} 완료</div><div class="log-meta">${time} · 코인 +${15+Math.floor(Math.random()*20)}</div></div>`;
-  list.insertBefore(item,list.firstChild);
-  if(list.children.length>30)list.removeChild(list.lastChild);
-}
-
+function update(dt){tick++;CHARS.forEach(c=>{if(paused)return;if(c.st==='idle'){c.wt-=dt*spd;if(c.wt<=0)pickTarget(c);}else if(c.st==='walk'){const dx=c.tx-c.x,dy=c.ty-c.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<2){c.x=c.tx;c.y=c.ty;c.st='work';c.wt=2000+Math.random()*4000;quest++;coins+=15+Math.floor(Math.random()*20);tokens+=Math.floor(Math.random()*80+20);addLog(c.name,TASKS[c.fi][Math.floor(Math.random()*TASKS[c.fi].length)],c.col);updateStats();updateStatus();}else{const mv=Math.min(60*spd*dt/1000,dist);c.x+=dx/dist*mv;c.y+=dy/dist*mv;}}else if(c.st==='work'){c.wt-=dt*spd;if(c.wt<=0){c.st='idle';c.wt=800+Math.random()*1200;}}});}
+function updateStats(){document.getElementById('stQuest').textContent=quest;document.getElementById('stCoin').textContent=coins;document.getElementById('stToken').textContent=tokens;document.getElementById('stRare').textContent=rare;}
+function updateStatus(){const stM={idle:'대기',walk:'이동',work:'작업'},clM={idle:'st-idle',walk:'st-walk',work:'st-work'};document.getElementById('charList').innerHTML=CHARS.map(c=>`<div class="char-row"><div class="c-dot" style="background:${c.col}"></div><div class="c-info"><div class="c-name">${c.name}·${c.role}</div><div class="c-task">${FL[c.fi].name}</div></div><span class="c-st ${clM[c.st]}">${stM[c.st]}</span></div>`).join('');}
+function addLog(name,task,col){const id='CX-'+String(logIdx++).padStart(4,'0');const n=new Date(),h=n.getHours(),m=n.getMinutes(),s=n.getSeconds();const time=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;const list=document.getElementById('logList');const item=document.createElement('div');item.className='log-item';item.innerHTML=`<div class="log-id">${id}</div><div class="log-right"><div class="log-text"><span style="color:${col};font-weight:700">${name}</span> → ${task} 완료</div><div class="log-meta">${time} · 코인 +${15+Math.floor(Math.random()*20)}</div></div>`;list.insertBefore(item,list.firstChild);if(list.children.length>30)list.removeChild(list.lastChild);}
 function togglePause(){paused=!paused;document.getElementById('pauseBtn').textContent=paused?'운영 재개':'운영 일시정지';toast(paused?'⏸ 일시정지':'▶ 재개');}
 function setSpeed(s,btn){spd=s;document.querySelectorAll('.sp-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
 function resetAll(){quest=0;coins=0;tokens=0;rare=0;logIdx=1;CHARS.forEach(c=>{c.st='idle';c.wt=Math.random()*2000;});document.getElementById('logList').innerHTML='';updateStats();updateStatus();toast('초기화 완료');}
 function triggerRare(){rare++;const n=['메가 세일즈 폭발','퍼플카우 발견','10X 모멘텀','바이럴 폭발','골든 클로즈'][Math.floor(Math.random()*5)];coins+=500+Math.floor(Math.random()*500);quest+=5;updateStats();addLog('드림팀','[희귀] '+n,'#ffd700');setLive('🚀 희귀 이벤트: '+n+'! 전원 긴급 대응 돌입.');toast('⭐ '+n);}
 function setLive(t){document.getElementById('liveTxt').textContent=t;}
-
-async function sendCommand(){
-  const inp=document.getElementById('cmdInput'),q=inp.value.trim();
-  if(!q){toast('업무 지시를 입력해주세요');return;}
-  const btn=document.getElementById('cmdBtn');btn.disabled=true;btn.textContent='AI 팀 분석 중...';
-  setLive('드림팀이 지시를 검토하고 있습니다...');
-  try{
-    const res=await fetch(AU,{method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':K,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-ipc':'true'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,
-        system:'당신은 8명의 AI 비즈니스 전문가 팀(Hormozi·오퍼설계, Godin·포지셔닝, Gary Vee·콘텐츠, Brunson·퍼널, Belfort·세일즈, Kennedy·카피, Cardone·10X운영, Robbins·에너지)의 팀 리더입니다. 사용자가 업무를 지시하면 팀이 어떻게 분담하여 처리할지 활기차고 구체적으로 2-3문장으로 한국어로 답하세요.',
-        messages:[{role:'user',content:q}]})
-    });
-    const d=await res.json(),ans=d?.content?.[0]?.text||'응답 없음';
-    setLive(ans);tokens+=(d?.usage?.input_tokens||0)+(d?.usage?.output_tokens||0);quest+=3;coins+=100;
-    updateStats();addLog('Claude','업무 분석: '+q.slice(0,25)+(q.length>25?'...':''),'#7c3aed');
-    CHARS.forEach(c=>{c.st='idle';c.wt=Math.random()*500;});inp.value='';
-  }catch(e){setLive('⚠️ 오류: '+e.message);toast('오류: '+e.message);}
-  finally{btn.disabled=false;btn.textContent='드림팀에게 지시';}
-}
-
+async function sendCommand(){const inp=document.getElementById('cmdInput'),q=inp.value.trim();if(!q){toast('업무 지시를 입력해주세요');return;}const btn=document.getElementById('cmdBtn');btn.disabled=true;btn.textContent='AI 팀 분석 중...';setLive('드림팀이 지시를 검토하고 있습니다...');try{const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,system:'당신은 8명의 AI 비즈니스 전문가 팀(Hormozi·오퍼설계, Godin·포지셔닝, Gary Vee·콘텐츠, Brunson·퍼널, Belfort·세일즈, Kennedy·카피, Cardone·10X운영, Robbins·에너지)의 팀 리더입니다. 사용자가 업무를 지시하면 팀이 어떻게 분담하여 처리할지 활기차고 구체적으로 2-3문장으로 한국어로 답하세요.',messages:[{role:'user',content:q}]})});const d=await res.json(),ans=d?.content?.[0]?.text||'응답 없음';setLive(ans);tokens+=(d?.usage?.input_tokens||0)+(d?.usage?.output_tokens||0);quest+=3;coins+=100;updateStats();addLog('Claude','업무 분석: '+q.slice(0,25)+(q.length>25?'...':''),'#7c3aed');CHARS.forEach(c=>{c.st='idle';c.wt=Math.random()*500;});inp.value='';}catch(e){setLive('⚠️ 오류: '+e.message);toast('오류: '+e.message);}finally{btn.disabled=false;btn.textContent='드림팀에게 지시';}}
 document.getElementById('cmdInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.ctrlKey)sendCommand();});
-
 const AMB=['오퍼 가치 방정식 최적화','퍼플카우 포지셔닝 재설계','콘텐츠 캘린더 수립','가치 사다리 단계 검토','클로징 스크립트 업데이트','세일즈 레터 초안 완료','10X 목표 재설정','피크 퍼포먼스 루틴 점검','SNS 알고리즘 분석','고객 아바타 정의','퍼널 전환율 분석','자동화 워크플로우 설정'];
-let ambI=0;
-setInterval(()=>{if(!paused){const c=CHARS[Math.floor(Math.random()*CHARS.length)];addLog(c.name,AMB[ambI%AMB.length],c.col);quest++;coins+=10;updateStats();updateStatus();ambI++;}},5000);
-
+let ambI=0;setInterval(()=>{if(!paused){const c=CHARS[Math.floor(Math.random()*CHARS.length)];addLog(c.name,AMB[ambI%AMB.length],c.col);quest++;coins+=10;updateStats();updateStatus();ambI++;}},5000);
 function loop(ts){const dt=Math.min(ts-lastTs,100);lastTs=ts;if(!paused)update(dt);ctx.clearRect(0,0,LW,LH);draw();requestAnimationFrame(loop);}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500);}
-
-CHARS.forEach(c=>{c.wt=Math.random()*3000;});
-updateStats();updateStatus();
-requestAnimationFrame(loop);
+CHARS.forEach(c=>{c.wt=Math.random()*3000;});updateStats();updateStatus();requestAnimationFrame(loop);
 </script>
 </body>
 </html>
