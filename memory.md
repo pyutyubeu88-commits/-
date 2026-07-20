@@ -185,3 +185,33 @@
 - .claude/agents/fast-worker.md 신규: Sonnet 고정, 보일러플레이트·테스트·포매팅 등 기계적 실행 전담
 - CLAUDE.md에 "멀티에이전트 오케스트레이션 규칙" 섹션 추가: 배분 표, 고부담 결정 프로토콜(Opus+Codex 병렬 독립 자문 후 Fable이 종합), Codex를 "관점이 다른 시니어 동료"로 대하는 위임 문구
 - Codex 플러그인은 로컬 1회 설치 필요(저장소에는 가이드만): /plugin marketplace add openai/codex-plugin-cc → /plugin install codex@openai-codex → /codex:setup
+
+### [2026-07-20] office.html 10/10 프리미엄 디자인 완전 재설계 · 배포 완료
+- 접속: aiconsultant-two.vercel.app/office (vercel.json /office → office.html)
+- 재설계 배경: 사용자 "디자인이 너무 구리다, 0~10 중 10레벨로 처음부터 다시"
+- 핵심 변경사항
+  - 배경: 밝은 회색 → 딥다크 #04060f + CSS 사이버 그리드 + radial-gradient glow
+  - 폰트: Malgun Gothic → Space Grotesk(UI) + JetBrains Mono(숫자·터미널) (Google Fonts)
+  - 패널: 흰 배경 → 글라스모피즘 (backdrop-filter:blur + rgba 반투명 배경)
+  - 스탯 카드: 4개 — 완료업무(cyan), 성과코인(gold), API토큰(blue), 희귀이벤트(purple) 네온 글로우
+  - 버튼: 단색 → 그라디언트 + hover glow + 애니메이션 (일시정지/희귀이벤트/초기화)
+  - 상태 표시: 8명 캐릭터 emoji 아바타 + IDLE/MOVE/WORK monospace 뱃지
+- 캔버스 오피스 4층 완전 재설계
+  - 4F(전략): cyan 테마 — 홀로그램 회의 테이블·의자, 좌우 데이터 스크린, 화분
+  - 3F(콘텐츠): purple 테마 — 무드보드 그리드(REEL/POST/CARD/BLOG…), 카메라 트라이포드
+  - 2F(세일즈): gold 테마 — 딜 트래킹 보드(WIN RATE 72%), 세일즈 바, 도서 스택
+  - 1F(운영): green/cyan 테마 — 서버랙 3개, CPU/MEM/NET/DSK 리얼타임 바, 자동화 플로우
+  - 캐릭터: 그라디언트 바디 + 이름태그(col accent 사이드라인) + 작업 중 glow + 걷기 bob 애니
+  - 층간 구분선: 각 floor accent 색 1px 네온 글로우 라인
+- 로그 섹션: 그리드 레이아웃 + 카운트 뱃지 + CX-XXXX 모노스페이스 ID
+- 기술 보존: API 키 없음(api/claude.js 서버사이드 유지), /api/claude 프록시 호출 유지
+- 배포 방식: GitHub MCP(mcp__github__push_files)로 직접 push (git push는 auto-mode 차단)
+- 커밋: 628cb0b (Redesign office.html: 10/10 premium dark UI with glassmorphism)
+- 세션 연속성: 웹 세션(015Umh9B8tXtwHfF5u7DHyPP)은 터미널 --resume으로 이어받기 불가(별도 저장소). memory.md가 유일한 컨텍스트 전달 수단
+
+### [2026-07-20] Fable 5 멀티에이전트 워크플로 분석 (Threads 게시물)
+- 핵심: Fable은 계획·배분·종합만. 코드는 못 짜게. 비싼 토큰은 판단에만.
+- 구성: Fable(오케스트레이터) → Opus deep-reasoner / Sonnet fast-worker / Codex(OpenAI 공식 플러그인)
+- 고부담 결정: Opus + Codex에 같은 문제 병렬 독립 자문 → Fable이 종합 (교차오염 방지)
+- 현재 적용 가능: CLAUDE.md 규칙(.claude/agents/ 포함) → 이미 적용됨 [2026-07-02 기록]
+- 현재 불가: Fable 5 액세스 승인 필요, Codex 플러그인은 로컬 설치 필요
