@@ -6,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{width:1080px;height:1350px}
+  html,body{width:1080px;height:1500px}
   body{
     font-family:'Noto Sans KR',sans-serif;
     background:linear-gradient(160deg,#0F2A1F 0%,#1B4332 55%,#2D6A4F 100%);
@@ -22,7 +22,7 @@
     width:460px;height:460px;border-radius:50%;
     background:radial-gradient(circle,rgba(255,183,3,.10) 0%,transparent 70%);
   }
-  .wrap{position:relative;z-index:2;padding:88px 80px 64px;height:100%;display:flex;flex-direction:column}
+  .wrap{position:relative;z-index:2;padding:64px 80px 32px;height:100%;display:flex;flex-direction:column}
 
   .lbl{
     font-size:20px;font-weight:700;letter-spacing:4px;
@@ -34,7 +34,7 @@
   }
   .tagline{
     font-size:32px;font-weight:500;color:rgba(255,255,255,.82);
-    line-height:1.55;margin-bottom:56px;
+    line-height:1.55;margin-bottom:40px;
   }
   .tagline b{color:#FFB703;font-weight:700}
 
@@ -52,7 +52,7 @@
   .p-name{font-size:34px;font-weight:900;letter-spacing:-.5px}
   .p-bio{font-size:22px;color:rgba(255,255,255,.68);margin-top:8px;line-height:1.5}
 
-  .points{display:flex;flex-direction:column;gap:18px;margin-bottom:auto}
+  .points{display:flex;flex-direction:column;gap:10px}
   .point{display:flex;align-items:flex-start;gap:16px;font-size:26px;color:rgba(255,255,255,.9);line-height:1.5}
   .point .dot{
     width:34px;height:34px;border-radius:10px;background:rgba(116,198,157,.22);
@@ -61,13 +61,23 @@
     flex-shrink:0;margin-top:3px;
   }
 
-  .contact{
-    margin-top:48px;border-top:1px solid rgba(255,255,255,.16);
-    padding-top:36px;display:flex;flex-direction:column;gap:14px;
+  .credential{margin-top:24px;text-align:center}
+  .cred-lbl{font-size:18px;font-weight:700;letter-spacing:2px;color:#74C69D;margin-bottom:14px}
+  .cred-card{
+    width:560px;max-width:100%;margin:0 auto;border-radius:14px;overflow:hidden;
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+    display:block;
   }
-  .c-row{display:flex;align-items:center;gap:14px;font-size:26px;font-weight:700}
+  .cred-card img{width:100%;display:block}
+
+  .contact{
+    margin-top:40px;border-top:1px solid rgba(255,255,255,.16);
+    padding-top:28px;display:flex;flex-direction:column;gap:10px;
+  }
+  .c-row{display:flex;align-items:center;gap:14px;font-size:28px;font-weight:700}
   .c-icon{font-size:26px}
-  .c-note{font-size:20px;color:rgba(255,255,255,.55);margin-top:10px;font-weight:400}
+  .c-note{font-size:20px;color:rgba(255,255,255,.55);margin-top:6px;font-weight:400}
 </style>
 </head>
 <body>
@@ -90,9 +100,13 @@
       <div class="point"><span class="dot">03</span>강남 근처면 대면으로, 편한 시간에</div>
     </div>
 
+    <div class="credential">
+      <div class="cred-lbl">강남구 공식 지정 AI 컨설턴트</div>
+      <div class="cred-card"><img src="business-card.jpg" alt="강남구 AI 컨설턴트 권용준 명함"></div>
+    </div>
+
     <div class="contact">
       <div class="c-row"><span class="c-icon">📞</span> 010-6783-2588</div>
-      <div class="c-row"><span class="c-icon">✉️</span> yjkwon@gangnamconsulting.com</div>
       <div class="c-note">이 번호로 문자·카톡 주시면 편한 시간 잡아드릴게요.</div>
     </div>
   </div>
