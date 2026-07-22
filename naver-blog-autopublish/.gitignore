@@ -1,0 +1,21 @@
+# 네이버 로그인 세션 쿠키 — 절대 커밋 금지
+session/
+
+# 발행 이력 / 시도 로그
+logs/
+
+# 생성된 초안 (재현 가능하므로 커밋 불필요 — 필요시 이 줄 지워도 됨)
+drafts/
+
+# 환경변수 (API 키, 텔레그램 토큰)
+.env
+
+# 파이썬
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Playwright
+playwright-report/
+test-results/
