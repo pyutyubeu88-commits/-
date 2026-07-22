@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
 """
-네이버 블로그 자동 발행 — Playwright로 저장된 로그인 세션을 재사용해서
+네이버 블로그 자동 임시저장 — Playwright로 저장된 로그인 세션을 재사용해서
 글쓰기 페이지를 조작한다.
 
 ⚠️ 본인 소유 블로그 전용. 클라이언트 계정에는 절대 사용하지 마라.
 ⚠️ 네이버 이용약관을 우회하는 방식이므로 계정 정지 리스크는 본인이 감수한다.
 ⚠️ 캡차/2단계인증/재로그인 화면이 보이면 즉시 중단한다 — 재시도하지 않는다.
+⚠️ 이 스크립트는 임시저장까지만 자동화하며, 실제 발행은 항상 사람이 네이버
+   앱/웹에서 직접 버튼을 눌러야 한다. 발행 버튼을 클릭하는 코드는 존재하지 않는다.
 
 사용법:
-    python auto_publish.py drafts/20260721_153000.json --mode=draft
-    python auto_publish.py drafts/20260721_153000.json --mode=publish
-
-mode=draft (기본): 임시저장 버튼까지만 클릭한다. 안전한 테스트용.
-mode=publish: 실제 발행 버튼까지 클릭한다. 시작 시 콘솔 확인(y/N)을 한 번 더 요구한다.
+    python auto_publish.py drafts/20260721_153000.json
 """
 import json
-import re
 import sys
 import time
 from datetime import datetime
@@ -49,12 +46,6 @@ SELECTORS = {
     # 임시저장 버튼
     # TODO: 실제 셀렉터 확인 필요
     "draft_button": "button.save_btn__bzc5B",
-    # 발행 버튼 (임시저장과 별개로 "발행" 팝업을 여는 버튼)
-    # TODO: 실제 셀렉터 확인 필요
-    "publish_open_button": "button.publish_btn__M9KqF",
-    # 발행 팝업 안의 최종 "발행" 확인 버튼
-    # TODO: 실제 셀렉터 확인 필요
-    "publish_confirm_button": "button.confirm_btn__WEaBq",
 }
 
 # TODO: 실제 URL 확인 필요 — 네이버 블로그 글쓰기 페이지 URL은
@@ -123,8 +114,8 @@ def load_draft(draft_path: Path) -> dict:
     return json.loads(draft_path.read_text(encoding="utf-8"))
 
 
-# ── 메인 발행 로직 ────────────────────────────────────────
-def publish_post(draft: dict, mode: str) -> None:
+# ── 메인 임시저장 로직 ────────────────────────────────────
+def publish_post(draft: dict) -> None:
     if not SESSION_FILE.exists():
         raise FileNotFoundError(
             f"세션 파일이 없습니다: {SESSION_FILE}\n먼저 capture_session.py 를 실행하세요."
@@ -170,54 +161,30 @@ def publish_post(draft: dict, mode: str) -> None:
 
         check_for_danger(page)
 
-        # 저장/발행
-        if mode == "draft":
-            try:
-                page.click(SELECTORS["draft_button"], timeout=TIMEOUT_MS)
-            except PlaywrightTimeoutError:
-                abort_and_alert(f"임시저장 버튼을 찾지 못함 (셀렉터 확인 필요): {SELECTORS['draft_button']}")
-            print("[완료] 임시저장까지 진행했습니다. (mode=draft — 실제 발행 아님)")
-        else:  # publish
-            try:
-                page.click(SELECTORS["publish_open_button"], timeout=TIMEOUT_MS)
-                page.click(SELECTORS["publish_confirm_button"], timeout=TIMEOUT_MS)
-            except PlaywrightTimeoutError:
-                abort_and_alert(
-                    "발행 버튼을 찾지 못함 (셀렉터 확인 필요): "
-                    f"{SELECTORS['publish_open_button']} / {SELECTORS['publish_confirm_button']}"
-                )
-            print("[완료] 발행까지 진행했습니다.")
+        # 임시저장
+        try:
+            page.click(SELECTORS["draft_button"], timeout=TIMEOUT_MS)
+        except PlaywrightTimeoutError:
+            abort_and_alert(f"임시저장 버튼을 찾지 못함 (셀렉터 확인 필요): {SELECTORS['draft_button']}")
+        print("[완료] 임시저장까지 진행했습니다. 실제 발행은 사람이 네이버에서 직접 눌러야 합니다.")
 
         check_for_danger(page)
         browser.close()
 
 
-def parse_args(argv: list[str]) -> tuple[Path, str]:
+def parse_args(argv: list[str]) -> Path:
     if len(argv) < 2:
-        print("사용법: python auto_publish.py drafts/<파일>.json --mode=draft|publish")
+        print("사용법: python auto_publish.py drafts/<파일>.json")
         sys.exit(1)
 
-    draft_path = Path(argv[1])
-    mode = "draft"
-    for arg in argv[2:]:
-        m = re.match(r"--mode=(draft|publish)", arg)
-        if m:
-            mode = m.group(1)
-
-    return draft_path, mode
+    return Path(argv[1])
 
 
 def main() -> int:
-    draft_path, mode = parse_args(sys.argv)
-
-    if mode == "publish":
-        confirm = input("정말 자동 발행하시겠습니까? 실제로 네이버에 글이 올라갑니다. (y/N): ")
-        if confirm.strip().lower() != "y":
-            print("취소되었습니다.")
-            return 0
+    draft_path = parse_args(sys.argv)
 
     if not can_publish_today():
-        send_alert(f"발행 거부: 하루 발행 제한 초과 ({draft_path.name})")
+        send_alert(f"임시저장 거부: 하루 제한 초과 ({draft_path.name})")
         log_attempt("REJECTED", f"rate limit exceeded, draft={draft_path.name}")
         return 1
 
@@ -229,19 +196,18 @@ def main() -> int:
         return 1
 
     try:
-        publish_post(draft, mode)
+        publish_post(draft)
     except AbortSignal:
         # abort_and_alert() 안에서 이미 알림/로그를 남겼으므로 여기서는 조용히 종료
         return 1
     except Exception as e:
-        send_alert(f"발행 실패 ({draft_path.name}, mode={mode}): {e}")
-        log_attempt("FAILED", f"draft={draft_path.name} mode={mode} error={e}")
+        send_alert(f"임시저장 실패 ({draft_path.name}): {e}")
+        log_attempt("FAILED", f"draft={draft_path.name} error={e}")
         return 1
 
-    if mode == "publish":
-        record_publish()
-    send_alert(f"발행 성공 ({draft_path.name}, mode={mode})")
-    log_attempt("SUCCESS", f"draft={draft_path.name} mode={mode}")
+    record_publish()
+    send_alert(f"임시저장 완료 ({draft_path.name})")
+    log_attempt("SUCCESS", f"draft={draft_path.name}")
     return 0
 
 

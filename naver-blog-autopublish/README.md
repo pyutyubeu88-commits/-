@@ -2,6 +2,8 @@
 
 ## ⚠️ 경고 — 반드시 읽을 것
 
+- **이 도구는 임시저장까지만 자동화하며, 실제 발행 기능은 코드에 아예 없다.**
+  최종 발행은 항상 사람이 네이버 앱/웹에서 직접 버튼을 눌러야 한다.
 - **이 도구는 본인 개인/사업 블로그 전용이다. 클라이언트 계정에는 절대 사용하지 않는다.**
 - 네이버는 개인 블로그 "글쓰기 API"를 2020년에 어뷰징 방지 목적으로 공식 종료했다.
   이 도구는 Playwright로 실제 로그인 세션을 재사용해 브라우저를 조작하는 방식이며,
@@ -23,7 +25,7 @@
 `# TODO: 실제 셀렉터 확인 필요` 주석이 달린 값들을 채워넣어야 한다:
 
 1. 본인 블로그의 글쓰기 페이지를 크롬에서 열고 F12(개발자도구) → Elements 탭
-2. 제목 입력란, 본문 에디터(iframe 여부 포함), 임시저장 버튼, 발행 버튼을
+2. 제목 입력란, 본문 에디터(iframe 여부 포함), 임시저장 버튼을
    각각 클릭해서 정확한 클래스명/셀렉터를 확인
 3. `auto_publish.py` 의 `SELECTORS` 딕셔너리와 `blog_id` 값을 실제 값으로 교체
 
@@ -44,11 +46,9 @@ playwright install chromium
    세션이 만료되면(오래 사용 안 했거나 네이버가 강제 로그아웃 시킨 경우) 재실행.
 3. `python content_generate.py "역삼동 태권도장 여름방학 특강"` — 주제를 넣으면
    Claude가 제목+본문+이미지 프롬프트를 생성해서 `drafts/<타임스탬프>.json` 저장
-4. `python auto_publish.py drafts/xxx.json --mode=draft` 로 먼저 임시저장까지만
-   테스트 (기본값이 draft라 `--mode=draft` 생략 가능)
-5. 임시저장 결과를 네이버 블로그에서 직접 확인한 후, 문제 없으면
-   `python auto_publish.py drafts/xxx.json --mode=publish` 로 실제 발행
-   (발행 직전 콘솔에서 한 번 더 y/N 확인을 요구한다)
+4. `python auto_publish.py drafts/xxx.json` 로 임시저장까지 진행
+5. 이후 네이버 앱/웹에서 직접 접속해 임시저장된 글을 확인하고, 문제 없으면
+   사람이 직접 "발행" 버튼을 눌러 최종 발행한다 (코드가 대신 눌러주지 않는다)
 
 ## 파일 구성
 
@@ -56,7 +56,7 @@ playwright install chromium
 |---|---|
 | `capture_session.py` | 사람이 수동 로그인 → 세션 쿠키 저장 |
 | `content_generate.py` | Claude API로 블로그 콘텐츠 생성 |
-| `auto_publish.py` | 저장된 세션으로 실제 임시저장/발행 |
+| `auto_publish.py` | 저장된 세션으로 실제 임시저장 (발행은 하지 않음) |
 | `rate_limiter.py` | 하루 발행 개수 제한 |
 | `telegram_alert.py` | 텔레그램 알림 (선택, 없으면 콘솔 출력) |
 
@@ -68,5 +68,5 @@ playwright install chromium
   로그인 후 세션 쿠키 `session/naver_state.json` 뿐)
 - 하루 발행 개수 하드 제한 (`MAX_POSTS_PER_DAY`, 기본 1)
 - 타이핑은 문자 단위 랜덤 딜레이(30~120ms)로 사람처럼 입력
-- `--mode=publish` 는 시작 시 콘솔 y/N 확인을 한 번 더 요구
+- 발행 버튼 클릭 자체가 코드에 없음 — 최종 발행은 항상 사람이 직접 한다
 - 모든 시도(성공/실패/중단)는 `logs/attempts.log` 에 타임스탬프와 함께 기록
