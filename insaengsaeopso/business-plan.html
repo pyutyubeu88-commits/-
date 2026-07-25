@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>인생사업소 — 사업 계획 정리</title>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --gd:#1B4332;--gm:#2D6A4F;--ga:#40916C;--gl:#F0FAF4;--gb:#B7E4C7;
+    --wh:#FFFFFF;--t1:#111827;--t2:#374151;--t3:#6B7280;--bd:#E5E7EB;
+    --acc:#FFB703;--r:12px;--sh:0 2px 16px rgba(27,67,50,.08);
+  }
+  body{font-family:'Noto Sans CJK KR','Noto Sans KR',sans-serif;color:var(--t1);line-height:1.75;background:var(--wh)}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px}
+
+  header{background:var(--gd);color:#fff;padding:64px 24px 48px}
+  header .wrap{text-align:center}
+  .lbl{font-size:12px;font-weight:700;letter-spacing:3px;color:#74C69D;text-transform:uppercase;margin-bottom:14px}
+  h1{font-size:40px;font-weight:900;letter-spacing:-1px;margin-bottom:14px}
+  header p{font-size:16px;color:rgba(255,255,255,.72);max-width:560px;margin:0 auto}
+
+  section{padding:52px 0;border-bottom:1px solid var(--bd)}
+  h2{font-size:22px;font-weight:900;color:var(--gd);margin-bottom:24px;letter-spacing:-.3px}
+  h2 .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:var(--gd);color:#fff;border-radius:8px;font-size:14px;margin-right:10px}
+
+  .card{background:var(--gl);border:1px solid var(--gb);border-radius:var(--r);padding:24px 28px;margin-bottom:16px}
+  .card h3{font-size:16px;font-weight:900;color:var(--gd);margin-bottom:8px}
+  .card p{font-size:14px;color:var(--t2)}
+
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+  th{background:var(--gd);color:#fff;padding:12px 14px;text-align:left;font-weight:700;font-size:13px}
+  td{padding:14px;border:1px solid var(--bd);vertical-align:top}
+  tr:nth-child(even) td{background:var(--gl)}
+  td.price{font-weight:900;color:var(--gd);white-space:nowrap}
+  td.stage{font-weight:700;color:var(--ga);white-space:nowrap}
+
+  .flow{display:flex;flex-direction:column;gap:0}
+  .fstep{display:flex;gap:20px;padding:18px 0;position:relative}
+  .fstep:not(:last-child)::before{content:'';position:absolute;left:19px;top:56px;bottom:-18px;width:2px;background:var(--gb)}
+  .fnum{width:40px;height:40px;border-radius:50%;background:var(--gd);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;z-index:1}
+  .fbody h4{font-size:15px;font-weight:900;color:var(--t1);margin-bottom:4px}
+  .fbody p{font-size:14px;color:var(--t3)}
+
+  .guard{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px dashed var(--bd)}
+  .guard:last-child{border-bottom:none}
+  .guard .gi{width:26px;height:26px;background:#FFF3CD;border:1px solid #FFE08A;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:2px}
+  .guard p{font-size:14px;color:var(--t2)}
+  .guard b{color:var(--t1)}
+
+  .fork{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+  .fork-card{border:2px solid var(--bd);border-radius:var(--r);padding:22px}
+  .fork-card.now{border-color:var(--ga);background:var(--gl)}
+  .fork-card h4{font-size:15px;font-weight:900;margin-bottom:10px}
+  .fork-card ul{padding-left:18px;font-size:13px;color:var(--t2);line-height:1.9}
+
+  .checklist{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+  .ck{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--t1)}
+  .ck .box{width:18px;height:18px;border:2px solid var(--ga);border-radius:5px;flex-shrink:0;margin-top:2px}
+
+  footer{padding:32px 24px;text-align:center;font-size:12px;color:var(--t3)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="lbl">Business Plan v1</div>
+    <h1>인생사업소</h1>
+    <p>사업이든 인생이든, 편하게 물어봐 — 권용준의 지인 소개 기반 1:1 멘토링 사업</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <h2><span class="num">1</span>사업 정의</h2>
+  <div class="card">
+    <h3>무엇인가</h3>
+    <p>강남구 AI 컨설팅 브랜드 위에 얹는 확장 서비스. 사업 고민과 인생 고민을 가리지 않고 1:1로 다루는 개인 멘토링. 13년 보험영업 + 유사투자자문업 직접 창업·운영 경험(2019~2025, 3인팀 월매출 1억)을 배경 신뢰로 깔되, 전면에 내세우지 않는다.</p>
+  </div>
+  <div class="card">
+    <h3>왜 지금인가</h3>
+    <p>가설이 아니라 이미 일어나고 있던 일이었다 — 몽슈슈·S&amp;H·지인 2명에게 사업 컨설팅을 하다가 자연스럽게 인생 상담(연애 등)까지 무료로 해주던 관계가 실재했다. 이건 새로 만드는 시장이 아니라, 이미 검증된 수요에 이름과 구조를 붙이는 작업이다.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">2</span>타겟 &amp; 채널</h2>
+  <table>
+    <tr><th width="20%">구분</th><th>내용</th></tr>
+    <tr><td class="stage">1차 타겟</td><td>기존 소상공인 클라이언트(몽슈슈·S&amp;H왁싱·이자카야우규·포차미루) + 그들이 소개하는 일반인. 사업 고민을 배제하지 않고 통합해서 다룬다.</td></tr>
+    <tr><td class="stage">지역</td><td>강남구 기반 오프라인 대면 우선. 온라인 확장은 나중 단계.</td></tr>
+    <tr><td class="stage">채널</td><td>콜드 아웃바운드 없음. 지인 소개(warm referral)만. "친구는 무료, 친구가 소개하는 사람이 유료" 구조.</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2><span class="num">3</span>오퍼 구조 — 4단 가격 사다리</h2>
+  <table>
+    <tr><th width="14%">단계</th><th width="30%">상품</th><th width="18%">가격</th><th>역할</th></tr>
+    <tr><td class="stage">0. 확신 이전</td><td>소개받은 사람과 첫 대면 (60분)</td><td class="price">무료</td><td>친구가 이미 검증한 신뢰를 새 사람에게 넘기는 자리. 이 자리에서 절대 팔지 않는다.</td></tr>
+    <tr><td class="stage">1. 입문</td><td>1회 정식 세션 (90분, 사업+인생 정리)</td><td class="price">15~20만원</td><td>처음 돈을 내는 문턱. 정리된 방향 메모 등 결과물을 남겨 값어치를 체감시킨다.</td></tr>
+    <tr><td class="stage">2. 핵심</td><td>월 1회×4주 정기 멘토링</td><td class="price">월 50~70만원</td><td>진짜 매출 구간. "옆에서 계속 봐주는 사람" 포지션.</td></tr>
+    <tr><td class="stage">3. 프리미엄</td><td>분기 단위 "인생사업 파트너" (수시 연락 가능)</td><td class="price">분기 200~300만원</td><td>소수만 받는다 — 독점성을 실제로 지켜야 가치가 유지된다.</td></tr>
+  </table>
+  <div class="card" style="margin-top:16px">
+    <h3>핵심은 0→1 전환</h3>
+    <p>여기서 파는 게 아니라 다음 만남을 자연스럽게 제안하는 것만으로 충분하다. "다음엔 좀 더 정리해서 90분 잡아볼까요?" 수준.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">4</span>법적 가드레일</h2>
+  <div class="guard"><div class="gi">⚖️</div><p><b>"상담" 대신 "멘토링"</b> — 심리상담사 자격 없이 임상적 뉘앙스의 "상담"을 표방하면 법적 리스크. 대신 "같이 방향을 찾아드리는 멘토링"으로 프레이밍.</p></div>
+  <div class="guard"><div class="gi">📉</div><p><b>"투자자문"으로 보이지 않게</b> — 유사투자자문업 경력은 트럼프발 시장 불확실성으로 자연 종료된 것이라 규제 이슈는 아니었지만, 새 오퍼가 자산관리/투자자문처럼 보이지 않도록 설계 유지.</p></div>
+  <div class="guard"><div class="gi">🤐</div><p><b>경력 노출은 "은근히 배경으로만"</b> — 13년 보험영업·유사투자자문업 이력은 profile.html 수준으로만 노출. 앞세워 팔지 않는다.</p></div>
+  <div class="guard"><div class="gi">💬</div><p><b>호칭은 중립으로</b> — 여성 고객이 대부분이고 연애 상담까지 포함되는 구조라, "형/오빠" 같은 친밀 호칭 대신 중립 호칭 사용. 경계는 브랜드 차원에서 먼저 그어둔다.</p></div>
+</section>
+
+<section>
+  <h2><span class="num">5</span>확장성 — 부수입인가, 본업급인가</h2>
+  <div class="card">
+    <h3>냉정한 진단</h3>
+    <p>지금 구조(1:1 대면, 소개 기반)로는 본업급 스케일이 안 된다. 1:1 멘토링은 시간을 파는 모델이라 하루 24시간이 물리적 천장이다. 유사투자자문업 때 월 1억을 찍은 건 유튜브 라이브(1:다) 구조였기 때문이지, 1:1이었다면 불가능했다.</p>
+  </div>
+  <div class="fork">
+    <div class="fork-card now">
+      <h4>🟢 지금 단계 — 부수입 트랙</h4>
+      <ul>
+        <li>1:1 대면, 소개 기반 그대로 유지</li>
+        <li>프리미엄 티어로 단가만 점진적으로 상승</li>
+        <li>추가 인프라 투자 없음</li>
+      </ul>
+    </div>
+    <div class="fork-card">
+      <h4>🔵 본업급 스케일 트랙 (미래 선택지)</h4>
+      <ul>
+        <li>핵심(2단계) 고객 5~10명 쌓이면 공통 고민 패턴 분석</li>
+        <li>1:1 인사이트를 그룹 세션/워크숍으로 복제</li>
+        <li>e북 사업 때처럼 콘텐츠 상품화 (이미 해본 패턴)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section style="border-bottom:none">
+  <h2><span class="num">6</span>다음 액션</h2>
+  <div class="checklist">
+    <div class="ck"><div class="box"></div>몽슈슈·S&amp;H·지인 2명에게 자연스럽게 소개 요청 ("주변에 이런 얘기 상대 필요한 사람 있어?")</div>
+    <div class="ck"><div class="box"></div>소개 들어오면 인생사업소 카톡 카드 전달</div>
+    <div class="ck"><div class="box"></div>0단계 무료 대면 — 그 자리에서 절대 팔지 않기</div>
+    <div class="ck"><div class="box"></div>자연스러운 타이밍에 1단계(90분 세션) 제안</div>
+    <div class="ck"><div class="box"></div>1단계 유료 전환 2~3명 쌓이면 2단계 가격 재검증</div>
+  </div>
+</section>
+
+</div>
+
+<footer>인생사업소 사업계획 v1 · 권용준 · 강남구</footer>
+
+</body>
+</html>
