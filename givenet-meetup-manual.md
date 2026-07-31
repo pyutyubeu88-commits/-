@@ -1,4 +1,4 @@
-# 강남서초 도도남 도도녀 모임 운영 매뉴얼 v1.2
+# 강남서초 도도남 도도녀 모임 운영 매뉴얼 v1.3
 
 > 브랜드명 변경 이력: 기브넷(GiveNet) → 도도넷 → 도도남 도도녀 (2026-07-31, "도도=도움주고 도움받고"의 줄임말 워드플레이를 모임명에 직접 반영. 이하 문서 내 짧게 지칭할 때는 "도도"로 표기)
 
@@ -182,4 +182,85 @@
 
 ---
 
-*작성: 2026-07-31 | 최종 수정: 2026-07-31 (브랜드명 도도남 도도녀 확정) | 검토: Billion-Dollar Board (Godin/Brunson/Vee/Kennedy 프레임 적용)*
+## 11. 대표 이미지
+
+**1차 시도 (폐기)**: `givenet-img/cover.html` — HTML+헤드리스 크로미움 렌더 방식, 스카이라인+글로우 네트워크 라인 콘셉트. 사용자 평가 "허접함" → 폐기. 소스 파일은 남아있으나 사용 안 함.
+
+**2~3차 시도 (디자인/트렌드 리뷰 후 폐기)**: GPT Image 2용 프롬프트로 전환. 1차 프롬프트 결과물이 롯데타워(잠실, 강남·서초 아님)를 랜드마크로 사용한 지리적 오류 발견 → 디자인전문가+트렌드세터 관점 리뷰로 랜드마크 오류·라운디드 폰트 톤 불일치·당근 마스코트 무단 차용·글로우 네트워크 비주얼 클리셰 지적 → 사용자가 "인간미 중시" 방향 전환 요청.
+
+**최종 확정 프롬프트 (사람 중심 + 여름 + 도도남 도도녀 브랜드명 반영)**:
+
+```
+Create a warm, human-centered 1:1 square (1080x1080) brand cover for "도도남 도도녀,"
+a Seoul neighborhood community where neighbors help each other. Design language:
+cozy community illustration — think a warm local gathering poster, NOT a
+corporate skyline, NOT fintech, NOT cold or glossy.
+
+SCENE
+A warmly-lit illustrated scene of a diverse group of people (5-6, mixed
+genders, Korean adults in their 30s-40s) gathered closely together outdoors
+in a Gangnam-style neighborhood street at golden hour, in SUMMER — soft
+string lights overhead, a cozy restaurant terrace glow in the background
+(no specific identifiable landmark). Everyone wears light summer clothing:
+short-sleeve linen shirts, breezy cotton dresses, rolled-up sleeves, sandals
+or light sneakers, some holding iced coffee cups; sunglasses pushed up on
+heads. Some figures are mid-gesture: one handing something to another, two
+shaking hands, one laughing with a hand on a friend's shoulder — small human
+moments of giving and connecting, not posed group-photo style. Warm amber-gold
+light (#FFB703) washes over the scene, deep green (#1B4332, #2D6A4F) used in
+shadows and background foliage/awnings, not as a cold dominant backdrop.
+
+STYLE
+Semi-realistic warm editorial illustration, gentle brush texture, soft film
+grain, painterly summer-evening warmth — similar to a boutique community
+event poster or indie brand campaign visual. Faces can be soft/stylized, not
+hyper-detailed photoreal, but clearly human and warm in expression. Avoid
+glossy 3D render look, avoid neon glow, avoid sterile vector flatness.
+
+TYPOGRAPHY (exact Korean text, correct spelling)
+Confident but warm sans-serif (Pretendard Bold weight, not rounded-bubbly,
+not corporate-cold), integrated naturally into the composition, not floating
+on a flat UI card:
+
+1. Small badge near top: "강남 · 서초 기반 3040 네트워크"
+2. Large headline, two lines, centered/upper-third:
+   Line 1 white: "강남서초"
+   Line 2 warm gold (#FFB703): "도도남 도도녀"
+3. Tagline below: "도움 주고, 도움 받고" ("도움" 두 단어 모두 bold white emphasis)
+4. Three soft pill tags near bottom, translucent warm-toned background:
+   "🍽 맛집탐방" / "🎯 취미모임" / "🌏 외국인 환영"
+5. Small caption at very bottom: "GIVE · CONNECT · GROW"
+
+MOOD
+Golden-hour summer warmth, genuine human connection, cozy neighborhood
+intimacy, inviting rather than aspirational-corporate. Should feel like
+"these are real people who'd help you," not "this is a premium fintech app."
+
+COLOR PALETTE: warm gold/amber (#FFB703) as dominant light, deep greens
+(#1B4332, #2D6A4F, #40916C) as grounding shadow/accent tones, warm skin
+tones, off-white highlights.
+
+NEGATIVE PROMPT: no skyscraper skyline as main subject, no glowing network
+lines, no glassmorphism UI cards, no cold blue tones, no corporate/fintech
+aesthetic, no winter/heavy clothing, no faceless silhouettes only, no
+watermark, no misspelled Korean.
+```
+
+**결과물**: GPT Image 2로 생성 완료, 사용자 확인 결과 텍스트 정확도·인간미·여름톤·브랜드컬러 전부 통과 (2026-07-31). 최종 대표 이미지로 채택.
+
+**남은 확인사항**: 당근 피드 축소 썸네일에서 헤드라인 가독성 확인 (사용자 진행 중, 결과 미보고)
+
+---
+
+## 12. 남은 액션 아이템 (개설 직전 체크리스트)
+
+- [ ] 최종 대표 이미지 축소 가독성 확인 (11번)
+- [ ] 당근 앱에서 실제 모임 개설 (2~7번 내용을 그대로 입력)
+- [ ] 고정 공지 2개 등록 (6번 안전안내 + 7번 내부운영원칙)
+- [ ] 첫 정기모임 "일정" 기능으로 등록
+- [ ] 지인 5~10명 콜드스타트 초대
+- [ ] 가입 신청 들어오면 4번 기준으로 심사
+
+---
+
+*작성: 2026-07-31 | 최종 수정: 2026-07-31 (v1.3 — 대표 이미지 확정, 액션 체크리스트 추가) | 검토: Billion-Dollar Board (Godin/Brunson/Vee/Kennedy 프레임 적용)*
