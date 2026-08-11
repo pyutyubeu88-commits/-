@@ -221,3 +221,4 @@
 - 구성: L1 78장 구조 → L2 4원소 치트키(완드/컵/소드/펜타클) → L3 바보의 여정 → L4 메이저 22장 정/역방향 표 → L5 숫자카드 수비학 패턴 → L6 원소×숫자 결합 훈련 → L7 코트카드 16종 → L8 스프레드(원카드/3카드/켈틱크로스) → L9 실전 리딩·질문설계 → L10 마스터(직관·역방향 심화·윤리·30일 루틴)
 - 디자인: 미스틱 인디고+골드 다크테마, 목차 앵커 네비, 반응형, 외부 의존성 없는 순수 HTML/CSS
 - 브랜치: claude/tarot-crash-course-iz116t
+- 배포: vercel.json에 /tarot → tarot-crash-course.html 리라이트 등록, index.html 푸터 하단에 링크 추가 (main 머지 후 aiconsultant-two.vercel.app/tarot 로 접속 가능)
