@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>타로카드 하루 마스터 코스 — 10 LEVEL</title>
+<style>
+  :root{
+    --bg:#0f0b1e;
+    --bg2:#171130;
+    --card:#1c1638;
+    --card2:#221b42;
+    --gold:#d4af37;
+    --gold-soft:#e8cf7a;
+    --text:#f1ecff;
+    --sub:#b8aede;
+    --line:#382f5e;
+    --wand:#e2725b;
+    --cup:#5b9bd5;
+    --sword:#a9a9c4;
+    --pent:#6fae6f;
+    --major:#d4af37;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:linear-gradient(180deg,var(--bg) 0%, #120d24 100%);
+    color:var(--text);
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    line-height:1.7;
+    padding-bottom:80px;
+  }
+  .hero{
+    text-align:center;
+    padding:56px 20px 40px;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(212,175,55,0.18), transparent 60%),
+      linear-gradient(180deg, #1a1333, #0f0b1e);
+    border-bottom:1px solid var(--line);
+  }
+  .hero .eyebrow{
+    letter-spacing:3px;
+    font-size:12px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:clamp(28px,6vw,44px);
+    margin:0 0 14px;
+    background:linear-gradient(135deg,#fff,var(--gold-soft));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    font-weight:800;
+  }
+  .hero p{
+    color:var(--sub);
+    max-width:560px;
+    margin:0 auto;
+    font-size:15px;
+  }
+  .stars{font-size:20px;letter-spacing:6px;color:var(--gold);opacity:.8;margin-bottom:18px;}
+
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px;}
+
+  .toc{
+    margin-top:-24px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:20px 22px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:8px;
+  }
+  .toc a{
+    color:var(--sub);
+    text-decoration:none;
+    font-size:13px;
+    padding:8px 10px;
+    border-radius:8px;
+    display:flex;
+    gap:8px;
+    align-items:center;
+    transition:background .15s;
+  }
+  .toc a:hover{background:var(--card2);color:var(--gold-soft);}
+  .toc a b{color:var(--gold);font-weight:700;}
+
+  section.level{
+    margin-top:34px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:var(--card);
+    overflow:hidden;
+    scroll-margin-top:16px;
+  }
+  .level-head{
+    padding:22px 24px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    background:linear-gradient(90deg, rgba(212,175,55,0.10), transparent);
+    border-bottom:1px solid var(--line);
+  }
+  .level-num{
+    flex:none;
+    width:44px;height:44px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),#a9822c);
+    color:#1a1333;
+    font-weight:800;
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;
+  }
+  .level-head h2{margin:0;font-size:19px;color:var(--text);}
+  .level-head .tag{font-size:12px;color:var(--sub);margin-top:3px;}
+  .level-body{padding:22px 24px 28px;}
+
+  .level-body h3{
+    color:var(--gold-soft);
+    font-size:15px;
+    margin:26px 0 10px;
+    padding-bottom:6px;
+    border-bottom:1px dashed var(--line);
+  }
+  .level-body h3:first-child{margin-top:0;}
+  .level-body p{color:#dcd6f5;font-size:14.5px;margin:8px 0;}
+  .level-body ul, .level-body ol{margin:8px 0;padding-left:20px;color:#dcd6f5;font-size:14.5px;}
+  .level-body li{margin:5px 0;}
+
+  .callout{
+    background:var(--card2);
+    border-left:3px solid var(--gold);
+    border-radius:10px;
+    padding:14px 16px;
+    margin:14px 0;
+    font-size:14px;
+    color:var(--gold-soft);
+  }
+  .callout b{color:#fff;}
+
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:var(--card2);color:var(--gold-soft);font-weight:600;}
+  td{color:#dcd6f5;}
+  tr:nth-child(even) td{background:rgba(255,255,255,0.02);}
+
+  .suit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:14px 0;}
+  .suit-card{border-radius:12px;padding:14px;border:1px solid var(--line);}
+  .suit-card.wand{background:linear-gradient(160deg,rgba(226,114,91,0.15),transparent);border-color:rgba(226,114,91,0.4);}
+  .suit-card.cup{background:linear-gradient(160deg,rgba(91,155,213,0.15),transparent);border-color:rgba(91,155,213,0.4);}
+  .suit-card.sword{background:linear-gradient(160deg,rgba(169,169,196,0.15),transparent);border-color:rgba(169,169,196,0.4);}
+  .suit-card.pent{background:linear-gradient(160deg,rgba(111,174,111,0.15),transparent);border-color:rgba(111,174,111,0.4);}
+  .suit-card .name{font-weight:700;font-size:14px;margin-bottom:4px;}
+  .suit-card .desc{font-size:12.5px;color:var(--sub);}
+
+  .journey{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin:14px 0;
+  }
+  .journey span{
+    font-size:12px;
+    background:var(--card2);
+    border:1px solid var(--line);
+    color:var(--gold-soft);
+    padding:5px 9px;
+    border-radius:20px;
+  }
+
+  .quiz{
+    margin-top:18px;
+    background:linear-gradient(135deg, rgba(212,175,55,0.08), transparent);
+    border:1px dashed var(--gold);
+    border-radius:12px;
+    padding:16px 18px;
+  }
+  .quiz .qtitle{font-size:13px;color:var(--gold-soft);font-weight:700;margin-bottom:8px;}
+  .quiz details{margin:6px 0;font-size:13.5px;color:#dcd6f5;}
+  .quiz summary{cursor:pointer;color:var(--text);}
+  .quiz summary::marker{color:var(--gold);}
+
+  .footer-note{
+    text-align:center;
+    color:var(--sub);
+    font-size:12.5px;
+    margin-top:50px;
+    padding:0 20px;
+  }
+  .badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .badge{font-size:11px;background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:3px 8px;border-radius:20px;}
+
+  @media (max-width:600px){
+    .level-head{padding:18px;}
+    .level-body{padding:18px 16px 22px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="stars">✦ ✧ ✦ ✧ ✦</div>
+  <div class="eyebrow">1-Day Tarot Mastery</div>
+  <h1>타로카드 하루 완성 강의</h1>
+  <p>비전문가도 오늘 안에 78장을 읽는 사람이 된다. Level 1(기초)부터 Level 10(실전 마스터)까지, 순서대로 따라오면 된다.</p>
+</div>
+
+<div class="wrap">
+
+  <nav class="toc">
+    <a href="#lv1"><b>01</b> 타로란 무엇인가</a>
+    <a href="#lv2"><b>02</b> 4원소 치트키</a>
+    <a href="#lv3"><b>03</b> 바보의 여정</a>
+    <a href="#lv4"><b>04</b> 메이저 22장</a>
+    <a href="#lv5"><b>05</b> 숫자카드 패턴</a>
+    <a href="#lv6"><b>06</b> 마이너 56장</a>
+    <a href="#lv7"><b>07</b> 코트카드 16장</a>
+    <a href="#lv8"><b>08</b> 스프레드</a>
+    <a href="#lv9"><b>09</b> 실전 리딩</a>
+    <a href="#lv10"><b>10</b> 마스터 레벨</a>
+  </nav>
+
+  <!-- LEVEL 1 -->
+  <section class="level" id="lv1">
+    <div class="level-head">
+      <div class="level-num">1</div>
+      <div>
+        <h2>타로란 무엇인가</h2>
+        <div class="tag">78장의 구조부터 이해한다 — 외우기 전에 지도를 그려라</div>
+      </div>
+    </div>
+    <div class="level-body">
+      <h3>타로카드는 왜 78장인가</h3>
+      <p>타로 한 벌은 <b>메이저 아르카나 22장</b> + <b>마이너 아르카나 56장</b>으로 이루어진다. 이 둘의 관계만 이해해도 절반은 끝난다.</p>
+      <div class="callout"><b>메이저 아르카나</b> = 인생의 큰 사건, 운명적 전환점, 영혼의 성장 단계.<br><b>마이너 아르카나</b> = 일상적인 사건, 구체적 상황, 매일의 감정과 선택.</div>
+      <p>비유하면 메이저는 "영화의 챕터 제목", 마이너는 "그 챕터 안의 구체적인 장면들"이다. 메이저가 나오면 큰 흐름을, 마이너가 나오면 디테일을 말한다고 생각하면 된다.</p>
+
+      <h3>마이너 아르카나의 구조</h3>
+      <p>마이너 56장은 트럼프 카드처럼 4개의 수트(문양)로 나뉘고, 각 수트는 <b>에이스(1)~10 숫자카드 10장 + 코트카드(인물) 4장</b>, 총 14장씩이다. 4수트 × 14장 = 56장.</p>
+
+      <h3>왜 "카드를 통째로 암기"하면 실패하는가</h3>
+      <p>78장의 뜻을 낱개로 외우려 하면 반드시 포기한다. 진짜 마스터들은 암기하지 않고 <b>몇 개의 원리(체계)</b>로 카드를 "계산"한다. 이 강의는 그 체계를 순서대로 알려준다:</p>
+      <ol>
+        <li>메이저는 <b>이야기(여정)</b>로 이해한다 → Level 3, 4</li>
+        <li>마이너 숫자카드는 <b>숫자의 공통 의미</b>로 이해한다 → Level 5</li>
+        <li>마이너 수트는 <b>4원소</b>로 이해한다 → Level 2, 6</li>
+        <li>코트카드는 <b>인물 유형</b>으로 이해한다 → Level 7</li>
+      </ol>
+
+      <div class="quiz">
+        <div class="qtitle">✓ 체크포인트</div>
+        <details><summary>메이저 아르카나와 마이너 아르카나의 차이는?</summary>메이저는 큰 운명적 사건/성장 단계(22장), 마이너는 일상적이고 구체적인 상황(56장, 4수트×14장).</details>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVEL 2 -->
+  <section class="level" id="lv2">
+    <div class="level-head">
+      <div class="level-num">2</div>
+      <div>
+        <h2>4원소 치트키</h2>
+        <div class="tag">이것 하나로 마이너 아르카나 56장의 절반을 예측할 수 있다</div>
+      </div>
+    </div>
+    <div class="level-body">
+      <p>마이너 아르카나의 4개 수트는 각각 하나의 원소, 하나의 인간 영역을 상징한다. 이걸 몸에 새기면 카드를 안 외워도 "이 수트는 대충 이런 얘기겠구나"를 알 수 있다.</p>
+
+      <div class="suit-grid">
+        <div class="suit-card wand">
+          <div class="name">🔥 완드 (Wands) — 불</div>
+          <div class="desc">행동, 열정, 일·사업, 창의성, 에너지, 동기. "하고 싶다, 시작한다"의 영역.</div>
+        </div>
+        <div class="suit-card cup">
+          <div class="name">💧 컵 (Cups) — 물</div>
+          <div class="desc">감정, 사랑, 관계, 직관, 무의식. "느낀다, 원한다"의 영역.</div>
+        </div>
+        <div class="suit-card sword">
+          <div class="name">💨 소드 (Swords) — 공기</div>
+          <div class="desc">생각, 갈등, 진실, 의사결정, 말. "생각한다, 판단한다"의 영역. 고통·갈등도 자주 등장.</div>
+        </div>
+        <div class="suit-card pent">
+          <div class="name">🌍 펜타클 (Pentacles) — 흙</div>
+          <div class="desc">돈, 직업, 몸, 물질, 안정. "가진다, 쌓는다"의 영역.</div>
+        </div>
+      </div>
+
+      <div class="callout">질문의 주제와 원소를 매칭하면 빠르다. 연애 질문에 소드가 많이 나오면 "생각이 많거나 갈등 중", 돈 질문에 컵이 많이 나오면 "감정적 결정을 하고 있다"는 식으로 교차 해석이 가능해진다.</div>
+
+      <h3>암기 트릭</h3>
+      <ul>
+        <li><b>완드</b> = 막대기 = 불쏘시개 = 불 = 열정/행동</li>
+        <li><b>컵</b> = 컵에 담기는 게 물 = 감정</li>
+        <li><b>소드</b> = 칼로 자르듯 명확 = 생각/논리, 양날의 검 = 갈등</li>
+        <li><b>펜타클</b> = 동전 = 돈, 흙에 묻힌 보물 = 물질/현실</li>
+      </ul>
+
+      <div class="quiz">
+        <div class="qtitle">✓ 체크포인트</div>
+        <details><summary>연애운을 봤는데 소드 카드가 계속 나온다면?</summary>감정보다 생각/갈등/의사소통 문제가 핵심일 가능성이 높다. 소드는 공기(생각) 원소이기 때문.</details>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVEL 3 -->
+  <section class="level" id="lv3">
+    <div class="level-head">
+      <div class="level-num">3</div>
+      <div>
+        <h2>바보의 여정</h2>
+        <div class="tag">메이저 아르카나 22장은 사실 하나의 이야기다</div>
+      </div>
+    </div>
+    <div class="level-body">
+      <p>메이저 아르카나 22장(0번~21번)은 <b>"바보(The Fool)"</b>라는 순수한 영혼이 세상에 나가 온갖 경험을 하고 완성(세계, The World)에 이르는 하나의 성장 서사다. 순서대로 보면 인생의 흐름과 똑같다.</p>
+
+      <div class="journey">
+        <span>0 바보</span><span>1 마법사</span><span>2 여사제</span><span>3 여황제</span><span>4 황제</span>
+        <span>5 교황</span><span>6 연인</span><span>7 전차</span><span>8 힘</span><span>9 은둔자</span>
+        <span>10 운명의 수레바퀴</span><span>11 정의</span><span>12 매달린 남자</span><span>13 죽음</span><span>14 절제</span>
+        <span>15 악마</span><span>16 탑</span><span>17 별</span><span>18 달</span><span>19 태양</span>
+        <span>20 심판</span><span>21 세계</span>
+      </div>
+
+      <h3>3막 구조로 나누면 훨씬 쉽다</h3>
+      <table>
+        <tr><th>구간</th><th>카드</th><th>테마</th></tr>
+        <tr><td><b>1막 — 자아 형성</b></td><td>0 바보 ~ 7 전차</td><td>세상에 나가 도구(마법사)를 얻고, 배움(여사제~교황)을 거쳐 자기 힘으로 나아가는(전차) 단계</td></tr>
+        <tr><td><b>2막 — 시련과 내면</b></td><td>8 힘 ~ 14 절제</td><td>내적 힘(힘), 고독(은둔자), 운명(수레바퀴), 균형(정의), 희생(매달린 남자), 끝과 시작(죽음), 조화(절제)</td></tr>
+        <tr><td><b>3막 — 초월과 완성</b></td><td>15 악마 ~ 21 세계</td><td>속박(악마), 붕괴(탑), 회복(별~태양), 재탄생(심판), 완성(세계)</td></tr>
+      </table>
+
+      <div class="callout">숫자가 낮을수록 "시작/미숙", 높을수록 "완성/초월"에 가깝다는 감각만 있어도 즉흥 해석이 된다. 13(죽음)은 끝이자 새 시작, 21(세계)는 완주와 성취를 뜻한다.</div>
+
+      <div class="quiz">
+        <div class="qtitle">✓ 체크포인트</div>
+        <details><summary>바보의 여정이란 무엇인가?</summary>0번 바보부터 21번 세계까지, 한 영혼이 경험을 쌓아 완성에 이르는 성장 스토리로 메이저 아르카나를 이해하는 방식.</details>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVEL 4 -->
+  <section class="level" id="lv4">
+    <div class="level-head">
+      <div class="level-num">4</div>
+      <div>
+        <h2>메이저 아르카나 22장 완전정복</h2>
+        <div class="tag">각 카드의 핵심 키워드 — 정방향 / 역방향</div>
+      </div>
+    </div>
+    <div class="level-body">
+      <p>정방향은 카드가 뜻하는 에너지가 <b>건강하게 발현</b>된 상태, 역방향은 그 에너지가 <b>과하거나, 막히거나, 왜곡</b>된 상태로 이해하면 외울 필요 없이 유추가 가능하다.</p>
+      <table>
+        <tr><th>#</th><th>카드</th><th>정방향 키워드</th><th>역방향 키워드</th></tr>
+        <tr><td>0</td><td>바보</td><td>새로운 시작, 순수한 도전, 무한한 가능성</td><td>무모함, 준비 부족, 경솔한 선택</td></tr>
+        <tr><td>1</td><td>마법사</td><td>능력, 실행력, 자원 활용, 의지</td><td>속임수, 능력 낭비, 자신감 부족</td></tr>
+        <tr><td>2</td><td>여사제</td><td>직관, 비밀, 내면의 지혜</td><td>단절된 직관, 숨겨진 정보, 표면적 앎</td></tr>
+        <tr><td>3</td><td>여황제</td><td>풍요, 창조, 모성, 감각적 안정</td><td>정체, 과잉보호, 창의력 고갈</td></tr>
+        <tr><td>4</td><td>황제</td><td>권위, 구조, 통제력, 안정적 리더십</td><td>독선, 경직됨, 권력 남용</td></tr>
+        <tr><td>5</td><td>교황</td><td>전통, 가르침, 제도, 조언</td><td>관습 거부, 독단, 잘못된 조언</td></tr>
+        <tr><td>6</td><td>연인</td><td>사랑, 조화, 가치관의 선택</td><td>갈등, 잘못된 선택, 불균형한 관계</td></tr>
+        <tr><td>7</td><td>전차</td><td>의지, 승리, 추진력, 통제된 힘</td><td>방향 상실, 폭주, 자기 통제 실패</td></tr>
+        <tr><td>8</td><td>힘</td><td>내면의 용기, 인내, 부드러운 통제</td><td>자기 의심, 나약함, 힘의 오용</td></tr>
+        <tr><td>9</td><td>은둔자</td><td>성찰, 고독, 내적 탐구, 지혜 추구</td><td>고립, 회피, 소통 단절</td></tr>
+        <tr><td>10</td><td>운명의 수레바퀴</td><td>전환점, 운, 순환, 예상 못한 변화</td><td>불운, 통제 불능, 나쁜 타이밍</td></tr>
+        <tr><td>11</td><td>정의</td><td>공정, 균형, 인과응보, 진실</td><td>불공정, 편향, 책임 회피</td></tr>
+        <tr><td>12</td><td>매달린 남자</td><td>기다림, 관점의 전환, 희생</td><td>정체된 희생, 무의미한 기다림</td></tr>
+        <tr><td>13</td><td>죽음</td><td>끝과 새 시작, 근본적 변화, 정리</td><td>변화 거부, 정체, 두려움</td></tr>
+        <tr><td>14</td><td>절제</td><td>균형, 조화, 인내, 융합</td><td>불균형, 과잉, 성급함</td></tr>
+        <tr><td>15</td><td>악마</td><td>집착, 유혹, 속박, 물질/욕망</td><td>속박에서 벗어남, 자각, 해방</td></tr>
+        <tr><td>16</td><td>탑</td><td>급격한 붕괴, 충격적 진실, 파괴 후 재건</td><td>재난 회피(지연된 붕괴), 두려움 회피</td></tr>
+        <tr><td>17</td><td>별</td><td>희망, 치유, 영감, 회복</td><td>절망, 자신감 상실, 단절된 희망</td></tr>
+        <tr><td>18</td><td>달</td><td>불안, 무의식, 혼란, 착각</td><td>혼란 해소, 숨겨진 진실이 드러남</td></tr>
+        <tr><td>19</td><td>태양</td><td>성공, 기쁨, 활력, 명료함</td><td>일시적 좌절, 과도한 낙관, 성취 지연</td></tr>
+        <tr><td>20</td><td>심판</td><td>각성, 재탄생, 결산, 부름에 응답</td><td>자기 부정, 후회, 판단 회피</td></tr>
+        <tr><td>21</td><td>세계</td><td>완성, 성취, 통합, 다음 단계로</td><td>미완성, 지연, 마무리 부족</td></tr>
+      </table>
+      <div class="callout"><b>암기 팁:</b> 표를 통째로 외우지 말고, 카드 그림을 떠올리며 "이 장면이 잘 풀리면 정방향, 꼬이면 역방향"이라고 상상하는 훈련을 하면 오래 기억된다.</div>
+    </div>
+  </section>
+
+  <!-- LEVEL 5 -->
+  <section class="level" id="lv5">
+    <div class="level-head">
+      <div class="level-num">5</div>
+      <div>
+        <h2>숫자카드 패턴 — 수비학 치트키</h2>
+        <div class="tag">4수트 × 10숫자 = 40장을 숫자 하나로 압축한다</div>
+      </div>
+    </div>
+    <div class="level-body">
+      <p>마이너 숫자카드(에이스~10)는 수트가 달라도 <b>같은 숫자면 같은 뼈대의 의미</b>를 공유한다. 여기에 Level 2의 4원소를 곱하면 40장을 계산할 수 있다.</p>
+      <table>
+        <tr><th>숫자</th><th>공통 의미</th><th>완드(불)</th><th>컵(물)</th><th>소드(공기)</th><th>펜타클(흙)</th></tr>
+        <tr><td>Ace(1)</td><td>새로운 씨앗, 순수한 잠재력의 시작</td><td>새 열정/프로젝트</td><td>새 사랑/감정</td><td>새 생각/진실</td><td>새 기회/자원</td></tr>
+        <tr><td>2</td><td>선택, 균형, 파트너십</td><td>계획, 미래 결정</td><td>연결, 상호 감정</td><td>딜레마, 결정 보류</td><td>저글링, 균형 잡기</td></tr>
+        <tr><td>3</td><td>성장, 협력, 첫 결실</td><td>확장, 전망</td><td>축하, 우정</td><td>상심, 배신</td><td>협업, 숙련</td></tr>
+        <tr><td>4</td><td>안정, 구조, 잠시 멈춤</td><td>안정된 기반</td><td>권태, 무관심</td><td>휴식, 재정비</td><td>소유욕, 집착</td></tr>
+        <tr><td>5</td><td>혼란, 갈등, 변화의 압박</td><td>경쟁, 다툼</td><td>상실, 후회</td><td>패배, 갈등</td><td>결핍, 소외</td></tr>
+        <tr><td>6</td><td>회복, 조화, 균형 회복</td><td>승리, 인정</td><td>추억, 향수</td><td>이동, 회복</td><td>나눔, 관대함</td></tr>
+        <tr><td>7</td><td>재평가, 시험, 내적 도전</td><td>방어, 고군분투</td><td>환상, 선택 과잉</td><td>기만, 전략</td><td>인내, 평가</td></tr>
+        <tr><td>8</td><td>움직임, 숙달, 힘의 집중</td><td>빠른 진전</td><td>떠남, 재탐색</td><td>속박, 제한된 시야</td><td>노력, 숙련</td></tr>
+        <tr><td>9</td><td>거의 완성, 내적 성취</td><td>인내, 방어태세</td><td>만족, 소망 성취</td><td>불안, 걱정</td><td>독립, 풍요</td></tr>
+        <tr><td>10</td><td>완성, 순환의 끝(다음 시작 예고)</td><td>부담, 번아웃</td><td>충만, 가족행복</td><td>바닥, 종결</td><td>유산, 완전한 풍요</td></tr>
+      </table>
+      <div class="callout">숫자가 커질수록 "상황이 무르익는다"는 감각. 1~3은 시작, 4~6은 전개/조정, 7~9는 절정/시험, 10은 마무리로 흐른다는 리듬만 기억해도 실전에서 8할은 맞는다.</div>
+
+      <div class="quiz">
+        <div class="qtitle">✓ 체크포인트</div>
+        <details><summary>펜타클 5와 컵 5는 왜 둘 다 "안 좋은" 느낌일까?</summary>숫자 5는 공통적으로 혼란/갈등/변화의 압박을 의미하기 때문. 수트만 다를 뿐 뼈대는 같다.</details>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVEL 6 -->
+  <section class="level" id="lv6">
+    <div class="level-head">
+      <div class="level-num">6</div>
+      <div>
+        <h2>마이너 아르카나 56장 실전 결합</h2>
+        <div class="tag">4원소(Level 2) × 숫자패턴(Level 5) = 40장 완성</div>
+      </div>
+    </div>
+    <div class="level-body">
+      <p>이제 Level 2와 Level 5를 합치는 훈련을 한다. 방법은 간단하다:</p>
+      <div class="callout"><b>수트(원소)가 "무슨 영역"인지</b> 먼저 정하고, <b>숫자가 "어느 단계"인지</b>를 곱한다.<br>예: 컵(감정) + 9(거의 완성) = <b>컵 9</b> → "감정적으로 소망이 거의 이루어짐, 만족감" (실제 카드 별명이 "만족의 카드")</div>
+      <p>몇 가지 예로 감각을 익혀보자:</p>
+      <ul>
+        <li><b>완드 3</b> = 불(행동) + 3(성장/전망) → 확장을 내다보는 단계, 사업의 다음 단계를 구상 중</li>
+        <li><b>소드 9</b> = 공기(생각) + 9(불안) → 걱정으로 잠 못 이룸, 생각의 늪</li>
+        <li><b>펜타클 10</b> = 흙(물질) + 10(완성) → 물질적 유산, 가족의 풍요, 장기적 안정</li>
+        <li><b>컵 4</b> = 물(감정) + 4(정체) → 감정적 무관심, 권태기</li>
+      </ul>
+      <p>이 방식이면 카드를 몰라도 즉석에서 "그럴듯한 해석"을 만들 수 있다. 실제 프로 리더들도 초반엔 이렇게 훈련한다.</p>
+
+      <h3>10분 만에 40장 감 잡기 — 셀프 트레이닝</h3>
+      <ol>
+        <li>카드 한 장을 뽑는다 (예: 소드 6)</li>
+        <li>수트 원소를 떠올린다 → 소드 = 생각/갈등</li>
+        <li>숫자 의미를 떠올린다 → 6 = 회복/이동</li>
+        <li>합친다 → "갈등이 있던 상황에서 벗어나 더 나은 곳으로 이동, 생각이 정리되며 회복"</li>
+        <li>실제 카드 뜻(여행, 이동, 어려움에서 벗어남)과 비교해본다</li>
+      </ol>
+      <p>이 연습을 10장만 반복해도 "카드가 안 외워져도 읽는 감각"이 생긴다.</p>
+    </div>
+  </section>
+
+  <!-- LEVEL 7 -->
+  <section class="level" id="lv7">
+    <div class="level-head">
+      <div class="level-num">7</div>
+      <div>
+        <h2>코트카드 16장 — 사람을 나타내는 카드</h2>
+        <div class="tag">페이지·나이트·퀸·킹 × 4원소 = 성격 유형 16종</div>
+      </div>
+    </div>
+    <div class="level-body">
+      <p>코트카드는 사건이 아니라 <b>사람(성격, 역할, 때로는 질문자 자신)</b>을 나타낸다. 계급(성숙도)과 원소(성향)를 곱하면 이해된다.</p>
+      <table>
+        <tr><th>계급</th><th>의미</th></tr>
+        <tr><td><b>페이지 (Page)</b></td><td>초보자, 배우는 단계, 메시지/소식, 어린아이 같은 순수함</td></tr>
+        <tr><td><b>나이트 (Knight)</b></td><td>행동하는 사람, 추진력, 극단적 성향(빠르거나 저돌적)</td></tr>
+        <tr><td><b>퀸 (Queen)</b></td><td>성숙한 내면화, 수용적 리더십, 그 원소를 "느끼는" 방식으로 다룸</td></tr>
+        <tr><td><b>킹 (King)</b></td><td>완전한 숙달, 권위, 그 원소를 "통제/실행"하는 방식으로 다룸</td></tr>
+      </table>
+      <p>여기에 수트(원소)를 곱하면 16가지 캐릭터가 나온다:</p>
+      <ul>
+        <li><b>완드 킹</b> = 불을 통제 → 카리스마 있는 리더, 사업가 기질</li>
+        <li><b>컵 퀸</b> = 물을 느낌 → 공감능력이 뛰어난 배려심 많은 사람</li>
+        <li><b>소드 나이트</b> = 공기가 폭주 → 급하고 논쟁적이며 목표 지향적</li>
+        <li><b>펜타클 페이지</b> = 흙을 배움 → 성실하게 돈/기술을 배우는 초보자</li>
+      </ul>
+      <div class="callout">리딩에서 코트카드가 나오면 "이 사람이 질문자 본인인지, 주변 인물인지, 아니면 질문자가 취해야 할 태도인지"를 맥락으로 판단한다.</div>
+    </div>
+  </section>
+
+  <!-- LEVEL 8 -->
+  <section class="level" id="lv8">
+    <div class="level-head">
+      <div class="level-num">8</div>
+      <div>
+        <h2>스프레드 — 카드를 배치하는 법</h2>
+        <div class="tag">원카드부터 켈틱크로스까지, 3가지만 알면 충분하다</div>
+      </div>
+    </div>
+    <div class="level-body">
+      <h3>① 원카드 스프레드</h3>
+      <p>오늘의 조언, 단순한 예/아니오 느낌의 질문에 사용. 카드 1장만 뽑아 그날의 핵심 메시지로 읽는다.</p>
+
+      <h3>② 3카드 스프레드 (가장 많이 쓰는 만능형)</h3>
+      <table>
+        <tr><th>위치</th><th>의미(가장 흔한 배치)</th></tr>
+        <tr><td>1번 카드</td><td>과거 / 원인</td></tr>
+        <tr><td>2번 카드</td><td>현재 / 상황</td></tr>
+        <tr><td>3번 카드</td><td>미래 / 결과</td></tr>
+      </table>
+      <p>같은 3장 구조를 "상황 - 장애물 - 조언"으로도 응용할 수 있다.</p>
+
+      <h3>③ 켈틱크로스 (10장, 심화 리딩)</h3>
+      <table>
+        <tr><th>위치</th><th>의미</th></tr>
+        <tr><td>1</td><td>현재 상황</td></tr>
+        <tr><td>2</td><td>당면 과제/장애물</td></tr>
+        <tr><td>3</td><td>의식 (드러난 목표)</td></tr>
+        <tr><td>4</td><td>무의식 (숨은 원인)</td></tr>
+        <tr><td>5</td><td>과거</td></tr>
+        <tr><td>6</td><td>가까운 미래</td></tr>
+        <tr><td>7</td><td>질문자의 태도</td></tr>
+        <tr><td>8</td><td>주변 환경/타인의 영향</td></tr>
+        <tr><td>9</td><td>희망 또는 두려움</td></tr>
+        <tr><td>10</td><td>최종 결과</td></tr>
+      </table>
+      <div class="callout">처음엔 3카드로 시작해서 익숙해지면 켈틱크로스로 넘어가라. 스프레드는 "질문에 맞는 틀"일 뿐, 틀이 많다고 리딩이 좋아지지 않는다.</div>
+    </div>
+  </section>
+
+  <!-- LEVEL 9 -->
+  <section class="level" id="lv9">
+    <div class="level-head">
+      <div class="level-num">9</div>
+      <div>
+        <h2>실전 리딩 — 카드로 이야기 엮기</h2>
+        <div class="tag">질문 설계 + 카드 조합 해석이 진짜 실력이다</div>
+      </div>
+    </div>
+    <div class="level-body">
+      <h3>1. 좋은 질문 만들기</h3>
+      <ul>
+        <li>❌ "나 성공해?" (너무 막연, 예/아니오형은 정보가 적음)</li>
+        <li>✅ "지금 준비 중인 이직에서 내가 놓치고 있는 부분은?"</li>
+        <li>포인트: <b>주어를 "나"로, 통제 가능한 부분에 초점</b>을 맞춘다. 타인의 마음을 단정하는 질문("그 사람이 날 좋아해?")보다 "이 관계에서 내가 취할 태도는?"이 더 정확한 리딩이 나온다.</li>
+      </ul>
+
+      <h3>2. 카드 조합 읽는 법</h3>
+      <p>카드 한 장씩 따로 읽지 말고, 옆 카드와의 관계로 "문장"을 만든다.</p>
+      <div class="callout">
+        예: <b>탑(16) + 별(17)</b> → "붕괴를 겪지만, 그 후 회복과 희망이 온다" (파괴 → 치유의 흐름)<br>
+        예: <b>완드 에이스 + 소드 5</b> → "새로운 시작을 하고 싶지만 갈등/경쟁이 발목을 잡는다"
+      </div>
+
+      <h3>3. 정방향·역방향·수트 비율로 전체 흐름 읽기</h3>
+      <ul>
+        <li>메이저 카드가 많이 나옴 → 인생의 중요한 전환기</li>
+        <li>같은 수트가 반복 → 그 원소가 지배하는 주제(예: 컵이 많으면 감정이 핵심)</li>
+        <li>역방향이 많음 → 정체/내적 고민/에너지가 막힌 상태</li>
+        <li>숫자가 전체적으로 큼(7~10) → 상황이 절정/마무리에 가까움</li>
+      </ul>
+
+      <h3>4. 3분 리딩 루틴 (지금 바로 연습)</h3>
+      <ol>
+        <li>질문을 한 문장으로 정리한다</li>
+        <li>3카드 스프레드(과거-현재-미래)로 뽑는다</li>
+        <li>각 카드를 수트+숫자(또는 메이저 스토리)로 해석한다</li>
+        <li>세 장을 하나의 문장으로 연결한다: "~했던 상황이, 지금은 ~하며, 앞으로는 ~로 흐른다"</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- LEVEL 10 -->
+  <section class="level" id="lv10">
+    <div class="level-head">
+      <div class="level-num">10</div>
+      <div>
+        <h2>마스터 레벨 — 직관, 윤리, 다음 단계</h2>
+        <div class="tag">여기까지 왔다면 이미 "읽을 줄 아는 사람"이다</div>
+      </div>
+    </div>
+    <div class="level-body">
+      <h3>직관을 체계 위에 얹는 법</h3>
+      <p>1~9레벨의 체계(원소·숫자·스토리)는 "기본 문법"이다. 마스터는 이 문법에 <b>카드 그림에서 받는 첫 느낌, 색감, 인물의 표정, 질문자의 반응</b>을 더한다. 체계 없이 직관만 쓰면 근거 없는 추측이 되고, 체계만 쓰면 딱딱한 사전 읽기가 된다. 이 둘을 섞는 게 진짜 리딩이다.</p>
+
+      <h3>역방향 심화 — 3가지 해석 프레임</h3>
+      <ul>
+        <li><b>차단(Blocked):</b> 정방향 에너지가 막혀서 발현되지 못함</li>
+        <li><b>과잉(Excess):</b> 정방향 에너지가 지나쳐서 부작용이 됨</li>
+        <li><b>내면화(Internal):</b> 겉으로 안 드러나고 마음속에서만 일어나는 중</li>
+      </ul>
+      <p>역방향이 나오면 이 3가지 중 어느 쪽인지 맥락으로 판단하면 훨씬 정교해진다.</p>
+
+      <h3>프로처럼 보이는 실전 팁</h3>
+      <ul>
+        <li>카드를 "맞다/틀리다"로 말하지 말고 "지금 이런 흐름이 보인다"는 화법을 쓴다</li>
+        <li>안 좋은 카드가 나와도 "조심해야 할 신호"로 표현하지, 확정된 미래로 단정하지 않는다</li>
+        <li>질문자가 스스로 답을 찾도록 카드를 거울처럼 제시한다</li>
+        <li>메이저 카드가 나오면 "지금은 인생의 중요한 국면"이라는 무게감을 실어준다</li>
+      </ul>
+
+      <div class="callout"><b>윤리 원칙:</b> 의료·법률·재정적 확정 진단을 대신하지 않는다. 죽음/질병/타인의 마음을 단정적으로 말하지 않는다. 타로는 "가능성을 보여주는 도구"이지 "운명을 선고하는 도구"가 아니다.</div>
+
+      <h3>오늘부터 마스터로 사는 법 — 30일 루틴</h3>
+      <ol>
+        <li><b>1주차:</b> 매일 원카드를 뽑아 Level 2/5 방식으로 직접 해석해보고, 실제 카드 뜻과 비교</li>
+        <li><b>2주차:</b> 메이저 22장을 바보의 여정 순서로 하루 3장씩 복습</li>
+        <li><b>3주차:</b> 주변 사람에게 3카드 스프레드로 리딩 연습 (질문 설계부터)</li>
+        <li><b>4주차:</b> 켈틱크로스로 자기 자신에게 깊은 리딩을 해보고 기록을 남긴다</li>
+      </ol>
+
+      <div class="callout"><b>졸업 기준:</b> 카드 뜻을 안 찾아보고도 수트+숫자만으로 그럴듯한 문장을 만들 수 있으면, 오늘의 목표는 달성한 것이다. 나머지는 실전 경험이 채워준다.</div>
+    </div>
+  </section>
+
+  <div class="footer-note">
+    ✦ 78장의 카드, 10개의 레벨 — 이제 카드는 낯설지 않다.<br>
+    이 자료는 자기 학습·교육용 콘텐츠입니다.
+    <div class="badge-row" style="justify-content:center;">
+      <span class="badge">Level 1-2 기초</span>
+      <span class="badge">Level 3-4 메이저</span>
+      <span class="badge">Level 5-7 마이너</span>
+      <span class="badge">Level 8-9 실전</span>
+      <span class="badge">Level 10 마스터</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
