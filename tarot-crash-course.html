@@ -212,6 +212,48 @@
   .badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
   .badge{font-size:11px;background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:3px 8px;border-radius:20px;}
 
+
+  .icon-badge{
+    flex:none;width:56px;height:56px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, rgba(212,175,55,0.18), var(--card2) 70%);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--gold-soft);
+  }
+  .icon-badge svg{width:58%;height:58%;display:block;}
+  .icon-badge-sm{width:34px;height:34px;}
+  .suit-card .icon-badge{margin:0 auto 8px;}
+  .suit-card.wand .icon-badge{color:var(--wand);}
+  .suit-card.cup .icon-badge{color:var(--cup);}
+  .suit-card.sword .icon-badge{color:var(--sword);}
+  .suit-card.pent .icon-badge{color:var(--pent);}
+
+  .td-card{display:flex;align-items:center;gap:10px;}
+
+  .journey-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:12px;margin:16px 0;}
+  .journey-grid .jcard{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;}
+  .journey-grid .icon-badge{width:46px;height:46px;}
+  .journey-grid .jlabel{font-size:10.5px;color:var(--sub);line-height:1.3;}
+
+  .suit-inline{display:inline-flex;vertical-align:middle;margin-right:4px;}
+
+  .flash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:12px;margin-top:16px;}
+  .flash-card{perspective:700px;height:132px;cursor:pointer;}
+  .flash-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+  .flash-card.flipped .flash-inner{transform:rotateY(180deg);}
+  .flash-front,.flash-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;text-align:center;gap:6px;}
+  .flash-front{background:var(--card2);}
+  .flash-front .icon-badge{width:44px;height:44px;}
+  .flash-front .fnum{font-size:10px;color:var(--sub);}
+  .flash-back{background:linear-gradient(160deg, rgba(212,175,55,0.18), var(--card2));transform:rotateY(180deg);}
+  .flash-back .fname{font-size:13px;font-weight:700;color:var(--gold-soft);}
+  .flash-back .fkw{font-size:11px;color:#dcd6f5;margin-top:2px;}
+  .flash-reset{
+    margin-top:14px;background:var(--card2);border:1px solid var(--line);color:var(--gold-soft);
+    font-size:12.5px;padding:8px 14px;border-radius:20px;cursor:pointer;
+  }
+  .flash-reset:hover{background:var(--line);}
+
   @media (max-width:600px){
     .level-head{padding:18px;}
     .level-body{padding:18px 16px 22px;}
@@ -219,6 +261,7 @@
 </style>
 </head>
 <body>
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><symbol id="maj-0" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="15" r="6"/><path d="M32 21 L32 40"/><path d="M32 25 L46 14"/><circle cx="46" cy="14" r="3" fill="currentColor" stroke="none"/><path d="M32 40 L22 54"/><path d="M32 40 L44 48"/><path d="M8 54 L24 54"/></g></symbol><symbol id="maj-1" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="18" r="7"/><circle cx="40" cy="18" r="7"/><path d="M18 50 L44 28"/><circle cx="44" cy="28" r="2.5" fill="currentColor" stroke="none"/></g></symbol><symbol id="maj-2" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20 L16 52"/><path d="M48 20 L48 52"/><path d="M16 20 L48 20"/><path d="M27 10a7 7 0 1 0 9 11a9 9 0 0 1 -9 -11z"/></g></symbol><symbol id="maj-3" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="20" r="10"/><path d="M32 30 L32 50"/><path d="M23 41 L41 41"/></g></symbol><symbol id="maj-4" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 40 L20 20 L28 34 L32 16 L36 34 L44 20 L48 40 Z"/><path d="M16 40 L48 40"/><path d="M32 40 L32 55"/></g></symbol><symbol id="maj-5" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 46 L42 22"/><circle cx="18" cy="46" r="5"/><path d="M36 26 L42 22 L46 26"/><path d="M46 46 L22 22"/><circle cx="46" cy="46" r="5"/><path d="M26 26 L22 22 L26 18"/></g></symbol><symbol id="maj-6" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 48 C20 36 14 27 14 19 C14 11 22 9 32 19 C42 9 50 11 50 19 C50 27 44 36 32 48 Z"/></g></symbol><symbol id="maj-7" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="38" r="14"/><path d="M32 24 L32 52 M18 38 L46 38 M22 28 L42 48 M42 28 L22 48"/><path d="M32 6 L34 12 L40 12 L35 16 L37 22 L32 18 L27 22 L29 16 L24 12 L30 12 Z"/></g></symbol><symbol id="maj-8" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="26" cy="11" r="5"/><circle cx="38" cy="11" r="5"/><circle cx="32" cy="37" r="10"/><path d="M32 23 L32 17 M44 29 L50 25 M44 45 L50 49 M20 29 L14 25 M20 45 L14 49 M32 51 L32 57"/></g></symbol><symbol id="maj-9" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="24" y="18" width="16" height="20" rx="2"/><path d="M32 24 L34 28 L38 28 L35 31 L36 35 L32 32 L28 35 L29 31 L26 28 L30 28 Z" fill="currentColor" stroke="none"/><path d="M32 18 L32 11" /><circle cx="32" cy="9" r="2"/><path d="M14 56 L14 20"/></g></symbol><symbol id="maj-10" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="17"/><circle cx="32" cy="32" r="4"/><path d="M32 15 L32 49 M15 32 L49 32 M21 21 L43 43 M43 21 L21 43"/></g></symbol><symbol id="maj-11" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 12 L32 50"/><path d="M14 20 L50 20"/><path d="M8 20 Q14 31 20 20"/><path d="M44 20 Q50 31 56 20"/><path d="M22 50 L42 50"/></g></symbol><symbol id="maj-12" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14 L52 14"/><path d="M40 14 L40 22"/><circle cx="32" cy="49" r="6"/><path d="M32 43 L32 26"/><path d="M32 26 L26 14 M26 14 L40 14"/><path d="M32 30 L42 36 L38 46"/><path d="M24 34 L32 30 L40 34"/></g></symbol><symbol id="maj-13" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="26" r="13"/><circle cx="26" cy="24" r="2.5" fill="currentColor" stroke="none"/><circle cx="38" cy="24" r="2.5" fill="currentColor" stroke="none"/><path d="M29 32 L35 32 L32 37 Z" fill="currentColor" stroke="none"/><path d="M16 52 L46 40 M16 40 L46 52"/></g></symbol><symbol id="maj-14" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 28 L12 38 Q12 45 19 45 Q26 45 26 38 L26 28 Z"/><path d="M20 45 L20 52"/><path d="M40 12 L40 20 Q40 27 47 27 Q54 27 54 20 L54 12 Z"/><path d="M48 27 L48 34"/><path d="M46 22 Q34 28 22 32"/></g></symbol><symbol id="maj-15" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="26" r="11"/><path d="M23 17 L18 8 M41 17 L46 8"/><circle cx="27" cy="25" r="2" fill="currentColor" stroke="none"/><circle cx="37" cy="25" r="2" fill="currentColor" stroke="none"/><ellipse cx="25" cy="47" rx="7" ry="5"/><ellipse cx="39" cy="47" rx="7" ry="5"/></g></symbol><symbol id="maj-16" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 56 L20 28 L26 17 L32 26 L38 15 L44 28 L44 56 Z"/><rect x="27" y="34" width="5" height="7"/><rect x="27" y="45" width="5" height="7"/><path d="M52 8 L45 24 L52 24 L43 42"/></g></symbol><symbol id="maj-17" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 L37 22 L51 22 L40 30 L44 44 L32 35 L20 44 L24 30 L13 22 L27 22 Z"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="52" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M10 54 Q19 47 28 54 Q37 61 46 54 Q54 48 58 54"/></g></symbol><symbol id="maj-18" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M40 12a16 16 0 1 0 0 32a12.5 12.5 0 1 1 0 -32z"/><path d="M8 54 Q17 47 26 54 Q35 61 44 54 Q52 48 58 54"/><circle cx="22" cy="40" r="1.6" fill="currentColor" stroke="none"/><circle cx="34" cy="36" r="1.6" fill="currentColor" stroke="none"/></g></symbol><symbol id="maj-19" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="11"/><path d="M32 8 L32 15 M32 49 L32 56 M8 32 L15 32 M49 32 L56 32 M15 15 L20 20 M44 44 L49 49 M49 15 L44 20 M20 44 L15 49"/></g></symbol><symbol id="maj-20" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 44 L38 32 L46 32 A6 6 0 0 0 46 20 L38 20 L12 12"/><path d="M54 16 L60 10 M56 26 L63 26 M54 36 L60 42"/></g></symbol><symbol id="maj-21" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="32" rx="21" ry="15"/><circle cx="32" cy="32" r="3.5" fill="currentColor" stroke="none"/><path d="M20 22 L17 18 M44 22 L47 18 M20 42 L17 46 M44 42 L47 46"/></g></symbol><symbol id="suit-wand" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 50 L46 18"/><path d="M30 36 Q25 31 20 34"/><path d="M35 31 Q40 26 45 29"/></g></symbol><symbol id="suit-cup" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15 L18 23 Q18 32 32 32 Q46 32 46 23 L46 15"/><path d="M32 32 L32 45"/><path d="M22 51 L42 51"/><path d="M32 45 L32 51"/></g></symbol><symbol id="suit-sword" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6 L32 42"/><path d="M28 10 L32 4 L36 10"/><path d="M21 38 L43 38"/><path d="M32 42 L32 52"/><circle cx="32" cy="55" r="3"/></g></symbol><symbol id="suit-pent" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="19"/><path d="M32 18 L39.7 42.5 L19.4 27.8 L44.6 27.8 L24.3 42.5 Z"/></g></symbol></svg>
 
 <div class="hero">
   <div class="stars">✦ ✧ ✦ ✧ ✦</div>
@@ -295,18 +338,22 @@
 
       <div class="suit-grid">
         <div class="suit-card wand">
+          <div class="icon-badge"><svg class="ic"><use href="#suit-wand"/></svg></div>
           <div class="name">🔥 완드 — 불</div>
           <div class="desc">불처럼 활활 타오르고 움직이는 마음이에요. "해보고 싶어! 놀고 싶어!" 하는 신나는 마음이에요.</div>
         </div>
         <div class="suit-card cup">
+          <div class="icon-badge"><svg class="ic"><use href="#suit-cup"/></svg></div>
           <div class="name">💧 컵 — 물</div>
           <div class="desc">물처럼 출렁출렁하는 마음이에요. "좋아해, 사랑해, 슬퍼" 하는 감정이에요.</div>
         </div>
         <div class="suit-card sword">
+          <div class="icon-badge"><svg class="ic"><use href="#suit-sword"/></svg></div>
           <div class="name">💨 소드 — 바람</div>
           <div class="desc">바람처럼 눈에 안 보이지만 휙휙 지나가는 생각이에요. "할까 말까?" 고민하는 것, 가끔 다투는 것도 여기예요.</div>
         </div>
         <div class="suit-card pent">
+          <div class="icon-badge"><svg class="ic"><use href="#suit-pent"/></svg></div>
           <div class="name">🌍 펜타클 — 흙</div>
           <div class="desc">흙처럼 단단하고 손에 잡히는 것들이에요. 돈, 장난감, 몸처럼 우리가 "가지고 있는 것"이에요.</div>
         </div>
@@ -349,12 +396,29 @@
     <div class="level-body">
       <p>큰 이야기 카드 22장(0번부터 21번까지)은 따로따로가 아니에요. 전부 이어진 <b>한 편의 이야기</b>예요! 주인공 이름은 "바보(0번)"예요. 아무것도 모르는 순진한 아이가 세상 밖으로 모험을 떠나서, 이것저것 배우고, 넘어지고, 다시 일어나서, 마지막엔 멋진 어른이 되는 이야기예요.</p>
 
-      <div class="journey">
-        <span>0 바보</span><span>1 마법사</span><span>2 여사제</span><span>3 여황제</span><span>4 황제</span>
-        <span>5 교황</span><span>6 연인</span><span>7 전차</span><span>8 힘</span><span>9 은둔자</span>
-        <span>10 운명의 수레바퀴</span><span>11 정의</span><span>12 매달린 남자</span><span>13 죽음</span><span>14 절제</span>
-        <span>15 악마</span><span>16 탑</span><span>17 별</span><span>18 달</span><span>19 태양</span>
-        <span>20 심판</span><span>21 세계</span>
+      <div class="journey-grid">
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-0"/></svg></div><div class="jlabel">0 바보</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-1"/></svg></div><div class="jlabel">1 마법사</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-2"/></svg></div><div class="jlabel">2 여사제</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-3"/></svg></div><div class="jlabel">3 여황제</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-4"/></svg></div><div class="jlabel">4 황제</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-5"/></svg></div><div class="jlabel">5 교황</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-6"/></svg></div><div class="jlabel">6 연인</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-7"/></svg></div><div class="jlabel">7 전차</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-8"/></svg></div><div class="jlabel">8 힘</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-9"/></svg></div><div class="jlabel">9 은둔자</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-10"/></svg></div><div class="jlabel">10 운명의 수레바퀴</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-11"/></svg></div><div class="jlabel">11 정의</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-12"/></svg></div><div class="jlabel">12 매달린 남자</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-13"/></svg></div><div class="jlabel">13 죽음</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-14"/></svg></div><div class="jlabel">14 절제</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-15"/></svg></div><div class="jlabel">15 악마</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-16"/></svg></div><div class="jlabel">16 탑</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-17"/></svg></div><div class="jlabel">17 별</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-18"/></svg></div><div class="jlabel">18 달</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-19"/></svg></div><div class="jlabel">19 태양</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-20"/></svg></div><div class="jlabel">20 심판</div></div>
+        <div class="jcard"><div class="icon-badge"><svg class="ic"><use href="#maj-21"/></svg></div><div class="jlabel">21 세계</div></div>
       </div>
 
       <h3>3개의 장(챕터)으로 나누면 훨씬 쉬워요</h3>
@@ -401,28 +465,28 @@
       <div class="table-wrap">
       <table>
         <tr><th>#</th><th>카드</th><th>똑바로 나오면</th><th>거꾸로 나오면</th></tr>
-        <tr><td>0</td><td>바보</td><td>새로 시작하는 게 신나요</td><td>준비 없이 무작정 덤벼요</td></tr>
-        <tr><td>1</td><td>마법사</td><td>할 수 있어요, 시작!</td><td>힘을 이상하게 써요</td></tr>
-        <tr><td>2</td><td>여사제</td><td>조용히 마음으로 알아요</td><td>마음의 소리를 못 들어요</td></tr>
-        <tr><td>3</td><td>여황제</td><td>사랑이 가득, 풍요로워요</td><td>너무 챙겨줘서 답답해요</td></tr>
-        <tr><td>4</td><td>황제</td><td>든든하게 지켜줘요</td><td>고집이 너무 세요</td></tr>
-        <tr><td>5</td><td>교황</td><td>좋은 가르침을 받아요</td><td>억지로 시켜요</td></tr>
-        <tr><td>6</td><td>연인</td><td>마음이 잘 통해요</td><td>마음이 어긋나요</td></tr>
-        <tr><td>7</td><td>전차</td><td>씩씩하게 앞으로 나아가요</td><td>방향을 잃었어요</td></tr>
-        <tr><td>8</td><td>힘</td><td>부드럽지만 용감해요</td><td>자신이 없어요</td></tr>
-        <tr><td>9</td><td>은둔자</td><td>혼자 조용히 생각해요</td><td>너무 혼자만 있어요</td></tr>
-        <tr><td>10</td><td>운명의 수레바퀴</td><td>좋은 기회가 찾아와요</td><td>타이밍이 안 좋아요</td></tr>
-        <tr><td>11</td><td>정의</td><td>공평하게 판단해요</td><td>불공평해요</td></tr>
-        <tr><td>12</td><td>매달린 남자</td><td>잠깐 멈추고 기다려요</td><td>기다림이 너무 길어요</td></tr>
-        <tr><td>13</td><td>죽음</td><td>끝나고 새로 시작해요</td><td>변화가 무서워요</td></tr>
-        <tr><td>14</td><td>절제</td><td>딱 알맞게 섞여요</td><td>너무 지나쳐요</td></tr>
-        <tr><td>15</td><td>악마</td><td>나쁜 유혹에 빠져요</td><td>유혹에서 벗어나요</td></tr>
-        <tr><td>16</td><td>탑</td><td>갑자기 와르르 무너져요</td><td>무너질까봐 겁내요</td></tr>
-        <tr><td>17</td><td>별</td><td>희망이 반짝반짝해요</td><td>희망을 잃었어요</td></tr>
-        <tr><td>18</td><td>달</td><td>뭐가 뭔지 헷갈려요</td><td>안개가 걷히고 또렷해져요</td></tr>
-        <tr><td>19</td><td>태양</td><td>신나고 밝고 행복해요</td><td>살짝 아쉬워요</td></tr>
-        <tr><td>20</td><td>심판</td><td>다시 태어난 기분이에요</td><td>스스로를 탓해요</td></tr>
-        <tr><td>21</td><td>세계</td><td>짜잔, 다 해냈어요!</td><td>아직 다 못 끝냈어요</td></tr>
+        <tr><td>0</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-0"/></svg></span>바보</span></td><td>새로 시작하는 게 신나요</td><td>준비 없이 무작정 덤벼요</td></tr>
+        <tr><td>1</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-1"/></svg></span>마법사</span></td><td>할 수 있어요, 시작!</td><td>힘을 이상하게 써요</td></tr>
+        <tr><td>2</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-2"/></svg></span>여사제</span></td><td>조용히 마음으로 알아요</td><td>마음의 소리를 못 들어요</td></tr>
+        <tr><td>3</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-3"/></svg></span>여황제</span></td><td>사랑이 가득, 풍요로워요</td><td>너무 챙겨줘서 답답해요</td></tr>
+        <tr><td>4</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-4"/></svg></span>황제</span></td><td>든든하게 지켜줘요</td><td>고집이 너무 세요</td></tr>
+        <tr><td>5</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-5"/></svg></span>교황</span></td><td>좋은 가르침을 받아요</td><td>억지로 시켜요</td></tr>
+        <tr><td>6</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-6"/></svg></span>연인</span></td><td>마음이 잘 통해요</td><td>마음이 어긋나요</td></tr>
+        <tr><td>7</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-7"/></svg></span>전차</span></td><td>씩씩하게 앞으로 나아가요</td><td>방향을 잃었어요</td></tr>
+        <tr><td>8</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-8"/></svg></span>힘</span></td><td>부드럽지만 용감해요</td><td>자신이 없어요</td></tr>
+        <tr><td>9</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-9"/></svg></span>은둔자</span></td><td>혼자 조용히 생각해요</td><td>너무 혼자만 있어요</td></tr>
+        <tr><td>10</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-10"/></svg></span>운명의 수레바퀴</span></td><td>좋은 기회가 찾아와요</td><td>타이밍이 안 좋아요</td></tr>
+        <tr><td>11</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-11"/></svg></span>정의</span></td><td>공평하게 판단해요</td><td>불공평해요</td></tr>
+        <tr><td>12</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-12"/></svg></span>매달린 남자</span></td><td>잠깐 멈추고 기다려요</td><td>기다림이 너무 길어요</td></tr>
+        <tr><td>13</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-13"/></svg></span>죽음</span></td><td>끝나고 새로 시작해요</td><td>변화가 무서워요</td></tr>
+        <tr><td>14</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-14"/></svg></span>절제</span></td><td>딱 알맞게 섞여요</td><td>너무 지나쳐요</td></tr>
+        <tr><td>15</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-15"/></svg></span>악마</span></td><td>나쁜 유혹에 빠져요</td><td>유혹에서 벗어나요</td></tr>
+        <tr><td>16</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-16"/></svg></span>탑</span></td><td>갑자기 와르르 무너져요</td><td>무너질까봐 겁내요</td></tr>
+        <tr><td>17</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-17"/></svg></span>별</span></td><td>희망이 반짝반짝해요</td><td>희망을 잃었어요</td></tr>
+        <tr><td>18</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-18"/></svg></span>달</span></td><td>뭐가 뭔지 헷갈려요</td><td>안개가 걷히고 또렷해져요</td></tr>
+        <tr><td>19</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-19"/></svg></span>태양</span></td><td>신나고 밝고 행복해요</td><td>살짝 아쉬워요</td></tr>
+        <tr><td>20</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-20"/></svg></span>심판</span></td><td>다시 태어난 기분이에요</td><td>스스로를 탓해요</td></tr>
+        <tr><td>21</td><td><span class="td-card"><span class="icon-badge icon-badge-sm"><svg class="ic"><use href="#maj-21"/></svg></span>세계</span></td><td>짜잔, 다 해냈어요!</td><td>아직 다 못 끝냈어요</td></tr>
       </table>
       </div>
 
@@ -448,7 +512,7 @@
       <p>작은 이야기 숫자 카드(1번~10번)는 그룹이 달라도, <b>같은 숫자면 비슷한 느낌</b>을 가지고 있어요. 여기에 2단계에서 배운 불·물·바람·흙을 더하면 40장을 다 계산할 수 있어요.</p>
       <div class="table-wrap">
       <table>
-        <tr><th>숫자</th><th>공통 느낌</th><th>완드(불)</th><th>컵(물)</th><th>소드(바람)</th><th>펜타클(흙)</th></tr>
+        <tr><th>숫자</th><th>공통 느낌</th><th><span class="icon-badge icon-badge-sm suit-inline"><svg class="ic"><use href="#suit-wand"/></svg></span>완드(불)</th><th><span class="icon-badge icon-badge-sm suit-inline"><svg class="ic"><use href="#suit-cup"/></svg></span>컵(물)</th><th><span class="icon-badge icon-badge-sm suit-inline"><svg class="ic"><use href="#suit-sword"/></svg></span>소드(바람)</th><th><span class="icon-badge icon-badge-sm suit-inline"><svg class="ic"><use href="#suit-pent"/></svg></span>펜타클(흙)</th></tr>
         <tr><td>1(에이스)</td><td>씨앗을 심어요, 이제 막 시작</td><td>새로운 열정</td><td>새로운 사랑</td><td>새로운 생각</td><td>새로운 기회</td></tr>
         <tr><td>2</td><td>둘이 함께, 저울처럼 균형</td><td>계획을 세워요</td><td>마음이 통해요</td><td>고민이 돼요</td><td>이것저것 저울질해요</td></tr>
         <tr><td>3</td><td>쑥쑥 자라요, 첫 결과</td><td>앞날을 내다봐요</td><td>다 같이 축하해요</td><td>속상해요</td><td>함께 힘을 모아요</td></tr>
@@ -552,10 +616,10 @@
 
       <div class="example">
         <div class="etitle">🎈 예시로 알아봐요</div>
-        <b>완드 킹</b> = 불을 다루는 아빠 → 신나게 사업을 이끄는 씩씩한 리더예요.<br>
-        <b>컵 퀸</b> = 물을 느끼는 엄마 → 다정하게 내 마음을 잘 알아주는 사람이에요.<br>
-        <b>소드 나이트</b> = 바람이 세게 부는 오빠·언니 → 급하고 따지기 좋아하는 사람이에요.<br>
-        <b>펜타클 페이지</b> = 흙을 배우는 아이 → 돈이나 기술을 성실하게 배우는 초보자예요.
+        <span class="icon-badge icon-badge-sm suit-inline"><svg class="ic"><use href="#suit-wand"/></svg></span><b>완드 킹</b> = 불을 다루는 아빠 → 신나게 사업을 이끄는 씩씩한 리더예요.<br>
+        <span class="icon-badge icon-badge-sm suit-inline"><svg class="ic"><use href="#suit-cup"/></svg></span><b>컵 퀸</b> = 물을 느끼는 엄마 → 다정하게 내 마음을 잘 알아주는 사람이에요.<br>
+        <span class="icon-badge icon-badge-sm suit-inline"><svg class="ic"><use href="#suit-sword"/></svg></span><b>소드 나이트</b> = 바람이 세게 부는 오빠·언니 → 급하고 따지기 좋아하는 사람이에요.<br>
+        <span class="icon-badge icon-badge-sm suit-inline"><svg class="ic"><use href="#suit-pent"/></svg></span><b>펜타클 페이지</b> = 흙을 배우는 아이 → 돈이나 기술을 성실하게 배우는 초보자예요.
       </div>
 
       <div class="callout">리딩할 때 사람 카드가 나오면 "이게 나를 말하는 건지, 주변 사람을 말하는 건지, 아니면 내가 그렇게 행동해야 한다는 건지"를 상황에 맞게 생각해요.</div>
@@ -708,6 +772,288 @@
       </ol>
 
       <div class="callout"><b>졸업 기준:</b> 카드 뜻을 안 찾아보고도 그룹+숫자만으로 그럴듯한 이야기를 만들 수 있으면, 오늘의 목표는 이미 다 이룬 거예요. 나머지는 실제로 해보면서 저절로 늘어요.</div>
+    </div>
+  </section>
+
+
+  <!-- BONUS: FLASHCARD REVIEW -->
+  <section class="level" id="flash">
+    <div class="level-head">
+      <div class="level-num">✦</div>
+      <div>
+        <h2>보너스: 22장 카드 뒤집기 복습</h2>
+        <div class="tag">카드를 누르면 뒤집혀요 — 뜻을 맞혀본 다음 눌러서 확인해요</div>
+      </div>
+    </div>
+    <div class="level-body">
+      <p>큰 이야기 카드 22장의 그림을 보고 뜻을 먼저 맞혀보세요. 안 떠오르면 카드를 눌러서 뒤집으면 이름과 뜻이 나와요. 다 맞힐 수 있으면 오늘 배운 걸 완전히 내 것으로 만든 거예요!</p>
+      <div class="flash-grid">
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-0"/></svg></div>
+            <div class="fnum">0번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">바보</div>
+            <div class="fkw">새로 시작하는 게 신나요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-1"/></svg></div>
+            <div class="fnum">1번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">마법사</div>
+            <div class="fkw">할 수 있어요, 시작!</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-2"/></svg></div>
+            <div class="fnum">2번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">여사제</div>
+            <div class="fkw">조용히 마음으로 알아요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-3"/></svg></div>
+            <div class="fnum">3번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">여황제</div>
+            <div class="fkw">사랑이 가득, 풍요로워요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-4"/></svg></div>
+            <div class="fnum">4번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">황제</div>
+            <div class="fkw">든든하게 지켜줘요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-5"/></svg></div>
+            <div class="fnum">5번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">교황</div>
+            <div class="fkw">좋은 가르침을 받아요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-6"/></svg></div>
+            <div class="fnum">6번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">연인</div>
+            <div class="fkw">마음이 잘 통해요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-7"/></svg></div>
+            <div class="fnum">7번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">전차</div>
+            <div class="fkw">씩씩하게 앞으로 나아가요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-8"/></svg></div>
+            <div class="fnum">8번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">힘</div>
+            <div class="fkw">부드럽지만 용감해요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-9"/></svg></div>
+            <div class="fnum">9번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">은둔자</div>
+            <div class="fkw">혼자 조용히 생각해요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-10"/></svg></div>
+            <div class="fnum">10번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">운명의 수레바퀴</div>
+            <div class="fkw">좋은 기회가 찾아와요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-11"/></svg></div>
+            <div class="fnum">11번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">정의</div>
+            <div class="fkw">공평하게 판단해요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-12"/></svg></div>
+            <div class="fnum">12번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">매달린 남자</div>
+            <div class="fkw">잠깐 멈추고 기다려요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-13"/></svg></div>
+            <div class="fnum">13번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">죽음</div>
+            <div class="fkw">끝나고 새로 시작해요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-14"/></svg></div>
+            <div class="fnum">14번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">절제</div>
+            <div class="fkw">딱 알맞게 섞여요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-15"/></svg></div>
+            <div class="fnum">15번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">악마</div>
+            <div class="fkw">나쁜 유혹에 빠져요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-16"/></svg></div>
+            <div class="fnum">16번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">탑</div>
+            <div class="fkw">갑자기 와르르 무너져요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-17"/></svg></div>
+            <div class="fnum">17번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">별</div>
+            <div class="fkw">희망이 반짝반짝해요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-18"/></svg></div>
+            <div class="fnum">18번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">달</div>
+            <div class="fkw">뭐가 뭔지 헷갈려요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-19"/></svg></div>
+            <div class="fnum">19번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">태양</div>
+            <div class="fkw">신나고 밝고 행복해요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-20"/></svg></div>
+            <div class="fnum">20번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">심판</div>
+            <div class="fkw">다시 태어난 기분이에요</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-card" onclick="this.classList.toggle('flipped')">
+        <div class="flash-inner">
+          <div class="flash-front">
+            <div class="icon-badge"><svg class="ic"><use href="#maj-21"/></svg></div>
+            <div class="fnum">21번</div>
+          </div>
+          <div class="flash-back">
+            <div class="fname">세계</div>
+            <div class="fkw">짜잔, 다 해냈어요!</div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <button class="flash-reset" onclick="document.querySelectorAll('.flash-card.flipped').forEach(c=>c.classList.remove('flipped'))">전체 다시 앞면으로 ↺</button>
     </div>
   </section>
 

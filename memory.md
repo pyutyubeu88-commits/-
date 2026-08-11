@@ -222,3 +222,11 @@
 - 디자인: 미스틱 인디고+골드 다크테마, 목차 앵커 네비, 반응형, 외부 의존성 없는 순수 HTML/CSS
 - 브랜치: claude/tarot-crash-course-iz116t
 - 배포: vercel.json에 /tarot → tarot-crash-course.html 리라이트 등록, index.html 푸터 하단에 링크 추가 (main 머지 후 aiconsultant-two.vercel.app/tarot 로 접속 가능)
+- main에 fast-forward 머지 완료 (2026-08-11), 배포 라이브 확인됨
+
+### [2026-08-11] 타로 강의 시각 자료 추가 — 실제 카드 사진 대신 자체 SVG 아이콘
+- 이슈: Wikimedia 등 외부 이미지 사이트가 이 세션의 egress 정책(agent proxy)에서 403으로 차단됨 → 실제 라이더-웨이트 카드 사진 삽입 불가 확인, 우회 시도 안 함(정책 차단은 재시도 금지 원칙)
+- 대안: 메이저 아르카나 22장 + 4수트를 전부 자체 제작 SVG 라인 아이콘(<symbol>+<use> 스프라이트, currentColor 스트로크)으로 제작해 저작권 이슈 없이 삽입
+- 적용 위치: L2 수트 카드, L3 바보의 여정(아이콘 그리드로 전환), L4 메이저 22장 표(행마다 아이콘), L5 표 헤더(수트 아이콘), L7 코트카드 예시
+- 신규: "보너스: 22장 카드 뒤집기 복습" 플래시카드 섹션 추가 (순수 CSS 3D flip + 바닐라 JS, 클릭으로 뒤집기/전체 리셋) — 능동회상(active recall) 학습법 적용
+- 브랜치: claude/tarot-crash-course-iz116t, 아직 main 미머지 (사용자 확인 후 머지 예정)
