@@ -7,7 +7,8 @@
     { "source": "/comment", "destination": "/reply.html" },
     { "source": "/office", "destination": "/office.html" },
     { "source": "/board", "destination": "/office.html" },
-    { "source": "/form", "destination": "/form.html" }
+    { "source": "/form", "destination": "/form.html" },
+    { "source": "/tarot", "destination": "/tarot-crash-course.html" }
   ],
   "headers": [
     {
