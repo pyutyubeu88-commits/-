@@ -567,7 +567,7 @@ footer{
       </div>
       <textarea class="f-ta" id="f-msg" placeholder="문의 내용을 입력해 주세요&#10;(업종, 현재 상황, 원하시는 도움 등)"></textarea>
       <button class="f-submit" id="f-btn" onclick="sendForm()">상담 신청하기 →</button>
-      <div class="f-success" id="f-success">✅ 메일 앱이 열립니다. 전송하시면 빠르게 연락드리겠습니다!</div>
+      <div class="f-success" id="f-success">✅ 신청이 접수되었습니다. 빠르게 연락드리겠습니다!</div>
     </div>
   </div>
 </section>
@@ -632,17 +632,30 @@ function sendForm(){
   if(!name){showErr('f-name','err-name');ok=false;}
   if(!phone){showErr('f-phone','err-phone');ok=false;}
   if(!ok)return;
-  var body='성함: '+name+'\n연락처: '+phone+'\n\n문의 내용:\n'+(msg||'(없음)');
-  location.href='mailto:yjkwon@gangnamconsulting.com'
-    +'?subject='+encodeURIComponent('[상담신청] '+name+' 님')
-    +'&body='+encodeURIComponent(body);
-  document.getElementById('f-btn').disabled=true;
-  document.getElementById('f-btn').textContent='✅ 메일 앱 열리는 중...';
-  document.getElementById('f-success').style.display='block';
-  setTimeout(function(){
-    document.getElementById('f-btn').disabled=false;
-    document.getElementById('f-btn').textContent='상담 신청하기 →';
-  },4000);
+  var btn=document.getElementById('f-btn');
+  btn.disabled=true;
+  btn.textContent='전송 중...';
+  fetch('https://lsxfdcjuzsjcfobjfvsg.supabase.co/rest/v1/inquiries',{
+    method:'POST',
+    headers:{
+      apikey:'sb_publishable_0Rnlyjll6mV8RxYSTjVLHQ_fos0LRBv',
+      'Content-Type':'application/json',
+      'Prefer':'return=minimal'
+    },
+    body:JSON.stringify({name:name,phone:phone,message:msg||null})
+  }).then(function(res){
+    if(!res.ok)throw new Error('save failed');
+    document.getElementById('f-success').style.display='block';
+    document.getElementById('f-name').value='';
+    document.getElementById('f-phone').value='';
+    document.getElementById('f-msg').value='';
+    btn.textContent='상담 신청하기 →';
+    setTimeout(function(){btn.disabled=false;},4000);
+  }).catch(function(){
+    btn.disabled=false;
+    btn.textContent='상담 신청하기 →';
+    alert('전송에 실패했습니다. 잠시 후 다시 시도하시거나 전화(010-6783-2588)로 연락 주세요.');
+  });
 }
 </script>
 </body>
