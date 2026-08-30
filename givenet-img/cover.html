@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --gd:#1B4332;--gm:#2D6A4F;--ga:#40916C;--gl:#F0FAF4;--gb:#B7E4C7;
+    --acc:#FFB703;--wh:#FFFFFF;
+  }
+  html{width:100%;height:100%;background:var(--gd)}
+  body{
+    width:100%;height:100%;overflow:hidden;
+    font-family:'Noto Sans KR',sans-serif;
+    position:relative;
+    background:
+      radial-gradient(circle at 82% 8%, rgba(255,183,3,.35) 0%, rgba(255,183,3,0) 42%),
+      radial-gradient(circle at 10% 95%, rgba(64,145,108,.55) 0%, rgba(64,145,108,0) 45%),
+      linear-gradient(155deg, var(--gd) 0%, var(--gm) 62%, var(--ga) 100%);
+  }
+  /* grid texture */
+  .grid{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size:54px 54px;
+    opacity:.6;
+  }
+  .wrap{
+    position:absolute;inset:0;z-index:2;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:70px;text-align:center;
+  }
+  .tag{
+    display:inline-flex;align-items:center;gap:10px;
+    background:rgba(255,255,255,.12);
+    border:1.5px solid rgba(255,255,255,.35);
+    border-radius:999px;
+    padding:12px 28px;
+    font-size:26px;font-weight:700;color:var(--wh);
+    letter-spacing:.5px;
+    backdrop-filter:blur(6px);
+    margin-bottom:44px;
+  }
+  .tag .dot{width:9px;height:9px;border-radius:50%;background:var(--acc)}
+  .carrot{font-size:120px;line-height:1;margin-bottom:18px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.25))}
+  h1{
+    font-size:108px;font-weight:900;color:var(--wh);
+    letter-spacing:-3px;line-height:1.08;
+    text-shadow:0 6px 30px rgba(0,0,0,.25);
+    margin-bottom:8px;
+  }
+  h1 .give{color:var(--acc)}
+  .tagline{
+    font-size:38px;font-weight:500;color:var(--gb);
+    margin-top:26px;margin-bottom:56px;
+    letter-spacing:-.5px;
+  }
+  .tagline b{color:var(--wh);font-weight:800}
+  .chips{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+  .chip{
+    background:rgba(255,255,255,.95);
+    color:var(--gd);
+    font-size:28px;font-weight:800;
+    padding:16px 32px;border-radius:999px;
+    box-shadow:0 8px 24px rgba(0,0,0,.18);
+    display:flex;align-items:center;gap:10px;
+  }
+  .chip.acc{background:var(--acc);color:var(--gd)}
+  .footer{
+    position:absolute;bottom:56px;left:0;right:0;
+    text-align:center;font-size:24px;font-weight:600;
+    color:rgba(255,255,255,.75);letter-spacing:1px;
+  }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="wrap">
+    <div class="tag"><span class="dot"></span>강남 · 서초 기반 3040 네트워크</div>
+    <div class="carrot">🥕</div>
+    <h1>강남서초<br><span class="give">기브넷</span></h1>
+    <div class="tagline">주고받는 게 <b>당연한</b> 네트워크</div>
+    <div class="chips">
+      <div class="chip acc">🍽 맛집탐방</div>
+      <div class="chip">🎯 취미모임</div>
+      <div class="chip">🌏 외국인 환영</div>
+    </div>
+  </div>
+  <div class="footer">GIVE · CONNECT · GROW</div>
+</body>
+</html>
