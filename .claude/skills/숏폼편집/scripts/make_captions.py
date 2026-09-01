@@ -58,7 +58,7 @@ def build_ass(segments: list[dict], style: dict, translations: list[str] | None)
     header = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: 1080
-PlayResY: 1350
+PlayResY: 1920
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV

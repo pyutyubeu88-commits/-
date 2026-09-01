@@ -1,9 +1,9 @@
 {
   "font": "Pretendard Bold",
-  "korean_size": 72,
+  "korean_size": 64,
   "korean_color": "&H00FFFFFF&",
-  "korean_highlight_bg": "&HFF00D7FF&",
-  "korean_margin_v": 180,
+  "korean_highlight_bg": "&H00000000&",
+  "korean_margin_v": 220,
   "english_top": false,
   "english_size": 48,
   "english_color": "&H00FFFFFF&",
@@ -11,9 +11,29 @@
   "max_line_chars": 16,
   "emphasis_marker": "**",
   "emphasis_scale": 130,
+  "branding": {
+    "header_height": 300,
+    "header_bg": "white",
+    "header_accent_color": "0x2D6CDF",
+    "header_line1_color": "black",
+    "header_font_size": 56,
+    "header_label_size": 44,
+    "header_label_y": 40,
+    "header_line1_y": 100,
+    "header_line2_y": 165,
+    "logo_x": 60,
+    "logo_y": "h-140",
+    "logo_color": "white",
+    "logo_font_size": 34,
+    "logo_sub_color": "white",
+    "logo_sub_font_size": 22,
+    "logo_sub_y": "h-95"
+  },
   "dont_touch": [
     "색은 절대 건드리지 마",
     "폰트 크기 자동으로 줄이지 마 — 안 들어가면 대사를 쪼개",
-    "배경음악은 넣지 마 — 효과음만"
+    "배경음악은 넣지 마 — 효과음만",
+    "자막 박스는 불투명 검정 고정, 반투명·그라데이션 쓰지 마",
+    "상단 Q 배너는 영상 처음부터 끝까지 고정, 씬마다 바뀌면 안 됨"
   ]
 }
