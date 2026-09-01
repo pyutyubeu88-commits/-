@@ -1,0 +1,19 @@
+{
+  "font": "Pretendard Bold",
+  "korean_size": 72,
+  "korean_color": "&H00FFFFFF&",
+  "korean_highlight_bg": "&HFF00D7FF&",
+  "korean_margin_v": 180,
+  "english_top": false,
+  "english_size": 48,
+  "english_color": "&H00FFFFFF&",
+  "english_margin_v": 60,
+  "max_line_chars": 16,
+  "emphasis_marker": "**",
+  "emphasis_scale": 130,
+  "dont_touch": [
+    "색은 절대 건드리지 마",
+    "폰트 크기 자동으로 줄이지 마 — 안 들어가면 대사를 쪼개",
+    "배경음악은 넣지 마 — 효과음만"
+  ]
+}

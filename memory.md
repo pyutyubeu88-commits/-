@@ -230,3 +230,14 @@
 - 적용 위치: L2 수트 카드, L3 바보의 여정(아이콘 그리드로 전환), L4 메이저 22장 표(행마다 아이콘), L5 표 헤더(수트 아이콘), L7 코트카드 예시
 - 신규: "보너스: 22장 카드 뒤집기 복습" 플래시카드 섹션 추가 (순수 CSS 3D flip + 바닐라 JS, 클릭으로 뒤집기/전체 리셋) — 능동회상(active recall) 학습법 적용
 - 브랜치: claude/tarot-crash-course-iz116t, 아직 main 미머지 (사용자 확인 후 머지 예정)
+
+### [2026-09-01] 숏폼 자동 편집 스킬 신규 제작
+- 배경: 인스타 쓰레드(박세준 릴스 레퍼런스)에서 "클로드에 자연어 한 줄 → 숏폼 편집" 워크플로 확인
+  → 참고 릴스(instagram.com/reel/DZJ9yqApwuN)는 이 세션 egress 정책상 instagram.com 직접 접근 불가(차단), 저번 대화의 7단계 프롬프트 스펙을 기준으로 진행
+- 신규: `.claude/skills/숏폼편집/` — 로컬 전용 스킬 (ffmpeg+whisper 필요, 이 클라우드 세션엔 없어서 실제 영상 테스트는 못 함, 문법만 검증)
+  - `scripts/cut_edit.py`: whisper 받아쓰기 → 무음구간+재테이크(같은 말 반복) 감지 → ffmpeg 컷+배속(기본 1.1x)
+  - `scripts/make_captions.py`: 스타일 프리셋(`presets/default_style.json`) 적용해 ASS 자막 생성 후 번인. 영문 자막은 `--translations` JSON으로 클로드가 미리 번역해서 전달하는 구조
+  - `scripts/reframe_vertical.py`: opencv 얼굴검출로 가로→세로(9:16) 동적 크롭 (ffmpeg sendcmd 방식)
+  - `scripts/qc_check.py`: 완성본을 whisper로 재검증해 원본 대본과 일치율 대조 → 85% 미만이면 사용자에게 넘기지 않고 재작업 (원본 프롬프트의 "왕복 줄이는 두 줄" 규칙을 게이트로 구현)
+- Higgsfield 필요 단계(배경 제거/효과음 생성/장면 생성)는 코드 미구현, SKILL.md에 매핑 표로만 문서화 — `.mcp.json`에 이미 연결돼 있으나 OAuth 인증 필요(claude.ai 커넥터 설정)
+- 다음 단계: 사용자가 로컬에서 `requirements.txt` 설치 후 스모크 테스트(짧은 클립)로 whisper 인식률·크롭 정확도·자막 줄바꿈 검증 필요

@@ -1,0 +1,63 @@
+---
+name: 숏폼편집
+description: 숏폼/릴스 영상을 자연어 한 줄 지시로 자동 편집한다 (컷편집, 자막, 세로 리프레임, 배경 교체, 효과음, 장면 생성). "이 영상 편집해줘", "자막 붙여줘", "세로로 바꿔줘", "숏폼 자동화" 같은 요청에 사용.
+---
+
+# 숏폼 자동 편집
+
+**로컬 전용 스킬**. ffmpeg + whisper로 실제 영상 파일을 처리하므로, 영상 파일과 ffmpeg가 있는
+로컬 Claude Code(또는 Cowork 데스크톱)에서 돌아간다. 이 클라우드 세션에는 ffmpeg/whisper가 없어서
+스크립트 코드는 여기서 작성했지만 실제 영상으로 테스트는 못 했다 — 로컬에서 처음 쓸 때
+`## 로컬 세팅` → `## 스모크 테스트`부터 먼저 돌려서 확인할 것.
+
+## 요청 문장 → 처리 방식
+
+| 단계 | 예시 요청 | 처리 방식 | 상태 |
+|---|---|---|---|
+| 1. 컷 편집 | "이 영상 편집해줘. 빈 공간 다 없애고, 같은 말 여러 번 한 데는 마지막 것만 써. 1.1배속으로." | `scripts/cut_edit.py` (whisper 받아쓰기 → 무음/재테이크 감지 → ffmpeg 컷+배속) | 로컬에서 바로 가능 |
+| 2. 자막 | "자막 붙여줘. 영문은 위, 한글은 아래 형광펜 박스. 한 줄로, 안 들어가면 대사 쪼개." | `scripts/make_captions.py` (whisper → 스타일 프리셋 적용 ASS → ffmpeg 번인) | 로컬에서 바로 가능 (영문 자막은 번역 파일 필요, 아래 참고) |
+| 3. 화면 리프레임 | "가로 찍은 거 세로로. 얼굴 따라가면서 잘라." | `scripts/reframe_vertical.py` (opencv 얼굴 검출 → ffmpeg 동적 크롭) | 로컬에서 가능, 얼굴 인식 정확도는 케이스마다 확인 필요 |
+| 4. 배경 지우기 | "배경 지우고 사람만. 어두운 스튜디오 느낌으로." | Higgsfield `remove_background` | **Higgsfield 커넥터 인증 필요** (claude.ai 커넥터 설정) |
+| 5. 화면 그래픽 | "레퍼런스 모션만 가져오고 색은 브랜드색으로." | 수동 (모션그래픽 툴) 또는 Higgsfield `motion_control` 참고용 시도 | 자동화 어려움 — 위치·움직임을 말로 정확히 적어서 시도, 100% 재현은 기대 안 함 |
+| 6. 효과음 | "효과음 넣어줘, 만들어서. 목소리보다 작게, 자막 뜨는 순간에 맞춰." | Higgsfield `generate_audio` | **Higgsfield 커넥터 인증 필요** |
+| 7. 없는 장면 생성 | "이 대사에 붙일 장면 없어. 4초짜리로 만들어줘." | Higgsfield `generate_video` | **Higgsfield 커넥터 인증 필요** |
+| 8. 최종 검수 | "결과물 폴더 열어주고, 완성본 다시 받아 적어서 대본이랑 맞는지 봐줘." | `scripts/qc_check.py` (whisper 재검증 → 대본 대조) | 로컬에서 바로 가능 — **매 작업 마지막에 반드시 실행** |
+
+Higgsfield는 이 저장소 `.mcp.json`에 이미 연결돼 있지만 OAuth 인증이 안 돼 있으면 호출이 막힌다.
+4/6/7단계가 필요하면 사용자에게 먼저 "claude.ai 커넥터 설정에서 Higgsfield 인증했는지" 확인할 것.
+
+## 로컬 세팅 (처음 한 번)
+
+```bash
+brew install ffmpeg   # 또는 apt install ffmpeg
+pip3 install -r .claude/skills/숏폼편집/requirements.txt
+```
+
+## 스모크 테스트
+
+로컬에서 실전 영상에 쓰기 전에 짧은(10~20초) 테스트 클립으로 먼저 돌려서
+whisper 인식 품질·크롭 좌표·자막 줄바꿈이 정상인지 확인한다.
+
+```bash
+python3 .claude/skills/숏폼편집/scripts/cut_edit.py test.mp4 test_cut.mp4
+python3 .claude/skills/숏폼편집/scripts/make_captions.py test_cut.mp4 test_final.mp4
+python3 .claude/skills/숏폼편집/scripts/qc_check.py test_final.mp4 test_script.txt
+```
+
+## 처음 한 번만 정하면 되는 것
+
+- **폴더 구조**: `output/{날짜}_{주제}/` — 원본, 중간 산출물, 최종본을 매번 같은 구조로
+- **자막 스타일**: `presets/default_style.json` — 폰트, 색, 위치, 최대 글자 수, 강조 배율.
+  한 번 정한 뒤로는 "자막 지난번이랑 똑같이"로 이 파일을 그대로 재사용
+- **하지 말 것 목록**: `default_style.json`의 `dont_touch` 배열에 계속 추가.
+  (예: "색은 절대 건드리지 마", "배경음악은 넣지 마")
+
+영문 자막(위)을 쓰려면 `make_captions.py --translations translations.json`으로
+세그먼트 순서에 맞는 영어 문장 배열을 전달한다. 번역 자체는 클로드가 대본을 보고
+먼저 만든다 — 스크립트는 번역하지 않는다.
+
+## 최종 검수 규칙
+
+**모든 작업은 `qc_check.py`를 통과한 뒤에만 사용자에게 결과물을 보여준다.**
+일치율이 기준(85%) 밑이면 사람한테 가져가지 말고 원인(무음 컷이 과했는지,
+whisper가 대사를 잘못 알아들었는지)을 스스로 찾아 다시 처리한다.
