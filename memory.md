@@ -264,3 +264,16 @@
 - 결론: 이번 레퍼런스(치과 인터뷰형) 기준으로는 **Higgsfield 없이 100% 무료(ffmpeg+whisper+무료 라이브러리)로 전체 파이프라인 완성 가능**
 - 파이프라인 최종 순서: 컷편집 → 리프레임 → 브랜딩(배너/로고) → B-roll 삽입 → 효과음 → 자막(항상 최후) → QC
 - SKILL.md에 무료 소스 표(효과음/스톡영상/폰트 사이트+라이선스) 추가
+
+### [2026-09-02] insert_broll.py 실제 기술 검증 (플레이스홀더로)
+- 사용자가 "예시 릴스(SMILE VIEW DENTAL)의 목소리를 그대로 쓰고 Pixabay 무료 스톡으로 영상 1개 제작" 요청
+  → 확인 결과 다른 사업체의 실제 콘텐츠 음성이라, **파이프라인 기술 테스트용으로만** 진행하기로 사용자와 합의 (배포/발행용 아님)
+- pixabay.com도 이 세션 egress 정책에서 차단 확인 (CONNECT tunnel failed 403, organization policy) → 실제 Pixabay 클립은 이 세션에서 다운로드 불가, 로컬에서 진행해야 함
+- 대신 색상 플레이스홀더 클립 2개(ffmpeg lavfi color) 만들어서 `insert_broll.py`가 실제로 정상 동작하는지 검증:
+  - t=17.0~24.5s(구강사진 B-roll), t=26.5~28.5s(진료장면 B-roll) 구간을 정확히 스왑
+  - 원본 나레이션 오디오는 39.49초 전체 안 끊기고 그대로 유지됨 확인 (프레임 캡처로 육안 검증)
+  - 결론: **insert_broll.py 로직 정상 작동 확인** — 로컬에서 진짜 Pixabay 클립으로 교체하면 바로 실사용 가능
+- 부가로 발견한 환경 제약사항:
+  - pip로 설치한 imageio-ffmpeg 정적 바이너리는 `drawtext` 필터가 빠져있음(freetype/libass는 있는데 drawtext 자체가 빌드에서 제외됨) → 이 클라우드 세션에서 add_branding.py 테스트하려면 다른 ffmpeg 필요, 로컬 brew/apt ffmpeg는 보통 정상 포함
+  - imageio-ffmpeg는 ffprobe를 안 포함 → ffmpeg -i stderr 파싱하는 shim 스크립트로 대체해서 테스트함 (로컬에선 불필요, 정식 ffmpeg 설치시 ffprobe 같이 옴)
+  - github.com raw 다운로드(zackees/ffmpeg_bins)도 403 차단 확인 — 이 세션은 PyPI 외 대부분의 외부 파일 호스팅이 막혀있다고 보면 됨
