@@ -255,3 +255,12 @@
 - 버그 수정 2건: (1) `default_style.json`의 자막 배경색 alpha가 FF(투명)로 잘못 들어가 있던 것 → 00(불투명 검정)으로 수정, (2) `make_captions.py`의 ASS PlayResX/Y가 1080x1350(카드뉴스 4:5 비율)로 잘못 박혀있던 것 → 1080x1920(쇼츠 9:16)으로 수정
 - 파이프라인 순서 확정: 컷편집 → 리프레임 → 브랜딩(배너/로고) → 자막 → (Higgsfield 단계) → QC
 - 대본의 훅 구조와 B-roll 선정은 스크립트 자동화 대상이 아니라 클로드가 매번 판단해야 하는 영역으로 SKILL.md에 명시
+
+### [2026-09-02] 숏폼 스킬 완전 무료화 — 배경교체 제외, 효과음/B-roll도 로컬로
+- 사용자 확인: 배경 교체(Higgsfield remove_background)는 이번 프로젝트에 불필요
+- 남은 두 Higgsfield 의존 단계(효과음 생성/장면 생성)도 무료 대안으로 완전 대체:
+  - `scripts/add_sfx.py` 신규: AI 생성 대신 무료 SFX 라이브러리(Pixabay Sound Effects, Mixkit) 파일을 타이밍 맞춰 ffmpeg amix로 합성, 목소리보다 작게(기본 -14dB)
+  - `scripts/insert_broll.py` 신규: AI 장면 생성 대신 직접 찍은 컷이나 무료 스톡(Pexels Videos, Pixabay Videos)을 지정 구간에 영상만 덮어씌움 — 원본 나레이션 오디오는 안 끊기고 전체 길이도 안 늘어남 (ffmpeg trim+concat, v만 교체)
+- 결론: 이번 레퍼런스(치과 인터뷰형) 기준으로는 **Higgsfield 없이 100% 무료(ffmpeg+whisper+무료 라이브러리)로 전체 파이프라인 완성 가능**
+- 파이프라인 최종 순서: 컷편집 → 리프레임 → 브랜딩(배너/로고) → B-roll 삽입 → 효과음 → 자막(항상 최후) → QC
+- SKILL.md에 무료 소스 표(효과음/스톡영상/폰트 사이트+라이선스) 추가

@@ -1,6 +1,6 @@
 ---
 name: 숏폼편집
-description: 숏폼/릴스 영상을 자연어 한 줄 지시로 자동 편집한다 (컷편집, 자막, 세로 리프레임, 배경 교체, 효과음, 장면 생성). "이 영상 편집해줘", "자막 붙여줘", "세로로 바꿔줘", "숏폼 자동화" 같은 요청에 사용.
+description: 숏폼/릴스 영상을 자연어 한 줄 지시로 무료 로컬 도구(ffmpeg+whisper)로 자동 편집한다 (컷편집, 세로 리프레임, 질문배너/로고, 자막, B-roll 삽입, 효과음). "이 영상 편집해줘", "자막 붙여줘", "세로로 바꿔줘", "숏폼 자동화" 같은 요청에 사용.
 ---
 
 # 숏폼 자동 편집
@@ -18,17 +18,30 @@ description: 숏폼/릴스 영상을 자연어 한 줄 지시로 자동 편집�
 | 2. 화면 리프레임 | "가로 찍은 거 세로로. 얼굴 따라가면서 잘라." | `scripts/reframe_vertical.py` (opencv 얼굴 검출 → ffmpeg 동적 크롭, 1080x1920 출력) | 로컬에서 가능, 얼굴 인식 정확도는 케이스마다 확인 필요 |
 | 3. 상단 질문 배너 + 로고 워터마크 | "위에 질문 고정으로 띄우고, 로고 박아줘." | `scripts/add_branding.py` (ffmpeg drawtext/drawbox, 영상 처음부터 끝까지 고정) | 로컬에서 바로 가능, 한글 폰트 파일(.ttf) 경로 필요 |
 | 4. 자막 | "자막 붙여줘. 검정 박스에 흰 글씨, 한 줄로, 안 들어가면 대사 쪼개." | `scripts/make_captions.py` (whisper → 스타일 프리셋 적용 ASS → ffmpeg 번인, 1080x1920 캔버스) | 로컬에서 바로 가능 (영문 자막은 번역 파일 필요, 아래 참고) |
-| 5. 배경 지우기 | "배경 지우고 사람만. 어두운 스튜디오 느낌으로." | Higgsfield `remove_background` | **Higgsfield 커넥터 인증 필요** (claude.ai 커넥터 설정) |
-| 6. 화면 그래픽 | "레퍼런스 모션만 가져오고 색은 브랜드색으로." | 수동 (모션그래픽 툴) 또는 Higgsfield `motion_control` 참고용 시도 | 자동화 어려움 — 위치·움직임을 말로 정확히 적어서 시도, 100% 재현은 기대 안 함 |
-| 7. 효과음 | "효과음 넣어줘, 만들어서. 목소리보다 작게, 자막 뜨는 순간에 맞춰." | Higgsfield `generate_audio` | **Higgsfield 커넥터 인증 필요** |
-| 8. 없는 장면 생성 | "이 대사에 붙일 장면 없어. 4초짜리로 만들어줘." | Higgsfield `generate_video` | **Higgsfield 커넥터 인증 필요** |
-| 9. 최종 검수 | "결과물 폴더 열어주고, 완성본 다시 받아 적어서 대본이랑 맞는지 봐줘." | `scripts/qc_check.py` (whisper 재검증 → 대본 대조) | 로컬에서 바로 가능 — **매 작업 마지막에 반드시 실행** |
+| 5. 배경 지우기 | (이 프로젝트는 미사용 — 필요해지면) | Higgsfield `remove_background` | **Higgsfield 커넥터 인증 필요**, 유료 크레딧 |
+| 6. 없는 장면 대체 | "이 대사에 붙일 장면 없어. B-roll 끼워줘." | `scripts/insert_broll.py` (직접 찍은 컷 또는 무료 스톡 클립을 지정 구간에 덮어씌움, 나레이션은 안 끊김) | **로컬 무료** — AI 생성 대신 진짜 클립 사용 |
+| 7. 효과음 | "효과음 넣어줘. 목소리보다 작게, 자막 뜨는 순간에 맞춰." | `scripts/add_sfx.py` (무료 SFX 파일을 타이밍 맞춰 ffmpeg로 합성) | **로컬 무료** — AI 생성 대신 무료 라이브러리 소스 |
+| 8. 최종 검수 | "결과물 폴더 열어주고, 완성본 다시 받아 적어서 대본이랑 맞는지 봐줘." | `scripts/qc_check.py` (whisper 재검증 → 대본 대조) | 로컬에서 바로 가능 — **매 작업 마지막에 반드시 실행** |
 
-파이프라인 순서: **컷편집 → 리프레임 → 브랜딩(질문배너/로고) → 자막 → (필요시 Higgsfield 단계) → QC**.
-자막이 브랜딩보다 나중이어야 자막 박스가 배너/로고 위에 안 겹친다.
+파이프라인 순서: **컷편집 → 리프레임 → 브랜딩(질문배너/로고) → B-roll 삽입 → 효과음 → 자막 → QC**.
+자막은 항상 제일 마지막(QC 직전)에 입혀야 다른 단계에서 화면이 밀리거나 바뀌어도 자막 타이밍이 안 어긋난다.
 
-Higgsfield는 이 저장소 `.mcp.json`에 이미 연결돼 있지만 OAuth 인증이 안 돼 있으면 호출이 막힌다.
-5/7/8단계가 필요하면 사용자에게 먼저 "claude.ai 커넥터 설정에서 Higgsfield 인증했는지" 확인할 것.
+Higgsfield는 배경 지우기가 필요해질 때만 쓴다 (`.mcp.json`에 연결은 돼 있지만 OAuth 인증 필요 —
+claude.ai 커넥터 설정에서). 그 외 6·7단계는 아래 무료 소스로 전부 대체 가능해서 이 프로젝트는
+Higgsfield 없이도 끝까지 완성된다.
+
+### 무료 소스 (6·7단계용)
+
+| 용도 | 사이트 | 라이선스 |
+|---|---|---|
+| 효과음 | [Pixabay Sound Effects](https://pixabay.com/sound-effects/) | 상업적 이용 무료, 출처 표시 불필요 |
+| 효과음 | [Mixkit Sound Effects](https://mixkit.co/free-sound-effects/) | 상업적 이용 무료, 출처 표시 불필요 |
+| B-roll 스톡 영상 | [Pexels Videos](https://www.pexels.com/videos/) | 상업적 이용 무료, 출처 표시 불필요 |
+| B-roll 스톡 영상 | [Pixabay Videos](https://pixabay.com/videos/) | 상업적 이용 무료, 출처 표시 불필요 |
+| 한글 폰트 | [Pretendard](https://cactus.tistory.com/306) (GitHub: orioncactus/pretendard) | SIL OFL — 상업적 이용 무료 |
+
+가장 좋은 B-roll은 결국 직접 찍은 것 — 대본 짤 때 "이 문장엔 무슨 장면이 필요할지"를 같이
+정해서 촬영 리스트에 넣어두면 `insert_broll.py`로 바로 끼울 수 있다.
 
 ## 레퍼런스 릴스 분석 (2026-09-01, 강남 치과 인터뷰형 숏폼)
 
@@ -67,7 +80,10 @@ python3 .claude/skills/숏폼편집/scripts/cut_edit.py test.mp4 test_cut.mp4
 python3 .claude/skills/숏폼편집/scripts/reframe_vertical.py test_cut.mp4 test_vert.mp4
 python3 .claude/skills/숏폼편집/scripts/add_branding.py test_vert.mp4 test_branded.mp4 \
     --question "질문 1줄" "질문 2줄" --logo "브랜드명" "서브텍스트" --font /path/Pretendard-Bold.ttf
-python3 .claude/skills/숏폼편집/scripts/make_captions.py test_branded.mp4 test_final.mp4
+# 필요할 때만: B-roll 삽입, 효과음
+python3 .claude/skills/숏폼편집/scripts/insert_broll.py test_branded.mp4 broll.mp4 test_broll.mp4 --at 5 --duration 3
+python3 .claude/skills/숏폼편집/scripts/add_sfx.py test_broll.mp4 test_sfx.mp4 --cues cues.json
+python3 .claude/skills/숏폼편집/scripts/make_captions.py test_sfx.mp4 test_final.mp4
 python3 .claude/skills/숏폼편집/scripts/qc_check.py test_final.mp4 test_script.txt
 ```
 
