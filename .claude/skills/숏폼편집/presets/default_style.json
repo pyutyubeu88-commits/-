@@ -3,6 +3,8 @@
   "korean_size": 64,
   "korean_color": "&H00FFFFFF&",
   "korean_highlight_bg": "&H00000000&",
+  "korean_border_style": 1,
+  "korean_outline": 8,
   "korean_margin_v": 220,
   "english_top": false,
   "english_size": 48,
@@ -14,7 +16,7 @@
   "branding": {
     "header_height": 300,
     "header_bg": "white",
-    "header_accent_color": "0x2D6CDF",
+    "header_accent_color": "0x225FEC",
     "header_line1_color": "black",
     "header_font_size": 56,
     "header_label_size": 44,
@@ -22,12 +24,15 @@
     "header_line1_y": 100,
     "header_line2_y": 165,
     "logo_x": 60,
+    "logo_margin_bottom": 60,
+    "logo_width": 200,
     "logo_y": "h-140",
     "logo_color": "white",
     "logo_font_size": 34,
     "logo_sub_color": "white",
     "logo_sub_font_size": 22,
-    "logo_sub_y": "h-95"
+    "logo_sub_y": "h-95",
+    "_logo_text_keys_설명": "logo_y/logo_color/logo_font_size/logo_sub_*는 hyperframes_branding.py(모션 버전, 텍스트 기반) 전용 — 이번 정적 버전 개선(add_branding.py)은 안 쓴다. 정적 버전은 logo_width/logo_margin_bottom으로 로고 이미지를 overlay한다"
   },
   "motion": {
     "_설명": "HyperFrames 모션 버전(hyperframes_*.py)에서만 쓴다. 정적 버전은 이 값을 안 본다.",
@@ -76,7 +81,7 @@
     "색은 절대 건드리지 마",
     "폰트 크기 자동으로 줄이지 마 — 안 들어가면 대사를 쪼개",
     "배경음악은 넣지 마 — 효과음만",
-    "자막 박스는 불투명 검정 고정, 반투명·그라데이션 쓰지 마",
+    "자막에는 불투명 박스를 쓰지 마 — 박스 없이 텍스트+두꺼운 검정 테두리만(BorderStyle=1). reference_frames/f_01.png 등 레퍼런스 실측 프레임으로 확인됨(자막 글자 뒤로 배경이 그대로 비침). '박스가 맞다'는 이전 판단은 오류였음 — 되돌리지 마",
     "상단 Q 배너는 영상 처음부터 끝까지 고정, 씬마다 바뀌면 안 됨"
   ]
 }
