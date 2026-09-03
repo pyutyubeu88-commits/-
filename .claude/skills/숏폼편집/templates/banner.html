@@ -1,0 +1,139 @@
+<!doctype html>
+<!--
+  상단 "Q. 질문" 배너 슬라이드인 + 하단 로고 리빌.
+  hyperframes_branding.py 가 __W__/__H__/__DUR__/__FONT_FILE__/__PROPS_JSON__ 를 채워서
+  임시 프로젝트로 복사한 뒤 `hyperframes render --format mov` 로 알파 클립을 뽑는다.
+
+  - 외부 CDN(GSAP 등) 안 씀. 순수 CSS @keyframes만 쓴다 → 인터넷 없이 렌더된다.
+  - GSAP 타임라인을 등록하지 않으므로 루트에 data-no-timeline 필수 (없으면 렌더마다 45초 낭비).
+  - 배경은 transparent — MOV(ProRes 4444)로 렌더하면 알파가 그대로 남는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=__W__, height=__H__" />
+<style>
+  @font-face { font-family: 'HFKR'; src: url('./__FONT_FILE__'); }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: __W__px; height: __H__px; overflow: hidden;
+    background: transparent;            /* 알파 유지 — 색 채우면 안 된다 */
+  }
+  body { font-family: 'HFKR', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  /* ---- 상단 질문 배너: 위에서 아래로 슬라이드인 ---- */
+  #banner {
+    position: absolute; left: 0; top: 0; width: 100%;
+    height: var(--header-h);
+    background: var(--header-bg);
+    transform: translateY(calc(-1 * var(--header-h) - 8px));
+    animation: banner-in var(--banner-dur) cubic-bezier(.16, 1, .3, 1) var(--banner-delay) both;
+  }
+  @keyframes banner-in { to { transform: translateY(0); } }
+
+  .qline {
+    position: absolute; left: 0; width: 100%;
+    text-align: center; line-height: 1; white-space: pre;
+    opacity: 0; transform: translateY(16px);
+    animation: line-in var(--line-dur) cubic-bezier(.16, 1, .3, 1) both;
+  }
+  @keyframes line-in { to { opacity: 1; transform: translateY(0); } }
+
+  /* ---- 하단 로고 워터마크: 왼쪽에서 오른쪽으로 닦아내며 등장 ---- */
+  #logo {
+    position: absolute;
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    animation: logo-in var(--logo-dur) cubic-bezier(.16, 1, .3, 1) var(--logo-delay) both;
+  }
+  @keyframes logo-in { to { opacity: 1; clip-path: inset(0 0 0 0); } }
+  #logo div { line-height: 1.1; white-space: pre; }
+</style>
+</head>
+<body>
+  <div id="root" data-composition-id="root" data-no-timeline
+       data-start="0" data-duration="__DUR__" data-width="__W__" data-height="__H__">
+    <div id="banner"></div>
+    <div id="logo"></div>
+  </div>
+
+  <script id="hf-props" type="application/json">__PROPS_JSON__</script>
+  <script>
+  (function () {
+    // 치환이 안 된 채로 열어도(=템플릿 직접 미리보기) 죽지 않게 기본값을 둔다
+    var DEFAULTS = {
+      question: ["동양인과 서양인", "치아 구조가 다른가요?"],
+      logo: ["SMILE VIEW", "DENTAL"],
+      label: "Q.",
+      header: { height: 300, bg: "#ffffff", accent: "#2D6CDF", line1_color: "#000000",
+                font_size: 56, label_size: 44,
+                label_top: "40px", line1_top: "100px", line2_top: "165px" },
+      logo_box: { left: "60px", top: "1780px", color: "#ffffff", font_size: 34,
+                  sub_color: "#ffffff", sub_font_size: 22, sub_top: "1825px" },
+      anim: { banner_in: 0.55, banner_delay: 0.0, line_in: 0.45,
+              line1_delay: 0.28, line2_delay: 0.40, label_delay: 0.20,
+              logo_in: 0.55, logo_delay: 0.75 }
+    };
+    var P;
+    try { P = JSON.parse(document.getElementById('hf-props').textContent); }
+    catch (e) { P = DEFAULTS; }
+
+    var H = P.header || DEFAULTS.header;
+    var L = P.logo_box || DEFAULTS.logo_box;
+    var A = P.anim || DEFAULTS.anim;
+    var css = document.documentElement.style;
+    css.setProperty('--header-h', H.height + 'px');
+    css.setProperty('--header-bg', H.bg);
+    css.setProperty('--banner-dur', A.banner_in + 's');
+    css.setProperty('--banner-delay', A.banner_delay + 's');
+    css.setProperty('--line-dur', A.line_in + 's');
+    css.setProperty('--logo-dur', A.logo_in + 's');
+    css.setProperty('--logo-delay', A.logo_delay + 's');
+
+    var banner = document.getElementById('banner');
+    function line(text, top, size, color, delay) {
+      var el = document.createElement('div');
+      el.className = 'qline';
+      el.textContent = text;
+      el.style.top = top;
+      el.style.fontSize = size + 'px';
+      el.style.color = color;
+      el.style.animationDelay = delay + 's';
+      banner.appendChild(el);
+    }
+
+    if (P.question && P.question.length) {
+      if (P.label) line(P.label, H.label_top, H.label_size, H.accent, A.label_delay);
+      line(P.question[0], H.line1_top, H.font_size, H.line1_color, A.line1_delay);
+      if (P.question[1]) line(P.question[1], H.line2_top, H.font_size, H.accent, A.line2_delay);
+    } else {
+      banner.style.display = 'none';
+    }
+
+    var logo = document.getElementById('logo');
+    if (P.logo && P.logo.length) {
+      logo.style.left = L.left;
+      logo.style.top = L.top;
+      var l1 = document.createElement('div');
+      l1.textContent = P.logo[0];
+      l1.style.fontSize = L.font_size + 'px';
+      l1.style.color = L.color;
+      logo.appendChild(l1);
+      if (P.logo[1]) {
+        var l2 = document.createElement('div');
+        l2.textContent = P.logo[1];
+        l2.style.fontSize = L.sub_font_size + 'px';
+        l2.style.color = L.sub_color;
+        // 정적 버전(add_branding.py)은 두 줄의 y를 따로 지정한다. 그 간격을 그대로 쓴다.
+        var gap = parseFloat(L.sub_top) - parseFloat(L.top) - L.font_size;
+        l2.style.marginTop = (isFinite(gap) ? gap : 6) + 'px';
+        logo.appendChild(l2);
+      }
+    } else {
+      logo.style.display = 'none';
+    }
+  })();
+  </script>
+</body>
+</html>

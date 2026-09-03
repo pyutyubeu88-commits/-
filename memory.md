@@ -283,3 +283,20 @@
   - pip로 설치한 imageio-ffmpeg 정적 바이너리는 `drawtext` 필터가 빠져있음(freetype/libass는 있는데 drawtext 자체가 빌드에서 제외됨) → 이 클라우드 세션에서 add_branding.py 테스트하려면 다른 ffmpeg 필요, 로컬 brew/apt ffmpeg는 보통 정상 포함
   - imageio-ffmpeg는 ffprobe를 안 포함 → ffmpeg -i stderr 파싱하는 shim 스크립트로 대체해서 테스트함 (로컬에선 불필요, 정식 ffmpeg 설치시 ffprobe 같이 옴)
   - github.com raw 다운로드(zackees/ffmpeg_bins)도 403 차단 확인 — 이 세션은 PyPI 외 대부분의 외부 파일 호스팅이 막혀있다고 보면 됨
+
+### [2026-09-03] HyperFrames 모션그래픽 연동 (deep-reasoner에 위임, worktree 격리)
+- CLAUDE.md 멀티에이전트 오케스트레이션 규칙에 따라 deep-reasoner에게 위임(아키텍처 판단 필요한 신규 외부 도구 통합이라 fast-worker가 아닌 deep-reasoner)
+- 실제로 이 클라우드 세션에서 `npm i hyperframes@0.8.26` + `browser ensure`(크롬 헤드리스) 설치·렌더까지 검증 성공:
+  - `--format mov` → 진짜 알파채널(yuva444p12le) 확인, 투명 픽셀 (0,0,0,0) 프레임 단위 검증
+  - GSAP 등 외부 CDN 없이 순수 CSS @keyframes만으로 프레임 시킹 가능 → 오프라인 렌더 가능
+  - `data-no-timeline` 없으면 렌더당 45초 낭비되는 함정 발견·해결
+  - 프리셋 색상이 ffmpeg 표기(`0x2D6CDF`)라 CSS에서 무시되던 버그 발견·`css_color()` 헬퍼로 수정
+- 신규 파일: `scripts/hyperframes_common.py`(공용 헬퍼: 알파 렌더+ffmpeg 합성, ffprobe 없을 때 폴백)
+  `scripts/hyperframes_branding.py`(배너 슬라이드인+로고 리빌), `scripts/hyperframes_emphasis.py`(자막 밑줄/형광펜 모션),
+  `scripts/hyperframes_graphic.py`(비교차트/트리비아 카드 — 예전에 "자동화 어려움"으로 뺐던 "화면 그래픽" 단계 부활),
+  `templates/*.html` 3개, `presets/default_style.json`에 `motion` 섹션 추가(기존 키 무변경)
+- **기존 정적 스크립트(add_branding.py 등)는 하나도 안 건드림** — Node.js 없는 환경에서도 기존 파이프라인 그대로 작동, 모션 버전은 선택 사항
+- 여전히 100% 무료: HyperFrames는 Apache 2.0 오픈소스, API 키/계정/크레딧 불필요, 로컬에서만 실행
+- 로컬에서 사용자가 할 것: `node --version`(22+) 확인, `npx hyperframes@0.8.26 browser ensure` 1회
+- 워크트리 격리(`.claude/worktrees/`)로 작업했고, 완료 후 파일만 메인 스킬 폴더로 복사 → `git worktree remove`로 정리함
+- 미해결/확인 필요: 한글 폰트(Pretendard) 실물로 배너 줄간격 미검증(이 세션엔 유니폰트만 있었음), 로컬에서 실제 폰트로 한 번 확인 필요

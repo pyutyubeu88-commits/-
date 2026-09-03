@@ -29,6 +29,49 @@
     "logo_sub_font_size": 22,
     "logo_sub_y": "h-95"
   },
+  "motion": {
+    "_설명": "HyperFrames 모션 버전(hyperframes_*.py)에서만 쓴다. 정적 버전은 이 값을 안 본다.",
+    "branding": {
+      "banner_in": 0.55,
+      "banner_delay": 0.0,
+      "line_in": 0.45,
+      "label_delay": 0.2,
+      "line1_delay": 0.28,
+      "line2_delay": 0.4,
+      "logo_in": 0.55,
+      "logo_delay": 0.75
+    },
+    "emphasis": {
+      "mode": "underline",
+      "color": "#FFE14D",
+      "thickness": 12,
+      "gap": 10,
+      "pad_x": 14,
+      "radius": 6,
+      "opacity": 1,
+      "draw": 0.38,
+      "delay": 0.06
+    },
+    "graphic": {
+      "scrim": true,
+      "scrim_opacity": 0.35,
+      "card_top": 520,
+      "card_width": 880,
+      "card_bg": "#FFFFFF",
+      "title_color": "#111111",
+      "sub_color": "#6B7280",
+      "label_color": "#111111",
+      "track_color": "#EEF1F5",
+      "note_color": "#6B7280",
+      "title_size": 54,
+      "sub_size": 30,
+      "label_size": 34,
+      "value_size": 40,
+      "note_size": 24,
+      "bar_height": 28,
+      "stagger": 0.16
+    }
+  },
   "dont_touch": [
     "색은 절대 건드리지 마",
     "폰트 크기 자동으로 줄이지 마 — 안 들어가면 대사를 쪼개",
