@@ -3,3 +3,6 @@
 product/
 _*.png
 __pycache__/
+
+# Claude Code 서브에이전트 격리 워크트리 (하네스가 자동 생성/정리)
+.claude/worktrees/
