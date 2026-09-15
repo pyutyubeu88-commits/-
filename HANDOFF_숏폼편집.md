@@ -7,6 +7,17 @@
 **브랜치**: `claude/insta-thread-shortform-captions-qdjied` (main 미머지 — 로컬에서 이 브랜치로 시작할 것)
 **클라이언트**: 스마일뷰 치과 (SMILE VIEW DENTAL)
 
+> ⚠️ **이 문서를 쓴 뒤 로컬 Claude Code 작업이 이미 이 브랜치에 병합됐다** (커밋 795725d~713b330).
+> 아래 2·3장 중 일부 내용은 그 작업으로 이미 구식이 됐다 — 최신 상태는 `git log`와 스크립트
+> docstring이 정본이다. 알려진 변경점:
+> - `cut_edit.py`: 무음 구간 자동 컷 → **제안만 하고 기본은 안 자름** (`--apply-silence-cuts`로 승인)
+> - `reframe_vertical.py`: 이미 9:16에 가까우면(비율 0.55~0.58) 얼굴추적 **자동 스킵**
+> - `add_branding.py`: 로고를 drawtext 대신 **이미지 오버레이**로 전환, 클라이언트별 설정 분리
+>   (`clients/스마일뷰/config.json`, `assets/logo_smileview.png` 생김)
+> - `make_captions.py`: 자막 배경을 "불투명 검정 박스" 대신 **아웃라인 모드**로 정정
+> - 신규: `generate_caption.py`(인스타 캡션 생성), `resolve_broll_cues.py`(B-roll 큐시트 정확 매칭)
+> - `reference_frames/`에 실제 검증 스크린샷 쌓여있음 — 새로 시작하기 전에 먼저 훑어볼 것
+
 ```bash
 git fetch origin claude/insta-thread-shortform-captions-qdjied
 git checkout claude/insta-thread-shortform-captions-qdjied
