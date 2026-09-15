@@ -62,7 +62,7 @@ PlayResY: 1920
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV
-Style: KR,{style['font']},{style['korean_size']},{style['korean_color']},&H00000000&,{style['korean_highlight_bg']},1,3,0,0,2,60,60,{style['korean_margin_v']}
+Style: KR,{style['font']},{style['korean_size']},{style['korean_color']},&H00000000&,{style['korean_highlight_bg']},1,{style.get('korean_border_style', 1)},{style.get('korean_outline', 8)},0,2,60,60,{style['korean_margin_v']}
 Style: EN,{style['font']},{style['english_size']},{style['english_color']},&H00000000&,&H00000000&,0,1,1,0,8,60,60,{style['english_margin_v']}
 
 [Events]
@@ -98,18 +98,24 @@ def main() -> None:
     ap.add_argument("--translations", default=None)
     args = ap.parse_args()
 
-    video = Path(args.input)
+    video = Path(args.input).resolve()
+    output = Path(args.output).resolve()
     style = json.loads(Path(args.style).read_text())
     translations = json.loads(Path(args.translations).read_text()) if args.translations else None
     segments = transcribe(video, args.model)
 
     with tempfile.TemporaryDirectory() as td:
-        ass_path = Path(td) / "captions.ass"
+        td_path = Path(td)
+        ass_path = td_path / "captions.ass"
         ass_path.write_text(build_ass(segments, style, translations), encoding="utf-8")
+        # ffmpeg -vf ass=<path> 값에 절대경로(특히 Windows 드라이브 콜론 C:\)를 넣으면
+        # 네이티브 Windows ffmpeg.exe(~/.local/bin/ffmpeg 래퍼)의 avfilter 옵션 파서가
+        # 콜론 위치에서 옵션 경계를 잘못 잡는 걸 실측으로 확인했다(이스케이프해도 마찬가지).
+        # 그래서 cwd를 임시 디렉터리로 잡고 순수 상대 파일명("captions.ass")만 필터에 넣는다.
         subprocess.run(
-            ["ffmpeg", "-y", "-i", str(video), "-vf", f"ass={ass_path}",
-             "-c:a", "copy", args.output],
-            check=True,
+            ["ffmpeg", "-y", "-i", str(video), "-vf", "ass=captions.ass",
+             "-c:a", "copy", str(output)],
+            check=True, cwd=str(td_path),
         )
     print(f"자막 입혀서 저장: {args.output}")
 
