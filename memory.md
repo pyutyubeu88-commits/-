@@ -230,3 +230,73 @@
 - 적용 위치: L2 수트 카드, L3 바보의 여정(아이콘 그리드로 전환), L4 메이저 22장 표(행마다 아이콘), L5 표 헤더(수트 아이콘), L7 코트카드 예시
 - 신규: "보너스: 22장 카드 뒤집기 복습" 플래시카드 섹션 추가 (순수 CSS 3D flip + 바닐라 JS, 클릭으로 뒤집기/전체 리셋) — 능동회상(active recall) 학습법 적용
 - 브랜치: claude/tarot-crash-course-iz116t, 아직 main 미머지 (사용자 확인 후 머지 예정)
+
+### [2026-09-01] 숏폼 자동 편집 스킬 신규 제작
+- 배경: 인스타 쓰레드(박세준 릴스 레퍼런스)에서 "클로드에 자연어 한 줄 → 숏폼 편집" 워크플로 확인
+  → 참고 릴스(instagram.com/reel/DZJ9yqApwuN)는 이 세션 egress 정책상 instagram.com 직접 접근 불가(차단), 저번 대화의 7단계 프롬프트 스펙을 기준으로 진행
+- 신규: `.claude/skills/숏폼편집/` — 로컬 전용 스킬 (ffmpeg+whisper 필요, 이 클라우드 세션엔 없어서 실제 영상 테스트는 못 함, 문법만 검증)
+  - `scripts/cut_edit.py`: whisper 받아쓰기 → 무음구간+재테이크(같은 말 반복) 감지 → ffmpeg 컷+배속(기본 1.1x)
+  - `scripts/make_captions.py`: 스타일 프리셋(`presets/default_style.json`) 적용해 ASS 자막 생성 후 번인. 영문 자막은 `--translations` JSON으로 클로드가 미리 번역해서 전달하는 구조
+  - `scripts/reframe_vertical.py`: opencv 얼굴검출로 가로→세로(9:16) 동적 크롭 (ffmpeg sendcmd 방식)
+  - `scripts/qc_check.py`: 완성본을 whisper로 재검증해 원본 대본과 일치율 대조 → 85% 미만이면 사용자에게 넘기지 않고 재작업 (원본 프롬프트의 "왕복 줄이는 두 줄" 규칙을 게이트로 구현)
+- Higgsfield 필요 단계(배경 제거/효과음 생성/장면 생성)는 코드 미구현, SKILL.md에 매핑 표로만 문서화 — `.mcp.json`에 이미 연결돼 있으나 OAuth 인증 필요(claude.ai 커넥터 설정)
+- 다음 단계: 사용자가 로컬에서 `requirements.txt` 설치 후 스모크 테스트(짧은 클립)로 whisper 인식률·크롭 정확도·자막 줄바꿈 검증 필요
+
+### [2026-09-01] 레퍼런스 릴스 실제 분석 + 스킬 업데이트
+- 사용자가 예시 릴스 mp4를 직접 업로드 → instagram.com은 이 세션에서 접근 자체가 막혀있었지만(egress 정책, selective:false로 소셜미디어 도메인 차단), 파일 업로드로는 분석 가능
+- 분석 방법: pip로 imageio-ffmpeg(정적 ffmpeg 바이너리, PyPI는 egress 허용) 설치 → 1fps 프레임 추출 + 오디오 분리 → 프레임 직접 읽어서 스타일 확인 (whisper는 설치 안 하고 번인 자막 텍스트를 육안으로 읽음)
+- 확인된 실제 포맷: 9:16(720x1280) 치과 인터뷰형 숏폼, 39.5초
+  - 상단 고정 배너("Q."+질문 2줄, 흰 배경, 1줄 검정/2줄 파랑) — 영상 내내 안 바뀜
+  - 하단 자막: 불투명 검정 박스+흰 글씨 (형광펜 박스 아님 — 이전 대화의 박세준 릴스 참고자료와는 다른 포맷)
+  - 하단좌측 로고 워터마크 고정
+  - 훅 구조: 결론 먼저("네 많이 다릅니다") → 이유 설명
+  - B-roll 컷인: 구강사진/시술장면을 설명 중간에 삽입
+- 스킬 수정: `scripts/add_branding.py` 신규(고정 상단 배너+로고, ffmpeg drawtext/drawbox) 추가
+- 버그 수정 2건: (1) `default_style.json`의 자막 배경색 alpha가 FF(투명)로 잘못 들어가 있던 것 → 00(불투명 검정)으로 수정, (2) `make_captions.py`의 ASS PlayResX/Y가 1080x1350(카드뉴스 4:5 비율)로 잘못 박혀있던 것 → 1080x1920(쇼츠 9:16)으로 수정
+- 파이프라인 순서 확정: 컷편집 → 리프레임 → 브랜딩(배너/로고) → 자막 → (Higgsfield 단계) → QC
+- 대본의 훅 구조와 B-roll 선정은 스크립트 자동화 대상이 아니라 클로드가 매번 판단해야 하는 영역으로 SKILL.md에 명시
+
+### [2026-09-02] 숏폼 스킬 완전 무료화 — 배경교체 제외, 효과음/B-roll도 로컬로
+- 사용자 확인: 배경 교체(Higgsfield remove_background)는 이번 프로젝트에 불필요
+- 남은 두 Higgsfield 의존 단계(효과음 생성/장면 생성)도 무료 대안으로 완전 대체:
+  - `scripts/add_sfx.py` 신규: AI 생성 대신 무료 SFX 라이브러리(Pixabay Sound Effects, Mixkit) 파일을 타이밍 맞춰 ffmpeg amix로 합성, 목소리보다 작게(기본 -14dB)
+  - `scripts/insert_broll.py` 신규: AI 장면 생성 대신 직접 찍은 컷이나 무료 스톡(Pexels Videos, Pixabay Videos)을 지정 구간에 영상만 덮어씌움 — 원본 나레이션 오디오는 안 끊기고 전체 길이도 안 늘어남 (ffmpeg trim+concat, v만 교체)
+- 결론: 이번 레퍼런스(치과 인터뷰형) 기준으로는 **Higgsfield 없이 100% 무료(ffmpeg+whisper+무료 라이브러리)로 전체 파이프라인 완성 가능**
+- 파이프라인 최종 순서: 컷편집 → 리프레임 → 브랜딩(배너/로고) → B-roll 삽입 → 효과음 → 자막(항상 최후) → QC
+- SKILL.md에 무료 소스 표(효과음/스톡영상/폰트 사이트+라이선스) 추가
+
+### [2026-09-02] insta-thread-shortform-captions 브랜치 클라이언트 확정: 스마일뷰 치과
+- **정정**: 업로드했던 예시 릴스(SMILE VIEW DENTAL, "동양인과 서양인 치아구조" Q&A)는 다른 사업체가 아니라
+  **사용자의 실제 클라이언트 "스마일뷰 치과"** 본인 콘텐츠였음 — 클라이언트 목록에 추가
+  (기존: 역삼효태권도장, 이자카야우규역삼점, 다물도신사점 + **스마일뷰 치과** 신규)
+- 따라서 아래 insert_broll.py 검증 결과물(B-roll만 실제 Pixabay 클립으로 교체하면)은 내부 테스트가 아니라
+  **스마일뷰 치과용 실사용 가능한 결과물**로 격상됨 — "배포 금지" 판단은 철회
+
+### [2026-09-02] insert_broll.py 실제 기술 검증 (플레이스홀더로)
+- 사용자가 "예시 릴스(스마일뷰 치과)의 목소리를 그대로 쓰고 Pixabay 무료 스톡으로 영상 1개 제작" 요청
+- pixabay.com도 이 세션 egress 정책에서 차단 확인 (CONNECT tunnel failed 403, organization policy) → 실제 Pixabay 클립은 이 세션에서 다운로드 불가, 로컬에서 진행해야 함
+- 대신 색상 플레이스홀더 클립 2개(ffmpeg lavfi color) 만들어서 `insert_broll.py`가 실제로 정상 동작하는지 검증:
+  - t=17.0~24.5s(구강사진 B-roll), t=26.5~28.5s(진료장면 B-roll) 구간을 정확히 스왑
+  - 원본 나레이션 오디오는 39.49초 전체 안 끊기고 그대로 유지됨 확인 (프레임 캡처로 육안 검증)
+  - 결론: **insert_broll.py 로직 정상 작동 확인** — 로컬에서 진짜 Pixabay 클립으로 교체하면 바로 실사용 가능
+- 부가로 발견한 환경 제약사항:
+  - pip로 설치한 imageio-ffmpeg 정적 바이너리는 `drawtext` 필터가 빠져있음(freetype/libass는 있는데 drawtext 자체가 빌드에서 제외됨) → 이 클라우드 세션에서 add_branding.py 테스트하려면 다른 ffmpeg 필요, 로컬 brew/apt ffmpeg는 보통 정상 포함
+  - imageio-ffmpeg는 ffprobe를 안 포함 → ffmpeg -i stderr 파싱하는 shim 스크립트로 대체해서 테스트함 (로컬에선 불필요, 정식 ffmpeg 설치시 ffprobe 같이 옴)
+  - github.com raw 다운로드(zackees/ffmpeg_bins)도 403 차단 확인 — 이 세션은 PyPI 외 대부분의 외부 파일 호스팅이 막혀있다고 보면 됨
+
+### [2026-09-03] HyperFrames 모션그래픽 연동 (deep-reasoner에 위임, worktree 격리)
+- CLAUDE.md 멀티에이전트 오케스트레이션 규칙에 따라 deep-reasoner에게 위임(아키텍처 판단 필요한 신규 외부 도구 통합이라 fast-worker가 아닌 deep-reasoner)
+- 실제로 이 클라우드 세션에서 `npm i hyperframes@0.8.26` + `browser ensure`(크롬 헤드리스) 설치·렌더까지 검증 성공:
+  - `--format mov` → 진짜 알파채널(yuva444p12le) 확인, 투명 픽셀 (0,0,0,0) 프레임 단위 검증
+  - GSAP 등 외부 CDN 없이 순수 CSS @keyframes만으로 프레임 시킹 가능 → 오프라인 렌더 가능
+  - `data-no-timeline` 없으면 렌더당 45초 낭비되는 함정 발견·해결
+  - 프리셋 색상이 ffmpeg 표기(`0x2D6CDF`)라 CSS에서 무시되던 버그 발견·`css_color()` 헬퍼로 수정
+- 신규 파일: `scripts/hyperframes_common.py`(공용 헬퍼: 알파 렌더+ffmpeg 합성, ffprobe 없을 때 폴백)
+  `scripts/hyperframes_branding.py`(배너 슬라이드인+로고 리빌), `scripts/hyperframes_emphasis.py`(자막 밑줄/형광펜 모션),
+  `scripts/hyperframes_graphic.py`(비교차트/트리비아 카드 — 예전에 "자동화 어려움"으로 뺐던 "화면 그래픽" 단계 부활),
+  `templates/*.html` 3개, `presets/default_style.json`에 `motion` 섹션 추가(기존 키 무변경)
+- **기존 정적 스크립트(add_branding.py 등)는 하나도 안 건드림** — Node.js 없는 환경에서도 기존 파이프라인 그대로 작동, 모션 버전은 선택 사항
+- 여전히 100% 무료: HyperFrames는 Apache 2.0 오픈소스, API 키/계정/크레딧 불필요, 로컬에서만 실행
+- 로컬에서 사용자가 할 것: `node --version`(22+) 확인, `npx hyperframes@0.8.26 browser ensure` 1회
+- 워크트리 격리(`.claude/worktrees/`)로 작업했고, 완료 후 파일만 메인 스킬 폴더로 복사 → `git worktree remove`로 정리함
+- 미해결/확인 필요: 한글 폰트(Pretendard) 실물로 배너 줄간격 미검증(이 세션엔 유니폰트만 있었음), 로컬에서 실제 폰트로 한 번 확인 필요

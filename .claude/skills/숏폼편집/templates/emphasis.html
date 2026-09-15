@@ -1,0 +1,105 @@
+<!doctype html>
+<!--
+  자막 강조 모션: 강조할 대사 밑에 밑줄이 좌→우로 그어지거나(underline),
+  형광펜 바가 좌→우로 칠해진다(highlight).
+
+  글자는 여기서 그리지 않는다. make_captions.py가 ASS로 이미 번인한 자막 위에
+  선/바만 얹는 방식이라 자막이 두 번 겹쳐 보이지 않는다. 그래서 폭을 맞추려고
+  같은 폰트·크기로 보이지 않는 글자를 한 번 깔아서(측정용) 그 폭만 빌려 쓴다.
+
+  hyperframes_emphasis.py 가 __W__/__H__/__DUR__/__FONT_FILE__/__PROPS_JSON__ 를 채운다.
+-->
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=__W__, height=__H__" />
+<style>
+  @font-face { font-family: 'HFKR'; src: url('./__FONT_FILE__'); }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: __W__px; height: __H__px; overflow: hidden;
+    background: transparent;
+  }
+  body { font-family: 'HFKR', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  /* 화면 가로 전체를 쓰는 줄 → 그 안에서 inline-block이 글자 폭만큼만 차지한다 */
+  #line {
+    position: absolute; left: 0; width: 100%;
+    text-align: center; line-height: 1;
+  }
+  #measure {
+    display: inline-block; position: relative;
+    white-space: pre; visibility: hidden;   /* 폭 측정용 — 글자는 안 보인다 */
+  }
+  #mark {
+    position: absolute; left: 0; visibility: visible;
+    transform: scaleX(0); transform-origin: left center;
+    animation: draw var(--draw-dur) cubic-bezier(.22, 1, .36, 1) var(--draw-delay) both;
+  }
+  @keyframes draw { to { transform: scaleX(1); } }
+</style>
+</head>
+<body>
+  <div id="root" data-composition-id="root" data-no-timeline
+       data-start="0" data-duration="__DUR__" data-width="__W__" data-height="__H__">
+    <div id="line"><span id="measure"><span id="mark"></span></span></div>
+  </div>
+
+  <script id="hf-props" type="application/json">__PROPS_JSON__</script>
+  <script>
+  (function () {
+    var DEFAULTS = {
+      text: "많이 다릅니다",
+      mode: "underline",              // underline | highlight
+      font_size: 64,
+      line_bottom: 220,               // ASS korean_margin_v — 자막 아래쪽 여백(px)
+      color: "#FFE14D",
+      thickness: 12,
+      gap: 10,                        // 글자 아래쪽에서 선까지 띄우는 간격(px)
+      pad_x: 14,                      // 글자 좌우로 선을 조금 더 길게
+      radius: 6,
+      opacity: 1,
+      anim: { draw: 0.38, delay: 0.06 }
+    };
+    var P;
+    try { P = JSON.parse(document.getElementById('hf-props').textContent); }
+    catch (e) { P = DEFAULTS; }
+    for (var k in DEFAULTS) { if (P[k] === undefined) P[k] = DEFAULTS[k]; }
+
+    var A = P.anim || DEFAULTS.anim;
+    var css = document.documentElement.style;
+    css.setProperty('--draw-dur', A.draw + 's');
+    css.setProperty('--draw-delay', (A.delay || 0) + 's');
+
+    var line = document.getElementById('line');
+    var measure = document.getElementById('measure');
+    var mark = document.getElementById('mark');
+
+    measure.style.fontSize = P.font_size + 'px';
+    measure.insertBefore(document.createTextNode(P.text), mark);
+
+    // 자막 한 줄의 아래 기준선: 프레임 아래에서 line_bottom px 위
+    line.style.bottom = P.line_bottom + 'px';
+    line.style.fontSize = P.font_size + 'px';
+
+    mark.style.background = P.color;
+    mark.style.opacity = P.opacity;
+    mark.style.borderRadius = P.radius + 'px';
+    mark.style.left = -P.pad_x + 'px';
+    mark.style.width = 'calc(100% + ' + (P.pad_x * 2) + 'px)';
+
+    if (P.mode === 'highlight') {
+      // 형광펜: 글자 아랫부분을 덮는 반투명 바 (ASS 글자 위에 얹혀도 읽힌다)
+      mark.style.height = Math.round(P.font_size * 0.46) + 'px';
+      mark.style.bottom = '-2px';
+      if (P.opacity === 1) mark.style.opacity = 0.42;
+    } else {
+      // 밑줄: 글자 아래에 그어지므로 글자를 전혀 가리지 않는다
+      mark.style.height = P.thickness + 'px';
+      mark.style.bottom = -(P.gap + P.thickness) + 'px';
+    }
+  })();
+  </script>
+</body>
+</html>
