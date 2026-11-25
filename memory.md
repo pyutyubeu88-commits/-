@@ -230,3 +230,10 @@
 - 적용 위치: L2 수트 카드, L3 바보의 여정(아이콘 그리드로 전환), L4 메이저 22장 표(행마다 아이콘), L5 표 헤더(수트 아이콘), L7 코트카드 예시
 - 신규: "보너스: 22장 카드 뒤집기 복습" 플래시카드 섹션 추가 (순수 CSS 3D flip + 바닐라 JS, 클릭으로 뒤집기/전체 리셋) — 능동회상(active recall) 학습법 적용
 - 브랜치: claude/tarot-crash-course-iz116t, 아직 main 미머지 (사용자 확인 후 머지 예정)
+
+### [2026-11-25] 영문 성경 숏폼 파이프라인 (bible-shorts/)
+- 타깃: 영미권 성경 숏폼(Isaiah 41:10), 9:16, 약 30초
+- bible-shorts/: script.txt, tts.py(Google TTS REST), build.sh(FFmpeg 합성). 더미 에셋으로 1080x1920 렌더·줌인 검증 완료
+- 원본 FFmpeg 버그 수정: `1:aamix` 문법오류 → `[vo][bg]amix`, 줌 속도(6초만에 1.15 도달) → 전체 길이 기준 선형 줌, 길이는 voice.mp3 기준 자동 계산
+- 남은 것: 실제 image.png(Genspark), GOOGLE_TTS_API_KEY로 voice.mp3, 로열티프리 bgm.mp3, 자막(ASS)
+- 주의: Journey 보이스는 pitch 미지원 → Studio-Q 또는 Neural2-D 사용
